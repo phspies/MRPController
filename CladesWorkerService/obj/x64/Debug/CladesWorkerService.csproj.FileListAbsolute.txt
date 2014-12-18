@@ -1,0 +1,17 @@
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\DoubleTakeProxyService\bin\x64\Debug\DoubleTakeProxyService.exe.config
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\DoubleTakeProxyService\obj\x64\Debug\CladesWorkerService.csprojResolveAssemblyReference.cache
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\DoubleTakeProxyService\obj\x64\Debug\CladesWorkerService.CladesWorkerSvc.resources
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\DoubleTakeProxyService\obj\x64\Debug\CladesWorkerService.ProjectInstaller.resources
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\DoubleTakeProxyService\obj\x64\Debug\CladesWorkerService.csproj.GenerateResource.Cache
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\DoubleTakeProxyService.exe.config
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\DoubleTakeProxyService.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\DoubleTakeProxyService.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\Newtonsoft.Json.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\Vim25Service.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\Vim25Service.XmlSerializers.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\obj\x64\Debug\CladesWorkerService.csprojResolveAssemblyReference.cache
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\obj\x64\Debug\CladesWorkerService.CladesWorkerSvc.resources
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\obj\x64\Debug\CladesWorkerService.ProjectInstaller.resources
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\obj\x64\Debug\CladesWorkerService.csproj.GenerateResource.Cache
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\obj\x64\Debug\DoubleTakeProxyService.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\obj\x64\Debug\DoubleTakeProxyService.pdb
