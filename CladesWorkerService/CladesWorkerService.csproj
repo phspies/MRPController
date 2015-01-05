@@ -59,6 +59,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>lib\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
@@ -82,14 +85,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DimensionData\API\Account.cs" />
+    <Compile Include="DimensionData\Models\Account.cs" />
+    <Compile Include="DimensionData\Models\Datacenter.cs" />
+    <Compile Include="DimensionData\Models\Geos.cs" />
+    <Compile Include="DimensionData\Models\Status.cs" />
     <Compile Include="DimensionData\restMethods\httpMethods.cs" />
-    <Compile Include="DimensionData\Models\CloudDataModel.cs" />
     <Compile Include="DimensionData\DimensionData.cs" />
-    <Compile Include="DimensionData\Models\MessageModel.cs" />
-    <Compile Include="DimensionData\Models\NetworkDataModel.cs" />
-    <Compile Include="DimensionData\Models\ReportsModel.cs" />
-    <Compile Include="DimensionData\Models\ServerDataModel.cs" />
-    <Compile Include="DimensionData\Models\TemplateDataModel.cs" />
     <Compile Include="DimensionData\restMethods\myAccount.cs" />
     <Compile Include="DimensionData\restMethods\Networks.cs" />
     <Compile Include="DimensionData\restMethods\Reports.cs" />
@@ -125,6 +127,8 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Compile Include="DimensionData\API\Core.cs" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
