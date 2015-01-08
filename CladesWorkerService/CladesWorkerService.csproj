@@ -85,18 +85,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DimensionData\API\Account.cs" />
-    <Compile Include="DimensionData\Models\Account.cs" />
-    <Compile Include="DimensionData\Models\Datacenter.cs" />
-    <Compile Include="DimensionData\Models\Geos.cs" />
-    <Compile Include="DimensionData\Models\Status.cs" />
-    <Compile Include="DimensionData\restMethods\httpMethods.cs" />
-    <Compile Include="DimensionData\DimensionData.cs" />
-    <Compile Include="DimensionData\restMethods\myAccount.cs" />
-    <Compile Include="DimensionData\restMethods\Networks.cs" />
-    <Compile Include="DimensionData\restMethods\Reports.cs" />
-    <Compile Include="DimensionData\restMethods\Servers.cs" />
-    <Compile Include="DimensionData\restMethods\Templates.cs" />
+    <Compile Include="DimensionData\Controllers\Account.cs" />
+    <Compile Include="DimensionData\Controllers\Core.cs" />
+    <Compile Include="DimensionData\Controllers\Datacenter.cs" />
+    <Compile Include="DimensionData\Controllers\Network.cs" />
+    <Compile Include="DimensionData\Controllers\NetworkACL.cs" />
+    <Compile Include="DimensionData\Controllers\NetworkNAT.cs" />
+    <Compile Include="DimensionData\Controllers\ServerImage.cs" />
+    <Compile Include="DimensionData\Controllers\Software.cs" />
+    <Compile Include="DimensionData\Types\AccountTypes.cs" />
+    <Compile Include="DimensionData\Types\ACLTypes.cs" />
+    <Compile Include="DimensionData\Types\DatacenterTypes.cs" />
+    <Compile Include="DimensionData\Types\GenericTypes.cs" />
+    <Compile Include="DimensionData\Types\NATTypes.cs" />
+    <Compile Include="DimensionData\Types\NetworkTypes.cs" />
+    <Compile Include="DimensionData\Types\ServerImageTypes.cs" />
+    <Compile Include="DimensionData\Types\SoftwareLabelTypes.cs" />
+    <Compile Include="DimensionData\Types\StatusType.cs" />
     <Compile Include="DoubleTake\DoubleTake.Wsdl.Contracts.cs" />
     <Compile Include="DoubleTake\DoubleTakeJobManager.svc.cs" />
     <Compile Include="DoubleTake\DoubleTakeManagementService.svc.cs" />
@@ -127,7 +132,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Compile Include="DimensionData\API\Core.cs" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
