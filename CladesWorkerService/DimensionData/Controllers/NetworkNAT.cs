@@ -1,12 +1,12 @@
-﻿using DoubleTakeProxyService.DimensionData;
-using DoubleTakeProxyService.DimensionData.Models;
+﻿using CladesWorkerService.DimensionData;
+using CladesWorkerService.DimensionData.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoubleTakeProxyService.DimensionData.API
+namespace CladesWorkerService.DimensionData.API
 {
     class NATObject : Core
     {

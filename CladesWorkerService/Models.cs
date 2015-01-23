@@ -92,4 +92,21 @@ namespace DoubleTakeRestProxy
         public String targetUserPassword;
     }
 
+
+    //subsystem
+    //objecttype
+    //command
+    //inputObject
+    //outputObject
+    public class InstructionAction
+    {
+        private String subsystemField;
+
+        public String subsystem
+        {
+            get { return subsystemField; }
+            set { subsystemField = value; }
+        }
+    }
+
 }

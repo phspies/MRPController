@@ -6,17 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ServiceModel.Web;
 using System.Diagnostics;
-using DoubleTakeProxyService.DimensionData.Models;
 using System.Xml.Serialization;
 using System.IO;
 using Newtonsoft.Json;
 using System.Net;
 using RestSharp.Contrib;
 using System.Collections;
+using CladesWorkerService.DimensionData.Models;
 
 
 
-namespace DoubleTakeProxyService.DimensionData
+namespace CladesWorkerService.DimensionData.API
 {
     class Core
     {

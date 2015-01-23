@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoubleTakeProxyService.DimensionData.Models
+namespace CladesWorkerService.DimensionData.Models
 {
 
     /// <remarks/>
