@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DoubleTakeProxyInstaller1 = new System.ServiceProcess.ServiceInstaller();
+            this.CladesWorkerServiceInstaller1 = new System.ServiceProcess.ServiceInstaller();
             this.serviceProcessInstaller1 = new System.ServiceProcess.ServiceProcessInstaller();
             this.eventLogInstaller1 = new System.Diagnostics.EventLogInstaller();
             // 
-            // DoubleTakeProxyInstaller1
+            // CladesWorkerServiceInstaller1
             // 
-            this.DoubleTakeProxyInstaller1.Description = "Double-Take JSON Rest Proxy Service";
-            this.DoubleTakeProxyInstaller1.DisplayName = "Double-Take JSON Service";
-            this.DoubleTakeProxyInstaller1.ServiceName = "Double-Take JSON Service";
-            this.DoubleTakeProxyInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
-            this.DoubleTakeProxyInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.DoubleTakeProxyInstaller1_AfterInstall);
+            this.CladesWorkerServiceInstaller1.Description = "Clades Worker Service Service";
+            this.CladesWorkerServiceInstaller1.DisplayName = "Clades Worker Service Service";
+            this.CladesWorkerServiceInstaller1.ServiceName = "Clades Worker Service Service";
+            this.CladesWorkerServiceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
+            this.CladesWorkerServiceInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.DoubleTakeProxyInstaller1_AfterInstall);
             // 
             // serviceProcessInstaller1
             // 
@@ -59,14 +59,14 @@
             // ProjectInstaller
             // 
             this.Installers.AddRange(new System.Configuration.Install.Installer[] {
-            this.DoubleTakeProxyInstaller1,
+            this.CladesWorkerServiceInstaller1,
             this.serviceProcessInstaller1});
 
         }
 
         #endregion
 
-        private System.ServiceProcess.ServiceInstaller DoubleTakeProxyInstaller1;
+        private System.ServiceProcess.ServiceInstaller CladesWorkerServiceInstaller1;
         private System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller1;
         private System.Diagnostics.EventLogInstaller eventLogInstaller1;
     }

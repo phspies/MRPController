@@ -40,11 +40,11 @@
             // 
             // serviceController1
             // 
-            this.serviceController1.ServiceName = "DoubleTakeProxySvc";
+            this.serviceController1.ServiceName = "CladesSvc";
             // 
             // CladesWorkerSvc
             // 
-            this.ServiceName = "Double-Take JSON Service";
+            this.ServiceName = "Clades Worker Service";
             ((System.ComponentModel.ISupportInitialize)(this.CladesWorkerLog1)).EndInit();
 
         }

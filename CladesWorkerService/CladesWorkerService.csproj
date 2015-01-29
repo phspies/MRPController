@@ -7,8 +7,8 @@
     <ProjectGuid>{98762892-9E86-451E-A26A-C614B4043A87}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DoubleTakeProxyService</RootNamespace>
-    <AssemblyName>DoubleTakeProxyService</AssemblyName>
+    <RootNamespace>CladesWorkerService</RootNamespace>
+    <AssemblyName>CladesWorkerService</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
@@ -102,9 +102,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clades\Controllers\Core.cs" />
+    <Compile Include="Clades\Controllers\Worker.cs" />
     <Compile Include="Clades\Controllers\Task.cs" />
+    <Compile Include="Clades\Clades.cs" />
+    <Compile Include="Clades\Types\GenericTypes.cs" />
     <Compile Include="Clades\Types\RecoveryJobTypes.cs" />
     <Compile Include="Clades\Types\ServerTypes.cs" />
+    <Compile Include="Clades\Types\StatusType.cs" />
+    <Compile Include="Clades\Types\WorkerTypes.cs" />
     <Compile Include="Clades\Types\TaskTypes.cs" />
     <Compile Include="DimensionData\Controllers\Account.cs" />
     <Compile Include="DimensionData\Controllers\Core.cs" />
@@ -124,7 +130,7 @@
     <Compile Include="DimensionData\Types\ServerImageTypes.cs" />
     <Compile Include="DimensionData\Types\SoftwareLabelTypes.cs" />
     <Compile Include="DimensionData\Types\StatusType.cs" />
-    <Compile Include="DoubleTake\DoubleTake.Wsdl.Contracts.cs" />
+    <Compile Include="DoubleTake\WSDL\DoubleTake.Wsdl.Contracts.cs" />
     <Compile Include="DoubleTake\DoubleTakeJobManager.svc.cs" />
     <Compile Include="DoubleTake\DoubleTakeManagementService.svc.cs" />
     <Compile Include="CladesWorkerSvc.cs">
@@ -133,8 +139,6 @@
     <Compile Include="CladesWorkerSvc.Designer.cs">
       <DependentUpon>CladesWorkerSvc.cs</DependentUpon>
     </Compile>
-    <Compile Include="DoubleTake\IDoubleTakeJobManager.cs" />
-    <Compile Include="DoubleTake\IDoubleTakeManagementService.cs" />
     <Compile Include="Models.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
@@ -149,11 +153,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="VMware\AppUtil.cs" />
-    <Compile Include="VMware\CustomerSecurityAssertionBearer.cs" />
-    <Compile Include="VMware\CustomSecurity.cs" />
-    <Compile Include="VMware\SVCConnection.cs" />
-    <Compile Include="VMware\VMInventory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -173,7 +172,9 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="VMware\" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>

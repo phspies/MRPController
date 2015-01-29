@@ -8,12 +8,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
-using DoubleTakeRestProxy;
 using CladesWorkerService;
 
-namespace DoubleTakeManagementServiceRestProxy
+namespace CladesWorkerService
 {
-    public class DoubleTakeManagementService : IDoubleTakeManagementService
+    public class DoubleTakeManagementService
     {
         public System.Diagnostics.EventLog DoubleTakeProxyLog = new System.Diagnostics.EventLog("Application", ".", "Double-Take JSON Service");
 

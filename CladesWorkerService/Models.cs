@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace DoubleTakeRestProxy
+namespace CladesWorkerService
 {
     public static class Global
     {
@@ -13,6 +13,30 @@ namespace DoubleTakeRestProxy
         /// Static value protected by access routine.
         /// </summary>
         static bool _debug;
+        static String _agentId;
+        static String _apiBase;
+        public static String apiBase
+        {
+            get
+            {
+                return _apiBase;
+            }
+            set
+            {
+                _apiBase = value;
+            }
+        }
+        public static String agentId
+        {
+            get
+            {
+                return _agentId;
+            }
+            set
+            {
+                _agentId = value;
+            }
+        }
 
         /// <summary>
         /// Access routine for global variable.

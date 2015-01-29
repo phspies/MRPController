@@ -9,17 +9,15 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Threading;
 using Newtonsoft.Json;
-using DoubleTakeRestProxy;
-using DoubleTakeManagementServiceRestProxy;
 using DoubleTake.Jobs.Contract;
 using DoubleTake.Common.Tasks;
 using DoubleTake.Core.Contract;
 using DoubleTake.Common.Contract;
 using DoubleTake.Jobs.Contract1;
 
-namespace DoubleTakeJobManagerRestProxy
+namespace CladesWorkerService
 {
-    public class DoubleTakeJobManager : IDoubleTakeJobManager
+    public class DoubleTakeJobManager
     {
         public System.Diagnostics.EventLog DoubleTakeProxyLog = new System.Diagnostics.EventLog("Application", ".", "Double-Take JSON Service");
 
