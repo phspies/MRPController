@@ -231,50 +231,6 @@ namespace DoubleTakeProxyService.VMware
             }
         }
 
-        public void SSOConnect(XmlElement token, string url)
-        {
-            if (_service != null)
-            {
-                Disconnect();
-            }
-
-            _service = new VimService();
-            _service.Url = url;
-            _service.Timeout = 600000; //The value can be set to some higher value also.
-            _service.CookieContainer = new System.Net.CookieContainer();
-
-            //...
-            //When this property is set to true, client requests that use the POST method 
-            //expect to receive a 100-Continue response from the server to indicate that 
-            //the client should send the data to be posted. This mechanism allows clients 
-            //to avoid sending large amounts of data over the network when the server, 
-            //based on the request headers, intends to reject the request
-            ServicePointManager.Expect100Continue = true;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls;
-
-            var customSecurityAssertion = new CustomSecurityAssertionBearer();
-            customSecurityAssertion.BinaryToken = token;
-
-            //Setting up the security policy for the request
-            Policy policySAML = new Policy();
-            policySAML.Assertions.Add(customSecurityAssertion);
-
-            // Setting policy of the service
-            _service.SetPolicy(policySAML);
-
-            _sic = _service.RetrieveServiceContent(_svcRef);
-
-            if (_sic.sessionManager != null)
-            {
-                _service.LoginByToken(_sic.sessionManager, null);
-            }
-
-            _state = ConnectionState.Connected;
-            if (AfterConnect != null)
-            {
-                AfterConnect(this, new ConnectionEventArgs());
-            }
-        }
     }
 
     public class ConnectionEventArgs : System.EventArgs
