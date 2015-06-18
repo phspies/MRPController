@@ -41849,7 +41849,7 @@ namespace System.Net.Sockets
         Max = 29,
     }
 }
-namespace System.Net
+namespace System.Net.DT
 {
     using System.Runtime.Serialization;
     

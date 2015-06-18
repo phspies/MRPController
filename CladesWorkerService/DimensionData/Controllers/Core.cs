@@ -12,11 +12,11 @@ using Newtonsoft.Json;
 using System.Net;
 using RestSharp.Contrib;
 using System.Collections;
-using CladesWorkerService.DimensionData.Models;
+using CladesWorkerService.CaaS.Models;
 
 
 
-namespace CladesWorkerService.DimensionData.API
+namespace CladesWorkerService.CaaS
 {
     class Core
     {
@@ -74,7 +74,7 @@ namespace CladesWorkerService.DimensionData.API
             {
                 if (!Object.ReferenceEquals(null, _object))
                 {
-                    Console.WriteLine(_object.ToQueryString());
+                    Global.eventLog.WriteEntry(_object.ToQueryString());
                     request.AddParameter("application/x-www-form-urlencoded", _object.ToQueryString(), ParameterType.RequestBody);
                 }
             }
@@ -85,9 +85,9 @@ namespace CladesWorkerService.DimensionData.API
                 //request.AddBody(_object);
             }
 
-            Console.WriteLine(_method.ToString() + " " + client.BuildUri(request).AbsoluteUri);
+            Global.eventLog.WriteEntry(_method.ToString() + " " + client.BuildUri(request).AbsoluteUri);
             var response = client.Execute(request);
-            Debug.WriteLine(response.Content);
+            //Global.eventLog.WriteEntry(response.Content);
 
             var serializer = new XmlSerializer(typeof(type));
             var responseobject = new Object();

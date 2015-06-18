@@ -1,12 +1,11 @@
-﻿using CladesWorkerService.DimensionData;
-using CladesWorkerService.DimensionData.Models;
+﻿using CladesWorkerService.CaaS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CladesWorkerService.DimensionData.API
+namespace CladesWorkerService.CaaS
 {
     class NATObject : Core
     {

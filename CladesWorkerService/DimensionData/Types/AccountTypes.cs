@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace CladesWorkerService.DimensionData.Models
+namespace CladesWorkerService.CaaS.Models
 {
 
     /// <remarks/>

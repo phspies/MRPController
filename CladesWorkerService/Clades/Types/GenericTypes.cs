@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CladesWorkerService.CaaS.Models
+namespace CladesWorkerService.Clades.Models
 {
     class Option
     {

@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CladesWorkerService.DimensionData.Models;
-using CladesWorkerService.DimensionData.API;
 
-namespace CladesWorkerService.DimensionData
+namespace CladesWorkerService.CaaS
 {
     class DimensionData
     {
@@ -48,8 +46,6 @@ namespace CladesWorkerService.DimensionData
         {
             return new NATObject(this);
         }
-
-
         public String ApiBase
         {
             get { return _apiBase; }

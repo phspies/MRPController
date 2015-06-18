@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
@@ -15,6 +16,30 @@ namespace CladesWorkerService
         static bool _debug;
         static String _agentId;
         static String _apiBase;
+        static String _verionNumber;
+        static EventLog _eventLog;
+        public static EventLog eventLog
+        {
+            get
+            {
+                return _eventLog;
+            }
+            set
+            {
+                _eventLog = value;
+            }
+        }
+        public static String verionNumber
+        {
+            get
+            {
+                return _verionNumber;
+            }
+            set
+            {
+                _verionNumber = value;
+            }
+        }
         public static String apiBase
         {
             get

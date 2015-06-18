@@ -45,40 +45,6 @@ namespace DoubleTakeProxyService.VMware
         /// <summary>
         /// Connect to the service
         /// </summary>
-        public void ClientConnectSSO()
-        {
-            try
-            {
-                string url = _ci.getServiceUrl();
-                string ssoUrl = _ci.getSsoServiceUrl();
-                string username = _ci.getUsername();
-                string password = _ci.getPassword();
-
-                if (ssoUrl != null && username != null && password != null)
-                {
-                    //get bearer token from SSO server
-                    var xmlBearerToken =
-                        AcquireBearerTokenByUserCredentialSample.AcquireBearerTokenByUserCredential.GetToken(
-                        new string[] { ssoUrl, username, password });
-
-                    if (xmlBearerToken != null)
-                        Console.WriteLine("Successfully acquired Bearer token from '{0}'...", ssoUrl);
-
-                    //login using bearer token
-                    Console.WriteLine("Connecting...");
-                    _connection.SSOConnect(xmlBearerToken, url);
-                }
-                else
-                {
-                    throw new ArgumentHandlingException("Missing Arguement: url/username/password");
-                }
-            }
-            catch (Exception e)
-            {
-                _ci.getUtil().LogException(e);
-                throw e;
-            }
-        }
 
         /// <summary>
         /// Connect to the service

@@ -5,9 +5,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CladesWorkerService.DimensionData.Models;
+using CladesWorkerService.CaaS.Models;
 
-namespace CladesWorkerService.DimensionData.API
+namespace CladesWorkerService.CaaS
 {
     class AccountObject : Core
     {

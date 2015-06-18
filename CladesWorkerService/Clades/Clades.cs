@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CladesWorkerService.Clades.Models;
-using CladesWorkerService.Clades.API;
 
 namespace CladesWorkerService.Clades
 {
@@ -24,9 +23,9 @@ namespace CladesWorkerService.Clades
             return new TasksObject(this);
         }
 
-        public WorkerObject worker()
+        public Worker worker()
         {
-            return new WorkerObject(this);
+            return new Worker(this);
         }
 
         public String ApiBase

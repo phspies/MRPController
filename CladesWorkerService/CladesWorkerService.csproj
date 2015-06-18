@@ -11,6 +11,8 @@
     <AssemblyName>CladesWorkerService</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -23,10 +25,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -84,9 +84,11 @@
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -102,15 +104,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clades\Controllers\Core.cs" />
-    <Compile Include="Clades\Controllers\Worker.cs" />
-    <Compile Include="Clades\Controllers\Task.cs" />
+    <Compile Include="Clades\Classes\Platform.cs" />
+    <Compile Include="Clades\Models\Core.cs" />
+    <Compile Include="Clades\Models\jsonserialize.cs" />
+    <Compile Include="Clades\Models\Scheduler.cs" />
+    <Compile Include="Clades\Models\Settings.cs" />
+    <Compile Include="Clades\Models\Worker.cs" />
+    <Compile Include="Clades\Models\Task.cs" />
     <Compile Include="Clades\Clades.cs" />
     <Compile Include="Clades\Types\GenericTypes.cs" />
     <Compile Include="Clades\Types\RecoveryJobTypes.cs" />
     <Compile Include="Clades\Types\ServerTypes.cs" />
     <Compile Include="Clades\Types\StatusType.cs" />
-    <Compile Include="Clades\Types\WorkerTypes.cs" />
     <Compile Include="Clades\Types\TaskTypes.cs" />
     <Compile Include="DimensionData\Controllers\Account.cs" />
     <Compile Include="DimensionData\Controllers\Core.cs" />
@@ -121,15 +126,34 @@
     <Compile Include="DimensionData\Controllers\ServerImage.cs" />
     <Compile Include="DimensionData\Controllers\Software.cs" />
     <Compile Include="DimensionData\DimensionData.cs" />
-    <Compile Include="DimensionData\Types\AccountTypes.cs" />
-    <Compile Include="DimensionData\Types\ACLTypes.cs" />
-    <Compile Include="DimensionData\Types\DatacenterTypes.cs" />
-    <Compile Include="DimensionData\Types\GenericTypes.cs" />
-    <Compile Include="DimensionData\Types\NATTypes.cs" />
-    <Compile Include="DimensionData\Types\NetworkTypes.cs" />
-    <Compile Include="DimensionData\Types\ServerImageTypes.cs" />
-    <Compile Include="DimensionData\Types\SoftwareLabelTypes.cs" />
-    <Compile Include="DimensionData\Types\StatusType.cs" />
+    <Compile Include="DimensionData\Types\AccountTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DimensionData\Types\ACLTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DimensionData\Types\DatacenterTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DimensionData\Types\dimensiondata2_0.cs" />
+    <Compile Include="DimensionData\Types\GenericTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DimensionData\Types\NATTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DimensionData\Types\NetworkTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DimensionData\Types\ServerImageTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DimensionData\Types\SoftwareLabelTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DimensionData\Types\StatusType.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DoubleTake\WSDL\DoubleTake.Wsdl.Contracts.cs" />
     <Compile Include="DoubleTake\DoubleTakeJobManager.svc.cs" />
     <Compile Include="DoubleTake\DoubleTakeManagementService.svc.cs" />
