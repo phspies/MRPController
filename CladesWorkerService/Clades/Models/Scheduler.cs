@@ -27,6 +27,23 @@ namespace CladesWorkerService.Clades.Controllers
                     {
                         switch ((string)task.target_type)
                         {
+                            case "server":
+                                {
+                                    switch ((string)task.payload.task_action)
+                                    {
+                                        //Start MCP datacenters thread
+                                        case "retrieveinformation":
+                                            if (task.payload.windows != null)
+                                            {
+                                                Thread newThread = new Thread(Server.server_getinformation);
+                                                newThread.Name = task.target_id;
+                                                newThread.Start(task);
+                                                lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                            }
+                                            break;
+                                    }
+                                    break;
+                                }                      
                             case "platform":
                             {
                                 switch ((string)task.payload.task_action) 

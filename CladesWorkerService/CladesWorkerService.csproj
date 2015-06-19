@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clades\Classes\Platform.cs" />
+    <Compile Include="Clades\Classes\Server.cs" />
     <Compile Include="Clades\Models\Core.cs" />
     <Compile Include="Clades\Models\jsonserialize.cs" />
     <Compile Include="Clades\Models\Scheduler.cs" />
