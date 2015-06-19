@@ -14,8 +14,6 @@ using RestSharp.Contrib;
 using System.Collections;
 using CladesWorkerService.CaaS.Models;
 
-
-
 namespace CladesWorkerService.CaaS
 {
     class Core

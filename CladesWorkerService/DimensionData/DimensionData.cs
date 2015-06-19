@@ -25,6 +25,10 @@ namespace CladesWorkerService.CaaS
         {
             return new DatacenterObject(this);
         }
+        public ServerObject server()
+        {
+            return new ServerObject(this);
+        }
         public SoftwareObject software()
         {
             return new SoftwareObject(this);

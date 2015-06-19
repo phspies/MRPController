@@ -23,19 +23,60 @@ namespace CladesWorkerService.Clades.Controllers
                 foreach (var task in tasklist.list.Children())
                 {
                     //make sure new target task does not have an active task busy
-                    if (lstThreads.FindAll(x => x.target_id == task.target_id).Count() == 0)
+                    if (lstThreads.FindAll(x => x.target_id == (string)task.target_id).Count() == 0)
                     {
                         switch ((string)task.target_type)
                         {
                             case "platform":
                             {
-                                //Start MCP platform thread
-                                if (task.payload.mcp != null)
+                                switch ((string)task.payload.task_action) 
                                 {
-                                    Thread newThread = new Thread(Platform.discover_mcp);
-                                    newThread.Name = task.target_id;
-                                    newThread.Start(task);
-                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                    //Start MCP datacenters thread
+                                    case "getdatacenters":
+                                        
+                                        if (task.payload.mcp != null)
+                                        {
+                                            Thread newThread = new Thread(Platform.mcp_getdatacenters);
+                                            newThread.Name = task.target_id;
+                                            newThread.Start(task);
+                                            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                        }
+                                        break;
+                                    //Start MCP templates thread
+                                    case "gettemplates":
+                                        {
+                                            if (task.payload.mcp != null)
+                                            {
+                                                Thread newThread = new Thread(Platform.mcp_gettemplates);
+                                                newThread.Name = task.target_id;
+                                                newThread.Start(task);
+                                                lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                            }
+                                            break;
+                                        }
+                                    //Start MCP servers thread
+                                    case "retrieveservers":
+                                        {
+                                            if (task.payload.mcp != null)
+                                            {
+                                                Thread newThread = new Thread(Platform.mcp_retrieveservers);
+                                                newThread.Name = task.target_id;
+                                                newThread.Start(task);
+                                                lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                            }
+                                            break;
+                                        }
+                                    case "retrievenetworks":
+                                        {
+                                            if (task.payload.mcp != null)
+                                            {
+                                                Thread newThread = new Thread(Platform.mcp_retrievenetworks);
+                                                newThread.Name = task.target_id;
+                                                newThread.Start(task);
+                                                lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                            }
+                                            break;
+                                        }
                                 }
                                 break;
                             }

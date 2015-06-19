@@ -123,6 +123,7 @@
     <Compile Include="DimensionData\Controllers\Network.cs" />
     <Compile Include="DimensionData\Controllers\NetworkACL.cs" />
     <Compile Include="DimensionData\Controllers\NetworkNAT.cs" />
+    <Compile Include="DimensionData\Controllers\Server.cs" />
     <Compile Include="DimensionData\Controllers\ServerImage.cs" />
     <Compile Include="DimensionData\Controllers\Software.cs" />
     <Compile Include="DimensionData\DimensionData.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="DimensionData\Types\ServerImageTypes.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DimensionData\Types\ServerTypes.cs" />
     <Compile Include="DimensionData\Types\SoftwareLabelTypes.cs">
       <SubType>Code</SubType>
     </Compile>
