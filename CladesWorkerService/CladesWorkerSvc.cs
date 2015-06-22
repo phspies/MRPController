@@ -36,6 +36,7 @@ namespace CladesWorkerService
 
         protected override void OnStart(string[] args)
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             Global.eventLog = CladesWorkerLog1;
             Settings.SetupAgent();
@@ -54,6 +55,15 @@ namespace CladesWorkerService
             
         }
 
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            HandleException((Exception)e.ExceptionObject);
+        }
+
+        static void HandleException(Exception e)
+        {
+            Global.eventLog.WriteEntry(e.ToString(), EventLogEntryType.Error);
+        }
         protected override void OnStop()
         {
             //CladesWorkerLog1.WriteEntry("In onStop.");

@@ -14,6 +14,7 @@ namespace CladesWorkerService
         /// </summary>
         static void Main()
         {
+ 
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
@@ -21,5 +22,6 @@ namespace CladesWorkerService
             };
             ServiceBase.Run(ServicesToRun);
         }
+
     }
 }
