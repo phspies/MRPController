@@ -41,48 +41,7 @@ namespace CladesWorkerService.Clades.Controllers
                     var devs = new ManagementClass(scope, path, null);
                     inventory.Add(wmi.ToLower(),sanitizemoc(wmi, devs.GetInstances()));
                 }
-                //clades.task().progress(payload, "WMI Operating System", 20);
-                //ManagementPath ospath = new ManagementPath("Win32_OperatingSystem");
-                //var osdevs = new ManagementClass(scope, ospath, null);
-                //JObject osinventory = sanitizemoc(osdevs.GetInstances());
-
-
-                //clades.task().progress(payload, "WMI CPU", 30);
-                //ManagementPath bicpupath = new ManagementPath("Win32_Processor");
-                //var cpudevs = new ManagementClass(scope, bicpupath, null);
-                //JObject cpuinventory = sanitizemoc(cpudevs.GetInstances());
-
-                //clades.task().progress(payload, "WMI Bios", 30);
-                //ManagementPath biospath = new ManagementPath("Win32_BIOS");
-                //var biosdevs = new ManagementClass(scope, biospath, null);
-                //JObject biosinventory = sanitizemoc(biosdevs.GetInstances());
-
-                //clades.task().progress(payload, "WMI Memory", 30);
-                //ManagementPath mempath = new ManagementPath("Win32_PhysicalMemory");
-                //var memdevs = new ManagementClass(scope, mempath, null);
-                //ManagementObjectCollection memmoc = memdevs.GetInstances();
-                //JObject meminventory = new JObject();
-                //foreach (ManagementObject mo in memmoc)
-                //{
-                //    foreach (PropertyData prop in mo.Properties)
-                //    {
-                //        meminventory = sanitize(meminventory, prop);
-                //    }
-                //}
-
-                //clades.task().progress(payload, "WMI Hardware", 30);
-                //ManagementPath hwpath = new ManagementPath("Win32_ComputerSystem");
-                //var hwdevs = new ManagementClass(scope, hwpath, null);
-                //ManagementObjectCollection hwmoc = hwdevs.GetInstances();
-                //JObject hwinventory = new JObject();
-                //foreach (ManagementObject mo in hwmoc)
-                //{
-                //    foreach (PropertyData prop in mo.Properties)
-                //    {
-                //        hwinventory = sanitize(hwinventory, prop);
-                //    }
-                //}
-
+ 
                 clades.task().progress(payload, "WMI Networking", counter+10);
                 ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = 'TRUE'");
                 ManagementObjectSearcher moSearch = new ManagementObjectSearcher(scope, query);
@@ -94,7 +53,7 @@ namespace CladesWorkerService.Clades.Controllers
                 foreach (ManagementObject mo in moCollection)
                 {
                     JObject indexhwinventory = new JObject();
-
+                    indexhwinventory.Add(new JProperty("network", index.ToString()));
                     foreach (PropertyData prop in mo.Properties)
                     {
                         indexhwinventory.Add(new JProperty(prop.Name, prop.Value));
@@ -151,10 +110,10 @@ namespace CladesWorkerService.Clades.Controllers
             {
                 clades.task().failcomplete(payload, "Connection error (user name or password might be incorrect): " + unauthorizedErr.Message);
             }
-            //catch (Exception error)
-            //{
-            //    clades.task().failcomplete(payload, error.Message);
-            //}
+            catch (Exception error)
+            {
+                clades.task().failcomplete(payload, error.Message);
+            }
         }
         static JObject sanitizemoc(string wmi, ManagementObjectCollection moc)
         {
@@ -165,6 +124,7 @@ namespace CladesWorkerService.Clades.Controllers
             foreach (ManagementObject mo in moc)
             {
                 JObject interiminventory = new JObject();
+                interiminventory.Add(new JProperty(wmi, objects.ToString()));
                 foreach (PropertyData prop in mo.Properties)
                 {
                     interiminventory.Add(new JProperty(prop.Name, prop.Value));
