@@ -513,8 +513,6 @@ namespace CladesWorkerService
                 UriObject.targetShortUri.UserName = Uri.EscapeDataString(request.credentials.targetUserAccount);
                 UriObject.targetShortUri.Password = Uri.EscapeDataString(request.credentials.targetUserPassword);
                 UriObject.targetUri = new UriBuilder(bindingScheme + request.credentials.targetIPAddress + ":" + portNumber + method);
-                Debug.WriteLine("ShortURI:" + UriObject.targetShortUri);
-                Debug.WriteLine("LongURI:" + UriObject.targetUri);
             }
             return UriObject;
         }
