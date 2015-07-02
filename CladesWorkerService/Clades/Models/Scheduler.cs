@@ -27,6 +27,32 @@ namespace CladesWorkerService.Clades.Controllers
                     {
                         switch ((string)task.target_type)
                         {
+                            case "dt":
+                                {
+                                    switch ((string)task.payload.task_action)
+                                    {
+                                        case "deploy":
+                                            if (task.payload.dt != null)
+                                            {
+                                                Thread newThread = new Thread(DT.dt_deploy);
+                                                newThread.Name = task.target_id;
+                                                newThread.Start(task);
+                                                lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                            }
+                                            break;
+                                        case "getproductinformation":
+                                            if (task.payload.dt != null)
+                                            {
+                                                Thread newThread = new Thread(DT.dt_getproductinformation);
+                                                newThread.Name = task.target_id;
+                                                newThread.Start(task);
+                                                lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                            }
+                                            break;
+
+                                    }
+                                    break;
+                                }
                             case "server":
                                 {
                                     switch ((string)task.payload.task_action)
@@ -43,7 +69,7 @@ namespace CladesWorkerService.Clades.Controllers
                                             break;
                                     }
                                     break;
-                                }                      
+                                }
                             case "platform":
                             {
                                 switch ((string)task.payload.task_action) 

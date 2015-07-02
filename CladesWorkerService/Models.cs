@@ -84,14 +84,6 @@ namespace CladesWorkerService
         public static bool GlobalBoolean;
     }
 
-    public class UriModel
-    {
-        public UriBuilder sourceUri { get; set; }
-        public UriBuilder sourceShortUri { get; set; }
-        public UriBuilder targetUri { get; set; }
-        public UriBuilder targetShortUri { get; set; }
-
-    }
 
     [DataContract]
     public class JobManagerRequest

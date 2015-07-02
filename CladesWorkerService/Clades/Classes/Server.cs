@@ -18,17 +18,41 @@ namespace CladesWorkerService.Clades.Controllers
             TasksObject tasks = new TasksObject(clades);
             try
             {
-                clades.task().progress(payload, "WMI Connect", 10);
                 string username = payload.payload.windows.username;
                 string password = payload.payload.windows.password;
                 string hostname = payload.payload.windows.ipaddress;
                 string domain = payload.payload.windows.domain;
+
                 ConnectionOptions connection = new ConnectionOptions();
                 connection.Username = username;
                 connection.Password = password;
                 connection.Authority = "ntlmdomain:" + domain;
-                ManagementScope scope = new ManagementScope("\\\\" + hostname + "\\root\\CIMV2", connection);
-                scope.Connect();
+                String ipaddresslist = payload.payload.windows.ipaddress;
+                ManagementScope scope = new ManagementScope();
+                Exception error = new Exception() ;
+
+                foreach (string ip in ipaddresslist.Split(new String[] {","}, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    try
+                    {
+                        clades.task().progress(payload, "WMI Connect - trying " + ip, 10);
+
+                        scope = new ManagementScope("\\\\" + ip.Trim() + "\\root\\CIMV2", connection);
+                        scope.Connect();
+                        break;
+                    }
+                    catch (Exception e)
+                    {
+                        error = e;
+                        clades.task().progress(payload, "WMI Connect - " + ip + " failed: " + e.ToString(), 10);
+                    }
+                }
+                if (!scope.IsConnected)
+                {
+                    clades.task().failcomplete(payload, "None of the IP's worked: " + error.Message);
+                    return;
+                }
+
 
                 JObject inventory = new JObject();
                 int counter = 10;
@@ -97,8 +121,28 @@ namespace CladesWorkerService.Clades.Controllers
                         }
                     }
                 }
+                //Check to see if DT is installed
+                clades.task().progress(payload, "WMI Software", counter + 30);
+
+                int softwareindex = 0;
+
+                JObject softwareinventory = new JObject();
+                ObjectQuery softwarequery = new ObjectQuery("Select * from Win32_Product"); //where DisplayName like '%DT%'
+                ManagementObjectSearcher softwaremoSearch = new ManagementObjectSearcher(scope, softwarequery);
+                foreach (ManagementObject mo in softwaremoSearch.Get())
+                {
+                    JObject pkginventory = new JObject();
+                    foreach (PropertyData prop in mo.Properties)
+                    {
+                        pkginventory.Add(new JProperty(prop.Name, prop.Value));
+                    }
+                    softwareinventory.Add(new JProperty(mo["Name"].ToString(), pkginventory));
+                    softwareindex += 1;
+                }
                 inventory.Add(new JProperty("network", netinventory));
                 inventory.Add(new JProperty("storage", storage));
+                inventory.Add(new JProperty("software", softwareinventory));
+
                 clades.task().successcomplete(payload, inventory.ToString(Formatting.None));
 
             }

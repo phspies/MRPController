@@ -18,3 +18,8 @@ C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService
 C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\obj\x64\Debug\CladesWorkerService.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\obj\x64\Debug\CladesWorkerService.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\obj\x64\Debug\CladesWorkerService.csprojResolveAssemblyReference.cache
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\Cassia.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\SimpleImpersonation.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\Cassia.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\SimpleImpersonation.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CladesWorkerService\CladesWorkerService\bin\x64\Debug\SimpleImpersonation.xml
