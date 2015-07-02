@@ -89,6 +89,7 @@ namespace CladesWorkerService.Clades.Controllers
                 clades.task().progress(payload, "WMI Storage", counter+20);
                 JObject storage = new JObject();
                 ManagementPath diskpath = new ManagementPath("Win32_Diskdrive");
+                int indexdisk = 0;
                 using (var devs = new ManagementClass(scope, diskpath, null))
                 {
                     ManagementObjectCollection moc = devs.GetInstances();
@@ -106,7 +107,6 @@ namespace CladesWorkerService.Clades.Controllers
                             {
                                 partinventory.Add(new JProperty(prop.Name, prop.Value));
                             }
-                            int indexdisk = 0;
                             foreach (ManagementBaseObject c in b.GetRelated("Win32_LogicalDisk"))
                             {
                                 JObject logicalinventory = new JObject();
@@ -117,6 +117,7 @@ namespace CladesWorkerService.Clades.Controllers
                                 partinventory.Add(new JProperty("PhysicalDisk", diskinventory));
                                 logicalinventory.Add(new JProperty("DiskPartition", partinventory));
                                 storage.Add(new JProperty("logicaldisk" + indexdisk.ToString(), logicalinventory));
+                                indexdisk += 1;
                             }
                         }
                     }
