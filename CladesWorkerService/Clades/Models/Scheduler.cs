@@ -49,7 +49,14 @@ namespace CladesWorkerService.Clades.Controllers
                                                 lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                             }
                                             break;
-
+                                        case "createseedjob":
+                                            {
+                                                Thread newThread = new Thread(DT.dt_createseedjob);
+                                                newThread.Name = task.target_id;
+                                                newThread.Start(task);
+                                                lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                            }
+                                            break;
                                     }
                                     break;
                                 }

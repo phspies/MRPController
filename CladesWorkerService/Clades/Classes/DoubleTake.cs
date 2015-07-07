@@ -2,12 +2,15 @@
 using DoubleTake.Common.Contract;
 using DoubleTake.Common.Tasks;
 using DoubleTake.Communication;
+using DoubleTake.Core.Contract;
+using DoubleTake.Jobs.Contract;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using SimpleImpersonation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -34,6 +37,158 @@ namespace CladesWorkerService.Clades.Controllers
         static TasksObject tasks = null;
         static dynamic _payload = null;
 
+        public static void dt_createseedjob(dynamic request)
+        {
+            CladesWorkerService.Clades.Clades clades = new CladesWorkerService.Clades.Clades(Global.apiBase, null, null);
+            clades.task().progress(request, "DT Connection", 5);
+            try
+            {
+                String joburl = BuildUrl(request, "/DoubleTake/Jobs/JobManager",2);
+                var jobMgrFactory = new ChannelFactory<IJobManager>("DefaultBinding_IJobManager_IJobManager", new EndpointAddress(joburl));
+                jobMgrFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
+                jobMgrFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+                IJobManager iJobMgr = jobMgrFactory.CreateChannel();
+
+                String workloadurl = BuildUrl(request, "/DoubleTake/Common/WorkloadManager",1);
+                var workloadFactory = new ChannelFactory<IWorkloadManager>("DefaultBinding_IWorkloadManager_IWorkloadManager", new EndpointAddress(workloadurl));
+                workloadFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 1);
+                workloadFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+                var workloadMgr = workloadFactory.CreateChannel();
+
+                String configurl = BuildUrl(request, "/DoubleTake/Jobs/JobConfigurationVerifier",2);
+                var configurationVerifierFactory = new ChannelFactory<IJobConfigurationVerifier>("DefaultBinding_IJobConfigurationVerifier_IJobConfigurationVerifier", new EndpointAddress(configurl));
+                configurationVerifierFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
+                configurationVerifierFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+
+                String jobTypeConstant = @"FullServerImageProtection";
+                var workloadId = Guid.Empty;
+                var wkld = (Workload)null;
+                try
+                {
+                    workloadId = workloadMgr.Create(jobTypeConstant);
+                    wkld = workloadMgr.GetWorkload(workloadId);
+                }
+                finally
+                {
+                    workloadMgr.Close(workloadId);
+                }
+
+                var iJobCfgVerifier = configurationVerifierFactory.CreateChannel();
+                var jobCreds = new JobCredentials
+                {
+                    SourceHostUri = BuildUrl(request, 1),
+                    TargetHostUri = BuildUrl(request, 2)
+                };
+
+                RecommendedJobOptions jobInfo = iJobCfgVerifier.GetRecommendedJobOptions(
+                    jobTypeConstant,
+                    wkld,
+                    jobCreds);
+                //jobInfo.JobOptions.ImageProtectionOptions.ImageName = request.payload;
+                List<ImageVhdInfo> vhd = new List<ImageVhdInfo>();
+                int i = 0;
+                foreach(dynamic volume in request.payload.dt.source.volumes)
+                {
+                    String _repositorypath = request.payload.dt.recoverypolicy.repositorypath;
+                    String _target_id = request.target_id;
+                    String _volume = volume.driveletter;
+                    Int16 _disksize = volume.disksize;
+                    Char _shortvolume = _volume[0];
+                    String _filename = _target_id + "_" + _shortvolume + ".vhdx";
+                    String _failovergroup = (String)(request.payload.dt.failovergroup.group);
+                    string absfilename = Path.Combine(_repositorypath, _failovergroup.ToLower().Replace(" ", "_"), _target_id, _filename);
+                    vhd.Add(new ImageVhdInfo() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = false, FilePath = absfilename, SizeInMB = (_disksize * 1024)});
+                    i += 1;
+                }
+
+                jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
+                jobInfo.JobOptions.Name = (String)request.target_id;
+                jobInfo.JobOptions.ImageProtectionOptions.ImageName = (String)request.target_id;
+
+                ActivityToken activityToken = iJobCfgVerifier.VerifyJobOptions(
+                    jobTypeConstant,
+                    jobInfo.JobOptions,
+                    jobCreds);
+
+                List<DoubleTake.Jobs.Contract1.VerificationStep> steps = new List<DoubleTake.Jobs.Contract1.VerificationStep>();
+                DoubleTake.Jobs.Contract1.VerificationTaskStatus status = iJobCfgVerifier.GetVerificationStatus(activityToken);
+                while (
+                    status.Task.Status != ActivityCompletionStatus.Canceled &&
+                    status.Task.Status != ActivityCompletionStatus.Completed &&
+                    status.Task.Status != ActivityCompletionStatus.Faulted)
+                {
+                    Thread.Sleep(1000);
+                    status = iJobCfgVerifier.GetVerificationStatus(activityToken);
+                }
+
+                var failedSteps = status.Steps.Where(s => s.Status == VerificationStatus.Error);
+
+                if (failedSteps.Any())
+                {
+                    clades.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
+                }
+
+                Guid jobId = iJobMgr.Create(new CreateOptions
+                {
+                    JobOptions = jobInfo.JobOptions,
+                    JobCredentials = jobCreds,
+                    JobType = jobTypeConstant
+                }, Guid.NewGuid());
+                iJobMgr.Start(jobId);
+                Thread.Sleep(5000);
+
+                clades.task().progress(request, "Waiting for seeding process to start", 6);
+
+                JobInfo jobinfo = iJobMgr.GetJob(jobId);
+                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails == null)
+                {
+                    Thread.Sleep(1000);
+                    jobinfo = iJobMgr.GetJob(jobId);
+                }
+                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorState == DoubleTake.Core.Contract.Connection.MirrorState.Unknown)
+                {
+                    Thread.Sleep(5000);
+                    jobinfo = iJobMgr.GetJob(jobId);
+                }
+                while (!jobinfo.Status.CanCreateImageRecovery)
+                {
+                    if (jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining != null)
+                    {
+                        long totalstorage = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining + (long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
+                        long totalcomplete = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024 ;
+                        String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
+                        if ((totalcomplete > 0) && (totalstorage > 0))
+                        {
+                            int percentage =  (int)Math.Round((double)(totalcomplete * 89) / totalstorage,2);
+                            clades.task().progress(request, progress, percentage);
+                        }
+                    }
+                    Thread.Sleep(5000);
+                    jobinfo = iJobMgr.GetJob(jobId);
+                }
+
+                //iJobMgr.Stop(jobId);
+                jobinfo = iJobMgr.GetJob(jobId);
+                while (!jobinfo.Status.CanDelete)
+                {
+                    clades.task().progress(request, "Waiting for job to be deletable", 98);
+                    Thread.Sleep(5000);
+                    jobinfo = iJobMgr.GetJob(jobId);
+                }
+                DoubleTake.Jobs.Contract.DeleteOptions jobdelete = new DoubleTake.Jobs.Contract.DeleteOptions();
+                jobdelete.ImageOptions.DeleteImage = true;
+                jobdelete.DiscardTargetQueue = false;
+                jobdelete.ImageOptions.VhdDeleteAction = VhdDeleteActionType.KeepAll;
+
+                clades.task().progress(request, "Removing seeding job from DT engine", 99);
+                iJobMgr.Delete(jobId, jobdelete);
+                clades.task().successcomplete(request, "Successfully created seed images to " + (String)request.payload.dt.recoverypolicy.repositorypath);
+            }
+            catch( Exception e)
+            {
+                clades.task().failcomplete(request, String.Format("Create Seed Job Failed: {0}", e.Message));
+            }
+        }
 
         public static void dt_deploy(dynamic payload)
         {
@@ -130,7 +285,7 @@ namespace CladesWorkerService.Clades.Controllers
         {
             CladesWorkerService.Clades.Clades clades = new CladesWorkerService.Clades.Clades(Global.apiBase, null, null);
             clades.task().progress(payload, "DT Connection", 50);
-            String url = BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService");
+            String url = BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService",0);
             ChannelFactory<IManagementService> MgtServiceFactory = 
                 new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService", new EndpointAddress(url));
             MgtServiceFactory.Credentials.Windows.ClientCredential = GetCredentials(payload,2);
@@ -152,7 +307,7 @@ namespace CladesWorkerService.Clades.Controllers
             clades.task().progress(payload, "DT Connection", 50);
             ChannelFactory<IManagementService> MgtServiceFactory =
                 new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService",
-                    new EndpointAddress(BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService")));
+                    new EndpointAddress(BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService",0)));
             TasksObject tasks = new TasksObject(clades);
             IManagementService iMgrSrc = MgtServiceFactory.CreateChannel();
             try
@@ -543,29 +698,30 @@ namespace CladesWorkerService.Clades.Controllers
             }
             return credentials;
         }
-        private static String BuildUrl(dynamic request, String method)
+        private static String BuildUrl(dynamic request, String method, int type)
         {
             int portNumber = 6325;
             string bindingScheme = "http://";
-            String url = null;
-
-            if (request.payload.dt.hostname != null)
+            return new UriBuilder(bindingScheme, find_working_ip(request, type) ,portNumber, method).ToString();
+        }
+        private static Uri BuildUrl(dynamic request, int type)
+        {
+            int portNumber = 6325;
+            string bindingScheme = "http://";
+            UriBuilder uri = new UriBuilder(bindingScheme, find_working_ip(request, type), portNumber);
+            switch (type)
             {
-                url = new UriBuilder(bindingScheme, find_working_ip(request,0) ,portNumber, method).ToString();
+                case 1:
+                    uri.UserName = Uri.EscapeDataString((String)request.payload.dt.source.username);
+                    uri.Password = Uri.EscapeDataString((String)request.payload.dt.source.password);
+                    break;
+                case 2:
+                    uri.UserName = Uri.EscapeDataString((String)request.payload.dt.target.username);
+                    uri.Password = Uri.EscapeDataString((String)request.payload.dt.target.password);
+                    break;
             }
-            else
-            {
-                if (request.payload.dt.source != null)
-                {
-                    url = new UriBuilder(bindingScheme, find_working_ip(request, 1), portNumber, method).ToString();
-
-                }
-                if (request.payload.dt.target != null)
-                {
-                    url = new UriBuilder(bindingScheme, find_working_ip(request, 2), portNumber, method).ToString();
-                }
-            }
-            return url;
+            return uri.Uri;
+            
         }
     }
 }
