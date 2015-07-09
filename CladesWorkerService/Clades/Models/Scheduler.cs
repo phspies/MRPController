@@ -49,9 +49,17 @@ namespace CladesWorkerService.Clades.Controllers
                                                 lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                             }
                                             break;
-                                        case "createseedjob":
+                                        case "createdrseedjob":
                                             {
-                                                Thread newThread = new Thread(DT.dt_createseedjob);
+                                                Thread newThread = new Thread(DT.dt_create_dr_seedjob);
+                                                newThread.Name = task.target_id;
+                                                newThread.Start(task);
+                                                lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                            }
+                                            break;
+                                        case "createdrsyncjob":
+                                            {
+                                                Thread newThread = new Thread(DT.dt_create_dr_syncjob);
                                                 newThread.Name = task.target_id;
                                                 newThread.Start(task);
                                                 lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });

@@ -30,14 +30,21 @@ namespace CladesWorkerService.CaaS
             _datacenter = _dimensiondata.Datacenter;
             _client = _dimensiondata;
         }
-
+        public void orgendpoint2(String _endpoint)
+        {
+            if (_client.OrganizationId == null)
+            {
+                _client.OrganizationId = _client.account().myaccount().orgId;
+            }
+            this.endpoint = "/caas/2.0/" + _client.OrganizationId + _endpoint;
+        }
 		public void orgendpoint(String _endpoint)
         {
             if (_client.OrganizationId == null)
             {
                 _client.OrganizationId = _client.account().myaccount().orgId;
             }
-            this.endpoint = "/" + _client.OrganizationId + _endpoint;
+            this.endpoint = "/oec/0.9/" + _client.OrganizationId + _endpoint;
         }
 
         public Object get<type>(Object _object, bool _simple) where type : new()
@@ -59,7 +66,7 @@ namespace CladesWorkerService.CaaS
             client.BaseUrl = new Uri(apibase);
             client.Authenticator = new HttpBasicAuthenticator(username, password);
             var request = new RestRequest();
-            request.Resource = "/oec/0.9" + endpoint;
+            request.Resource = endpoint;
             request.RequestFormat = DataFormat.Xml;
             request.Method = _method;
             if (urloptions != null)
@@ -79,8 +86,6 @@ namespace CladesWorkerService.CaaS
             else
             {
                 request.AddParameter("application/xml", SerializeObject(_object), ParameterType.RequestBody);
-                Console.WriteLine(SerializeObject(_object));
-                //request.AddBody(_object);
             }
 
             Global.eventLog.WriteEntry(_method.ToString() + " " + client.BuildUri(request).AbsoluteUri);

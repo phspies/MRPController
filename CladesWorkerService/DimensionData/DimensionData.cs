@@ -37,6 +37,10 @@ namespace CladesWorkerService.CaaS
         {
             return new ServerImageObject(this);
         }
+        public MCP2NetworkDomainObject mcp2networkdomain()
+        {
+            return new MCP2NetworkDomainObject(this);
+        }
         public NetworkObject network()
         {
             return new NetworkObject(this);

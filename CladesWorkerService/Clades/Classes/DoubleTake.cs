@@ -3,6 +3,7 @@ using DoubleTake.Common.Contract;
 using DoubleTake.Common.Tasks;
 using DoubleTake.Communication;
 using DoubleTake.Core.Contract;
+using DoubleTake.Core.Contract.Connection;
 using DoubleTake.Jobs.Contract;
 using Microsoft.Win32;
 using Newtonsoft.Json;
@@ -37,10 +38,156 @@ namespace CladesWorkerService.Clades.Controllers
         static TasksObject tasks = null;
         static dynamic _payload = null;
 
-        public static void dt_createseedjob(dynamic request)
+        public static void dt_create_dr_syncjob(dynamic request)
         {
             CladesWorkerService.Clades.Clades clades = new CladesWorkerService.Clades.Clades(Global.apiBase, null, null);
-            clades.task().progress(request, "DT Connection", 5);
+            clades.task().progress(request, "Creating sync process", 5);
+            try
+            {
+                String joburl = BuildUrl(request, "/DoubleTake/Jobs/JobManager", 2);
+                var jobMgrFactory = new ChannelFactory<IJobManager>("DefaultBinding_IJobManager_IJobManager", new EndpointAddress(joburl));
+                jobMgrFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
+                jobMgrFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+                IJobManager iJobMgr = jobMgrFactory.CreateChannel();
+
+                String workloadurl = BuildUrl(request, "/DoubleTake/Common/WorkloadManager", 1);
+                var workloadFactory = new ChannelFactory<IWorkloadManager>("DefaultBinding_IWorkloadManager_IWorkloadManager", new EndpointAddress(workloadurl));
+                workloadFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 1);
+                workloadFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+                var workloadMgr = workloadFactory.CreateChannel();
+
+                String configurl = BuildUrl(request, "/DoubleTake/Jobs/JobConfigurationVerifier", 2);
+                var configurationVerifierFactory = new ChannelFactory<IJobConfigurationVerifier>("DefaultBinding_IJobConfigurationVerifier_IJobConfigurationVerifier", new EndpointAddress(configurl));
+                configurationVerifierFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
+                configurationVerifierFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+
+                String jobTypeConstant = @"FullServerImageProtection";
+                var workloadId = Guid.Empty;
+                var wkld = (Workload)null;
+                try
+                {
+                    workloadId = workloadMgr.Create(jobTypeConstant);
+                    wkld = workloadMgr.GetWorkload(workloadId);
+                }
+                finally
+                {
+                    workloadMgr.Close(workloadId);
+                }
+
+                var iJobCfgVerifier = configurationVerifierFactory.CreateChannel();
+                var jobCreds = new JobCredentials
+                {
+                    SourceHostUri = BuildUrl(request, 1),
+                    TargetHostUri = BuildUrl(request, 2)
+                };
+
+                RecommendedJobOptions jobInfo = iJobCfgVerifier.GetRecommendedJobOptions(
+                    jobTypeConstant,
+                    wkld,
+                    jobCreds);
+                //jobInfo.JobOptions.ImageProtectionOptions.ImageName = request.payload;
+                List<ImageVhdInfo> vhd = new List<ImageVhdInfo>();
+                int i = 0;
+                foreach (dynamic volume in request.payload.dt.source.volumes)
+                {
+                    String _repositorypath = request.payload.dt.recoverypolicy.repositorypath;
+                    String _target_id = request.target_id;
+                    String _volume = volume.driveletter;
+                    Int16 _disksize = volume.disksize;
+                    Char _shortvolume = _volume[0];
+                    String _filename = _target_id + "_" + _shortvolume + ".vhdx";
+                    String _failovergroup = (String)(request.payload.dt.failovergroup.group);
+                    string absfilename = Path.Combine(_repositorypath, _failovergroup.ToLower().Replace(" ", "_"), _target_id, _filename);
+                    vhd.Add(new ImageVhdInfo() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = true, FilePath = absfilename, SizeInMB = (_disksize * 1024) });
+                    i += 1;
+                }
+
+                jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
+                jobInfo.JobOptions.Name = (String)request.target_id;
+                jobInfo.JobOptions.ImageProtectionOptions.ImageName = (String)request.target_id;
+
+                ActivityToken activityToken = iJobCfgVerifier.VerifyJobOptions(
+                    jobTypeConstant,
+                    jobInfo.JobOptions,
+                    jobCreds);
+
+                List<DoubleTake.Jobs.Contract1.VerificationStep> steps = new List<DoubleTake.Jobs.Contract1.VerificationStep>();
+                DoubleTake.Jobs.Contract1.VerificationTaskStatus status = iJobCfgVerifier.GetVerificationStatus(activityToken);
+                while (
+                    status.Task.Status != ActivityCompletionStatus.Canceled &&
+                    status.Task.Status != ActivityCompletionStatus.Completed &&
+                    status.Task.Status != ActivityCompletionStatus.Faulted)
+                {
+                    Thread.Sleep(1000);
+                    status = iJobCfgVerifier.GetVerificationStatus(activityToken);
+                }
+
+                var failedSteps = status.Steps.Where(s => s.Status == VerificationStatus.Error);
+
+                if (failedSteps.Any())
+                {
+                    clades.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
+                }
+
+                Guid jobId = iJobMgr.Create(new CreateOptions
+                {
+                    JobOptions = jobInfo.JobOptions,
+                    JobCredentials = jobCreds,
+                    JobType = jobTypeConstant
+                }, Guid.NewGuid());
+                iJobMgr.Start(jobId);
+                Thread.Sleep(5000);
+
+                clades.task().progress(request, "Waiting for sync process to start", 6);
+
+                JobInfo jobinfo = iJobMgr.GetJob(jobId);
+                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails == null)
+                {
+                    Thread.Sleep(1000);
+                    jobinfo = iJobMgr.GetJob(jobId);
+                }
+                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorState == DoubleTake.Core.Contract.Connection.MirrorState.Unknown)
+                {
+                    Thread.Sleep(5000);
+                    jobinfo = iJobMgr.GetJob(jobId);
+                }
+                long totaldisksize = 0;
+                foreach (dynamic volume in request.payload.dt.source.volumes)
+                {
+                    Int16 _disksize = volume.disksize;
+                    totaldisksize += _disksize;
+                }
+                while (jobinfo.Statistics.CoreConnectionDetails.MirrorState != MirrorState.Idle)
+                {
+                    if (jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining != null)
+                    {
+
+                        long totalstorage = totaldisksize / 1024 / 1024;
+                        long totalremaining = jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining / 1024 / 1024;
+                        String progress = String.Format("{0}MB skipped and {1}MB remaning of {2}MB synchronized", 
+                            jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSkipped.ToString("N1", CultureInfo.InvariantCulture), 
+                            jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining.ToString("N1", CultureInfo.InvariantCulture),
+                            totaldisksize.ToString("N1", CultureInfo.InvariantCulture));
+                        if ((totalremaining > 0) && (totalstorage > 0))
+                        {
+                            double percentage = (((double)(totalstorage-totalremaining) / (double)totalstorage) * 100) + 6;
+                            clades.task().progress(request, progress, percentage);
+                        }
+                    }
+                    Thread.Sleep(5000);
+                    jobinfo = iJobMgr.GetJob(jobId);
+                }
+                clades.task().successcomplete(request, "Successfully sync'ed workload using disk images in " + (String)request.payload.dt.recoverypolicy.repositorypath);
+            }
+            catch (Exception e)
+            {
+                clades.task().failcomplete(request, String.Format("Create sync process failed: {0}", e.Message));
+            }
+        }
+        public static void dt_create_dr_seedjob(dynamic request)
+        {
+            CladesWorkerService.Clades.Clades clades = new CladesWorkerService.Clades.Clades(Global.apiBase, null, null);
+            clades.task().progress(request, "Creating seed process", 5);
             try
             {
                 String joburl = BuildUrl(request, "/DoubleTake/Jobs/JobManager",2);
@@ -159,7 +306,7 @@ namespace CladesWorkerService.Clades.Controllers
                         String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
                         if ((totalcomplete > 0) && (totalstorage > 0))
                         {
-                            int percentage =  (int)Math.Round((double)(totalcomplete * 89) / totalstorage,2);
+                            double percentage = (((double)totalcomplete / (double)totalstorage) * 100) + 6;
                             clades.task().progress(request, progress, percentage);
                         }
                     }
@@ -171,22 +318,24 @@ namespace CladesWorkerService.Clades.Controllers
                 jobinfo = iJobMgr.GetJob(jobId);
                 while (!jobinfo.Status.CanDelete)
                 {
-                    clades.task().progress(request, "Waiting for job to be deletable", 98);
+                    clades.task().progress(request, "Waiting for process to be deletable", 98);
                     Thread.Sleep(5000);
                     jobinfo = iJobMgr.GetJob(jobId);
                 }
                 DoubleTake.Jobs.Contract.DeleteOptions jobdelete = new DoubleTake.Jobs.Contract.DeleteOptions();
-                jobdelete.ImageOptions.DeleteImage = true;
                 jobdelete.DiscardTargetQueue = false;
-                jobdelete.ImageOptions.VhdDeleteAction = VhdDeleteActionType.KeepAll;
+                ImageDeleteInfo imagedeleteinfo = new ImageDeleteInfo();
+                imagedeleteinfo.DeleteImage = true;
+                imagedeleteinfo.VhdDeleteAction = VhdDeleteActionType.KeepAll;
+                jobdelete.ImageOptions = imagedeleteinfo;
 
-                clades.task().progress(request, "Removing seeding job from DT engine", 99);
+                clades.task().progress(request, "Destroying seeding process from DT engine", 99);
                 iJobMgr.Delete(jobId, jobdelete);
-                clades.task().successcomplete(request, "Successfully created seed images to " + (String)request.payload.dt.recoverypolicy.repositorypath);
+                clades.task().successcomplete(request, "Successfully seeded workload to " + (String)request.payload.dt.recoverypolicy.repositorypath);
             }
-            catch( Exception e)
+            catch(Exception e)
             {
-                clades.task().failcomplete(request, String.Format("Create Seed Job Failed: {0}", e.Message));
+                clades.task().failcomplete(request, String.Format("Create seed process failed: {0}", e.Message));
             }
         }
 

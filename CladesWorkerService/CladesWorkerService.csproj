@@ -128,9 +128,12 @@
     <Compile Include="DimensionData\Controllers\Account.cs" />
     <Compile Include="DimensionData\Controllers\Core.cs" />
     <Compile Include="DimensionData\Controllers\Datacenter.cs" />
+    <Compile Include="DimensionData\Controllers\MCP2.0VLAN.cs" />
     <Compile Include="DimensionData\Controllers\Network.cs" />
     <Compile Include="DimensionData\Controllers\NetworkACL.cs" />
+    <Compile Include="DimensionData\Controllers\MCP2.0NetworkDomain.cs" />
     <Compile Include="DimensionData\Controllers\NetworkNAT.cs" />
+    <Compile Include="DimensionData\Controllers\MCP2Server.cs" />
     <Compile Include="DimensionData\Controllers\Server.cs" />
     <Compile Include="DimensionData\Controllers\ServerImage.cs" />
     <Compile Include="DimensionData\Controllers\Software.cs" />
@@ -144,7 +147,6 @@
     <Compile Include="DimensionData\Types\DatacenterTypes.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DimensionData\Types\dimensiondata2_0.cs" />
     <Compile Include="DimensionData\Types\GenericTypes.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -164,6 +166,11 @@
     <Compile Include="DimensionData\Types\StatusType.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DimensionData\XSD\datacenter.cs" />
+    <Compile Include="DimensionData\XSD\general.cs" />
+    <Compile Include="DimensionData\XSD\networkdomain.cs" />
+    <Compile Include="DimensionData\XSD\server.cs" />
+    <Compile Include="DimensionData\XSD\vlan.designer.cs" />
     <Compile Include="DoubleTake\WSDL\DoubleTake.Wsdl.Contracts.cs" />
     <Compile Include="DoubleTake\DoubleTakeJobManager.svc.cs" />
     <Compile Include="DoubleTake\DoubleTakeManagementService.svc.cs" />
@@ -190,6 +197,57 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\antiaffinityrule.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\datacenter.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\firewall.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\general.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\healthmonitor.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\ipaddress.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\irule.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\natrule.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\networkdomain.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\node.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\persistenceprofile.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\pool.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\poolmember.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\publicipblock.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\server.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\virtuallistener.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DimensionData\XSD\vlan.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />

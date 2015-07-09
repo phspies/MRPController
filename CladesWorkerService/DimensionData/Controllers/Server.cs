@@ -41,5 +41,3 @@ namespace CladesWorkerService.CaaS
         }
     }
 }
-
-
