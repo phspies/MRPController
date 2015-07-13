@@ -12,9 +12,10 @@ using Newtonsoft.Json;
 using System.Net;
 using RestSharp.Contrib;
 using System.Collections;
-using CladesWorkerService.CaaS.Models;
+using CloudMoveyWorkerService.CaaS.Models;
+using System.Web;
 
-namespace CladesWorkerService.CaaS
+namespace CloudMoveyWorkerService.CaaS
 {
     class Core
     {
@@ -45,6 +46,10 @@ namespace CladesWorkerService.CaaS
                 _client.OrganizationId = _client.account().myaccount().orgId;
             }
             this.endpoint = "/oec/0.9/" + _client.OrganizationId + _endpoint;
+        }
+        public void simpleendpoint(String _endpoint)
+        {
+            this.endpoint = "/oec/0.9" + _endpoint;
         }
 
         public Object get<type>(Object _object, bool _simple) where type : new()
@@ -89,6 +94,9 @@ namespace CladesWorkerService.CaaS
             }
 
             Global.eventLog.WriteEntry(_method.ToString() + " " + client.BuildUri(request).AbsoluteUri);
+            client.RemoveDefaultParameter("Accept");
+            client.AddDefaultParameter("Accept", "application/xml,text/xml", RestSharp.ParameterType.HttpHeader);
+            
             var response = client.Execute(request);
             //Global.eventLog.WriteEntry(response.Content);
 
@@ -178,6 +186,13 @@ namespace CladesWorkerService.CaaS
             }
         }
     
+    }
+    public static class UriExtensions
+    {
+        public static Uri Append(this Uri uri, params string[] paths)
+        {
+            return new Uri(paths.Aggregate(uri.AbsoluteUri, (current, path) => string.Format("{0}/{1}", current.TrimEnd('/'), path.TrimStart('/'))));
+        }
     }
     public static class UrlHelpers
     {

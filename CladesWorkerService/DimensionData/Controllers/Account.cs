@@ -5,15 +5,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CladesWorkerService.CaaS.Models;
+using CloudMoveyWorkerService.CaaS.Models;
 
-namespace CladesWorkerService.CaaS
+namespace CloudMoveyWorkerService.CaaS
 {
     class AccountObject : Core
     {
         public AccountObject(DimensionData _dimensiondata) : base(_dimensiondata) { }
         public Account myaccount() {
-            endpoint = "/myaccount";
+            simpleendpoint("/myaccount");
             Account account = get<Account>(null, true) as Account;
             return account;
         }

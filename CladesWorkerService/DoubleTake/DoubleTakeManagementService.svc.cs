@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using Newtonsoft.Json;
-using CladesWorkerService;
+using CloudMoveyWorkerService;
 
-namespace CladesWorkerService
+namespace CloudMoveyWorkerService
 {
     public class DoubleTakeManagementService
     {

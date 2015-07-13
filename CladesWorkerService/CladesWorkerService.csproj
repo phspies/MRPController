@@ -94,6 +94,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
@@ -110,75 +111,72 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clades\Classes\DoubleTake.cs" />
-    <Compile Include="Clades\Classes\Platform.cs" />
-    <Compile Include="Clades\Classes\Server.cs" />
-    <Compile Include="Clades\Models\Core.cs" />
-    <Compile Include="Clades\Models\jsonserialize.cs" />
-    <Compile Include="Clades\Models\Scheduler.cs" />
-    <Compile Include="Clades\Models\Settings.cs" />
-    <Compile Include="Clades\Models\Worker.cs" />
-    <Compile Include="Clades\Models\Task.cs" />
-    <Compile Include="Clades\Clades.cs" />
-    <Compile Include="Clades\Types\GenericTypes.cs" />
-    <Compile Include="Clades\Types\RecoveryJobTypes.cs" />
-    <Compile Include="Clades\Types\ServerTypes.cs" />
-    <Compile Include="Clades\Types\StatusType.cs" />
-    <Compile Include="Clades\Types\TaskTypes.cs" />
+    <Compile Include="CloudMovey\Classes\DoubleTake.cs" />
+    <Compile Include="CloudMovey\Classes\Platform.cs" />
+    <Compile Include="CloudMovey\Classes\Server.cs" />
+    <Compile Include="CloudMovey\Models\Core.cs" />
+    <Compile Include="CloudMovey\Models\jsonserialize.cs" />
+    <Compile Include="CloudMovey\Models\Scheduler.cs" />
+    <Compile Include="CloudMovey\Models\Settings.cs" />
+    <Compile Include="CloudMovey\Models\Worker.cs" />
+    <Compile Include="CloudMovey\Models\Task.cs" />
+    <Compile Include="CloudMovey\CloudMovey.cs" />
+    <Compile Include="CloudMovey\Types\GenericTypes.cs" />
+    <Compile Include="CloudMovey\Types\RecoveryJobTypes.cs" />
+    <Compile Include="CloudMovey\Types\ServerTypes.cs" />
+    <Compile Include="CloudMovey\Types\StatusType.cs" />
+    <Compile Include="CloudMovey\Types\TaskTypes.cs" />
     <Compile Include="DimensionData\Controllers\Account.cs" />
     <Compile Include="DimensionData\Controllers\Core.cs" />
-    <Compile Include="DimensionData\Controllers\Datacenter.cs" />
-    <Compile Include="DimensionData\Controllers\MCP2.0VLAN.cs" />
-    <Compile Include="DimensionData\Controllers\Network.cs" />
-    <Compile Include="DimensionData\Controllers\NetworkACL.cs" />
-    <Compile Include="DimensionData\Controllers\MCP2.0NetworkDomain.cs" />
-    <Compile Include="DimensionData\Controllers\NetworkNAT.cs" />
-    <Compile Include="DimensionData\Controllers\MCP2Server.cs" />
-    <Compile Include="DimensionData\Controllers\Server.cs" />
-    <Compile Include="DimensionData\Controllers\ServerImage.cs" />
+    <Compile Include="DimensionData\Controllers\MCP1.0\Datacenter.cs" />
+    <Compile Include="DimensionData\Controllers\MCP2.0\VLAN.cs" />
+    <Compile Include="DimensionData\Controllers\MCP1.0\Network.cs" />
+    <Compile Include="DimensionData\Controllers\MCP1.0\NetworkACL.cs" />
+    <Compile Include="DimensionData\Controllers\MCP2.0\NetworkDomain.cs" />
+    <Compile Include="DimensionData\Controllers\MCP1.0\NetworkNAT.cs" />
+    <Compile Include="DimensionData\Controllers\MCP2.0\Server.cs" />
+    <Compile Include="DimensionData\Controllers\MCP1.0\Server.cs" />
+    <Compile Include="DimensionData\Controllers\MCP1.0\ServerImage.cs" />
     <Compile Include="DimensionData\Controllers\Software.cs" />
     <Compile Include="DimensionData\DimensionData.cs" />
-    <Compile Include="DimensionData\Types\AccountTypes.cs">
+    <Compile Include="DimensionData\Types\MCP1.0\AccountTypes.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DimensionData\Types\ACLTypes.cs">
+    <Compile Include="DimensionData\Types\MCP1.0\ACLTypes.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DimensionData\Types\DatacenterTypes.cs">
+    <Compile Include="DimensionData\Types\MCP1.0\GenericTypes.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DimensionData\Types\GenericTypes.cs">
+    <Compile Include="DimensionData\Types\MCP1.0\NATTypes.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DimensionData\Types\NATTypes.cs">
+    <Compile Include="DimensionData\Types\MCP1.0\NetworkTypes.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DimensionData\Types\NetworkTypes.cs">
+    <Compile Include="DimensionData\Types\MCP1.0\ServerImageTypes.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DimensionData\Types\ServerImageTypes.cs">
+    <Compile Include="DimensionData\Types\MCP1.0\ServerTypes.cs" />
+    <Compile Include="DimensionData\Types\MCP1.0\SoftwareLabelTypes.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DimensionData\Types\ServerTypes.cs" />
-    <Compile Include="DimensionData\Types\SoftwareLabelTypes.cs">
+    <Compile Include="DimensionData\Types\MCP1.0\StatusType.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DimensionData\Types\StatusType.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DimensionData\XSD\datacenter.cs" />
-    <Compile Include="DimensionData\XSD\general.cs" />
-    <Compile Include="DimensionData\XSD\networkdomain.cs" />
-    <Compile Include="DimensionData\XSD\server.cs" />
-    <Compile Include="DimensionData\XSD\vlan.designer.cs" />
+    <Compile Include="DimensionData\Types\MCP2.0\GeneralTypes.cs" />
+    <Compile Include="DimensionData\Types\MCP2.0\NetworkDomainTypes.cs" />
+    <Compile Include="DimensionData\Types\MCP2.0\ServerTypes.cs" />
+    <Compile Include="DimensionData\Types\MCP2.0\VlanTypes.cs" />
+    <Compile Include="DimensionData\Types\MCP2.0\DatacenterTypes.cs" />
     <Compile Include="DoubleTake\WSDL\DoubleTake.Wsdl.Contracts.cs" />
     <Compile Include="DoubleTake\DoubleTakeJobManager.svc.cs" />
     <Compile Include="DoubleTake\DoubleTakeManagementService.svc.cs" />
-    <Compile Include="CladesWorkerSvc.cs">
+    <Compile Include="CloudMoveyWorkerSvc.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="CladesWorkerSvc.Designer.cs">
-      <DependentUpon>CladesWorkerSvc.cs</DependentUpon>
+    <Compile Include="CloudMoveyWorkerSvc.Designer.cs">
+      <DependentUpon>CloudMoveyWorkerSvc.cs</DependentUpon>
     </Compile>
     <Compile Include="Models.cs" />
     <Compile Include="Program.cs" />
@@ -257,8 +255,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CladesWorkerSvc.resx">
-      <DependentUpon>CladesWorkerSvc.cs</DependentUpon>
+    <EmbeddedResource Include="CloudMoveyWorkerSvc.resx">
+      <DependentUpon>CloudMoveyWorkerSvc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>

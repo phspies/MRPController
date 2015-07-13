@@ -1,4 +1,4 @@
-﻿namespace CladesWorkerService
+﻿namespace CloudMoveyWorkerService
 {
     partial class ProjectInstaller
     {
@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.CladesWorkerServiceInstaller1 = new System.ServiceProcess.ServiceInstaller();
+            this.CloudMoveyWorkerServiceInstaller1 = new System.ServiceProcess.ServiceInstaller();
             this.serviceProcessInstaller1 = new System.ServiceProcess.ServiceProcessInstaller();
             this.eventLogInstaller1 = new System.Diagnostics.EventLogInstaller();
             // 
-            // CladesWorkerServiceInstaller1
+            // CloudMoveyWorkerServiceInstaller1
             // 
-            this.CladesWorkerServiceInstaller1.Description = "Clades Worker Service Service";
-            this.CladesWorkerServiceInstaller1.DisplayName = "Clades Worker Service Service";
-            this.CladesWorkerServiceInstaller1.ServiceName = "Clades Worker Service Service";
-            this.CladesWorkerServiceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
-            this.CladesWorkerServiceInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.DoubleTakeProxyInstaller1_AfterInstall);
+            this.CloudMoveyWorkerServiceInstaller1.Description = "CloudMovey Worker Service";
+            this.CloudMoveyWorkerServiceInstaller1.DisplayName = "CloudMovey Worker Service";
+            this.CloudMoveyWorkerServiceInstaller1.ServiceName = "CloudMovey Worker Service";
+            this.CloudMoveyWorkerServiceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
+            this.CloudMoveyWorkerServiceInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.CloudMoveyWorkerServiceInstaller1_AfterInstall);
             // 
             // serviceProcessInstaller1
             // 
@@ -53,20 +53,20 @@
             this.eventLogInstaller1.Log = "Application";
             this.eventLogInstaller1.MessageResourceFile = null;
             this.eventLogInstaller1.ParameterResourceFile = null;
-            this.eventLogInstaller1.Source = "Double-Take JSON Service";
+            this.eventLogInstaller1.Source = "CloudMovey Worker Service";
             this.eventLogInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.eventLogInstaller1_AfterInstall);
             // 
             // ProjectInstaller
             // 
             this.Installers.AddRange(new System.Configuration.Install.Installer[] {
-            this.CladesWorkerServiceInstaller1,
+            this.CloudMoveyWorkerServiceInstaller1,
             this.serviceProcessInstaller1});
 
         }
 
         #endregion
 
-        private System.ServiceProcess.ServiceInstaller CladesWorkerServiceInstaller1;
+        private System.ServiceProcess.ServiceInstaller CloudMoveyWorkerServiceInstaller1;
         private System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller1;
         private System.Diagnostics.EventLogInstaller eventLogInstaller1;
     }

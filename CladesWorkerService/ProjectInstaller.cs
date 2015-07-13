@@ -6,7 +6,7 @@ using System.Configuration.Install;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CladesWorkerService
+namespace CloudMoveyWorkerService
 {
     [RunInstaller(true)]
     public partial class ProjectInstaller : System.Configuration.Install.Installer
@@ -16,7 +16,7 @@ namespace CladesWorkerService
             InitializeComponent();
         }
 
-        private void DoubleTakeProxyInstaller1_AfterInstall(object sender, InstallEventArgs e)
+        private void CloudMoveyWorkerServiceInstaller1_AfterInstall(object sender, InstallEventArgs e)
         {
 
         }

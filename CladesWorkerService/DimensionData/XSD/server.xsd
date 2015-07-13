@@ -83,6 +83,7 @@
     <xs:sequence>
       <xs:element name="server" minOccurs="0" maxOccurs="unbounded" type="cloudapi:ServerType"/>
     </xs:sequence>
+    <xs:attributeGroup ref="cloudapi:PagedResultAttributes"/>
   </xs:complexType>
   <xs:element name="servers" type="cloudapi:ServerListType"/>
   

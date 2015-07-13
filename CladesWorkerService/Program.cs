@@ -5,7 +5,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CladesWorkerService
+namespace CloudMoveyWorkerService
 {
     static class Program
     {
@@ -18,7 +18,7 @@ namespace CladesWorkerService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[] 
             { 
-                new CladesWorkerSvc() 
+                new CloudMoveyWorkerSvc() 
             };
             ServiceBase.Run(ServicesToRun);
         }

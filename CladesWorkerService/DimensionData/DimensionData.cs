@@ -1,10 +1,12 @@
-﻿using System;
+﻿using CloudMoveyWorkerService.CaaS1;
+using CloudMoveyWorkerService.CaaS2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CladesWorkerService.CaaS
+namespace CloudMoveyWorkerService.CaaS
 {
     class DimensionData
     {
@@ -36,6 +38,14 @@ namespace CladesWorkerService.CaaS
         public ServerImageObject serverimage()
         {
             return new ServerImageObject(this);
+        }
+        public MCP2VLANObject mcp2vlans()
+        {
+            return new MCP2VLANObject(this);
+        }
+        public MCP2ServerObject mcp2servers()
+        {
+            return new MCP2ServerObject(this);
         }
         public MCP2NetworkDomainObject mcp2networkdomain()
         {

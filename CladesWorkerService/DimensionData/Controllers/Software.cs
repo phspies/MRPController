@@ -1,4 +1,4 @@
-﻿using CladesWorkerService.CaaS.Models;
+﻿using CloudMoveyWorkerService.CaaS.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CladesWorkerService.CaaS
+namespace CloudMoveyWorkerService.CaaS
 {
     class SoftwareObject : Core
     {

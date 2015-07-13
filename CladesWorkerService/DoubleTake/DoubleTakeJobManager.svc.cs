@@ -15,7 +15,7 @@ using DoubleTake.Core.Contract;
 using DoubleTake.Common.Contract;
 using DoubleTake.Jobs.Contract1;
 
-namespace CladesWorkerService
+namespace CloudMoveyWorkerService
 {
     public class DoubleTakeJobManager
     {
