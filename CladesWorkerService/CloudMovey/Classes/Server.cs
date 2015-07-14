@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,27 +31,21 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 String ipaddresslist = payload.payload.windows.ipaddress;
                 ManagementScope scope = new ManagementScope();
                 Exception error = new Exception() ;
-
-                foreach (string ip in ipaddresslist.Split(new String[] {","}, StringSplitOptions.RemoveEmptyEntries))
+                var workingip = find_working_ip(ipaddresslist);
+                if (workingip != null)
                 {
                     try
                     {
-                        CloudMovey.task().progress(payload, "WMI Connect - trying " + ip, 10);
-
-                        scope = new ManagementScope("\\\\" + ip.Trim() + "\\root\\CIMV2", connection);
+                        CloudMovey.task().progress(payload, "WMI Connect - trying " + workingip, 10);
+                        scope = new ManagementScope("\\\\" + workingip.Trim() + "\\root\\CIMV2", connection);
                         scope.Connect();
-                        break;
                     }
                     catch (Exception e)
                     {
                         error = e;
-                        CloudMovey.task().progress(payload, "WMI Connect - " + ip + " failed: " + e.ToString(), 10);
+                        CloudMovey.task().progress(payload, "WMI Connect - " + workingip + " failed: " + e.Message, 10);
                     }
-                }
-                if (!scope.IsConnected)
-                {
-                    CloudMovey.task().failcomplete(payload, "None of the IP's worked: " + error.Message);
-                    return;
+
                 }
 
 
@@ -178,6 +173,26 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 objects += 1;
             }
             return inventory;
+        }
+        private static string find_working_ip(string iplist)
+        {
+            foreach (string ip in iplist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                Ping pinger = new Ping();
+                try
+                {
+                    PingReply reply = pinger.Send(ip);
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        return ip;
+                    }
+                }
+                catch (PingException)
+                {
+                    // Discard PingExceptions and return false;
+                }
+            }
+            return null;
         }
     }
 }

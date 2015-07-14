@@ -1,0 +1,13 @@
+﻿<Window x:Class="CloudMoveyNotifier.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Icon="cloudmovey.ico"
+  Title="CloudMovey Worker" Height="107" Width="401" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
+    <Grid HorizontalAlignment="Left" Height="60" Margin="10,10,0,0" VerticalAlignment="Top" Width="400">
+        <Label Content="Worker GUID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Height="27"/>
+        <TextBox x:Name="worker_guid" HorizontalAlignment="Left" Height="23" Margin="98,0,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="276" IsReadOnly="True"/>
+        <Label Content="Worker Version" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="27" Margin="0,27,0,0"/>
+        <TextBox x:Name="worker_version" HorizontalAlignment="Left" Height="23" Margin="98,28,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="146" IsReadOnly="True"/>
+
+    </Grid>
+
+</Window>
+    

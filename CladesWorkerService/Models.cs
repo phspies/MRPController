@@ -16,7 +16,7 @@ namespace CloudMoveyWorkerService
         static bool _debug;
         static String _agentId;
         static String _apiBase;
-        static String _verionNumber;
+        static String _versionNumber;
         static EventLog _eventLog;
         public static EventLog eventLog
         {
@@ -29,15 +29,15 @@ namespace CloudMoveyWorkerService
                 _eventLog = value;
             }
         }
-        public static String verionNumber
+        public static String versionNumber
         {
             get
             {
-                return _verionNumber;
+                return _versionNumber;
             }
             set
             {
-                _verionNumber = value;
+                _versionNumber = value;
             }
         }
         public static String apiBase

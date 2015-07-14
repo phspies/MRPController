@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CloudMoveyWorkerService.CloudMovey
@@ -17,7 +18,7 @@ namespace CloudMoveyWorkerService.CloudMovey
             CloudMoveyWorkerService.CloudMovey.CloudMovey CloudMovey = new CloudMoveyWorkerService.CloudMovey.CloudMovey(Global.apiBase, null, null);
             Worker worker = new Worker(CloudMovey);
             worker.hostname = Environment.MachineName;
-            worker.worker_version = Global.verionNumber;
+            worker.worker_version = Global.versionNumber;
             worker.ipaddress = String.Join(",", System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList.Select(x => x.ToString()).Where(x => x.ToString().Contains(".")));
             worker.id = Global.agentId;
             Global.eventLog.WriteEntry(JsonConvert.SerializeObject(worker));
@@ -36,7 +37,7 @@ namespace CloudMoveyWorkerService.CloudMovey
                     }
                     else
                     {
-                        Global.eventLog.WriteEntry("Registration Failed");
+                        Global.eventLog.WriteEntry("Registration Failed", EventLogEntryType.Error);
                     }
                 }
             }
@@ -45,7 +46,7 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             //Define global version number
             String _registry = @"SOFTWARE\CloudMovey Worker Service";
-            Global.verionNumber = "0.0.1";
+            Global.versionNumber = "0.0.1";
             Global.eventLog.WriteEntry("Starting CloudMovey Worker Service");
             RegistryKey rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
             if (rkSubKey == null)
@@ -59,6 +60,7 @@ namespace CloudMoveyWorkerService.CloudMovey
             }
             else
             {
+                rkSubKey.SetValue("agentVersion", Global.versionNumber, RegistryValueKind.String);
                 Global.Debug = Convert.ToBoolean(rkSubKey.GetValue("debug"));
                 if (Global.Debug)
                 {

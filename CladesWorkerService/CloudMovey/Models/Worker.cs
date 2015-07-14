@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +15,9 @@ namespace CloudMoveyWorkerService.CloudMovey
     [JsonObject(MemberSerialization.OptIn)]
     class Worker : Core 
     {
-        public Worker(CloudMovey _CloudMovey) : base(_CloudMovey) { }
+        public Worker(CloudMovey _CloudMovey) : base(_CloudMovey) {
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+        }
 
         [JsonProperty]
         public string id { get; set; }

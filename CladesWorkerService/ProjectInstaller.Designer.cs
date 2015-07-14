@@ -34,7 +34,7 @@
             // 
             // CloudMoveyWorkerServiceInstaller1
             // 
-            this.CloudMoveyWorkerServiceInstaller1.Description = "CloudMovey Worker Service";
+            this.CloudMoveyWorkerServiceInstaller1.Description = "CloudMovey client agent for task execution";
             this.CloudMoveyWorkerServiceInstaller1.DisplayName = "CloudMovey Worker Service";
             this.CloudMoveyWorkerServiceInstaller1.ServiceName = "CloudMovey Worker Service";
             this.CloudMoveyWorkerServiceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
