@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net;
+using System.Net.Sockets;
 using System.Security;
 using System.ServiceModel;
 using System.Text;
@@ -356,8 +357,21 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 CloudMovey.task().failcomplete(payload, "None of the IP's responded");
                 return;
             }
-
-            string remoteInstallPath = Path.Combine(server, remoteInstallFiles);
+            string remoteInstallPath;
+            IPAddress address = IPAddress.Parse(server);
+            if (address.AddressFamily.ToString() == AddressFamily.InterNetworkV6.ToString())
+            {
+                String _server = server;
+                _server = _server.Replace(":","-");
+                _server = _server.Replace("%","s");
+                _server = _server + ".ipv6-literal.net";
+                remoteInstallPath = Path.Combine(_server, remoteInstallFiles);
+                server = _server;
+            }
+            else
+            {
+                remoteInstallPath = Path.Combine(server, remoteInstallFiles);
+            }
 
             try
             {
@@ -697,6 +711,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         {
             using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
             {
+
                 string path = @"C:\Program Files\Vision Solutions\Double-Take";
 
                 string localFilePath = Path.Combine(path, selection);
@@ -716,9 +731,11 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     File.SetAttributes(setupFileOnServer, FileAttributes.Normal);
 
                 Thread.Sleep(TimeSpan.FromSeconds(1));
-                File.Copy(localFilePath, setupFileOnServer, true);
+                CloudMovey.task().progress(_payload, String.Format("Copy installation files to {0} on {1}", serverPath, server), 50);
 
-                Console.Write("Setup file copied successfully {0}  \n", setupFileOnServer);
+                File.Copy(localFilePath, setupFileOnServer, true);
+                CloudMovey.task().progress(_payload, String.Format("Setup file copied successfully {0}", server), 50);
+
                 return true;
             }
         }
@@ -730,7 +747,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 string localConfigFilePath = @"C:\Program Files\Vision Solutions\Double-Take\DTSetup.ini";
                 if (!File.Exists(localConfigFilePath))
                 {
-                    Console.Error.Write("Couldn't locate required configuration file(s) {0} \n", localConfigFilePath);
+                    CloudMovey.task().failcomplete(_payload, String.Format("Couldn't locate required configuration file(s) {0}", localConfigFilePath));
                     return false;
                 }
                 remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
@@ -743,7 +760,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 Thread.Sleep(TimeSpan.FromSeconds(1));
                 File.Copy(localConfigFilePath, configFileOnServer, true);
 
-                Console.Write("Configuration file copied successfully {0}  \n", configFileOnServer);
+                CloudMovey.task().progress(_payload, String.Format("Configuration file copied successfully {0}", configFileOnServer));
 
                 return true;
             }

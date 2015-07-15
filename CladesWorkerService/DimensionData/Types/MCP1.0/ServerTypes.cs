@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 namespace CloudMoveyWorkerService.CaaS.Models
 {
 
+
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/server", IsNullable = false)]
@@ -101,7 +102,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
 
         private string nameField;
 
-        private string descriptionField;
+        private object descriptionField;
 
         private ServersWithBackupServerOperatingSystem operatingSystemField;
 
@@ -110,8 +111,6 @@ namespace CloudMoveyWorkerService.CaaS.Models
         private ushort memoryMbField;
 
         private ServersWithBackupServerDisk[] diskField;
-
-        private string softwareLabelField;
 
         private string sourceImageIdField;
 
@@ -130,6 +129,8 @@ namespace CloudMoveyWorkerService.CaaS.Models
         private bool isStartedField;
 
         private string stateField;
+
+        private ServersWithBackupServerStatus statusField;
 
         private ServersWithBackupServerMachineStatus[] machineStatusField;
 
@@ -153,7 +154,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
         }
 
         /// <remarks/>
-        public string description
+        public object description
         {
             get
             {
@@ -215,19 +216,6 @@ namespace CloudMoveyWorkerService.CaaS.Models
             set
             {
                 this.diskField = value;
-            }
-        }
-
-        /// <remarks/>
-        public string softwareLabel
-        {
-            get
-            {
-                return this.softwareLabelField;
-            }
-            set
-            {
-                this.softwareLabelField = value;
             }
         }
 
@@ -345,6 +333,19 @@ namespace CloudMoveyWorkerService.CaaS.Models
             set
             {
                 this.stateField = value;
+            }
+        }
+
+        /// <remarks/>
+        public ServersWithBackupServerStatus status
+        {
+            get
+            {
+                return this.statusField;
+            }
+            set
+            {
+                this.statusField = value;
             }
         }
 
@@ -467,7 +468,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
 
         private byte scsiIdField;
 
-        private byte sizeGbField;
+        private ushort sizeGbField;
 
         private string speedField;
 
@@ -503,7 +504,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public byte sizeGb
+        public ushort sizeGb
         {
             get
             {
@@ -540,6 +541,153 @@ namespace CloudMoveyWorkerService.CaaS.Models
             set
             {
                 this.stateField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
+    public partial class ServersWithBackupServerStatus
+    {
+
+        private string actionField;
+
+        private System.DateTime requestTimeField;
+
+        private string userNameField;
+
+        private byte numberOfStepsField;
+
+        private System.DateTime updateTimeField;
+
+        private ServersWithBackupServerStatusStep stepField;
+
+        /// <remarks/>
+        public string action
+        {
+            get
+            {
+                return this.actionField;
+            }
+            set
+            {
+                this.actionField = value;
+            }
+        }
+
+        /// <remarks/>
+        public System.DateTime requestTime
+        {
+            get
+            {
+                return this.requestTimeField;
+            }
+            set
+            {
+                this.requestTimeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public string userName
+        {
+            get
+            {
+                return this.userNameField;
+            }
+            set
+            {
+                this.userNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public byte numberOfSteps
+        {
+            get
+            {
+                return this.numberOfStepsField;
+            }
+            set
+            {
+                this.numberOfStepsField = value;
+            }
+        }
+
+        /// <remarks/>
+        public System.DateTime updateTime
+        {
+            get
+            {
+                return this.updateTimeField;
+            }
+            set
+            {
+                this.updateTimeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public ServersWithBackupServerStatusStep step
+        {
+            get
+            {
+                return this.stepField;
+            }
+            set
+            {
+                this.stepField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
+    public partial class ServersWithBackupServerStatusStep
+    {
+
+        private string nameField;
+
+        private byte numberField;
+
+        private byte percentCompleteField;
+
+        /// <remarks/>
+        public string name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+
+        /// <remarks/>
+        public byte number
+        {
+            get
+            {
+                return this.numberField;
+            }
+            set
+            {
+                this.numberField = value;
+            }
+        }
+
+        /// <remarks/>
+        public byte percentComplete
+        {
+            get
+            {
+                return this.percentCompleteField;
+            }
+            set
+            {
+                this.percentCompleteField = value;
             }
         }
     }

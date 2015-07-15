@@ -141,6 +141,31 @@ namespace CloudMoveyWorkerService.CloudMovey
                 return true;
             }
         }
+        public bool progress(dynamic payload, string _step)
+        {
+            ProgressTaskUpdateObject task = new ProgressTaskUpdateObject()
+            {
+                id = Global.agentId,
+                hostname = Environment.MachineName,
+                task_id = payload.id,
+                attributes = new ProgressTaskUpdateAttriubutes()
+                {
+                    step = _step
+                }
+            };
+
+            endpoint = "/api/v1/tasks/update.json";
+            object returnval = put(task);
+            if (returnval is Error)
+            {
+                Global.eventLog.WriteEntry(returnval.ToString(), System.Diagnostics.EventLogEntryType.Error);
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         public bool update(object _object) 
         {
             endpoint = "/api/v1/tasks/update.json";
