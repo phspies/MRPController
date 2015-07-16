@@ -106,17 +106,16 @@
     <Reference Include="System.Data" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
-    <Reference Include="Vim25Service">
-      <HintPath>..\..\..\..\..\Downloads\vim25\Vim25Service.dll</HintPath>
-    </Reference>
-    <Reference Include="Vim25Service.XmlSerializers">
-      <HintPath>..\..\..\..\..\Downloads\vim25\Vim25Service.XmlSerializers.dll</HintPath>
+    <Reference Include="VMware.Vim, Version=6.0.0.0, Culture=neutral, PublicKeyToken=10980b081e887e9f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\VMware\Infrastructure\vSphere PowerCLI\VMware.Vim.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CloudMovey\Classes\DoubleTake.cs" />
     <Compile Include="CloudMovey\Classes\Platform.cs" />
     <Compile Include="CloudMovey\Classes\Server.cs" />
+    <Compile Include="CloudMovey\Classes\VMware.cs" />
     <Compile Include="CloudMovey\Models\Core.cs" />
     <Compile Include="CloudMovey\Models\jsonserialize.cs" />
     <Compile Include="CloudMovey\Models\Scheduler.cs" />

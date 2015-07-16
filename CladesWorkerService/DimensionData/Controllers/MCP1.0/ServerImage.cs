@@ -141,26 +141,10 @@ namespace CloudMoveyWorkerService.CaaS1
         /// <param name="diskoptions"></param>
         /// <param name="privateIp"></param>
         /// <returns></returns>
-        public Status serverimagedeploy(String name, String imageId, Boolean start=false, String administratorPassword=null, String description=null, String networkId=null, List<Option> diskoptions=null, String privateIp=null)
+        public Status serverimagedeploy(DeployServer _server)
         {
-            DeployServer deploy = new DeployServer();
-            deploy.name = name;
-            deploy.imageId = imageId;
-            deploy.start = start;
-            deploy.administratorPassword = administratorPassword;
-            if (!Object.ReferenceEquals(null, description)) { deploy.description = description; }
-            if (!Object.ReferenceEquals(null, privateIp)) { deploy.privateIp = privateIp; }
-            if (!Object.ReferenceEquals(null, networkId)) { deploy.networkId = networkId; }
-
-            List<DeployServerDisk> disks = new List<DeployServerDisk>();
-            foreach (Option disk in diskoptions.FindAll(x => x.option.All(Char.IsNumber)))
-            {
-                disks.Add(new DeployServerDisk() { scsiId = (Byte)Convert.ToInt32(disk.option), speed = disk.value });
-            }
-            deploy.disk = disks;
-
             orgendpoint("/deployServer");
-            Status status = post<Status>(deploy, false) as Status;
+            Status status = post<Status>(_server, false) as Status;
             return status;
         }
 

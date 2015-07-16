@@ -388,12 +388,19 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 
                 CloudMovey.task().progress(payload, "Copy files to remote server: " + remoteInstallPath, 50);
                 //Copy install options in configuration file and setup files for 32 bit and 64 bit to remote machine
-                bool success = CreateCopyDirectory(@"X64")
-                && CreateCopyDirectory(@"i386")
-                && CopyRequiredInstallationFiles(@"X64")
-                && CopyRequiredInstallationFiles(@"i386")
-                && CopyConfigFile();
+                bool success = false;
+                switch (systemArchitecture)
+                {
+                    case "i386":
+                        {
+                            success = CreateCopyDirectory(@"i386") && CopyRequiredInstallationFiles(@"i386") && CopyConfigFile();
+                            break;
+                        }
+                    case "X64":
+                            success = CreateCopyDirectory(@"X64") && CopyRequiredInstallationFiles(@"X64") && CopyConfigFile();
+                            break;
 
+                }
                 if (!success)
                 {
                     CloudMovey.task().failcomplete(payload, "Could not copy installation and/or configuration files to remote machine");
