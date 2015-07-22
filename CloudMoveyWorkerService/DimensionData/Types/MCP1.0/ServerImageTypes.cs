@@ -981,8 +981,8 @@ public partial class ModifyServer
 {
     private string nameField;
     private string descriptionField;
-    private string cpuCountField;
-    private string memoryField;
+    private int cpuCountField;
+    private int memoryField;
     private string privateIpField;
     /// <remarks/>
     public string name
@@ -996,7 +996,7 @@ public partial class ModifyServer
             this.nameField = value;
         }
     }
-    public string cpuCount
+    public int cpuCount
     {
         get
         {
@@ -1007,7 +1007,7 @@ public partial class ModifyServer
             this.cpuCountField = value;
         }
     }
-    public string memory
+    public int memory
     {
         get
         {

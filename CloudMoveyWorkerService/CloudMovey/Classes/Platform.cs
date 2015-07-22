@@ -2,19 +2,13 @@
 using CloudMoveyWorkerService.CaaS.Models;
 using CloudMoveyWorkerService.CloudMovey.Types;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using RestSharp;
 using SimpleImpersonation;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Xml;
-using System.Xml.Linq;
 
 namespace CloudMoveyWorkerService.CloudMovey.Controllers
 {
@@ -26,7 +20,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             DimensionData CaaS = new DimensionData((string)payload.payload.platform.mcpendpoint.url, (string)payload.payload.platform.username, (string)payload.payload.platform.password, null);
             try
             {
-                String _ostype = String.Format("{0} {1}", payload.payload.mcp.target.ostype, payload.payload.mcp.target.osedition);
+                Target _target = payload.payload.mcp.target.ToObject<Target>();
+
+                String _ostype = String.Format("{0} {1}", _target.ostype, _target.osedition);
                 String mcp_template_name = mcp_getimage_name(_ostype);
                 List<Option> _options = new List<Option>();
                 _options.Add(new Option() { option = "operatingSystemId", value = mcp_template_name });
@@ -37,18 +33,18 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 ImagesWithDiskSpeedImage _platformimage = CaaS.serverimage().platformserverimages(_options).image.Find(x => x.softwareLabel.Count == 0);
                 if (_platformimage == null)
                 {
-                    CloudMovey.task().failcomplete(payload, "Image not found: " + JsonConvert.SerializeObject(_options));
+                    CloudMovey.task().failcomplete(payload, "Template image not found: " + JsonConvert.SerializeObject(_options));
                     return;
                 }
                 DeployServer _vm = new DeployServer();
 
                 List<DeployServerDisk> _disks = new List<DeployServerDisk>();
                
-                foreach (var volume in payload.payload.mcp.target.volumes)
+                foreach (Volume volume in _target.volumes)
                 {
-                    if (_platformimage.disk.Exists(x => x.scsiId == (int)volume.diskindex))
+                    if (_platformimage.disk.Exists(x => x.scsiId == volume.diskindex))
                     {
-                        _disks.Add(new DeployServerDisk() { scsiId = volume.diskindex, speed = volume.platformstoragetier.shortname });
+                        _disks.Add(new DeployServerDisk() { scsiId = (byte)volume.diskindex, speed = volume.platformstoragetier.shortname });
                     }
                 }
 
@@ -59,13 +55,13 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 switch (dc.type)
                 {
                     case "MCP 1.0":
-                        _vm.name = payload.payload.mcp.target.hostname;
-                        _vm.description = String.Format("server created by CloudMovey at {0}", DateTime.Now);
-                        _vm.networkId = payload.payload.mcp.target.interfaces[0].platformnetwork.moid;
+                        _vm.name = _target.hostname;
+                        _vm.description = String.Format("Server Created by CloudMovey [{0}]", DateTime.Now);
+                        _vm.networkId = _target.interfaces[0].platformnetwork.moid;
                         _vm.imageId = _platformimage.id;
                         _vm.start = false;
                         _vm.disk = _disks;
-                        _vm.administratorPassword = (string)payload.payload.mcp.target.password;
+                        _vm.administratorPassword = (string)_target.password;
                         break;
                     case "MCP 2.0":
                         break;
@@ -75,51 +71,54 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 if (_status.resultCode == "REASON_0")
                 {
                     String _vm_id = _status.additionalInformation.value;
-                    CloudMovey.task().progress(payload, String.Format("{0}, ID: {1}, created on {1}", _vm.name, _vm_id, dc.displayName), 30);
+                    CloudMovey.task().progress(payload, String.Format("{0} provisioning started in {1}", _vm.name, dc.displayName), 20);
                     List<Option> _vmoptions = new List<Option>();
                     _vmoptions.Add(new Option() { option = "id", value = _vm_id });
-                    ServersWithBackup _newvm = CaaS.server().platformservers(_vmoptions);
-                    while (_newvm.server[0].state != "NORMAL" && _newvm.server[0].isStarted == false)
+                    ServersWithBackupServer _newvm = CaaS.server().platformservers(_vmoptions).server[0];
+                    while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
                     {
-                        if (_newvm.server[0].status != null)
+                        if (_newvm.status != null)
                         {
-                            CloudMovey.task().progress(payload, String.Format("Waiting for VM to be provisioned: {0}", _newvm.server[0].status.action, 40));
+                            if (_newvm.status.step != null)
+                            {
+                                CloudMovey.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.status.step.name), 30 + _newvm.status.step.number);
+                            }
                         }
-                        _newvm = CaaS.server().platformservers(_vmoptions);
+                        _newvm = CaaS.server().platformservers(_vmoptions).server[0];
                         Thread.Sleep(5000);
                     }
-                    CloudMovey.task().progress(payload, String.Format("Server Successfully provisioned: {0}", JsonConvert.SerializeObject(_newvm.server[0])), 50);
 
                     //Update CPU and Memory for server
-                    CaaS.serverimage().servermodify(server_id: _vm_id, cpuCount: (String)payload.payload.mcp.target.cpu, memory: (String)payload.payload.mcp.target.memory);
-                    _newvm = CaaS.server().platformservers(_vmoptions);
-                    CloudMovey.task().progress(payload, String.Format("Updating CPU and Memory: {0} : {1}", payload.payload.mcp.target.cpu, payload.payload.mcp.target.memory), 60);
-                    while (_newvm.server[0].state != "NORMAL" && _newvm.server[0].isStarted == false)
+                    CaaS.serverimage().servermodify(server_id: _vm_id, cpuCount: _target.cpu, memory: _target.memory);
+                    _newvm = CaaS.server().platformservers(_vmoptions).server[0];
+                    CloudMovey.task().progress(payload, String.Format("Updating CPU and Memory: {0} : {1}", _target.cpu, _target.memory), 60);
+                    while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
                     {
-                    _newvm = CaaS.server().platformservers(_vmoptions);
+                    _newvm = CaaS.server().platformservers(_vmoptions).server[0];
                         Thread.Sleep(5000);
                     }
 
                     //Expand C: drive and Add additional disks if required
                     int count = 0;
-                    foreach (var _volume in payload.payload.mcp.target.volumes)
+                    foreach (Volume _volume in _target.volumes)
                     {
-                        if (_newvm.server[0].disk.ToList().Exists(x => x.scsiId == (int)_volume.diskindex))
+                        if (_newvm.disk.ToList().Exists(x => x.scsiId == _volume.diskindex))
                         {
-                            if (_newvm.server[0].disk.ToList().Find(x => x.scsiId == (int)_volume.diskindex).sizeGb < (int)_volume.disksize)
+                            if (_newvm.disk.ToList().Find(x => x.scsiId == _volume.diskindex).sizeGb < _volume.disksize)
                             {
-                                CaaS.serverimage().serverdiskexpand(_vm_id, (int)_volume.diskindex, (byte)_volume.disksize);
+                                CloudMovey.task().progress(payload, String.Format("Extending storage: {0} : {1}GB", _volume.diskindex, _volume.disksize), 60 + count);
+                                CaaS.serverimage().serverdiskexpand(_vm_id, _volume.diskindex, (byte)_volume.disksize);
                             }
                         }
                         else
                         {
-                            CaaS.serverimage().serveraddstorage(_vm_id, (int)_volume.disksize, (string)_volume.platformstoragetier.shortname);
+                            CloudMovey.task().progress(payload, String.Format("Adding storage: {0} : {1}GB", _volume.diskindex, _volume.disksize), 60 + count);
+                            CaaS.serverimage().serveraddstorage(_vm_id, _volume.disksize, _volume.platformstoragetier.shortname);
                         }
-                        _newvm = CaaS.server().platformservers(_vmoptions);
-                        while (_newvm.server[0].state != "NORMAL" && _newvm.server[0].isStarted == false)
+                        _newvm = CaaS.server().platformservers(_vmoptions).server[0];
+                        while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
                         {
-                            CloudMovey.task().progress(payload, String.Format("Updating storage: {0} : {1}GB", (int)_volume.diskindex, (int)_volume.disksize), 60 + count);
-                            _newvm = CaaS.server().platformservers(_vmoptions);
+                            _newvm = CaaS.server().platformservers(_vmoptions).server[0];
                             Thread.Sleep(5000);
                         }
                         count += 1;
@@ -128,42 +127,51 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     //Start Server
                     CloudMovey.task().progress(payload, String.Format("Power on server"), 60 + count + 1);
                     CaaS.serverimage().serverstart(_vm_id);
-                    _newvm = CaaS.server().platformservers(_vmoptions);
-                    while (_newvm.server[0].state != "NORMAL" && _newvm.server[0].isStarted == false)
+                    _newvm = CaaS.server().platformservers(_vmoptions).server[0];
+                    while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
                     {
-                        _newvm = CaaS.server().platformservers(_vmoptions);
+                        _newvm = CaaS.server().platformservers(_vmoptions).server[0];
                         Thread.Sleep(5000);
                     }
 
                     CloudMovey.task().progress(payload, String.Format("Server powered on"), 60 + count + 2);
-                 
+                    _newvm = CaaS.server().platformservers(_vmoptions).server[0];
+
                     //create diskpart file for virtual machine and copy it to the remote server
-                    List<String> _diskpart_struct = new List<string>();
-                    MemoryStream  memoryStream = new MemoryStream();
-                    using (TextWriter tw = new StreamWriter(memoryStream))
+                    List<String> _driveletters = new List<String>();
+                    List<String> _systemdriveletters = new List<String>();
+                    _systemdriveletters.AddRange("DEFGHIJKLMNOPQRSTUVWXYZ".Select(d => d.ToString()));
+                    List <String> _diskpart_struct = new List<string>();
+                    _diskpart_struct.Add("select volume c");
+                    _diskpart_struct.Add("extend noerr");
+                    _diskpart_struct.Add("");
+                    List<String> _availabledriveletters = _systemdriveletters.Except(_driveletters).ToList<String>();
+                    _diskpart_struct.Add("select volume d");
+                    _diskpart_struct.Add(String.Format("assign letter={0} noerr", _availabledriveletters.Last()));
+                    _diskpart_struct.Add("");
+                    foreach (ServersWithBackupServerDisk _disk in _newvm.disk.ToList().FindAll(x => x.scsiId != 0).OrderBy(x => x.scsiId))
                     {
-                        _diskpart_struct.Add("select volume 0");
-                        _diskpart_struct.Add("extend");
-                        foreach (ServersWithBackupServerDisk _disk in _newvm.server[0].disk.ToList().FindAll(x => x.scsiId != 0).OrderBy(x => x.scsiId))
-                        {
-                            JObject _volumes = payload.payload.mcp.target.volumes;
-                            JObject _vmdisk = _volumes.Children<JObject>().FirstOrDefault(o => o["diskindex"] != null && o["diskindex"].ToString() == _disk.scsiId.ToString());
-                            _diskpart_struct.Add(String.Format("select disk {0}", _disk.id));
-                            _diskpart_struct.Add("clean");
-                            _diskpart_struct.Add("create partition primary");
-                            _diskpart_struct.Add("select partition 1");
-                            _diskpart_struct.Add("format fs=ntfs quick");
-                            _diskpart_struct.Add(String.Format("assign letter={0}", (String)_vmdisk.GetValue("driveletter")[0]));
-                            _diskpart_struct.Add("active");
-                        }
+                        string _driveletter = _target.volumes.Find(x => x.diskindex == _disk.scsiId).driveletter.Substring(0, 1);
+                        _driveletters.Add(_driveletter.ToString());
+                        _diskpart_struct.Add(String.Format("select disk {0}", _disk.scsiId));
+                        _diskpart_struct.Add("ATTRIBUTES DISK CLEAR READONLY");
+                        _diskpart_struct.Add("ONLINE DISK");
+                        _diskpart_struct.Add("clean");
+                        _diskpart_struct.Add("create partition primary");
+                        _diskpart_struct.Add("select partition 1");
+                        _diskpart_struct.Add("format fs=ntfs quick");
+                        _diskpart_struct.Add(String.Format("assign letter={0} noerr", _driveletter));
+                        _diskpart_struct.Add("active");
+                        _diskpart_struct.Add("");
                     }
-                    using (Impersonation.LogonUser(".", "Administrator", (String)payload.payload.mcp.target.password, LogonType.Batch))
+
+                    using (Impersonation.LogonUser(".", "Administrator", _target.password, LogonType.Batch))
                     {
                         try
                         {
                             string remoteInstallFiles = @"C:\";
                             remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
-                            string serverPath = Path.Combine(_newvm.server[0].privateIp, remoteInstallFiles);
+                            string serverPath = Path.Combine(_newvm.privateIp, remoteInstallFiles);
                             serverPath = @"\\" + serverPath + @"\diskpart.txt";
                             File.WriteAllLines(serverPath, _diskpart_struct.ConvertAll(Convert.ToString));
                         }
@@ -175,10 +183,12 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 
                     //Run Diskpart Command on Server
                     //Create connection object to remote machine
-                    ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = payload.payload.mcp.target.password };
+                    CloudMovey.task().progress(payload, String.Format("Start diskpart process on {0}", _newvm.name), 80);
+
+                    ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _target.password };
                     connOptions.Impersonation = ImpersonationLevel.Impersonate;
                     connOptions.Authentication = AuthenticationLevel.Default;
-                    ManagementScope scope = new ManagementScope(@"\\" + _newvm.server[0].privateIp + @"\root\CIMV2", connOptions);
+                    ManagementScope scope = new ManagementScope(@"\\" + _newvm.privateIp + @"\root\CIMV2", connOptions);
                     scope.Connect();
 
                     string diskpartCmd = @"diskpart /s C:\diskpart.txt";
@@ -190,6 +200,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     ManagementPath wmiObjectPath = new ManagementPath("Win32_Process");
                     ObjectGetOptions ogo = new ObjectGetOptions();
                     ManagementBaseObject returnValue;
+                    int processId = 0;
                     using (ManagementClass mc = new ManagementClass(scope, wmiObjectPath, ogo))
                     {
                         ManagementBaseObject inparams = mc.GetMethodParameters("Create");
@@ -203,14 +214,18 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                         returnValue = mc.InvokeMethod("Create", inparams, null);
                     }
 
-                    int processId = 0;
                     if (returnValues != null)
                     {
                         processId = Convert.ToInt32(returnValue.Properties["ProcessId"].Value);
                     }
-                    CloudMovey.task().progress(payload, String.Format("Started diskpart process on {0} ({1})", _newvm.server[0].name, processId), 80);
-                    CloudMovey.task().successcomplete(payload, String.Format("Successfully deployed and configured {0}", payload.payload.mcp.target.hostname));
+                    int _exitcode = Convert.ToInt32(returnValue.Properties["ReturnValue"].Value);
+                    if (_exitcode != 0)
+                    {
+                        CloudMovey.task().failcomplete(payload, String.Format("Failed diskpart process on {0} ({1})", _newvm.name, _exitcode));
+                        return;
+                    }
 
+                    CloudMovey.task().successcomplete(payload, JsonConvert.SerializeObject(_newvm));
                 }
                 else
                 {

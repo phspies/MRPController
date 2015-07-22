@@ -169,13 +169,13 @@ namespace CloudMoveyWorkerService.CaaS1
         /// <param name="memory"></param>
         /// <param name="privateIp"></param>
         /// <returns></returns>
-        public Status servermodify(String server_id, String name = null, String description = null, String cpuCount = null, String memory = null, String privateIp=null)
+        public Status servermodify(String server_id, String name = null, String description = null, int cpuCount=0, int memory=0, String privateIp=null)
         {
             ModifyServer modify = new ModifyServer();
             if (!Object.ReferenceEquals(null, name)) { modify.name = name; }
             if (!Object.ReferenceEquals(null, description)) { modify.description = description; }
-            if (!Object.ReferenceEquals(null, cpuCount)) { modify.cpuCount = cpuCount; }
-            if (!Object.ReferenceEquals(null, memory)) { modify.memory = (Int32.Parse(memory) * 1024).ToString(); }
+            if (cpuCount!=0) { modify.cpuCount = cpuCount; }
+            if (memory!=0) { modify.memory = (memory * 1024); }
             if (!Object.ReferenceEquals(null, privateIp)) { modify.privateIp = privateIp; }
             orgendpoint(String.Format("/server/{0}", server_id));
             Status status = post<Status>(modify, true) as Status;

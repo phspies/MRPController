@@ -51,7 +51,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                                 break;
                                             case "createdrseedjob":
                                                 {
-                                                    Thread newThread = new Thread(DT.dt_create_dr_seedjob);
+                                                    Thread newThread = new Thread(DT_DR.dt_create_dr_seedjob);
                                                     newThread.Name = task.target_id;
                                                     newThread.Start(task);
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -59,7 +59,15 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                                 break;
                                             case "createdrsyncjob":
                                                 {
-                                                    Thread newThread = new Thread(DT.dt_create_dr_syncjob);
+                                                    Thread newThread = new Thread(DT_DR.dt_create_dr_syncjob);
+                                                    newThread.Name = task.target_id;
+                                                    newThread.Start(task);
+                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                }
+                                                break;
+                                            case "createdrpopulatejob":
+                                                {
+                                                    Thread newThread = new Thread(DT_DR.dt_create_dr_restorejob);
                                                     newThread.Name = task.target_id;
                                                     newThread.Start(task);
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });

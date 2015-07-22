@@ -1,20 +1,15 @@
-﻿using DoubleTake.Common.Contract;
-using DoubleTake.Common.Tasks;
-using DoubleTake.Communication;
-using DoubleTake.Core.Contract;
-using DoubleTake.Core.Contract.Connection;
-using DoubleTake.Jobs.Contract;
+﻿using DoubleTake.Core;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using SimpleImpersonation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Security;
 using System.ServiceModel;
@@ -35,309 +30,45 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         static CloudMovey CloudMovey = null;
         static TasksObject tasks = null;
         static dynamic _payload = null;
-
-        public static void dt_create_dr_syncjob(dynamic request)
+        public static void dt_getproductinformation(dynamic payload)
         {
             CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
-            CloudMovey.task().progress(request, "Creating sync process", 5);
+            CloudMovey.task().progress(payload, "DT Connection", 50);
+            String url = BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService", 0);
+            ChannelFactory<IManagementService> MgtServiceFactory =
+                new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService", new EndpointAddress(url));
+            MgtServiceFactory.Credentials.Windows.ClientCredential = GetCredentials(payload, 2);
+            MgtServiceFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
+            IManagementService iMgrSrc = MgtServiceFactory.CreateChannel();
             try
             {
-                String joburl = BuildUrl(request, "/DoubleTake/Jobs/JobManager", 2);
-                var jobMgrFactory = new ChannelFactory<IJobManager>("DefaultBinding_IJobManager_IJobManager", new EndpointAddress(joburl));
-                jobMgrFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
-                jobMgrFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-                IJobManager iJobMgr = jobMgrFactory.CreateChannel();
-
-                String workloadurl = BuildUrl(request, "/DoubleTake/Common/WorkloadManager", 1);
-                var workloadFactory = new ChannelFactory<IWorkloadManager>("DefaultBinding_IWorkloadManager_IWorkloadManager", new EndpointAddress(workloadurl));
-                workloadFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 1);
-                workloadFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-                var workloadMgr = workloadFactory.CreateChannel();
-
-                String configurl = BuildUrl(request, "/DoubleTake/Jobs/JobConfigurationVerifier", 2);
-                var configurationVerifierFactory = new ChannelFactory<IJobConfigurationVerifier>("DefaultBinding_IJobConfigurationVerifier_IJobConfigurationVerifier", new EndpointAddress(configurl));
-                configurationVerifierFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
-                configurationVerifierFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-
-                String jobTypeConstant = @"FullServerImageProtection";
-                var workloadId = Guid.Empty;
-                var wkld = (Workload)null;
-                try
-                {
-                    workloadId = workloadMgr.Create(jobTypeConstant);
-                    wkld = workloadMgr.GetWorkload(workloadId);
-                }
-                finally
-                {
-                    workloadMgr.Close(workloadId);
-                }
-
-                IJobConfigurationVerifier iJobCfgVerifier = configurationVerifierFactory.CreateChannel();
-                JobCredentials jobCreds = new JobCredentials
-                {
-                    SourceConnectionParameters = new ServiceConnectionParameters() { },
-                    SourceHostUri = BuildUrl(request, 1),
-                    TargetHostUri = BuildUrl(request, 2)
-                };
-
-                RecommendedJobOptions jobInfo = iJobCfgVerifier.GetRecommendedJobOptions(
-                    jobTypeConstant,
-                    wkld,
-                    jobCreds);
-                //jobInfo.JobOptions.ImageProtectionOptions.ImageName = request.payload;
-                List<ImageVhdInfo> vhd = new List<ImageVhdInfo>();
-                int i = 0;
-                foreach (dynamic volume in request.payload.dt.source.volumes)
-                {
-                    String _repositorypath = request.payload.dt.recoverypolicy.repositorypath;
-                    String _target_id = request.target_id;
-                    String _volume = volume.driveletter;
-                    Int16 _disksize = volume.disksize;
-                    Char _shortvolume = _volume[0];
-                    String _filename = _target_id + "_" + _shortvolume + ".vhdx";
-                    String _failovergroup = (String)(request.payload.dt.failovergroup.group);
-                    string absfilename = Path.Combine(_repositorypath, _failovergroup.ToLower().Replace(" ", "_"), _target_id, _filename);
-                    vhd.Add(new ImageVhdInfo() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = true, FilePath = absfilename, SizeInMB = (_disksize * 1024) });
-                    i += 1;
-                }
-
-                jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
-                jobInfo.JobOptions.Name = (String)request.target_id;
-                jobInfo.JobOptions.ImageProtectionOptions.ImageName = (String)request.target_id;
-
-                ActivityToken activityToken = iJobCfgVerifier.VerifyJobOptions(
-                    jobTypeConstant,
-                    jobInfo.JobOptions,
-                    jobCreds);
-
-                List<DoubleTake.Jobs.Contract1.VerificationStep> steps = new List<DoubleTake.Jobs.Contract1.VerificationStep>();
-                DoubleTake.Jobs.Contract1.VerificationTaskStatus status = iJobCfgVerifier.GetVerificationStatus(activityToken);
-                while (
-                    status.Task.Status != ActivityCompletionStatus.Canceled &&
-                    status.Task.Status != ActivityCompletionStatus.Completed &&
-                    status.Task.Status != ActivityCompletionStatus.Faulted)
-                {
-                    Thread.Sleep(1000);
-                    status = iJobCfgVerifier.GetVerificationStatus(activityToken);
-                }
-
-                var failedSteps = status.Steps.Where(s => s.Status == VerificationStatus.Error);
-
-                if (failedSteps.Any())
-                {
-                    CloudMovey.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
-                }
-
-                Guid jobId = iJobMgr.Create(new CreateOptions
-                {
-                    JobOptions = jobInfo.JobOptions,
-                    JobCredentials = jobCreds,
-                    JobType = jobTypeConstant
-                }, Guid.NewGuid());
-                iJobMgr.Start(jobId);
-                Thread.Sleep(5000);
-
-                CloudMovey.task().progress(request, "Waiting for sync process to start", 6);
-
-                JobInfo jobinfo = iJobMgr.GetJob(jobId);
-                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails == null)
-                {
-                    Thread.Sleep(1000);
-                    jobinfo = iJobMgr.GetJob(jobId);
-                }
-                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorState == DoubleTake.Core.Contract.Connection.MirrorState.Unknown)
-                {
-                    Thread.Sleep(5000);
-                    jobinfo = iJobMgr.GetJob(jobId);
-                }
-                long totaldisksize = 0;
-                foreach (dynamic volume in request.payload.dt.source.volumes)
-                {
-                    Int16 _disksize = volume.disksize;
-                    totaldisksize += _disksize;
-                }
-                while (jobinfo.Statistics.CoreConnectionDetails.MirrorState != MirrorState.Idle)
-                {
-                    if (jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining != null)
-                    {
-
-                        long totalstorage = totaldisksize / 1024 / 1024;
-                        long totalremaining = jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining / 1024 / 1024;
-                        String progress = String.Format("{0}MB skipped and {1}MB remaning of {2}MB synchronized", 
-                            jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSkipped.ToString("N1", CultureInfo.InvariantCulture), 
-                            jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining.ToString("N1", CultureInfo.InvariantCulture),
-                            totaldisksize.ToString("N1", CultureInfo.InvariantCulture));
-                        if ((totalremaining > 0) && (totalstorage > 0))
-                        {
-                            double percentage = (((double)(totalstorage-totalremaining) / (double)totalstorage) * 100) + 6;
-                            CloudMovey.task().progress(request, progress, percentage);
-                        }
-                    }
-                    Thread.Sleep(5000);
-                    jobinfo = iJobMgr.GetJob(jobId);
-                }
-                CloudMovey.task().successcomplete(request, "Successfully sync'ed workload using disk images in " + (String)request.payload.dt.recoverypolicy.repositorypath);
+                CloudMovey.task().progress(payload, "DT Data Gathering", 50);
+                CloudMovey.task().successcomplete(payload, JsonConvert.SerializeObject(iMgrSrc.GetServerInfo()));
             }
             catch (Exception e)
             {
-                CloudMovey.task().failcomplete(request, String.Format("Create sync process failed: {0}", e.Message));
+                CloudMovey.task().failcomplete(payload, e.ToString());
             }
         }
-        public static void dt_create_dr_seedjob(dynamic request)
+        public static void dt_getimages(dynamic payload)
         {
             CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
-            CloudMovey.task().progress(request, "Creating seed process", 5);
+            CloudMovey.task().progress(payload, "DT Connection", 50);
+            ChannelFactory<IManagementService> MgtServiceFactory =
+                new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService",
+                    new EndpointAddress(BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService", 0)));
+            TasksObject tasks = new TasksObject(CloudMovey);
+            IManagementService iMgrSrc = MgtServiceFactory.CreateChannel();
             try
             {
-                String joburl = BuildUrl(request, "/DoubleTake/Jobs/JobManager",2);
-                var jobMgrFactory = new ChannelFactory<IJobManager>("DefaultBinding_IJobManager_IJobManager", new EndpointAddress(joburl));
-                jobMgrFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
-                jobMgrFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-                IJobManager iJobMgr = jobMgrFactory.CreateChannel();
-
-                String workloadurl = BuildUrl(request, "/DoubleTake/Common/WorkloadManager",1);
-                var workloadFactory = new ChannelFactory<IWorkloadManager>("DefaultBinding_IWorkloadManager_IWorkloadManager", new EndpointAddress(workloadurl));
-                workloadFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 1);
-                workloadFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-                var workloadMgr = workloadFactory.CreateChannel();
-
-                String configurl = BuildUrl(request, "/DoubleTake/Jobs/JobConfigurationVerifier",2);
-                var configurationVerifierFactory = new ChannelFactory<IJobConfigurationVerifier>("DefaultBinding_IJobConfigurationVerifier_IJobConfigurationVerifier", new EndpointAddress(configurl));
-                configurationVerifierFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
-                configurationVerifierFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-
-                String jobTypeConstant = @"FullServerImageProtection";
-                var workloadId = Guid.Empty;
-                var wkld = (Workload)null;
-                try
-                {
-                    workloadId = workloadMgr.Create(jobTypeConstant);
-                    wkld = workloadMgr.GetWorkload(workloadId);
-                }
-                finally
-                {
-                    workloadMgr.Close(workloadId);
-                }
-
-                var iJobCfgVerifier = configurationVerifierFactory.CreateChannel();
-                var jobCreds = new JobCredentials
-                {
-                    SourceHostUri = BuildUrl(request, 1),
-                    TargetHostUri = BuildUrl(request, 2)
-                };
-
-                RecommendedJobOptions jobInfo = iJobCfgVerifier.GetRecommendedJobOptions(
-                    jobTypeConstant,
-                    wkld,
-                    jobCreds);
-                //jobInfo.JobOptions.ImageProtectionOptions.ImageName = request.payload;
-                List<ImageVhdInfo> vhd = new List<ImageVhdInfo>();
-                int i = 0;
-                foreach(dynamic volume in request.payload.dt.source.volumes)
-                {
-                    String _repositorypath = request.payload.dt.recoverypolicy.repositorypath;
-                    String _target_id = request.target_id;
-                    String _volume = volume.driveletter;
-                    Int16 _disksize = volume.disksize;
-                    Char _shortvolume = _volume[0];
-                    String _filename = _target_id + "_" + _shortvolume + ".vhdx";
-                    String _failovergroup = (String)(request.payload.dt.failovergroup.group);
-                    string absfilename = Path.Combine(_repositorypath, _failovergroup.ToLower().Replace(" ", "_"), _target_id, _filename);
-                    vhd.Add(new ImageVhdInfo() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = false, FilePath = absfilename, SizeInMB = (_disksize * 1024)});
-                    i += 1;
-                }
-
-                jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
-                jobInfo.JobOptions.Name = (String)request.target_id;
-                jobInfo.JobOptions.ImageProtectionOptions.ImageName = (String)request.target_id;
-
-                ActivityToken activityToken = iJobCfgVerifier.VerifyJobOptions(
-                    jobTypeConstant,
-                    jobInfo.JobOptions,
-                    jobCreds);
-
-                List<DoubleTake.Jobs.Contract1.VerificationStep> steps = new List<DoubleTake.Jobs.Contract1.VerificationStep>();
-                DoubleTake.Jobs.Contract1.VerificationTaskStatus status = iJobCfgVerifier.GetVerificationStatus(activityToken);
-                while (
-                    status.Task.Status != ActivityCompletionStatus.Canceled &&
-                    status.Task.Status != ActivityCompletionStatus.Completed &&
-                    status.Task.Status != ActivityCompletionStatus.Faulted)
-                {
-                    Thread.Sleep(1000);
-                    status = iJobCfgVerifier.GetVerificationStatus(activityToken);
-                }
-
-                var failedSteps = status.Steps.Where(s => s.Status == VerificationStatus.Error);
-
-                if (failedSteps.Any())
-                {
-                    CloudMovey.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
-                }
-
-                Guid jobId = iJobMgr.Create(new CreateOptions
-                {
-                    JobOptions = jobInfo.JobOptions,
-                    JobCredentials = jobCreds,
-                    JobType = jobTypeConstant
-                }, Guid.NewGuid());
-                iJobMgr.Start(jobId);
-                Thread.Sleep(5000);
-
-                CloudMovey.task().progress(request, "Waiting for seeding process to start", 6);
-
-                JobInfo jobinfo = iJobMgr.GetJob(jobId);
-                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails == null)
-                {
-                    Thread.Sleep(1000);
-                    jobinfo = iJobMgr.GetJob(jobId);
-                }
-                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorState == DoubleTake.Core.Contract.Connection.MirrorState.Unknown)
-                {
-                    Thread.Sleep(5000);
-                    jobinfo = iJobMgr.GetJob(jobId);
-                }
-                while (!jobinfo.Status.CanCreateImageRecovery)
-                {
-                    if (jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining != null)
-                    {
-                        long totalstorage = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining + (long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
-                        long totalcomplete = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024 ;
-                        String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
-                        if ((totalcomplete > 0) && (totalstorage > 0))
-                        {
-                            double percentage = (((double)totalcomplete / (double)totalstorage) * 100) + 6;
-                            CloudMovey.task().progress(request, progress, percentage);
-                        }
-                    }
-                    Thread.Sleep(5000);
-                    jobinfo = iJobMgr.GetJob(jobId);
-                }
-
-                //iJobMgr.Stop(jobId);
-                jobinfo = iJobMgr.GetJob(jobId);
-                while (!jobinfo.Status.CanDelete)
-                {
-                    CloudMovey.task().progress(request, "Waiting for process to be deletable", 98);
-                    Thread.Sleep(5000);
-                    jobinfo = iJobMgr.GetJob(jobId);
-                }
-                DoubleTake.Jobs.Contract.DeleteOptions jobdelete = new DoubleTake.Jobs.Contract.DeleteOptions();
-                jobdelete.DiscardTargetQueue = false;
-                ImageDeleteInfo imagedeleteinfo = new ImageDeleteInfo();
-                imagedeleteinfo.DeleteImage = true;
-                imagedeleteinfo.VhdDeleteAction = VhdDeleteActionType.KeepAll;
-                jobdelete.ImageOptions = imagedeleteinfo;
-
-                CloudMovey.task().progress(request, "Destroying seeding process from DT engine", 99);
-                iJobMgr.Delete(jobId, jobdelete);
-                CloudMovey.task().successcomplete(request, "Successfully seeded workload to " + (String)request.payload.dt.recoverypolicy.repositorypath);
+                CloudMovey.task().progress(payload, "DT Data Gathering", 50);
+                CloudMovey.task().successcomplete(payload, JsonConvert.SerializeObject(iMgrSrc.GetImages(null)));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                CloudMovey.task().failcomplete(request, String.Format("Create seed process failed: {0}", e.Message));
+                CloudMovey.task().failcomplete(payload, e.ToString());
             }
         }
-
         public static void dt_deploy(dynamic payload)
         {
             _payload = payload;
@@ -349,7 +80,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             domain = payload.payload.dt.domain;
             remoteInstallFiles = payload.payload.dt.deploymentpolicy.dt_temppath;
 
-            server = find_working_ip(payload,0);
+            server = find_working_ip(payload, 0);
             if (string.IsNullOrEmpty(server))
             {
                 CloudMovey.task().failcomplete(payload, "None of the IP's responded");
@@ -357,11 +88,11 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             }
             string remoteInstallPath;
             IPAddress address = IPAddress.Parse(server);
-            if (address.AddressFamily.ToString() == System.Net.Sockets.AddressFamily.InterNetworkV6.ToString())
+            if (address.AddressFamily.ToString() == AddressFamily.InterNetworkV6.ToString())
             {
                 String _server = server;
-                _server = _server.Replace(":","-");
-                _server = _server.Replace("%","s");
+                _server = _server.Replace(":", "-");
+                _server = _server.Replace("%", "s");
                 _server = _server + ".ipv6-literal.net";
                 remoteInstallPath = Path.Combine(_server, remoteInstallFiles);
                 server = _server;
@@ -375,16 +106,71 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             {
                 CloudMovey.task().progress(payload, "Remote Get Architecture", 30);
 
+                string systemArchitecture = null;
                 //Determine if the setup to be installed is 32 bit or 64 bit
-                string systemArchitecture = GetRemoteSystemArchitecture();
+                string keyString = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
+                using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
+                {
+                    RegistryKey rk = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, server);
+                    RegistryKey key = rk.OpenSubKey(keyString);
+                    if (key != null)
+                    {
+                        string architecture = (string)key.GetValue("PROCESSOR_ARCHITECTURE");
+                        if (architecture.Contains("64"))
+                            systemArchitecture = "X64";
+                        else
+                            systemArchitecture = "i386";
+                    }
+                    else
+                    {
+                        CloudMovey.task().failcomplete(payload, String.Format("Cannot determine remote achitecture for {0}", server));
+                    }
+                }
 
-                CloudMovey.task().progress(payload, "Remote Architecture Check", 40);
+                CloudMovey.task().progress(payload, String.Format("{0} is of type {1} architecture", server, systemArchitecture), 40);
 
                 //In case of an upgrade scenario, check if the version being install is same as the one on remote machine
                 //In case the two versions are the same, throw an error
-                CheckFileVersion(server, systemArchitecture);
+                using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
+                {
 
-                CloudMovey.task().progress(payload, "Copy files to remote server: " + remoteInstallPath, 50);
+                    string RemoteFilePath = @"\\" + server + @"\C$\Program Files\Vision Solutions\Double-Take\" + systemArchitecture + @"\setup.exe";
+
+                    FileVersionInfo remoteFileVersion = null;
+                    if (File.Exists(RemoteFilePath))
+                    {
+                        remoteFileVersion = FileVersionInfo.GetVersionInfo(RemoteFilePath);
+                        CloudMovey.task().progress(payload, String.Format("Double-Take version on {0} : {1}", server, remoteFileVersion), 50);
+                    }
+                    else
+                    {
+                        CloudMovey.task().progress(payload, String.Format("It's a fresh install; no Double-Take version found on {0}", server), 50);
+                    }
+
+                    string localConfigFilePath = @"C:\Program Files\Vision Solutions\Double-Take\" + systemArchitecture;
+                    string LocalPath = Path.Combine(localConfigFilePath, @"setup.exe");
+
+                    FileVersionInfo localFileVersion;
+                    if (File.Exists(LocalPath))
+                    {
+                        localFileVersion = FileVersionInfo.GetVersionInfo(LocalPath);
+                        CloudMovey.task().progress(payload, String.Format("Double-Take {0} being installed on {1}", localFileVersion, server), 60);
+                    }
+                    else
+                    {
+                        CloudMovey.task().failcomplete(payload, String.Format("Couldn't locate required install file(s) {0}", LocalPath));
+                        return;
+                    }
+                    int versionCompare = CompareVersions(localFileVersion.ProductVersion, remoteFileVersion.ProductVersion);
+                    if (versionCompare <= 0)
+                    {
+                        CloudMovey.task().progress(payload, String.Format("Product version being PushInstalled is same or less than the version ({0}) installed on {1}", localFileVersion, server), 60);
+                        CloudMovey.task().successcomplete(payload);
+                        return;
+                    }
+                }
+
+                CloudMovey.task().progress(payload, String.Format("Copy files to {0} on {1} ({2})", remoteInstallPath, server, systemArchitecture), 70);
                 //Copy install options in configuration file and setup files for 32 bit and 64 bit to remote machine
                 bool success = false;
                 switch (systemArchitecture)
@@ -395,8 +181,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                             break;
                         }
                     case "X64":
-                            success = CreateCopyDirectory(@"X64") && CopyRequiredInstallationFiles(@"X64") && CopyConfigFile();
-                            break;
+                        success = CreateCopyDirectory(@"X64") && CopyRequiredInstallationFiles(@"X64") && CopyConfigFile();
+                        break;
 
                 }
                 if (!success)
@@ -405,7 +191,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     return;
                 }
 
-                CloudMovey.task().progress(payload, "Starting installer on remote server", 60);
+                CloudMovey.task().progress(payload, "Starting installer on remote server", 80);
                 //Invoke install process on the remote machine
                 int processId = StartInstallerProcess("Win32_Process", "Create", systemArchitecture);
 
@@ -416,13 +202,13 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 }
 
                 //Wait for the process to complete
-                CloudMovey.task().progress(payload, "Wait for remote installer to complete", 70);
+                CloudMovey.task().progress(payload, "Wait for remote installer to complete", 90);
 
                 bool processComplete = WaitForInstallToFinish(processId);
 
                 if (!processComplete)
                 {
-                    CloudMovey.task().failcomplete(payload, "Install process timed out \n");
+                    CloudMovey.task().failcomplete(payload, "Install process timed out");
                     return;
                 }
 
@@ -448,95 +234,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 CloudMovey.task().failcomplete(payload, ex.Message);
             }
 
-        }
-        public static void dt_getproductinformation(dynamic payload)
-        {
-            CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
-            CloudMovey.task().progress(payload, "DT Connection", 50);
-            String url = BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService",0);
-            ChannelFactory<IManagementService> MgtServiceFactory = 
-                new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService", new EndpointAddress(url));
-            MgtServiceFactory.Credentials.Windows.ClientCredential = GetCredentials(payload,2);
-            MgtServiceFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-            IManagementService iMgrSrc = MgtServiceFactory.CreateChannel();
-            try
-            {
-                CloudMovey.task().progress(payload, "DT Data Gathering", 50);
-                CloudMovey.task().successcomplete(payload, JsonConvert.SerializeObject(iMgrSrc.GetServerInfo()));
-            }
-            catch (Exception e)
-            {
-                CloudMovey.task().failcomplete(payload, e.ToString());
-            }
-        }
-        public static void dt_getimages(dynamic payload)
-        {
-            CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
-            CloudMovey.task().progress(payload, "DT Connection", 50);
-            ChannelFactory<IManagementService> MgtServiceFactory =
-                new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService",
-                    new EndpointAddress(BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService",0)));
-            TasksObject tasks = new TasksObject(CloudMovey);
-            IManagementService iMgrSrc = MgtServiceFactory.CreateChannel();
-            try
-            {
-                CloudMovey.task().progress(payload, "DT Data Gathering", 50);
-                CloudMovey.task().successcomplete(payload, JsonConvert.SerializeObject(iMgrSrc.GetImages(null)));
-            }
-            catch (Exception e)
-            {
-                CloudMovey.task().failcomplete(payload, e.ToString());
-            }
-        }
-
-        private static string find_working_ip(dynamic payload, int type)
-        {
-            ConnectionOptions connection = new ConnectionOptions();
-
-            String ipaddresslist = null;
-            if (type==0)
-            {
-                ipaddresslist = payload.payload.dt.ipaddress;
-                connection.Username = payload.payload.dt.username;
-                connection.Password = payload.payload.dt.password;
-                connection.Authority = "ntlmdomain:" + payload.payload.dt.domain;
-            } else if (type==1)
-            {
-                ipaddresslist = payload.payload.dt.source.ipaddress;
-                connection.Username = payload.payload.dt.source.username;
-                connection.Password = payload.payload.dt.source.password;
-                connection.Authority = "ntlmdomain:" + payload.payload.dt.source.domain;
-            }
-            else if (type==2)
-            {
-                ipaddresslist = payload.payload.dt.target.ipaddress;
-                connection.Username = payload.payload.dt.target.username;
-                connection.Password = payload.payload.dt.target.password;
-                connection.Authority = "ntlmdomain:" + payload.payload.dt.target.domain;
-            }
-            String workingip = null;
-            ManagementScope scope = new ManagementScope();
-            Exception error = new Exception();
-            foreach (string ip in ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
-            {
-
-                try
-                {
-                    scope = new ManagementScope("\\\\" + ip.Trim() + "\\root\\CIMV2", connection);
-                    scope.Connect();
-                    workingip = ip;
-                    break;
-                }
-                catch (Exception e)
-                {
-                    error = e;
-                }
-            }
-            if (!scope.IsConnected)
-            {
-                workingip = null;
-            }
-            return workingip;
         }
 
         private static DoubleTake.Core.Contract.ProductVersion ValidateManagementServiceRunning()
@@ -572,7 +269,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             }
             return version;
         }
-
         private static bool WaitForInstallToFinish(int processId)
         {
             bool completed = false;
@@ -603,7 +299,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 return completed;
             }
         }
-
         protected static int StartInstallerProcess(string Class, string MethodName, string systemArchitecture)
         {
             remoteInstallFiles = remoteInstallFiles.Replace('$', ':');
@@ -656,7 +351,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             return processId;
 
         }
-
         private static bool CreateCopyDirectory(string selection)
         {
             var success = true;
@@ -711,7 +405,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 return success;
             }
         }
-
         private static bool CopyRequiredInstallationFiles(string selection)
         {
             using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
@@ -744,7 +437,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 return true;
             }
         }
-
         private static bool CopyConfigFile()
         {
             using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
@@ -770,53 +462,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 return true;
             }
         }
-
-        private static void CheckFileVersion(string remoteServer, string systemArchitecture)
-        {
-            using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
-            {
-
-                string RemoteFilePath = @"\\" + remoteServer + @"\C$\Program Files\Vision Solutions\Double-Take\" + systemArchitecture + @"\setup.exe";
-
-                FileVersionInfo remoteFileVersion;
-                if (File.Exists(RemoteFilePath))
-                {
-                    remoteFileVersion = FileVersionInfo.GetVersionInfo(RemoteFilePath);
-                    Console.Write("Double-Take version on remote server; {0} \n", remoteFileVersion);
-                }
-                else
-                {
-                    Console.Write("It's a fresh install; no Double-Take version found on remote server \n");
-                    return;
-                }
-
-                string localConfigFilePath = @"C:\Program Files\Vision Solutions\Double-Take\" + systemArchitecture;
-                string LocalPath = Path.Combine(localConfigFilePath, @"setup.exe");
-
-                FileVersionInfo localFileVersion;
-                if (File.Exists(LocalPath))
-                {
-                    localFileVersion = FileVersionInfo.GetVersionInfo(LocalPath);
-                    Console.Write("Double-Take version being installed; {0} \n", localFileVersion);
-                }
-                else
-                {
-                    Console.Error.Write("Couldn't locate required install file(s) {0} or {1} \n", LocalPath);
-                    throw new FileNotFoundException("Install files not found ");
-                }
-
-                int versionCompare = CompareVersions(localFileVersion.ProductVersion, remoteFileVersion.ProductVersion);
-                if (versionCompare <= 0)
-                {
-                    throw new NotSupportedException("Install failed; Product version being PushInstalled is same or less than the version installed on the remote server");
-                }
-            }
-        }
-
-        /// <remarks>
-        /// DT Versions have 5 parts with an optional ".s" on the end.
-        /// This method compares two DT versions and returns 0 for equal, -1 for sa '&lt;' sb, and 1 for sa '&gt;' sb
-        /// </remarks>
         static int CompareVersions(string sa, string sb)
         {
             Func<string, int?> parse = s => { int ret; return int.TryParse(s, out ret) ? (int?)ret : null; };
@@ -826,31 +471,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             var diff = f(sa).Zip(f(sb), (a, b) => new { a, b }).FirstOrDefault(x => x.a != x.b);
 
             return diff == null ? 0 : diff.a < diff.b ? -1 : 1;
-        }
-
-        private static string GetRemoteSystemArchitecture()
-        {
-            string keyString = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
-            string OS;
-            using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
-            {
-                RegistryKey rk = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, server);
-                RegistryKey key = rk.OpenSubKey(keyString);
-                if (key != null)
-                {
-                    string architecture = (string)key.GetValue("PROCESSOR_ARCHITECTURE");
-                    if (architecture.Contains("64"))
-                        OS = "X64";
-                    else
-                        OS = "i386";
-                }
-                else
-                {
-                    throw new InvalidOperationException("Cannot determine the operating system architecture");
-                }
-            }
-            return OS;
-
         }
         private static NetworkCredential GetCredentials(dynamic payload, int type)
         {
@@ -869,30 +489,39 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             }
             return credentials;
         }
+        private static string find_working_ip(dynamic payload, int type)
+        {
+            ConnectionOptions connection = new ConnectionOptions();
+
+            String ipaddresslist = null;
+            if (type == 0)
+            {
+                ipaddresslist = payload.payload.dt.ipaddress;
+            }
+            else if (type == 1)
+            {
+                ipaddresslist = payload.payload.dt.source.ipaddress;
+            }
+            else if (type == 2)
+            {
+                ipaddresslist = payload.payload.dt.target.ipaddress;
+            }
+            String workingip = null;
+            Ping testPing = new Ping();
+            Exception error = new Exception();
+            foreach (string ip in ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                PingReply reply = testPing.Send(ip, 1000);
+                if (reply != null) workingip = ip;
+            }
+            return workingip;
+        }
         private static String BuildUrl(dynamic request, String method, int type)
         {
             int portNumber = 6325;
             string bindingScheme = "http://";
-            return new UriBuilder(bindingScheme, find_working_ip(request, type) ,portNumber, method).ToString();
+            return new UriBuilder(bindingScheme, find_working_ip(request, type), portNumber, method).ToString();
         }
-        private static Uri BuildUrl(dynamic request, int type)
-        {
-            int portNumber = 6325;
-            string bindingScheme = "http://";
-            UriBuilder uri = new UriBuilder(bindingScheme, find_working_ip(request, type), portNumber);
-            switch (type)
-            {
-                case 1:
-                    uri.UserName = Uri.EscapeDataString((String)request.payload.dt.source.username);
-                    uri.Password = Uri.EscapeDataString((String)request.payload.dt.source.password);
-                    break;
-                case 2:
-                    uri.UserName = Uri.EscapeDataString((String)request.payload.dt.target.username);
-                    uri.Password = Uri.EscapeDataString((String)request.payload.dt.target.password);
-                    break;
-            }
-            return uri.Uri;
-            
-        }
+
     }
 }

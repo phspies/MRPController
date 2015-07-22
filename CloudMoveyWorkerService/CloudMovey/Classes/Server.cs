@@ -45,9 +45,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                         error = e;
                         CloudMovey.task().progress(payload, "WMI Connect - " + workingip + " failed: " + e.Message, 10);
                     }
-
                 }
-
 
                 JObject inventory = new JObject();
                 int counter = 10;

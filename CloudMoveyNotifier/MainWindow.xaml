@@ -1,13 +1,8 @@
 ﻿<Window x:Class="CloudMoveyNotifier.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Icon="cloudmovey.ico"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
   Title="CloudMovey Worker" Height="107" Width="401" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
     <Grid HorizontalAlignment="Right" Height="80" Margin="0,0,0,0" VerticalAlignment="Top" Width="401">
-        <Grid.Background>
-            <RadialGradientBrush>
-                <GradientStop Color="Black"/>
-                <GradientStop Color="#FFABABAB" Offset="1"/>
-            </RadialGradientBrush>
-        </Grid.Background>
         <TextBox x:Name="worker_guid" HorizontalAlignment="Left" Height="23" Margin="110,12,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="276" IsReadOnly="True"/>
         <Label Content="Worker Version" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="27" Margin="12,39,0,0"/>
         <TextBox x:Name="worker_version" HorizontalAlignment="Left" Height="23" Margin="110,40,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="146" IsReadOnly="True"/>
