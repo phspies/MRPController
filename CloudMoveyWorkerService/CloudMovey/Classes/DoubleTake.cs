@@ -508,11 +508,27 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             }
             String workingip = null;
             Ping testPing = new Ping();
-            Exception error = new Exception();
             foreach (string ip in ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
             {
                 PingReply reply = testPing.Send(ip, 1000);
-                if (reply != null) workingip = ip;
+                if (reply != null)
+                {
+                    workingip = ip;
+                    break;
+                }
+            }
+            testPing.Dispose();
+            //check for IPv6 address
+            IPAddress _check_ip = IPAddress.Parse(workingip);
+#pragma warning disable CS0436 // Type conflicts with imported type
+            if (_check_ip.AddressFamily.ToString() == AddressFamily.InterNetworkV6.ToString())
+#pragma warning restore CS0436 // Type conflicts with imported type
+            {
+                String _server = server;
+                _server = _server.Replace(":", "-");
+                _server = _server.Replace("%", "s");
+                _server = _server + ".ipv6-literal.net";
+                workingip = _server;
             }
             return workingip;
         }

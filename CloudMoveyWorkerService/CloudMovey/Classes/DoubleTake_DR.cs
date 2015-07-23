@@ -43,7 +43,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             CloudMovey.task().progress(request, "Creating sync process", 5);
             try
             {
-                String joburl = BuildUrl(request, "/DoubleTake/Jobs/JobManager", 2);
+                bool _delete_current_job = (bool)request.payload.dt.delete_current_dt_job;
+                bool _reuse_dt_images = (bool)request.payload.dt.reuse_dt_images;
+                String joburl = BuildUrl(request, "/DoubleTake/Jobs/JobManager", 2) ;
                 var jobMgrFactory = new ChannelFactory<IJobManager>("DefaultBinding_IJobManager_IJobManager", new EndpointAddress(joburl));
                 jobMgrFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
                 jobMgrFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
@@ -60,7 +62,36 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 configurationVerifierFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
                 configurationVerifierFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
 
+                JobInfo[] _jobs = iJobMgr.GetJobs();
+                String[] _source_ips = ((string)request.payload.dt.source.ipaddress).Split(',');
+                String[] _target_ips = ((string)request.payload.dt.target.ipaddress).Split(',');
                 String jobTypeConstant = @"FullServerImageProtection";
+
+                if (_delete_current_job)
+                {
+                    foreach (JobInfo _delete_job in _jobs.Where(x => x.JobType == jobTypeConstant &&  _source_ips.Any(x.SourceHostUri.Host.Contains) && _target_ips.Any(x.TargetHostUri.Host.Contains)))
+                    { 
+                        DoubleTake.Jobs.Contract.DeleteOptions _delete_options = new DoubleTake.Jobs.Contract.DeleteOptions();
+                        _delete_options.DeleteReplica = true;
+                        _delete_options.DiscardTargetQueue = true;
+                        ImageDeleteInfo _delete_info = new ImageDeleteInfo();
+                        _delete_info.VhdDeleteAction = VhdDeleteActionType.DeleteAll;
+                        _delete_info.DeleteImage = true;
+                        _delete_options.ImageOptions = _delete_info;
+                        iJobMgr.Delete(_delete_job.Id, _delete_options);
+                        try
+                        {
+                            while (true)
+                            {
+                                iJobMgr.GetJob(_delete_job.Id);
+                                Thread.Sleep(2000);
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                }
+
+
                 var workloadId = Guid.Empty;
                 var wkld = (Workload)null;
                 try
@@ -90,14 +121,14 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 foreach (dynamic volume in request.payload.dt.source.volumes)
                 {
                     String _repositorypath = request.payload.dt.recoverypolicy.repositorypath;
-                    String _target_id = request.target_id;
+                    String _original_id = request.payload.dt.original.id;
                     String _volume = volume.driveletter;
                     Int16 _disksize = volume.disksize;
                     Char _shortvolume = _volume[0];
-                    String _filename = _target_id + "_" + _shortvolume + ".vhdx";
+                    String _filename = _original_id + "_" + _shortvolume + ".vhdx";
                     String _failovergroup = (String)(request.payload.dt.failovergroup.group);
-                    string absfilename = Path.Combine(_repositorypath, _failovergroup.ToLower().Replace(" ", "_"), _target_id, _filename);
-                    vhd.Add(new ImageVhdInfo() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = true, FilePath = absfilename, SizeInMB = (_disksize * 1024) });
+                    string absfilename = Path.Combine(_repositorypath, _failovergroup.ToLower().Replace(" ", "_"), _original_id, _filename);
+                    vhd.Add(new ImageVhdInfo() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = _reuse_dt_images, FilePath = absfilename, SizeInMB = (_disksize * 1024) });
                     i += 1;
                 }
 
@@ -135,7 +166,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     JobType = jobTypeConstant
                 }, Guid.NewGuid());
                 iJobMgr.Start(jobId);
-                Thread.Sleep(5000);
 
                 CloudMovey.task().progress(request, "Waiting for sync process to start", 6);
 
@@ -150,33 +180,25 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     Thread.Sleep(5000);
                     jobinfo = iJobMgr.GetJob(jobId);
                 }
-                long totaldisksize = 0;
-                foreach (dynamic volume in request.payload.dt.source.volumes)
+                Thread.Sleep(5000);
+                jobinfo = iJobMgr.GetJob(jobId);
+                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorState != MirrorState.Idle)
                 {
-                    Int16 _disksize = volume.disksize;
-                    totaldisksize += _disksize;
-                }
-                while (jobinfo.Statistics.CoreConnectionDetails.MirrorState != MirrorState.Idle)
-                {
-                    if (jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining != null)
+                    if (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorBytesRemaining != null)
                     {
-
-                        long totalstorage = totaldisksize / 1024 / 1024;
-                        long totalremaining = jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining / 1024 / 1024;
-                        String progress = String.Format("{0}MB skipped and {1}MB remaning of {2}MB synchronized", 
-                            jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSkipped.ToString("N1", CultureInfo.InvariantCulture), 
-                            jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining.ToString("N1", CultureInfo.InvariantCulture),
-                            totaldisksize.ToString("N1", CultureInfo.InvariantCulture));
-                        if ((totalremaining > 0) && (totalstorage > 0))
+                        long totalstorage = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining + (long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
+                        long totalcomplete = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
+                        String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
+                        if ((totalcomplete > 0) && (totalstorage > 0))
                         {
-                            double percentage = (((double)(totalstorage-totalremaining) / (double)totalstorage) * 100) + 6;
+                            double percentage = (((double)totalcomplete / (double)totalstorage) * 100) + 6;
                             CloudMovey.task().progress(request, progress, percentage);
                         }
                     }
-                    Thread.Sleep(5000);
+                    Thread.Sleep(30000);
                     jobinfo = iJobMgr.GetJob(jobId);
                 }
-                CloudMovey.task().successcomplete(request, "Successfully synchronized workload using disk images in " + (String)request.payload.dt.recoverypolicy.repositorypath);
+                CloudMovey.task().successcomplete(request, "Successfully synchronized workload to " + (String)request.payload.dt.recoverypolicy.repositorypath);
             }
             catch (Exception e)
             {
@@ -512,11 +534,27 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             }
             String workingip = null;
             Ping testPing = new Ping();
-            Exception error = new Exception();
             foreach (string ip in ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
             {
                 PingReply reply = testPing.Send(ip, 1000);
-                if (reply != null) workingip = ip;
+                if (reply != null)
+                {
+                    workingip = ip;
+                    break;
+                }
+            }
+            testPing.Dispose();
+            //check for IPv6 address
+            IPAddress _check_ip = IPAddress.Parse(workingip);
+#pragma warning disable CS0436 // Type conflicts with imported type
+            if (_check_ip.AddressFamily.ToString() == AddressFamily.InterNetworkV6.ToString())
+#pragma warning restore CS0436 // Type conflicts with imported type
+            {
+                String _server = server;
+                _server = _server.Replace(":", "-");
+                _server = _server.Replace("%", "s");
+                _server = _server + ".ipv6-literal.net";
+                workingip = _server;
             }
             return workingip;
         }
