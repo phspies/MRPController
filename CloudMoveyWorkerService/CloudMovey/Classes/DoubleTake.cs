@@ -144,7 +144,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     }
                     else
                     {
-                        CloudMovey.task().progress(payload, String.Format("It's a fresh install; no Double-Take version found on {0}", server), 50);
+                        CloudMovey.task().progress(payload, string.Format("It's a fresh install; no Double-Take version found on {0}", server), 50);
                     }
 
                     string localConfigFilePath = @"C:\Program Files\Vision Solutions\Double-Take\" + systemArchitecture;
@@ -161,16 +161,19 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                         CloudMovey.task().failcomplete(payload, String.Format("Couldn't locate required install file(s) {0}", LocalPath));
                         return;
                     }
-                    int versionCompare = CompareVersions(localFileVersion.ProductVersion, remoteFileVersion.ProductVersion);
-                    if (versionCompare <= 0)
+                    if (remoteFileVersion != null)
                     {
-                        CloudMovey.task().progress(payload, String.Format("Product version being PushInstalled is same or less than the version ({0}) installed on {1}", localFileVersion, server), 60);
-                        CloudMovey.task().successcomplete(payload);
-                        return;
+                        int versionCompare = CompareVersions(localFileVersion.ProductVersion, remoteFileVersion.ProductVersion);
+                        if (versionCompare <= 0)
+                        {
+                            CloudMovey.task().progress(payload, String.Format("Product version being PushInstalled is same or less than the version ({0}) installed on {1}", localFileVersion, server), 60);
+                            CloudMovey.task().successcomplete(payload);
+                            return;
+                        }
                     }
                 }
 
-                CloudMovey.task().progress(payload, String.Format("Copy files to {0} on {1} ({2})", remoteInstallPath, server, systemArchitecture), 70);
+                CloudMovey.task().progress(payload, String.Format("Copy files to {0} on {1} ({2})", remoteInstallPath, server, systemArchitecture), 51);
                 //Copy install options in configuration file and setup files for 32 bit and 64 bit to remote machine
                 bool success = false;
                 switch (systemArchitecture)
@@ -359,7 +362,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
             string serverPath = Path.Combine(server, remoteInstallFiles);
             serverPath = @"\\" + serverPath + @"\" + selection;
-            CloudMovey.task().progress(_payload, "Copy files to remote server to " + serverPath, 50);
+            CloudMovey.task().progress(_payload, "Copy files to remote server to " + serverPath, 51);
             var endTime = DateTime.Now.AddMinutes(1);
             using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
             {
@@ -369,7 +372,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     {
                         if (Directory.Exists(serverPath))
                         {
-                            CloudMovey.task().progress(_payload, "Copy files to remote server to " + serverPath, 50);
+                            CloudMovey.task().progress(_payload, "Copy files to remote server to " + serverPath, 52);
                             break;
                         }
                         else
@@ -377,7 +380,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                             Directory.CreateDirectory(serverPath);
                             if (Directory.Exists(serverPath))
                             {
-                                CloudMovey.task().progress(_payload, String.Format("Successfully created directories {0} to copy install file to on {1} \n", serverPath, server), 50);
+                                CloudMovey.task().progress(_payload, String.Format("Successfully created directories {0} to copy install file to on {1} \n", serverPath, server), 53);
 
                                 break;
                             }
@@ -386,18 +389,18 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     catch (IOException e)
                     {
 
-                        CloudMovey.task().progress(_payload, String.Format("Failed to create directory on {0}. Retrying... {1}", server, e.ToString()), 50);
+                        CloudMovey.task().progress(_payload, String.Format("Failed to create directory on {0}. Retrying... {1}", server, e.ToString()), 54);
                         lastException = e;
                         Thread.Sleep(TimeSpan.FromSeconds(10));
                     }
                 }
                 if (endTime <= DateTime.Now)
                 {
-                    CloudMovey.task().progress(_payload, String.Format("Timed out while waiting for directory to be created on {0}.", server), 50);
+                    CloudMovey.task().progress(_payload, String.Format("Timed out while waiting for directory to be created on {0}.", server), 55);
 
                     if (lastException != null)
                     {
-                        CloudMovey.task().progress(_payload, String.Format("Problem creating directory on {0}. Error: {1} \n ", server, lastException), 50);
+                        CloudMovey.task().progress(_payload, String.Format("Problem creating directory on {0}. Error: {1} \n ", server, lastException), 56);
                         success = false;
                     }
                 }
@@ -429,10 +432,10 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     File.SetAttributes(setupFileOnServer, FileAttributes.Normal);
 
                 Thread.Sleep(TimeSpan.FromSeconds(1));
-                CloudMovey.task().progress(_payload, String.Format("Copy installation files to {0} on {1}", serverPath, server), 50);
+                CloudMovey.task().progress(_payload, String.Format("Copy installation files to {0} on {1}", serverPath, server), 57);
 
                 File.Copy(localFilePath, setupFileOnServer, true);
-                CloudMovey.task().progress(_payload, String.Format("Setup file copied successfully {0}", server), 50);
+                CloudMovey.task().progress(_payload, String.Format("Setup file copied successfully {0}", server), 58);
 
                 return true;
             }

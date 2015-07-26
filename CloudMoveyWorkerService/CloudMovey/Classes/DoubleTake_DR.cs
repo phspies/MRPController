@@ -70,7 +70,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 if (_delete_current_job)
                 {
                     foreach (JobInfo _delete_job in _jobs.Where(x => x.JobType == jobTypeConstant &&  _source_ips.Any(x.SourceHostUri.Host.Contains) && _target_ips.Any(x.TargetHostUri.Host.Contains)))
-                    { 
+                    {
+                        CloudMovey.task().progress(request, String.Format("Deleting existing full server protection jobs between {0} and {1}",_source_ips[0], _target_ips[0]), 10);
+
                         DoubleTake.Jobs.Contract.DeleteOptions _delete_options = new DoubleTake.Jobs.Contract.DeleteOptions();
                         _delete_options.DeleteReplica = true;
                         _delete_options.DiscardTargetQueue = true;
@@ -78,6 +80,16 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                         _delete_info.VhdDeleteAction = VhdDeleteActionType.DeleteAll;
                         _delete_info.DeleteImage = true;
                         _delete_options.ImageOptions = _delete_info;
+                        ImageVhdInfo[] _vhdinfo = _delete_job.Options.ImageProtectionOptions.VhdInfo;
+                        int _index = 0;
+                        String[] _vhdfullpaths = new string[_vhdinfo.Count()]; 
+                        foreach (ImageVhdInfo _vhd in _vhdinfo)
+                        {
+                            _vhdfullpaths[_index] = _vhd.FilePath;
+                            _index++;
+                        }
+                        _delete_options.ImageOptions.VhdsToDelete = _vhdfullpaths;
+                        iJobMgr.Stop(_delete_job.Id);
                         iJobMgr.Delete(_delete_job.Id, _delete_options);
                         try
                         {
@@ -167,7 +179,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 }, Guid.NewGuid());
                 iJobMgr.Start(jobId);
 
-                CloudMovey.task().progress(request, "Waiting for sync process to start", 6);
+                CloudMovey.task().progress(request, "Waiting for sync process to start", 11);
 
                 JobInfo jobinfo = iJobMgr.GetJob(jobId);
                 while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails == null)
@@ -182,20 +194,26 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 }
                 Thread.Sleep(5000);
                 jobinfo = iJobMgr.GetJob(jobId);
+                CloudMovey.task().progress(request, "Sync process started", 12);
                 while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorState != MirrorState.Idle)
                 {
                     if (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorBytesRemaining != null)
                     {
                         long totalstorage = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining + (long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
                         long totalcomplete = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
-                        String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
                         if ((totalcomplete > 0) && (totalstorage > 0))
                         {
-                            double percentage = (((double)totalcomplete / (double)totalstorage) * 100) + 6;
-                            CloudMovey.task().progress(request, progress, percentage);
+                            double percentage = (((double)totalcomplete / (double)totalstorage) * 88);
+                            int _lastreport = 0;
+                            if (percentage.ToString().Length > 1 && _lastreport != percentage.ToString()[0])
+                            {
+                                _lastreport = percentage.ToString()[0];
+                                String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
+                                CloudMovey.task().progress(request, progress, percentage);
+                            }
                         }
                     }
-                    Thread.Sleep(30000);
+                    Thread.Sleep(10000);
                     jobinfo = iJobMgr.GetJob(jobId);
                 }
                 CloudMovey.task().successcomplete(request, "Successfully synchronized workload to " + (String)request.payload.dt.recoverypolicy.repositorypath);
@@ -211,6 +229,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             CloudMovey.task().progress(request, "Creating seed process", 5);
             try
             {
+                bool _delete_current_job = (bool)request.payload.dt.delete_current_dt_job;
+
                 String joburl = BuildUrl(request, "/DoubleTake/Jobs/JobManager",2);
                 var jobMgrFactory = new ChannelFactory<IJobManager>("DefaultBinding_IJobManager_IJobManager", new EndpointAddress(joburl));
                 jobMgrFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
@@ -228,7 +248,46 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 configurationVerifierFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
                 configurationVerifierFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
 
+                JobInfo[] _jobs = iJobMgr.GetJobs();
+                String[] _source_ips = ((string)request.payload.dt.source.ipaddress).Split(',');
+                String[] _target_ips = ((string)request.payload.dt.target.ipaddress).Split(',');
                 String jobTypeConstant = @"FullServerImageProtection";
+
+                if (_delete_current_job)
+                {
+                    foreach (JobInfo _delete_job in _jobs.Where(x => x.JobType == jobTypeConstant && _source_ips.Any(x.SourceHostUri.Host.Contains) && _target_ips.Any(x.TargetHostUri.Host.Contains)))
+                    {
+                        CloudMovey.task().progress(request, String.Format("Deleting existing full server protection jobs between {0} and {1}", _source_ips[0], _target_ips[0]), 10);
+
+                        DoubleTake.Jobs.Contract.DeleteOptions _delete_options = new DoubleTake.Jobs.Contract.DeleteOptions();
+                        _delete_options.DeleteReplica = true;
+                        _delete_options.DiscardTargetQueue = true;
+                        ImageDeleteInfo _delete_info = new ImageDeleteInfo();
+                        _delete_info.VhdDeleteAction = VhdDeleteActionType.DeleteAll;
+                        _delete_info.DeleteImage = true;
+                        _delete_options.ImageOptions = _delete_info;
+                        ImageVhdInfo[] _vhdinfo = _delete_job.Options.ImageProtectionOptions.VhdInfo;
+                        int _index = 0;
+                        String[] _vhdfullpaths = new string[_vhdinfo.Count()];
+                        foreach (ImageVhdInfo _vhd in _vhdinfo)
+                        {
+                            _vhdfullpaths[_index] = _vhd.FilePath;
+                            _index++;
+                        }
+                        _delete_options.ImageOptions.VhdsToDelete = _vhdfullpaths;
+                        iJobMgr.Stop(_delete_job.Id);
+                        iJobMgr.Delete(_delete_job.Id, _delete_options);
+                        try
+                        {
+                            while (true)
+                            {
+                                iJobMgr.GetJob(_delete_job.Id);
+                                Thread.Sleep(2000);
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+                }
                 var workloadId = Guid.Empty;
                 var wkld = (Workload)null;
                 try
@@ -320,18 +379,20 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 }
                 while (!jobinfo.Status.CanCreateImageRecovery)
                 {
-                    if (jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining != null)
+                    long totalstorage = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining + (long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
+                    long totalcomplete = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
+                    if ((totalcomplete > 0) && (totalstorage > 0))
                     {
-                        long totalstorage = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining + (long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
-                        long totalcomplete = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024 ;
-                        String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
-                        if ((totalcomplete > 0) && (totalstorage > 0))
+                        double percentage = (((double)totalcomplete / (double)totalstorage) * 88);
+                        int _lastreport = 0;
+                        if (percentage.ToString().Length >= 1 && _lastreport != percentage.ToString()[0])
                         {
-                            double percentage = (((double)totalcomplete / (double)totalstorage) * 100) + 6;
+                            _lastreport = percentage.ToString()[0];
+                            String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
                             CloudMovey.task().progress(request, progress, percentage);
                         }
                     }
-                    Thread.Sleep(5000);
+                    Thread.Sleep(10000);
                     jobinfo = iJobMgr.GetJob(jobId);
                 }
 
@@ -500,13 +561,18 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 {
                     if (jobinfo.Statistics.ImageRecoveryJobDetails.RecoveryConnectionDetails.MirrorBytesRemaining != null)
                     {
-                        long totalstorage = ((long)jobinfo.Statistics.ImageRecoveryJobDetails.RecoveryConnectionDetails.MirrorBytesRemaining + (long)jobinfo.Statistics.ImageRecoveryJobDetails.RecoveryConnectionDetails.MirrorBytesSent) / 1024 / 1024;
-                        long totalcomplete = ((long)jobinfo.Statistics.ImageRecoveryJobDetails.RecoveryConnectionDetails.MirrorBytesSent + (long)jobinfo.Statistics.ImageRecoveryJobDetails.RecoveryConnectionDetails.MirrorBytesSkipped) / 1024 / 1024;
-                        String progress = String.Format("{0}MB of {1}MB restored", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
+                        long totalstorage = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining + (long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
+                        long totalcomplete = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent) / 1024 / 1024;
                         if ((totalcomplete > 0) && (totalstorage > 0))
                         {
-                            double percentage = (((double)totalcomplete / (double)totalstorage) * 100) - 17;
-                            CloudMovey.task().progress(request, progress, percentage);
+                            double percentage = (((double)totalcomplete / (double)totalstorage) * 88);
+                            int _lastreport = 0;
+                            if (percentage.ToString().Length >= 1 && _lastreport != percentage.ToString()[0])
+                            {
+                                _lastreport = percentage.ToString()[0];
+                                String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
+                                CloudMovey.task().progress(request, progress, percentage);
+                            }
                         }
                     }
                     Thread.Sleep(10000);

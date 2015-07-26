@@ -27,8 +27,11 @@ namespace CloudMoveyWorkerService.CloudMovey
             }
             return dynamicObject;
         }
+
         public bool successcomplete(dynamic payload, string returnpayload)
         {
+            int _status = (bool)payload.internal_complete == true ? 3 : 0;
+            int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
             CompleteTaskUpdateObject task = new CompleteTaskUpdateObject()
             {
                 id = Global.agentId,
@@ -36,9 +39,9 @@ namespace CloudMoveyWorkerService.CloudMovey
                 task_id = payload.id,
                 attributes = new CompleteTaskUpdateAttriubutes()
                 {
-                    percentage = 100,
+                    percentage = _percentage,
                     returnpayload = returnpayload,
-                    status = 0,
+                    status = _status,
                     step = "Complete"
                 }
             };
@@ -57,6 +60,8 @@ namespace CloudMoveyWorkerService.CloudMovey
         }
         public bool successcomplete(dynamic payload)
         {
+            int _status = (bool)payload.internal_complete == true ? 3 : 0;
+            int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
             CompleteTaskUpdateObject task = new CompleteTaskUpdateObject()
             {
                 id = Global.agentId,
@@ -64,8 +69,8 @@ namespace CloudMoveyWorkerService.CloudMovey
                 task_id = payload.id,
                 attributes = new CompleteTaskUpdateAttriubutes()
                 {
-                    percentage = 100,
-                    status = 0,
+                    percentage = _percentage,
+                    status = _status,
                     step = "Complete"
                 }
             };

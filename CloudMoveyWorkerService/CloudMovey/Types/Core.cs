@@ -14,6 +14,7 @@ using System.Collections;
 using CloudMoveyWorkerService.CloudMovey.Models;
 using RestSharp.Deserializers;
 using MySerializerNamespace;
+using System.Threading;
 
 namespace CloudMoveyWorkerService.CloudMovey
 {
@@ -50,14 +51,22 @@ namespace CloudMoveyWorkerService.CloudMovey
             request.JsonSerializer.ContentType = "application/json; charset=utf-8";
             request.JsonSerializer = new RestSharpJsonNetSerializer();
             request.AddJsonBody(_object);
-            var response = client.Execute(request);
-            if (response.StatusCode == HttpStatusCode.OK)
+            while (true)
             {
-                return response;
-            }
-            else
-            {
-                return new Error();
+                var response = client.Execute(request);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    return response;
+                }
+                else if (response.StatusCode == HttpStatusCode.RequestTimeout)
+                {
+                    Global.eventLog.WriteEntry(String.Format("Connection timeout to {0}",client.BaseUrl.ToString()),EventLogEntryType.Error);
+                    Thread.Sleep(5000);
+                }
+                else
+                {
+                    return new Error();
+                }
             }
         }
           public String apibase

@@ -71,7 +71,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 if (_status.resultCode == "REASON_0")
                 {
                     String _vm_id = _status.additionalInformation.value;
-                    CloudMovey.task().progress(payload, String.Format("{0} provisioning started in {1}", _vm.name, dc.displayName), 20);
+                    CloudMovey.task().progress(payload, String.Format("{0} provisioning started in {1}({2})", _vm.name, dc.displayName, dc.id), 20);
                     List<Option> _vmoptions = new List<Option>();
                     _vmoptions.Add(new Option() { option = "id", value = _vm_id });
                     ServersWithBackupServer _newvm = CaaS.server().platformservers(_vmoptions).server[0];
@@ -112,7 +112,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                         }
                         else
                         {
-                            CloudMovey.task().progress(payload, String.Format("Adding storage: {0} : {1}GB", _volume.diskindex, _volume.disksize), 60 + count);
+                            CloudMovey.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _volume.diskindex, _volume.disksize, _volume.platformstoragetier.storagetier), 60 + count);
                             CaaS.serverimage().serveraddstorage(_vm_id, _volume.disksize, _volume.platformstoragetier.shortname);
                         }
                         _newvm = CaaS.server().platformservers(_vmoptions).server[0];
@@ -177,13 +177,13 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                         }
                         catch (Exception e)
                         {
-                            CloudMovey.task().failcomplete(payload, String.Format("Error creating diskpart file on server: {0}", e.Message)); 
+                            CloudMovey.task().failcomplete(payload, String.Format("Error creating disk layout file on server: {0}", e.Message)); 
                         }
                     }
 
                     //Run Diskpart Command on Server
                     //Create connection object to remote machine
-                    CloudMovey.task().progress(payload, String.Format("Start diskpart process on {0}", _newvm.name), 80);
+                    CloudMovey.task().progress(payload, String.Format("Volume setup process on {0}", _newvm.name), 80);
 
                     ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _target.password };
                     connOptions.Impersonation = ImpersonationLevel.Impersonate;
@@ -223,6 +223,10 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     {
                         CloudMovey.task().failcomplete(payload, String.Format("Failed diskpart process on {0} ({1})", _newvm.name, _exitcode));
                         return;
+                    }
+                    else
+                    {
+                        CloudMovey.task().progress(payload, String.Format("Volume setup process exit code: {0}", _exitcode), 81);
                     }
 
                     CloudMovey.task().successcomplete(payload, JsonConvert.SerializeObject(_newvm));

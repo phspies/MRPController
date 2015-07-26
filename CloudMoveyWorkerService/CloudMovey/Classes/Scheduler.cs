@@ -22,8 +22,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 { 
                     foreach (var task in tasklist.list.Children())
                     {
+                        bool _hidden = task.hidden == null ? false : (bool)task.hidden;
                         //make sure new target task does not have an active task busy
-                        if (lstThreads.FindAll(x => x.target_id == (string)task.target_id).Count() == 0 && lstThreads.Count < maxThreads)
+                        if ((lstThreads.FindAll(x => x.target_id == (string)task.target_id).Count() == 0 && lstThreads.Count < maxThreads) || _hidden == true)
                         {
                             switch ((string)task.target_type)
                             {
