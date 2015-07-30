@@ -3,6 +3,10 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows;
 using Microsoft.Win32;
+using System.ServiceModel;
+using System.Diagnostics;
+using CloudMoveyNotifier.CloudMoveyWCFService;
+using MahApps.Metro.Controls;
 
 namespace CloudMoveyNotifier
 {
@@ -10,7 +14,7 @@ namespace CloudMoveyNotifier
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
         private BackgroundWorker bw = new BackgroundWorker();
 
@@ -31,7 +35,6 @@ namespace CloudMoveyNotifier
             bw.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
             bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
             bw.RunWorkerAsync();
-
         }
         void OnClose(object sender, CancelEventArgs args)
         {
@@ -81,9 +84,28 @@ namespace CloudMoveyNotifier
                 progress += 1;
                 try
                 {
-                    String _registry = @"SOFTWARE\CloudMovey Worker Service";
-                    RegistryKey rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
-                    WorkerState _state = new WorkerState() { guid = rkSubKey.GetValue("agentId", false) as String, version = rkSubKey.GetValue("agentVersion", false) as String };
+
+                    var myBinding = new BasicHttpBinding();
+                    var myEndpoint = new EndpointAddress("http://localhost:8733/CloudMoveyWorkerService.WCF/CloudMovey/");
+                    var myChannelFactory = new ChannelFactory<ICloudMoveyService>(myBinding, myEndpoint);
+
+                    ICloudMoveyService client = null;
+                    CloudMoveyNotifier_WCFInterface _information = null;
+                    try
+                    {
+                        client = myChannelFactory.CreateChannel();
+                        _information = client.CollectionInformation();
+                        ((ICommunicationObject)client).Close();
+                    }
+                    catch (Exception error)
+                    {
+                        Debug.WriteLine(error);
+                        if (client != null)
+                        {
+                            ((ICommunicationObject)client).Abort();
+                        }
+                    }
+                    WorkerState _state = new WorkerState() {  guid = _information.agentId, version = _information.versionNumber, worker_queue_count = _information.currentJobs };
                     worker.ReportProgress(progress, _state);
                 }
                 catch(Exception error)
@@ -91,7 +113,6 @@ namespace CloudMoveyNotifier
                     worker.ReportProgress(progress, new WorkerState() { guid = error.Message, version = "error" });
                 }
                 System.Threading.Thread.Sleep(10000);
-
             }
         }
       
@@ -100,6 +121,7 @@ namespace CloudMoveyNotifier
             WorkerState ws = e.UserState as WorkerState;
             this.worker_guid.Text = ws.guid;
             this.worker_version.Text = ws.version;
+            this.worker_queue_count.Text = ws.worker_queue_count.ToString();
         }
 
     }
@@ -108,5 +130,6 @@ namespace CloudMoveyNotifier
     {
         public string guid {get; set;}
         public string version {get; set;}
+        public int worker_queue_count { get; set; }
     }
 }

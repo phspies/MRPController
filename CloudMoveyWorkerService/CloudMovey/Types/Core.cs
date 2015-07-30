@@ -43,8 +43,11 @@ namespace CloudMoveyWorkerService.CloudMovey
         public Object perform(Method _method, Object _object)
         {
             var client = new RestClient();
+            client.FollowRedirects = false;
             client.BaseUrl = new Uri(apibase);
-            var request = new RestRequest();
+            RestRequest request = new RestRequest();
+            client.Proxy = null;
+            client.FollowRedirects = false;
             request.Resource = endpoint;
             request.Method = _method;
             request.RequestFormat = DataFormat.Json;
@@ -61,6 +64,11 @@ namespace CloudMoveyWorkerService.CloudMovey
                 else if (response.StatusCode == HttpStatusCode.RequestTimeout)
                 {
                     Global.eventLog.WriteEntry(String.Format("Connection timeout to {0}",client.BaseUrl.ToString()),EventLogEntryType.Error);
+                    Thread.Sleep(5000);
+                }
+                else if (response.StatusCode == 0)
+                {
+                    Global.eventLog.WriteEntry(String.Format("Unexpected error connecting to {0} ({1})", client.BaseUrl.ToString(), response.ErrorMessage), EventLogEntryType.Error);
                     Thread.Sleep(5000);
                 }
                 else

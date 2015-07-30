@@ -166,6 +166,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 }
 
                 lstThreads.RemoveAll(x => x.task.ThreadState == ThreadState.Stopped);
+                Global.worker_queue_count = lstThreads.Count();
+
                 Thread.Sleep(5000);
             }
         }

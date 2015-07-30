@@ -22,6 +22,7 @@ using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using CloudMoveyWorkerService.CloudMovey.Controllers;
 using System.Threading;
+using CloudMoveyWorkerService.WCF;
 
 namespace CloudMoveyWorkerService
 {
@@ -29,6 +30,8 @@ namespace CloudMoveyWorkerService
     public partial class CloudMoveyWorkerSvc : ServiceBase
     {
         Thread t;
+        ServiceHost host;
+
         public CloudMoveyWorkerSvc()
         {
             InitializeComponent();
@@ -36,6 +39,16 @@ namespace CloudMoveyWorkerService
 
         protected override void OnStart(string[] args)
         {
+            // Start WCF Service
+            if (Global.Debug) { Global.eventLog.WriteEntry("Starting WCF Service"); };
+            Uri baseAddress = new Uri("http://localhost:8733/CloudMoveyWorkerService.WCF/CloudMovey/");
+            ServiceHost serviceHost = new ServiceHost(typeof(CloudMoveyService), baseAddress);
+            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+            smb.HttpGetEnabled = true;
+            smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+            serviceHost.Description.Behaviors.Add(smb);
+            serviceHost.Open();
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             Global.eventLog = CloudMoveyWorkerLog1;
@@ -46,13 +59,9 @@ namespace CloudMoveyWorkerService
             if (Global.Debug) { Global.eventLog.WriteEntry("Starting Scheduler"); };
             t = new Thread(new ThreadStart(_scheduler.Start));
 
-            // Start ThreadProc.  Note that on a uniprocessor, the new  
-            // thread does not get any processor time until the main thread  
-            // is preempted or yields.  Uncomment the Thread.Sleep that  
-            // follows t.Start() to see the difference.
             t.Start();
-  
-            
+            Thread.Yield();
+
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -67,6 +76,8 @@ namespace CloudMoveyWorkerService
         protected override void OnStop()
         {
             //CloudMoveyWorkerLog1.WriteEntry("In onStop.");
+            if (host != null)
+                host.Close();
         }
 
         private void eventLog1_EntryWritten(object sender, EntryWrittenEventArgs e)

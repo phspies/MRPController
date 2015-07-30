@@ -17,7 +17,13 @@ namespace CloudMoveyWorkerService
         static String _agentId;
         static String _apiBase;
         static String _versionNumber;
+        static int _worker_queue_count;
         static EventLog _eventLog;
+        public static int worker_queue_count
+        {
+            get { return _worker_queue_count; }
+            set { _worker_queue_count = value; }
+        }
         public static EventLog eventLog
         {
             get

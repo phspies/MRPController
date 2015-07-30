@@ -1,13 +1,10 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudMoveyWorkerService", "CloudMoveyWorkerService\CloudMoveyWorkerService.csproj", "{98762892-9E86-451E-A26A-C614B4043A87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudMoveyNotifier", "CloudMoveyNotifier\CloudMoveyNotifier.csproj", "{E5EFD650-4308-40AB-97DF-4DED1BC16F18}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudMoveyWcfServiceLibrary", "CloudMoveyWcfServiceLibrary\CloudMoveyWcfServiceLibrary\CloudMoveyWcfServiceLibrary.csproj", "{F5E3F646-B88D-4351-86FF-292B40979AFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,14 +29,6 @@ Global
 		{E5EFD650-4308-40AB-97DF-4DED1BC16F18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5EFD650-4308-40AB-97DF-4DED1BC16F18}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E5EFD650-4308-40AB-97DF-4DED1BC16F18}.Release|x64.ActiveCfg = Release|Any CPU
-		{F5E3F646-B88D-4351-86FF-292B40979AFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5E3F646-B88D-4351-86FF-292B40979AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5E3F646-B88D-4351-86FF-292B40979AFF}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F5E3F646-B88D-4351-86FF-292B40979AFF}.Debug|x64.Build.0 = Debug|Any CPU
-		{F5E3F646-B88D-4351-86FF-292B40979AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5E3F646-B88D-4351-86FF-292B40979AFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5E3F646-B88D-4351-86FF-292B40979AFF}.Release|x64.ActiveCfg = Release|Any CPU
-		{F5E3F646-B88D-4351-86FF-292B40979AFF}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
