@@ -216,7 +216,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     Thread.Sleep(10000);
                     jobinfo = iJobMgr.GetJob(jobId);
                 }
-                CloudMovey.task().successcomplete(request, "Successfully synchronized workload to " + (String)request.payload.dt.recoverypolicy.repositorypath);
+                CloudMovey.task().progress(request, "Successfully synchronized workload to " + (String)request.payload.dt.recoverypolicy.repositorypath,99);
+                CloudMovey.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo));
             }
             catch (Exception e)
             {
@@ -411,9 +412,12 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 imagedeleteinfo.VhdDeleteAction = VhdDeleteActionType.KeepAll;
                 jobdelete.ImageOptions = imagedeleteinfo;
 
-                CloudMovey.task().progress(request, "Destroying seeding process from DT engine", 99);
+                CloudMovey.task().progress(request, "Destroying seeding process from DT engine", 98);
+
                 iJobMgr.Delete(jobId, jobdelete);
-                CloudMovey.task().successcomplete(request, "Successfully seeded workload to " + (String)request.payload.dt.recoverypolicy.repositorypath);
+                CloudMovey.task().progress(request, "Successfully seeded workload to " + (String)request.payload.dt.recoverypolicy.repositorypath,99);
+
+                CloudMovey.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo));
             }
             catch(Exception e)
             {
@@ -616,11 +620,11 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             if (_check_ip.AddressFamily.ToString() == AddressFamily.InterNetworkV6.ToString())
 #pragma warning restore CS0436 // Type conflicts with imported type
             {
-                String _server = server;
-                _server = _server.Replace(":", "-");
-                _server = _server.Replace("%", "s");
-                _server = _server + ".ipv6-literal.net";
-                workingip = _server;
+                String _workingip = workingip;
+                _workingip = _workingip.Replace(":", "-");
+                _workingip = _workingip.Replace("%", "s");
+                _workingip = _workingip + ".ipv6-literal.net";
+                workingip = _workingip;
             }
             return workingip;
         }

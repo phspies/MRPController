@@ -527,11 +527,11 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             if (_check_ip.AddressFamily.ToString() == AddressFamily.InterNetworkV6.ToString())
 #pragma warning restore CS0436 // Type conflicts with imported type
             {
-                String _server = server;
-                _server = _server.Replace(":", "-");
-                _server = _server.Replace("%", "s");
-                _server = _server + ".ipv6-literal.net";
-                workingip = _server;
+                String _workingip = workingip;
+                _workingip = _workingip.Replace(":", "-");
+                _workingip = _workingip.Replace("%", "s");
+                _workingip = _workingip + ".ipv6-literal.net";
+                workingip = _workingip;
             }
             return workingip;
         }
