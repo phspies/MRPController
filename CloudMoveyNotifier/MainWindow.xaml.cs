@@ -119,11 +119,15 @@ namespace CloudMoveyNotifier
         private void bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             WorkerState ws = e.UserState as WorkerState;
-            this.worker_guid.Text = ws.guid;
-            this.worker_version.Text = ws.version;
-            this.worker_queue_count.Text = ws.worker_queue_count.ToString();
+            //this.worker_guid.Text = ws.guid;
+            //this.worker_version.Text = ws.version;
+            //this.worker_queue_count.Text = ws.worker_queue_count.ToString();
         }
 
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
     public partial class WorkerState

@@ -13,6 +13,13 @@ namespace CloudMoveyWorkerService.CloudMovey
 {
     class Settings
     {
+        static public string DBLocation()
+        {
+            String _registry = @"SOFTWARE\CloudMovey Worker Service";
+            RegistryKey rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
+            String _dblocation = rkSubKey.GetValue("DBLocation", null) as String;
+            return _dblocation;
+        }
         static public void RegisterAgent()
         {
             CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);

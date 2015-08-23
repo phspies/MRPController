@@ -2,15 +2,72 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Icon="cloudmovey.ico"
         xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
                       EnableDWMDropShadow="True"
-  Title="CloudMovey Worker" Height="135.338" Width="401" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
+  Title="CloudMovey Worker" Height="470.006" Width="800" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
     <Grid Margin="0,0,0,0">
-        <TextBox x:Name="worker_guid" HorizontalAlignment="Left" Height="23" Margin="143,12,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="243" IsReadOnly="True"/>
-        <Label Content="Worker Version" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="27" Margin="4,39,0,0"/>
-        <TextBox x:Name="worker_version" HorizontalAlignment="Left" Height="23" Margin="143,40,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="129" IsReadOnly="True"/>
-        <Label Content="Worker GUID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Height="27" Margin="4,12,0,0"/>
-        <Label Content="Current Work Queue" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" Height="27" Margin="4,67,0,0"/>
-        <TextBox x:Name="worker_queue_count" HorizontalAlignment="Left" Height="23" Margin="143,68,0,-11" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="53" IsReadOnly="True"/>
-
+        <TabControl x:Name="tabControl" Margin="10" Background="#FFF1F4F5">
+            <TabItem Header="Platforms">
+                <Grid Background="#FFE5E5E5" Margin="5,47,5,5">
+                    <ListView Name="lvPlatforms">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="200" DisplayMemberBinding="{Binding platform}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="platform">Platform</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Width="120" DisplayMemberBinding="{Binding type}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="Type">Type</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Width="160" DisplayMemberBinding="{Binding vendor}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="Vendor">Vendor</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Width="160  " DisplayMemberBinding="{Binding resources}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="Resources">Resources</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="Resources">Actions</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button x:Name="insert_platform_button" Content="+" Margin="0,-38,7,0" Click="button_Click" HorizontalAlignment="Right" Width="24" Height="22" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Credentials">
+                <Grid Background="#FFE5E5E5" Margin="5,47,5,5">
+                    <ListView Name="lvCredentials">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="300" DisplayMemberBinding="{Binding description}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="platform">Credential</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Width="200" DisplayMemberBinding="{Binding username}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="Username">Username</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Width="260" DisplayMemberBinding="{Binding type}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="Type">Type</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Button x:Name="insert_credential_button" Content="+" Margin="0,-38,7,0" Click="button_Click" HorizontalAlignment="Right" Width="24" Height="22" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 
 </Controls:MetroWindow>
