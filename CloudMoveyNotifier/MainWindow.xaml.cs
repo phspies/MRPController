@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Diagnostics;
 using CloudMoveyNotifier.CloudMoveyWCFService;
 using MahApps.Metro.Controls;
+using CloudMoveyWorkerService.CloudMovey.Sqlite.Models;
 
 namespace CloudMoveyNotifier
 {
@@ -35,6 +36,8 @@ namespace CloudMoveyNotifier
             bw.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
             bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressChanged);
             bw.RunWorkerAsync();
+
+
         }
         void OnClose(object sender, CancelEventArgs args)
         {
@@ -123,8 +126,12 @@ namespace CloudMoveyNotifier
             //this.worker_version.Text = ws.version;
             //this.worker_queue_count.Text = ws.worker_queue_count.ToString();
         }
+        private void refresh_button_clicked(object sender, RoutedEventArgs e)
+        {
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        }
+
+        private void add_button_clicked(object sender, RoutedEventArgs e)
         {
 
         }

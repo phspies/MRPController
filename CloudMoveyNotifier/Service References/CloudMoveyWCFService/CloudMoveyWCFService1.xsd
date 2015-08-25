@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF" />
+  <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" />
+  <xs:element name="CollectionInformation">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CollectionInformationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF" minOccurs="0" name="CollectionInformationResult" nillable="true" type="q1:CloudMoveyNotifier_WCFInterface" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListPlatforms">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListPlatformsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="ListPlatformsResult" nillable="true" type="q2:ArrayOfplatform" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddPlatform">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_addplatform" nillable="true" type="q3:platform" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddPlatformResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="AddPlatformResult" nillable="true" type="q4:platform" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePlatform">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_updateplatform" nillable="true" type="q5:platform" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdatePlatformResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="UpdatePlatformResult" nillable="true" type="q6:platform" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DestroyPlatform">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_destroyplatform" nillable="true" type="q7:platform" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DestroyPlatformResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DestroyPlatformResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

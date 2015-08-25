@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="50043a80-4bec-4aaa-9f44-89d9eebd1ae3" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8734/CloudMoveyWCFService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CloudMoveyWCFService.disco" MetadataType="Disco" ID="9e38316b-f203-44e0-9a78-7eebe6d7ef2f" SourceId="1" SourceUrl="http://localhost:8734/CloudMoveyWCFService?disco" />
+    <MetadataFile FileName="CloudMoveyWCFService.xsd" MetadataType="Schema" ID="e4f33f09-d31e-4c43-9cb1-cf2f264e7fa5" SourceId="1" SourceUrl="http://localhost:8734/CloudMoveyWCFService?xsd=xsd1" />
+    <MetadataFile FileName="CloudMoveyWCFService1.xsd" MetadataType="Schema" ID="e136ef5f-a6dd-4cd2-83da-5c2ee0c933c0" SourceId="1" SourceUrl="http://localhost:8734/CloudMoveyWCFService?xsd=xsd0" />
+    <MetadataFile FileName="CloudMoveyWCFService2.xsd" MetadataType="Schema" ID="d02fd460-1fd9-4bb9-bbab-9441e9d18868" SourceId="1" SourceUrl="http://localhost:8734/CloudMoveyWCFService?xsd=xsd3" />
+    <MetadataFile FileName="CloudMoveyWCFService3.xsd" MetadataType="Schema" ID="3c57a64b-80eb-4126-8106-f52cf8b2e03e" SourceId="1" SourceUrl="http://localhost:8734/CloudMoveyWCFService?xsd=xsd2" />
+    <MetadataFile FileName="CloudMoveyService.wsdl" MetadataType="Wsdl" ID="5d134977-d667-486d-8b3b-8877d1c0c9c7" SourceId="1" SourceUrl="http://localhost:8734/CloudMoveyWCFService?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
