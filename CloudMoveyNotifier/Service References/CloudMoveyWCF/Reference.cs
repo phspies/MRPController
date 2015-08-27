@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CloudMoveyNotifier.CloudMoveyWCFService {
+namespace CloudMoveyNotifier.CloudMoveyWCF {
     using System.Runtime.Serialization;
     using System;
     
@@ -92,10 +92,10 @@ namespace CloudMoveyNotifier.CloudMoveyWCFService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="platform", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite" +
+    [System.Runtime.Serialization.DataContractAttribute(Name="Platform", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite" +
         ".Models")]
     [System.SerializableAttribute()]
-    public partial class platform : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class Platform : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -329,47 +329,47 @@ namespace CloudMoveyNotifier.CloudMoveyWCFService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CloudMoveyWCFService.ICloudMoveyService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="CloudMoveyWCF.ICloudMoveyService")]
     public interface ICloudMoveyService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/CollectionInformation", ReplyAction="http://tempuri.org/ICloudMoveyService/CollectionInformationResponse")]
-        CloudMoveyNotifier.CloudMoveyWCFService.CloudMoveyNotifier_WCFInterface CollectionInformation();
+        CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface CollectionInformation();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/CollectionInformation", ReplyAction="http://tempuri.org/ICloudMoveyService/CollectionInformationResponse")]
-        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCFService.CloudMoveyNotifier_WCFInterface> CollectionInformationAsync();
+        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface> CollectionInformationAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListPlatforms", ReplyAction="http://tempuri.org/ICloudMoveyService/ListPlatformsResponse")]
-        CloudMoveyNotifier.CloudMoveyWCFService.platform[] ListPlatforms();
+        System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform> ListPlatforms();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListPlatforms", ReplyAction="http://tempuri.org/ICloudMoveyService/ListPlatformsResponse")]
-        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCFService.platform[]> ListPlatformsAsync();
+        System.Threading.Tasks.Task<System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform>> ListPlatformsAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/AddPlatform", ReplyAction="http://tempuri.org/ICloudMoveyService/AddPlatformResponse")]
-        CloudMoveyNotifier.CloudMoveyWCFService.platform AddPlatform(CloudMoveyNotifier.CloudMoveyWCFService.platform _addplatform);
+        CloudMoveyNotifier.CloudMoveyWCF.Platform AddPlatform(CloudMoveyNotifier.CloudMoveyWCF.Platform _addplatform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/AddPlatform", ReplyAction="http://tempuri.org/ICloudMoveyService/AddPlatformResponse")]
-        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCFService.platform> AddPlatformAsync(CloudMoveyNotifier.CloudMoveyWCFService.platform _addplatform);
+        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.Platform> AddPlatformAsync(CloudMoveyNotifier.CloudMoveyWCF.Platform _addplatform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/UpdatePlatform", ReplyAction="http://tempuri.org/ICloudMoveyService/UpdatePlatformResponse")]
-        CloudMoveyNotifier.CloudMoveyWCFService.platform UpdatePlatform(CloudMoveyNotifier.CloudMoveyWCFService.platform _updateplatform);
+        CloudMoveyNotifier.CloudMoveyWCF.Platform UpdatePlatform(CloudMoveyNotifier.CloudMoveyWCF.Platform _updateplatform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/UpdatePlatform", ReplyAction="http://tempuri.org/ICloudMoveyService/UpdatePlatformResponse")]
-        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCFService.platform> UpdatePlatformAsync(CloudMoveyNotifier.CloudMoveyWCFService.platform _updateplatform);
+        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.Platform> UpdatePlatformAsync(CloudMoveyNotifier.CloudMoveyWCF.Platform _updateplatform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/DestroyPlatform", ReplyAction="http://tempuri.org/ICloudMoveyService/DestroyPlatformResponse")]
-        bool DestroyPlatform(CloudMoveyNotifier.CloudMoveyWCFService.platform _destroyplatform);
+        bool DestroyPlatform(CloudMoveyNotifier.CloudMoveyWCF.Platform _destroyplatform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/DestroyPlatform", ReplyAction="http://tempuri.org/ICloudMoveyService/DestroyPlatformResponse")]
-        System.Threading.Tasks.Task<bool> DestroyPlatformAsync(CloudMoveyNotifier.CloudMoveyWCFService.platform _destroyplatform);
+        System.Threading.Tasks.Task<bool> DestroyPlatformAsync(CloudMoveyNotifier.CloudMoveyWCF.Platform _destroyplatform);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface ICloudMoveyServiceChannel : CloudMoveyNotifier.CloudMoveyWCFService.ICloudMoveyService, System.ServiceModel.IClientChannel {
+    public interface ICloudMoveyServiceChannel : CloudMoveyNotifier.CloudMoveyWCF.ICloudMoveyService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class CloudMoveyServiceClient : System.ServiceModel.ClientBase<CloudMoveyNotifier.CloudMoveyWCFService.ICloudMoveyService>, CloudMoveyNotifier.CloudMoveyWCFService.ICloudMoveyService {
+    public partial class CloudMoveyServiceClient : System.ServiceModel.ClientBase<CloudMoveyNotifier.CloudMoveyWCF.ICloudMoveyService>, CloudMoveyNotifier.CloudMoveyWCF.ICloudMoveyService {
         
         public CloudMoveyServiceClient() {
         }
@@ -390,43 +390,43 @@ namespace CloudMoveyNotifier.CloudMoveyWCFService {
                 base(binding, remoteAddress) {
         }
         
-        public CloudMoveyNotifier.CloudMoveyWCFService.CloudMoveyNotifier_WCFInterface CollectionInformation() {
+        public CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface CollectionInformation() {
             return base.Channel.CollectionInformation();
         }
         
-        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCFService.CloudMoveyNotifier_WCFInterface> CollectionInformationAsync() {
+        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface> CollectionInformationAsync() {
             return base.Channel.CollectionInformationAsync();
         }
         
-        public CloudMoveyNotifier.CloudMoveyWCFService.platform[] ListPlatforms() {
+        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform> ListPlatforms() {
             return base.Channel.ListPlatforms();
         }
         
-        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCFService.platform[]> ListPlatformsAsync() {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform>> ListPlatformsAsync() {
             return base.Channel.ListPlatformsAsync();
         }
         
-        public CloudMoveyNotifier.CloudMoveyWCFService.platform AddPlatform(CloudMoveyNotifier.CloudMoveyWCFService.platform _addplatform) {
+        public CloudMoveyNotifier.CloudMoveyWCF.Platform AddPlatform(CloudMoveyNotifier.CloudMoveyWCF.Platform _addplatform) {
             return base.Channel.AddPlatform(_addplatform);
         }
         
-        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCFService.platform> AddPlatformAsync(CloudMoveyNotifier.CloudMoveyWCFService.platform _addplatform) {
+        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.Platform> AddPlatformAsync(CloudMoveyNotifier.CloudMoveyWCF.Platform _addplatform) {
             return base.Channel.AddPlatformAsync(_addplatform);
         }
         
-        public CloudMoveyNotifier.CloudMoveyWCFService.platform UpdatePlatform(CloudMoveyNotifier.CloudMoveyWCFService.platform _updateplatform) {
+        public CloudMoveyNotifier.CloudMoveyWCF.Platform UpdatePlatform(CloudMoveyNotifier.CloudMoveyWCF.Platform _updateplatform) {
             return base.Channel.UpdatePlatform(_updateplatform);
         }
         
-        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCFService.platform> UpdatePlatformAsync(CloudMoveyNotifier.CloudMoveyWCFService.platform _updateplatform) {
+        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.Platform> UpdatePlatformAsync(CloudMoveyNotifier.CloudMoveyWCF.Platform _updateplatform) {
             return base.Channel.UpdatePlatformAsync(_updateplatform);
         }
         
-        public bool DestroyPlatform(CloudMoveyNotifier.CloudMoveyWCFService.platform _destroyplatform) {
+        public bool DestroyPlatform(CloudMoveyNotifier.CloudMoveyWCF.Platform _destroyplatform) {
             return base.Channel.DestroyPlatform(_destroyplatform);
         }
         
-        public System.Threading.Tasks.Task<bool> DestroyPlatformAsync(CloudMoveyNotifier.CloudMoveyWCFService.platform _destroyplatform) {
+        public System.Threading.Tasks.Task<bool> DestroyPlatformAsync(CloudMoveyNotifier.CloudMoveyWCF.Platform _destroyplatform) {
             return base.Channel.DestroyPlatformAsync(_destroyplatform);
         }
     }

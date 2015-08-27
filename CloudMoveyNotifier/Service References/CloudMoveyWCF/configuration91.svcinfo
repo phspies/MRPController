@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="plzlaFNrvnM6SHWON1CDd7C4EgQ=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="NTprWj6LWDDYb+nNgPDjFmAqjpM=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_ICloudMoveyService">
       <properties>
@@ -112,7 +112,7 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_ICloudMoveyService" contract="CloudMoveyWCFService.ICloudMoveyService" bindingType="basicHttpBinding" address="http://localhost:8734/CloudMoveyWCFService" bindingConfiguration="BasicHttpBinding_ICloudMoveyService">
+    <endpoint name="BasicHttpBinding_ICloudMoveyService" contract="CloudMoveyWCF.ICloudMoveyService" bindingType="basicHttpBinding" address="http://localhost:8734/CloudMoveyWCFService" bindingConfiguration="BasicHttpBinding_ICloudMoveyService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>http://localhost:8734/CloudMoveyWCFService</serializedValue>
@@ -127,7 +127,7 @@
           <serializedValue>BasicHttpBinding_ICloudMoveyService</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>CloudMoveyWCFService.ICloudMoveyService</serializedValue>
+          <serializedValue>CloudMoveyWCF.ICloudMoveyService</serializedValue>
         </property>
         <property path="/headers" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.AddressHeaderCollectionElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.AddressHeaderCollectionElement</serializedValue>

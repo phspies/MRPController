@@ -65,9 +65,6 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CloudMoveyWorkerService">
-      <HintPath>..\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -160,11 +157,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Service References\CloudMoveyWCFService\Reference.cs">
+    <Compile Include="Forms\PlatformForm.xaml.cs">
+      <DependentUpon>PlatformForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\CloudMoveyWCF\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Page Include="Forms\PlatformForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -206,26 +210,26 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Platform.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyService.wsdl" />
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <Resource Include="Resources\Entypo.ttf" />
-    <None Include="Service References\CloudMoveyWCFService\CloudMoveyNotifier.CloudMoveyWCFService.CloudMoveyNotifier_WCFInterface.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CloudMoveyWCFService\CloudMoveyNotifier.CloudMoveyWCFService.platform.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CloudMoveyWCFService\CloudMoveyService.wsdl" />
-    <None Include="Service References\CloudMoveyWCFService\CloudMoveyWCFService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudMoveyWCFService\CloudMoveyWCFService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudMoveyWCFService\CloudMoveyWCFService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudMoveyWCFService\CloudMoveyWCFService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -237,29 +241,30 @@
     <Resource Include="cloudmovey.ico" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\CloudMoveyWCFService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CloudMoveyWCFService\CloudMoveyWCFService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CloudMoveyWCFService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CloudMoveyWCFService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CloudMoveyWCFService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CloudMoveyWCF\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CloudMoveyWCF\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CloudMoveyWCF\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CloudMoveyWCF\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.98.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.98.1\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -22,42 +22,42 @@
   <xs:element name="ListPlatformsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="ListPlatformsResult" nillable="true" type="q2:ArrayOfplatform" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="ListPlatformsResult" nillable="true" type="q2:ArrayOfPlatform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddPlatform">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_addplatform" nillable="true" type="q3:platform" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_addplatform" nillable="true" type="q3:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddPlatformResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="AddPlatformResult" nillable="true" type="q4:platform" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="AddPlatformResult" nillable="true" type="q4:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdatePlatform">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_updateplatform" nillable="true" type="q5:platform" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_updateplatform" nillable="true" type="q5:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdatePlatformResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="UpdatePlatformResult" nillable="true" type="q6:platform" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="UpdatePlatformResult" nillable="true" type="q6:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DestroyPlatform">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_destroyplatform" nillable="true" type="q7:platform" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_destroyplatform" nillable="true" type="q7:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

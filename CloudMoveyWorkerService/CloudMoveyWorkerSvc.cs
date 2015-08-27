@@ -24,10 +24,10 @@ namespace CloudMoveyWorkerService
         protected override void OnStart(string[] args)
         {
             // Start DataService
-            if (Global.Debug) { Global.eventLog.WriteEntry("Starting Data Service"); };
-            Uri[] databaseAddress = new Uri[] { new Uri("http://localhost:8733/CloudMoveyDataService") };
-            DataServiceHost dataserviceHost = new DataServiceHost(typeof(CloudMoveyDataService), databaseAddress);
-            dataserviceHost.Open();
+            //if (Global.Debug) { Global.eventLog.WriteEntry("Starting Data Service"); };
+            //Uri[] databaseAddress = new Uri[] { new Uri("http://localhost:8733/CloudMoveyDataService") };
+            //DataServiceHost dataserviceHost = new DataServiceHost(typeof(CloudMoveyDataService), databaseAddress);
+            //dataserviceHost.Open();
 
             // Start WCF Service
             if (Global.Debug) { Global.eventLog.WriteEntry("Starting WCF Service"); };

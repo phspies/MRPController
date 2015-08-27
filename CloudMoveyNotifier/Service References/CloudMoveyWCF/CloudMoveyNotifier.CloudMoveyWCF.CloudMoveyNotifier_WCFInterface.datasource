@@ -6,5 +6,5 @@
     cause the file to be unrecognizable by the program.
 -->
 <GenericObjectDataSource DisplayName="CloudMoveyNotifier_WCFInterface" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>CloudMoveyNotifier.CloudMoveyWCFService.CloudMoveyNotifier_WCFInterface, Service References.CloudMoveyWCFService.Reference.cs.dll, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
+   <TypeInfo>CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface, Service References.CloudMoveyWCF.Reference.cs.dll, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null</TypeInfo>
 </GenericObjectDataSource>

@@ -15,8 +15,8 @@
 
         <TabControl x:Name="tabControl" Margin="10" Background="#FFF1F4F5">
             <TabItem Header="Platforms">
-                <Grid Margin="5,7,5,5">
-                    <ListView Name="lvPlatforms" Margin="0,41,0,0">
+                <Grid Margin="5,5,5,5">
+                    <ListView Name="lvPlatforms" Margin="0,40,0,0">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="200" DisplayMemberBinding="{Binding platform}">
@@ -48,7 +48,7 @@
                         </ListView.View>
                     </ListView>
 
-                    <Button Width="30" Margin="0,0,39,0" ToolTip="Refresh platform list from worker service" HorizontalAlignment="Right" Height="30" VerticalAlignment="Top" Click="refresh_button_clicked">
+                    <Button Width="30" Margin="0,0,39,0" ToolTip="Refresh platform list from worker service" HorizontalAlignment="Right" Height="30" VerticalAlignment="Top" Click="refresh_platforms_button_clicked">
                         <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill"
@@ -56,7 +56,7 @@
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
-                    <Button Width="30" HorizontalAlignment="Right" ToolTip="Add platform to worker list" Height="30" VerticalAlignment="Top" Click="add_button_clicked">
+                    <Button ToolTip="Add platform to worker list" Click="add_platforms_button_clicked" HorizontalAlignment="Right" Width="30" Height="30" VerticalAlignment="Top">
                         <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill"
@@ -67,8 +67,8 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Credentials">
-                <Grid Background="#FFE5E5E5" Margin="5,47,5,5">
-                    <ListView Name="lvCredentials">
+                <Grid Margin="5,5,5,5">
+                    <ListView Name="lvCredentials" Margin="0,40,0,0" >
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="300" DisplayMemberBinding="{Binding description}">
@@ -89,7 +89,22 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button x:Name="insert_credential_button" Content="+" Margin="0,-38,7,0" HorizontalAlignment="Right" Width="24" Height="22" VerticalAlignment="Top"/>
+                    <Button Width="30" Margin="0,0,39,0" ToolTip="Refresh credentials list from worker service" HorizontalAlignment="Right" Click="refresh_credentials_button_clicked" Height="30" VerticalAlignment="Top">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill"
+                          Visual="{DynamicResource appbar_refresh}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Button Width="30" HorizontalAlignment="Right" ToolTip="Add credential to worker service" Height="30" VerticalAlignment="Top" Click="add_credentials_button_clicked">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill"
+                          Visual="{DynamicResource appbar_add}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
                 </Grid>
             </TabItem>
         </TabControl>

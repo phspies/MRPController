@@ -22,5 +22,16 @@ namespace CloudMoveyWorkerService.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("foreign keys=True;data source=\"C:\\Users\\phillip.spies\\Documents\\Visual Studio 201" +
+            "5\\Projects\\CloudMoveyWorkerService\\CloudMovey.sqlite3\";synchronous=Full")]
+        public string CloudMoveyConnectionString {
+            get {
+                return ((string)(this["CloudMoveyConnectionString"]));
+            }
+        }
     }
 }

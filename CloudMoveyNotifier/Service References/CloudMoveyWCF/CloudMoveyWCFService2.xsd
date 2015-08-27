@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfplatform">
+  <xs:complexType name="ArrayOfPlatform">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="platform" nillable="true" type="tns:platform" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Platform" nillable="true" type="tns:Platform" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfplatform" nillable="true" type="tns:ArrayOfplatform" />
-  <xs:complexType name="platform">
+  <xs:element name="ArrayOfPlatform" nillable="true" type="tns:ArrayOfPlatform" />
+  <xs:complexType name="Platform">
     <xs:sequence>
       <xs:element minOccurs="0" name="datacenter" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
@@ -23,5 +23,5 @@
       <xs:element minOccurs="0" name="vendor" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="platform" nillable="true" type="tns:platform" />
+  <xs:element name="Platform" nillable="true" type="tns:Platform" />
 </xs:schema>
