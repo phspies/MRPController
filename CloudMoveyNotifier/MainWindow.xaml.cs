@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using CloudMoveyNotifier.CloudMoveyWCF;
 using CloudMoveyNotifier.Forms;
 using System.Windows.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace CloudMoveyNotifier
 {
@@ -124,11 +125,22 @@ namespace CloudMoveyNotifier
             }
             refesh_platform_list();
         }
-        private void delete_platform_button(object sender, RoutedEventArgs e)
+        private async void delete_platform_button(object sender, RoutedEventArgs e)
         {
             Platform _platform = (Platform)((Button)sender).DataContext;
-            channel.DestroyPlatform(_platform);
-            refesh_platform_list();
+            var mySettings = new MetroDialogSettings()
+            {
+                AffirmativeButtonText = "Delete",
+                NegativeButtonText = "Abort",
+                ColorScheme = MetroDialogColorScheme.Theme
+            };
+            MahApps.Metro.Controls.Dialogs.MessageDialogResult messageBoxResult = await this.ShowMessageAsync("Delete Platform", "Are you sure you want to delete this platform?",MessageDialogStyle.AffirmativeAndNegative, mySettings);
+            
+            if (messageBoxResult == MahApps.Metro.Controls.Dialogs.MessageDialogResult.Affirmative)
+            {
+                channel.DestroyPlatform(_platform);
+                refesh_platform_list();
+            }
 
         }
         private void refresh_credentials_button_clicked(object sender, RoutedEventArgs e)

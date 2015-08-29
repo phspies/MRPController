@@ -14,8 +14,15 @@
                     xmlns:local="clr-namespace:CloudMoveyNotifier.Forms"
                     xmlns:model="clr-namespace:CloudMoveyNotifier.Models"
     Loaded="initialize_form"
+    FocusManager.FocusedElement="{Binding ElementName=platform_description}"
     >
-
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
     <Grid>
 
         <WrapPanel Margin="10" Orientation="Vertical" Grid.ColumnSpan="2">
@@ -29,7 +36,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label  Width="100" Content="Description" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                    <TextBox x:Name="platform_description" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="220"/>
+                    <TextBox  x:Name="platform_description" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="220"/>
                 </Grid>
             </StackPanel>
             <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
@@ -110,7 +117,16 @@
                     <Label Width="100" Content="Password" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
                     <TextBox x:Name="platform_password" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
                 </Grid>
-                <Button Margin="10,0,0,0" x:Name="test_connection_button" Content="Test" Width="43" Height="23" Click="test_connection_button_Click"/>
+                <Button Margin="10,0,0,0" x:Name="test_connection_button"  Height="23" Click="test_connection_button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_camera_flash}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock Margin="5,0,0,0">Test</TextBlock>
+                    </StackPanel>
+                </Button>
             </StackPanel>
             <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                 <Grid x:Name="grid7" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -135,8 +151,26 @@
             <Separator Margin="0,10,0,10"/>
 
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button x:Name="accept_platform" IsDefault="true" Content="Accept" Click="accept_platform_Click"/>
-                <Button x:Name="cancel_platform" IsCancel="True" Content="Cancel"  Margin="15,0,0,0" Click="cancel_platform_Click"/>
+                <Button x:Name="accept_platform" IsDefault="true" Click="accept_platform_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_check}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock Margin="5,0,0,0">Accept</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="cancel_platform" IsCancel="True" Margin="15,0,0,0" Click="cancel_platform_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_close}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock Margin="5,0,0,0">Cancel</TextBlock>
+                    </StackPanel>
+                </Button>
             </StackPanel>
 
 

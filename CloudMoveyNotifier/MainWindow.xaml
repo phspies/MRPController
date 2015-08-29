@@ -1,8 +1,11 @@
-﻿<Controls:MetroWindow x:Class="CloudMoveyNotifier.MainWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Icon="cloudmovey.ico"
-        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      EnableDWMDropShadow="True"                   
-  Title="CloudMovey Worker" Height="470.006" Width="800" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
+﻿<Controls:MetroWindow 
+    x:Class="CloudMoveyNotifier.MainWindow" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    Icon="cloudmovey.ico"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    EnableDWMDropShadow="True"                   
+    Title="CloudMovey Worker" Height="470.006" Width="800" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

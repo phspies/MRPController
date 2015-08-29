@@ -16,12 +16,19 @@ namespace CloudMoveyNotifier.Forms
     public partial class PlatformForm : MetroWindow
     {
         public Platform _record;
-        int _action;
         public PlatformForm(Platform __record, int __action)
         {
             _record = __record;
-            _action = __action;
             InitializeComponent();
+            switch(__action)
+            {
+                case 0:
+                    this.Title = "Add Platform";
+                    break;
+                case 1:
+                    this.Title = "Update Platform";
+                    break;
+            }
 
         }
         private void platform_vendor_changed(object sender, SelectionChangedEventArgs e)
