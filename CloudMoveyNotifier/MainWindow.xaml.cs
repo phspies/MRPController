@@ -6,6 +6,7 @@ using MahApps.Metro.Controls;
 using System.Collections.Generic;
 using CloudMoveyNotifier.CloudMoveyWCF;
 using CloudMoveyNotifier.Forms;
+using System.Windows.Controls;
 
 namespace CloudMoveyNotifier
 {
@@ -15,12 +16,17 @@ namespace CloudMoveyNotifier
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        CloudMoveyServiceClient channel = new CloudMoveyServiceClient();
         private BackgroundWorker bw = new BackgroundWorker();
         private List<Platform> _platform_list = new List<Platform>();
         private System.Windows.Forms.NotifyIcon m_notifyIcon;
         public MainWindow()
         {
             InitializeComponent();
+
+            //Load lists from worker service
+            refesh_platform_list();
+
 
             m_notifyIcon = new System.Windows.Forms.NotifyIcon();
             m_notifyIcon.BalloonTipText = "CloudMovey Notifier has been minimised. Click the tray icon to show.";
@@ -37,9 +43,8 @@ namespace CloudMoveyNotifier
 
 
             //attached 
-            CloudMoveyServiceClient channel = new CloudMoveyServiceClient();
-            _platform_list = channel.ListPlatforms();
-            lvPlatforms.ItemsSource = _platform_list;
+            
+
 
         }
         void OnClose(object sender, CancelEventArgs args)
@@ -97,15 +102,35 @@ namespace CloudMoveyNotifier
 
         private void add_platforms_button_clicked(object sender, RoutedEventArgs e)
         {
-            PlatformForm _form = new PlatformForm();
-            _form.Show();
+            PlatformForm _form = new PlatformForm(new Platform(), 0);
+            if (_form.ShowDialog() == true)
+            {
+                channel.AddPlatform(_form._record);
+            }
+            refesh_platform_list();
         }
 
         private void refresh_platforms_button_clicked(object sender, RoutedEventArgs e)
         {
+            refesh_platform_list();
+        }
+        private void update_platform_button(object sender, RoutedEventArgs e)
+        {
+            Platform _platform = (Platform)((Button)sender).DataContext;
+            PlatformForm _form = new PlatformForm(_platform, 1);
+            if (_form.ShowDialog() == true)
+            {
+                channel.UpdatePlatform(_form._record);
+            }
+            refesh_platform_list();
+        }
+        private void delete_platform_button(object sender, RoutedEventArgs e)
+        {
+            Platform _platform = (Platform)((Button)sender).DataContext;
+            channel.DestroyPlatform(_platform);
+            refesh_platform_list();
 
         }
-
         private void refresh_credentials_button_clicked(object sender, RoutedEventArgs e)
         {
 
@@ -114,6 +139,11 @@ namespace CloudMoveyNotifier
         private void add_credentials_button_clicked(object sender, RoutedEventArgs e)
         {
 
+        }
+        private void refesh_platform_list()
+        {
+            _platform_list = channel.ListPlatforms();
+            lvPlatforms.ItemsSource = _platform_list;
         }
     }
 

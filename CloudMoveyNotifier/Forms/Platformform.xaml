@@ -1,23 +1,145 @@
-﻿<Controls:MetroWindow x:Class="CloudMoveyNotifier.Forms.PlatformForm" 
+﻿<Controls:MetroWindow 
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-                      Icon="../cloudmovey.ico"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    xmlns:CloudMoveyWCF="clr-namespace:CloudMoveyNotifier.CloudMoveyWCF" 
+                    mc:Ignorable="d" x:Class="CloudMoveyNotifier.Forms.PlatformForm" 
+                      Icon="../cloudmovey.ico"
                       EnableDWMDropShadow="True"
                       WindowStartupLocation="CenterScreen"
-                      Title="Platform Form" 
-                      Height="199.006" Width="429">
+                      Title="Platform Form"  SizeToContent="WidthAndHeight"
+                      ResizeMode="NoResize"
+                    xmlns:local="clr-namespace:CloudMoveyNotifier.Forms"
+                    xmlns:model="clr-namespace:CloudMoveyNotifier.Models"
+    Loaded="initialize_form"
+    >
+
     <Grid>
-        <WrapPanel Margin="10" Orientation="Vertical">
+
+        <WrapPanel Margin="10" Orientation="Vertical" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
-                <Label  Width="100">Some field</Label>
-                <TextBox Width="222">Some value</TextBox>
+                <Grid x:Name="grid1" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label  Width="100" Content="Description" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="platform_description" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="220"/>
+                </Grid>
             </StackPanel>
             <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                <Label  Width="100">Another field</Label>
-                <TextBox>Another value</TextBox>
+                <Grid x:Name="grid2" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Width="100" Content="Type" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="platform_type" SelectionChanged="platform_type_changed" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
+                        SelectedValuePath="ID"
+                        DisplayMemberPath="Type"/>
+                </Grid>
+
             </StackPanel>
-            
+            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                <Grid x:Name="grid3" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Width="100" Content="Vendor" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="platform_vendor" SelectionChanged="platform_vendor_changed" Grid.Column="1" DisplayMemberPath="Vendor" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
+                        Text="{Binding vendor, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                        SelectedValuePath="ID" />
+                </Grid>
+
+            </StackPanel>
+            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                <Grid x:Name="grid4" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Width="100" Content="Target" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="platform_url" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding url, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="200"/>
+                    <ComboBox x:Name="platform_dimensiondata_url" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
+                            Text="{Binding url, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                            ItemsSource="{Binding LocationList}"
+                            SelectedItem="{Binding SelectedLocation}"
+                              DisplayMemberPath="Description"
+                            SelectedValuePath="Url"
+                              />
+                </Grid>
+
+            </StackPanel>
+            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                <Grid x:Name="grid5" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Width="100" Content="Username" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="platform_username" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding username, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                <Grid x:Name="grid6" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Width="100" Content="Password" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="platform_password" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                </Grid>
+                <Button Margin="10,0,0,0" x:Name="test_connection_button" Content="Test" Width="43" Height="23" Click="test_connection_button_Click"/>
+            </StackPanel>
+            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                <Grid x:Name="grid7" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Width="100" Content="Datacenter" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="platform_datacenter" Grid.Column="1" DisplayMemberPath="datacenter" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="3" Grid.Row="0" VerticalAlignment="Center">
+                        <ComboBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel/>
+                            </ItemsPanelTemplate>
+                        </ComboBox.ItemsPanel>
+                    </ComboBox>
+                </Grid>
+
+            </StackPanel>
+            <Separator Margin="0,10,0,10"/>
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button x:Name="accept_platform" IsDefault="true" Content="Accept" Click="accept_platform_Click"/>
+                <Button x:Name="cancel_platform" IsCancel="True" Content="Cancel"  Margin="15,0,0,0" Click="cancel_platform_Click"/>
+            </StackPanel>
+
+
         </WrapPanel>
     </Grid>
 </Controls:MetroWindow>

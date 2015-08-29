@@ -6,6 +6,7 @@
       <xsd:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF" />
       <xsd:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" />
+      <xsd:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ICloudMoveyService_CollectionInformation_InputMessage">
@@ -38,6 +39,12 @@
   <wsdl:message name="ICloudMoveyService_DestroyPlatform_OutputMessage">
     <wsdl:part name="parameters" element="tns:DestroyPlatformResponse" />
   </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_ListDatacenters_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListDatacenters" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_ListDatacenters_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListDatacentersResponse" />
+  </wsdl:message>
   <wsdl:portType name="ICloudMoveyService">
     <wsdl:operation name="CollectionInformation">
       <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/CollectionInformation" message="tns:ICloudMoveyService_CollectionInformation_InputMessage" />
@@ -58,6 +65,10 @@
     <wsdl:operation name="DestroyPlatform">
       <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/DestroyPlatform" message="tns:ICloudMoveyService_DestroyPlatform_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/DestroyPlatformResponse" message="tns:ICloudMoveyService_DestroyPlatform_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListDatacenters">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/ListDatacenters" message="tns:ICloudMoveyService_ListDatacenters_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/ListDatacentersResponse" message="tns:ICloudMoveyService_ListDatacenters_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ICloudMoveyService" type="tns:ICloudMoveyService">
@@ -100,6 +111,15 @@
     </wsdl:operation>
     <wsdl:operation name="DestroyPlatform">
       <soap:operation soapAction="http://tempuri.org/ICloudMoveyService/DestroyPlatform" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListDatacenters">
+      <soap:operation soapAction="http://tempuri.org/ICloudMoveyService/ListDatacenters" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

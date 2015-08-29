@@ -160,6 +160,10 @@
     <Compile Include="Forms\PlatformForm.xaml.cs">
       <DependentUpon>PlatformForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DimensionDataLocationViewModel.cs" />
+    <Compile Include="Models\Datacenter.cs" />
+    <Compile Include="Models\Types.cs" />
+    <Compile Include="Models\Vendors.cs" />
     <Compile Include="Service References\CloudMoveyWCF\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -213,6 +217,9 @@
     <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.DatacenterListType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Platform.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -253,6 +260,9 @@
     <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService.disco" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\CloudMoveyWCF\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>

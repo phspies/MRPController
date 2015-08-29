@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="DatacenterListType">
+    <xs:sequence>
+      <xs:element name="datacenterField" nillable="true" type="tns:ArrayOfDatacenterType" />
+      <xs:element name="pageCountField" type="xs:int" />
+      <xs:element name="pageCountFieldSpecified" type="xs:boolean" />
+      <xs:element name="pageNumberField" type="xs:int" />
+      <xs:element name="pageNumberFieldSpecified" type="xs:boolean" />
+      <xs:element name="pageSizeField" type="xs:int" />
+      <xs:element name="pageSizeFieldSpecified" type="xs:boolean" />
+      <xs:element name="totalCountField" type="xs:int" />
+      <xs:element name="totalCountFieldSpecified" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DatacenterListType" nillable="true" type="tns:DatacenterListType" />
+  <xs:complexType name="ArrayOfDatacenterType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DatacenterType" nillable="true" type="tns:DatacenterType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDatacenterType" nillable="true" type="tns:ArrayOfDatacenterType" />
+  <xs:complexType name="DatacenterType">
+    <xs:sequence>
+      <xs:element name="backupField" nillable="true" type="tns:BackupType" />
+      <xs:element name="cityField" nillable="true" type="xs:string" />
+      <xs:element name="consoleAccessField" nillable="true" type="tns:ConsoleAccessType" />
+      <xs:element name="countryField" nillable="true" type="xs:string" />
+      <xs:element name="displayNameField" nillable="true" type="xs:string" />
+      <xs:element name="ftpsHostField" nillable="true" type="xs:string" />
+      <xs:element name="hypervisorField" nillable="true" type="tns:HypervisorType" />
+      <xs:element name="idField" nillable="true" type="xs:string" />
+      <xs:element name="monitoringField" nillable="true" type="tns:MonitoringType" />
+      <xs:element name="networkingField" nillable="true" type="tns:NetworkingType" />
+      <xs:element name="stateField" nillable="true" type="xs:string" />
+      <xs:element name="typeField" nillable="true" type="xs:string" />
+      <xs:element name="vpnUrlField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DatacenterType" nillable="true" type="tns:DatacenterType" />
+  <xs:complexType name="BackupType">
+    <xs:sequence>
+      <xs:element name="maintenanceStatusField" nillable="true" type="xs:string" />
+      <xs:element name="propertyField" nillable="true" type="tns:ArrayOfPropertyType" />
+      <xs:element name="typeField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BackupType" nillable="true" type="tns:BackupType" />
+  <xs:complexType name="ArrayOfPropertyType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertyType" nillable="true" type="tns:PropertyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPropertyType" nillable="true" type="tns:ArrayOfPropertyType" />
+  <xs:complexType name="PropertyType">
+    <xs:sequence>
+      <xs:element name="nameField" nillable="true" type="xs:string" />
+      <xs:element name="valueField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PropertyType" nillable="true" type="tns:PropertyType" />
+  <xs:complexType name="ConsoleAccessType">
+    <xs:sequence>
+      <xs:element name="maintenanceStatusField" nillable="true" type="xs:string" />
+      <xs:element name="propertyField" nillable="true" type="tns:ArrayOfPropertyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ConsoleAccessType" nillable="true" type="tns:ConsoleAccessType" />
+  <xs:complexType name="HypervisorType">
+    <xs:sequence>
+      <xs:element name="diskSpeedField" nillable="true" type="tns:ArrayOfDiskSpeedType" />
+      <xs:element name="maintenanceStatusField" nillable="true" type="xs:string" />
+      <xs:element name="propertyField" nillable="true" type="tns:ArrayOfPropertyType" />
+      <xs:element name="typeField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HypervisorType" nillable="true" type="tns:HypervisorType" />
+  <xs:complexType name="ArrayOfDiskSpeedType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DiskSpeedType" nillable="true" type="tns:DiskSpeedType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDiskSpeedType" nillable="true" type="tns:ArrayOfDiskSpeedType" />
+  <xs:complexType name="DiskSpeedType">
+    <xs:sequence>
+      <xs:element name="abbreviationField" nillable="true" type="xs:string" />
+      <xs:element name="availableField" type="xs:boolean" />
+      <xs:element name="defaultField" type="xs:boolean" />
+      <xs:element name="descriptionField" nillable="true" type="xs:string" />
+      <xs:element name="displayNameField" nillable="true" type="xs:string" />
+      <xs:element name="idField" nillable="true" type="xs:string" />
+      <xs:element name="unavailableReasonField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DiskSpeedType" nillable="true" type="tns:DiskSpeedType" />
+  <xs:complexType name="MonitoringType">
+    <xs:sequence>
+      <xs:element name="maintenanceStatusField" nillable="true" type="xs:string" />
+      <xs:element name="propertyField" nillable="true" type="tns:ArrayOfPropertyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MonitoringType" nillable="true" type="tns:MonitoringType" />
+  <xs:complexType name="NetworkingType">
+    <xs:sequence>
+      <xs:element name="maintenanceStatusField" nillable="true" type="xs:string" />
+      <xs:element name="propertyField" nillable="true" type="tns:ArrayOfPropertyType" />
+      <xs:element name="typeField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NetworkingType" nillable="true" type="tns:NetworkingType" />
+</xs:schema>

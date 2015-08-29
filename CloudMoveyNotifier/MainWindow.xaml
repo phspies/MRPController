@@ -19,30 +19,47 @@
                     <ListView Name="lvPlatforms" Margin="0,40,0,0">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Width="200" DisplayMemberBinding="{Binding platform}">
+                                <GridViewColumn Width="250" DisplayMemberBinding="{Binding description}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="platform">Platform</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="120" DisplayMemberBinding="{Binding type}">
+                                <GridViewColumn Width="100" DisplayMemberBinding="{Binding type}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="Type">Type</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="160" DisplayMemberBinding="{Binding vendor}">
+                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding vendor}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="Vendor">Vendor</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="160  " DisplayMemberBinding="{Binding resources}">
+                                <GridViewColumn Width="160" DisplayMemberBinding="{Binding resources}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="Resources">Resources</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="80">
-                                    <GridViewColumn.Header>
-                                        <GridViewColumnHeader Tag="Resources">Actions</GridViewColumnHeader>
-                                    </GridViewColumn.Header>
+                                <GridViewColumn Header="Actions" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Name="update_platform_button" Click="update_platform_button">
+                                                    <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_edit_box}" />
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Button>
+                                                <Button Margin="5,0,0,0" Name="delete_platform_button" Click="delete_platform_button">
+                                                    <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                             </GridView>
                         </ListView.View>
