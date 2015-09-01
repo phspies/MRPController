@@ -97,7 +97,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Width="100" Content="Credential" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="platform_credential" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Width="120"
+                    <ComboBox x:Name="platform_credential" SelectionChanged="platform_credential_changed" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Width="120"
                         SelectedValuePath="id"
                             SelectedValue="{Binding Path=credential_id, Mode=TwoWay}" 
                             DisplayMemberPath="description" />

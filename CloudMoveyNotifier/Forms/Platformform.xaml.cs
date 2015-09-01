@@ -36,6 +36,11 @@ namespace CloudMoveyNotifier.Forms
             }
             toggle_platform();
         }
+        private void platform_credential_changed(object sender, SelectionChangedEventArgs e)
+        {
+            Debug.WriteLine(_record.credential_id);
+            toggle_platform();
+        }
         private void platform_vendor_changed(object sender, SelectionChangedEventArgs e)
         {
             Debug.WriteLine(platform_vendor.SelectedValue);

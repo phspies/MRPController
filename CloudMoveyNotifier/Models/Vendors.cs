@@ -21,7 +21,7 @@ namespace CloudMoveyNotifier.Models
 
     class vendordetail
     {
-        public int ID { get; set; }
+        public byte ID { get; set; }
         public string Vendor { get; set; }
     }
 }

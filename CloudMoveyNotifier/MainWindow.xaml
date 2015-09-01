@@ -8,11 +8,29 @@
     ContentRendered="Window_ContentRendered"
 
     EnableDWMDropShadow="True"                   
-    Title="CloudMovey Worker" Height="470.006" Width="800" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
+    Title="CloudMovey Worker" Height="507.006" Width="800" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
 
     <Controls:MetroWindow.Resources>
 
         <ResourceDictionary>
+            <DataTemplate x:Key="platform_resources">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox Width="30" Height="30" ToolTip="Network Domain Count" Stretch="Uniform">
+                        <ContentControl  DataContext="{Binding}" Focusable="true" Content="{DynamicResource appbar_server}" />
+                    </Viewbox>
+                    <TextBlock Margin="0,7,0,0" Text="{Binding Path=workload_count}"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <Viewbox Width="30" Height="30" ToolTip="Logical Network Count" Stretch="Uniform">
+                        <ContentControl Focusable="False" Content="{DynamicResource appbar_network_server_connecting}" />
+                    </Viewbox>
+                    <TextBlock Margin="0,7,0,0" Text="{Binding Path=vlan_count}"/>
+                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <Viewbox Width="30" Height="30" ToolTip="Network Domain Count" Stretch="Uniform">
+                        <ContentControl Focusable="False" Content="{DynamicResource appbar_network}" />
+                    </Viewbox>
+                    <TextBlock Margin="0,7,0,0" Text="{Binding Path=networkdomain_count}"/>
+                </StackPanel>
+            </DataTemplate>
             <Style TargetType="ListViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
@@ -22,10 +40,10 @@
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
 
-    <Grid Margin="0,0,0,0">
+    <DockPanel Margin="0,0,0,0">
 
-        <TabControl x:Name="tabControl" Margin="10" Background="#FFF1F4F5">
-            <TabItem Header="Platforms">
+        <TabControl Height="425" DockPanel.Dock="Top"  Controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10" Background="#FFF1F4F5">
+            <TabItem Header="Platforms" Controls:ControlsHelper.HeaderFontSize="18">
                 <Grid Margin="5" Name="PlatformGrid">
 
                     <ListView Name="lvPlatforms" Margin="0,40,0,0">
@@ -37,15 +55,13 @@
                                         <GridViewColumnHeader Tag="platform">Platform</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding vendor_human}">
+                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding human_vendor}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="platform">Vendor</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="300" DisplayMemberBinding="{Binding platform_details}">
-                                    <GridViewColumn.Header>
-                                        <GridViewColumnHeader Tag="platform">Resources</GridViewColumnHeader>
-                                    </GridViewColumn.Header>
+                                <GridViewColumn Header="Resources" Width="300" CellTemplate="{StaticResource platform_resources}">
+
                                 </GridViewColumn>
                                 <GridViewColumn Header="Actions" Width="100">
                                     <GridViewColumn.CellTemplate>
@@ -62,6 +78,13 @@
                                                     <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                                         <Rectangle.OpacityMask>
                                                             <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Button>
+                                                <Button Margin="5,0,0,0" Name="refresh_platform_button" Click="refresh_platform_button">
+                                                    <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_inbox_in}" />
                                                         </Rectangle.OpacityMask>
                                                     </Rectangle>
                                                 </Button>
@@ -93,7 +116,7 @@
                     <Label x:Name="progress_message" Content="" HorizontalAlignment="Left" Margin="40,5,0,0" VerticalAlignment="Top" Height="31" Width="421"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Credentials">
+            <TabItem Header="Credentials" Controls:ControlsHelper.HeaderFontSize="18">
                 <Grid Margin="5,5,5,5" Name="CredentialGrid">
                     <ListView Name="lvCredentials" Margin="0,40,0,0" >
                         <ListView.View>
@@ -157,7 +180,29 @@
                 </Grid>
             </TabItem>
         </TabControl>
-    </Grid>
+        <StatusBar DockPanel.Dock="Bottom" Height="30" VerticalAlignment="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="500" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <Label Name="worker_copy_guid" Width="auto"
+                        />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1"></StatusBarItem>
+            <StatusBarItem Grid.Column="2">
+                <Label Name="worker_version"></Label>
+            </StatusBarItem>
+        </StatusBar>
+
+    </DockPanel>
 
 </Controls:MetroWindow>
     

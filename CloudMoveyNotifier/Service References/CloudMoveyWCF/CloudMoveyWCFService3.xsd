@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="CloudMoveyNotifier_WCFInterface">
+  <xs:complexType name="workerInformation">
     <xs:sequence>
       <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="currentJobs" type="xs:int" />
       <xs:element minOccurs="0" name="versionNumber" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="CloudMoveyNotifier_WCFInterface" nillable="true" type="tns:CloudMoveyNotifier_WCFInterface" />
+  <xs:element name="workerInformation" nillable="true" type="tns:workerInformation" />
 </xs:schema>

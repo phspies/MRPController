@@ -30,6 +30,9 @@ namespace CloudMoveyNotifier
         public MainWindow()
         {
             InitializeComponent();
+            workerInformation _information =  channel.CollectionInformation();
+            worker_copy_guid.Content = _information.agentId;
+            worker_version.Content = _information.versionNumber;
 
             m_notifyIcon = new System.Windows.Forms.NotifyIcon();
             m_notifyIcon.BalloonTipText = "CloudMovey Notifier has been minimised. Click the tray icon to show.";
@@ -157,6 +160,12 @@ namespace CloudMoveyNotifier
             {
                 channel.UpdatePlatform(_form._record);
             }
+            refesh_platform_list();
+        }
+        private void refresh_platform_button(object sender, RoutedEventArgs e)
+        {
+            Platform _platform = (Platform)((Button)sender).DataContext;
+            channel.RefreshPlatform(_platform);
             refesh_platform_list();
         }
         private async void delete_platform_button(object sender, RoutedEventArgs e)

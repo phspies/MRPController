@@ -222,9 +222,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Credential.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -232,6 +229,9 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.PlatformDetails.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.workerInformation.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\CloudMoveyWCF\CloudMoveyService.wsdl" />

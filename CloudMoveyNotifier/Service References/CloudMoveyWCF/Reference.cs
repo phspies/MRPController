@@ -15,9 +15,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CloudMoveyNotifier_WCFInterface", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="workerInformation", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF")]
     [System.SerializableAttribute()]
-    public partial class CloudMoveyNotifier_WCFInterface : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class workerInformation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -119,6 +119,12 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private System.Nullable<System.DateTime> lastupdatedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> networkdomain_countField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string networkdomain_md5Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string passwordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -135,6 +141,18 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<byte> vendorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> vlan_countField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string vlan_md5Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> workload_countField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string workload_md5Field;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -225,6 +243,32 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> networkdomain_count {
+            get {
+                return this.networkdomain_countField;
+            }
+            set {
+                if ((this.networkdomain_countField.Equals(value) != true)) {
+                    this.networkdomain_countField = value;
+                    this.RaisePropertyChanged("networkdomain_count");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string networkdomain_md5 {
+            get {
+                return this.networkdomain_md5Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.networkdomain_md5Field, value) != true)) {
+                    this.networkdomain_md5Field = value;
+                    this.RaisePropertyChanged("networkdomain_md5");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string password {
             get {
                 return this.passwordField;
@@ -302,6 +346,58 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> vlan_count {
+            get {
+                return this.vlan_countField;
+            }
+            set {
+                if ((this.vlan_countField.Equals(value) != true)) {
+                    this.vlan_countField = value;
+                    this.RaisePropertyChanged("vlan_count");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string vlan_md5 {
+            get {
+                return this.vlan_md5Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.vlan_md5Field, value) != true)) {
+                    this.vlan_md5Field = value;
+                    this.RaisePropertyChanged("vlan_md5");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> workload_count {
+            get {
+                return this.workload_countField;
+            }
+            set {
+                if ((this.workload_countField.Equals(value) != true)) {
+                    this.workload_countField = value;
+                    this.RaisePropertyChanged("workload_count");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string workload_md5 {
+            get {
+                return this.workload_md5Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.workload_md5Field, value) != true)) {
+                    this.workload_md5Field = value;
+                    this.RaisePropertyChanged("workload_md5");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -330,6 +426,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string domainField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string human_typeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string idField;
@@ -385,6 +484,19 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((object.ReferenceEquals(this.domainField, value) != true)) {
                     this.domainField = value;
                     this.RaisePropertyChanged("domain");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string human_type {
+            get {
+                return this.human_typeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.human_typeField, value) != true)) {
+                    this.human_typeField = value;
+                    this.RaisePropertyChanged("human_type");
                 }
             }
         }
@@ -935,7 +1047,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Account))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.AccountRole>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.AccountRole))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.workerInformation))]
     public partial class ServerType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -3363,7 +3475,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.StatusAdditionalInformation))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.AccountRole>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.AccountRole))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.workerInformation))]
     public partial class Account : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -3599,10 +3711,10 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     public interface ICloudMoveyService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/CollectionInformation", ReplyAction="http://tempuri.org/ICloudMoveyService/CollectionInformationResponse")]
-        CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface CollectionInformation();
+        CloudMoveyNotifier.CloudMoveyWCF.workerInformation CollectionInformation();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/CollectionInformation", ReplyAction="http://tempuri.org/ICloudMoveyService/CollectionInformationResponse")]
-        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface> CollectionInformationAsync();
+        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.workerInformation> CollectionInformationAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListPlatforms", ReplyAction="http://tempuri.org/ICloudMoveyService/ListPlatformsResponse")]
         System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform> ListPlatforms();
@@ -3702,7 +3814,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Account))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.AccountRole>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.AccountRole))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.workerInformation))]
         object ListDatacenters(string url, CloudMoveyNotifier.CloudMoveyWCF.Credential _credential);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListDatacenters", ReplyAction="http://tempuri.org/ICloudMoveyService/ListDatacentersResponse")]
@@ -3752,7 +3864,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Account))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.AccountRole>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.AccountRole))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.workerInformation))]
         object Account(string url, CloudMoveyNotifier.CloudMoveyWCF.Credential _credential);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/Account", ReplyAction="http://tempuri.org/ICloudMoveyService/AccountResponse")]
@@ -3792,11 +3904,11 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 base(binding, remoteAddress) {
         }
         
-        public CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface CollectionInformation() {
+        public CloudMoveyNotifier.CloudMoveyWCF.workerInformation CollectionInformation() {
             return base.Channel.CollectionInformation();
         }
         
-        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface> CollectionInformationAsync() {
+        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.workerInformation> CollectionInformationAsync() {
             return base.Channel.CollectionInformationAsync();
         }
         
