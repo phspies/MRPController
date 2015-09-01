@@ -1,4 +1,5 @@
 ﻿using CloudMoveyWorkerService.CaaS;
+using CloudMoveyWorkerService.CaaS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,10 @@ namespace CloudMoveyWorkerService.CaaS2
     {
         public MCP2NetworkDomainObject(DimensionData _dimensiondata) : base(_dimensiondata) { }
 
-        public NetworkDomainListType networkdomainlist()
+        public NetworkDomainListType networkdomainlist(List<Option> _options)
         {
             orgendpoint2("/network/networkDomain");
+            urloptions = _options;
             NetworkDomainListType networks = get<NetworkDomainListType>(null, true) as NetworkDomainListType;
             return networks;
         }

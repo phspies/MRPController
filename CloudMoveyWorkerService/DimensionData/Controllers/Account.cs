@@ -12,10 +12,9 @@ namespace CloudMoveyWorkerService.CaaS
     class AccountObject : Core
     {
         public AccountObject(DimensionData _dimensiondata) : base(_dimensiondata) { }
-        public Account myaccount() {
+        public Object myaccount() {
             simpleendpoint("/myaccount");
-            Account account = get<Account>(null, true) as Account;
-            return account;
+            return get<Account>(null, true);
         }
     }
 }

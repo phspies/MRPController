@@ -13,19 +13,17 @@ namespace CloudMoveyWorkerService.CaaS1
     class DatacenterObject : Core
     {
         public DatacenterObject(DimensionData _dimensiondata) : base(_dimensiondata) { }
-        public DatacenterListType datacenters(List<Option> _options=null)
+        public Object datacenters(List<Option> _options=null)
         {
-
             orgendpoint2("/infrastructure/datacenter");
             urloptions = _options;
-            return get<DatacenterListType>(null, true) as DatacenterListType;
+            return get<DatacenterListType>(null, true);
         }
-        public ImagesWithDiskSpeed templates(List<Option> options = null)
+        public Object templates(List<Option> options = null)
         {
             simpleendpoint("/base/imageWithDiskSpeed");
             urloptions = options;
-            ImagesWithDiskSpeed softwarelabels = get<ImagesWithDiskSpeed>(null, true) as ImagesWithDiskSpeed;
-            return softwarelabels;
+            return get<ImagesWithDiskSpeed>(null, true);
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace CloudMoveyNotifier.Forms
 {
@@ -16,36 +17,36 @@ namespace CloudMoveyNotifier.Forms
     public partial class PlatformForm : MetroWindow
     {
         public Platform _record;
-        public PlatformForm(Platform __record, int __action)
+        public List<Credential> _credentials;
+        public PlatformForm(Platform __record, int __action, List<Credential> __credentials)
         {
+            _credentials = __credentials;
             _record = __record;
             InitializeComponent();
-            switch(__action)
+            initialize_form();
+            switch (__action)
             {
                 case 0:
                     this.Title = "Add Platform";
                     break;
                 case 1:
                     this.Title = "Update Platform";
+                    platform_vendor.IsEnabled = false;
                     break;
             }
-
+            toggle_platform();
         }
         private void platform_vendor_changed(object sender, SelectionChangedEventArgs e)
         {
             Debug.WriteLine(platform_vendor.SelectedValue);
             toggle_platform();
         }
-        private void platform_type_changed(object sender, SelectionChangedEventArgs e)
-        {
-            Debug.WriteLine(platform_type.SelectedValue);
-        }
         private void toggle_platform()
         {
 
-            if (Convert.ToInt32(platform_vendor.SelectedIndex) != -1)
+            if (_record.vendor != null)
             {
-                if (Int16.Parse(platform_vendor.SelectedValue.ToString()) == 0)
+                if (_record.vendor == 0)
                 {
                     platform_dimensiondata_url.Visibility = Visibility.Visible;
                     platform_url.Visibility = Visibility.Collapsed;
@@ -62,11 +63,11 @@ namespace CloudMoveyNotifier.Forms
                 platform_url.Visibility = Visibility.Collapsed;
             }
         }
-        private void initialize_form(object sender, RoutedEventArgs e)
+        private void initialize_form()
         {
+            platform_credential.ItemsSource = _credentials.FindAll(x => x.credential_type == 0);
             platform_vendor.ItemsSource = (new Vendors()).VendorList;
-            platform_dimensiondata_url.DataContext = new DimensionDataLocationViewModel(); //(new DimensionDataLocations()).LocationList;
-            platform_type.ItemsSource = (new Types()).TypeList;
+            platform_dimensiondata_url.ItemsSource = (new DimensionDataLocations()).LocationList;
             this.DataContext = _record;
             toggle_platform();
         }
@@ -86,12 +87,25 @@ namespace CloudMoveyNotifier.Forms
         private void test_connection_button_Click(object sender, RoutedEventArgs e)
         {
             CloudMoveyServiceClient channel = new CloudMoveyServiceClient();
-            Debug.WriteLine(platform_dimensiondata_url.Text);
-            string url = "https://" + _record.url;
-            DatacenterListType _datacenters = channel.ListDatacenters(url, platform_username.Text, platform_password.Text);
-            List<Datacenter> _viewdatacenters = new List<Datacenter>();
-            _datacenters.datacenterField.ForEach(x => _viewdatacenters.Add(new Datacenter() { datacenter = x.displayNameField, moid = x.idField }));
-            platform_datacenter.ItemsSource = _viewdatacenters;
+            var response = channel.Account(_record.url, _credentials.Find(x => x.id == _record.credential_id));
+            if (response.GetType() == typeof(ResponseType))
+            {
+                ResponseType _error = (ResponseType)response;
+                message.Text = _error.messageField;
+                message.Foreground = new SolidColorBrush(Colors.Red);
+                _record.passwordok = 0;
+            }
+            else
+            {
+                var dcresponse = channel.ListDatacenters(_record.url, _credentials.Find(x => x.id == _record.credential_id));
+                DatacenterListType _datacenters = (DatacenterListType)dcresponse;
+                List<Datacenter> _viewdatacenters = new List<Datacenter>();
+                _datacenters.datacenterField.ForEach(x => _viewdatacenters.Add(new Datacenter() { datacenter = x.displayNameField, moid = x.idField }));
+                platform_datacenter.ItemsSource = _viewdatacenters;
+                _record.passwordok = 1;
+                message.Foreground = new SolidColorBrush(Colors.Green);
+                message.Text = String.Format("Found {0} Datacenters",_viewdatacenters.Count) ;
+            }
         }
     }
 }

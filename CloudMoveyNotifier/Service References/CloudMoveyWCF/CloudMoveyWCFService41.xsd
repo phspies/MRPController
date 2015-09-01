@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Status">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="additionalInformation" nillable="true" type="tns:StatusAdditionalInformation" />
+      <xs:element minOccurs="0" name="operation" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="result" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="resultDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="success" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Status" nillable="true" type="tns:Status" />
+  <xs:complexType name="StatusAdditionalInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="value" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StatusAdditionalInformation" nillable="true" type="tns:StatusAdditionalInformation" />
+  <xs:complexType name="Account">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="customDefined1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="customDefined2" nillable="true" type="xs:anyType" />
+      <xs:element minOccurs="0" name="department" nillable="true" type="xs:anyType" />
+      <xs:element minOccurs="0" name="emailAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="firstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="fullName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="lastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="orgId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="roles" nillable="true" type="tns:ArrayOfAccountRole" />
+      <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Account" nillable="true" type="tns:Account" />
+  <xs:complexType name="ArrayOfAccountRole">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AccountRole" nillable="true" type="tns:AccountRole" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAccountRole" nillable="true" type="tns:ArrayOfAccountRole" />
+  <xs:complexType name="AccountRole">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountRole" nillable="true" type="tns:AccountRole" />
+</xs:schema>

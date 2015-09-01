@@ -2,7 +2,7 @@
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF" />
   <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" />
-  <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS" />
+  <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Models" />
   <xs:element name="CollectionInformation">
     <xs:complexType>
       <xs:sequence />
@@ -69,19 +69,115 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="RefreshPlatform">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_platform" nillable="true" type="q8:Platform" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RefreshPlatformResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListCredentials">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ListCredentialsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="ListCredentialsResult" nillable="true" type="q9:ArrayOfCredential" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCredential">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_addCredential" nillable="true" type="q10:Credential" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddCredentialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="AddCredentialResult" nillable="true" type="q11:Credential" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCredential">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_updateCredential" nillable="true" type="q12:Credential" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateCredentialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="UpdateCredentialResult" nillable="true" type="q13:Credential" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DestroyCredential">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_destroyCredential" nillable="true" type="q14:Credential" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DestroyCredentialResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DestroyCredentialResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ListDatacenters">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="url" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_credential" nillable="true" type="q15:Credential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ListDatacentersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS" minOccurs="0" name="ListDatacentersResult" nillable="true" type="q8:DatacenterListType" />
+        <xs:element minOccurs="0" name="ListDatacentersResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Account">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="url" nillable="true" type="xs:string" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_credential" nillable="true" type="q16:Credential" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AccountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AccountResult" nillable="true" type="xs:anyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PlatformDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="_datacenterId" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="_url" nillable="true" type="xs:string" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_credential" nillable="true" type="q17:Credential" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PlatformDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Models" minOccurs="0" name="PlatformDetailsResult" nillable="true" type="q18:PlatformDetails" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

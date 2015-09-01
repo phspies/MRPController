@@ -51,7 +51,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 string moid = payload.payload.platform.moid;
                 List<Option> _dcoptions = new List<Option>();
                 _dcoptions.Add(new Option() { option = "id", value = moid });
-                DatacenterType dc = CaaS.datacenter().datacenters(_dcoptions).datacenter[0];
+                DatacenterType dc = (CaaS.datacenter().datacenters(_dcoptions) as DatacenterListType).datacenter[0];
                 switch (dc.type)
                 {
                     case "MCP 1.0":
@@ -337,7 +337,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 string moid = payload.payload.platform.moid;
                 List<Option> options = new List<Option>();
                 options.Add(new Option() { option = "id", value = moid });
-                DatacenterType dc = CaaS.datacenter().datacenters(options).datacenter[0];
+                DatacenterType dc = (CaaS.datacenter().datacenters(options) as DatacenterListType).datacenter[0];
                 switch (dc.type)
                 {
                     case "MCP 1.0":
@@ -367,7 +367,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 string moid = payload.payload.platform.moid;
                 List<Option> options = new List<Option>();
                 options.Add(new Option() { option = "id", value = moid });
-                DatacenterType dc = CaaS.datacenter().datacenters(options).datacenter[0];
+                DatacenterType dc = (CaaS.datacenter().datacenters(options) as DatacenterListType).datacenter[0];
                 switch(dc.type)
                 {
                     case "MCP 1.0":

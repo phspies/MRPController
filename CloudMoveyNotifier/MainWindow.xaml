@@ -4,10 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     Icon="cloudmovey.ico"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:local="clr-namespace:CloudMoveyNotifier"
+    ContentRendered="Window_ContentRendered"
+
     EnableDWMDropShadow="True"                   
     Title="CloudMovey Worker" Height="470.006" Width="800" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
+
     <Controls:MetroWindow.Resources>
+
         <ResourceDictionary>
+            <Style TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -18,31 +26,28 @@
 
         <TabControl x:Name="tabControl" Margin="10" Background="#FFF1F4F5">
             <TabItem Header="Platforms">
-                <Grid Margin="5,5,5,5">
+                <Grid Margin="5" Name="PlatformGrid">
+
                     <ListView Name="lvPlatforms" Margin="0,40,0,0">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Width="250" DisplayMemberBinding="{Binding description}">
+   
+                                <GridViewColumn Width="200" DisplayMemberBinding="{Binding description}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="platform">Platform</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="100" DisplayMemberBinding="{Binding type}">
+                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding vendor_human}">
                                     <GridViewColumn.Header>
-                                        <GridViewColumnHeader Tag="Type">Type</GridViewColumnHeader>
+                                        <GridViewColumnHeader Tag="platform">Vendor</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding vendor}">
+                                <GridViewColumn Width="300" DisplayMemberBinding="{Binding platform_details}">
                                     <GridViewColumn.Header>
-                                        <GridViewColumnHeader Tag="Vendor">Vendor</GridViewColumnHeader>
+                                        <GridViewColumnHeader Tag="platform">Resources</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="160" DisplayMemberBinding="{Binding resources}">
-                                    <GridViewColumn.Header>
-                                        <GridViewColumnHeader Tag="Resources">Resources</GridViewColumnHeader>
-                                    </GridViewColumn.Header>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Actions" Width="70">
+                                <GridViewColumn Header="Actions" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
@@ -67,6 +72,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
+                    <Controls:ProgressRing Name="progress_indicator" Height="30" Margin="5,5,0,0" IsEnabled="True" IsActive="True" HorizontalAlignment="Left" Width="30" VerticalAlignment="Top" />
 
                     <Button Width="30" Margin="0,0,39,0" ToolTip="Refresh platform list from worker service" HorizontalAlignment="Right" Height="30" VerticalAlignment="Top" Click="refresh_platforms_button_clicked">
                         <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
@@ -84,14 +90,15 @@
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
+                    <Label x:Name="progress_message" Content="" HorizontalAlignment="Left" Margin="40,5,0,0" VerticalAlignment="Top" Height="31" Width="421"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Credentials">
-                <Grid Margin="5,5,5,5">
+                <Grid Margin="5,5,5,5" Name="CredentialGrid">
                     <ListView Name="lvCredentials" Margin="0,40,0,0" >
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Width="300" DisplayMemberBinding="{Binding description}">
+                                <GridViewColumn Width="250" DisplayMemberBinding="{Binding description}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="platform">Credential</GridViewColumnHeader>
                                     </GridViewColumn.Header>
@@ -101,10 +108,32 @@
                                         <GridViewColumnHeader Tag="Username">Username</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Width="260" DisplayMemberBinding="{Binding type}">
+                                <GridViewColumn Width="200" DisplayMemberBinding="{Binding human_type}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="Type">Type</GridViewColumnHeader>
                                     </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Actions" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button Name="update_credential_button" Click="update_credential_button">
+                                                    <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_edit_box}" />
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Button>
+                                                <Button Margin="5,0,0,0" Name="delete_credential_button" Click="delete_credential_button">
+                                                    <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                        <Rectangle.OpacityMask>
+                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                             </GridView>
                         </ListView.View>

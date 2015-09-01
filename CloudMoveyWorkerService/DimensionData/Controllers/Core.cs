@@ -22,6 +22,7 @@ namespace CloudMoveyWorkerService.CaaS
         private String _apibase, _username, _password, _datacenter, _endpoint;
         private List<Option> _urloptions = new List<Option>();
         private DimensionData _client;
+        public ResponseType _lastresponse;
 
         public Core(DimensionData _dimensiondata)
         {
@@ -31,21 +32,45 @@ namespace CloudMoveyWorkerService.CaaS
             _datacenter = _dimensiondata.Datacenter;
             _client = _dimensiondata;
         }
-        public void orgendpoint2(String _endpoint)
+        public Boolean orgendpoint2(String _endpoint)
         {
             if (_client.OrganizationId == null)
             {
-                _client.OrganizationId = _client.account().myaccount().orgId;
+                var response = _client.account().myaccount();
+                if (response.GetType() == typeof(Account))
+                {
+                    _client.OrganizationId = (response as Account).orgId;
+                    this.endpoint = "/caas/2.0/" + _client.OrganizationId + _endpoint;
+                    return true;
+                }
+                else
+                {
+                    _lastresponse = (ResponseType)response;
+                    return false;
+                }
             }
             this.endpoint = "/caas/2.0/" + _client.OrganizationId + _endpoint;
+            return false;
         }
-		public void orgendpoint(String _endpoint)
+		public bool orgendpoint(String _endpoint)
         {
             if (_client.OrganizationId == null)
             {
-                _client.OrganizationId = _client.account().myaccount().orgId;
+                var response = _client.account().myaccount();
+                if (response.GetType() == typeof(Account))
+                {
+                    _client.OrganizationId = (response as Account).orgId;
+                    this.endpoint = "/oec/0.9/" + _client.OrganizationId + _endpoint;
+                    return true;
+                }
+                else
+                {
+                    _lastresponse = (ResponseType)response;
+                    return false;
+                }
             }
             this.endpoint = "/oec/0.9/" + _client.OrganizationId + _endpoint;
+            return false;
         }
         public void simpleendpoint(String _endpoint)
         {
@@ -69,6 +94,7 @@ namespace CloudMoveyWorkerService.CaaS
         {
             var client = new RestClient();
             client.BaseUrl = new Uri(apibase);
+            client.FollowRedirects = false;
             client.Authenticator = new HttpBasicAuthenticator(username, password);
             var request = new RestRequest();
             request.Resource = endpoint;
@@ -98,10 +124,10 @@ namespace CloudMoveyWorkerService.CaaS
             client.AddDefaultParameter("Accept", "application/xml,text/xml", RestSharp.ParameterType.HttpHeader);
             
             var response = client.Execute(request);
-            //Global.eventLog.WriteEntry(response.Content);
 
             var serializer = new XmlSerializer(typeof(type));
             var responseobject = new Object();
+            
             if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
             {
                 using (var reader = new StringReader(response.Content))
@@ -109,12 +135,12 @@ namespace CloudMoveyWorkerService.CaaS
                     responseobject = (type)serializer.Deserialize(reader);
                 }
             }
-            else
+            else if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                Status status = new Status();
-                status.result = "FAIL";
-                status.resultDetail = response.StatusDescription;
-                return status;
+                {
+                    Global.eventLog.WriteEntry("Access Denied Error",EventLogEntryType.Error);
+                    responseobject =  new ResponseType() { message = "Access Denied" };
+                }
             }
             return responseobject;
         }

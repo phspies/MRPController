@@ -8,20 +8,36 @@
   <xs:element name="ArrayOfPlatform" nillable="true" type="tns:ArrayOfPlatform" />
   <xs:complexType name="Platform">
     <xs:sequence>
+      <xs:element minOccurs="0" name="credential_id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="datacenter" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="human_vendor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="max_cores" type="xs:int" />
-      <xs:element minOccurs="0" name="max_disk_size" type="xs:int" />
-      <xs:element minOccurs="0" name="max_disks" type="xs:int" />
-      <xs:element minOccurs="0" name="max_memory" type="xs:int" />
-      <xs:element minOccurs="0" name="max_networks" type="xs:int" />
+      <xs:element minOccurs="0" name="lastupdated" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="type" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="passwordok" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="platform_details" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="url" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="vendor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="vendor" nillable="true" type="xs:unsignedByte" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Platform" nillable="true" type="tns:Platform" />
+  <xs:complexType name="ArrayOfCredential">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Credential" nillable="true" type="tns:Credential" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCredential" nillable="true" type="tns:ArrayOfCredential" />
+  <xs:complexType name="Credential">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="credential_type" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="domain" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Credential" nillable="true" type="tns:Credential" />
 </xs:schema>

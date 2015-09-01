@@ -13,7 +13,7 @@
                       ResizeMode="NoResize"
                     xmlns:local="clr-namespace:CloudMoveyNotifier.Forms"
                     xmlns:model="clr-namespace:CloudMoveyNotifier.Models"
-    Loaded="initialize_form"
+                   
     FocusManager.FocusedElement="{Binding ElementName=platform_description}"
     >
     <Controls:MetroWindow.Resources>
@@ -48,10 +48,6 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label Width="100" Content="Type" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="platform_type" SelectionChanged="platform_type_changed" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
-                        SelectedValuePath="ID"
-                        DisplayMemberPath="Type"/>
                 </Grid>
 
             </StackPanel>
@@ -65,9 +61,10 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Width="100" Content="Vendor" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="platform_vendor" SelectionChanged="platform_vendor_changed" Grid.Column="1" DisplayMemberPath="Vendor" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
-                        Text="{Binding vendor, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                        SelectedValuePath="ID" />
+                    <ComboBox x:Name="platform_vendor" SelectionChanged="platform_vendor_changed" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
+                            SelectedValuePath="ID"
+                            SelectedValue="{Binding Path=vendor, Mode=TwoWay}" 
+                            DisplayMemberPath="Vendor"/>
                 </Grid>
 
             </StackPanel>
@@ -83,28 +80,13 @@
                     <Label Width="100" Content="Target" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
                     <TextBox x:Name="platform_url" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding url, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="200"/>
                     <ComboBox x:Name="platform_dimensiondata_url" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
-                            Text="{Binding url, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
-                            ItemsSource="{Binding LocationList}"
-                            SelectedItem="{Binding SelectedLocation}"
-                              DisplayMemberPath="Description"
                             SelectedValuePath="Url"
-                              />
+                            SelectedValue="{Binding Path=url, Mode=TwoWay}" 
+                            DisplayMemberPath="Description"/>
                 </Grid>
 
             </StackPanel>
-            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
-                <Grid x:Name="grid5" HorizontalAlignment="Left" VerticalAlignment="Top">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Label Width="100" Content="Username" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                    <TextBox x:Name="platform_username" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding username, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
-                </Grid>
-            </StackPanel>
+
             <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
                 <Grid x:Name="grid6" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
@@ -114,12 +96,16 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label Width="100" Content="Password" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                    <TextBox x:Name="platform_password" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding password, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+                    <Label Width="100" Content="Credential" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="platform_credential" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Width="120"
+                        SelectedValuePath="id"
+                            SelectedValue="{Binding Path=credential_id, Mode=TwoWay}" 
+                            DisplayMemberPath="description" />
+
                 </Grid>
                 <Button Margin="10,0,0,0" x:Name="test_connection_button"  Height="23" Click="test_connection_button_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle  Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_camera_flash}" />
                             </Rectangle.OpacityMask>
@@ -138,19 +124,20 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Width="100" Content="Datacenter" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="platform_datacenter" Grid.Column="1" DisplayMemberPath="datacenter" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="3" Grid.Row="0" VerticalAlignment="Center">
-                        <ComboBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel/>
-                            </ItemsPanelTemplate>
-                        </ComboBox.ItemsPanel>
-                    </ComboBox>
+                        <ComboBox x:Name="platform_datacenter" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="100"
+                            SelectedValuePath="moid"
+                            SelectedValue="{Binding Path=datacenter, Mode=TwoWay}" 
+                            DisplayMemberPath="datacenter"/>
+                    <TextBlock x:Name="current_platform_datacenter" Text="{Binding datacenter}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Margin="116,8,-121,0" Width="111"/>
                 </Grid>
 
             </StackPanel>
             <Separator Margin="0,10,0,10"/>
 
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                
+                <TextBlock x:Name="message" HorizontalAlignment="Left" Width="160" Margin="0,0,30,0"/>
+
                 <Button x:Name="accept_platform" IsDefault="true" Click="accept_platform_Click">
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">

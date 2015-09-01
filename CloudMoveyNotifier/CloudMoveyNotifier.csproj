@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CloudMoveyNotifier</RootNamespace>
     <AssemblyName>CloudMoveyNotifier</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -157,9 +157,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Forms\CredentialForm.xaml.cs">
+      <DependentUpon>CredentialForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PlatformForm.xaml.cs">
       <DependentUpon>PlatformForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\CredentialTypes.cs" />
     <Compile Include="Models\DimensionDataLocationViewModel.cs" />
     <Compile Include="Models\Datacenter.cs" />
     <Compile Include="Models\Types.cs" />
@@ -169,6 +173,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Page Include="Forms\CredentialForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Forms\PlatformForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -217,10 +225,13 @@
     <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.CloudMoveyNotifier_WCFInterface.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.DatacenterListType.datasource">
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Credential.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Platform.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.PlatformDetails.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\CloudMoveyWCF\CloudMoveyService.wsdl" />
@@ -263,6 +274,15 @@
     <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService41.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService51.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\CloudMoveyWCF\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
@@ -274,7 +294,6 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.98.1\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.98.1\build\net46\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

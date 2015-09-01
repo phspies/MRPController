@@ -11,8 +11,8 @@ namespace CloudMoveyNotifier.Models
         public Types()
         {
             TypeList = new List<typedetail>();
-            TypeList.Add(new typedetail() { ID = 0, Type = "Source" });
-            TypeList.Add(new typedetail() { ID = 1, Type = "Target" });
+            TypeList.Add(new typedetail() { ID = "0", Type = "Source" });
+            TypeList.Add(new typedetail() { ID = "1", Type = "Target" });
 
         }
         public List<typedetail> TypeList { get; set; }
@@ -20,7 +20,7 @@ namespace CloudMoveyNotifier.Models
 
     class typedetail
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string Type { get; set; }
     }
 }
