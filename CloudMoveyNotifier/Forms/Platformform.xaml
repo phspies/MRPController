@@ -11,6 +11,7 @@
                       WindowStartupLocation="CenterScreen"
                       Title="Platform Form"  SizeToContent="WidthAndHeight"
                       ResizeMode="NoResize"
+    Background="#FDFEFB"
                     xmlns:local="clr-namespace:CloudMoveyNotifier.Forms"
                     xmlns:model="clr-namespace:CloudMoveyNotifier.Models"
                    
