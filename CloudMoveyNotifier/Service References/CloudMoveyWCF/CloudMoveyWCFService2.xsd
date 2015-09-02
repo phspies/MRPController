@@ -19,6 +19,7 @@
       <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="passwordok" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="platform_details" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="platform_version" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="url" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="vendor" nillable="true" type="xs:unsignedByte" />

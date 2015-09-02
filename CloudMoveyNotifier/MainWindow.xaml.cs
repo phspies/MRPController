@@ -133,11 +133,15 @@ namespace CloudMoveyNotifier
         private void load_platformlist_changed(object sender, ProgressChangedEventArgs e)
         {
             WorkerState ws = e.UserState as WorkerState;
-            Debug.Print(ws.message);
+            Debug.Print(ws.message); 
             progress_message.Content = ws.message;
 
         }
-
+        private void copy_guid_button_clicked(object sender, RoutedEventArgs e)
+        {
+            String GUID = worker_copy_guid.Content.ToString();
+            System.Windows.Forms.Clipboard.SetText(GUID, System.Windows.Forms.TextDataFormat.Text);
+        }
         private void add_platforms_button_clicked(object sender, RoutedEventArgs e)
         {
             PlatformForm _form = new PlatformForm(new Platform(), 0, _credential_list);
@@ -244,6 +248,11 @@ namespace CloudMoveyNotifier
                 progress_message.Content = "Refreshing platform list";
                 platformloader.RunWorkerAsync();
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

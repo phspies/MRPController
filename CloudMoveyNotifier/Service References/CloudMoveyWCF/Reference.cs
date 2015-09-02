@@ -134,6 +134,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private string platform_detailsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string platform_versionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string urlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -303,6 +306,19 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((object.ReferenceEquals(this.platform_detailsField, value) != true)) {
                     this.platform_detailsField = value;
                     this.RaisePropertyChanged("platform_details");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string platform_version {
+            get {
+                return this.platform_versionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.platform_versionField, value) != true)) {
+                    this.platform_versionField = value;
+                    this.RaisePropertyChanged("platform_version");
                 }
             }
         }

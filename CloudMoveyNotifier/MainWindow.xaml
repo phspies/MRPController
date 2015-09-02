@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     Icon="cloudmovey.ico"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+    
     xmlns:local="clr-namespace:CloudMoveyNotifier"
     ContentRendered="Window_ContentRendered"
 
@@ -13,18 +14,18 @@
     <Controls:MetroWindow.Resources>
 
         <ResourceDictionary>
-            <DataTemplate x:Key="platform_resources">
+            <DataTemplate x:Shared="False" x:Key="platform_resources">
                 <StackPanel Orientation="Horizontal">
-                    <Viewbox Width="30" Height="30" ToolTip="Network Domain Count" Stretch="Uniform">
-                        <ContentControl  DataContext="{Binding}" Focusable="true" Content="{DynamicResource appbar_server}" />
+                    <Viewbox  Width="30" Height="30" ToolTip="Workload Count" Stretch="Uniform">
+                        <ContentControl Focusable="true" Content="{DynamicResource appbar_server}" />
                     </Viewbox>
                     <TextBlock Margin="0,7,0,0" Text="{Binding Path=workload_count}"/>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Viewbox Width="30" Height="30" ToolTip="Logical Network Count" Stretch="Uniform">
                         <ContentControl Focusable="False" Content="{DynamicResource appbar_network_server_connecting}" />
                     </Viewbox>
                     <TextBlock Margin="0,7,0,0" Text="{Binding Path=vlan_count}"/>
-                    <Separator Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Viewbox Width="30" Height="30" ToolTip="Network Domain Count" Stretch="Uniform">
                         <ContentControl Focusable="False" Content="{DynamicResource appbar_network}" />
                     </Viewbox>
@@ -39,7 +40,25 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
-
+        <!-- the window button commands -->
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button ToolTip="Copy Worker GUID to Clipboard" Click="copy_guid_button_clicked">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="38" Height="20"
+                   Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill"
+                         Visual="{StaticResource appbar_cloud_download}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0"
+                   VerticalAlignment="Center"
+                   />
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
     <DockPanel Margin="0,0,0,0">
 
         <TabControl Height="425" DockPanel.Dock="Top"  Controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10" Background="#FFF1F4F5">
@@ -60,7 +79,12 @@
                                         <GridViewColumnHeader Tag="platform">Vendor</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Resources" Width="300" CellTemplate="{StaticResource platform_resources}">
+                                <GridViewColumn Width="100" DisplayMemberBinding="{Binding platform_version}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="platform">Version</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Resources" Width="200" CellTemplate="{StaticResource platform_resources}">
 
                                 </GridViewColumn>
                                 <GridViewColumn Header="Actions" Width="100">
