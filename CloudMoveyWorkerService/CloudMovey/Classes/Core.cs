@@ -31,6 +31,11 @@ namespace CloudMoveyWorkerService.CloudMovey
             _password = _CloudMovey.Password;
             _client = _CloudMovey;
         }
+
+        public Object get(Object _object)
+        {
+            return perform(Method.GET, _object);
+        }
         public Object post(Object _object) 
         {
             return perform(Method.POST, _object);
