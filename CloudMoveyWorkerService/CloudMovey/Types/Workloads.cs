@@ -12,6 +12,10 @@ namespace CloudMoveyWorkerService.CloudMovey.Types
         public string worker_hostname { get; set; }
         public MoveyWorkloadType attributes { get; set; }
     }
+    public class MoveyWorkloadListType
+    {
+        public List<Server> servers { get; set; }
+    }
     public class MoveyWorkloadType
     {
         public string id { get; set; }
@@ -49,5 +53,12 @@ namespace CloudMoveyWorkerService.CloudMovey.Types
         public List<MoveyWorkloadInterfaceType> interfaces { get; set; }
     }
 
+
+
+
+    public class Server
+    {
+
+    }
 
 }

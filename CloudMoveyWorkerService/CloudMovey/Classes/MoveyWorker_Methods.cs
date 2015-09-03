@@ -1,17 +1,12 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Models;
-using CloudMoveyWorkerService.CloudMovey.Types;
+﻿using CloudMoveyWorkerService.CloudMovey.Types;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudMoveyWorkerService.CloudMovey
 {
-    class Worker : Core
+    class MoveyWorker : Core
     {
-        public Worker(CloudMovey _CloudMovey) : base(_CloudMovey)
+        public MoveyWorker(CloudMovey _CloudMovey) : base(_CloudMovey)
         {
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
         }

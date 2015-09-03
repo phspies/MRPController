@@ -17,6 +17,8 @@ using MySerializerNamespace;
 using System.Threading;
 using Newtonsoft.Json.Linq;
 using CloudMoveyWorkerService.CloudMovey.Types;
+using System.Runtime.Serialization.Json;
+using Newtonsoft.Json;
 
 namespace CloudMoveyWorkerService.CloudMovey
 {
@@ -66,7 +68,8 @@ namespace CloudMoveyWorkerService.CloudMovey
                 var response = client.Execute(request);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    responseobject = JObject.Parse(response.Content).ToObject<type>();
+                    responseobject = JsonConvert.DeserializeObject<type>(response.Content);
+                    break;
                 }
                 else if (response.StatusCode == HttpStatusCode.RequestTimeout)
                 {
@@ -81,6 +84,7 @@ namespace CloudMoveyWorkerService.CloudMovey
                 else
                 {
                     responseobject = new MoveyError() { error = response.ErrorMessage };
+                    break;
                 }
             }
             return responseobject;
@@ -108,6 +112,7 @@ namespace CloudMoveyWorkerService.CloudMovey
                 this._endpoint = value;
             }
         }
-    
+
+
     }
 }

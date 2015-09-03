@@ -16,14 +16,25 @@ namespace CloudMoveyWorkerService.CloudMovey
             _apiBase = Global.apiBase;
         }
 
-        public Tasks task()
+        public MoveyTask task()
         {
-            return new Tasks(this);
+            return new MoveyTask(this);
         }
-
-        public Worker worker()
+        public MoveyCredential credential()
         {
-            return new Worker(this);
+            return new MoveyCredential(this);
+        }
+        public MoveyWorker worker()
+        {
+            return new MoveyWorker(this);
+        }
+        public MoveyWorkload workload()
+        {
+            return new MoveyWorkload(this);
+        }
+        public MoveyPlatform platform()
+        {
+            return new MoveyPlatform(this);
         }
         public String ApiBase
         {

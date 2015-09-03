@@ -29,7 +29,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         static public int InstallWaitTimeoutInSeconds { get { return _installWaitTimeoutInSeconds; } set { _installWaitTimeoutInSeconds = value; } }
         static private int _installWaitTimeoutInSeconds = 2700;
         static CloudMovey CloudMovey = null;
-        static Tasks tasks = null;
+        static MoveyTask tasks = null;
         static dynamic _payload = null;
         public static void dt_getproductinformation(MoveyTaskType payload)
         {
@@ -58,7 +58,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             ChannelFactory<IManagementService> MgtServiceFactory =
                 new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService",
                     new EndpointAddress(BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService", 0)));
-            Tasks tasks = new Tasks(CloudMovey);
+            MoveyTask tasks = new MoveyTask(CloudMovey);
             IManagementService iMgrSrc = MgtServiceFactory.CreateChannel();
             try
             {
@@ -74,7 +74,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         {
             _payload = payload;
             CloudMovey = new CloudMovey();
-            tasks = new Tasks(CloudMovey);
+            tasks = new MoveyTask(CloudMovey);
 
             username = payload.submitpayload.dt.username;
             password = payload.submitpayload.dt.password;

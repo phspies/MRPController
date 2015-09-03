@@ -5,9 +5,9 @@ using System.Net;
 
 namespace CloudMoveyWorkerService.CloudMovey
 {
-    class Tasks : Core
+    class MoveyTask : Core
     {
-        public Tasks(CloudMovey _CloudMovey) : base(_CloudMovey) {
+        public MoveyTask(CloudMovey _CloudMovey) : base(_CloudMovey) {
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyMoveyErrors) => true;
         }
         public CloudMovey CloudMovey = new CloudMovey();
