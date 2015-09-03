@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudMoveyWorkerService.CloudMovey.Models
+namespace CloudMoveyWorkerService.CloudMovey.Types
 {
 
-    public class Error
+    public class MoveyError
     {
         public string error { get; set; }
     }
-
-
 }

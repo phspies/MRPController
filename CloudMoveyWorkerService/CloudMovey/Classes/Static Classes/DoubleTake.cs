@@ -32,7 +32,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         static dynamic _payload = null;
         public static void dt_getproductinformation(dynamic payload)
         {
-            CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
+            CloudMovey CloudMovey = new CloudMovey();
             CloudMovey.task().progress(payload, "DT Connection", 50);
             String url = BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService", 0);
             ChannelFactory<IManagementService> MgtServiceFactory =
@@ -52,7 +52,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         }
         public static void dt_getimages(dynamic payload)
         {
-            CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
+            CloudMovey CloudMovey = new CloudMovey();
             CloudMovey.task().progress(payload, "DT Connection", 50);
             ChannelFactory<IManagementService> MgtServiceFactory =
                 new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService",
@@ -72,7 +72,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         public static void dt_deploy(dynamic payload)
         {
             _payload = payload;
-            CloudMovey = new CloudMovey(Global.apiBase, null, null);
+            CloudMovey = new CloudMovey();
             tasks = new TasksObject(CloudMovey);
 
             username = payload.payload.dt.username;

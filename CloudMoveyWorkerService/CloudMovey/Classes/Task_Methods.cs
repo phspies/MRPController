@@ -3,6 +3,8 @@ using CloudMoveyWorkerService.CloudMovey.Types;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
 
 namespace CloudMoveyWorkerService.CloudMovey
@@ -10,34 +12,27 @@ namespace CloudMoveyWorkerService.CloudMovey
     class TasksObject : Core
     {
         public TasksObject(CloudMovey _CloudMovey) : base(_CloudMovey) {
-            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyMoveyErrors) => true;
         }
-        public CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
+        public CloudMovey CloudMovey = new CloudMovey();
 
         public dynamic tasks()
         {
             endpoint = "/api/v1/tasks/list.json";
-            CommandWorker worker = new CommandWorker(CloudMovey) { id = Global.agentId, hostname = Environment.MachineName };
-            RestResponse tasks = post(worker) as RestResponse;
-            //string JsonContentFixed = tasks.Content.Replace(@"\", " ");
-            dynamic dynamicObject = null;
-            if (tasks != null)
-            {
-                dynamicObject = JObject.Parse(tasks.Content);
-            }
-            return dynamicObject;
+            MoveyCommandWorkerType worker = new MoveyCommandWorkerType() { id = Global.agentId, hostname = Environment.MachineName };
+            return post<List<MoveyTaskType>>(worker);
         }
 
         public bool successcomplete(dynamic payload, string returnpayload)
         {
             int _status = (bool)payload.internal_complete == true ? 3 : 0;
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
-            CompleteTaskUpdateObject task = new CompleteTaskUpdateObject()
+            CompleteTaskUpdateType task = new CompleteTaskUpdateType()
             {
                 id = Global.agentId,
                 hostname = Environment.MachineName,
                 task_id = payload.id,
-                attributes = new CompleteTaskUpdateAttriubutes()
+                attributes = new CompleteTaskUpdateAttributesType()
                 {
                     percentage = _percentage,
                     returnpayload = returnpayload,
@@ -47,10 +42,10 @@ namespace CloudMoveyWorkerService.CloudMovey
             };
 
             endpoint = "/api/v1/tasks/update.json";
-            object returnval = put(task);
-            if (returnval is Error)
+            object returnval = put<MoveyTaskType>(task);
+            if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry(returnval.ToString(),System.Diagnostics.EventLogEntryType.Error);
+                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else
@@ -62,12 +57,12 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             int _status = (bool)payload.internal_complete == true ? 3 : 0;
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
-            CompleteTaskUpdateObject task = new CompleteTaskUpdateObject()
+            CompleteTaskUpdateType task = new CompleteTaskUpdateType()
             {
                 id = Global.agentId,
                 hostname = Environment.MachineName,
                 task_id = payload.id,
-                attributes = new CompleteTaskUpdateAttriubutes()
+                attributes = new CompleteTaskUpdateAttributesType()
                 {
                     percentage = _percentage,
                     status = _status,
@@ -76,10 +71,10 @@ namespace CloudMoveyWorkerService.CloudMovey
             };
 
             endpoint = "/api/v1/tasks/update.json";
-            object returnval = put(task);
-            if (returnval is Error)
+            object returnval = put<MoveyTaskType>(task);
+            if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry(returnval.ToString(), System.Diagnostics.EventLogEntryType.Error);
+                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else
@@ -89,12 +84,12 @@ namespace CloudMoveyWorkerService.CloudMovey
         }
         public bool failcomplete(dynamic payload, string returnpayload)
         {
-            CompleteTaskUpdateObject task = new CompleteTaskUpdateObject()
+            CompleteTaskUpdateType task = new CompleteTaskUpdateType()
             {
                 id = Global.agentId,
                 hostname = Environment.MachineName,
                 task_id = payload.id,
-                attributes = new CompleteTaskUpdateAttriubutes()
+                attributes = new CompleteTaskUpdateAttributesType()
                 {
                     percentage = 100,
                     returnpayload = returnpayload,
@@ -103,10 +98,10 @@ namespace CloudMoveyWorkerService.CloudMovey
             };
 
             endpoint = "/api/v1/tasks/update.json";
-            object returnval = put(task);
-            if (returnval is Error)
+            object returnval = put<MoveyTaskType>(task);
+            if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry(returnval.ToString(), System.Diagnostics.EventLogEntryType.Error);
+                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else
@@ -116,12 +111,12 @@ namespace CloudMoveyWorkerService.CloudMovey
         }
         public bool progress(dynamic payload, string _step, double _progress)
         {
-            ProgressTaskUpdateObject task = new ProgressTaskUpdateObject()
+            ProgressTaskUpdateType task = new ProgressTaskUpdateType()
             {
                 id = Global.agentId,
                 hostname = Environment.MachineName,
                 task_id = payload.id,
-                attributes = new ProgressTaskUpdateAttriubutes()
+                attributes = new ProgressTaskUpdateAttributesType()
                 {
                     percentage = _progress,
                     step = _step
@@ -129,10 +124,10 @@ namespace CloudMoveyWorkerService.CloudMovey
             };
 
             endpoint = "/api/v1/tasks/update.json";
-            object returnval = put(task);
-            if (returnval is Error)
+            object returnval = put<MoveyTaskType>(task);
+            if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry(returnval.ToString(), System.Diagnostics.EventLogEntryType.Error);
+                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else
@@ -142,22 +137,22 @@ namespace CloudMoveyWorkerService.CloudMovey
         }
         public bool progress(dynamic payload, string _step)
         {
-            ProgressTaskUpdateObject task = new ProgressTaskUpdateObject()
+            ProgressTaskUpdateType task = new ProgressTaskUpdateType()
             {
                 id = Global.agentId,
                 hostname = Environment.MachineName,
                 task_id = payload.id,
-                attributes = new ProgressTaskUpdateAttriubutes()
+                attributes = new ProgressTaskUpdateAttributesType()
                 {
                     step = _step
                 }
             };
 
             endpoint = "/api/v1/tasks/update.json";
-            object returnval = put(task);
-            if (returnval is Error)
+            object returnval = put<MoveyTaskType>(task);
+            if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry(returnval.ToString(), System.Diagnostics.EventLogEntryType.Error);
+                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else
@@ -168,10 +163,10 @@ namespace CloudMoveyWorkerService.CloudMovey
         public bool update(object _object) 
         {
             endpoint = "/api/v1/tasks/update.json";
-            object returnval = put(_object);
-            if (returnval is Error)
+            object returnval = put<MoveyTaskType>(_object);
+            if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry(returnval.ToString(), System.Diagnostics.EventLogEntryType.Error);
+                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else

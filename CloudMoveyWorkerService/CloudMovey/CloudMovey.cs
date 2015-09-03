@@ -11,11 +11,9 @@ namespace CloudMoveyWorkerService.CloudMovey
     {
         private String _apiBase, _username, _password;
 
-        public CloudMovey(String apibase, String username, String password)
+        public CloudMovey()
         {
-            _apiBase = apibase;
-            _username = username;
-            _password = password;
+            _apiBase = Global.apiBase;
         }
 
         public TasksObject task()
@@ -27,7 +25,6 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             return new Worker(this);
         }
-
         public String ApiBase
         {
             get { return _apiBase; }

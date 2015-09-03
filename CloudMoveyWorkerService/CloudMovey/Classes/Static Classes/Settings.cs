@@ -5,13 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace CloudMoveyWorkerService.CloudMovey
 {
-    class Settings
+    class Settings 
     {
         static public string DBLocation()
         {
@@ -22,23 +23,22 @@ namespace CloudMoveyWorkerService.CloudMovey
         }
         static public void RegisterAgent()
         {
-            CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
-            Worker worker = new Worker(CloudMovey);
+            MoveyWorkerType worker = new MoveyWorkerType();
             worker.hostname = Environment.MachineName;
             worker.worker_version = Global.versionNumber;
             worker.ipaddress = String.Join(",", System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList.Select(x => x.ToString()).Where(x => x.ToString().Contains(".")));
             worker.id = Global.agentId;
-            Global.eventLog.WriteEntry(JsonConvert.SerializeObject(worker));
-            if (worker.confirm_worker())
+            CloudMovey CloudMovey = new CloudMovey();
+            if (CloudMovey.worker().confirm_worker(worker))
             {
                 Global.eventLog.WriteEntry("Hostname: " + worker.hostname);
             }
             else
             {
                 Global.eventLog.WriteEntry("Worker not registered, registering worker with CloudMovey portal");
-                if (worker.register_worker())
+                if (CloudMovey.worker().register_worker(worker))
                 {
-                    if (worker.confirm_worker())
+                    if (CloudMovey.worker().confirm_worker(worker))
                     {
                         Global.eventLog.WriteEntry("Worker Registered: " + worker.hostname);
                     }

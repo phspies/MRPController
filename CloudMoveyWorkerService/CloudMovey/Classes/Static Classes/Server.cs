@@ -15,7 +15,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
     {
         public static void server_getinformation(dynamic payload)
         {
-            CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
+            CloudMovey CloudMovey = new CloudMovey();
             TasksObject tasks = new TasksObject(CloudMovey);
             try
             {

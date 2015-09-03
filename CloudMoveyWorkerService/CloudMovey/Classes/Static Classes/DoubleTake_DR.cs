@@ -39,7 +39,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 
         public static void dt_create_dr_syncjob(dynamic request)
         {
-            CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
+            CloudMovey CloudMovey = new CloudMovey();
             CloudMovey.task().progress(request, "Creating sync process", 5);
             try
             {
@@ -226,7 +226,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         }
         public static void dt_create_dr_seedjob(dynamic request)
         {
-            CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
+            CloudMovey CloudMovey = new CloudMovey();
             CloudMovey.task().progress(request, "Creating seed process", 5);
             try
             {
@@ -426,7 +426,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         }
         public static void dt_create_dr_restorejob(dynamic request)
         {
-            CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
+            CloudMovey CloudMovey = new CloudMovey();
             try
             {
                 CloudMovey.task().progress(request, "Creating JobManager process", 5);

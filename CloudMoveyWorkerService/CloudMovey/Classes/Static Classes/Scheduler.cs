@@ -8,7 +8,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
     class Scheduler
     {
         static int maxThreads = 30;
-        CloudMovey CloudMovey = new CloudMovey(Global.apiBase, null, null);
+        CloudMovey CloudMovey = new CloudMovey();
         public void Start()
         {
             TasksObject tasks = new TasksObject(CloudMovey);
