@@ -13,22 +13,22 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 {
     class Server
     {
-        public static void server_getinformation(dynamic payload)
+        public static void server_getinformation(MoveyTaskType payload)
         {
+            MoveyTaskPayloadType _payload = payload.submitpayload;
             CloudMovey CloudMovey = new CloudMovey();
-            TasksObject tasks = new TasksObject(CloudMovey);
             try
             {
-                string username = payload.payload.windows.username;
-                string password = payload.payload.windows.password;
-                string hostname = payload.payload.windows.ipaddress;
-                string domain = payload.payload.windows.domain;
+                string username = _payload.windows.username;
+                string password = _payload.windows.password;
+                string hostname = _payload.windows.ipaddress;
+                string domain = _payload.windows.domain;
 
                 ConnectionOptions connection = new ConnectionOptions();
                 connection.Username = username;
                 connection.Password = password;
                 connection.Authority = "ntlmdomain:" + domain;
-                String ipaddresslist = payload.payload.windows.ipaddress;
+                String ipaddresslist = _payload.windows.ipaddress;
                 ManagementScope scope = new ManagementScope();
                 Exception error = new Exception() ;
                 var workingip = find_working_ip(ipaddresslist);

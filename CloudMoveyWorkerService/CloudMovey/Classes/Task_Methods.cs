@@ -1,17 +1,13 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Models;
-using CloudMoveyWorkerService.CloudMovey.Types;
-using Newtonsoft.Json.Linq;
-using RestSharp;
+﻿using CloudMoveyWorkerService.CloudMovey.Types;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 
 namespace CloudMoveyWorkerService.CloudMovey
 {
-    class TasksObject : Core
+    class Tasks : Core
     {
-        public TasksObject(CloudMovey _CloudMovey) : base(_CloudMovey) {
+        public Tasks(CloudMovey _CloudMovey) : base(_CloudMovey) {
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyMoveyErrors) => true;
         }
         public CloudMovey CloudMovey = new CloudMovey();
@@ -20,10 +16,10 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             endpoint = "/api/v1/tasks/list.json";
             MoveyCommandWorkerType worker = new MoveyCommandWorkerType() { id = Global.agentId, hostname = Environment.MachineName };
-            return post<List<MoveyTaskType>>(worker);
+            return post<MoveyTaskListType>(worker);
         }
 
-        public bool successcomplete(dynamic payload, string returnpayload)
+        public bool successcomplete(MoveyTaskType payload, string returnpayload)
         {
             int _status = (bool)payload.internal_complete == true ? 3 : 0;
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
@@ -53,7 +49,7 @@ namespace CloudMoveyWorkerService.CloudMovey
                 return true;
             }
         }
-        public bool successcomplete(dynamic payload)
+        public bool successcomplete(MoveyTaskType payload)
         {
             int _status = (bool)payload.internal_complete == true ? 3 : 0;
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
@@ -82,7 +78,7 @@ namespace CloudMoveyWorkerService.CloudMovey
                 return true;
             }
         }
-        public bool failcomplete(dynamic payload, string returnpayload)
+        public bool failcomplete(MoveyTaskType payload, string returnpayload)
         {
             CompleteTaskUpdateType task = new CompleteTaskUpdateType()
             {
@@ -109,7 +105,7 @@ namespace CloudMoveyWorkerService.CloudMovey
                 return true;
             }
         }
-        public bool progress(dynamic payload, string _step, double _progress)
+        public bool progress(MoveyTaskType payload, string _step, double _progress)
         {
             ProgressTaskUpdateType task = new ProgressTaskUpdateType()
             {
@@ -135,7 +131,7 @@ namespace CloudMoveyWorkerService.CloudMovey
                 return true;
             }
         }
-        public bool progress(dynamic payload, string _step)
+        public bool progress(MoveyTaskType payload, string _step)
         {
             ProgressTaskUpdateType task = new ProgressTaskUpdateType()
             {
@@ -160,7 +156,7 @@ namespace CloudMoveyWorkerService.CloudMovey
                 return true;
             }
         }
-        public bool update(object _object) 
+        public bool update(MoveyTaskType _object) 
         {
             endpoint = "/api/v1/tasks/update.json";
             object returnval = put<MoveyTaskType>(_object);

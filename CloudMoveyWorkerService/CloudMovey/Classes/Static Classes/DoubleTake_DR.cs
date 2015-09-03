@@ -1,4 +1,5 @@
-﻿using DoubleTake.Common.Contract;
+﻿using CloudMoveyWorkerService.CloudMovey.Types;
+using DoubleTake.Common.Contract;
 using DoubleTake.Common.Tasks;
 using DoubleTake.Communication;
 using DoubleTake.Core.Contract;
@@ -34,17 +35,17 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         static public int InstallWaitTimeoutInSeconds { get { return _installWaitTimeoutInSeconds; } set { _installWaitTimeoutInSeconds = value; } }
         static private int _installWaitTimeoutInSeconds = 2700;
         static CloudMovey CloudMovey = null;
-        static TasksObject tasks = null;
+        static MoveyTaskListType tasks = null;
         static dynamic _payload = null;
 
-        public static void dt_create_dr_syncjob(dynamic request)
+        public static void dt_create_dr_syncjob(MoveyTaskType request)
         {
             CloudMovey CloudMovey = new CloudMovey();
             CloudMovey.task().progress(request, "Creating sync process", 5);
             try
             {
-                bool _delete_current_job = (bool)request.payload.dt.delete_current_dt_job;
-                bool _reuse_dt_images = (bool)request.payload.dt.reuse_dt_images;
+                bool _delete_current_job = (bool)request.submitpayload.dt.delete_current_dt_job;
+                bool _reuse_dt_images = (bool)request.submitpayload.dt.reuse_dt_images;
                 String joburl = BuildUrl(request, "/DoubleTake/Jobs/JobManager", 2) ;
                 var jobMgrFactory = new ChannelFactory<IJobManager>("DefaultBinding_IJobManager_IJobManager", new EndpointAddress(joburl));
                 jobMgrFactory.Credentials.Windows.ClientCredential = GetCredentials(request, 2);
@@ -63,8 +64,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 configurationVerifierFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
 
                 JobInfo[] _jobs = iJobMgr.GetJobs();
-                String[] _source_ips = ((string)request.payload.dt.source.ipaddress).Split(',');
-                String[] _target_ips = ((string)request.payload.dt.target.ipaddress).Split(',');
+                String[] _source_ips = ((string)request.submitpayload.dt.source.ipaddress).Split(',');
+                String[] _target_ips = ((string)request.submitpayload.dt.target.ipaddress).Split(',');
                 String jobTypeConstant = @"FullServerImageProtection";
 
                 if (_delete_current_job)
@@ -130,15 +131,15 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 //jobInfo.JobOptions.ImageProtectionOptions.ImageName = request.payload;
                 List<ImageVhdInfo> vhd = new List<ImageVhdInfo>();
                 int i = 0;
-                foreach (dynamic volume in request.payload.dt.source.volumes)
+                foreach (dynamic volume in request.submitpayload.dt.source.volumes)
                 {
-                    String _repositorypath = request.payload.dt.recoverypolicy.repositorypath;
-                    String _original_id = request.payload.dt.original.id;
+                    String _repositorypath = request.submitpayload.dt.recoverypolicy.repositorypath;
+                    String _original_id = request.submitpayload.dt.original.id;
                     String _volume = volume.driveletter;
                     Int16 _disksize = volume.disksize;
                     Char _shortvolume = _volume[0];
                     String _filename = _original_id + "_" + _shortvolume + ".vhdx";
-                    String _failovergroup = (String)(request.payload.dt.failovergroup.group);
+                    String _failovergroup = (String)(request.submitpayload.dt.failovergroup.group);
                     string absfilename = Path.Combine(_repositorypath, _failovergroup.ToLower().Replace(" ", "_"), _original_id, _filename);
                     vhd.Add(new ImageVhdInfo() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = _reuse_dt_images, FilePath = absfilename, SizeInMB = (_disksize * 1024) });
                     i += 1;
@@ -216,7 +217,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     Thread.Sleep(10000);
                     jobinfo = iJobMgr.GetJob(jobId);
                 }
-                CloudMovey.task().progress(request, "Successfully synchronized workload to " + (String)request.payload.dt.recoverypolicy.repositorypath,99);
+                CloudMovey.task().progress(request, "Successfully synchronized workload to " + (String)request.submitpayload.dt.recoverypolicy.repositorypath,99);
                 CloudMovey.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo));
             }
             catch (Exception e)

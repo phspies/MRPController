@@ -1,4 +1,5 @@
-﻿using DoubleTake.Core;
+﻿using CloudMoveyWorkerService.CloudMovey.Types;
+using DoubleTake.Core;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using SimpleImpersonation;
@@ -28,9 +29,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         static public int InstallWaitTimeoutInSeconds { get { return _installWaitTimeoutInSeconds; } set { _installWaitTimeoutInSeconds = value; } }
         static private int _installWaitTimeoutInSeconds = 2700;
         static CloudMovey CloudMovey = null;
-        static TasksObject tasks = null;
+        static Tasks tasks = null;
         static dynamic _payload = null;
-        public static void dt_getproductinformation(dynamic payload)
+        public static void dt_getproductinformation(MoveyTaskType payload)
         {
             CloudMovey CloudMovey = new CloudMovey();
             CloudMovey.task().progress(payload, "DT Connection", 50);
@@ -50,14 +51,14 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 CloudMovey.task().failcomplete(payload, e.ToString());
             }
         }
-        public static void dt_getimages(dynamic payload)
+        public static void dt_getimages(MoveyTaskType payload)
         {
             CloudMovey CloudMovey = new CloudMovey();
             CloudMovey.task().progress(payload, "DT Connection", 50);
             ChannelFactory<IManagementService> MgtServiceFactory =
                 new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService",
                     new EndpointAddress(BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService", 0)));
-            TasksObject tasks = new TasksObject(CloudMovey);
+            Tasks tasks = new Tasks(CloudMovey);
             IManagementService iMgrSrc = MgtServiceFactory.CreateChannel();
             try
             {
@@ -69,16 +70,16 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 CloudMovey.task().failcomplete(payload, e.ToString());
             }
         }
-        public static void dt_deploy(dynamic payload)
+        public static void dt_deploy(MoveyTaskType payload)
         {
             _payload = payload;
             CloudMovey = new CloudMovey();
-            tasks = new TasksObject(CloudMovey);
+            tasks = new Tasks(CloudMovey);
 
-            username = payload.payload.dt.username;
-            password = payload.payload.dt.password;
-            domain = payload.payload.dt.domain;
-            remoteInstallFiles = payload.payload.dt.deploymentpolicy.dt_temppath;
+            username = payload.submitpayload.dt.username;
+            password = payload.submitpayload.dt.password;
+            domain = payload.submitpayload.dt.domain;
+            remoteInstallFiles = @"C:\Temp";
 
             server = find_working_ip(payload, 0);
             if (string.IsNullOrEmpty(server))
@@ -492,22 +493,22 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             }
             return credentials;
         }
-        private static string find_working_ip(dynamic payload, int type)
+        private static string find_working_ip(MoveyTaskType request, int type)
         {
             ConnectionOptions connection = new ConnectionOptions();
-
+            MoveyTaskPayloadType _request = request.submitpayload;
             String ipaddresslist = null;
             if (type == 0)
             {
-                ipaddresslist = payload.payload.dt.ipaddress;
+                ipaddresslist = _request.dt.ipaddress;
             }
             else if (type == 1)
             {
-                ipaddresslist = payload.payload.dt.source.ipaddress;
+                ipaddresslist = _request.dt.source.ipaddress;
             }
             else if (type == 2)
             {
-                ipaddresslist = payload.payload.dt.target.ipaddress;
+                ipaddresslist = _request.dt.target.ipaddress;
             }
             String workingip = null;
             Ping testPing = new Ping();
@@ -535,7 +536,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             }
             return workingip;
         }
-        private static String BuildUrl(dynamic request, String method, int type)
+        private static String BuildUrl(MoveyTaskType request, String method, int type)
         {
             int portNumber = 6325;
             string bindingScheme = "http://";

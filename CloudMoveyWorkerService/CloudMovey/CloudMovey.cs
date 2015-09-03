@@ -16,9 +16,9 @@ namespace CloudMoveyWorkerService.CloudMovey
             _apiBase = Global.apiBase;
         }
 
-        public TasksObject task()
+        public Tasks task()
         {
-            return new TasksObject(this);
+            return new Tasks(this);
         }
 
         public Worker worker()

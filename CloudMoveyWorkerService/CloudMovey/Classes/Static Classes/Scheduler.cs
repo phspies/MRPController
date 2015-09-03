@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudMoveyWorkerService.CloudMovey.Types;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -11,40 +12,38 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         CloudMovey CloudMovey = new CloudMovey();
         public void Start()
         {
-            TasksObject tasks = new TasksObject(CloudMovey);
             List<string> activeObjects = new List<string>();
             List<ThreadObject> lstThreads = new List<ThreadObject>();
           
             while (true)
             {
-                dynamic tasklist = tasks.tasks() as dynamic;
+                MoveyTaskListType tasklist = CloudMovey.task().tasks();
                 if (tasklist != null)
                 { 
-                    foreach (var task in tasklist.list.Children())
+                    foreach (MoveyTaskType task in tasklist.tasks)
                     {
-                        bool _hidden = task.hidden == null ? false : (bool)task.hidden;
                         //make sure new target task does not have an active task busy
-                        if ((lstThreads.FindAll(x => x.target_id == (string)task.target_id).Count() == 0 && lstThreads.Count < maxThreads) || _hidden == true)
+                        if ((lstThreads.FindAll(x => x.target_id == task.target_id).Count() == 0 && lstThreads.Count < maxThreads) || task.hidden == true)
                         {
                             switch ((string)task.target_type)
                             {
                                 case "dt":
                                     {
-                                        switch ((string)task.payload.task_action)
+                                        switch ((string)task.submitpayload.task_action)
                                         {
                                             case "deploy":
-                                                if (task.payload.dt != null)
+                                                if (task.submitpayload.dt != null)
                                                 {
-                                                    Thread newThread = new Thread(DT.dt_deploy);
+                                                    Thread newThread = new Thread(() => DT.dt_deploy(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start(task);
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
                                             case "getproductinformation":
-                                                if (task.payload.dt != null)
+                                                if (task.submitpayload.dt != null)
                                                 {
-                                                    Thread newThread = new Thread(DT.dt_getproductinformation);
+                                                    Thread newThread = new Thread(() => DT.dt_getproductinformation(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start(task);
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -52,7 +51,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                                 break;
                                             case "createdrseedjob":
                                                 {
-                                                    Thread newThread = new Thread(DT_DR.dt_create_dr_seedjob);
+                                                    Thread newThread = new Thread(() => DT_DR.dt_create_dr_seedjob(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start(task);
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -60,17 +59,17 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                                 break;
                                             case "createdrsyncjob":
                                                 {
-                                                    Thread newThread = new Thread(DT_DR.dt_create_dr_syncjob);
+                                                    Thread newThread = new Thread(() => DT_DR.dt_create_dr_syncjob(task));
                                                     newThread.Name = task.target_id;
-                                                    newThread.Start(task);
+                                                    newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
                                             case "createdrpopulatejob":
                                                 {
-                                                    Thread newThread = new Thread(DT_DR.dt_create_dr_restorejob);
+                                                    Thread newThread = new Thread(() => DT_DR.dt_create_dr_restorejob(task));
                                                     newThread.Name = task.target_id;
-                                                    newThread.Start(task);
+                                                    newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
@@ -79,24 +78,23 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                     }
                                 case "server":
                                     {
-                                        switch ((string)task.payload.task_action)
+                                        switch ((string)task.submitpayload.task_action)
                                         {
                                             //Start MCP datacenters thread
                                             case "retrieveinformation":
-                                                if (task.payload.windows != null)
+                                                if (task.submitpayload.windows != null)
                                                 {
-                                                    Thread newThread = new Thread(Server.server_getinformation);
-                                                    newThread.Name = task.target_id;
-                                                    newThread.Start(task);
+                                                    Thread newThread = new Thread(() => Server.server_getinformation(task));
+                                                    newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
                                             case "createvmjob":
-                                                if (task.payload.mcp != null)
+                                                if (task.submitpayload.mcp != null)
                                                 {
-                                                    Thread newThread = new Thread(Platform.mcp_provisionvm);
+                                                    Thread newThread = new Thread(() => Platform.mcp_provisionvm(task));
                                                     newThread.Name = task.target_id;
-                                                    newThread.Start(task);
+                                                    newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
@@ -105,27 +103,27 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                     }
                                 case "platform":
                                 {
-                                    switch ((string)task.payload.task_action) 
+                                    switch ((string)task.submitpayload.task_action) 
                                     {
                                         //Start MCP datacenters thread
                                         case "getdatacenters":
                                         
-                                            if (task.payload.mcp != null)
+                                            if (task.submitpayload.mcp != null)
                                             {
-                                                Thread newThread = new Thread(Platform.mcp_getdatacenters);
+                                                Thread newThread = new Thread(() => Platform.mcp_getdatacenters(task));
                                                 newThread.Name = task.target_id;
-                                                newThread.Start(task);
+                                                newThread.Start();
                                                 lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                             }
                                             break;
                                         //Start MCP templates thread
                                         case "gettemplates":
                                             {
-                                                if (task.payload.mcp != null)
+                                                if (task.submitpayload.mcp != null)
                                                 {
-                                                    Thread newThread = new Thread(Platform.mcp_gettemplates);
+                                                    Thread newThread = new Thread(() => Platform.mcp_gettemplates(task));
                                                     newThread.Name = task.target_id;
-                                                    newThread.Start(task);
+                                                    newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
@@ -133,20 +131,20 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                         //Start MCP servers thread
                                         case "retrieveservers":
                                             {
-                                                if (task.payload.mcp != null)
+                                                if (task.submitpayload.mcp != null)
                                                 {
-                                                    Thread newThread = new Thread(Platform.mcp_retrieveservers);
+                                                    Thread newThread = new Thread(() => Platform.mcp_retrieveservers(task));
                                                     newThread.Name = task.target_id;
-                                                    newThread.Start(task);
+                                                    newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
                                             }
                                         case "retrievenetworks":
                                             {
-                                                if (task.payload.mcp != null)
+                                                if (task.submitpayload.mcp != null)
                                                 {
-                                                    Thread newThread = new Thread(Platform.mcp_retrievenetworks);
+                                                    Thread newThread = new Thread(() => Platform.mcp_retrievenetworks(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start(task);
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });

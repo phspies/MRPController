@@ -14,20 +14,21 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 {
     class Platform
     {
-        public static void mcp_provisionvm(dynamic payload)
+        public static void mcp_provisionvm(MoveyTaskType payload)
         {
+            MoveyTaskPayloadType _payload = payload.submitpayload;
             CloudMovey CloudMovey = new CloudMovey();
-            DimensionData CaaS = new DimensionData((string)payload.payload.platform.mcpendpoint.url, (string)payload.payload.platform.username, (string)payload.payload.platform.password, null);
+            DimensionData CaaS = new DimensionData((string)_payload.platform.mcpendpoint.url, (string)_payload.platform.username, (string)_payload.platform.password, null);
             try
             {
-                Target _target = payload.payload.mcp.target.ToObject<Target>();
+                MoveyWorkloadType _target = _payload.mcp.target;
 
                 String _ostype = String.Format("{0} {1}", _target.ostype, _target.osedition);
                 String mcp_template_name = mcp_getimage_name(_ostype);
                 List<Option> _options = new List<Option>();
                 _options.Add(new Option() { option = "operatingSystemId", value = mcp_template_name });
                 _options.Add(new Option() { option = "operatingSystemFamily", value = "WINDOWS" });
-                _options.Add(new Option() { option = "location", value = payload.payload.platform.moid });
+                _options.Add(new Option() { option = "location", value = _payload.platform.moid });
                 _options.Add(new Option() { option = "state", value = "NORMAL" });
 
                 ImagesWithDiskSpeedImage _platformimage = CaaS.serverimage().platformserverimages(_options).image.Find(x => x.softwareLabel.Count == 0);
@@ -40,7 +41,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 
                 List<DeployServerDisk> _disks = new List<DeployServerDisk>();
                
-                foreach (Volume volume in _target.volumes)
+                foreach (MoveyWorkloadVolumeType volume in _target.volumes)
                 {
                     if (_platformimage.disk.Exists(x => x.scsiId == volume.diskindex))
                     {
@@ -48,7 +49,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     }
                 }
 
-                string moid = payload.payload.platform.moid;
+                string moid = _payload.platform.moid;
                 List<Option> _dcoptions = new List<Option>();
                 _dcoptions.Add(new Option() { option = "id", value = moid });
                 DatacenterType dc = (CaaS.datacenter().datacenters(_dcoptions) as DatacenterListType).datacenter[0];
@@ -100,7 +101,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 
                     //Expand C: drive and Add additional disks if required
                     int count = 0;
-                    foreach (Volume _volume in _target.volumes)
+                    foreach (MoveyWorkloadVolumeType _volume in _target.volumes)
                     {
                         if (_newvm.disk.ToList().Exists(x => x.scsiId == _volume.diskindex))
                         {
@@ -295,7 +296,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         public static void mcp_getdatacenters(dynamic payload)
         {
             CloudMovey CloudMovey = new CloudMovey();
-            TasksObject tasks = new TasksObject(CloudMovey);
+            Tasks tasks = new Tasks(CloudMovey);
             DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.username, (string)payload.payload.password, null);
             try
             {
@@ -310,7 +311,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         public static void mcp_gettemplates(dynamic payload)
         {
             CloudMovey CloudMovey = new CloudMovey();
-            TasksObject tasks = new TasksObject(CloudMovey);
+            Tasks tasks = new Tasks(CloudMovey);
             DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.username, (string)payload.payload.password, null);
             try
             {
@@ -329,7 +330,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         public static void mcp_retrieveservers(dynamic payload)
         {
             CloudMovey CloudMovey = new CloudMovey();
-            TasksObject tasks = new TasksObject(CloudMovey);
+            Tasks tasks = new Tasks(CloudMovey);
             DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.platform.username, (string)payload.payload.platform.password, null);
             try
             {
@@ -359,7 +360,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         public static void mcp_retrievenetworks(dynamic payload)
         {
             CloudMovey CloudMovey = new CloudMovey();
-            TasksObject tasks = new TasksObject(CloudMovey);
             DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.platform.username, (string)payload.payload.platform.password, null);
             try
             {
