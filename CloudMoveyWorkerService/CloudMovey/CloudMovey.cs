@@ -13,7 +13,7 @@ namespace CloudMoveyWorkerService.CloudMovey
 
         public CloudMovey()
         {
-            _apiBase = Global.apiBase;
+            _apiBase = Global.api_base;
         }
 
         public MoveyTask task()
@@ -35,6 +35,10 @@ namespace CloudMoveyWorkerService.CloudMovey
         public MoveyPlatform platform()
         {
             return new MoveyPlatform(this);
+        }
+        public MoveyPlatformnetwork platformnetwork()
+        {
+            return new MoveyPlatformnetwork(this);
         }
         public String ApiBase
         {

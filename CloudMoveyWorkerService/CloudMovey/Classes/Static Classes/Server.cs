@@ -1,4 +1,4 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types;
+﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudMoveyWorkerService.CloudMovey.Types
+namespace CloudMoveyWorkerService.CloudMovey.Types.API
 {
     public class MoveyWorkloadUpdateObject
     {

@@ -1,5 +1,4 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types;
-using DoubleTake.Core;
+﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using SimpleImpersonation;

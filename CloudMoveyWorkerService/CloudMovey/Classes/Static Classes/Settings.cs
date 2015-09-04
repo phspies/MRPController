@@ -1,4 +1,4 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types;
+﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -23,28 +23,20 @@ namespace CloudMoveyWorkerService.CloudMovey
         }
         static public void RegisterAgent()
         {
-            MoveyWorkerType worker = new MoveyWorkerType();
-            worker.hostname = Environment.MachineName;
-            worker.worker_version = Global.versionNumber;
-            worker.ipaddress = String.Join(",", System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList.Select(x => x.ToString()).Where(x => x.ToString().Contains(".")));
-            worker.id = Global.agentId;
+
             CloudMovey CloudMovey = new CloudMovey();
-            if (CloudMovey.worker().confirm_worker(worker))
+            if (!CloudMovey.worker().confirm_worker())
             {
-                Global.eventLog.WriteEntry("Hostname: " + worker.hostname);
-            }
-            else
-            {
-                Global.eventLog.WriteEntry("Worker not registered, registering worker with CloudMovey portal");
-                if (CloudMovey.worker().register_worker(worker))
+                Global.event_log.WriteEntry("Worker not registered, registering worker with CloudMovey portal");
+                if (CloudMovey.worker().register_worker())
                 {
-                    if (CloudMovey.worker().confirm_worker(worker))
+                    if (CloudMovey.worker().confirm_worker())
                     {
-                        Global.eventLog.WriteEntry("Worker Registered: " + worker.hostname);
+                        Global.event_log.WriteEntry("Worker Registered");
                     }
                     else
                     {
-                        Global.eventLog.WriteEntry("Registration Failed", EventLogEntryType.Error);
+                        Global.event_log.WriteEntry("Registration Failed", EventLogEntryType.Error);
                     }
                 }
             }
@@ -53,61 +45,61 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             //Define global version number
             String _registry = @"SOFTWARE\CloudMovey Worker Service";
-            Global.versionNumber = "0.0.1";
-            Global.eventLog.WriteEntry("Starting CloudMovey Worker Service");
+            Global.version_number = "0.0.1";
+            Global.event_log.WriteEntry("Starting CloudMovey Worker Service");
             RegistryKey rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
             if (rkSubKey == null)
             {
-                Global.eventLog.WriteEntry("Creating Registry Hive");
+                Global.event_log.WriteEntry("Creating Registry Hive");
                 RegistryKey key = Registry.LocalMachine.CreateSubKey(_registry);
                 key.SetValue("Debug", false);
-                Global.Debug = false;
+                Global.debug = false;
                 key.Close();
                 rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
             }
             else
             {
-                rkSubKey.SetValue("agentVersion", Global.versionNumber, RegistryValueKind.String);
-                Global.Debug = Convert.ToBoolean(rkSubKey.GetValue("debug"));
-                if (Global.Debug)
+                rkSubKey.SetValue("agentVersion", Global.version_number, RegistryValueKind.String);
+                Global.debug = Convert.ToBoolean(rkSubKey.GetValue("debug"));
+                if (Global.debug)
                 {
-                    Global.eventLog.WriteEntry("Debug Enabled!");
+                    Global.event_log.WriteEntry("Debug Enabled!");
                 }
                 else
                 {
-                    Global.eventLog.WriteEntry("Debug Disabled!");
+                    Global.event_log.WriteEntry("Debug Disabled!");
                 }
             }
             //check if agent Id exists
             String _agentId = rkSubKey.GetValue("agentId", false) as String;
             if (String.IsNullOrEmpty(_agentId))
             {
-                Global.agentId = Guid.NewGuid().ToString().Replace("-", "");
-                rkSubKey.SetValue("agentId", Global.agentId, RegistryValueKind.String);
+                Global.agent_id = Guid.NewGuid().ToString().Replace("-", "");
+                rkSubKey.SetValue("agentId", Global.agent_id, RegistryValueKind.String);
             }
             else
             {
-                Global.agentId = _agentId.ToString();
+                Global.agent_id = _agentId.ToString();
             }
-            if (Global.Debug) {Global.eventLog.WriteEntry("CloudMovey Worker Agent ID:" + Global.agentId);};
+            if (Global.debug) {Global.event_log.WriteEntry("CloudMovey Worker Agent ID:" + Global.agent_id);};
 
             //load portal API base url
             String _apiBase = rkSubKey.GetValue("apiBase", null) as String;
             if (String.IsNullOrEmpty(_apiBase))
             {
                 rkSubKey.SetValue("apiBase", "<missing url base>", RegistryValueKind.String);
-                Global.eventLog.WriteEntry("Missing base URL", EventLogEntryType.Error);
+                Global.event_log.WriteEntry("Missing base URL", EventLogEntryType.Error);
             }
             else
             {
-                Global.apiBase = _apiBase.ToString();
-                if (Uri.IsWellFormedUriString(Global.apiBase, UriKind.Absolute))
+                Global.api_base = _apiBase.ToString();
+                if (Uri.IsWellFormedUriString(Global.api_base, UriKind.Absolute))
                 {
-                    if (Global.Debug) { Global.eventLog.WriteEntry("CloudMovey Portal URL:" + Global.apiBase); };
+                    if (Global.debug) { Global.event_log.WriteEntry("CloudMovey Portal URL:" + Global.api_base); };
                 }
                 else
                 {
-                    Global.eventLog.WriteEntry("incorrect base url format", EventLogEntryType.Error);
+                    Global.event_log.WriteEntry("incorrect base url format", EventLogEntryType.Error);
                 }
 
             }

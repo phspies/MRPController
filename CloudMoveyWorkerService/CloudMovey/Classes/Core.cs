@@ -1,38 +1,20 @@
 ﻿using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ServiceModel.Web;
 using System.Diagnostics;
-using System.Xml.Serialization;
-using System.IO;
 using System.Net;
-using RestSharp.Contrib;
-using System.Collections;
-using CloudMoveyWorkerService.CloudMovey.Models;
-using RestSharp.Deserializers;
-using MySerializerNamespace;
 using System.Threading;
-using Newtonsoft.Json.Linq;
-using CloudMoveyWorkerService.CloudMovey.Types;
-using System.Runtime.Serialization.Json;
 using Newtonsoft.Json;
 
 namespace CloudMoveyWorkerService.CloudMovey
 {
     class Core
     {
-        private String _apibase, _username, _password, _endpoint;
-        private List<MoveyOption> _urloptions = new List<MoveyOption>();
+        private String _apibase, _endpoint;
         private CloudMovey _client;
 
         public Core(CloudMovey _CloudMovey)
         {
             _apibase = _CloudMovey.ApiBase;
-            _username = _CloudMovey.Username;
-            _password = _CloudMovey.Password;
             _client = _CloudMovey;
         }
 
@@ -51,13 +33,12 @@ namespace CloudMoveyWorkerService.CloudMovey
             client.FollowRedirects = false;
             client.BaseUrl = new Uri(apibase);
             RestRequest request = new RestRequest();
-            client.Proxy = null;
             client.FollowRedirects = false;
             request.Resource = endpoint;
             request.Method = _method;
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer.ContentType = "application/json; charset=utf-8";
-            request.JsonSerializer = new RestSharpJsonNetSerializer();
+            request.JsonSerializer = new JsonSerializer();
             request.AddJsonBody(_object);
 
             client.RemoveDefaultParameter("Accept");
@@ -73,24 +54,24 @@ namespace CloudMoveyWorkerService.CloudMovey
                 }
                 else if (response.StatusCode == HttpStatusCode.RequestTimeout)
                 {
-                    Global.eventLog.WriteEntry(String.Format("Connection timeout to {0}", client.BaseUrl.ToString()), EventLogEntryType.Error);
-                    Thread.Sleep(10000);
+                    Global.event_log.WriteEntry(String.Format("Connection timeout to {0}", client.BuildUri(request).ToString()), EventLogEntryType.Error);
+                    Thread.Sleep(new TimeSpan(0,0,30));
                 }
                 else if (response.StatusCode == 0)
                 {
-                    Global.eventLog.WriteEntry(String.Format("Unexpected error connecting to {0} ({1})", client.BaseUrl.ToString(), response.ErrorMessage), EventLogEntryType.Error);
-                    Thread.Sleep(10000);
+                    Global.event_log.WriteEntry(String.Format("Unexpected error connecting to {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), EventLogEntryType.Error);
+                    Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
                 else
                 {
-                    responseobject = new MoveyError() { error = response.ErrorMessage };
-                    break;
+                    Global.event_log.WriteEntry(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), EventLogEntryType.Error);
+                    Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
             }
             return responseobject;
 
         }
-          public String apibase
+        public String apibase
         {
             get
             {
@@ -112,7 +93,5 @@ namespace CloudMoveyWorkerService.CloudMovey
                 this._endpoint = value;
             }
         }
-
-
     }
 }

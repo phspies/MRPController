@@ -8,13 +8,15 @@ using CloudMoveyWorkerService.CloudMovey.Controllers;
 using System.Threading;
 using CloudMoveyWorkerService.WCF;
 using System.Data.Services;
+using CloudMoveyWorkerService.CloudMovey.Classes;
 
 namespace CloudMoveyWorkerService
 {
   
     public partial class CloudMoveyWorkerSvc : ServiceBase
     {
-        Thread t;
+        Thread scheduler_thread;
+        Thread mirror_thread;
         ServiceHost serviceHost;
         public CloudMoveyWorkerSvc()
         {
@@ -30,7 +32,7 @@ namespace CloudMoveyWorkerService
             //dataserviceHost.Open();
 
             // Start WCF Service
-            if (Global.Debug) { Global.eventLog.WriteEntry("Starting WCF Service"); };
+            if (Global.debug) { Global.event_log.WriteEntry("Starting WCF Service"); };
 
             Uri wcfbaseAddress = new Uri("http://localhost:8734/CloudMoveyWCFService");
             serviceHost = new ServiceHost(typeof(CloudMoveyService), wcfbaseAddress);
@@ -41,16 +43,24 @@ namespace CloudMoveyWorkerService
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
-            Global.eventLog = CloudMoveyWorkerLog1;
+            Global.event_log = CloudMoveyWorkerLog1;
             Settings.SetupAgent();
             Settings.RegisterAgent();
+            Global.event_log.WriteEntry(String.Format("organization id: {0}", Global.organization_id));
 
             Scheduler _scheduler = new Scheduler();
-            if (Global.Debug) { Global.eventLog.WriteEntry("Starting Scheduler"); };
-            t = new Thread(new ThreadStart(_scheduler.Start));
+            if (Global.debug) { Global.event_log.WriteEntry("Starting Scheduler Thread"); };
+            scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));
+            scheduler_thread.Start();
 
-            t.Start();
+
+            Mirror _mirror = new Mirror();
+            if (Global.debug) { Global.event_log.WriteEntry("Starting Mirror Thread"); };
+            mirror_thread = new Thread(new ThreadStart(_mirror.Start));
+            mirror_thread.Start();
+
             Thread.Yield();
+
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -60,7 +70,7 @@ namespace CloudMoveyWorkerService
 
         static void HandleException(Exception e)
         {
-            Global.eventLog.WriteEntry(e.ToString(), EventLogEntryType.Error);
+            Global.event_log.WriteEntry(e.ToString(), EventLogEntryType.Error);
         }
         protected override void OnStop()
         {

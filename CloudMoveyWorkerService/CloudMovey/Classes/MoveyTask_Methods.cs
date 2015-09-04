@@ -1,4 +1,4 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types;
+﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -15,7 +15,7 @@ namespace CloudMoveyWorkerService.CloudMovey
         public dynamic tasks()
         {
             endpoint = "/api/v1/tasks/list.json";
-            MoveyCommandWorkerType worker = new MoveyCommandWorkerType() { id = Global.agentId, hostname = Environment.MachineName };
+            MoveyCommandWorkerType worker = new MoveyCommandWorkerType() { worker_id = Global.agent_id, worker_hostname = Environment.MachineName };
             return post<MoveyTaskListType>(worker);
         }
 
@@ -25,8 +25,8 @@ namespace CloudMoveyWorkerService.CloudMovey
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
             CompleteTaskUpdateType task = new CompleteTaskUpdateType()
             {
-                id = Global.agentId,
-                hostname = Environment.MachineName,
+                worker_id = Global.agent_id,
+                worker_hostname = Environment.MachineName,
                 task_id = payload.id,
                 attributes = new CompleteTaskUpdateAttributesType()
                 {
@@ -41,7 +41,7 @@ namespace CloudMoveyWorkerService.CloudMovey
             object returnval = put<MoveyTaskType>(task);
             if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else
@@ -55,8 +55,8 @@ namespace CloudMoveyWorkerService.CloudMovey
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
             CompleteTaskUpdateType task = new CompleteTaskUpdateType()
             {
-                id = Global.agentId,
-                hostname = Environment.MachineName,
+                worker_id = Global.agent_id,
+                worker_hostname = Environment.MachineName,
                 task_id = payload.id,
                 attributes = new CompleteTaskUpdateAttributesType()
                 {
@@ -70,7 +70,7 @@ namespace CloudMoveyWorkerService.CloudMovey
             object returnval = put<MoveyTaskType>(task);
             if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else
@@ -82,8 +82,8 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             CompleteTaskUpdateType task = new CompleteTaskUpdateType()
             {
-                id = Global.agentId,
-                hostname = Environment.MachineName,
+                worker_id = Global.agent_id,
+                worker_hostname = Environment.MachineName,
                 task_id = payload.id,
                 attributes = new CompleteTaskUpdateAttributesType()
                 {
@@ -97,7 +97,7 @@ namespace CloudMoveyWorkerService.CloudMovey
             object returnval = put<MoveyTaskType>(task);
             if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else
@@ -109,8 +109,8 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             ProgressTaskUpdateType task = new ProgressTaskUpdateType()
             {
-                id = Global.agentId,
-                hostname = Environment.MachineName,
+                worker_id = Global.agent_id,
+                worker_hostname = Environment.MachineName,
                 task_id = payload.id,
                 attributes = new ProgressTaskUpdateAttributesType()
                 {
@@ -123,7 +123,7 @@ namespace CloudMoveyWorkerService.CloudMovey
             object returnval = put<MoveyTaskType>(task);
             if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else
@@ -135,8 +135,8 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             ProgressTaskUpdateType task = new ProgressTaskUpdateType()
             {
-                id = Global.agentId,
-                hostname = Environment.MachineName,
+                worker_id = Global.agent_id,
+                worker_hostname = Environment.MachineName,
                 task_id = payload.id,
                 attributes = new ProgressTaskUpdateAttributesType()
                 {
@@ -148,7 +148,7 @@ namespace CloudMoveyWorkerService.CloudMovey
             object returnval = put<MoveyTaskType>(task);
             if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else
@@ -162,7 +162,7 @@ namespace CloudMoveyWorkerService.CloudMovey
             object returnval = put<MoveyTaskType>(_object);
             if (returnval is MoveyError)
             {
-                Global.eventLog.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
                 return false;
             }
             else

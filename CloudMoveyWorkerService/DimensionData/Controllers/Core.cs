@@ -110,7 +110,7 @@ namespace CloudMoveyWorkerService.CaaS
             {
                 if (!Object.ReferenceEquals(null, _object))
                 {
-                    Global.eventLog.WriteEntry(_object.ToQueryString());
+                    Global.event_log.WriteEntry(_object.ToQueryString());
                     request.AddParameter("application/x-www-form-urlencoded", _object.ToQueryString(), ParameterType.RequestBody);
                 }
             }
@@ -119,26 +119,34 @@ namespace CloudMoveyWorkerService.CaaS
                 request.AddParameter("application/xml", SerializeObject(_object), ParameterType.RequestBody);
             }
 
-            Global.eventLog.WriteEntry(_method.ToString() + " " + client.BuildUri(request).AbsoluteUri);
+            Global.event_log.WriteEntry(_method.ToString() + " " + client.BuildUri(request).AbsoluteUri);
             client.RemoveDefaultParameter("Accept");
             client.AddDefaultParameter("Accept", "application/xml,text/xml", RestSharp.ParameterType.HttpHeader);
             
             var response = client.Execute(request);
-
             var serializer = new XmlSerializer(typeof(type));
+
             var responseobject = new Object();
             
             if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
             {
                 using (var reader = new StringReader(response.Content))
                 {
-                    responseobject = (type)serializer.Deserialize(reader);
+                    try
+                    {
+                        responseobject = (type)serializer.Deserialize(reader);
+                    }
+                    catch (Exception ex)
+                    {
+                        Global.event_log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
+                        Global.event_log.WriteEntry(response.Content, EventLogEntryType.Error);
+                    }
                 }
             }
             else if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 {
-                    Global.eventLog.WriteEntry("Access Denied Error",EventLogEntryType.Error);
+                    Global.event_log.WriteEntry("Access Denied Error",EventLogEntryType.Error);
                     responseobject =  new ResponseType() { message = "Access Denied" };
                 }
             }

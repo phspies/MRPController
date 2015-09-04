@@ -14,17 +14,19 @@ namespace CloudMoveyWorkerService
         /// Static value protected by access routine.
         /// </summary>
         static bool _debug;
-        static String _agentId;
-        static String _apiBase;
-        static String _versionNumber;
+        static String _agent_id;
+        static String _api_base;
+        static String _worker_version;
+        static String _organization_id;
         static int _worker_queue_count;
         static EventLog _eventLog;
+     
         public static int worker_queue_count
         {
             get { return _worker_queue_count; }
             set { _worker_queue_count = value; }
         }
-        public static EventLog eventLog
+        public static EventLog event_log
         {
             get
             {
@@ -35,44 +37,44 @@ namespace CloudMoveyWorkerService
                 _eventLog = value;
             }
         }
-        public static String versionNumber
+        public static String version_number
         {
             get
             {
-                return _versionNumber;
+                return _worker_version;
             }
             set
             {
-                _versionNumber = value;
+                _worker_version = value;
             }
         }
-        public static String apiBase
+        public static String api_base
         {
             get
             {
-                return _apiBase;
+                return _api_base;
             }
             set
             {
-                _apiBase = value;
+                _api_base = value;
             }
         }
-        public static String agentId
+        public static String agent_id
         {
             get
             {
-                return _agentId;
+                return _agent_id;
             }
             set
             {
-                _agentId = value;
+                _agent_id = value;
             }
         }
 
         /// <summary>
         /// Access routine for global variable.
         /// </summary>
-        public static bool Debug
+        public static bool debug
         {
             get
             {
@@ -83,7 +85,17 @@ namespace CloudMoveyWorkerService
                 _debug = value;
             }
         }
-
+        public static string organization_id
+        {
+            get
+            {
+                return _organization_id;
+            }
+            set
+            {
+                _organization_id = value;
+            }
+        }
         /// <summary>
         /// Global static field.
         /// </summary>

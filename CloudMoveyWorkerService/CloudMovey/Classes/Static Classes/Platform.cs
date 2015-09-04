@@ -1,6 +1,6 @@
 ﻿using CloudMoveyWorkerService.CaaS;
 using CloudMoveyWorkerService.CaaS.Models;
-using CloudMoveyWorkerService.CloudMovey.Types;
+using CloudMoveyWorkerService.CloudMovey.Types.API;
 using Newtonsoft.Json;
 using SimpleImpersonation;
 using System;
