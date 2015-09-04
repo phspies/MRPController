@@ -118,8 +118,6 @@ namespace CloudMoveyWorkerService.CaaS
             {
                 request.AddParameter("application/xml", SerializeObject(_object), ParameterType.RequestBody);
             }
-
-            Global.event_log.WriteEntry(_method.ToString() + " " + client.BuildUri(request).AbsoluteUri);
             client.RemoveDefaultParameter("Accept");
             client.AddDefaultParameter("Accept", "application/xml,text/xml", RestSharp.ParameterType.HttpHeader);
             

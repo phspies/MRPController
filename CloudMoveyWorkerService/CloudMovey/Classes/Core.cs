@@ -43,13 +43,23 @@ namespace CloudMoveyWorkerService.CloudMovey
 
             client.RemoveDefaultParameter("Accept");
             client.AddDefaultParameter("Accept", "application/json", RestSharp.ParameterType.HttpHeader);
-            object responseobject;
+            object responseobject = null;
             while (true)
             {
                 var response = client.Execute(request);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    responseobject = JsonConvert.DeserializeObject<type>(response.Content);
+                    try {
+                        responseobject = JsonConvert.DeserializeObject<type>(response.Content);
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        Global.event_log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
+                        Global.event_log.WriteEntry(JsonConvert.SerializeObject(_object), EventLogEntryType.Error);
+                        Global.event_log.WriteEntry(response.Content, EventLogEntryType.Error);
+                        break;
+                    }
                     break;
                 }
                 else if (response.StatusCode == HttpStatusCode.RequestTimeout)
@@ -64,7 +74,7 @@ namespace CloudMoveyWorkerService.CloudMovey
                 }
                 else
                 {
-                    Global.event_log.WriteEntry(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), EventLogEntryType.Error);
+                    Global.event_log.WriteEntry(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.Content), EventLogEntryType.Error);
                     Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
             }
