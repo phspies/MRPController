@@ -28,7 +28,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         private List<ServerTypeDisk> diskField;
 
-        private object itemField;
+        private ServerTypeNetworkInfo networkInfoField;
 
         private ServerTypeBackup backupField;
 
@@ -59,6 +59,7 @@ namespace CloudMoveyWorkerService.CaaS
             this.machineStatusField = new List<ServerTypeMachineStatus>();
             this.progressField = new ProgressType();
             this.softwareLabelField = new List<string>();
+            this.networkInfoField = new ServerTypeNetworkInfo();
             this.monitoringField = new ServerTypeMonitoring();
             this.backupField = new ServerTypeBackup();
             this.diskField = new List<ServerTypeDisk>();
@@ -139,16 +140,15 @@ namespace CloudMoveyWorkerService.CaaS
         }
 
         [System.Xml.Serialization.XmlElementAttribute("networkInfo", typeof(ServerTypeNetworkInfo))]
-        [System.Xml.Serialization.XmlElementAttribute("nic", typeof(ServerTypeNic))]
-        public object Item
+        public ServerTypeNetworkInfo networkInfo
         {
             get
             {
-                return this.itemField;
+                return this.networkInfoField;
             }
             set
             {
-                this.itemField = value;
+                this.networkInfoField = value;
             }
         }
 
