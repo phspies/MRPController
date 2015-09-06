@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudMoveyWorkerService.CaaS1
+namespace CloudMoveyWorkerService.CaaS
 {
 
     class ServerImageObject : Core
@@ -62,12 +62,12 @@ namespace CloudMoveyWorkerService.CaaS1
         /// 
 
 
-        public ImagesWithDiskSpeed customerserverimages(List<Option> options = null)
+        public CustomerImagesWithDiskSpeed customerserverimages(List<Option> options = null)
         {
             orgendpoint("/imageWithDiskSpeed");
             urloptions = options;
-            ImagesWithDiskSpeed softwarelabels = get<ImagesWithDiskSpeed>(null, true) as ImagesWithDiskSpeed;
-            return softwarelabels;
+            CustomerImagesWithDiskSpeed customerserverimages = get<CustomerImagesWithDiskSpeed>(null, true) as CustomerImagesWithDiskSpeed;
+            return customerserverimages;
         }
 
         /// <summary>

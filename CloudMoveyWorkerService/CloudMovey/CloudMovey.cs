@@ -9,7 +9,7 @@ namespace CloudMoveyWorkerService.CloudMovey
 {
     class CloudMovey
     {
-        private String _apiBase, _username, _password;
+        private String _apiBase;
 
         public CloudMovey()
         {
@@ -19,6 +19,10 @@ namespace CloudMoveyWorkerService.CloudMovey
         public MoveyTask task()
         {
             return new MoveyTask(this);
+        }
+        public MoveyPlatformtemplate platformtemplate()
+        {
+            return new MoveyPlatformtemplate(this);
         }
         public MoveyCredential credential()
         {
@@ -44,14 +48,5 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             get { return _apiBase; }
         }
-        public String Username
-        {
-            get { return _username; }
-        }
-        public String Password
-        {
-            get { return _password; }
-        }
-
     }
 }
