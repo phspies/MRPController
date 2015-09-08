@@ -2,18 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ServiceModel.Web;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using System.IO;
-using Newtonsoft.Json;
 using System.Net;
-using RestSharp.Contrib;
 using System.Collections;
 using CloudMoveyWorkerService.CaaS.Models;
-using System.Web;
 
 namespace CloudMoveyWorkerService.CaaS
 {

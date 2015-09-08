@@ -17,43 +17,25 @@ namespace CloudMoveyWorkerService.CaaS
     {
 
         private string nameField;
-
         private string descriptionField;
-
         private OperatingSystemType operatingSystemField;
-
         private int cpuCountField;
-
         private int memoryGbField;
-
         private List<ServerTypeDisk> diskField;
-
         private ServerTypeNetworkInfo networkInfoField;
-
+        private ServerNic nicField;
         private ServerTypeBackup backupField;
-
         private ServerTypeMonitoring monitoringField;
-
         private List<string> softwareLabelField;
-
         private string sourceImageIdField;
-
         private System.DateTime createTimeField;
-
         private bool deployedField;
-
         private bool startedField;
-
         private string stateField;
-
         private ProgressType progressField;
-
         private List<ServerTypeMachineStatus> machineStatusField;
-
         private string idField;
-
         private string datacenterIdField;
-
         public ServerType()
         {
             this.machineStatusField = new List<ServerTypeMachineStatus>();
@@ -138,7 +120,17 @@ namespace CloudMoveyWorkerService.CaaS
                 this.diskField = value;
             }
         }
-
+        public ServerNic nic
+        {
+            get
+            {
+                return this.nicField;
+            }
+            set
+            {
+                this.nicField = value;
+            }
+        }
         [System.Xml.Serialization.XmlElementAttribute("networkInfo", typeof(ServerTypeNetworkInfo))]
         public ServerTypeNetworkInfo networkInfo
         {
@@ -300,7 +292,90 @@ namespace CloudMoveyWorkerService.CaaS
             }
         }
     }
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
+    public partial class ServerNic
+    {
 
+        private string idField;
+
+        private string privateIpv4Field;
+
+        private string networkIdField;
+
+        private string networkNameField;
+
+        private string stateField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string privateIpv4
+        {
+            get
+            {
+                return this.privateIpv4Field;
+            }
+            set
+            {
+                this.privateIpv4Field = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string networkId
+        {
+            get
+            {
+                return this.networkIdField;
+            }
+            set
+            {
+                this.networkIdField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string networkName
+        {
+            get
+            {
+                return this.networkNameField;
+            }
+            set
+            {
+                this.networkNameField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string state
+        {
+            get
+            {
+                return this.stateField;
+            }
+            set
+            {
+                this.stateField = value;
+            }
+        }
+    }
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.18408")]
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
