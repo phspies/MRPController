@@ -230,11 +230,12 @@
       <xs:element name="descriptionField" nillable="true" type="xs:string" />
       <xs:element name="diskField" nillable="true" type="tns:ArrayOfServerTypeDisk" />
       <xs:element name="idField" nillable="true" type="xs:string" />
-      <xs:element name="itemField" nillable="true" type="xs:anyType" />
       <xs:element name="machineStatusField" nillable="true" type="tns:ArrayOfServerTypeMachineStatus" />
       <xs:element name="memoryGbField" type="xs:int" />
       <xs:element name="monitoringField" nillable="true" type="tns:ServerTypeMonitoring" />
       <xs:element name="nameField" nillable="true" type="xs:string" />
+      <xs:element name="networkInfoField" nillable="true" type="tns:ServerTypeNetworkInfo" />
+      <xs:element name="nicField" nillable="true" type="tns:ServerNic" />
       <xs:element name="operatingSystemField" nillable="true" type="tns:OperatingSystemType" />
       <xs:element name="progressField" nillable="true" type="tns:ProgressType" />
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="softwareLabelField" nillable="true" type="q1:ArrayOfstring" />
@@ -289,6 +290,42 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ServerTypeMonitoring" nillable="true" type="tns:ServerTypeMonitoring" />
+  <xs:complexType name="ServerTypeNetworkInfo">
+    <xs:sequence>
+      <xs:element name="additionalNicField" nillable="true" type="tns:ArrayOfNicType" />
+      <xs:element name="networkDomainIdField" nillable="true" type="xs:string" />
+      <xs:element name="primaryNicField" nillable="true" type="tns:NicType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServerTypeNetworkInfo" nillable="true" type="tns:ServerTypeNetworkInfo" />
+  <xs:complexType name="ArrayOfNicType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="NicType" nillable="true" type="tns:NicType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfNicType" nillable="true" type="tns:ArrayOfNicType" />
+  <xs:complexType name="NicType">
+    <xs:sequence>
+      <xs:element name="idField" nillable="true" type="xs:string" />
+      <xs:element name="ipv6Field" nillable="true" type="xs:string" />
+      <xs:element name="macAddressField" nillable="true" type="xs:string" />
+      <xs:element name="privateIpv4Field" nillable="true" type="xs:string" />
+      <xs:element name="stateField" nillable="true" type="xs:string" />
+      <xs:element name="vlanIdField" nillable="true" type="xs:string" />
+      <xs:element name="vlanNameField" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NicType" nillable="true" type="tns:NicType" />
+  <xs:complexType name="ServerNic">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="networkId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="networkName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="privateIpv4" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="state" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServerNic" nillable="true" type="tns:ServerNic" />
   <xs:complexType name="OperatingSystemType">
     <xs:sequence>
       <xs:element name="displayNameField" nillable="true" type="xs:string" />

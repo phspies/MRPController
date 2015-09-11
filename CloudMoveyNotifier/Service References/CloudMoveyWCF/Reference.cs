@@ -92,6 +92,100 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Failovergroup", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite" +
+        ".Models")]
+    [System.SerializableAttribute()]
+    public partial class Failovergroup : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string groupField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> group_typeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string parent_idField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string group {
+            get {
+                return this.groupField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.groupField, value) != true)) {
+                    this.groupField = value;
+                    this.RaisePropertyChanged("group");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> group_type {
+            get {
+                return this.group_typeField;
+            }
+            set {
+                if ((this.group_typeField.Equals(value) != true)) {
+                    this.group_typeField = value;
+                    this.RaisePropertyChanged("group_type");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.idField, value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string parent_id {
+            get {
+                return this.parent_idField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.parent_idField, value) != true)) {
+                    this.parent_idField = value;
+                    this.RaisePropertyChanged("parent_id");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Platform", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite" +
         ".Models")]
     [System.SerializableAttribute()]
@@ -117,6 +211,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<System.DateTime> lastupdatedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string moidField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> networkdomain_countField;
@@ -241,6 +338,19 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((this.lastupdatedField.Equals(value) != true)) {
                     this.lastupdatedField = value;
                     this.RaisePropertyChanged("lastupdated");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string moid {
+            get {
+                return this.moidField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.moidField, value) != true)) {
+                    this.moidField = value;
+                    this.RaisePropertyChanged("moid");
                 }
             }
         }
@@ -1021,49 +1131,6 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ServerType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.PlatformDetails))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Platform))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Credential>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Credential))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.DatacenterListType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.DatacenterType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.DatacenterType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.BackupType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.PropertyType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.PropertyType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ConsoleAccessType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.HypervisorType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.DiskSpeedType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.DiskSpeedType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.MonitoringType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.NetworkingType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ResponseType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.NameValuePairType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.NameValuePairType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.NetworkDomainType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.NetworkDomainType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ProgressType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ProgressStepType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.VlanType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.VlanType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.IpRangeCidrType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.VlanTypeNetworkDomain))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeBackup))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeDisk>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeDisk))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.OperatingSystemType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Status))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.StatusAdditionalInformation))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Account))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.AccountRole>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.AccountRole))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.workerInformation))]
     public partial class ServerType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -1085,8 +1152,6 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         private string idFieldField;
         
-        private object itemFieldField;
-        
         private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus> machineStatusFieldField;
         
         private int memoryGbFieldField;
@@ -1094,6 +1159,10 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring monitoringFieldField;
         
         private string nameFieldField;
+        
+        private CloudMoveyNotifier.CloudMoveyWCF.ServerTypeNetworkInfo networkInfoFieldField;
+        
+        private CloudMoveyNotifier.CloudMoveyWCF.ServerNic nicFieldField;
         
         private CloudMoveyNotifier.CloudMoveyWCF.OperatingSystemType operatingSystemFieldField;
         
@@ -1222,19 +1291,6 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public object itemField {
-            get {
-                return this.itemFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.itemFieldField, value) != true)) {
-                    this.itemFieldField = value;
-                    this.RaisePropertyChanged("itemField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
         public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus> machineStatusField {
             get {
                 return this.machineStatusFieldField;
@@ -1282,6 +1338,32 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((object.ReferenceEquals(this.nameFieldField, value) != true)) {
                     this.nameFieldField = value;
                     this.RaisePropertyChanged("nameField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public CloudMoveyNotifier.CloudMoveyWCF.ServerTypeNetworkInfo networkInfoField {
+            get {
+                return this.networkInfoFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.networkInfoFieldField, value) != true)) {
+                    this.networkInfoFieldField = value;
+                    this.RaisePropertyChanged("networkInfoField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public CloudMoveyNotifier.CloudMoveyWCF.ServerNic nicField {
+            get {
+                return this.nicFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nicFieldField, value) != true)) {
+                    this.nicFieldField = value;
+                    this.RaisePropertyChanged("nicField");
                 }
             }
         }
@@ -1895,6 +1977,189 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeNetworkInfo", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.SerializableAttribute()]
+    public partial class ServerTypeNetworkInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.NicType> additionalNicFieldField;
+        
+        private string networkDomainIdFieldField;
+        
+        private CloudMoveyNotifier.CloudMoveyWCF.NicType primaryNicFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.NicType> additionalNicField {
+            get {
+                return this.additionalNicFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.additionalNicFieldField, value) != true)) {
+                    this.additionalNicFieldField = value;
+                    this.RaisePropertyChanged("additionalNicField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string networkDomainIdField {
+            get {
+                return this.networkDomainIdFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.networkDomainIdFieldField, value) != true)) {
+                    this.networkDomainIdFieldField = value;
+                    this.RaisePropertyChanged("networkDomainIdField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public CloudMoveyNotifier.CloudMoveyWCF.NicType primaryNicField {
+            get {
+                return this.primaryNicFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.primaryNicFieldField, value) != true)) {
+                    this.primaryNicFieldField = value;
+                    this.RaisePropertyChanged("primaryNicField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ServerNic", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.SerializableAttribute()]
+    public partial class ServerNic : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string networkIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string networkNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string privateIpv4Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string stateField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.idField, value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string networkId {
+            get {
+                return this.networkIdField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.networkIdField, value) != true)) {
+                    this.networkIdField = value;
+                    this.RaisePropertyChanged("networkId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string networkName {
+            get {
+                return this.networkNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.networkNameField, value) != true)) {
+                    this.networkNameField = value;
+                    this.RaisePropertyChanged("networkName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string privateIpv4 {
+            get {
+                return this.privateIpv4Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.privateIpv4Field, value) != true)) {
+                    this.privateIpv4Field = value;
+                    this.RaisePropertyChanged("privateIpv4");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string state {
+            get {
+                return this.stateField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.stateField, value) != true)) {
+                    this.stateField = value;
+                    this.RaisePropertyChanged("state");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OperatingSystemType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
     public partial class OperatingSystemType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -1953,6 +2218,303 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((object.ReferenceEquals(this.idFieldField, value) != true)) {
                     this.idFieldField = value;
                     this.RaisePropertyChanged("idField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeDisk", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.SerializableAttribute()]
+    public partial class ServerTypeDisk : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private string idFieldField;
+        
+        private int scsiIdFieldField;
+        
+        private int sizeGbFieldField;
+        
+        private string speedFieldField;
+        
+        private string stateFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string idField {
+            get {
+                return this.idFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.idFieldField, value) != true)) {
+                    this.idFieldField = value;
+                    this.RaisePropertyChanged("idField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int scsiIdField {
+            get {
+                return this.scsiIdFieldField;
+            }
+            set {
+                if ((this.scsiIdFieldField.Equals(value) != true)) {
+                    this.scsiIdFieldField = value;
+                    this.RaisePropertyChanged("scsiIdField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public int sizeGbField {
+            get {
+                return this.sizeGbFieldField;
+            }
+            set {
+                if ((this.sizeGbFieldField.Equals(value) != true)) {
+                    this.sizeGbFieldField = value;
+                    this.RaisePropertyChanged("sizeGbField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string speedField {
+            get {
+                return this.speedFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.speedFieldField, value) != true)) {
+                    this.speedFieldField = value;
+                    this.RaisePropertyChanged("speedField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string stateField {
+            get {
+                return this.stateFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.stateFieldField, value) != true)) {
+                    this.stateFieldField = value;
+                    this.RaisePropertyChanged("stateField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeMachineStatus", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.SerializableAttribute()]
+    public partial class ServerTypeMachineStatus : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private string nameFieldField;
+        
+        private string valueFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string nameField {
+            get {
+                return this.nameFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nameFieldField, value) != true)) {
+                    this.nameFieldField = value;
+                    this.RaisePropertyChanged("nameField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string valueField {
+            get {
+                return this.valueFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.valueFieldField, value) != true)) {
+                    this.valueFieldField = value;
+                    this.RaisePropertyChanged("valueField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="NicType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.SerializableAttribute()]
+    public partial class NicType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private string idFieldField;
+        
+        private string ipv6FieldField;
+        
+        private string macAddressFieldField;
+        
+        private string privateIpv4FieldField;
+        
+        private string stateFieldField;
+        
+        private string vlanIdFieldField;
+        
+        private string vlanNameFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string idField {
+            get {
+                return this.idFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.idFieldField, value) != true)) {
+                    this.idFieldField = value;
+                    this.RaisePropertyChanged("idField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string ipv6Field {
+            get {
+                return this.ipv6FieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ipv6FieldField, value) != true)) {
+                    this.ipv6FieldField = value;
+                    this.RaisePropertyChanged("ipv6Field");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string macAddressField {
+            get {
+                return this.macAddressFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.macAddressFieldField, value) != true)) {
+                    this.macAddressFieldField = value;
+                    this.RaisePropertyChanged("macAddressField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string privateIpv4Field {
+            get {
+                return this.privateIpv4FieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.privateIpv4FieldField, value) != true)) {
+                    this.privateIpv4FieldField = value;
+                    this.RaisePropertyChanged("privateIpv4Field");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string stateField {
+            get {
+                return this.stateFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.stateFieldField, value) != true)) {
+                    this.stateFieldField = value;
+                    this.RaisePropertyChanged("stateField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string vlanIdField {
+            get {
+                return this.vlanIdFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.vlanIdFieldField, value) != true)) {
+                    this.vlanIdFieldField = value;
+                    this.RaisePropertyChanged("vlanIdField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string vlanNameField {
+            get {
+                return this.vlanNameFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.vlanNameFieldField, value) != true)) {
+                    this.vlanNameFieldField = value;
+                    this.RaisePropertyChanged("vlanNameField");
                 }
             }
         }
@@ -2431,65 +2993,6 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PropertyType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
-    [System.SerializableAttribute()]
-    public partial class PropertyType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string nameFieldField;
-        
-        private string valueFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string nameField {
-            get {
-                return this.nameFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.nameFieldField, value) != true)) {
-                    this.nameFieldField = value;
-                    this.RaisePropertyChanged("nameField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string valueField {
-            get {
-                return this.valueFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.valueFieldField, value) != true)) {
-                    this.valueFieldField = value;
-                    this.RaisePropertyChanged("valueField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ConsoleAccessType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
     public partial class ConsoleAccessType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -2638,6 +3141,198 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="MonitoringType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.SerializableAttribute()]
+    public partial class MonitoringType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private string maintenanceStatusFieldField;
+        
+        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.PropertyType> propertyFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string maintenanceStatusField {
+            get {
+                return this.maintenanceStatusFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.maintenanceStatusFieldField, value) != true)) {
+                    this.maintenanceStatusFieldField = value;
+                    this.RaisePropertyChanged("maintenanceStatusField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.PropertyType> propertyField {
+            get {
+                return this.propertyFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.propertyFieldField, value) != true)) {
+                    this.propertyFieldField = value;
+                    this.RaisePropertyChanged("propertyField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="NetworkingType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.SerializableAttribute()]
+    public partial class NetworkingType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private string maintenanceStatusFieldField;
+        
+        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.PropertyType> propertyFieldField;
+        
+        private string typeFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string maintenanceStatusField {
+            get {
+                return this.maintenanceStatusFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.maintenanceStatusFieldField, value) != true)) {
+                    this.maintenanceStatusFieldField = value;
+                    this.RaisePropertyChanged("maintenanceStatusField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.PropertyType> propertyField {
+            get {
+                return this.propertyFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.propertyFieldField, value) != true)) {
+                    this.propertyFieldField = value;
+                    this.RaisePropertyChanged("propertyField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string typeField {
+            get {
+                return this.typeFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.typeFieldField, value) != true)) {
+                    this.typeFieldField = value;
+                    this.RaisePropertyChanged("typeField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PropertyType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.SerializableAttribute()]
+    public partial class PropertyType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private string nameFieldField;
+        
+        private string valueFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string nameField {
+            get {
+                return this.nameFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nameFieldField, value) != true)) {
+                    this.nameFieldField = value;
+                    this.RaisePropertyChanged("nameField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public string valueField {
+            get {
+                return this.valueFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.valueFieldField, value) != true)) {
+                    this.valueFieldField = value;
+                    this.RaisePropertyChanged("valueField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DiskSpeedType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
     public partial class DiskSpeedType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -2756,139 +3451,6 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((object.ReferenceEquals(this.unavailableReasonFieldField, value) != true)) {
                     this.unavailableReasonFieldField = value;
                     this.RaisePropertyChanged("unavailableReasonField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MonitoringType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
-    [System.SerializableAttribute()]
-    public partial class MonitoringType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string maintenanceStatusFieldField;
-        
-        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.PropertyType> propertyFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string maintenanceStatusField {
-            get {
-                return this.maintenanceStatusFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.maintenanceStatusFieldField, value) != true)) {
-                    this.maintenanceStatusFieldField = value;
-                    this.RaisePropertyChanged("maintenanceStatusField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.PropertyType> propertyField {
-            get {
-                return this.propertyFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.propertyFieldField, value) != true)) {
-                    this.propertyFieldField = value;
-                    this.RaisePropertyChanged("propertyField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="NetworkingType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
-    [System.SerializableAttribute()]
-    public partial class NetworkingType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string maintenanceStatusFieldField;
-        
-        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.PropertyType> propertyFieldField;
-        
-        private string typeFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string maintenanceStatusField {
-            get {
-                return this.maintenanceStatusFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.maintenanceStatusFieldField, value) != true)) {
-                    this.maintenanceStatusFieldField = value;
-                    this.RaisePropertyChanged("maintenanceStatusField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.PropertyType> propertyField {
-            get {
-                return this.propertyFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.propertyFieldField, value) != true)) {
-                    this.propertyFieldField = value;
-                    this.RaisePropertyChanged("propertyField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string typeField {
-            get {
-                return this.typeFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.typeFieldField, value) != true)) {
-                    this.typeFieldField = value;
-                    this.RaisePropertyChanged("typeField");
                 }
             }
         }
@@ -3042,169 +3604,6 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     [System.Runtime.Serialization.DataContractAttribute(Name="NameValuePairType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
     public partial class NameValuePairType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string nameFieldField;
-        
-        private string valueFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string nameField {
-            get {
-                return this.nameFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.nameFieldField, value) != true)) {
-                    this.nameFieldField = value;
-                    this.RaisePropertyChanged("nameField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string valueField {
-            get {
-                return this.valueFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.valueFieldField, value) != true)) {
-                    this.valueFieldField = value;
-                    this.RaisePropertyChanged("valueField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeDisk", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
-    [System.SerializableAttribute()]
-    public partial class ServerTypeDisk : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string idFieldField;
-        
-        private int scsiIdFieldField;
-        
-        private int sizeGbFieldField;
-        
-        private string speedFieldField;
-        
-        private string stateFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string idField {
-            get {
-                return this.idFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.idFieldField, value) != true)) {
-                    this.idFieldField = value;
-                    this.RaisePropertyChanged("idField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int scsiIdField {
-            get {
-                return this.scsiIdFieldField;
-            }
-            set {
-                if ((this.scsiIdFieldField.Equals(value) != true)) {
-                    this.scsiIdFieldField = value;
-                    this.RaisePropertyChanged("scsiIdField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public int sizeGbField {
-            get {
-                return this.sizeGbFieldField;
-            }
-            set {
-                if ((this.sizeGbFieldField.Equals(value) != true)) {
-                    this.sizeGbFieldField = value;
-                    this.RaisePropertyChanged("sizeGbField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string speedField {
-            get {
-                return this.speedFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.speedFieldField, value) != true)) {
-                    this.speedFieldField = value;
-                    this.RaisePropertyChanged("speedField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string stateField {
-            get {
-                return this.stateFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.stateFieldField, value) != true)) {
-                    this.stateFieldField = value;
-                    this.RaisePropertyChanged("stateField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeMachineStatus", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
-    [System.SerializableAttribute()]
-    public partial class ServerTypeMachineStatus : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -3451,6 +3850,8 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     [System.SerializableAttribute()]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.PlatformDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Platform))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Credential>))]
@@ -3486,6 +3887,10 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeNetworkInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.NicType>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.NicType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerNic))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.OperatingSystemType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Status))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.StatusAdditionalInformation))]
@@ -3732,6 +4137,30 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/CollectionInformation", ReplyAction="http://tempuri.org/ICloudMoveyService/CollectionInformationResponse")]
         System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.workerInformation> CollectionInformationAsync();
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListFailovergroups", ReplyAction="http://tempuri.org/ICloudMoveyService/ListFailovergroupsResponse")]
+        System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup> ListFailovergroups();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListFailovergroups", ReplyAction="http://tempuri.org/ICloudMoveyService/ListFailovergroupsResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup>> ListFailovergroupsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/AddFailovergroup", ReplyAction="http://tempuri.org/ICloudMoveyService/AddFailovergroupResponse")]
+        CloudMoveyNotifier.CloudMoveyWCF.Failovergroup AddFailovergroup(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _addfailovergroup);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/AddFailovergroup", ReplyAction="http://tempuri.org/ICloudMoveyService/AddFailovergroupResponse")]
+        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup> AddFailovergroupAsync(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _addfailovergroup);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/UpdateFailovergroup", ReplyAction="http://tempuri.org/ICloudMoveyService/UpdateFailovergroupResponse")]
+        CloudMoveyNotifier.CloudMoveyWCF.Failovergroup UpdateFailovergroup(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _updatefailovergroup);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/UpdateFailovergroup", ReplyAction="http://tempuri.org/ICloudMoveyService/UpdateFailovergroupResponse")]
+        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup> UpdateFailovergroupAsync(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _updatefailovergroup);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/DestroyFailovergroup", ReplyAction="http://tempuri.org/ICloudMoveyService/DestroyFailovergroupResponse")]
+        bool DestroyFailovergroup(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _destroyfailovergroup);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/DestroyFailovergroup", ReplyAction="http://tempuri.org/ICloudMoveyService/DestroyFailovergroupResponse")]
+        System.Threading.Tasks.Task<bool> DestroyFailovergroupAsync(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _destroyfailovergroup);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListPlatforms", ReplyAction="http://tempuri.org/ICloudMoveyService/ListPlatformsResponse")]
         System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform> ListPlatforms();
         
@@ -3789,6 +4218,8 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListDatacenters", ReplyAction="http://tempuri.org/ICloudMoveyService/ListDatacentersResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.PlatformDetails))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Platform))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Credential>))]
@@ -3824,6 +4255,10 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeNetworkInfo))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.NicType>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.NicType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerNic))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.OperatingSystemType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Status))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.StatusAdditionalInformation))]
@@ -3839,6 +4274,8 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/Account", ReplyAction="http://tempuri.org/ICloudMoveyService/AccountResponse")]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.PlatformDetails))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Platform))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Credential>))]
@@ -3874,6 +4311,10 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeNetworkInfo))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.NicType>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.NicType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerNic))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.OperatingSystemType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Status))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.StatusAdditionalInformation))]
@@ -3926,6 +4367,38 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.workerInformation> CollectionInformationAsync() {
             return base.Channel.CollectionInformationAsync();
+        }
+        
+        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup> ListFailovergroups() {
+            return base.Channel.ListFailovergroups();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup>> ListFailovergroupsAsync() {
+            return base.Channel.ListFailovergroupsAsync();
+        }
+        
+        public CloudMoveyNotifier.CloudMoveyWCF.Failovergroup AddFailovergroup(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _addfailovergroup) {
+            return base.Channel.AddFailovergroup(_addfailovergroup);
+        }
+        
+        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup> AddFailovergroupAsync(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _addfailovergroup) {
+            return base.Channel.AddFailovergroupAsync(_addfailovergroup);
+        }
+        
+        public CloudMoveyNotifier.CloudMoveyWCF.Failovergroup UpdateFailovergroup(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _updatefailovergroup) {
+            return base.Channel.UpdateFailovergroup(_updatefailovergroup);
+        }
+        
+        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup> UpdateFailovergroupAsync(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _updatefailovergroup) {
+            return base.Channel.UpdateFailovergroupAsync(_updatefailovergroup);
+        }
+        
+        public bool DestroyFailovergroup(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _destroyfailovergroup) {
+            return base.Channel.DestroyFailovergroup(_destroyfailovergroup);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DestroyFailovergroupAsync(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _destroyfailovergroup) {
+            return base.Channel.DestroyFailovergroupAsync(_destroyfailovergroup);
         }
         
         public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform> ListPlatforms() {

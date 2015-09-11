@@ -18,6 +18,30 @@
   <wsdl:message name="ICloudMoveyService_CollectionInformation_OutputMessage">
     <wsdl:part name="parameters" element="tns:CollectionInformationResponse" />
   </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_ListFailovergroups_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListFailovergroups" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_ListFailovergroups_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListFailovergroupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_AddFailovergroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddFailovergroup" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_AddFailovergroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddFailovergroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_UpdateFailovergroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateFailovergroup" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_UpdateFailovergroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateFailovergroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_DestroyFailovergroup_InputMessage">
+    <wsdl:part name="parameters" element="tns:DestroyFailovergroup" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_DestroyFailovergroup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DestroyFailovergroupResponse" />
+  </wsdl:message>
   <wsdl:message name="ICloudMoveyService_ListPlatforms_InputMessage">
     <wsdl:part name="parameters" element="tns:ListPlatforms" />
   </wsdl:message>
@@ -95,6 +119,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/CollectionInformation" message="tns:ICloudMoveyService_CollectionInformation_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/CollectionInformationResponse" message="tns:ICloudMoveyService_CollectionInformation_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ListFailovergroups">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/ListFailovergroups" message="tns:ICloudMoveyService_ListFailovergroups_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/ListFailovergroupsResponse" message="tns:ICloudMoveyService_ListFailovergroups_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddFailovergroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/AddFailovergroup" message="tns:ICloudMoveyService_AddFailovergroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/AddFailovergroupResponse" message="tns:ICloudMoveyService_AddFailovergroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFailovergroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/UpdateFailovergroup" message="tns:ICloudMoveyService_UpdateFailovergroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/UpdateFailovergroupResponse" message="tns:ICloudMoveyService_UpdateFailovergroup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DestroyFailovergroup">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/DestroyFailovergroup" message="tns:ICloudMoveyService_DestroyFailovergroup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/DestroyFailovergroupResponse" message="tns:ICloudMoveyService_DestroyFailovergroup_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ListPlatforms">
       <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/ListPlatforms" message="tns:ICloudMoveyService_ListPlatforms_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/ListPlatformsResponse" message="tns:ICloudMoveyService_ListPlatforms_OutputMessage" />
@@ -148,6 +188,42 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
     <wsdl:operation name="CollectionInformation">
       <soap:operation soapAction="http://tempuri.org/ICloudMoveyService/CollectionInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListFailovergroups">
+      <soap:operation soapAction="http://tempuri.org/ICloudMoveyService/ListFailovergroups" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddFailovergroup">
+      <soap:operation soapAction="http://tempuri.org/ICloudMoveyService/AddFailovergroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFailovergroup">
+      <soap:operation soapAction="http://tempuri.org/ICloudMoveyService/UpdateFailovergroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DestroyFailovergroup">
+      <soap:operation soapAction="http://tempuri.org/ICloudMoveyService/DestroyFailovergroup" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

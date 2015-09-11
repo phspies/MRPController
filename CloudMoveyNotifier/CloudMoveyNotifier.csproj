@@ -157,6 +157,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\Class1.cs" />
+    <Compile Include="Forms\FailovergroupForm.xaml.cs">
+      <DependentUpon>FailovergroupForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CredentialForm.xaml.cs">
       <DependentUpon>CredentialForm.xaml</DependentUpon>
     </Compile>
@@ -166,13 +170,19 @@
     <Compile Include="Models\CredentialTypes.cs" />
     <Compile Include="Models\DimensionDataLocationViewModel.cs" />
     <Compile Include="Models\Datacenter.cs" />
+    <Compile Include="Models\Failovergroup_TreeModel.cs" />
     <Compile Include="Models\Types.cs" />
+    <Compile Include="Models\FailovergroupTypes.cs" />
     <Compile Include="Models\Vendors.cs" />
     <Compile Include="Service References\CloudMoveyWCF\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Page Include="Forms\FailovergroupForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Forms\CredentialForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -231,6 +241,9 @@
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Credential.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Failovergroup.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Platform.datasource">
