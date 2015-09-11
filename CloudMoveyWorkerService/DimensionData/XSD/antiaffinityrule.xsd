@@ -8,7 +8,7 @@
            jaxb:version="1.0">
 
     <xs:include schemaLocation="general.xsd"/>
-    <xs:include schemaLocation="server.xsd"/>
+    <xs:include schemaLocation="workload.xsd"/>
 
     <xs:complexType name="AntiAffinityNetworkInfoType">
         <xs:choice>
@@ -37,7 +37,7 @@
     </xs:complexType>
     <xs:complexType name="AntiAffinityRuleType">
         <xs:sequence>
-            <xs:element name="serverSummary" minOccurs="2" maxOccurs="unbounded">
+            <xs:element name="workloadSummary" minOccurs="2" maxOccurs="unbounded">
                 <xs:complexType>
                     <xs:sequence>
                         <xs:element name="name" type="xs:string"/>

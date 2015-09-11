@@ -10,7 +10,7 @@
 
 [assembly: System.Runtime.Serialization.ContractNamespaceAttribute("DoubleTake.Jobs.Contract.DTHV", ClrNamespace="DoubleTake.Jobs.Contract.DTHV")]
 [assembly: System.Runtime.Serialization.ContractNamespaceAttribute("DoubleTake.Jobs.Contract.Diagnostics", ClrNamespace="DoubleTake.Jobs.Contract.Diagnostics")]
-[assembly: System.Runtime.Serialization.ContractNamespaceAttribute("DoubleTake.Jobs.Contract.FullServer", ClrNamespace="DoubleTake.Jobs.Contract.FullServer")]
+[assembly: System.Runtime.Serialization.ContractNamespaceAttribute("DoubleTake.Jobs.Contract.FullWorkload", ClrNamespace="DoubleTake.Jobs.Contract.FullWorkload")]
 [assembly: System.Runtime.Serialization.ContractNamespaceAttribute("DoubleTake.Jobs.Contract.ImageBased", ClrNamespace="DoubleTake.Jobs.Contract.ImageBased")]
 [assembly: System.Runtime.Serialization.ContractNamespaceAttribute("DoubleTake.Jobs.Contract.UVRA", ClrNamespace="DoubleTake.Jobs.Contract.UVRA")]
 [assembly: System.Runtime.Serialization.ContractNamespaceAttribute("DoubleTake.Jobs.Contract.VRA", ClrNamespace="DoubleTake.Jobs.Contract.VRA")]
@@ -51,7 +51,7 @@ namespace DoubleTake.Jobs.Contract
         
         private System.Collections.Generic.Dictionary<string, System.Uri> OtherHostUrisField;
         
-        private string[] OtherServerNetworkIdsField;
+        private string[] OtherWorkloadNetworkIdsField;
         
         private System.Uri SourceHostUriField;
         
@@ -190,15 +190,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] OtherServerNetworkIds
+        public string[] OtherWorkloadNetworkIds
         {
             get
             {
-                return this.OtherServerNetworkIdsField;
+                return this.OtherWorkloadNetworkIdsField;
             }
             set
             {
-                this.OtherServerNetworkIdsField = value;
+                this.OtherWorkloadNetworkIdsField = value;
             }
         }
         
@@ -355,7 +355,7 @@ namespace DoubleTake.Jobs.Contract
         
         private DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState FilesAndFoldersPersistedStateField;
         
-        private DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState FullServerPersistedStateField;
+        private DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState FullWorkloadPersistedStateField;
         
         private DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState ImageProtectionPersistedStateField;
         
@@ -473,15 +473,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState FullServerPersistedState
+        public DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState FullWorkloadPersistedState
         {
             get
             {
-                return this.FullServerPersistedStateField;
+                return this.FullWorkloadPersistedStateField;
             }
             set
             {
-                this.FullServerPersistedStateField = value;
+                this.FullWorkloadPersistedStateField = value;
             }
         }
         
@@ -590,7 +590,7 @@ namespace DoubleTake.Jobs.Contract
         
         private System.Nullable<bool> FailoverMonitoringEnabledField;
         
-        private DoubleTake.Jobs.Contract.FullServerFailoverOptions FullServerFailoverOptionsField;
+        private DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions FullWorkloadFailoverOptionsField;
         
         private DoubleTake.Jobs.Contract.ImageProtectionOptions ImageProtectionOptionsField;
         
@@ -744,15 +744,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Jobs.Contract.FullServerFailoverOptions FullServerFailoverOptions
+        public DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions FullWorkloadFailoverOptions
         {
             get
             {
-                return this.FullServerFailoverOptionsField;
+                return this.FullWorkloadFailoverOptionsField;
             }
             set
             {
-                this.FullServerFailoverOptionsField = value;
+                this.FullWorkloadFailoverOptionsField = value;
             }
         }
         
@@ -912,7 +912,7 @@ namespace DoubleTake.Jobs.Contract
         
         private DoubleTake.Jobs.Contract.CoreMonitorDetails CoreMonitorDetailsField;
         
-        private DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails FullServerJobDetailsField;
+        private DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails FullWorkloadJobDetailsField;
         
         private DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails ImageProtectionJobDetailsField;
         
@@ -957,15 +957,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails FullServerJobDetails
+        public DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails FullWorkloadJobDetails
         {
             get
             {
-                return this.FullServerJobDetailsField;
+                return this.FullWorkloadJobDetailsField;
             }
             set
             {
-                this.FullServerJobDetailsField = value;
+                this.FullWorkloadJobDetailsField = value;
             }
         }
         
@@ -2403,7 +2403,7 @@ namespace DoubleTake.Jobs.Contract
         
         private bool TargetIsClusterField;
         
-        private string[] TargetVirtualServersField;
+        private string[] TargetVirtualWorkloadsField;
         
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData
         {
@@ -2561,15 +2561,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] TargetVirtualServers
+        public string[] TargetVirtualWorkloads
         {
             get
             {
-                return this.TargetVirtualServersField;
+                return this.TargetVirtualWorkloadsField;
             }
             set
             {
-                this.TargetVirtualServersField = value;
+                this.TargetVirtualWorkloadsField = value;
             }
         }
     }
@@ -2669,11 +2669,11 @@ namespace DoubleTake.Jobs.Contract
         
         private string SourceDomainField;
         
-        private string SourceServerField;
+        private string SourceWorkloadField;
         
         private string TargetDomainField;
         
-        private string TargetServerField;
+        private string TargetWorkloadField;
         
         private System.TimeSpan TotalTimeAllowedField;
         
@@ -2731,15 +2731,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SourceServer
+        public string SourceWorkload
         {
             get
             {
-                return this.SourceServerField;
+                return this.SourceWorkloadField;
             }
             set
             {
-                this.SourceServerField = value;
+                this.SourceWorkloadField = value;
             }
         }
         
@@ -2757,15 +2757,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TargetServer
+        public string TargetWorkload
         {
             get
             {
-                return this.TargetServerField;
+                return this.TargetWorkloadField;
             }
             set
             {
-                this.TargetServerField = value;
+                this.TargetWorkloadField = value;
             }
         }
         
@@ -2816,7 +2816,7 @@ namespace DoubleTake.Jobs.Contract
         
         private DoubleTake.Core.Contract.OperatingSystemVersion SourceOsVersionField;
         
-        private string SourceServerNameField;
+        private string SourceWorkloadNameField;
         
         private DoubleTake.Virtualization.Contract.VMInfo SourceVMField;
         
@@ -2824,7 +2824,7 @@ namespace DoubleTake.Jobs.Contract
         
         private DoubleTake.Core.Contract.OperatingSystemVersion TargetOsVersionField;
         
-        private string TargetServerNameField;
+        private string TargetWorkloadNameField;
         
         private DoubleTake.Virtualization.Contract.VMInfo TargetVMField;
         
@@ -2925,15 +2925,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SourceServerName
+        public string SourceWorkloadName
         {
             get
             {
-                return this.SourceServerNameField;
+                return this.SourceWorkloadNameField;
             }
             set
             {
-                this.SourceServerNameField = value;
+                this.SourceWorkloadNameField = value;
             }
         }
         
@@ -2977,15 +2977,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TargetServerName
+        public string TargetWorkloadName
         {
             get
             {
-                return this.TargetServerNameField;
+                return this.TargetWorkloadNameField;
             }
             set
             {
-                this.TargetServerNameField = value;
+                this.TargetWorkloadNameField = value;
             }
         }
         
@@ -3062,11 +3062,11 @@ namespace DoubleTake.Jobs.Contract
         
         private DoubleTake.Core.Contract.Credentials SourceCredentialsField;
         
-        private bool SourceServerInWorkgroupField;
+        private bool SourceWorkloadInWorkgroupField;
         
-        private string SourceServerNameField;
+        private string SourceWorkloadNameField;
         
-        private string TargetServerNameField;
+        private string TargetWorkloadNameField;
         
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData
         {
@@ -3159,41 +3159,41 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool SourceServerInWorkgroup
+        public bool SourceWorkloadInWorkgroup
         {
             get
             {
-                return this.SourceServerInWorkgroupField;
+                return this.SourceWorkloadInWorkgroupField;
             }
             set
             {
-                this.SourceServerInWorkgroupField = value;
+                this.SourceWorkloadInWorkgroupField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SourceServerName
+        public string SourceWorkloadName
         {
             get
             {
-                return this.SourceServerNameField;
+                return this.SourceWorkloadNameField;
             }
             set
             {
-                this.SourceServerNameField = value;
+                this.SourceWorkloadNameField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TargetServerName
+        public string TargetWorkloadName
         {
             get
             {
-                return this.TargetServerNameField;
+                return this.TargetWorkloadNameField;
             }
             set
             {
-                this.TargetServerNameField = value;
+                this.TargetWorkloadNameField = value;
             }
         }
     }
@@ -3248,7 +3248,7 @@ namespace DoubleTake.Jobs.Contract
         
         private string TargetEsxHostIdField;
         
-        private string TargetEsxServerField;
+        private string TargetEsxWorkloadField;
         
         private string TargetPathField;
         
@@ -3558,15 +3558,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TargetEsxServer
+        public string TargetEsxWorkload
         {
             get
             {
-                return this.TargetEsxServerField;
+                return this.TargetEsxWorkloadField;
             }
             set
             {
-                this.TargetEsxServerField = value;
+                this.TargetEsxWorkloadField = value;
             }
         }
         
@@ -3716,8 +3716,8 @@ namespace DoubleTake.Jobs.Contract
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FullServerFailoverOptions", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Jobs.Contract")]
-    public partial class FullServerFailoverOptions : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="FullWorkloadFailoverOptions", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Jobs.Contract")]
+    public partial class FullWorkloadFailoverOptions : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -3728,7 +3728,7 @@ namespace DoubleTake.Jobs.Contract
         
         private bool RemoveOrphansField;
         
-        private bool ShutdownSourceServerField;
+        private bool ShutdownSourceWorkloadField;
         
         private bool SourceChecksumAllField;
         
@@ -3784,15 +3784,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ShutdownSourceServer
+        public bool ShutdownSourceWorkload
         {
             get
             {
-                return this.ShutdownSourceServerField;
+                return this.ShutdownSourceWorkloadField;
             }
             set
             {
-                this.ShutdownSourceServerField = value;
+                this.ShutdownSourceWorkloadField = value;
             }
         }
         
@@ -3905,7 +3905,7 @@ namespace DoubleTake.Jobs.Contract
         
         private string ImageRecoveryDataLocationField;
         
-        private bool ShutdownSourceServerField;
+        private bool ShutdownSourceWorkloadField;
         
         private System.Guid SnapshotSetIdField;
         
@@ -3963,15 +3963,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ShutdownSourceServer
+        public bool ShutdownSourceWorkload
         {
             get
             {
-                return this.ShutdownSourceServerField;
+                return this.ShutdownSourceWorkloadField;
             }
             set
             {
-                this.ShutdownSourceServerField = value;
+                this.ShutdownSourceWorkloadField = value;
             }
         }
         
@@ -4167,7 +4167,7 @@ namespace DoubleTake.Jobs.Contract
         
         private bool KeepTargetActivationCodeField;
         
-        private DoubleTake.Core.Contract.Options.FullServerNicMappings[] NicMappingsField;
+        private DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[] NicMappingsField;
         
         private DoubleTake.Core.Contract.Options.TargetServicesToStop[] ServicesToStopOptionsField;
         
@@ -4257,7 +4257,7 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Core.Contract.Options.FullServerNicMappings[] NicMappings
+        public DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[] NicMappings
         {
             get
             {
@@ -4881,9 +4881,9 @@ namespace DoubleTake.Jobs.Contract
         
         private string[] AddressesField;
         
-        private string DnsServerField;
+        private string DnsWorkloadField;
         
-        private string ServerField;
+        private string WorkloadField;
         
         private string[] TrusteesField;
         
@@ -4926,28 +4926,28 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DnsServer
+        public string DnsWorkload
         {
             get
             {
-                return this.DnsServerField;
+                return this.DnsWorkloadField;
             }
             set
             {
-                this.DnsServerField = value;
+                this.DnsWorkloadField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Server
+        public string Workload
         {
             get
             {
-                return this.ServerField;
+                return this.WorkloadField;
             }
             set
             {
-                this.ServerField = value;
+                this.WorkloadField = value;
             }
         }
         
@@ -5059,7 +5059,7 @@ namespace DoubleTake.Jobs.Contract
         
         private DoubleTake.Core.Contract.Credentials CredentialsField;
         
-        private DoubleTake.Core.Contract.Options.DnsServerDetail[] DnsServersField;
+        private DoubleTake.Core.Contract.Options.DnsWorkloadDetail[] DnsWorkloadsField;
         
         private string DomainNameField;
         
@@ -5095,15 +5095,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Core.Contract.Options.DnsServerDetail[] DnsServers
+        public DoubleTake.Core.Contract.Options.DnsWorkloadDetail[] DnsWorkloads
         {
             get
             {
-                return this.DnsServersField;
+                return this.DnsWorkloadsField;
             }
             set
             {
-                this.DnsServersField = value;
+                this.DnsWorkloadsField = value;
             }
         }
         
@@ -6692,7 +6692,7 @@ namespace DoubleTake.Jobs.Contract
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[] TargetFileServerQualificationResultsField;
+        private DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[] TargetFileWorkloadQualificationResultsField;
         
         private bool TargetGroupDiskOfflineField;
         
@@ -6709,15 +6709,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[] TargetFileServerQualificationResults
+        public DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[] TargetFileWorkloadQualificationResults
         {
             get
             {
-                return this.TargetFileServerQualificationResultsField;
+                return this.TargetFileWorkloadQualificationResultsField;
             }
             set
             {
-                this.TargetFileServerQualificationResultsField = value;
+                this.TargetFileWorkloadQualificationResultsField = value;
             }
         }
         
@@ -6737,8 +6737,8 @@ namespace DoubleTake.Jobs.Contract
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TargetFileServerQualificationResults", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Jobs.Contract")]
-    public partial class TargetFileServerQualificationResults : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="TargetFileWorkloadQualificationResults", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Jobs.Contract")]
+    public partial class TargetFileWorkloadQualificationResults : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -7119,7 +7119,7 @@ namespace DoubleTake.Jobs.Contract
         
         private DoubleTake.Virtualization.Contract.VirtualSwitchInfo[] SourceVirtualSwitchesField;
         
-        private DoubleTake.Virtualization.Contract.ServerQualificationResults TargetHostField;
+        private DoubleTake.Virtualization.Contract.WorkloadQualificationResults TargetHostField;
         
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData
         {
@@ -7160,7 +7160,7 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Virtualization.Contract.ServerQualificationResults TargetHost
+        public DoubleTake.Virtualization.Contract.WorkloadQualificationResults TargetHost
         {
             get
             {
@@ -7187,11 +7187,11 @@ namespace DoubleTake.Jobs.Contract
         
         private DoubleTake.Virtualization.Contract.VirtualSwitchInfo[] SourceVirtualSwitchesField;
         
-        private string[] TargetCandidateEsxServersField;
+        private string[] TargetCandidateEsxWorkloadsField;
         
         private string[] TargetCandidateReplicaitonAppliancesField;
         
-        private DoubleTake.Virtualization.Contract.ServerQualificationResults TargetHostField;
+        private DoubleTake.Virtualization.Contract.WorkloadQualificationResults TargetHostField;
         
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData
         {
@@ -7245,15 +7245,15 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] TargetCandidateEsxServers
+        public string[] TargetCandidateEsxWorkloads
         {
             get
             {
-                return this.TargetCandidateEsxServersField;
+                return this.TargetCandidateEsxWorkloadsField;
             }
             set
             {
-                this.TargetCandidateEsxServersField = value;
+                this.TargetCandidateEsxWorkloadsField = value;
             }
         }
         
@@ -7271,7 +7271,7 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Virtualization.Contract.ServerQualificationResults TargetHost
+        public DoubleTake.Virtualization.Contract.WorkloadQualificationResults TargetHost
         {
             get
             {
@@ -7294,11 +7294,11 @@ namespace DoubleTake.Jobs.Contract
         
         private string[] PreexistingDisksFileNameField;
         
-        private long SourceServerMemorySizeField;
+        private long SourceWorkloadMemorySizeField;
         
-        private int SourceServerProcessorCountField;
+        private int SourceWorkloadProcessorCountField;
         
-        private DoubleTake.Virtualization.Contract.ServerQualificationResults TargetHostField;
+        private DoubleTake.Virtualization.Contract.WorkloadQualificationResults TargetHostField;
         
         private DoubleTake.Jobs.Contract.V2VQualificationResults V2VQualificationResultsField;
         
@@ -7328,33 +7328,33 @@ namespace DoubleTake.Jobs.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public long SourceServerMemorySize
+        public long SourceWorkloadMemorySize
         {
             get
             {
-                return this.SourceServerMemorySizeField;
+                return this.SourceWorkloadMemorySizeField;
             }
             set
             {
-                this.SourceServerMemorySizeField = value;
+                this.SourceWorkloadMemorySizeField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int SourceServerProcessorCount
+        public int SourceWorkloadProcessorCount
         {
             get
             {
-                return this.SourceServerProcessorCountField;
+                return this.SourceWorkloadProcessorCountField;
             }
             set
             {
-                this.SourceServerProcessorCountField = value;
+                this.SourceWorkloadProcessorCountField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Virtualization.Contract.ServerQualificationResults TargetHost
+        public DoubleTake.Virtualization.Contract.WorkloadQualificationResults TargetHost
         {
             get
             {
@@ -8053,12 +8053,12 @@ namespace DoubleTake.Jobs.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -8084,14 +8084,14 @@ namespace DoubleTake.Jobs.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -8100,7 +8100,7 @@ namespace DoubleTake.Jobs.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -8117,8 +8117,8 @@ namespace DoubleTake.Jobs.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -8148,7 +8148,7 @@ namespace DoubleTake.Jobs.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -8200,8 +8200,8 @@ namespace DoubleTake.Jobs.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -8249,7 +8249,7 @@ namespace DoubleTake.Jobs.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -8270,8 +8270,8 @@ namespace DoubleTake.Jobs.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -8356,11 +8356,11 @@ namespace DoubleTake.Jobs.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -8414,7 +8414,7 @@ namespace DoubleTake.Jobs.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -9579,15 +9579,15 @@ namespace DoubleTake.Jobs.Contract.FilesAndFolders
         }
     }
 }
-namespace DoubleTake.Jobs.Contract.FullServer
+namespace DoubleTake.Jobs.Contract.FullWorkload
 {
     using System.Runtime.Serialization;
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FullServerPersistedState", Namespace="DoubleTake.Jobs.Contract.FullServer")]
-    public partial class FullServerPersistedState : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="FullWorkloadPersistedState", Namespace="DoubleTake.Jobs.Contract.FullWorkload")]
+    public partial class FullWorkloadPersistedState : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -9757,8 +9757,8 @@ namespace DoubleTake.Jobs.Contract.FullServer
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FullServerJobDetails", Namespace="DoubleTake.Jobs.Contract.FullServer")]
-    public partial class FullServerJobDetails : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="FullWorkloadJobDetails", Namespace="DoubleTake.Jobs.Contract.FullWorkload")]
+    public partial class FullWorkloadJobDetails : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -11609,8 +11609,8 @@ namespace DoubleTake.Virtualization.Contract
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerQualificationResults", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Virtualization.Contract")]
-    public partial class ServerQualificationResults : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkloadQualificationResults", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Virtualization.Contract")]
+    public partial class WorkloadQualificationResults : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -12127,12 +12127,12 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -12158,14 +12158,14 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -12174,7 +12174,7 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -12191,8 +12191,8 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -12222,7 +12222,7 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -12274,8 +12274,8 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -12323,7 +12323,7 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -12344,8 +12344,8 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -12431,11 +12431,11 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -12489,7 +12489,7 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -12753,12 +12753,12 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -12784,14 +12784,14 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -12800,7 +12800,7 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -12817,8 +12817,8 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -12848,7 +12848,7 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -12900,8 +12900,8 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -12949,7 +12949,7 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -12970,8 +12970,8 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -13057,11 +13057,11 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -13115,7 +13115,7 @@ namespace DoubleTake.Virtualization.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -17281,7 +17281,7 @@ namespace DoubleTake.Core.Contract
         
         private DoubleTake.Core.Contract.ProductInfo ProductInfoField;
         
-        private DoubleTake.Core.Contract.ServerInfo ServerInfoField;
+        private DoubleTake.Core.Contract.WorkloadInfo WorkloadInfoField;
         
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData
         {
@@ -17309,15 +17309,15 @@ namespace DoubleTake.Core.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Core.Contract.ServerInfo ServerInfo
+        public DoubleTake.Core.Contract.WorkloadInfo WorkloadInfo
         {
             get
             {
-                return this.ServerInfoField;
+                return this.WorkloadInfoField;
             }
             set
             {
-                this.ServerInfoField = value;
+                this.WorkloadInfoField = value;
             }
         }
     }
@@ -17336,7 +17336,7 @@ namespace DoubleTake.Core.Contract
         
         private string DnsDomainField;
         
-        private string[] DnsServersField;
+        private string[] DnsWorkloadsField;
         
         private string[] GatewaysField;
         
@@ -17395,15 +17395,15 @@ namespace DoubleTake.Core.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] DnsServers
+        public string[] DnsWorkloads
         {
             get
             {
-                return this.DnsServersField;
+                return this.DnsWorkloadsField;
             }
             set
             {
-                this.DnsServersField = value;
+                this.DnsWorkloadsField = value;
             }
         }
         
@@ -17854,8 +17854,8 @@ namespace DoubleTake.Core.Contract
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerInfo", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
-    public partial class ServerInfo : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkloadInfo", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
+    public partial class WorkloadInfo : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -17898,7 +17898,7 @@ namespace DoubleTake.Core.Contract
         
         private DoubleTake.Core.Contract.NetworkInterfaceInfo[] NetworkInterfacesField;
         
-        private string NodeLockedServerInfoField;
+        private string NodeLockedWorkloadInfoField;
         
         private DoubleTake.Core.Contract.OperatingSystemInfo OperatingSystemField;
         
@@ -18176,15 +18176,15 @@ namespace DoubleTake.Core.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NodeLockedServerInfo
+        public string NodeLockedWorkloadInfo
         {
             get
             {
-                return this.NodeLockedServerInfoField;
+                return this.NodeLockedWorkloadInfoField;
             }
             set
             {
-                this.NodeLockedServerInfoField = value;
+                this.NodeLockedWorkloadInfoField = value;
             }
         }
         
@@ -19316,7 +19316,7 @@ namespace DoubleTake.Core.Contract
         DomainController = 2,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        Server = 3,
+        Workload = 3,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -19775,7 +19775,7 @@ namespace DoubleTake.Core.Contract
         
         private string[] RecipientsField;
         
-        private string ServerField;
+        private string WorkloadField;
         
         private string SubjectPrefixField;
         
@@ -19899,15 +19899,15 @@ namespace DoubleTake.Core.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Server
+        public string Workload
         {
             get
             {
-                return this.ServerField;
+                return this.WorkloadField;
             }
             set
             {
-                this.ServerField = value;
+                this.WorkloadField = value;
             }
         }
         
@@ -20003,7 +20003,7 @@ namespace DoubleTake.Core.Contract
         RecoveryJob = 2,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        FullServerJob = 4,
+        FullWorkloadJob = 4,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         GeoClusterJob = 8,
@@ -20012,7 +20012,7 @@ namespace DoubleTake.Core.Contract
         MigrationJob = 16,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        FullServerRevertJob = 32,
+        FullWorkloadRevertJob = 32,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         VraRecoveryJob = 64,
@@ -20036,7 +20036,7 @@ namespace DoubleTake.Core.Contract
         SourceConnectionResourceJob = 4096,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        FullServerBackupJob = 8192,
+        FullWorkloadBackupJob = 8192,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         UvraJob = 16384,
@@ -20384,8 +20384,8 @@ namespace DoubleTake.Core.Contract
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CollectedServer", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
-    public partial class CollectedServer : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="CollectedWorkload", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
+    public partial class CollectedWorkload : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -20402,7 +20402,7 @@ namespace DoubleTake.Core.Contract
         
         private string RouteField;
         
-        private System.Nullable<DoubleTake.Core.Contract.CollectedServerStatus> StatusField;
+        private System.Nullable<DoubleTake.Core.Contract.CollectedWorkloadStatus> StatusField;
         
         private string UniqueIdField;
         
@@ -20497,7 +20497,7 @@ namespace DoubleTake.Core.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<DoubleTake.Core.Contract.CollectedServerStatus> Status
+        public System.Nullable<DoubleTake.Core.Contract.CollectedWorkloadStatus> Status
         {
             get
             {
@@ -20524,8 +20524,8 @@ namespace DoubleTake.Core.Contract
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="CollectedServerStatus", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
-    public enum CollectedServerStatus : int
+    [System.Runtime.Serialization.DataContractAttribute(Name="CollectedWorkloadStatus", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
+    public enum CollectedWorkloadStatus : int
     {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
@@ -20580,10 +20580,10 @@ namespace DoubleTake.Core.Contract
         InvalidCredentials = 3,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        UnknownDatabaseServer = 4,
+        UnknownDatabaseWorkload = 4,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        DatabaseServerCommunicationError = 5,
+        DatabaseWorkloadCommunicationError = 5,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         DatabaseCommunicationError = 6,
@@ -20597,15 +20597,15 @@ namespace DoubleTake.Core.Contract
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ControlledServerInfo", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
-    public partial class ControlledServerInfo : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="ControlledWorkloadInfo", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
+    public partial class ControlledWorkloadInfo : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         private DoubleTake.Core.Contract.ProductInfo ProductInfoField;
         
-        private DoubleTake.Core.Contract.ServerInfo ServerInfoField;
+        private DoubleTake.Core.Contract.WorkloadInfo WorkloadInfoField;
         
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData
         {
@@ -20633,28 +20633,28 @@ namespace DoubleTake.Core.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Core.Contract.ServerInfo ServerInfo
+        public DoubleTake.Core.Contract.WorkloadInfo WorkloadInfo
         {
             get
             {
-                return this.ServerInfoField;
+                return this.WorkloadInfoField;
             }
             set
             {
-                this.ServerInfoField = value;
+                this.WorkloadInfoField = value;
             }
         }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ControlledServerInfoSimple", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
-    public partial class ControlledServerInfoSimple : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="ControlledWorkloadInfoSimple", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
+    public partial class ControlledWorkloadInfoSimple : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private string ServerNameField;
+        private string WorkloadNameField;
         
         private System.Guid UniqueIdField;
         
@@ -20671,15 +20671,15 @@ namespace DoubleTake.Core.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ServerName
+        public string WorkloadName
         {
             get
             {
-                return this.ServerNameField;
+                return this.WorkloadNameField;
             }
             set
             {
-                this.ServerNameField = value;
+                this.WorkloadNameField = value;
             }
         }
         
@@ -20833,12 +20833,12 @@ namespace DoubleTake.Core.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -20864,14 +20864,14 @@ namespace DoubleTake.Core.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -20880,7 +20880,7 @@ namespace DoubleTake.Core.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -20897,8 +20897,8 @@ namespace DoubleTake.Core.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.VhdDeleteActionType))]
@@ -20927,7 +20927,7 @@ namespace DoubleTake.Core.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -20979,8 +20979,8 @@ namespace DoubleTake.Core.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -21028,7 +21028,7 @@ namespace DoubleTake.Core.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -21049,8 +21049,8 @@ namespace DoubleTake.Core.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -21136,11 +21136,11 @@ namespace DoubleTake.Core.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -21194,7 +21194,7 @@ namespace DoubleTake.Core.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -21563,7 +21563,7 @@ namespace DoubleTake.Core.Contract
         DataOnly = 0,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        FullServer = 1,
+        FullWorkload = 1,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Unknown = 2,
@@ -21964,21 +21964,21 @@ namespace DoubleTake.Core.Contract
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FullServerJobType", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
-    public enum FullServerJobType : int
+    [System.Runtime.Serialization.DataContractAttribute(Name="FullWorkloadJobType", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
+    public enum FullWorkloadJobType : int
     {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        FullServerProtection = 0,
+        FullWorkloadProtection = 0,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         BackupRecovery = 1,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        FullServerFailback = 2,
+        FullWorkloadFailback = 2,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        FullServerRestoreMirror = 3,
+        FullWorkloadRestoreMirror = 3,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         BackupProtection = 4,
@@ -21987,7 +21987,7 @@ namespace DoubleTake.Core.Contract
         SnapshotMirror = 5,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        FullServerCutover = 6,
+        FullWorkloadCutover = 6,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -22391,7 +22391,7 @@ namespace DoubleTake.Core.Contract
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private string[] dnsServersField;
+        private string[] dnsWorkloadsField;
         
         private string domainField;
         
@@ -22408,15 +22408,15 @@ namespace DoubleTake.Core.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string[] dnsServers
+        public string[] dnsWorkloads
         {
             get
             {
-                return this.dnsServersField;
+                return this.dnsWorkloadsField;
             }
             set
             {
-                this.dnsServersField = value;
+                this.dnsWorkloadsField = value;
             }
         }
         
@@ -23186,7 +23186,7 @@ namespace DoubleTake.Core.Contract.Monitor
     {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        FullServer = 1,
+        FullWorkload = 1,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Normal = 0,
@@ -23440,7 +23440,7 @@ namespace DoubleTake.Core.Contract.Monitor
         None = 0,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
-        OldServer = 1,
+        OldWorkload = 1,
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         OpDropped = 64,
@@ -24624,9 +24624,9 @@ namespace DoubleTake.Monitoring.Contract
         
         private string NameField;
         
-        private DoubleTake.Core.Contract.Credentials RemoteServerCredentialsField;
+        private DoubleTake.Core.Contract.Credentials RemoteWorkloadCredentialsField;
         
-        private System.Uri RemoteServerUriField;
+        private System.Uri RemoteWorkloadUriField;
         
         private System.TimeSpan TimeoutField;
         
@@ -24671,28 +24671,28 @@ namespace DoubleTake.Monitoring.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Core.Contract.Credentials RemoteServerCredentials
+        public DoubleTake.Core.Contract.Credentials RemoteWorkloadCredentials
         {
             get
             {
-                return this.RemoteServerCredentialsField;
+                return this.RemoteWorkloadCredentialsField;
             }
             set
             {
-                this.RemoteServerCredentialsField = value;
+                this.RemoteWorkloadCredentialsField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Uri RemoteServerUri
+        public System.Uri RemoteWorkloadUri
         {
             get
             {
-                return this.RemoteServerUriField;
+                return this.RemoteWorkloadUriField;
             }
             set
             {
-                this.RemoteServerUriField = value;
+                this.RemoteWorkloadUriField = value;
             }
         }
         
@@ -25575,9 +25575,9 @@ namespace DoubleTake.Monitoring.Contract
         
         private string NameField;
         
-        private DoubleTake.Core.Contract.Credentials RemoteServerCredentialsField;
+        private DoubleTake.Core.Contract.Credentials RemoteWorkloadCredentialsField;
         
-        private System.Uri RemoteServerUriField;
+        private System.Uri RemoteWorkloadUriField;
         
         private System.TimeSpan TimeoutField;
         
@@ -25622,28 +25622,28 @@ namespace DoubleTake.Monitoring.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Core.Contract.Credentials RemoteServerCredentials
+        public DoubleTake.Core.Contract.Credentials RemoteWorkloadCredentials
         {
             get
             {
-                return this.RemoteServerCredentialsField;
+                return this.RemoteWorkloadCredentialsField;
             }
             set
             {
-                this.RemoteServerCredentialsField = value;
+                this.RemoteWorkloadCredentialsField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Uri RemoteServerUri
+        public System.Uri RemoteWorkloadUri
         {
             get
             {
-                return this.RemoteServerUriField;
+                return this.RemoteWorkloadUriField;
             }
             set
             {
-                this.RemoteServerUriField = value;
+                this.RemoteWorkloadUriField = value;
             }
         }
         
@@ -28813,12 +28813,12 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -28844,14 +28844,14 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -28860,7 +28860,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -28877,8 +28877,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -28908,7 +28908,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -28960,8 +28960,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -29009,7 +29009,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -29030,8 +29030,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -29117,11 +29117,11 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -29175,7 +29175,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -29439,12 +29439,12 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -29470,14 +29470,14 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -29486,7 +29486,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -29503,8 +29503,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -29534,7 +29534,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -29586,8 +29586,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -29635,7 +29635,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -29656,8 +29656,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -29743,11 +29743,11 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -29801,7 +29801,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -30110,12 +30110,12 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -30141,14 +30141,14 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -30157,7 +30157,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -30174,8 +30174,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -30205,7 +30205,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -30257,8 +30257,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -30306,7 +30306,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -30327,8 +30327,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -30414,11 +30414,11 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -30472,7 +30472,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -30766,12 +30766,12 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -30797,14 +30797,14 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -30813,7 +30813,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -30830,8 +30830,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -30861,7 +30861,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -30913,8 +30913,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -30962,7 +30962,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -30983,8 +30983,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -31070,11 +31070,11 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -31128,7 +31128,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -31422,12 +31422,12 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -31453,14 +31453,14 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -31469,7 +31469,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -31486,8 +31486,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -31517,7 +31517,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -31569,8 +31569,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -31618,7 +31618,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -31639,8 +31639,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -31726,11 +31726,11 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -31784,7 +31784,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -32048,12 +32048,12 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -32079,14 +32079,14 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -32095,7 +32095,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -32112,8 +32112,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -32143,7 +32143,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -32195,8 +32195,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -32244,7 +32244,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -32265,8 +32265,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -32352,11 +32352,11 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -32410,7 +32410,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -32577,7 +32577,7 @@ namespace DoubleTake.Common.Contract
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private DoubleTake.Core.Contract.CollectedServer[] CollectedServersField;
+        private DoubleTake.Core.Contract.CollectedWorkload[] CollectedWorkloadsField;
         
         private DoubleTake.Common.Contract.CollectorConfigurationInfo CollectorConfigInfoField;
         
@@ -32594,15 +32594,15 @@ namespace DoubleTake.Common.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public DoubleTake.Core.Contract.CollectedServer[] CollectedServers
+        public DoubleTake.Core.Contract.CollectedWorkload[] CollectedWorkloads
         {
             get
             {
-                return this.CollectedServersField;
+                return this.CollectedWorkloadsField;
             }
             set
             {
-                this.CollectedServersField = value;
+                this.CollectedWorkloadsField = value;
             }
         }
         
@@ -32638,7 +32638,7 @@ namespace DoubleTake.Common.Contract
         
         private string DatabaseNameField;
         
-        private string DatabaseServerNameField;
+        private string DatabaseWorkloadNameField;
         
         private DoubleTake.Core.Contract.CollectorDatabaseStatus DatabaseStatusField;
         
@@ -32722,15 +32722,15 @@ namespace DoubleTake.Common.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DatabaseServerName
+        public string DatabaseWorkloadName
         {
             get
             {
-                return this.DatabaseServerNameField;
+                return this.DatabaseWorkloadNameField;
             }
             set
             {
-                this.DatabaseServerNameField = value;
+                this.DatabaseWorkloadNameField = value;
             }
         }
         
@@ -32932,12 +32932,12 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -32963,14 +32963,14 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -32979,7 +32979,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -32996,8 +32996,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -33027,7 +33027,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -33079,8 +33079,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -33128,7 +33128,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -33149,8 +33149,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -33236,11 +33236,11 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -33294,7 +33294,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -33438,7 +33438,7 @@ namespace DoubleTake.Common.Contract
         
         private bool RebootIfRequiredField;
         
-        private string ServerNameField;
+        private string WorkloadNameField;
         
         private bool ServiceStartupField;
         
@@ -33600,15 +33600,15 @@ namespace DoubleTake.Common.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ServerName
+        public string WorkloadName
         {
             get
             {
-                return this.ServerNameField;
+                return this.WorkloadNameField;
             }
             set
             {
-                this.ServerNameField = value;
+                this.WorkloadNameField = value;
             }
         }
         
@@ -34322,13 +34322,13 @@ namespace DoubleTake.Common.Contract
         
         private bool IncludeEventDescriptionInSubjectField;
         
-        private bool LoginToSmtpServerField;
+        private bool LoginToSmtpWorkloadField;
         
         private DoubleTake.Core.Contract.Credentials SmtpCredentialsField;
         
         private System.Nullable<int> SmtpPortField;
         
-        private string SmtpServerField;
+        private string SmtpWorkloadField;
         
         private string SubjectPrefixField;
         
@@ -34425,15 +34425,15 @@ namespace DoubleTake.Common.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool LoginToSmtpServer
+        public bool LoginToSmtpWorkload
         {
             get
             {
-                return this.LoginToSmtpServerField;
+                return this.LoginToSmtpWorkloadField;
             }
             set
             {
-                this.LoginToSmtpServerField = value;
+                this.LoginToSmtpWorkloadField = value;
             }
         }
         
@@ -34464,15 +34464,15 @@ namespace DoubleTake.Common.Contract
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SmtpServer
+        public string SmtpWorkload
         {
             get
             {
-                return this.SmtpServerField;
+                return this.SmtpWorkloadField;
             }
             set
             {
-                this.SmtpServerField = value;
+                this.SmtpWorkloadField = value;
             }
         }
         
@@ -34653,12 +34653,12 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -34684,14 +34684,14 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -34700,7 +34700,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -34717,8 +34717,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -34748,7 +34748,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -34800,8 +34800,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -34849,7 +34849,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -34870,8 +34870,8 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -34957,11 +34957,11 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster))]
@@ -35015,7 +35015,7 @@ namespace DoubleTake.Common.Contract
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -35773,8 +35773,8 @@ namespace DoubleTake.Core.Contract.Options
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DnsServerDetail", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract.Options")]
-    public partial class DnsServerDetail : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="DnsWorkloadDetail", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract.Options")]
+    public partial class DnsWorkloadDetail : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -35920,8 +35920,8 @@ namespace DoubleTake.Core.Contract.Options
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="FullServerNicMappings", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract.Options")]
-    public partial class FullServerNicMappings : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="FullWorkloadNicMappings", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract.Options")]
+    public partial class FullWorkloadNicMappings : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -36525,8 +36525,8 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DtavVimServer", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Virtualization.Contract.DTAV")]
-    public partial class DtavVimServer : object, System.Runtime.Serialization.IExtensibleDataObject
+    [System.Runtime.Serialization.DataContractAttribute(Name="DtavVimWorkload", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Virtualization.Contract.DTAV")]
+    public partial class DtavVimWorkload : object, System.Runtime.Serialization.IExtensibleDataObject
     {
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -36702,22 +36702,22 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AddVimServerAndRAFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Virtualization.Contract.DTAV")]
-    public partial class AddVimServerAndRAFault : DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault
+    [System.Runtime.Serialization.DataContractAttribute(Name="AddVimWorkloadAndRAFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Virtualization.Contract.DTAV")]
+    public partial class AddVimWorkloadAndRAFault : DoubleTake.Virtualization.Contract.DTAV.DTAVRequestFault
     {
         
-        private bool IsVimServerErrorField;
+        private bool IsVimWorkloadErrorField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool IsVimServerError
+        public bool IsVimWorkloadError
         {
             get
             {
-                return this.IsVimServerErrorField;
+                return this.IsVimWorkloadErrorField;
             }
             set
             {
-                this.IsVimServerErrorField = value;
+                this.IsVimWorkloadErrorField = value;
             }
         }
     }
@@ -36725,7 +36725,7 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DTAVRequestFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Virtualization.Contract.DTAV")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Common.Alternate.TupleOfstringstring[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Common.Alternate.TupleOfstringstring))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Common.ComponentModel.ObservableObject))]
@@ -36859,12 +36859,12 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.MonitorConfiguration[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Monitor.FailbackOption))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServiceStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsServerDetail))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.DnsWorkloadDetail))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.IPAddressMap))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullServerNicMappings))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TargetServicesToStop))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Options.TestDnsResult[]))]
@@ -36890,14 +36890,14 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.UVRA.PhysicalVolume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.AccessLevel))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Credentials))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedServerStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectedWorkloadStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CredentialsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CollectorDatabaseStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationCode[]))]
@@ -36906,7 +36906,7 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ActivationAttribute))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.LicenseType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProductVersion))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ServerInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.WorkloadInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ProtectableItem))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FileSystemAttributes))]
@@ -36923,8 +36923,8 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemProductType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.OperatingSystemVersion))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.Volume[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledServerInfoSimple))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ControlledWorkloadInfoSimple))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreFault))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.DesktopInteractionMode))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ImageDeleteInfo))]
@@ -36954,7 +36954,7 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterAddressInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.ClusterHostOwnershipModel))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.CoreClusterInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullServerJobType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.FullWorkloadJobType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Core.Contract.SystemStateVerificationStep))]
@@ -37006,8 +37006,8 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.Diagnostics.DiagnosticsPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHV.DTHVPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FilesAndFolders.FilesAndFoldersPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerPersistedState))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServer.FullServerJobDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadPersistedState))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkload.FullWorkloadJobDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageRecoveryPersistedState))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageBased.ImageProtectionJobDetails))]
@@ -37055,7 +37055,7 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DnsDomainDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVOptions))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullServerFailoverOptions))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.FullWorkloadFailoverOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageProtectionOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ImageRecoveryOptions))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.MonitoringOptions))]
@@ -37076,8 +37076,8 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobCredentials))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.JobQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.ClusterFilesAndFoldersQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.TargetFileWorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.CoreQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTHVQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Jobs.Contract.DTAVQualificationResults))]
@@ -37163,8 +37163,8 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmdkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVmQualificationResults))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]))]
@@ -37219,7 +37219,7 @@ namespace DoubleTake.Virtualization.Contract.DTAV
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VHDInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VirtualSwitchInfo[]))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.ServerQualificationResults))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.WorkloadQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VolumeQualificationResults))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(DoubleTake.Virtualization.Contract.VMInfo[]))]
@@ -37899,9 +37899,9 @@ namespace DoubleTake.Virtualization.Contract.DTAV
         
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private System.Guid EsxServerGuidField;
+        private System.Guid EsxWorkloadGuidField;
         
-        private string EsxServerNameField;
+        private string EsxWorkloadNameField;
         
         private DoubleTake.Virtualization.Contract.DTAV.DtavVmInfo[] VmsField;
         
@@ -37922,28 +37922,28 @@ namespace DoubleTake.Virtualization.Contract.DTAV
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid EsxServerGuid
+        public System.Guid EsxWorkloadGuid
         {
             get
             {
-                return this.EsxServerGuidField;
+                return this.EsxWorkloadGuidField;
             }
             set
             {
-                this.EsxServerGuidField = value;
+                this.EsxWorkloadGuidField = value;
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string EsxServerName
+        public string EsxWorkloadName
         {
             get
             {
-                return this.EsxServerNameField;
+                return this.EsxWorkloadNameField;
             }
             set
             {
-                this.EsxServerNameField = value;
+                this.EsxWorkloadNameField = value;
             }
         }
         
@@ -42886,10 +42886,10 @@ public interface ISplaUsageAndLicense
     [System.ServiceModel.OperationContractAttribute(Action="http://VisionSolutions.com/ISplaUsageAndLicense/ReportActivationFailures", ReplyAction="http://VisionSolutions.com/ISplaUsageAndLicense/ReportActivationFailuresResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(SplaManagement.SplaManagementFault), Action="http://VisionSolutions.com/ISplaUsageAndLicense/ReportActivationFailuresSplaManag" +
         "ementFaultFault", Name="SplaManagementFault", Namespace="http://schemas.datacontract.org/2004/07/SplaManagement")]
-    void ReportActivationFailures(System.Guid serverGuid, SplaManagement.Fault[] failures);
+    void ReportActivationFailures(System.Guid workloadGuid, SplaManagement.Fault[] failures);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://VisionSolutions.com/ISplaUsageAndLicense/ReportActivationFailures", ReplyAction="http://VisionSolutions.com/ISplaUsageAndLicense/ReportActivationFailuresResponse")]
-    System.Threading.Tasks.Task ReportActivationFailuresAsync(System.Guid serverGuid, SplaManagement.Fault[] failures);
+    System.Threading.Tasks.Task ReportActivationFailuresAsync(System.Guid workloadGuid, SplaManagement.Fault[] failures);
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -42946,14 +42946,14 @@ public partial class SplaUsageAndLicenseClient : System.ServiceModel.ClientBase<
         return base.Channel.RequestLicenseAsync(report);
     }
     
-    public void ReportActivationFailures(System.Guid serverGuid, SplaManagement.Fault[] failures)
+    public void ReportActivationFailures(System.Guid workloadGuid, SplaManagement.Fault[] failures)
     {
-        base.Channel.ReportActivationFailures(serverGuid, failures);
+        base.Channel.ReportActivationFailures(workloadGuid, failures);
     }
     
-    public System.Threading.Tasks.Task ReportActivationFailuresAsync(System.Guid serverGuid, SplaManagement.Fault[] failures)
+    public System.Threading.Tasks.Task ReportActivationFailuresAsync(System.Guid workloadGuid, SplaManagement.Fault[] failures)
     {
-        return base.Channel.ReportActivationFailuresAsync(serverGuid, failures);
+        return base.Channel.ReportActivationFailuresAsync(workloadGuid, failures);
     }
 }
 
@@ -42981,12 +42981,12 @@ public interface ICollectorConfiguration
         "uration/SetCollectorInfoAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.ArgumentFault), Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
         "uration/SetCollectorInfoArgumentFaultFault", Name="ArgumentFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    void SetCollectorInfo(DoubleTake.Common.Contract.CollectorConfigurationInfo collectorConfigInfo, DoubleTake.Core.Contract.CollectedServer[] addServers, DoubleTake.Core.Contract.CollectedServer[] removeServers, DoubleTake.Core.Contract.CollectedServer[] updateServers);
+    void SetCollectorInfo(DoubleTake.Common.Contract.CollectorConfigurationInfo collectorConfigInfo, DoubleTake.Core.Contract.CollectedWorkload[] addWorkloads, DoubleTake.Core.Contract.CollectedWorkload[] removeWorkloads, DoubleTake.Core.Contract.CollectedWorkload[] updateWorkloads);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
         "uration/SetCollectorInfo", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
         "uration/SetCollectorInfoResponse")]
-    System.Threading.Tasks.Task SetCollectorInfoAsync(DoubleTake.Common.Contract.CollectorConfigurationInfo collectorConfigInfo, DoubleTake.Core.Contract.CollectedServer[] addServers, DoubleTake.Core.Contract.CollectedServer[] removeServers, DoubleTake.Core.Contract.CollectedServer[] updateServers);
+    System.Threading.Tasks.Task SetCollectorInfoAsync(DoubleTake.Common.Contract.CollectorConfigurationInfo collectorConfigInfo, DoubleTake.Core.Contract.CollectedWorkload[] addWorkloads, DoubleTake.Core.Contract.CollectedWorkload[] removeWorkloads, DoubleTake.Core.Contract.CollectedWorkload[] updateWorkloads);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
         "uration/GetConfigurationInfo", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
@@ -43015,70 +43015,70 @@ public interface ICollectorConfiguration
     System.Threading.Tasks.Task SetConfigurationInfoAsync(DoubleTake.Common.Contract.CollectorConfigurationInfo collectorConfigInfo);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/GetCollectedServers", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/GetCollectedServersResponse")]
+        "uration/GetCollectedWorkloads", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
+        "uration/GetCollectedWorkloadsResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.AccessLevelRequiredFault), Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/GetCollectedServersAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.Contract.CollectedServer[] GetCollectedServers();
+        "uration/GetCollectedWorkloadsAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    DoubleTake.Core.Contract.CollectedWorkload[] GetCollectedWorkloads();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/GetCollectedServers", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/GetCollectedServersResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.CollectedServer[]> GetCollectedServersAsync();
+        "uration/GetCollectedWorkloads", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
+        "uration/GetCollectedWorkloadsResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.CollectedWorkload[]> GetCollectedWorkloadsAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/AddCollectedServers", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/AddCollectedServersResponse")]
+        "uration/AddCollectedWorkloads", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
+        "uration/AddCollectedWorkloadsResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.ArgumentFault), Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/AddCollectedServersArgumentFaultFault", Name="ArgumentFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+        "uration/AddCollectedWorkloadsArgumentFaultFault", Name="ArgumentFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.AccessLevelRequiredFault), Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/AddCollectedServersAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    void AddCollectedServers(DoubleTake.Core.Contract.CollectedServer[] collectedServers);
+        "uration/AddCollectedWorkloadsAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    void AddCollectedWorkloads(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/AddCollectedServers", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/AddCollectedServersResponse")]
-    System.Threading.Tasks.Task AddCollectedServersAsync(DoubleTake.Core.Contract.CollectedServer[] collectedServers);
+        "uration/AddCollectedWorkloads", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
+        "uration/AddCollectedWorkloadsResponse")]
+    System.Threading.Tasks.Task AddCollectedWorkloadsAsync(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/RemoveCollectedServers", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/RemoveCollectedServersResponse")]
+        "uration/RemoveCollectedWorkloads", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
+        "uration/RemoveCollectedWorkloadsResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.AccessLevelRequiredFault), Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/RemoveCollectedServersAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+        "uration/RemoveCollectedWorkloadsAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.ArgumentFault), Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/RemoveCollectedServersArgumentFaultFault", Name="ArgumentFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    void RemoveCollectedServers(DoubleTake.Core.Contract.CollectedServer[] collectedServers);
+        "uration/RemoveCollectedWorkloadsArgumentFaultFault", Name="ArgumentFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    void RemoveCollectedWorkloads(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/RemoveCollectedServers", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/RemoveCollectedServersResponse")]
-    System.Threading.Tasks.Task RemoveCollectedServersAsync(DoubleTake.Core.Contract.CollectedServer[] collectedServers);
+        "uration/RemoveCollectedWorkloads", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
+        "uration/RemoveCollectedWorkloadsResponse")]
+    System.Threading.Tasks.Task RemoveCollectedWorkloadsAsync(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/UpdateCollectedServers", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/UpdateCollectedServersResponse")]
+        "uration/UpdateCollectedWorkloads", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
+        "uration/UpdateCollectedWorkloadsResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.ArgumentFault), Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/UpdateCollectedServersArgumentFaultFault", Name="ArgumentFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+        "uration/UpdateCollectedWorkloadsArgumentFaultFault", Name="ArgumentFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.AccessLevelRequiredFault), Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/UpdateCollectedServersAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    void UpdateCollectedServers(DoubleTake.Core.Contract.CollectedServer[] collectedServers);
+        "uration/UpdateCollectedWorkloadsAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    void UpdateCollectedWorkloads(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/UpdateCollectedServers", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
-        "uration/UpdateCollectedServersResponse")]
-    System.Threading.Tasks.Task UpdateCollectedServersAsync(DoubleTake.Core.Contract.CollectedServer[] collectedServers);
+        "uration/UpdateCollectedWorkloads", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
+        "uration/UpdateCollectedWorkloadsResponse")]
+    System.Threading.Tasks.Task UpdateCollectedWorkloadsAsync(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
         "uration/TestDatabaseAccess", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
         "uration/TestDatabaseAccessResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.AccessLevelRequiredFault), Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
         "uration/TestDatabaseAccessAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.Contract.CollectorDatabaseStatus TestDatabaseAccess(string databaseServerName, string databaseName, string databaseInstanceName, DoubleTake.Core.Contract.Credentials credentials, DoubleTake.Core.Contract.CredentialsType credentialsType);
+    DoubleTake.Core.Contract.CollectorDatabaseStatus TestDatabaseAccess(string databaseWorkloadName, string databaseName, string databaseInstanceName, DoubleTake.Core.Contract.Credentials credentials, DoubleTake.Core.Contract.CredentialsType credentialsType);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
         "uration/TestDatabaseAccess", ReplyAction="http://www.doubletake.com/Common/Contract/CollectorConfiguration/ICollectorConfig" +
         "uration/TestDatabaseAccessResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.CollectorDatabaseStatus> TestDatabaseAccessAsync(string databaseServerName, string databaseName, string databaseInstanceName, DoubleTake.Core.Contract.Credentials credentials, DoubleTake.Core.Contract.CredentialsType credentialsType);
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.CollectorDatabaseStatus> TestDatabaseAccessAsync(string databaseWorkloadName, string databaseName, string databaseInstanceName, DoubleTake.Core.Contract.Credentials credentials, DoubleTake.Core.Contract.CredentialsType credentialsType);
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -43125,14 +43125,14 @@ public partial class CollectorConfigurationClient : System.ServiceModel.ClientBa
         return base.Channel.GetCollectorInfoAsync();
     }
     
-    public void SetCollectorInfo(DoubleTake.Common.Contract.CollectorConfigurationInfo collectorConfigInfo, DoubleTake.Core.Contract.CollectedServer[] addServers, DoubleTake.Core.Contract.CollectedServer[] removeServers, DoubleTake.Core.Contract.CollectedServer[] updateServers)
+    public void SetCollectorInfo(DoubleTake.Common.Contract.CollectorConfigurationInfo collectorConfigInfo, DoubleTake.Core.Contract.CollectedWorkload[] addWorkloads, DoubleTake.Core.Contract.CollectedWorkload[] removeWorkloads, DoubleTake.Core.Contract.CollectedWorkload[] updateWorkloads)
     {
-        base.Channel.SetCollectorInfo(collectorConfigInfo, addServers, removeServers, updateServers);
+        base.Channel.SetCollectorInfo(collectorConfigInfo, addWorkloads, removeWorkloads, updateWorkloads);
     }
     
-    public System.Threading.Tasks.Task SetCollectorInfoAsync(DoubleTake.Common.Contract.CollectorConfigurationInfo collectorConfigInfo, DoubleTake.Core.Contract.CollectedServer[] addServers, DoubleTake.Core.Contract.CollectedServer[] removeServers, DoubleTake.Core.Contract.CollectedServer[] updateServers)
+    public System.Threading.Tasks.Task SetCollectorInfoAsync(DoubleTake.Common.Contract.CollectorConfigurationInfo collectorConfigInfo, DoubleTake.Core.Contract.CollectedWorkload[] addWorkloads, DoubleTake.Core.Contract.CollectedWorkload[] removeWorkloads, DoubleTake.Core.Contract.CollectedWorkload[] updateWorkloads)
     {
-        return base.Channel.SetCollectorInfoAsync(collectorConfigInfo, addServers, removeServers, updateServers);
+        return base.Channel.SetCollectorInfoAsync(collectorConfigInfo, addWorkloads, removeWorkloads, updateWorkloads);
     }
     
     public DoubleTake.Common.Contract.CollectorConfigurationInfo GetConfigurationInfo()
@@ -43155,54 +43155,54 @@ public partial class CollectorConfigurationClient : System.ServiceModel.ClientBa
         return base.Channel.SetConfigurationInfoAsync(collectorConfigInfo);
     }
     
-    public DoubleTake.Core.Contract.CollectedServer[] GetCollectedServers()
+    public DoubleTake.Core.Contract.CollectedWorkload[] GetCollectedWorkloads()
     {
-        return base.Channel.GetCollectedServers();
+        return base.Channel.GetCollectedWorkloads();
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.CollectedServer[]> GetCollectedServersAsync()
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.CollectedWorkload[]> GetCollectedWorkloadsAsync()
     {
-        return base.Channel.GetCollectedServersAsync();
+        return base.Channel.GetCollectedWorkloadsAsync();
     }
     
-    public void AddCollectedServers(DoubleTake.Core.Contract.CollectedServer[] collectedServers)
+    public void AddCollectedWorkloads(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads)
     {
-        base.Channel.AddCollectedServers(collectedServers);
+        base.Channel.AddCollectedWorkloads(collectedWorkloads);
     }
     
-    public System.Threading.Tasks.Task AddCollectedServersAsync(DoubleTake.Core.Contract.CollectedServer[] collectedServers)
+    public System.Threading.Tasks.Task AddCollectedWorkloadsAsync(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads)
     {
-        return base.Channel.AddCollectedServersAsync(collectedServers);
+        return base.Channel.AddCollectedWorkloadsAsync(collectedWorkloads);
     }
     
-    public void RemoveCollectedServers(DoubleTake.Core.Contract.CollectedServer[] collectedServers)
+    public void RemoveCollectedWorkloads(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads)
     {
-        base.Channel.RemoveCollectedServers(collectedServers);
+        base.Channel.RemoveCollectedWorkloads(collectedWorkloads);
     }
     
-    public System.Threading.Tasks.Task RemoveCollectedServersAsync(DoubleTake.Core.Contract.CollectedServer[] collectedServers)
+    public System.Threading.Tasks.Task RemoveCollectedWorkloadsAsync(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads)
     {
-        return base.Channel.RemoveCollectedServersAsync(collectedServers);
+        return base.Channel.RemoveCollectedWorkloadsAsync(collectedWorkloads);
     }
     
-    public void UpdateCollectedServers(DoubleTake.Core.Contract.CollectedServer[] collectedServers)
+    public void UpdateCollectedWorkloads(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads)
     {
-        base.Channel.UpdateCollectedServers(collectedServers);
+        base.Channel.UpdateCollectedWorkloads(collectedWorkloads);
     }
     
-    public System.Threading.Tasks.Task UpdateCollectedServersAsync(DoubleTake.Core.Contract.CollectedServer[] collectedServers)
+    public System.Threading.Tasks.Task UpdateCollectedWorkloadsAsync(DoubleTake.Core.Contract.CollectedWorkload[] collectedWorkloads)
     {
-        return base.Channel.UpdateCollectedServersAsync(collectedServers);
+        return base.Channel.UpdateCollectedWorkloadsAsync(collectedWorkloads);
     }
     
-    public DoubleTake.Core.Contract.CollectorDatabaseStatus TestDatabaseAccess(string databaseServerName, string databaseName, string databaseInstanceName, DoubleTake.Core.Contract.Credentials credentials, DoubleTake.Core.Contract.CredentialsType credentialsType)
+    public DoubleTake.Core.Contract.CollectorDatabaseStatus TestDatabaseAccess(string databaseWorkloadName, string databaseName, string databaseInstanceName, DoubleTake.Core.Contract.Credentials credentials, DoubleTake.Core.Contract.CredentialsType credentialsType)
     {
-        return base.Channel.TestDatabaseAccess(databaseServerName, databaseName, databaseInstanceName, credentials, credentialsType);
+        return base.Channel.TestDatabaseAccess(databaseWorkloadName, databaseName, databaseInstanceName, credentials, credentialsType);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.CollectorDatabaseStatus> TestDatabaseAccessAsync(string databaseServerName, string databaseName, string databaseInstanceName, DoubleTake.Core.Contract.Credentials credentials, DoubleTake.Core.Contract.CredentialsType credentialsType)
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.CollectorDatabaseStatus> TestDatabaseAccessAsync(string databaseWorkloadName, string databaseName, string databaseInstanceName, DoubleTake.Core.Contract.Credentials credentials, DoubleTake.Core.Contract.CredentialsType credentialsType)
     {
-        return base.Channel.TestDatabaseAccessAsync(databaseServerName, databaseName, databaseInstanceName, credentials, credentialsType);
+        return base.Channel.TestDatabaseAccessAsync(databaseWorkloadName, databaseName, databaseInstanceName, credentials, credentialsType);
     }
 }
 
@@ -43820,18 +43820,18 @@ public interface IManagementService
     System.Threading.Tasks.Task<System.Guid[]> ListActiveDtInfoCollectionsAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Shu" +
-        "tdownRemoteServer", ReplyAction="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Shu" +
-        "tdownRemoteServerResponse")]
+        "tdownRemoteWorkload", ReplyAction="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Shu" +
+        "tdownRemoteWorkloadResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.AccessLevelRequiredFault), Action="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Shu" +
-        "tdownRemoteServerAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+        "tdownRemoteWorkloadAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Shu" +
-        "tdownRemoteServerCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    void ShutdownRemoteServer(System.Guid jobId, string networkId);
+        "tdownRemoteWorkloadCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    void ShutdownRemoteWorkload(System.Guid jobId, string networkId);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Shu" +
-        "tdownRemoteServer", ReplyAction="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Shu" +
-        "tdownRemoteServerResponse")]
-    System.Threading.Tasks.Task ShutdownRemoteServerAsync(System.Guid jobId, string networkId);
+        "tdownRemoteWorkload", ReplyAction="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Shu" +
+        "tdownRemoteWorkloadResponse")]
+    System.Threading.Tasks.Task ShutdownRemoteWorkloadAsync(System.Guid jobId, string networkId);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
         "AccessLevel", ReplyAction="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
@@ -43844,16 +43844,16 @@ public interface IManagementService
     System.Threading.Tasks.Task<DoubleTake.Core.Contract.AccessLevel> GetAccessLevelAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
-        "ServerInfo", ReplyAction="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
-        "ServerInfoResponse")]
+        "WorkloadInfo", ReplyAction="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
+        "WorkloadInfoResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.AccessLevelRequiredFault), Action="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
-        "ServerInfoAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.Contract.ServerInfo GetServerInfo();
+        "WorkloadInfoAccessLevelRequiredFaultFault", Name="AccessLevelRequiredFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    DoubleTake.Core.Contract.WorkloadInfo GetWorkloadInfo();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
-        "ServerInfo", ReplyAction="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
-        "ServerInfoResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ServerInfo> GetServerInfoAsync();
+        "WorkloadInfo", ReplyAction="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
+        "WorkloadInfoResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.WorkloadInfo> GetWorkloadInfoAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
         "NetworkInterfaceInfo", ReplyAction="http://www.doubletake.com/Common/Contract/ManagmentService/IManagementService/Get" +
@@ -44318,14 +44318,14 @@ public partial class ManagementServiceClient : System.ServiceModel.ClientBase<IM
         return base.Channel.ListActiveDtInfoCollectionsAsync();
     }
     
-    public void ShutdownRemoteServer(System.Guid jobId, string networkId)
+    public void ShutdownRemoteWorkload(System.Guid jobId, string networkId)
     {
-        base.Channel.ShutdownRemoteServer(jobId, networkId);
+        base.Channel.ShutdownRemoteWorkload(jobId, networkId);
     }
     
-    public System.Threading.Tasks.Task ShutdownRemoteServerAsync(System.Guid jobId, string networkId)
+    public System.Threading.Tasks.Task ShutdownRemoteWorkloadAsync(System.Guid jobId, string networkId)
     {
-        return base.Channel.ShutdownRemoteServerAsync(jobId, networkId);
+        return base.Channel.ShutdownRemoteWorkloadAsync(jobId, networkId);
     }
     
     public DoubleTake.Core.Contract.AccessLevel GetAccessLevel()
@@ -44338,14 +44338,14 @@ public partial class ManagementServiceClient : System.ServiceModel.ClientBase<IM
         return base.Channel.GetAccessLevelAsync();
     }
     
-    public DoubleTake.Core.Contract.ServerInfo GetServerInfo()
+    public DoubleTake.Core.Contract.WorkloadInfo GetWorkloadInfo()
     {
-        return base.Channel.GetServerInfo();
+        return base.Channel.GetWorkloadInfo();
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ServerInfo> GetServerInfoAsync()
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.WorkloadInfo> GetWorkloadInfoAsync()
     {
-        return base.Channel.GetServerInfoAsync();
+        return base.Channel.GetWorkloadInfoAsync();
     }
     
     public DoubleTake.Core.Contract.NetworkInterfaceInfo[] GetNetworkInterfaceInfo()
@@ -44403,28 +44403,28 @@ public interface IProxiedManagementService
     System.Threading.Tasks.Task<www.doubletake.com.Common.Contract.EventLogEntryData2[]> GetEventLogEntriesAsync(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters, int chunkSize, int lastIndex);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
-        "entService/GetServerUUID", ReplyAction="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
-        "entService/GetServerUUIDResponse")]
+        "entService/GetWorkloadUUID", ReplyAction="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
+        "entService/GetWorkloadUUIDResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Core.Contract.CoreFault), Action="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
-        "entService/GetServerUUIDCoreFaultFault", Name="CoreFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
-    System.Guid GetServerUUID(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters);
+        "entService/GetWorkloadUUIDCoreFaultFault", Name="CoreFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
+    System.Guid GetWorkloadUUID(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
-        "entService/GetServerUUID", ReplyAction="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
-        "entService/GetServerUUIDResponse")]
-    System.Threading.Tasks.Task<System.Guid> GetServerUUIDAsync(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters);
+        "entService/GetWorkloadUUID", ReplyAction="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
+        "entService/GetWorkloadUUIDResponse")]
+    System.Threading.Tasks.Task<System.Guid> GetWorkloadUUIDAsync(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
-        "entService/GetServerInfo", ReplyAction="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
-        "entService/GetServerInfoResponse")]
+        "entService/GetWorkloadInfo", ReplyAction="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
+        "entService/GetWorkloadInfoResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Core.Contract.CoreFault), Action="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
-        "entService/GetServerInfoCoreFaultFault", Name="CoreFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
-    DoubleTake.Core.Contract.ServerInfo GetServerInfo(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters);
+        "entService/GetWorkloadInfoCoreFaultFault", Name="CoreFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
+    DoubleTake.Core.Contract.WorkloadInfo GetWorkloadInfo(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
-        "entService/GetServerInfo", ReplyAction="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
-        "entService/GetServerInfoResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ServerInfo> GetServerInfoAsync(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters);
+        "entService/GetWorkloadInfo", ReplyAction="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
+        "entService/GetWorkloadInfoResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.WorkloadInfo> GetWorkloadInfoAsync(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
         "entService/GetProductInfo", ReplyAction="http://www.doubletake.com/Common/Contract/ProxiedManagmentService/IProxiedManagem" +
@@ -44621,24 +44621,24 @@ public partial class ProxiedManagementServiceClient : System.ServiceModel.Client
         return base.Channel.GetEventLogEntriesAsync(serviceConnectionParameters, chunkSize, lastIndex);
     }
     
-    public System.Guid GetServerUUID(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters)
+    public System.Guid GetWorkloadUUID(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters)
     {
-        return base.Channel.GetServerUUID(serviceConnectionParameters);
+        return base.Channel.GetWorkloadUUID(serviceConnectionParameters);
     }
     
-    public System.Threading.Tasks.Task<System.Guid> GetServerUUIDAsync(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters)
+    public System.Threading.Tasks.Task<System.Guid> GetWorkloadUUIDAsync(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters)
     {
-        return base.Channel.GetServerUUIDAsync(serviceConnectionParameters);
+        return base.Channel.GetWorkloadUUIDAsync(serviceConnectionParameters);
     }
     
-    public DoubleTake.Core.Contract.ServerInfo GetServerInfo(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters)
+    public DoubleTake.Core.Contract.WorkloadInfo GetWorkloadInfo(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters)
     {
-        return base.Channel.GetServerInfo(serviceConnectionParameters);
+        return base.Channel.GetWorkloadInfo(serviceConnectionParameters);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ServerInfo> GetServerInfoAsync(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters)
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.WorkloadInfo> GetWorkloadInfoAsync(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters)
     {
-        return base.Channel.GetServerInfoAsync(serviceConnectionParameters);
+        return base.Channel.GetWorkloadInfoAsync(serviceConnectionParameters);
     }
     
     public DoubleTake.Core.Contract.ProductInfo GetProductInfo(DoubleTake.Communication.ServiceConnectionParameters serviceConnectionParameters)
@@ -45598,12 +45598,12 @@ public interface ClusterService
         "erAddressInfoResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Core.Contract.CoreFault), Action="http://www.doubletake.com/Core/Contract/ClusterOperations/ClusterService/GetClust" +
         "erAddressInfoCoreFaultFault", Name="CoreFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
-    DoubleTake.Core.Contract.ClusterAddressInfo GetClusterAddressInfo(string serverAddress);
+    DoubleTake.Core.Contract.ClusterAddressInfo GetClusterAddressInfo(string workloadAddress);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/ClusterOperations/ClusterService/GetClust" +
         "erAddressInfo", ReplyAction="http://www.doubletake.com/Core/Contract/ClusterOperations/ClusterService/GetClust" +
         "erAddressInfoResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ClusterAddressInfo> GetClusterAddressInfoAsync(string serverAddress);
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ClusterAddressInfo> GetClusterAddressInfoAsync(string workloadAddress);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/ClusterOperations/ClusterService/GetClust" +
         "erUniqueId", ReplyAction="http://www.doubletake.com/Core/Contract/ClusterOperations/ClusterService/GetClust" +
@@ -45684,14 +45684,14 @@ public partial class ClusterServiceClient : System.ServiceModel.ClientBase<Clust
         return base.Channel.GetClusterConnectionInfoAsync(connectionGuid, credentials);
     }
     
-    public DoubleTake.Core.Contract.ClusterAddressInfo GetClusterAddressInfo(string serverAddress)
+    public DoubleTake.Core.Contract.ClusterAddressInfo GetClusterAddressInfo(string workloadAddress)
     {
-        return base.Channel.GetClusterAddressInfo(serverAddress);
+        return base.Channel.GetClusterAddressInfo(workloadAddress);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ClusterAddressInfo> GetClusterAddressInfoAsync(string serverAddress)
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ClusterAddressInfo> GetClusterAddressInfoAsync(string workloadAddress)
     {
-        return base.Channel.GetClusterAddressInfoAsync(serverAddress);
+        return base.Channel.GetClusterAddressInfoAsync(workloadAddress);
     }
     
     public string GetClusterUniqueId()
@@ -45789,17 +45789,17 @@ public interface CoreService
         "velResponse")]
     System.Threading.Tasks.Task<DoubleTake.Core.Contract.AccessLevel> GetAccessLevelAsync();
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetServerIn" +
-        "fo", ReplyAction="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetServerIn" +
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetWorkloadIn" +
+        "fo", ReplyAction="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetWorkloadIn" +
         "foResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Core.Contract.CoreFault), Action="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetServerIn" +
+    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Core.Contract.CoreFault), Action="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetWorkloadIn" +
         "foCoreFaultFault", Name="CoreFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Core.Contract")]
-    DoubleTake.Core.Contract.ServerInfo GetServerInfo();
+    DoubleTake.Core.Contract.WorkloadInfo GetWorkloadInfo();
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetServerIn" +
-        "fo", ReplyAction="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetServerIn" +
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetWorkloadIn" +
+        "fo", ReplyAction="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetWorkloadIn" +
         "foResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ServerInfo> GetServerInfoAsync();
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.WorkloadInfo> GetWorkloadInfoAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetNetworkI" +
         "nterfaceInfo", ReplyAction="http://www.doubletake.com/Core/Contract/ServiceOperations/CoreService/GetNetworkI" +
@@ -46198,14 +46198,14 @@ public partial class CoreServiceClient : System.ServiceModel.ClientBase<CoreServ
         return base.Channel.GetAccessLevelAsync();
     }
     
-    public DoubleTake.Core.Contract.ServerInfo GetServerInfo()
+    public DoubleTake.Core.Contract.WorkloadInfo GetWorkloadInfo()
     {
-        return base.Channel.GetServerInfo();
+        return base.Channel.GetWorkloadInfo();
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ServerInfo> GetServerInfoAsync()
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.WorkloadInfo> GetWorkloadInfoAsync()
     {
-        return base.Channel.GetServerInfoAsync();
+        return base.Channel.GetWorkloadInfoAsync();
     }
     
     public DoubleTake.Core.Contract.NetworkInterfaceInfo[] GetNetworkInterfaceInfo()
@@ -46865,12 +46865,12 @@ public interface CoreSystemState
         "ifySystemStateConfigurationResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Ver" +
         "ifySystemStateConfigurationCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.Contract.SystemStateVerificationResult VerifySystemStateConfiguration(DoubleTake.Core.Contract.FullServerJobType jobType);
+    DoubleTake.Core.Contract.SystemStateVerificationResult VerifySystemStateConfiguration(DoubleTake.Core.Contract.FullWorkloadJobType jobType);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Ver" +
         "ifySystemStateConfiguration", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Ver" +
         "ifySystemStateConfigurationResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.SystemStateVerificationResult> VerifySystemStateConfigurationAsync(DoubleTake.Core.Contract.FullServerJobType jobType);
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.SystemStateVerificationResult> VerifySystemStateConfigurationAsync(DoubleTake.Core.Contract.FullWorkloadJobType jobType);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Get" +
         "SystemStateRules", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Get" +
@@ -47057,24 +47057,24 @@ public interface CoreSystemState
         "NicMappingsResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Get" +
         "NicMappingsCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.Contract.Options.FullServerNicMappings[] GetNicMappings();
+    DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[] GetNicMappings();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Get" +
         "NicMappings", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Get" +
         "NicMappingsResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.Options.FullServerNicMappings[]> GetNicMappingsAsync();
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]> GetNicMappingsAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Set" +
         "NicMappings", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Set" +
         "NicMappingsResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Set" +
         "NicMappingsCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    void SetNicMappings(DoubleTake.Core.Contract.Options.FullServerNicMappings[] nicMappings);
+    void SetNicMappings(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[] nicMappings);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Set" +
         "NicMappings", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Set" +
         "NicMappingsResponse")]
-    System.Threading.Tasks.Task SetNicMappingsAsync(DoubleTake.Core.Contract.Options.FullServerNicMappings[] nicMappings);
+    System.Threading.Tasks.Task SetNicMappingsAsync(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[] nicMappings);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Get" +
         "StagingFolder", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Get" +
@@ -47173,28 +47173,28 @@ public interface CoreSystemState
     System.Threading.Tasks.Task SetSystemStateOptionsAsync(DoubleTake.Jobs.Contract.SystemStateOptions jobParameters);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Shu" +
-        "tdownThisServer", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Shu" +
-        "tdownThisServerResponse")]
+        "tdownThisWorkload", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Shu" +
+        "tdownThisWorkloadResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Shu" +
-        "tdownThisServerCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    void ShutdownThisServer();
+        "tdownThisWorkloadCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    void ShutdownThisWorkload();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Shu" +
-        "tdownThisServer", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Shu" +
-        "tdownThisServerResponse")]
-    System.Threading.Tasks.Task ShutdownThisServerAsync();
+        "tdownThisWorkload", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Shu" +
+        "tdownThisWorkloadResponse")]
+    System.Threading.Tasks.Task ShutdownThisWorkloadAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Reb" +
-        "ootThisServer", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Reb" +
-        "ootThisServerResponse")]
+        "ootThisWorkload", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Reb" +
+        "ootThisWorkloadResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Reb" +
-        "ootThisServerCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    void RebootThisServer();
+        "ootThisWorkloadCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    void RebootThisWorkload();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Reb" +
-        "ootThisServer", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Reb" +
-        "ootThisServerResponse")]
-    System.Threading.Tasks.Task RebootThisServerAsync();
+        "ootThisWorkload", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Reb" +
+        "ootThisWorkloadResponse")]
+    System.Threading.Tasks.Task RebootThisWorkloadAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Get" +
         "TransformPaths", ReplyAction="http://www.doubletake.com/Core/Contract/SystemStateOperations/CoreSystemState/Get" +
@@ -47455,12 +47455,12 @@ public partial class CoreSystemStateClient : System.ServiceModel.ClientBase<Core
         return base.Channel.BuildSystemStateConfigurationAsync(sourceSystemStateDef, targetSystemStateDef);
     }
     
-    public DoubleTake.Core.Contract.SystemStateVerificationResult VerifySystemStateConfiguration(DoubleTake.Core.Contract.FullServerJobType jobType)
+    public DoubleTake.Core.Contract.SystemStateVerificationResult VerifySystemStateConfiguration(DoubleTake.Core.Contract.FullWorkloadJobType jobType)
     {
         return base.Channel.VerifySystemStateConfiguration(jobType);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.SystemStateVerificationResult> VerifySystemStateConfigurationAsync(DoubleTake.Core.Contract.FullServerJobType jobType)
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.SystemStateVerificationResult> VerifySystemStateConfigurationAsync(DoubleTake.Core.Contract.FullWorkloadJobType jobType)
     {
         return base.Channel.VerifySystemStateConfigurationAsync(jobType);
     }
@@ -47615,22 +47615,22 @@ public partial class CoreSystemStateClient : System.ServiceModel.ClientBase<Core
         return base.Channel.ShutdownNonCriticalTargetServicesAsync();
     }
     
-    public DoubleTake.Core.Contract.Options.FullServerNicMappings[] GetNicMappings()
+    public DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[] GetNicMappings()
     {
         return base.Channel.GetNicMappings();
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.Options.FullServerNicMappings[]> GetNicMappingsAsync()
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[]> GetNicMappingsAsync()
     {
         return base.Channel.GetNicMappingsAsync();
     }
     
-    public void SetNicMappings(DoubleTake.Core.Contract.Options.FullServerNicMappings[] nicMappings)
+    public void SetNicMappings(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[] nicMappings)
     {
         base.Channel.SetNicMappings(nicMappings);
     }
     
-    public System.Threading.Tasks.Task SetNicMappingsAsync(DoubleTake.Core.Contract.Options.FullServerNicMappings[] nicMappings)
+    public System.Threading.Tasks.Task SetNicMappingsAsync(DoubleTake.Core.Contract.Options.FullWorkloadNicMappings[] nicMappings)
     {
         return base.Channel.SetNicMappingsAsync(nicMappings);
     }
@@ -47715,24 +47715,24 @@ public partial class CoreSystemStateClient : System.ServiceModel.ClientBase<Core
         return base.Channel.SetSystemStateOptionsAsync(jobParameters);
     }
     
-    public void ShutdownThisServer()
+    public void ShutdownThisWorkload()
     {
-        base.Channel.ShutdownThisServer();
+        base.Channel.ShutdownThisWorkload();
     }
     
-    public System.Threading.Tasks.Task ShutdownThisServerAsync()
+    public System.Threading.Tasks.Task ShutdownThisWorkloadAsync()
     {
-        return base.Channel.ShutdownThisServerAsync();
+        return base.Channel.ShutdownThisWorkloadAsync();
     }
     
-    public void RebootThisServer()
+    public void RebootThisWorkload()
     {
-        base.Channel.RebootThisServer();
+        base.Channel.RebootThisWorkload();
     }
     
-    public System.Threading.Tasks.Task RebootThisServerAsync()
+    public System.Threading.Tasks.Task RebootThisWorkloadAsync()
     {
-        return base.Channel.RebootThisServerAsync();
+        return base.Channel.RebootThisWorkloadAsync();
     }
     
     public string[] GetTransformPaths()
@@ -47861,15 +47861,15 @@ public partial class CoreSystemStateClient : System.ServiceModel.ClientBase<Core
 public interface CoreUtility
 {
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/UtilityOperations/CoreUtility/GetServerTi" +
-        "me", ReplyAction="http://www.doubletake.com/Core/Contract/UtilityOperations/CoreUtility/GetServerTi" +
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/UtilityOperations/CoreUtility/GetWorkloadTi" +
+        "me", ReplyAction="http://www.doubletake.com/Core/Contract/UtilityOperations/CoreUtility/GetWorkloadTi" +
         "meResponse")]
-    System.DateTime GetServerTime();
+    System.DateTime GetWorkloadTime();
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/UtilityOperations/CoreUtility/GetServerTi" +
-        "me", ReplyAction="http://www.doubletake.com/Core/Contract/UtilityOperations/CoreUtility/GetServerTi" +
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/UtilityOperations/CoreUtility/GetWorkloadTi" +
+        "me", ReplyAction="http://www.doubletake.com/Core/Contract/UtilityOperations/CoreUtility/GetWorkloadTi" +
         "meResponse")]
-    System.Threading.Tasks.Task<System.DateTime> GetServerTimeAsync();
+    System.Threading.Tasks.Task<System.DateTime> GetWorkloadTimeAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Core/Contract/UtilityOperations/CoreUtility/GetWinServi" +
         "ceInfo", ReplyAction="http://www.doubletake.com/Core/Contract/UtilityOperations/CoreUtility/GetWinServi" +
@@ -48054,14 +48054,14 @@ public partial class CoreUtilityClient : System.ServiceModel.ClientBase<CoreUtil
     {
     }
     
-    public System.DateTime GetServerTime()
+    public System.DateTime GetWorkloadTime()
     {
-        return base.Channel.GetServerTime();
+        return base.Channel.GetWorkloadTime();
     }
     
-    public System.Threading.Tasks.Task<System.DateTime> GetServerTimeAsync()
+    public System.Threading.Tasks.Task<System.DateTime> GetWorkloadTimeAsync()
     {
-        return base.Channel.GetServerTimeAsync();
+        return base.Channel.GetWorkloadTimeAsync();
     }
     
     public DoubleTake.Core.Contract.WinServiceInfo GetWinServiceInfo(string name)
@@ -48312,12 +48312,12 @@ public interface Cluster
         "erGroupsResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/GetFileServ" +
         "erGroupsCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.ClusterGroupInfo[] GetFileServerGroups();
+    DoubleTake.Core.ClusterGroupInfo[] GetFileWorkloadGroups();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/GetFileServ" +
         "erGroups", ReplyAction="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/GetFileServ" +
         "erGroupsResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.ClusterGroupInfo[]> GetFileServerGroupsAsync();
+    System.Threading.Tasks.Task<DoubleTake.Core.ClusterGroupInfo[]> GetFileWorkloadGroupsAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/GetResource" +
         "Info", ReplyAction="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/GetResource" +
@@ -48444,12 +48444,12 @@ public interface Cluster
         "meResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/IsClusterNa" +
         "meCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    bool IsClusterName(string serverName);
+    bool IsClusterName(string workloadName);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/IsClusterNa" +
         "me", ReplyAction="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/IsClusterNa" +
         "meResponse")]
-    System.Threading.Tasks.Task<bool> IsClusterNameAsync(string serverName);
+    System.Threading.Tasks.Task<bool> IsClusterNameAsync(string workloadName);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/CreateTarge" +
         "tResource", ReplyAction="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/CreateTarge" +
@@ -48552,12 +48552,12 @@ public interface Cluster
         "rClusteredResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/IsThisServe" +
         "rClusteredCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    bool IsThisServerClustered();
+    bool IsThisWorkloadClustered();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/IsThisServe" +
         "rClustered", ReplyAction="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/IsThisServe" +
         "rClusteredResponse")]
-    System.Threading.Tasks.Task<bool> IsThisServerClusteredAsync();
+    System.Threading.Tasks.Task<bool> IsThisWorkloadClusteredAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/GetResource" +
         "GroupForStorageDisk", ReplyAction="http://www.doubletake.com/Internal/Contract/ClusterOperations/Cluster/GetResource" +
@@ -49216,14 +49216,14 @@ public partial class ClusterClient : System.ServiceModel.ClientBase<Cluster>, Cl
     {
     }
     
-    public DoubleTake.Core.ClusterGroupInfo[] GetFileServerGroups()
+    public DoubleTake.Core.ClusterGroupInfo[] GetFileWorkloadGroups()
     {
-        return base.Channel.GetFileServerGroups();
+        return base.Channel.GetFileWorkloadGroups();
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.ClusterGroupInfo[]> GetFileServerGroupsAsync()
+    public System.Threading.Tasks.Task<DoubleTake.Core.ClusterGroupInfo[]> GetFileWorkloadGroupsAsync()
     {
-        return base.Channel.GetFileServerGroupsAsync();
+        return base.Channel.GetFileWorkloadGroupsAsync();
     }
     
     public DoubleTake.Core.ClusterResourceInfo[] GetResourceInfo()
@@ -49326,14 +49326,14 @@ public partial class ClusterClient : System.ServiceModel.ClientBase<Cluster>, Cl
         return base.Channel.DeleteConnectionAsync(resourceName);
     }
     
-    public bool IsClusterName(string serverName)
+    public bool IsClusterName(string workloadName)
     {
-        return base.Channel.IsClusterName(serverName);
+        return base.Channel.IsClusterName(workloadName);
     }
     
-    public System.Threading.Tasks.Task<bool> IsClusterNameAsync(string serverName)
+    public System.Threading.Tasks.Task<bool> IsClusterNameAsync(string workloadName)
     {
-        return base.Channel.IsClusterNameAsync(serverName);
+        return base.Channel.IsClusterNameAsync(workloadName);
     }
     
     public void CreateTargetResource(string resourceName, string jobId, string targetPathVolumeLetter, string jobPath)
@@ -49416,14 +49416,14 @@ public partial class ClusterClient : System.ServiceModel.ClientBase<Cluster>, Cl
         return base.Channel.GetOwningNodeForDiskAsync(volume);
     }
     
-    public bool IsThisServerClustered()
+    public bool IsThisWorkloadClustered()
     {
-        return base.Channel.IsThisServerClustered();
+        return base.Channel.IsThisWorkloadClustered();
     }
     
-    public System.Threading.Tasks.Task<bool> IsThisServerClusteredAsync()
+    public System.Threading.Tasks.Task<bool> IsThisWorkloadClusteredAsync()
     {
-        return base.Channel.IsThisServerClusteredAsync();
+        return base.Channel.IsThisWorkloadClusteredAsync();
     }
     
     public string GetResourceGroupForStorageDisk(string disk)
@@ -49969,12 +49969,12 @@ public interface CoreEngine
         "rverInfoResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Internal/Contract/CoreEngineOperations/CoreEngine/GetSe" +
         "rverInfoCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.Contract.ServerInfo GetServerInfo();
+    DoubleTake.Core.Contract.WorkloadInfo GetWorkloadInfo();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Internal/Contract/CoreEngineOperations/CoreEngine/GetSe" +
         "rverInfo", ReplyAction="http://www.doubletake.com/Internal/Contract/CoreEngineOperations/CoreEngine/GetSe" +
         "rverInfoResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ServerInfo> GetServerInfoAsync();
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.WorkloadInfo> GetWorkloadInfoAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Internal/Contract/CoreEngineOperations/CoreEngine/GetNe" +
         "tworkInterfaceInfo", ReplyAction="http://www.doubletake.com/Internal/Contract/CoreEngineOperations/CoreEngine/GetNe" +
@@ -51043,14 +51043,14 @@ public partial class CoreEngineClient : System.ServiceModel.ClientBase<CoreEngin
         return base.Channel.GetMachineInfoAsync();
     }
     
-    public DoubleTake.Core.Contract.ServerInfo GetServerInfo()
+    public DoubleTake.Core.Contract.WorkloadInfo GetWorkloadInfo()
     {
-        return base.Channel.GetServerInfo();
+        return base.Channel.GetWorkloadInfo();
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ServerInfo> GetServerInfoAsync()
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.WorkloadInfo> GetWorkloadInfoAsync()
     {
-        return base.Channel.GetServerInfoAsync();
+        return base.Channel.GetWorkloadInfoAsync();
     }
     
     public DoubleTake.Core.Contract.NetworkInterfaceInfo[] GetNetworkInterfaceInfo()
@@ -53763,109 +53763,109 @@ public partial class MetaserviceClient : System.ServiceModel.ClientBase<IMetaser
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-[System.ServiceModel.ServiceContractAttribute(Namespace="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager", ConfigurationName="IDTAVServerManager")]
-public interface IDTAVServerManager
+[System.ServiceModel.ServiceContractAttribute(Namespace="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager", ConfigurationName="IDTAVWorkloadManager")]
+public interface IDTAVWorkloadManager
 {
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServerInfo", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServerInfoResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServerInfoCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.Contract.ControlledServerInfo[] GetControlledServerInfo();
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadInfo", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadInfoResponse")]
+    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadInfoCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    DoubleTake.Core.Contract.ControlledWorkloadInfo[] GetControlledWorkloadInfo();
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServerInfo", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServerInfoResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledServerInfo[]> GetControlledServerInfoAsync();
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadInfo", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadInfoResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledWorkloadInfo[]> GetControlledWorkloadInfoAsync();
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServers", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServersResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServersCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.Contract.ControlledServerInfoSimple[] GetControlledServers();
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloads", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadsResponse")]
+    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadsCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[] GetControlledWorkloads();
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServers", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServersResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledServerInfoSimple[]> GetControlledServersAsync();
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloads", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadsResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]> GetControlledWorkloadsAsync();
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServer", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServerResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServerCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.Contract.ControlledServerInfo GetControlledServer(System.Guid ServerId);
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkload", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadResponse")]
+    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    DoubleTake.Core.Contract.ControlledWorkloadInfo GetControlledWorkload(System.Guid WorkloadId);
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServer", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVServerManager/IDTAVServerMa" +
-        "nager/GetControlledServerResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledServerInfo> GetControlledServerAsync(System.Guid ServerId);
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkload", ReplyAction="http://www.doubletake.com/Virtualization/Contract/DTAVWorkloadManager/IDTAVWorkloadMa" +
+        "nager/GetControlledWorkloadResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledWorkloadInfo> GetControlledWorkloadAsync(System.Guid WorkloadId);
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-public interface IDTAVServerManagerChannel : IDTAVServerManager, System.ServiceModel.IClientChannel
+public interface IDTAVWorkloadManagerChannel : IDTAVWorkloadManager, System.ServiceModel.IClientChannel
 {
 }
 
 [System.Diagnostics.DebuggerStepThroughAttribute()]
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-public partial class DTAVServerManagerClient : System.ServiceModel.ClientBase<IDTAVServerManager>, IDTAVServerManager
+public partial class DTAVWorkloadManagerClient : System.ServiceModel.ClientBase<IDTAVWorkloadManager>, IDTAVWorkloadManager
 {
     
-    public DTAVServerManagerClient()
+    public DTAVWorkloadManagerClient()
     {
     }
     
-    public DTAVServerManagerClient(string endpointConfigurationName) : 
+    public DTAVWorkloadManagerClient(string endpointConfigurationName) : 
             base(endpointConfigurationName)
     {
     }
     
-    public DTAVServerManagerClient(string endpointConfigurationName, string remoteAddress) : 
+    public DTAVWorkloadManagerClient(string endpointConfigurationName, string remoteAddress) : 
             base(endpointConfigurationName, remoteAddress)
     {
     }
     
-    public DTAVServerManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+    public DTAVWorkloadManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
             base(endpointConfigurationName, remoteAddress)
     {
     }
     
-    public DTAVServerManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+    public DTAVWorkloadManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
             base(binding, remoteAddress)
     {
     }
     
-    public DoubleTake.Core.Contract.ControlledServerInfo[] GetControlledServerInfo()
+    public DoubleTake.Core.Contract.ControlledWorkloadInfo[] GetControlledWorkloadInfo()
     {
-        return base.Channel.GetControlledServerInfo();
+        return base.Channel.GetControlledWorkloadInfo();
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledServerInfo[]> GetControlledServerInfoAsync()
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledWorkloadInfo[]> GetControlledWorkloadInfoAsync()
     {
-        return base.Channel.GetControlledServerInfoAsync();
+        return base.Channel.GetControlledWorkloadInfoAsync();
     }
     
-    public DoubleTake.Core.Contract.ControlledServerInfoSimple[] GetControlledServers()
+    public DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[] GetControlledWorkloads()
     {
-        return base.Channel.GetControlledServers();
+        return base.Channel.GetControlledWorkloads();
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledServerInfoSimple[]> GetControlledServersAsync()
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledWorkloadInfoSimple[]> GetControlledWorkloadsAsync()
     {
-        return base.Channel.GetControlledServersAsync();
+        return base.Channel.GetControlledWorkloadsAsync();
     }
     
-    public DoubleTake.Core.Contract.ControlledServerInfo GetControlledServer(System.Guid ServerId)
+    public DoubleTake.Core.Contract.ControlledWorkloadInfo GetControlledWorkload(System.Guid WorkloadId)
     {
-        return base.Channel.GetControlledServer(ServerId);
+        return base.Channel.GetControlledWorkload(WorkloadId);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledServerInfo> GetControlledServerAsync(System.Guid ServerId)
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledWorkloadInfo> GetControlledWorkloadAsync(System.Guid WorkloadId)
     {
-        return base.Channel.GetControlledServerAsync(ServerId);
+        return base.Channel.GetControlledWorkloadAsync(WorkloadId);
     }
 }
 
@@ -53998,12 +53998,12 @@ public interface IVirtualizationService
         "zationService/FindDatastoreItemsInFolderResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/Contract/VirtualizationService/IVirtuali" +
         "zationService/FindDatastoreItemsInFolderCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Virtualization.Contract.VimDatastoreItem[] FindDatastoreItemsInFolder(string vimServerNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath);
+    DoubleTake.Virtualization.Contract.VimDatastoreItem[] FindDatastoreItemsInFolder(string vimWorkloadNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/VirtualizationService/IVirtuali" +
         "zationService/FindDatastoreItemsInFolder", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VirtualizationService/IVirtuali" +
         "zationService/FindDatastoreItemsInFolderResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VimDatastoreItem[]> FindDatastoreItemsInFolderAsync(string vimServerNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath);
+    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VimDatastoreItem[]> FindDatastoreItemsInFolderAsync(string vimWorkloadNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath);
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -54040,14 +54040,14 @@ public partial class VirtualizationServiceClient : System.ServiceModel.ClientBas
     {
     }
     
-    public DoubleTake.Virtualization.Contract.VimDatastoreItem[] FindDatastoreItemsInFolder(string vimServerNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath)
+    public DoubleTake.Virtualization.Contract.VimDatastoreItem[] FindDatastoreItemsInFolder(string vimWorkloadNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath)
     {
-        return base.Channel.FindDatastoreItemsInFolder(vimServerNetworkId, vimCredentials, datastoreName, folderPath);
+        return base.Channel.FindDatastoreItemsInFolder(vimWorkloadNetworkId, vimCredentials, datastoreName, folderPath);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VimDatastoreItem[]> FindDatastoreItemsInFolderAsync(string vimServerNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath)
+    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VimDatastoreItem[]> FindDatastoreItemsInFolderAsync(string vimWorkloadNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath)
     {
-        return base.Channel.FindDatastoreItemsInFolderAsync(vimServerNetworkId, vimCredentials, datastoreName, folderPath);
+        return base.Channel.FindDatastoreItemsInFolderAsync(vimWorkloadNetworkId, vimCredentials, datastoreName, folderPath);
     }
 }
 
@@ -54123,16 +54123,16 @@ public interface IVRAService
     System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VRA.ActivationCodeInfo> GetActivationCodeInfoAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/VerifyTargetSer" +
-        "verHostedByVimServer", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/VerifyTargetSer" +
-        "verHostedByVimServerResponse")]
+        "verHostedByVimWorkload", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/VerifyTargetSer" +
+        "verHostedByVimWorkloadResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/VerifyTargetSer" +
-        "verHostedByVimServerCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Virtualization.Contract.VRA.ESXInfo VerifyTargetServerHostedByVimServer(string vimServer, string vimUsername, string vimPassword, string esxName);
+        "verHostedByVimWorkloadCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    DoubleTake.Virtualization.Contract.VRA.ESXInfo VerifyTargetWorkloadHostedByVimWorkload(string vimWorkload, string vimUsername, string vimPassword, string esxName);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/VerifyTargetSer" +
-        "verHostedByVimServer", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/VerifyTargetSer" +
-        "verHostedByVimServerResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VRA.ESXInfo> VerifyTargetServerHostedByVimServerAsync(string vimServer, string vimUsername, string vimPassword, string esxName);
+        "verHostedByVimWorkload", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/VerifyTargetSer" +
+        "verHostedByVimWorkloadResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VRA.ESXInfo> VerifyTargetWorkloadHostedByVimWorkloadAsync(string vimWorkload, string vimUsername, string vimPassword, string esxName);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/GetVirtualSwitc" +
         "hInfo", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/GetVirtualSwitc" +
@@ -54236,17 +54236,17 @@ public interface IVRAService
         "ResourceTypeResponse")]
     System.Threading.Tasks.Task ValidateClusterResourceTypeAsync(System.Uri clusterUri, string resourceTypeName);
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/IsServerPingabl" +
-        "e", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/IsServerPingabl" +
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/IsWorkloadPingabl" +
+        "e", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/IsWorkloadPingabl" +
         "eResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/IsServerPingabl" +
+    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/IsWorkloadPingabl" +
         "eCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    bool IsServerPingable(string server);
+    bool IsWorkloadPingable(string workload);
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/IsServerPingabl" +
-        "e", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/IsServerPingabl" +
+    [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/IsWorkloadPingabl" +
+        "e", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/IsWorkloadPingabl" +
         "eResponse")]
-    System.Threading.Tasks.Task<bool> IsServerPingableAsync(string server);
+    System.Threading.Tasks.Task<bool> IsWorkloadPingableAsync(string workload);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/GetUnicastIPAdd" +
         "resses", ReplyAction="http://www.doubletake.com/Virtualization/Contract/VRA/IVRAService/GetUnicastIPAdd" +
@@ -54367,14 +54367,14 @@ public partial class VRAServiceClient : System.ServiceModel.ClientBase<IVRAServi
         return base.Channel.GetActivationCodeInfoAsync();
     }
     
-    public DoubleTake.Virtualization.Contract.VRA.ESXInfo VerifyTargetServerHostedByVimServer(string vimServer, string vimUsername, string vimPassword, string esxName)
+    public DoubleTake.Virtualization.Contract.VRA.ESXInfo VerifyTargetWorkloadHostedByVimWorkload(string vimWorkload, string vimUsername, string vimPassword, string esxName)
     {
-        return base.Channel.VerifyTargetServerHostedByVimServer(vimServer, vimUsername, vimPassword, esxName);
+        return base.Channel.VerifyTargetWorkloadHostedByVimWorkload(vimWorkload, vimUsername, vimPassword, esxName);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VRA.ESXInfo> VerifyTargetServerHostedByVimServerAsync(string vimServer, string vimUsername, string vimPassword, string esxName)
+    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VRA.ESXInfo> VerifyTargetWorkloadHostedByVimWorkloadAsync(string vimWorkload, string vimUsername, string vimPassword, string esxName)
     {
-        return base.Channel.VerifyTargetServerHostedByVimServerAsync(vimServer, vimUsername, vimPassword, esxName);
+        return base.Channel.VerifyTargetWorkloadHostedByVimWorkloadAsync(vimWorkload, vimUsername, vimPassword, esxName);
     }
     
     public DoubleTake.Virtualization.Contract.VirtualSwitchInfo[] GetVirtualSwitchInfo()
@@ -54467,14 +54467,14 @@ public partial class VRAServiceClient : System.ServiceModel.ClientBase<IVRAServi
         return base.Channel.ValidateClusterResourceTypeAsync(clusterUri, resourceTypeName);
     }
     
-    public bool IsServerPingable(string server)
+    public bool IsWorkloadPingable(string workload)
     {
-        return base.Channel.IsServerPingable(server);
+        return base.Channel.IsWorkloadPingable(workload);
     }
     
-    public System.Threading.Tasks.Task<bool> IsServerPingableAsync(string server)
+    public System.Threading.Tasks.Task<bool> IsWorkloadPingableAsync(string workload)
     {
-        return base.Channel.IsServerPingableAsync(server);
+        return base.Channel.IsWorkloadPingableAsync(workload);
     }
     
     public DoubleTake.Core.Contract.UnicastIPAddressInfo[] GetUnicastIPAddresses()
@@ -54589,28 +54589,28 @@ public interface IDTAVReplicationApplianceManager
 {
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/GetVimServersandReplicationAppliances", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/GetVimServersandReplicationAppliancesResponse")]
+        "licationApplianceManager/GetVimWorkloadsandReplicationAppliances", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
+        "licationApplianceManager/GetVimWorkloadsandReplicationAppliancesResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/GetVimServersandReplicationAppliancesCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[] GetVimServersandReplicationAppliances();
+        "licationApplianceManager/GetVimWorkloadsandReplicationAppliancesCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[] GetVimWorkloadsandReplicationAppliances();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/GetVimServersandReplicationAppliances", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/GetVimServersandReplicationAppliancesResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]> GetVimServersandReplicationAppliancesAsync();
+        "licationApplianceManager/GetVimWorkloadsandReplicationAppliances", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
+        "licationApplianceManager/GetVimWorkloadsandReplicationAppliancesResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]> GetVimWorkloadsandReplicationAppliancesAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/RemoveVimServer", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/RemoveVimServerResponse")]
+        "licationApplianceManager/RemoveVimWorkload", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
+        "licationApplianceManager/RemoveVimWorkloadResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/RemoveVimServerCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    void RemoveVimServer(string networkId);
+        "licationApplianceManager/RemoveVimWorkloadCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    void RemoveVimWorkload(string networkId);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/RemoveVimServer", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/RemoveVimServerResponse")]
-    System.Threading.Tasks.Task RemoveVimServerAsync(string networkId);
+        "licationApplianceManager/RemoveVimWorkload", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
+        "licationApplianceManager/RemoveVimWorkloadResponse")]
+    System.Threading.Tasks.Task RemoveVimWorkloadAsync(string networkId);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
         "licationApplianceManager/RemoveReplicationAppliance", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
@@ -54625,16 +54625,16 @@ public interface IDTAVReplicationApplianceManager
     System.Threading.Tasks.Task RemoveReplicationApplianceAsync(string networkId);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/SetVimServerCredentials", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/SetVimServerCredentialsResponse")]
+        "licationApplianceManager/SetVimWorkloadCredentials", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
+        "licationApplianceManager/SetVimWorkloadCredentialsResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/SetVimServerCredentialsCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    void SetVimServerCredentials(string networkId, DoubleTake.Core.Contract.Credentials credentials);
+        "licationApplianceManager/SetVimWorkloadCredentialsCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    void SetVimWorkloadCredentials(string networkId, DoubleTake.Core.Contract.Credentials credentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/SetVimServerCredentials", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/SetVimServerCredentialsResponse")]
-    System.Threading.Tasks.Task SetVimServerCredentialsAsync(string networkId, DoubleTake.Core.Contract.Credentials credentials);
+        "licationApplianceManager/SetVimWorkloadCredentials", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
+        "licationApplianceManager/SetVimWorkloadCredentialsResponse")]
+    System.Threading.Tasks.Task SetVimWorkloadCredentialsAsync(string networkId, DoubleTake.Core.Contract.Credentials credentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
         "licationApplianceManager/SetReplicationApplianceCredentials", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
@@ -54649,17 +54649,17 @@ public interface IDTAVReplicationApplianceManager
     System.Threading.Tasks.Task SetReplicationApplianceCredentialsAsync(string managementAddress, DoubleTake.Core.Contract.Credentials credentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/AddVimServerAndReplicationAppliance", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/AddVimServerAndReplicationApplianceResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimServerAndRAFault), Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/AddVimServerAndReplicationApplianceAddVimServerAndRAFau" +
-        "ltFault", Name="AddVimServerAndRAFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Virtualization.Contract.DTAV")]
-    void AddVimServerAndReplicationAppliance(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer vimServer, DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance appliance);
+        "licationApplianceManager/AddVimWorkloadAndReplicationAppliance", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
+        "licationApplianceManager/AddVimWorkloadAndReplicationApplianceResponse")]
+    [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Virtualization.Contract.DTAV.AddVimWorkloadAndRAFault), Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
+        "licationApplianceManager/AddVimWorkloadAndReplicationApplianceAddVimWorkloadAndRAFau" +
+        "ltFault", Name="AddVimWorkloadAndRAFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Virtualization.Contract.DTAV")]
+    void AddVimWorkloadAndReplicationAppliance(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload vimWorkload, DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance appliance);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/AddVimServerAndReplicationAppliance", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
-        "licationApplianceManager/AddVimServerAndReplicationApplianceResponse")]
-    System.Threading.Tasks.Task AddVimServerAndReplicationApplianceAsync(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer vimServer, DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance appliance);
+        "licationApplianceManager/AddVimWorkloadAndReplicationAppliance", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationApplianceManager/IDTAVRep" +
+        "licationApplianceManager/AddVimWorkloadAndReplicationApplianceResponse")]
+    System.Threading.Tasks.Task AddVimWorkloadAndReplicationApplianceAsync(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload vimWorkload, DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance appliance);
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -54696,24 +54696,24 @@ public partial class DTAVReplicationApplianceManagerClient : System.ServiceModel
     {
     }
     
-    public DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[] GetVimServersandReplicationAppliances()
+    public DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[] GetVimWorkloadsandReplicationAppliances()
     {
-        return base.Channel.GetVimServersandReplicationAppliances();
+        return base.Channel.GetVimWorkloadsandReplicationAppliances();
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavVimServer[]> GetVimServersandReplicationAppliancesAsync()
+    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload[]> GetVimWorkloadsandReplicationAppliancesAsync()
     {
-        return base.Channel.GetVimServersandReplicationAppliancesAsync();
+        return base.Channel.GetVimWorkloadsandReplicationAppliancesAsync();
     }
     
-    public void RemoveVimServer(string networkId)
+    public void RemoveVimWorkload(string networkId)
     {
-        base.Channel.RemoveVimServer(networkId);
+        base.Channel.RemoveVimWorkload(networkId);
     }
     
-    public System.Threading.Tasks.Task RemoveVimServerAsync(string networkId)
+    public System.Threading.Tasks.Task RemoveVimWorkloadAsync(string networkId)
     {
-        return base.Channel.RemoveVimServerAsync(networkId);
+        return base.Channel.RemoveVimWorkloadAsync(networkId);
     }
     
     public void RemoveReplicationAppliance(string networkId)
@@ -54726,14 +54726,14 @@ public partial class DTAVReplicationApplianceManagerClient : System.ServiceModel
         return base.Channel.RemoveReplicationApplianceAsync(networkId);
     }
     
-    public void SetVimServerCredentials(string networkId, DoubleTake.Core.Contract.Credentials credentials)
+    public void SetVimWorkloadCredentials(string networkId, DoubleTake.Core.Contract.Credentials credentials)
     {
-        base.Channel.SetVimServerCredentials(networkId, credentials);
+        base.Channel.SetVimWorkloadCredentials(networkId, credentials);
     }
     
-    public System.Threading.Tasks.Task SetVimServerCredentialsAsync(string networkId, DoubleTake.Core.Contract.Credentials credentials)
+    public System.Threading.Tasks.Task SetVimWorkloadCredentialsAsync(string networkId, DoubleTake.Core.Contract.Credentials credentials)
     {
-        return base.Channel.SetVimServerCredentialsAsync(networkId, credentials);
+        return base.Channel.SetVimWorkloadCredentialsAsync(networkId, credentials);
     }
     
     public void SetReplicationApplianceCredentials(string managementAddress, DoubleTake.Core.Contract.Credentials credentials)
@@ -54746,14 +54746,14 @@ public partial class DTAVReplicationApplianceManagerClient : System.ServiceModel
         return base.Channel.SetReplicationApplianceCredentialsAsync(managementAddress, credentials);
     }
     
-    public void AddVimServerAndReplicationAppliance(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer vimServer, DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance appliance)
+    public void AddVimWorkloadAndReplicationAppliance(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload vimWorkload, DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance appliance)
     {
-        base.Channel.AddVimServerAndReplicationAppliance(vimServer, appliance);
+        base.Channel.AddVimWorkloadAndReplicationAppliance(vimWorkload, appliance);
     }
     
-    public System.Threading.Tasks.Task AddVimServerAndReplicationApplianceAsync(DoubleTake.Virtualization.Contract.DTAV.DtavVimServer vimServer, DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance appliance)
+    public System.Threading.Tasks.Task AddVimWorkloadAndReplicationApplianceAsync(DoubleTake.Virtualization.Contract.DTAV.DtavVimWorkload vimWorkload, DoubleTake.Virtualization.Contract.DTAV.DtavReplicationAppliance appliance)
     {
-        return base.Channel.AddVimServerAndReplicationApplianceAsync(vimServer, appliance);
+        return base.Channel.AddVimWorkloadAndReplicationApplianceAsync(vimWorkload, appliance);
     }
 }
 
@@ -54799,16 +54799,16 @@ public interface IDTAVReplicationAppliancePrivate
     System.Threading.Tasks.Task SetLicensedStatusForAllJobsAsync(DoubleTake.Virtualization.Contract.DTAV.LicenseData licenseData);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
-        "licationAppliancePrivate/GetControlledServerInfo", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
-        "licationAppliancePrivate/GetControlledServerInfoResponse")]
+        "licationAppliancePrivate/GetControlledWorkloadInfo", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
+        "licationAppliancePrivate/GetControlledWorkloadInfoResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
-        "licationAppliancePrivate/GetControlledServerInfoCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Core.Contract.ControlledServerInfo GetControlledServerInfo();
+        "licationAppliancePrivate/GetControlledWorkloadInfoCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    DoubleTake.Core.Contract.ControlledWorkloadInfo GetControlledWorkloadInfo();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
-        "licationAppliancePrivate/GetControlledServerInfo", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
-        "licationAppliancePrivate/GetControlledServerInfoResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledServerInfo> GetControlledServerInfoAsync();
+        "licationAppliancePrivate/GetControlledWorkloadInfo", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
+        "licationAppliancePrivate/GetControlledWorkloadInfoResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledWorkloadInfo> GetControlledWorkloadInfoAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
         "licationAppliancePrivate/Ping", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
@@ -54835,16 +54835,16 @@ public interface IDTAVReplicationAppliancePrivate
     System.Threading.Tasks.Task ShutdownAsync();
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
-        "licationAppliancePrivate/GetClustersandEsxServers", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
-        "licationAppliancePrivate/GetClustersandEsxServersResponse")]
+        "licationAppliancePrivate/GetClustersandEsxWorkloads", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
+        "licationAppliancePrivate/GetClustersandEsxWorkloadsResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
-        "licationAppliancePrivate/GetClustersandEsxServersCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[] GetClustersandEsxServers(DoubleTake.Communication.ServiceConnectionParameters vimScp);
+        "licationAppliancePrivate/GetClustersandEsxWorkloadsCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[] GetClustersandEsxWorkloads(DoubleTake.Communication.ServiceConnectionParameters vimScp);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
-        "licationAppliancePrivate/GetClustersandEsxServers", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
-        "licationAppliancePrivate/GetClustersandEsxServersResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]> GetClustersandEsxServersAsync(DoubleTake.Communication.ServiceConnectionParameters vimScp);
+        "licationAppliancePrivate/GetClustersandEsxWorkloads", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
+        "licationAppliancePrivate/GetClustersandEsxWorkloadsResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]> GetClustersandEsxWorkloadsAsync(DoubleTake.Communication.ServiceConnectionParameters vimScp);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
         "licationAppliancePrivate/GetVirtualMachines", ReplyAction="http://www.doubletake.com/Virtualization/DTAVReplicationAppliancePrivate/IDTAVRep" +
@@ -55187,14 +55187,14 @@ public partial class DTAVReplicationAppliancePrivateClient : System.ServiceModel
         return base.Channel.SetLicensedStatusForAllJobsAsync(licenseData);
     }
     
-    public DoubleTake.Core.Contract.ControlledServerInfo GetControlledServerInfo()
+    public DoubleTake.Core.Contract.ControlledWorkloadInfo GetControlledWorkloadInfo()
     {
-        return base.Channel.GetControlledServerInfo();
+        return base.Channel.GetControlledWorkloadInfo();
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledServerInfo> GetControlledServerInfoAsync()
+    public System.Threading.Tasks.Task<DoubleTake.Core.Contract.ControlledWorkloadInfo> GetControlledWorkloadInfoAsync()
     {
-        return base.Channel.GetControlledServerInfoAsync();
+        return base.Channel.GetControlledWorkloadInfoAsync();
     }
     
     public void Ping()
@@ -55217,14 +55217,14 @@ public partial class DTAVReplicationAppliancePrivateClient : System.ServiceModel
         return base.Channel.ShutdownAsync();
     }
     
-    public DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[] GetClustersandEsxServers(DoubleTake.Communication.ServiceConnectionParameters vimScp)
+    public DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[] GetClustersandEsxWorkloads(DoubleTake.Communication.ServiceConnectionParameters vimScp)
     {
-        return base.Channel.GetClustersandEsxServers(vimScp);
+        return base.Channel.GetClustersandEsxWorkloads(vimScp);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]> GetClustersandEsxServersAsync(DoubleTake.Communication.ServiceConnectionParameters vimScp)
+    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]> GetClustersandEsxWorkloadsAsync(DoubleTake.Communication.ServiceConnectionParameters vimScp)
     {
-        return base.Channel.GetClustersandEsxServersAsync(vimScp);
+        return base.Channel.GetClustersandEsxWorkloadsAsync(vimScp);
     }
     
     public DoubleTake.Virtualization.Contract.DTAV.DtavVmInfo[] GetVirtualMachines(DoubleTake.Communication.ServiceConnectionParameters vimScp, string esxOrClusterName)
@@ -55464,28 +55464,28 @@ public interface IDTAVWorkflowManager
 {
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
-        "/GetClustersAndEsxServers", ReplyAction="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
-        "/GetClustersAndEsxServersResponse")]
+        "/GetClustersAndEsxWorkloads", ReplyAction="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
+        "/GetClustersAndEsxWorkloadsResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
-        "/GetClustersAndEsxServersCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[] GetClustersAndEsxServers(string vimServerNetworkId);
+        "/GetClustersAndEsxWorkloadsCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
+    DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[] GetClustersAndEsxWorkloads(string vimWorkloadNetworkId);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
-        "/GetClustersAndEsxServers", ReplyAction="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
-        "/GetClustersAndEsxServersResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]> GetClustersAndEsxServersAsync(string vimServerNetworkId);
+        "/GetClustersAndEsxWorkloads", ReplyAction="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
+        "/GetClustersAndEsxWorkloadsResponse")]
+    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]> GetClustersAndEsxWorkloadsAsync(string vimWorkloadNetworkId);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/GetVirtualMachines", ReplyAction="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/GetVirtualMachinesResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/GetVirtualMachinesCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Virtualization.Contract.DTAV.DtavVmInfo[] GetVirtualMachines(string vimServerNetworkId, string esxOrClusterName);
+    DoubleTake.Virtualization.Contract.DTAV.DtavVmInfo[] GetVirtualMachines(string vimWorkloadNetworkId, string esxOrClusterName);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/GetVirtualMachines", ReplyAction="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/GetVirtualMachinesResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavVmInfo[]> GetVirtualMachinesAsync(string vimServerNetworkId, string esxOrClusterName);
+    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavVmInfo[]> GetVirtualMachinesAsync(string vimWorkloadNetworkId, string esxOrClusterName);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/GetRecommendedJobOptions", ReplyAction="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
@@ -55552,24 +55552,24 @@ public interface IDTAVWorkflowManager
         "/GetDtavGuestInfoResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/GetDtavGuestInfoCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Virtualization.Contract.DTAV.DtavGuestInfo[] GetDtavGuestInfo(string vimServerNetworkId, string[] vmsGuid, DoubleTake.Core.Contract.Credentials vmCredentials);
+    DoubleTake.Virtualization.Contract.DTAV.DtavGuestInfo[] GetDtavGuestInfo(string vimWorkloadNetworkId, string[] vmsGuid, DoubleTake.Core.Contract.Credentials vmCredentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/GetDtavGuestInfo", ReplyAction="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/GetDtavGuestInfoResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavGuestInfo[]> GetDtavGuestInfoAsync(string vimServerNetworkId, string[] vmsGuid, DoubleTake.Core.Contract.Credentials vmCredentials);
+    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavGuestInfo[]> GetDtavGuestInfoAsync(string vimWorkloadNetworkId, string[] vmsGuid, DoubleTake.Core.Contract.Credentials vmCredentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/FindDatastoreItemsInFolder", ReplyAction="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/FindDatastoreItemsInFolderResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(DoubleTake.Common.Contract.CommonFault), Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/FindDatastoreItemsInFolderCommonFaultFault", Name="CommonFault", Namespace="http://schemas.datacontract.org/2004/07/DoubleTake.Common.Contract")]
-    DoubleTake.Virtualization.Contract.VimDatastoreItem[] FindDatastoreItemsInFolder(string vimServerNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath);
+    DoubleTake.Virtualization.Contract.VimDatastoreItem[] FindDatastoreItemsInFolder(string vimWorkloadNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/FindDatastoreItemsInFolder", ReplyAction="http://www.doubletake.com/Virtualization/DTAVWorkflowManager/IDTAVWorkflowManager" +
         "/FindDatastoreItemsInFolderResponse")]
-    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VimDatastoreItem[]> FindDatastoreItemsInFolderAsync(string vimServerNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath);
+    System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VimDatastoreItem[]> FindDatastoreItemsInFolderAsync(string vimWorkloadNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath);
 }
 
 [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -55606,24 +55606,24 @@ public partial class DTAVWorkflowManagerClient : System.ServiceModel.ClientBase<
     {
     }
     
-    public DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[] GetClustersAndEsxServers(string vimServerNetworkId)
+    public DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[] GetClustersAndEsxWorkloads(string vimWorkloadNetworkId)
     {
-        return base.Channel.GetClustersAndEsxServers(vimServerNetworkId);
+        return base.Channel.GetClustersAndEsxWorkloads(vimWorkloadNetworkId);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]> GetClustersAndEsxServersAsync(string vimServerNetworkId)
+    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavHostAndCluster[]> GetClustersAndEsxWorkloadsAsync(string vimWorkloadNetworkId)
     {
-        return base.Channel.GetClustersAndEsxServersAsync(vimServerNetworkId);
+        return base.Channel.GetClustersAndEsxWorkloadsAsync(vimWorkloadNetworkId);
     }
     
-    public DoubleTake.Virtualization.Contract.DTAV.DtavVmInfo[] GetVirtualMachines(string vimServerNetworkId, string esxOrClusterName)
+    public DoubleTake.Virtualization.Contract.DTAV.DtavVmInfo[] GetVirtualMachines(string vimWorkloadNetworkId, string esxOrClusterName)
     {
-        return base.Channel.GetVirtualMachines(vimServerNetworkId, esxOrClusterName);
+        return base.Channel.GetVirtualMachines(vimWorkloadNetworkId, esxOrClusterName);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavVmInfo[]> GetVirtualMachinesAsync(string vimServerNetworkId, string esxOrClusterName)
+    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavVmInfo[]> GetVirtualMachinesAsync(string vimWorkloadNetworkId, string esxOrClusterName)
     {
-        return base.Channel.GetVirtualMachinesAsync(vimServerNetworkId, esxOrClusterName);
+        return base.Channel.GetVirtualMachinesAsync(vimWorkloadNetworkId, esxOrClusterName);
     }
     
     public DoubleTake.Jobs.Contract.RecommendedJobOptions GetRecommendedJobOptions(DoubleTake.Common.Contract.Workload workload, DoubleTake.Jobs.Contract.JobCredentials jobCredentials, string sourceEsxOrCluster, string targetEsxOrCluster)
@@ -55676,24 +55676,24 @@ public partial class DTAVWorkflowManagerClient : System.ServiceModel.ClientBase<
         return base.Channel.GetLicenseQuantityAsync();
     }
     
-    public DoubleTake.Virtualization.Contract.DTAV.DtavGuestInfo[] GetDtavGuestInfo(string vimServerNetworkId, string[] vmsGuid, DoubleTake.Core.Contract.Credentials vmCredentials)
+    public DoubleTake.Virtualization.Contract.DTAV.DtavGuestInfo[] GetDtavGuestInfo(string vimWorkloadNetworkId, string[] vmsGuid, DoubleTake.Core.Contract.Credentials vmCredentials)
     {
-        return base.Channel.GetDtavGuestInfo(vimServerNetworkId, vmsGuid, vmCredentials);
+        return base.Channel.GetDtavGuestInfo(vimWorkloadNetworkId, vmsGuid, vmCredentials);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavGuestInfo[]> GetDtavGuestInfoAsync(string vimServerNetworkId, string[] vmsGuid, DoubleTake.Core.Contract.Credentials vmCredentials)
+    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.DTAV.DtavGuestInfo[]> GetDtavGuestInfoAsync(string vimWorkloadNetworkId, string[] vmsGuid, DoubleTake.Core.Contract.Credentials vmCredentials)
     {
-        return base.Channel.GetDtavGuestInfoAsync(vimServerNetworkId, vmsGuid, vmCredentials);
+        return base.Channel.GetDtavGuestInfoAsync(vimWorkloadNetworkId, vmsGuid, vmCredentials);
     }
     
-    public DoubleTake.Virtualization.Contract.VimDatastoreItem[] FindDatastoreItemsInFolder(string vimServerNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath)
+    public DoubleTake.Virtualization.Contract.VimDatastoreItem[] FindDatastoreItemsInFolder(string vimWorkloadNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath)
     {
-        return base.Channel.FindDatastoreItemsInFolder(vimServerNetworkId, vimCredentials, datastoreName, folderPath);
+        return base.Channel.FindDatastoreItemsInFolder(vimWorkloadNetworkId, vimCredentials, datastoreName, folderPath);
     }
     
-    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VimDatastoreItem[]> FindDatastoreItemsInFolderAsync(string vimServerNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath)
+    public System.Threading.Tasks.Task<DoubleTake.Virtualization.Contract.VimDatastoreItem[]> FindDatastoreItemsInFolderAsync(string vimWorkloadNetworkId, DoubleTake.Core.Contract.Credentials vimCredentials, string datastoreName, string folderPath)
     {
-        return base.Channel.FindDatastoreItemsInFolderAsync(vimServerNetworkId, vimCredentials, datastoreName, folderPath);
+        return base.Channel.FindDatastoreItemsInFolderAsync(vimWorkloadNetworkId, vimCredentials, datastoreName, folderPath);
     }
 }
 

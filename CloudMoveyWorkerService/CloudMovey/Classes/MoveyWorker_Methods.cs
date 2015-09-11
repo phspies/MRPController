@@ -11,7 +11,6 @@ namespace CloudMoveyWorkerService.CloudMovey
         MoveyWorkerType worker = new MoveyWorkerType();
         public MoveyWorker(CloudMovey _CloudMovey) : base(_CloudMovey)
         {
-            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
             worker.worker_hostname = Environment.MachineName;
             worker.worker_version = Global.version_number;
             worker.worker_ipaddress = String.Join(",", System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList.Select(x => x.ToString()).Where(x => x.ToString().Contains(".")));

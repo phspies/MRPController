@@ -27,25 +27,25 @@ namespace CloudMoveyWorkerService.CaaS
         {
             return new DatacenterObject(this);
         }
-        public ServerObject server()
+        public WorkloadObject workload()
         {
-            return new ServerObject(this);
+            return new WorkloadObject(this);
         }
         public SoftwareObject software()
         {
             return new SoftwareObject(this);
         }
-        public ServerImageObject serverimage()
+        public WorkloadImageObject workloadimage()
         {
-            return new ServerImageObject(this);
+            return new WorkloadImageObject(this);
         }
         public MCP2VLANObject mcp2vlans()
         {
             return new MCP2VLANObject(this);
         }
-        public MCP2ServerObject mcp2servers()
+        public MCP2WorkloadObject mcp2workloads()
         {
-            return new MCP2ServerObject(this);
+            return new MCP2WorkloadObject(this);
         }
         public MCP2NetworkDomainObject mcp2networkdomain()
         {

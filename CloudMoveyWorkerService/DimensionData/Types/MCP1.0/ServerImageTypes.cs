@@ -8,8 +8,8 @@ namespace CloudMoveyWorkerService.CaaS.Models
 {
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://oec.api.opsource.net/schemas/server")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace="http://oec.api.opsource.net/schemas/server", IsNullable=false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://oec.api.opsource.net/schemas/workload")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace="http://oec.api.opsource.net/schemas/workload", IsNullable=false)]
 public partial class ImagesWithDiskSpeed {
     
     private List<ImagesWithDiskSpeedImage> imageField;
@@ -79,7 +79,7 @@ public partial class ImagesWithDiskSpeed {
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://oec.api.opsource.net/schemas/server")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://oec.api.opsource.net/schemas/workload")]
 public partial class ImagesWithDiskSpeedImage {
     
     private string nameField;
@@ -232,7 +232,7 @@ public partial class ImagesWithDiskSpeedImage {
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://oec.api.opsource.net/schemas/server")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://oec.api.opsource.net/schemas/workload")]
 public partial class ImagesWithDiskSpeedImageOperatingSystem {
     
     private string idField;
@@ -276,7 +276,7 @@ public partial class ImagesWithDiskSpeedImageOperatingSystem {
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://oec.api.opsource.net/schemas/server")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://oec.api.opsource.net/schemas/workload")]
 public partial class ImagesWithDiskSpeedImageDisk {
     
     private string idField;
@@ -346,7 +346,7 @@ public partial class ImagesWithDiskSpeedImageDisk {
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://oec.api.opsource.net/schemas/server")]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType=true, Namespace="http://oec.api.opsource.net/schemas/workload")]
 public partial class ImagesWithDiskSpeedImageSource {
     
     private string typeField;
@@ -367,8 +367,8 @@ public partial class ImagesWithDiskSpeedImageSource {
 
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/server", IsNullable = false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/workload", IsNullable = false)]
 public partial class ImageNameExists
 {
 
@@ -406,9 +406,9 @@ public partial class ImageNameExists
 
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/server", IsNullable = false)]
-public partial class ServerImageWithState
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/workload", IsNullable = false)]
+public partial class WorkloadImageWithState
 {
 
     private string idField;
@@ -419,7 +419,7 @@ public partial class ServerImageWithState
 
     private string descriptionField;
 
-    private ServerImageWithStateOperatingSystem operatingSystemField;
+    private WorkloadImageWithStateOperatingSystem operatingSystemField;
 
     private byte cpuCountField;
 
@@ -427,11 +427,11 @@ public partial class ServerImageWithState
 
     private byte osStorageGbField;
 
-    private List<ServerImageWithStateAdditionalDisk> additionalDiskField;
+    private List<WorkloadImageWithStateAdditionalDisk> additionalDiskField;
 
     private List<string> softwareLabelField;
 
-    private ServerImageWithStateSource sourceField;
+    private WorkloadImageWithStateSource sourceField;
 
     private string stateField;
 
@@ -490,7 +490,7 @@ public partial class ServerImageWithState
     }
 
     /// <remarks/>
-    public ServerImageWithStateOperatingSystem operatingSystem
+    public WorkloadImageWithStateOperatingSystem operatingSystem
     {
         get
         {
@@ -543,7 +543,7 @@ public partial class ServerImageWithState
 
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("additionalDisk")]
-    public List<ServerImageWithStateAdditionalDisk> additionalDisk
+    public List<WorkloadImageWithStateAdditionalDisk> additionalDisk
     {
         get
         {
@@ -570,7 +570,7 @@ public partial class ServerImageWithState
     }
 
     /// <remarks/>
-    public ServerImageWithStateSource source
+    public WorkloadImageWithStateSource source
     {
         get
         {
@@ -610,8 +610,8 @@ public partial class ServerImageWithState
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-public partial class ServerImageWithStateOperatingSystem
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+public partial class WorkloadImageWithStateOperatingSystem
 {
 
     private string typeField;
@@ -646,8 +646,8 @@ public partial class ServerImageWithStateOperatingSystem
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-public partial class ServerImageWithStateAdditionalDisk
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+public partial class WorkloadImageWithStateAdditionalDisk
 {
 
     private string idField;
@@ -712,8 +712,8 @@ public partial class ServerImageWithStateAdditionalDisk
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-public partial class ServerImageWithStateSource
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+public partial class WorkloadImageWithStateSource
 {
 
     private string typeField;
@@ -736,14 +736,14 @@ public partial class ServerImageWithStateSource
 
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/server", IsNullable = false)]
-public partial class ModifyServerImage
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/workload", IsNullable = false)]
+public partial class ModifyWorkloadImage
 {
 
     private string descriptionField;
 
-    private List<ModifyServerImageDisk> diskField;
+    private List<ModifyWorkloadImageDisk> diskField;
 
     /// <remarks/>
     public string description
@@ -760,7 +760,7 @@ public partial class ModifyServerImage
 
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("disk")]
-    public List<ModifyServerImageDisk> disk
+    public List<ModifyWorkloadImageDisk> disk
     {
         get
         {
@@ -774,8 +774,8 @@ public partial class ModifyServerImage
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-public partial class ModifyServerImageDisk
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+public partial class ModifyWorkloadImageDisk
 {
 
     private byte scsiIdField;
@@ -813,9 +813,9 @@ public partial class ModifyServerImageDisk
 
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/server", IsNullable = false)]
-public partial class DeployServer
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/workload", IsNullable = false)]
+public partial class DeployWorkload
 {
 
     private string nameField;
@@ -832,7 +832,7 @@ public partial class DeployServer
 
     private string networkIdField;
 
-    private List<DeployServerDisk> diskField;
+    private List<DeployWorkloadDisk> diskField;
 
     /// <remarks/>
     public string name
@@ -924,7 +924,7 @@ public partial class DeployServer
 
     /// <remarks/>
     [System.Xml.Serialization.XmlElementAttribute("disk")]
-    public List<DeployServerDisk> disk
+    public List<DeployWorkloadDisk> disk
     {
         get
         {
@@ -938,8 +938,8 @@ public partial class DeployServer
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-public partial class DeployServerDisk
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+public partial class DeployWorkloadDisk
 {
 
     private byte scsiIdField;
@@ -977,7 +977,7 @@ public partial class DeployServerDisk
  
 }
 
-public partial class ModifyServer
+public partial class ModifyWorkload
 {
     private string nameField;
     private string descriptionField;
@@ -1045,8 +1045,8 @@ public partial class ModifyServer
 }
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/server", IsNullable = false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/workload", IsNullable = false)]
 public partial class ChangeDiskSpeed
 {
 
@@ -1068,8 +1068,8 @@ public partial class ChangeDiskSpeed
 
 
 /// <remarks/>
-[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/server", IsNullable = false)]
+[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/workload", IsNullable = false)]
 public partial class ChangeDiskSize
 {
 

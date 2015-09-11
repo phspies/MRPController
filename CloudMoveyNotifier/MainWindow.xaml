@@ -9,7 +9,6 @@
     xmlns:model="clr-namespace:CloudMoveyNotifier.Models"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
     ContentRendered="Window_ContentRendered"
-    ResizeMode="NoResize"
     EnableDWMDropShadow="True"   
     Background="#F9FCF6"
     Loaded="OnWindowLoaded"
@@ -47,12 +46,12 @@
             <DataTemplate x:Shared="False" x:Key="workload_resources">
                 <StackPanel Orientation="Horizontal">
                     <Viewbox  Width="30" Height="30" ToolTip="Workload CPU Count" Stretch="Uniform">
-                        <ContentControl Focusable="true" Content="{DynamicResource appbar_server}" />
+                        <ContentControl Focusable="true" Content="{DynamicResource appbar_workload}" />
                     </Viewbox>
                     <TextBlock Margin="0,7,0,0" Text="{Binding Path=workload_cpu}"/>
                     <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Viewbox Width="30" Height="30" ToolTip="Workload Memory Capacity" Stretch="Uniform">
-                        <ContentControl Focusable="False" Content="{DynamicResource appbar_network_server_connecting}" />
+                        <ContentControl Focusable="False" Content="{DynamicResource appbar_network_workload_connecting}" />
                     </Viewbox>
                     <TextBlock Margin="0,7,0,0" Text="{Binding Path=workload_memory}"/>
                     <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
@@ -65,12 +64,12 @@
             <DataTemplate x:Shared="False" x:Key="platform_resources">
                 <StackPanel Orientation="Horizontal">
                     <Viewbox  Width="30" Height="30" ToolTip="Workload Count" Stretch="Uniform">
-                        <ContentControl Focusable="true" Content="{DynamicResource appbar_server}" />
+                        <ContentControl Focusable="true" Content="{DynamicResource appbar_workload}" />
                     </Viewbox>
                     <TextBlock Margin="0,7,0,0" Text="{Binding Path=workload_count}"/>
                     <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Viewbox Width="30" Height="30" ToolTip="Logical Network Count" Stretch="Uniform">
-                        <ContentControl Focusable="False" Content="{DynamicResource appbar_network_server_connecting}" />
+                        <ContentControl Focusable="False" Content="{DynamicResource appbar_network_workload_connecting}" />
                     </Viewbox>
                     <TextBlock Margin="0,7,0,0" Text="{Binding Path=vlan_count}"/>
                     <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
@@ -145,12 +144,11 @@
             </Button>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
-    <DockPanel Margin="0,0,0,0">
-
-        <TabControl Height="590" DockPanel.Dock="Top"  Controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10" Background="#E8F2DC">
+    <Grid>
+        <TabControl Grid.Row="0" Height="451" DockPanel.Dock="Top"  Controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10,10,10,178" Background="#E8F2DC">
             <TabItem Header="Application Groups" Controls:ControlsHelper.HeaderFontSize="18">
                 <Grid Margin="5,5,5,5" Name="ApplicationGroupGrid">
-                    <TreeView x:Name="Failovergroup_treeview" ContextMenu="{StaticResource TreeViewItemContextMenu}" Margin="10,10,0,10" HorizontalAlignment="Left" Width="248">
+                    <TreeView x:Name="Failovergroup_treeview" ContextMenu="{StaticResource TreeViewItemContextMenu}" Margin="0,0,0,0" HorizontalAlignment="Left" Width="248">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
                                 <Setter Property="IsExpanded" Value="True" />
@@ -189,7 +187,7 @@
                             </HierarchicalDataTemplate>
                         </TreeView.Resources>
                     </TreeView>
-                    <ListView Name="lvWorkloads" Margin="263,10,10,10" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
+                    <ListView Name="lvWorkloads" Margin="263,0,0,0" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Width="150" DisplayMemberBinding="{Binding hostname}">
@@ -384,29 +382,58 @@
             </TabItem>
             
         </TabControl>
-        <StatusBar DockPanel.Dock="Bottom" Height="30" VerticalAlignment="Bottom">
-            <StatusBar.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="500" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </StatusBar.ItemsPanel>
-            <StatusBarItem Grid.Column="0">
-                <Label Name="worker_copy_guid" Width="auto"
-                        />
-            </StatusBarItem>
-            <StatusBarItem Grid.Column="1"></StatusBarItem>
-            <StatusBarItem Grid.Column="2">
-                <Label Name="worker_version"></Label>
-            </StatusBarItem>
-        </StatusBar>
+            <ListView Name="lvEvents" Margin="10,466,10,10" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="150" DisplayMemberBinding="{Binding hostname}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="platform">Workload</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn Width="150" DisplayMemberBinding="{Binding platform}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="platform">Platform</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding human_credential}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="platform">Credentials</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding human_os}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Tag="platform">OS</GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Resources" Width="200" CellTemplate="{StaticResource workload_resources}">
 
-    </DockPanel>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Actions" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Margin="5,0,0,0" Name="delete_workload_button" Click="delete_workload_button">
+                                            <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Button>
+                                        <Button Margin="5,0,0,0" Name="refresh_workload_button" Click="refresh_workload_button">
+                                            <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_inbox_in}" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
+    </Grid>
 </Controls:MetroWindow>
     

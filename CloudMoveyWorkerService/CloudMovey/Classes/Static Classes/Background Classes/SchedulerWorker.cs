@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace CloudMoveyWorkerService.CloudMovey.Controllers
 {
-    class Scheduler
+    class SchedulerWorker
     {
         static int maxThreads = 30;
         CloudMovey CloudMovey = new CloudMovey();
@@ -76,7 +76,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                         }
                                         break;
                                     }
-                                case "server":
+                                case "workload":
                                     {
                                         switch ((string)task.submitpayload.task_action)
                                         {
@@ -84,7 +84,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                             case "retrieveinformation":
                                                 if (task.submitpayload.windows != null)
                                                 {
-                                                    Thread newThread = new Thread(() => Server.server_getinformation(task));
+                                                    Thread newThread = new Thread(() => CloudMoveyWorkload.workload_getinformation(task));
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
@@ -92,7 +92,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                             case "createvmjob":
                                                 if (task.submitpayload.mcp != null)
                                                 {
-                                                    Thread newThread = new Thread(() => Platform.mcp_provisionvm(task));
+                                                    Thread newThread = new Thread(() => CloudMoveyPlatform.mcp_provisionvm(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -110,7 +110,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                         
                                             if (task.submitpayload.mcp != null)
                                             {
-                                                Thread newThread = new Thread(() => Platform.mcp_getdatacenters(task));
+                                                Thread newThread = new Thread(() => CloudMoveyPlatform.mcp_getdatacenters(task));
                                                 newThread.Name = task.target_id;
                                                 newThread.Start();
                                                 lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -121,19 +121,19 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                             {
                                                 if (task.submitpayload.mcp != null)
                                                 {
-                                                    Thread newThread = new Thread(() => Platform.mcp_gettemplates(task));
+                                                    Thread newThread = new Thread(() => CloudMoveyPlatform.mcp_gettemplates(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
                                             }
-                                        //Start MCP servers thread
-                                        case "retrieveservers":
+                                        //Start MCP workloads thread
+                                        case "retrieveworkloads":
                                             {
                                                 if (task.submitpayload.mcp != null)
                                                 {
-                                                    Thread newThread = new Thread(() => Platform.mcp_retrieveservers(task));
+                                                    Thread newThread = new Thread(() => CloudMoveyPlatform.mcp_retrieveworkloads(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -144,7 +144,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                             {
                                                 if (task.submitpayload.mcp != null)
                                                 {
-                                                    Thread newThread = new Thread(() => Platform.mcp_retrievenetworks(task));
+                                                    Thread newThread = new Thread(() => CloudMoveyPlatform.mcp_retrievenetworks(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start(task);
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });

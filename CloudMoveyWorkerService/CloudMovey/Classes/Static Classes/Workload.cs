@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace CloudMoveyWorkerService.CloudMovey.Controllers
 {
-    class Server
+    class CloudMoveyWorkload
     {
-        public static void server_getinformation(MoveyTaskType payload)
+        public static void workload_getinformation(MoveyTaskType payload)
         {
             MoveyTaskPayloadType _payload = payload.submitpayload;
             CloudMovey CloudMovey = new CloudMovey();

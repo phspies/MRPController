@@ -9,12 +9,12 @@ namespace CloudMoveyWorkerService.CaaS.Models
 
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/server", IsNullable = false)]
-    public partial class ServersWithBackup
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://oec.api.opsource.net/schemas/workload", IsNullable = false)]
+    public partial class WorkloadsWithBackup
     {
 
-        private ServersWithBackupServer[] serverField;
+        private WorkloadsWithBackupWorkload[] workloadField;
 
         private byte pageNumberField;
 
@@ -25,16 +25,16 @@ namespace CloudMoveyWorkerService.CaaS.Models
         private byte pageSizeField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("server")]
-        public ServersWithBackupServer[] server
+        [System.Xml.Serialization.XmlElementAttribute("workload")]
+        public WorkloadsWithBackupWorkload[] workload
         {
             get
             {
-                return this.serverField;
+                return this.workloadField;
             }
             set
             {
-                this.serverField = value;
+                this.workloadField = value;
             }
         }
 
@@ -96,21 +96,21 @@ namespace CloudMoveyWorkerService.CaaS.Models
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-    public partial class ServersWithBackupServer
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+    public partial class WorkloadsWithBackupWorkload
     {
 
         private string nameField;
 
         private object descriptionField;
 
-        private ServersWithBackupServerOperatingSystem operatingSystemField;
+        private WorkloadsWithBackupWorkloadOperatingSystem operatingSystemField;
 
         private byte cpuCountField;
 
         private ushort memoryMbField;
 
-        private ServersWithBackupServerDisk[] diskField;
+        private WorkloadsWithBackupWorkloadDisk[] diskField;
 
         private string sourceImageIdField;
 
@@ -130,11 +130,11 @@ namespace CloudMoveyWorkerService.CaaS.Models
 
         private string stateField;
 
-        private ServersWithBackupServerStatus statusField;
+        private WorkloadsWithBackupWorkloadStatus statusField;
 
-        private ServersWithBackupServerMachineStatus[] machineStatusField;
+        private WorkloadsWithBackupWorkloadMachineStatus[] machineStatusField;
 
-        private ServersWithBackupServerBackup backupField;
+        private WorkloadsWithBackupWorkloadBackup backupField;
 
         private string idField;
 
@@ -167,7 +167,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
         }
 
         /// <remarks/>
-        public ServersWithBackupServerOperatingSystem operatingSystem
+        public WorkloadsWithBackupWorkloadOperatingSystem operatingSystem
         {
             get
             {
@@ -207,7 +207,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("disk")]
-        public ServersWithBackupServerDisk[] disk
+        public WorkloadsWithBackupWorkloadDisk[] disk
         {
             get
             {
@@ -337,7 +337,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
         }
 
         /// <remarks/>
-        public ServersWithBackupServerStatus status
+        public WorkloadsWithBackupWorkloadStatus status
         {
             get
             {
@@ -351,7 +351,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("machineStatus")]
-        public ServersWithBackupServerMachineStatus[] machineStatus
+        public WorkloadsWithBackupWorkloadMachineStatus[] machineStatus
         {
             get
             {
@@ -364,7 +364,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
         }
 
         /// <remarks/>
-        public ServersWithBackupServerBackup backup
+        public WorkloadsWithBackupWorkloadBackup backup
         {
             get
             {
@@ -406,8 +406,8 @@ namespace CloudMoveyWorkerService.CaaS.Models
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-    public partial class ServersWithBackupServerOperatingSystem
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+    public partial class WorkloadsWithBackupWorkloadOperatingSystem
     {
 
         private string idField;
@@ -460,8 +460,8 @@ namespace CloudMoveyWorkerService.CaaS.Models
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-    public partial class ServersWithBackupServerDisk
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+    public partial class WorkloadsWithBackupWorkloadDisk
     {
 
         private string idField;
@@ -546,8 +546,8 @@ namespace CloudMoveyWorkerService.CaaS.Models
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-    public partial class ServersWithBackupServerStatus
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+    public partial class WorkloadsWithBackupWorkloadStatus
     {
 
         private string actionField;
@@ -560,7 +560,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
 
         private System.DateTime updateTimeField;
 
-        private ServersWithBackupServerStatusStep stepField;
+        private WorkloadsWithBackupWorkloadStatusStep stepField;
 
         /// <remarks/>
         public string action
@@ -628,7 +628,7 @@ namespace CloudMoveyWorkerService.CaaS.Models
         }
 
         /// <remarks/>
-        public ServersWithBackupServerStatusStep step
+        public WorkloadsWithBackupWorkloadStatusStep step
         {
             get
             {
@@ -642,8 +642,8 @@ namespace CloudMoveyWorkerService.CaaS.Models
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-    public partial class ServersWithBackupServerStatusStep
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+    public partial class WorkloadsWithBackupWorkloadStatusStep
     {
 
         private string nameField;
@@ -693,8 +693,8 @@ namespace CloudMoveyWorkerService.CaaS.Models
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-    public partial class ServersWithBackupServerMachineStatus
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+    public partial class WorkloadsWithBackupWorkloadMachineStatus
     {
 
         private string valueField;
@@ -730,8 +730,8 @@ namespace CloudMoveyWorkerService.CaaS.Models
     }
 
     /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/server")]
-    public partial class ServersWithBackupServerBackup
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://oec.api.opsource.net/schemas/workload")]
+    public partial class WorkloadsWithBackupWorkloadBackup
     {
 
         private string assetIdField;

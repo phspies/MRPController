@@ -693,7 +693,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.VlanType> NetworksField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerType> WorkloadsField;
+        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadType> WorkloadsField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -732,7 +732,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerType> Workloads {
+        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadType> Workloads {
             get {
                 return this.WorkloadsField;
             }
@@ -1129,14 +1129,14 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkloadType", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
-    public partial class ServerType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class WorkloadType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private CloudMoveyNotifier.CloudMoveyWCF.ServerTypeBackup backupFieldField;
+        private CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeBackup backupFieldField;
         
         private int cpuCountFieldField;
         
@@ -1148,21 +1148,21 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         private string descriptionFieldField;
         
-        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeDisk> diskFieldField;
+        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeDisk> diskFieldField;
         
         private string idFieldField;
         
-        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus> machineStatusFieldField;
+        private System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMachineStatus> machineStatusFieldField;
         
         private int memoryGbFieldField;
         
-        private CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring monitoringFieldField;
+        private CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMonitoring monitoringFieldField;
         
         private string nameFieldField;
         
-        private CloudMoveyNotifier.CloudMoveyWCF.ServerTypeNetworkInfo networkInfoFieldField;
+        private CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeNetworkInfo networkInfoFieldField;
         
-        private CloudMoveyNotifier.CloudMoveyWCF.ServerNic nicFieldField;
+        private CloudMoveyNotifier.CloudMoveyWCF.WorkloadNic nicFieldField;
         
         private CloudMoveyNotifier.CloudMoveyWCF.OperatingSystemType operatingSystemFieldField;
         
@@ -1187,7 +1187,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public CloudMoveyNotifier.CloudMoveyWCF.ServerTypeBackup backupField {
+        public CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeBackup backupField {
             get {
                 return this.backupFieldField;
             }
@@ -1265,7 +1265,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeDisk> diskField {
+        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeDisk> diskField {
             get {
                 return this.diskFieldField;
             }
@@ -1291,7 +1291,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus> machineStatusField {
+        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMachineStatus> machineStatusField {
             get {
                 return this.machineStatusFieldField;
             }
@@ -1317,7 +1317,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring monitoringField {
+        public CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMonitoring monitoringField {
             get {
                 return this.monitoringFieldField;
             }
@@ -1343,7 +1343,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public CloudMoveyNotifier.CloudMoveyWCF.ServerTypeNetworkInfo networkInfoField {
+        public CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeNetworkInfo networkInfoField {
             get {
                 return this.networkInfoFieldField;
             }
@@ -1356,7 +1356,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public CloudMoveyNotifier.CloudMoveyWCF.ServerNic nicField {
+        public CloudMoveyNotifier.CloudMoveyWCF.WorkloadNic nicField {
             get {
                 return this.nicFieldField;
             }
@@ -1829,9 +1829,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeBackup", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkloadTypeBackup", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
-    public partial class ServerTypeBackup : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class WorkloadTypeBackup : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -1903,9 +1903,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeMonitoring", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkloadTypeMonitoring", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
-    public partial class ServerTypeMonitoring : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class WorkloadTypeMonitoring : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -1977,9 +1977,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeNetworkInfo", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkloadTypeNetworkInfo", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
-    public partial class ServerTypeNetworkInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class WorkloadTypeNetworkInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -2051,9 +2051,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerNic", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkloadNic", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
-    public partial class ServerNic : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class WorkloadNic : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -2234,9 +2234,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeDisk", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkloadTypeDisk", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
-    public partial class ServerTypeDisk : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class WorkloadTypeDisk : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -2338,9 +2338,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeMachineStatus", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkloadTypeMachineStatus", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS")]
     [System.SerializableAttribute()]
-    public partial class ServerTypeMachineStatus : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class WorkloadTypeMachineStatus : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -3879,18 +3879,18 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.VlanType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.IpRangeCidrType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.VlanTypeNetworkDomain))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeBackup))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeDisk>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeDisk))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeNetworkInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadType>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeBackup))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeDisk>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeDisk))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMachineStatus>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMachineStatus))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMonitoring))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeNetworkInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.NicType>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.NicType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerNic))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadNic))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.OperatingSystemType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Status))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.StatusAdditionalInformation))]
@@ -4247,18 +4247,18 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.VlanType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.IpRangeCidrType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.VlanTypeNetworkDomain))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerType>))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeBackup))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeDisk>))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeDisk))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus>))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeNetworkInfo))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadType>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeBackup))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeDisk>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeDisk))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMachineStatus>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMachineStatus))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMonitoring))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeNetworkInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.NicType>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.NicType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerNic))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadNic))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.OperatingSystemType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Status))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.StatusAdditionalInformation))]
@@ -4303,18 +4303,18 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.VlanType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.IpRangeCidrType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.VlanTypeNetworkDomain))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerType>))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeBackup))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeDisk>))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeDisk))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus>))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMachineStatus))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerTypeNetworkInfo))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadType>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadType))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeBackup))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeDisk>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeDisk))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMachineStatus>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMachineStatus))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeMonitoring))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadTypeNetworkInfo))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.NicType>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.NicType))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.ServerNic))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.WorkloadNic))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.OperatingSystemType))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Status))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.StatusAdditionalInformation))]

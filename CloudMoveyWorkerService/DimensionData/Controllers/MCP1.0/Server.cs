@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace CloudMoveyWorkerService.CaaS1
 {
-    class ServerObject : Core
+    class WorkloadObject : Core
     {
-        public ServerObject(DimensionData _dimensiondata) : base(_dimensiondata) { }
+        public WorkloadObject(DimensionData _dimensiondata) : base(_dimensiondata) { }
 
         /// <summary>
-        /// List platform servers
+        /// List platform workloads
         /// Available options:
         ///     Paging/Ordering Optional Parameters:
         ///         &pageSize=
@@ -33,11 +33,11 @@ namespace CloudMoveyWorkerService.CaaS1
         /// </summary>
         /// <param name="Options"></param>
         /// <returns></returns>
-        public ServersWithBackup platformservers(List<Option> options = null)
+        public WorkloadsWithBackup platformworkloads(List<Option> options = null)
         {
-            orgendpoint("/serverWithBackup");
+            orgendpoint("/workloadWithBackup");
             urloptions = options;
-            ServersWithBackup softwarelabels = get<ServersWithBackup>(null, true) as ServersWithBackup;
+            WorkloadsWithBackup softwarelabels = get<WorkloadsWithBackup>(null, true) as WorkloadsWithBackup;
             return softwarelabels;
         }
 

@@ -6,7 +6,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Types.API
     {
         public string worker_id { get; set; }
         public string worker_hostname { get; set; }
-        public MoveyWorkloadCRUDType server { get; set; }
+        public MoveyWorkloadCRUDType workload { get; set; }
     }
     public class MoveyWorkloadCRUDType
     {
@@ -24,7 +24,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Types.API
         public bool? active { get; set; }
         public string moid { get; set; }
         public string credential_id { get; set; }
-        public string servertype { get; set; }
+        public string workloadtype { get; set; }
         public object configuration { get; set; }
         public bool? provisioned { get; set; }
         public bool? dt_installed { get; set; }
@@ -37,12 +37,13 @@ namespace CloudMoveyWorkerService.CloudMovey.Types.API
         public string deploymentpolicy_id { get; set; }
         public string password { get; set; }
         public string ipaddress { get; set; }
-        public List<MoveyWorkloadVolumeType> serverdisks_attributes { get; set; }
-        public List<MoveyWorkloadInterfaceType> serverinterfaces_attributes { get; set; }
+        public string hash_value { get; set; }
+        public List<MoveyWorkloadVolumeType> workloaddisks_attributes { get; set; }
+        public List<MoveyWorkloadInterfaceType> workloadinterfaces_attributes { get; set; }
     }
     public class MoveyWorkloadListType
     {
-        public List<MoveyWorkloadType> servers { get; set; }
+        public List<MoveyWorkloadType> workloads { get; set; }
     }
     public class MoveyWorkloadType
     {
@@ -63,7 +64,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Types.API
         public bool active { get; set; }
         public string moid { get; set; }
         public string credential_id { get; set; }
-        public string servertype { get; set; }
+        public string workloadtype { get; set; }
         public object configuration { get; set; }
         public bool provisioned { get; set; }
         public bool dt_installed { get; set; }
@@ -76,6 +77,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Types.API
         public string deploymentpolicy_id { get; set; }
         public string password { get; set; }
         public string ipaddress { get; set; }
+        public string hash_value { get; set; }
 
         public List<MoveyWorkloadVolumeType> volumes { get; set; }
         public List<MoveyWorkloadInterfaceType> interfaces { get; set; }

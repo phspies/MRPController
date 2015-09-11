@@ -7,7 +7,7 @@
 
   <xs:include schemaLocation="general.xsd"/>
 
-  <xs:complexType name="ServerType">
+  <xs:complexType name="WorkloadType">
       <xs:sequence>
           <xs:element name="name" type="xs:string"/>
           <xs:element name="description" type="xs:string" minOccurs="0"/>
@@ -76,16 +76,16 @@
       <xs:attribute name="id" type="xs:string" use="required"/>
       <xs:attribute name="datacenterId" type="xs:string" use="required"/>
   </xs:complexType>
-  <xs:element name="server" type="cloudapi:ServerType"/>
+  <xs:element name="workload" type="cloudapi:WorkloadType"/>
 
   
-  <xs:complexType name="ServerListType">
+  <xs:complexType name="WorkloadListType">
     <xs:sequence>
-      <xs:element name="server" minOccurs="0" maxOccurs="unbounded" type="cloudapi:ServerType"/>
+      <xs:element name="workload" minOccurs="0" maxOccurs="unbounded" type="cloudapi:WorkloadType"/>
     </xs:sequence>
     <xs:attributeGroup ref="cloudapi:PagedResultAttributes"/>
   </xs:complexType>
-  <xs:element name="servers" type="cloudapi:ServerListType"/>
+  <xs:element name="workloads" type="cloudapi:WorkloadListType"/>
   
   <xs:complexType name="NicType">
       <xs:attribute name="id" type="xs:string" use="required"/>
@@ -98,7 +98,7 @@
   </xs:complexType>
 
 
-  <xs:complexType name="DeployServerType">
+  <xs:complexType name="DeployWorkloadType">
       <xs:sequence>
           <xs:element name="name" type="xs:string"/>
           <xs:element name="description" type="xs:string" minOccurs="0"/>
@@ -132,7 +132,7 @@
           </xs:element>
       </xs:sequence>
   </xs:complexType>
-  <xs:element name="deployServer" type="cloudapi:DeployServerType"/>
+  <xs:element name="deployWorkload" type="cloudapi:DeployWorkloadType"/>
 
   <xs:complexType name="VlanIdOrPrivateIpType">
       <xs:choice>
@@ -150,15 +150,15 @@
   </xs:complexType>
   <xs:element name="notifyNicIpChange" type="cloudapi:NotifyNicIpChangeType"/>
 
-  <xs:complexType name="DeleteServerType">
+  <xs:complexType name="DeleteWorkloadType">
     <xs:attribute name="id" type="xs:string"/>
   </xs:complexType>
-  <xs:element name="deleteServer" type="cloudapi:DeleteServerType"/>
+  <xs:element name="deleteWorkload" type="cloudapi:DeleteWorkloadType"/>
 
-  <xs:complexType name="CleanServerType">
+  <xs:complexType name="CleanWorkloadType">
     <xs:attribute name="id" type="xs:string"/>
   </xs:complexType>
-  <xs:element name="cleanServer" type="cloudapi:CleanServerType"/>
+  <xs:element name="cleanWorkload" type="cloudapi:CleanWorkloadType"/>
 
   <xs:complexType name="RemoveNicType">
     <xs:attribute name="id" type="xs:string"/>
@@ -167,23 +167,23 @@
 
   <xs:complexType name="AddNicType">
       <xs:sequence>
-          <xs:element name="serverId" type="xs:string"/>
+          <xs:element name="workloadId" type="xs:string"/>
           <xs:element name="nic" type="cloudapi:VlanIdOrPrivateIpType"/>
       </xs:sequence>
   </xs:complexType>
   <xs:element name="addNic" type="cloudapi:AddNicType"/>
 
-  <xs:complexType name="EnableServerMonitoringType">
+  <xs:complexType name="EnableWorkloadMonitoringType">
       <xs:sequence>
           <xs:element name="servicePlan" type="xs:string"/>
       </xs:sequence>
       <xs:attribute name="id" type="xs:string" use="required"/>
   </xs:complexType>
-  <xs:element name="enableServerMonitoring" type="cloudapi:EnableServerMonitoringType"/>
+  <xs:element name="enableWorkloadMonitoring" type="cloudapi:EnableWorkloadMonitoringType"/>
 
-  <xs:complexType name="DisableServerMonitoringType">
+  <xs:complexType name="DisableWorkloadMonitoringType">
     <xs:attribute name="id" type="xs:string"/>
   </xs:complexType>
-  <xs:element name="disableServerMonitoring" type="cloudapi:DisableServerMonitoringType"/>
+  <xs:element name="disableWorkloadMonitoring" type="cloudapi:DisableWorkloadMonitoringType"/>
 
 </xs:schema>

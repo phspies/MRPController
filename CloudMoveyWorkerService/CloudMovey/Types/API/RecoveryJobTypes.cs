@@ -16,8 +16,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Types.API
         public string id { get; set; }
         public object name { get; set; }
         public string jobtype { get; set; }
-        public string source_server_id { get; set; }
-        public string target_server_id { get; set; }
+        public string source_workload_id { get; set; }
+        public string target_workload_id { get; set; }
         public string target_platform_id { get; set; }
         public object target_platformnetwork_id { get; set; }
         public string repository_id { get; set; }

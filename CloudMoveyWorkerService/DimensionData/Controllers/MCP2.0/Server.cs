@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace CloudMoveyWorkerService.CaaS2
 {
-    class MCP2ServerObject : Core
+    class MCP2WorkloadObject : Core
     {
-        public MCP2ServerObject(DimensionData _dimensiondata) : base(_dimensiondata) { }
+        public MCP2WorkloadObject(DimensionData _dimensiondata) : base(_dimensiondata) { }
 
         // Paging/Ordering Optional Parameters:
         // [&pageSize=]
@@ -34,66 +34,66 @@ namespace CloudMoveyWorkerService.CaaS2
         // [&operatingSystemId=]
         // [&ipv6=]
         // [&privateIpv4=]
-        public ServerListType listservers(List<Option> options = null)
+        public WorkloadListType listworkloads(List<Option> options = null)
         {
-            orgendpoint2("/server/server");
+            orgendpoint2("/workload/workload");
             urloptions = options;
-            ServerListType servers = get<ServerListType>(null, true) as ServerListType;
-            return servers;
+            WorkloadListType workloads = get<WorkloadListType>(null, true) as WorkloadListType;
+            return workloads;
         }
-        public ResponseType deployserver(DeployServerType _server)
+        public ResponseType deployworkload(DeployWorkloadType _workload)
         {
-            orgendpoint2("/server/deployServer");
-            ResponseType response = post<ResponseType>(_server, false) as ResponseType;
+            orgendpoint2("/workload/deployWorkload");
+            ResponseType response = post<ResponseType>(_workload, false) as ResponseType;
             return response;
         }
-        public ServerType getserver(String _server_id)
+        public WorkloadType getworkload(String _workload_id)
         {
-            orgendpoint2(String.Format("/server/server/{0}",_server_id));
-            ServerType server = get<ServerType>(null, true) as ServerType;
-            return server;
+            orgendpoint2(String.Format("/workload/workload/{0}",_workload_id));
+            WorkloadType workload = get<WorkloadType>(null, true) as WorkloadType;
+            return workload;
         }
-        public ResponseType deleteserver(DeleteServerType _server)
+        public ResponseType deleteworkload(DeleteWorkloadType _workload)
         {
-            orgendpoint2("/server/deleteServer");
-            ResponseType response = post<ResponseType>(_server, false) as ResponseType;
+            orgendpoint2("/workload/deleteWorkload");
+            ResponseType response = post<ResponseType>(_workload, false) as ResponseType;
             return response;
         }
-        public ResponseType serveraddnic(AddNicType _nic)
+        public ResponseType workloadaddnic(AddNicType _nic)
         {
-            orgendpoint2("/server/addNic");
+            orgendpoint2("/workload/addNic");
             ResponseType response = post<ResponseType>(_nic, false) as ResponseType;
             return response;
         }
-        public ResponseType serverremovenic(RemoveNicType _nic)
+        public ResponseType workloadremovenic(RemoveNicType _nic)
         {
-            orgendpoint2("/server/removeNic");
+            orgendpoint2("/workload/removeNic");
             ResponseType response = post<ResponseType>(_nic, false) as ResponseType;
             return response;
         }
-        public ResponseType serverIpChange(NotifyNicIpChangeType _ipchange)
+        public ResponseType workloadIpChange(NotifyNicIpChangeType _ipchange)
         {
-            orgendpoint2("/server/notifyNicIpChange");
+            orgendpoint2("/workload/notifyNicIpChange");
             ResponseType response = post<ResponseType>(_ipchange, false) as ResponseType;
             return response;
         }
-        public ResponseType serverCleanFailedDeploy(CleanServerType _server)
+        public ResponseType workloadCleanFailedDeploy(CleanWorkloadType _workload)
         {
-            orgendpoint2("/server/cleanServer");
-            ResponseType response = post<ResponseType>(_server, false) as ResponseType;
+            orgendpoint2("/workload/cleanWorkload");
+            ResponseType response = post<ResponseType>(_workload, false) as ResponseType;
             return response;
         }
-        public ResponseType serverEnableMonitoring(EnableServerMonitoringType _monitor)
+        public ResponseType workloadEnableMonitoring(EnableWorkloadMonitoringType _monitor)
         {
-            orgendpoint2("/server/enableServerMonitoring");
+            orgendpoint2("/workload/enableWorkloadMonitoring");
             _monitor.servicePlan = "ESSENTIALS";
             ResponseType response = post<ResponseType>(_monitor, false) as ResponseType;
             return response;
         }
-        public ResponseType serverDisableMonitoring(DisableServerMonitoringType _server)
+        public ResponseType workloadDisableMonitoring(DisableWorkloadMonitoringType _workload)
         {
-            orgendpoint2("/server/disableServerMonitoring");
-            ResponseType response = post<ResponseType>(_server, false) as ResponseType;
+            orgendpoint2("/workload/disableWorkloadMonitoring");
+            ResponseType response = post<ResponseType>(_workload, false) as ResponseType;
             return response;
         }
     }

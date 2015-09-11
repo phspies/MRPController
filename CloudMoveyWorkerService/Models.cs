@@ -117,7 +117,7 @@ namespace CloudMoveyWorkerService
         public Guid jobid;
 
         [DataMember]
-        public String servername;
+        public String workloadname;
 
         [DataMember]
         public Guid imageid;

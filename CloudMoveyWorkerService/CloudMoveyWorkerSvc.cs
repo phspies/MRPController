@@ -48,13 +48,13 @@ namespace CloudMoveyWorkerService
             Settings.RegisterAgent();
             Global.event_log.WriteEntry(String.Format("organization id: {0}", Global.organization_id));
 
-            Scheduler _scheduler = new Scheduler();
+            SchedulerWorker _scheduler = new SchedulerWorker();
             if (Global.debug) { Global.event_log.WriteEntry("Starting Scheduler Thread"); };
             scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));
             scheduler_thread.Start();
 
 
-            Mirror _mirror = new Mirror();
+            InventoryWorker _mirror = new InventoryWorker();
             if (Global.debug) { Global.event_log.WriteEntry("Starting Mirror Thread"); };
             mirror_thread = new Thread(new ThreadStart(_mirror.Start));
             mirror_thread.Start();

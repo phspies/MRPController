@@ -33,14 +33,14 @@ namespace CloudMoveyNotifier
         private List<Credential> _credential_list = new List<Credential>();
         private List<Failovergroup> _failovergroup_list = new List<Failovergroup>();
         private ObservableCollection<Failovergroup_TreeModel> _failovergroup_tree = new ObservableCollection<Failovergroup_TreeModel>();
+        workerInformation _information = null;
 
         private System.Windows.Forms.NotifyIcon m_notifyIcon;
         public MainWindow()
         {
             InitializeComponent();
-            workerInformation _information =  channel.CollectionInformation();
-            worker_copy_guid.Content = _information.agentId;
-            worker_version.Content = _information.versionNumber;
+            _information =  channel.CollectionInformation();
+
 
             //Assign global assignment for tree
 
@@ -302,7 +302,7 @@ namespace CloudMoveyNotifier
 
         private void copy_guid_button_clicked(object sender, RoutedEventArgs e)
         {
-            String GUID = worker_copy_guid.Content.ToString();
+            String GUID = _information.agentId;
             System.Windows.Forms.Clipboard.SetText(GUID, System.Windows.Forms.TextDataFormat.Text);
         }
         private void add_platforms_button_clicked(object sender, RoutedEventArgs e)

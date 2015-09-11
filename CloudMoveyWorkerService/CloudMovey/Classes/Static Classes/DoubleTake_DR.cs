@@ -22,7 +22,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 {
     class DT_DR
     {
-        static String server = "";
+        static String workload = "";
         static string username = "";
         static string password = "";
         static string domain = "";
@@ -62,13 +62,13 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 JobInfo[] _jobs = iJobMgr.GetJobs();
                 String[] _source_ips = ((string)request.submitpayload.dt.source.ipaddress).Split(',');
                 String[] _target_ips = ((string)request.submitpayload.dt.target.ipaddress).Split(',');
-                String jobTypeConstant = @"FullServerImageProtection";
+                String jobTypeConstant = @"FullWorkloadImageProtection";
 
                 if (_delete_current_job)
                 {
                     foreach (JobInfo _delete_job in _jobs.Where(x => x.JobType == jobTypeConstant &&  _source_ips.Any(x.SourceHostUri.Host.Contains) && _target_ips.Any(x.TargetHostUri.Host.Contains)))
                     {
-                        CloudMovey.task().progress(request, String.Format("Deleting existing full server protection jobs between {0} and {1}",_source_ips[0], _target_ips[0]), 10);
+                        CloudMovey.task().progress(request, String.Format("Deleting existing full workload protection jobs between {0} and {1}",_source_ips[0], _target_ips[0]), 10);
 
                         DoubleTake.Jobs.Contract.DeleteOptions _delete_options = new DoubleTake.Jobs.Contract.DeleteOptions();
                         _delete_options.DeleteReplica = true;
@@ -249,13 +249,13 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 JobInfo[] _jobs = iJobMgr.GetJobs();
                 String[] _source_ips = ((string)request.payload.dt.source.ipaddress).Split(',');
                 String[] _target_ips = ((string)request.payload.dt.target.ipaddress).Split(',');
-                String jobTypeConstant = @"FullServerImageProtection";
+                String jobTypeConstant = @"FullWorkloadImageProtection";
 
                 if (_delete_current_job)
                 {
                     foreach (JobInfo _delete_job in _jobs.Where(x => x.JobType == jobTypeConstant && _source_ips.Any(x.SourceHostUri.Host.Contains) && _target_ips.Any(x.TargetHostUri.Host.Contains)))
                     {
-                        CloudMovey.task().progress(request, String.Format("Deleting existing full server protection jobs between {0} and {1}", _source_ips[0], _target_ips[0]), 10);
+                        CloudMovey.task().progress(request, String.Format("Deleting existing full workload protection jobs between {0} and {1}", _source_ips[0], _target_ips[0]), 10);
 
                         DoubleTake.Jobs.Contract.DeleteOptions _delete_options = new DoubleTake.Jobs.Contract.DeleteOptions();
                         _delete_options.DeleteReplica = true;
@@ -454,20 +454,20 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 configurationVerifierFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
 
 
-                String jobTypeConstant = @"FullServerImageRecovery";
-                //Get all images on the repository server
+                String jobTypeConstant = @"FullWorkloadImageRecovery";
+                //Get all images on the repository workload
                 ImageInfo[] imageInfos = iMgrSrc.GetImages(null);
 
-                //Get the image of source server
-                Guid sourceServerImageID = Guid.Empty;
-                String sourceServerName = request.payload.dt.original.hostname;
-                sourceServerImageID = imageInfos.First(x => x.ImageType == ImageType.FullServer && x.SourceName == sourceServerName).Id;
-                if (sourceServerImageID == Guid.Empty)
+                //Get the image of source workload
+                Guid sourceWorkloadImageID = Guid.Empty;
+                String sourceWorkloadName = request.payload.dt.original.hostname;
+                sourceWorkloadImageID = imageInfos.First(x => x.ImageType == ImageType.FullWorkload && x.SourceName == sourceWorkloadName).Id;
+                if (sourceWorkloadImageID == Guid.Empty)
                 {
-                    CloudMovey.task().failcomplete(request, String.Format("Source Server image not found on Repository Server: {0}",sourceServerName));
+                    CloudMovey.task().failcomplete(request, String.Format("Source Workload image not found on Repository Workload: {0}",sourceWorkloadName));
                     return;
                 }
-                CloudMovey.task().progress(request, String.Format("Found server image: {0}",sourceServerImageID), 13);
+                CloudMovey.task().progress(request, String.Format("Found workload image: {0}",sourceWorkloadImageID), 13);
 
 
                 // First step to creating a job is creating a Workload on the source
@@ -478,8 +478,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     Guid workloadId = Guid.Empty;
                     try
                     {
-                        // Create a handle to a DR Recovery workload on the Repository Server that has the source image
-                        workloadId = workloadMgr.CreateUsingImage(jobTypeConstant, sourceServerImageID, Guid.Empty /*Snapshot id*/);
+                        // Create a handle to a DR Recovery workload on the Repository Workload that has the source image
+                        workloadId = workloadMgr.CreateUsingImage(jobTypeConstant, sourceWorkloadImageID, Guid.Empty /*Snapshot id*/);
 
                         //// Get the workload for use when creating the job
                         workload = workloadMgr.GetWorkload(workloadId);
