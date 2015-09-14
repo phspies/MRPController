@@ -11,25 +11,25 @@ using System.Threading;
 
 public class App
 {
-    //public const int LOGON32_LOGON_INTERACTIVE = 2;
-    //public const int LOGON32_LOGON_SERVICE = 3;
-    //public const int LOGON32_PROVIDER_DEFAULT = 0;
+    public const int LOGON32_LOGON_INTERACTIVE = 2;
+    public const int LOGON32_LOGON_SERVICE = 3;
+    public const int LOGON32_PROVIDER_DEFAULT = 0;
 
-    //[DllImport("advapi32.dll", CharSet = CharSet.Auto)]
-    //public static extern bool LogonUser(
-    //    String lpszUserName,
-    //    String lpszDomain,
-    //    String lpszPassword,
-    //    int dwLogonType,
-    //    int dwLogonProvider,
-    //    ref IntPtr phToken);
+    [DllImport("advapi32.dll", CharSet = CharSet.Auto)]
+    public static extern bool LogonUser(
+        String lpszUserName,
+        String lpszDomain,
+        String lpszPassword,
+        int dwLogonType,
+        int dwLogonProvider,
+        ref IntPtr phToken);
 
-    //[DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-    //public extern static bool CloseHandle(IntPtr handle);
+    [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+    public extern static bool CloseHandle(IntPtr handle);
     public class InstanceCounters
     {
         public string instance { get; set; }
-        public Single value { get; set; }
+        public double value { get; set; }
         public CounterSample s0 { get; set; }
         public CounterSample s1 { get; set; }
 
@@ -44,14 +44,14 @@ public class App
     }
     public static List<PerfCounter> _countertree = new List<PerfCounter>();
     private static List<String> _categories = new List<string>();
-    private static String machinename = "FSPIES-T420S";
+    private static String machinename = @"FSPIES-T420S";
 
     public static void Main()
     {
-        //IntPtr userHandle = new IntPtr(0);
-        //LogonUser("Phillip.Spies", "NA", "ZAQ!2wsx", LOGON32_LOGON_INTERACTIVE, LOGON32_PROVIDER_DEFAULT, ref userHandle);
-        //WindowsIdentity identity = new WindowsIdentity(userHandle);
-        //WindowsImpersonationContext context = identity.Impersonate();
+        IntPtr userHandle = new IntPtr(0);
+        LogonUser("Phillip.Spies", "NA", "ZAQ!2wsx", LOGON32_LOGON_SERVICE, LOGON32_PROVIDER_DEFAULT, ref userHandle);
+        WindowsIdentity identity = new WindowsIdentity(userHandle);
+        WindowsImpersonationContext context = identity.Impersonate();
         _categories.Add("Processor");
         _categories.Add("Processor Information");
         _categories.Add("Memory");
@@ -59,11 +59,15 @@ public class App
         _categories.Add("PhysicalDisk");
         _categories.Add("Network Interface");
         _categories.Add("Server");
+        _categories.Add("Double-Take Connection");
         _categories.Add("Double-Take Kernel");
+        _categories.Add("Double-Take Source");
+        _categories.Add("Double-Take Target");
+
+        machinename = Environment.MachineName;
 
         while (true)
         {
-
             foreach (string pcc in _categories)
             {
                 try
@@ -92,6 +96,7 @@ public class App
                                 _counterobject.s0 = _counter.NextSample();
                             }
                             _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
+                            _counterobject.s0 = _counterobject.s1;
                             Console.WriteLine(String.Format("{0}   {1}:{2}:{3} = {4}", _counterobject.timestamp, _pcounter.CategoryName, _pcounter.CounterName, _counterobject.instance, _counterobject.value));
                         }
                     }
@@ -133,6 +138,7 @@ public class App
                                     _counterobject.s0 = _counter.NextSample();
                                 }
                                 _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
+                                _counterobject.s0 = _counterobject.s1;
                                 Console.WriteLine(String.Format("{0}   {1}:{2}:{3} = {4}", _counterobject.timestamp, _pcounter.CategoryName, _pcounter.CounterName, _counterobject.instance, _counterobject.value));
 
                             }
@@ -150,7 +156,7 @@ public class App
                     Console.WriteLine(ex.ToString());
                 }
             }
-            Thread.Sleep(5000);
+            Thread.Sleep(new TimeSpan(0,5,0));
 
 
 
@@ -164,7 +170,7 @@ public class App
             //            {
             //                _pcounter = new PerformanceCounter(_category.category, _category.counter, _instance.instance, machinename);
             //            }
-            //            else if ((new PerformanceCounterCategory(_category.category, machinename).CategoryType == PerformanceCounterCategoryType.SingleInstance))
+            //            else if ((new PerformanceCounterCategory(_category.category, machinename).CategoryType == PerformanceCounterCategoryType.longInstance))
             //            {
             //                _pcounter = new PerformanceCounter(_category.category, _category.counter, string.Empty, machinename);
 
@@ -175,7 +181,7 @@ public class App
             //            InstanceCounters _counterobject = _countertree.Where(
             //                x => x.category == _pcounter.CategoryName &&
             //                x.counter == _pcounter.CounterName)
-            //                .Select(x => x.instances.SingleOrDefault(y => y.instance == _pcounter.InstanceName))
+            //                .Select(x => x.instances.longOrDefault(y => y.instance == _pcounter.InstanceName))
             //                .FirstOrDefault();
 
             //            if (first)
@@ -248,163 +254,93 @@ public class App
             ////PERF_PRECISION_100NS_TIMER = 542573824,
         }
     }
-    public static T DeepCopy<T>(T other)
-    {
-        using (MemoryStream ms = new MemoryStream())
-        {
-            BinaryFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(ms, other);
-            ms.Position = 0;
-            return (T)formatter.Deserialize(ms);
-        }
-    }
-    private static void buildtree()
-    {
-        foreach (string pcc in _categories)
-        {
-            try
-            {
-                PerformanceCounterCategory _pc = new PerformanceCounterCategory(pcc, machinename);
-                //_countertree.Add(new _PerfCounter() { category = pcc, counter = "" });
-                if (_pc.CategoryType == PerformanceCounterCategoryType.SingleInstance)
-                {
-                    List<InstanceCounters> _instances = new List<InstanceCounters>();
-                    _instances.Add(new InstanceCounters() { instance = "" });
-                    foreach (var _counter in _pc.GetCounters())
-                    {
-                        if (!_countertree.Exists(x => x.category == pcc && x.counter == _counter.CounterName))
-                        {
-                            _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
-                        }
-                    }
-                }
-                else
-                {
-                    List<InstanceCounters> _instances = new List<InstanceCounters>();
-                    foreach (string _instance in _pc.GetInstanceNames())
-                    {
-                        if (!_instances.Exists(x => x.instance == _instance))
-                        {
-                            _instances.Add(new InstanceCounters() { instance = _instance });
-                        }
-                    }
-                    foreach (var _instance in _instances)
-                    {
-                        foreach (var _counter in _pc.GetCounters(_instance.instance))
-                        {
-                            if (!_countertree.Exists(x => x.category == pcc && x.counter == _counter.CounterName))
-                            {
-                                _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
-                            }
-                            else
-                            {
-                                if (!_countertree.Find(x => x.category == pcc && x.counter == _counter.CounterName).instances.Exists(x => x.instance == _instance.instance))
-                                {
-                                    _countertree.Find(x => x.category == pcc && x.counter == _counter.CounterName).instances.Add(_instance);
-                                }
-                            }
-                        }
-                    }
 
-     
-                }
-            }
-            catch (System.InvalidOperationException error)
-            {
-                Console.WriteLine(error.Message);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-        }
-    }
-    private static Single RateOfCountsPerSecond32(InstanceCounters _historycounter)
-    {
-        long numerator = (long)(_historycounter.s1.RawValue - _historycounter.s0.RawValue);
-        Single denomenator = (long)(_historycounter.s1.TimeStamp - _historycounter.s0.TimeStamp) / (long)_historycounter.s1.SystemFrequency;
-        Single value = numerator / denomenator;
-        return value < 0 ? 0 : value;
+    //private static long RateOfCountsPerSecond32(InstanceCounters _historycounter)
+    //{
+    //    long numerator = (long)(_historycounter.s1.RawValue - _historycounter.s0.RawValue);
+    //    long denomenator = (long)(_historycounter.s1.TimeStamp - _historycounter.s0.TimeStamp) / (long)_historycounter.s1.SystemFrequency;
+    //    long value = numerator / denomenator;
+    //    return value < 0 ? 0 : value;
 
         
-    }
-    private static Single Timer100Ns(InstanceCounters _historycounter)
-    {
-        // (N 1 - N 0) / (D 1 - D 0) x 100
-        long numerator = (long)_historycounter.s1.RawValue - (long)_historycounter.s0.RawValue;
-        long denomenator = (long)_historycounter.s1.TimeStamp100nSec - (long)_historycounter.s0.TimeStamp100nSec;
-        Single value = ((((Single)numerator / (Single)denomenator))) * 100;
-        return value < 0 ? 0 : value;
-    }
-    private static Single RateOfCountsPerSecond64(InstanceCounters _historycounter)
-    {
-        Single numerator = (Single)(_historycounter.s1.RawValue - _historycounter.s0.RawValue);
-        Single denomenator = (Single)(_historycounter.s1.TimeStamp - _historycounter.s0.TimeStamp) / (Single)_historycounter.s1.SystemFrequency;
-        Single value = numerator / denomenator;
-        return value < 0 ? 0 : value;
-    }
-    private static Single RawFraction(InstanceCounters _historycounter)
-    {
-        // (N 0 / D 0) x 100
-        long numerator = (long)_historycounter.s1.RawValue;
-        long denomenator = (long)_historycounter.s1.BaseValue;
-        Single value = (((Single)numerator / (Single)denomenator)) * 100;
-        return value < 0 ? 0 : value;
-    }
-    private static Single Time100Inverse(InstanceCounters _historycounter)
-    {
-        //(1 - ((N 1 - N 0) / (D 1 - D 0))) x 100
-        long numerator = (long)_historycounter.s1.RawValue - (long)_historycounter.s0.RawValue;
-        long denomenator = (long)_historycounter.s1.TimeStamp100nSec - (long)_historycounter.s0.TimeStamp100nSec;
-        Single value = (1 - (((Single)numerator / (Single)denomenator))) * 100;
-        return value < 0 ? 0 : value;
+    //}
+    //private static long Timer100Ns(InstanceCounters _historycounter)
+    //{
+    //    // (N 1 - N 0) / (D 1 - D 0) x 100
+    //    long numerator = (long)_historycounter.s1.RawValue - (long)_historycounter.s0.RawValue;
+    //    long denomenator = (long)_historycounter.s1.TimeStamp100nSec - (long)_historycounter.s0.TimeStamp100nSec;
+    //    long value = ((((long)numerator / (long)denomenator))) * 100;
+    //    return value < 0 ? 0 : value;
+    //}
+    //private static long RateOfCountsPerSecond64(InstanceCounters _historycounter)
+    //{
+    //    long numerator = (long)(_historycounter.s1.RawValue - _historycounter.s0.RawValue);
+    //    long denomenator = (long)(_historycounter.s1.TimeStamp - _historycounter.s0.TimeStamp) / (long)_historycounter.s1.SystemFrequency;
+    //    long value = numerator / denomenator;
+    //    return value < 0 ? 0 : value;
+    //}
+    //private static long RawFraction(InstanceCounters _historycounter)
+    //{
+    //    // (N 0 / D 0) x 100
+    //    long numerator = (long)_historycounter.s1.RawValue;
+    //    long denomenator = (long)_historycounter.s1.BaseValue;
+    //    long value = (((long)numerator / (long)denomenator)) * 100;
+    //    return value < 0 ? 0 : value;
+    //}
+    //private static long Time100Inverse(InstanceCounters _historycounter)
+    //{
+    //    //(1 - ((N 1 - N 0) / (D 1 - D 0))) x 100
+    //    long numerator = (long)_historycounter.s1.RawValue - (long)_historycounter.s0.RawValue;
+    //    long denomenator = (long)_historycounter.s1.TimeStamp100nSec - (long)_historycounter.s0.TimeStamp100nSec;
+    //    long value = (1 - (((long)numerator / (long)denomenator))) * 100;
+    //    return value < 0 ? 0 : value;
 
-    }
-    private static Single NumberOfItems64(InstanceCounters _historycounter)
-    {
-        return _historycounter.s1.RawValue;
-    }
-    private static Single NumberOfItems32(InstanceCounters _historycounter)
-    {
-        return _historycounter.s1.RawValue;
-    }
-    private static Single AverageCount64(InstanceCounters _historycounter)
-    {
-        long numerator = (long)_historycounter.s1.RawValue - (long)_historycounter.s0.RawValue;
-        long denomenator = (long)_historycounter.s1.BaseValue - (long)_historycounter.s0.BaseValue;
-        Single counterValue = numerator / denomenator;
-        return (counterValue);
-    }
-    private static Single AverageTimer32(InstanceCounters _historycounter)
-    {
-        Int64 n1 = _historycounter.s1.RawValue;
-        Int64 n0 = _historycounter.s0.RawValue;
-        ulong f = (ulong)_historycounter.s1.SystemFrequency;
-        Int64 d1 = _historycounter.s1.BaseValue;
-        Int64 d0 = _historycounter.s0.BaseValue;
+    //}
+    //private static long NumberOfItems64(InstanceCounters _historycounter)
+    //{
+    //    return _historycounter.s1.RawValue;
+    //}
+    //private static long NumberOfItems32(InstanceCounters _historycounter)
+    //{
+    //    return _historycounter.s1.RawValue;
+    //}
+    //private static long AverageCount64(InstanceCounters _historycounter)
+    //{
+    //    long numerator = (long)_historycounter.s1.RawValue - (long)_historycounter.s0.RawValue;
+    //    long denomenator = (long)_historycounter.s1.BaseValue - (long)_historycounter.s0.BaseValue;
+    //    long counterValue = numerator / denomenator;
+    //    return (counterValue);
+    //}
+    //private static long AverageTimer32(InstanceCounters _historycounter)
+    //{
+    //    Int64 n1 = _historycounter.s1.RawValue;
+    //    Int64 n0 = _historycounter.s0.RawValue;
+    //    ulong f = (ulong)_historycounter.s1.SystemFrequency;
+    //    Int64 d1 = _historycounter.s1.BaseValue;
+    //    Int64 d0 = _historycounter.s0.BaseValue;
 
-        Single numerator = (Single)(n1 - n0);
-        Single denominator = (Single)(d1 - d0);
-        Single counterValue = (Single)((numerator / f) / denominator);
-        return (counterValue);
-    }
-    private static Single PERF_COUNTER_100NS_QUEUELEN_TYPE(InstanceCounters _historycounter)
-    {
+    //    long numerator = (long)(n1 - n0);
+    //    long denominator = (long)(d1 - d0);
+    //    long counterValue = (long)((numerator / f) / denominator);
+    //    return (counterValue);
+    //}
+    //private static long PERF_COUNTER_100NS_QUEUELEN_TYPE(InstanceCounters _historycounter)
+    //{
 
-        long n = (long)_historycounter.s1.RawValue - (long)_historycounter.s0.RawValue;
-        long d = (long)_historycounter.s1.TimeStamp100nSec - (long)_historycounter.s0.TimeStamp100nSec;
-        Single counterValue = (d == 0 ? 0 : (n / d));
-        return (counterValue);
+    //    long n = (long)_historycounter.s1.RawValue - (long)_historycounter.s0.RawValue;
+    //    long d = (long)_historycounter.s1.TimeStamp100nSec - (long)_historycounter.s0.TimeStamp100nSec;
+    //    long counterValue = (d == 0 ? 0 : (n / d));
+    //    return (counterValue);
 
-    }
-    private static Single PERF_PRECISION_100NS_TIMER(InstanceCounters _historycounter)
-    {
-        ulong n = (ulong)_historycounter.s1.RawValue - (ulong)_historycounter.s0.RawValue;
-        ulong d = (ulong)_historycounter.s1.TimeStamp100nSec - (ulong)_historycounter.s0.TimeStamp100nSec;
-        Single counterValue = (d == 0 ? 0 : ((n / d) * 100));
-        return (counterValue);
+    //}
+    //private static long PERF_PRECISION_100NS_TIMER(InstanceCounters _historycounter)
+    //{
+    //    ulong n = (ulong)_historycounter.s1.RawValue - (ulong)_historycounter.s0.RawValue;
+    //    ulong d = (ulong)_historycounter.s1.TimeStamp100nSec - (ulong)_historycounter.s0.TimeStamp100nSec;
+    //    long counterValue = (d == 0 ? 0 : ((n / d) * 100));
+    //    return (counterValue);
 
-    }
+    //}
     //Formula: (N 1 - N 0) / (D 1 - D 0) x 100, 
     //    where the numerator represents the portions of the sample interval during which 
     //    the monitored components were active, and the denominator represents the total elapsed time of the sample interval.
