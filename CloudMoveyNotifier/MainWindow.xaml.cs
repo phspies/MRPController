@@ -9,15 +9,11 @@ using CloudMoveyNotifier.Forms;
 using System.Windows.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Globalization;
-using System.Windows.Data;
 using CloudMoveyNotifier.Models;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
-using System.Linq.Expressions;
 using System.Linq;
-using CloudMoveyNotifier;
-using System.Reflection;
 
 namespace CloudMoveyNotifier
 {
@@ -314,7 +310,24 @@ namespace CloudMoveyNotifier
             }
             refesh_platform_list();
         }
+        private void workload_credential_changed(object sender, RoutedEventArgs e)
+        {
 
+        }
+        private void failovergroup_treeview_selectionchanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            var model = e.NewValue as Failovergroup_TreeModel;
+
+            if (model != null)
+            {
+                if (model.parent_id == null)
+                {
+                    lvWorkloads.ItemsSource = channel.ListWorkloads();
+                }
+                Debug.WriteLine(String.Format("{0} : {1}", model.id, model.group));
+            }
+        }
+        
         private void refresh_platforms_button_clicked(object sender, RoutedEventArgs e)
         {
             refesh_platform_list();

@@ -88,10 +88,10 @@ namespace CloudMoveyWorkerService.CaaS
         /// </summary>
         /// <param name="image_id"></param>
         /// <returns></returns>
-        public WorkloadImageWithState workloadimageget(String image_id)
+        public ServerImageWithState workloadimageget(String image_id)
         {
             orgendpoint(String.Format("/image/{0}", image_id));
-            WorkloadImageWithState softwarelabels = get<WorkloadImageWithState>(null, true) as WorkloadImageWithState;
+            ServerImageWithState softwarelabels = get<ServerImageWithState>(null, true) as ServerImageWithState;
             return softwarelabels;
         }
 
@@ -115,12 +115,12 @@ namespace CloudMoveyWorkerService.CaaS
         /// <returns></returns>
         public Status workloadimagemodify(String image_id, List<Option> diskoptions = null)
         {
-            ModifyWorkloadImage modify = new ModifyWorkloadImage();
+            ModifyServerImage modify = new ModifyServerImage();
             modify.description = diskoptions.Find(x => x.option == "description").value;
-            List<ModifyWorkloadImageDisk> disks = new List<ModifyWorkloadImageDisk>();
+            List<ModifyServerImageDisk> disks = new List<ModifyServerImageDisk>();
             foreach (Option diskindex in diskoptions.FindAll(x => x.option.All(Char.IsNumber)))
             {
-                disks.Add(new ModifyWorkloadImageDisk() { scsiId = (Byte)Convert.ToInt32(diskindex.option), speed = diskindex.value });
+                disks.Add(new ModifyServerImageDisk() { scsiId = (Byte)Convert.ToInt32(diskindex.option), speed = diskindex.value });
             }
             modify.disk = disks;
             orgendpoint(String.Format("/image/{0}/modify", image_id));
@@ -141,7 +141,7 @@ namespace CloudMoveyWorkerService.CaaS
         /// <param name="diskoptions"></param>
         /// <param name="privateIp"></param>
         /// <returns></returns>
-        public Status workloadimagedeploy(DeployWorkload _workload)
+        public Status workloadimagedeploy(DeployServer _workload)
         {
             orgendpoint("/deployWorkload");
             Status status = post<Status>(_workload, false) as Status;
@@ -171,7 +171,7 @@ namespace CloudMoveyWorkerService.CaaS
         /// <returns></returns>
         public Status workloadmodify(String workload_id, String name = null, String description = null, int cpuCount=0, int memory=0, String privateIp=null)
         {
-            ModifyWorkload modify = new ModifyWorkload();
+            ModifyServer modify = new ModifyServer();
             if (!Object.ReferenceEquals(null, name)) { modify.name = name; }
             if (!Object.ReferenceEquals(null, description)) { modify.description = description; }
             if (cpuCount!=0) { modify.cpuCount = cpuCount; }

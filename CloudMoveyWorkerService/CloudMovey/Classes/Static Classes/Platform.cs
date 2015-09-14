@@ -37,15 +37,15 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     CloudMovey.task().failcomplete(payload, "Template image not found: " + JsonConvert.SerializeObject(_options));
                     return;
                 }
-                DeployWorkload _vm = new DeployWorkload();
+                DeployServer _vm = new DeployServer();
 
-                List<DeployWorkloadDisk> _disks = new List<DeployWorkloadDisk>();
+                List<DeployServerDisk> _disks = new List<DeployServerDisk>();
                
                 foreach (MoveyWorkloadVolumeType volume in _target.volumes)
                 {
                     if (_platformimage.disk.Exists(x => x.scsiId == volume.diskindex))
                     {
-                        _disks.Add(new DeployWorkloadDisk() { scsiId = (byte)volume.diskindex, speed = volume.platformstoragetier.shortname });
+                        _disks.Add(new DeployServerDisk() { scsiId = (byte)volume.diskindex, speed = volume.platformstoragetier.shortname });
                     }
                 }
 
@@ -75,7 +75,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     CloudMovey.task().progress(payload, String.Format("{0} provisioning started in {1}({2})", _vm.name, dc.displayName, dc.id), 20);
                     List<Option> _vmoptions = new List<Option>();
                     _vmoptions.Add(new Option() { option = "id", value = _vm_id });
-                    WorkloadsWithBackupWorkload _newvm = CaaS.workload().platformworkloads(_vmoptions).workload[0];
+                    ServersWithBackupServer _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                     while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
                     {
                         if (_newvm.status != null)
@@ -85,17 +85,17 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                                 CloudMovey.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.status.step.name), 30 + _newvm.status.step.number);
                             }
                         }
-                        _newvm = CaaS.workload().platformworkloads(_vmoptions).workload[0];
+                        _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                         Thread.Sleep(5000);
                     }
 
                     //Update CPU and Memory for workload
                     CaaS.workloadimage().workloadmodify(workload_id: _vm_id, cpuCount: _target.cpu, memory: _target.memory);
-                    _newvm = CaaS.workload().platformworkloads(_vmoptions).workload[0];
+                    _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                     CloudMovey.task().progress(payload, String.Format("Updating CPU and Memory: {0} : {1}", _target.cpu, _target.memory), 60);
                     while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
                     {
-                    _newvm = CaaS.workload().platformworkloads(_vmoptions).workload[0];
+                    _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                         Thread.Sleep(5000);
                     }
 
@@ -116,10 +116,10 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                             CloudMovey.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _volume.diskindex, _volume.disksize, _volume.platformstoragetier.storagetier), 60 + count);
                             CaaS.workloadimage().workloadaddstorage(_vm_id, _volume.disksize, _volume.platformstoragetier.shortname);
                         }
-                        _newvm = CaaS.workload().platformworkloads(_vmoptions).workload[0];
+                        _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                         while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
                         {
-                            _newvm = CaaS.workload().platformworkloads(_vmoptions).workload[0];
+                            _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                             Thread.Sleep(5000);
                         }
                         count += 1;
@@ -128,15 +128,15 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     //Start Workload
                     CloudMovey.task().progress(payload, String.Format("Power on workload"), 60 + count + 1);
                     CaaS.workloadimage().workloadstart(_vm_id);
-                    _newvm = CaaS.workload().platformworkloads(_vmoptions).workload[0];
+                    _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                     while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
                     {
-                        _newvm = CaaS.workload().platformworkloads(_vmoptions).workload[0];
+                        _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                         Thread.Sleep(5000);
                     }
 
                     CloudMovey.task().progress(payload, String.Format("Workload powered on"), 60 + count + 2);
-                    _newvm = CaaS.workload().platformworkloads(_vmoptions).workload[0];
+                    _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
 
                     //create diskpart file for virtual machine and copy it to the remote workload
                     List<String> _driveletters = new List<String>();
@@ -150,7 +150,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     _diskpart_struct.Add("select volume d");
                     _diskpart_struct.Add(String.Format("assign letter={0} noerr", _availabledriveletters.Last()));
                     _diskpart_struct.Add("");
-                    foreach (WorkloadsWithBackupWorkloadDisk _disk in _newvm.disk.ToList().FindAll(x => x.scsiId != 0).OrderBy(x => x.scsiId))
+                    foreach (ServersWithBackupServerDisk _disk in _newvm.disk.ToList().FindAll(x => x.scsiId != 0).OrderBy(x => x.scsiId))
                     {
                         string _driveletter = _target.volumes.Find(x => x.diskindex == _disk.scsiId).driveletter.Substring(0, 1);
                         _driveletters.Add(_driveletter.ToString());

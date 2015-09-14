@@ -1,0 +1,5 @@
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\Experiment\bin\Debug\Experiment.exe.config
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\Experiment\bin\Debug\Experiment.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\Experiment\bin\Debug\Experiment.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\Experiment\obj\Debug\Experiment.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\Experiment\obj\Debug\Experiment.pdb

@@ -79,6 +79,21 @@
                     <TextBlock Margin="0,7,0,0" Text="{Binding Path=networkdomain_count}"/>
                 </StackPanel>
             </DataTemplate>
+            <DataTemplate x:Shared="False" x:Key="workload_checkhostname">
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Checked="{Binding Path=enabled}"/>
+                    <TextBlock Text="{Binding Path=hostname}"/>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Shared="False" x:Key="workload_credential">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox x:Name="workload_credentials" SelectionChanged="workload_credential_changed" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
+                            SelectedValuePath="id"
+                            SelectedValue="{Binding Path=credential_id, Mode=TwoWay}" 
+                            DisplayMemberPath="description"/>
+
+                </StackPanel>
+            </DataTemplate>
             <Style TargetType="ListViewItem">
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
@@ -148,7 +163,7 @@
         <TabControl Grid.Row="0" Height="451" DockPanel.Dock="Top"  Controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10,10,10,178" Background="#E8F2DC">
             <TabItem Header="Application Groups" Controls:ControlsHelper.HeaderFontSize="18">
                 <Grid Margin="5,5,5,5" Name="ApplicationGroupGrid">
-                    <TreeView x:Name="Failovergroup_treeview" ContextMenu="{StaticResource TreeViewItemContextMenu}" Margin="0,0,0,0" HorizontalAlignment="Left" Width="248">
+                    <TreeView x:Name="Failovergroup_treeview" SelectedItemChanged="failovergroup_treeview_selectionchanged" ContextMenu="{StaticResource TreeViewItemContextMenu}" Margin="0,0,0,0" HorizontalAlignment="Left" Width="248">
                         <TreeView.ItemContainerStyle>
                             <Style TargetType="{x:Type TreeViewItem}">
                                 <Setter Property="IsExpanded" Value="True" />
@@ -190,11 +205,17 @@
                     <ListView Name="lvWorkloads" Margin="263,0,0,0" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding hostname}">
+                                <GridViewColumn Width="150" CellTemplate="{StaticResource workload_checkhostname}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="platform">Workload</GridViewColumnHeader>
                                     </GridViewColumn.Header>
                                 </GridViewColumn>
+                                <GridViewColumn Width="150" CellTemplate="{StaticResource workload_credential}">
+                                    <GridViewColumn.Header>
+                                        <GridViewColumnHeader Tag="platform">Credential</GridViewColumnHeader>
+                                    </GridViewColumn.Header>
+                                </GridViewColumn>
+
                                 <GridViewColumn Width="150" DisplayMemberBinding="{Binding platform}">
                                     <GridViewColumn.Header>
                                         <GridViewColumnHeader Tag="platform">Platform</GridViewColumnHeader>

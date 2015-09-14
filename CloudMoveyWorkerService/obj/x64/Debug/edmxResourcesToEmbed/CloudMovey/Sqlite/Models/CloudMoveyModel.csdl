@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CloudMoveyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Credential">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="domain" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="credential_type" Type="Byte" />
+    <Property Name="human_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="hash_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Platform">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="datacenter" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="vendor" Type="Byte" />
+    <Property Name="url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="credential_id" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+    <Property Name="passwordok" Type="Int32" />
+    <Property Name="lastupdated" Type="DateTime" />
+    <Property Name="platform_details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="human_vendor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="workload_count" Type="Int32" />
+    <Property Name="vlan_count" Type="Int32" />
+    <Property Name="networkdomain_count" Type="Int32" />
+    <Property Name="platform_version" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="moid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="workload_sha1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="vlan_sha1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="networkdomain_sha1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="hash_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="CloudMoveyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Credentials" EntityType="Self.Credential" />
+    <EntitySet Name="Platforms" EntityType="Self.Platform" />
+    <EntitySet Name="Workloads" EntityType="CloudMoveyModel.Workload" />
+    <EntitySet Name="Failovergroups" EntityType="CloudMoveyModel.Failovergroup" />
+    <EntitySet Name="Events" EntityType="CloudMoveyModel.Event" />
+    <EntitySet Name="Tasks" EntityType="CloudMoveyModel.Task" />
+  </EntityContainer>
+  <EntityType Name="Workload">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="hostname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="platform_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="credential_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="failovergroup_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="moid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="enabled" Type="Boolean" />
+    <Property Name="hash_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="cpu_count" Type="Int32" />
+    <Property Name="memory_count" Type="Int32" />
+    <Property Name="storage_count" Type="Int64" />
+  </EntityType>
+  <EntityType Name="Failovergroup">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="parent_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="group" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="group_type" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="severity" Type="Int32" />
+    <Property Name="component" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="summary" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="timestamp" Type="DateTime" />
+    <Property Name="entity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="target" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="initiator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="queued_for" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="starttime" Type="DateTime" />
+    <Property Name="endtime" Type="DateTime" />
+  </EntityType>
+</Schema>

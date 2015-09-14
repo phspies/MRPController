@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CloudMoveyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="platform">
+    <Key>
+      <PropertyRef Name="description" />
+      <PropertyRef Name="type" />
+      <PropertyRef Name="username" />
+      <PropertyRef Name="password" />
+      <PropertyRef Name="datacenter" />
+      <PropertyRef Name="max_cores" />
+      <PropertyRef Name="max_memory" />
+      <PropertyRef Name="max_networks" />
+      <PropertyRef Name="max_disks" />
+      <PropertyRef Name="max_disk_size" />
+      <PropertyRef Name="vendor" />
+      <PropertyRef Name="url" />
+    </Key>
+    <Property Name="id" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="type" Type="Byte" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="datacenter" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="max_cores" Type="Int32" Nullable="false" />
+    <Property Name="max_memory" Type="Int32" Nullable="false" />
+    <Property Name="max_networks" Type="Int32" Nullable="false" />
+    <Property Name="max_disks" Type="Int32" Nullable="false" />
+    <Property Name="max_disk_size" Type="Int32" Nullable="false" />
+    <Property Name="vendor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="CloudMoveyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="platforms" EntityType="Self.platform" />
+  </EntityContainer>
+</Schema>

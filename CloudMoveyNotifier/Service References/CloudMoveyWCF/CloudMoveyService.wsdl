@@ -42,6 +42,18 @@
   <wsdl:message name="ICloudMoveyService_DestroyFailovergroup_OutputMessage">
     <wsdl:part name="parameters" element="tns:DestroyFailovergroupResponse" />
   </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_ListWorkloads_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListWorkloads" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_ListWorkloads_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListWorkloadsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_UpdateWorkload_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWorkload" />
+  </wsdl:message>
+  <wsdl:message name="ICloudMoveyService_UpdateWorkload_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWorkloadResponse" />
+  </wsdl:message>
   <wsdl:message name="ICloudMoveyService_ListPlatforms_InputMessage">
     <wsdl:part name="parameters" element="tns:ListPlatforms" />
   </wsdl:message>
@@ -135,6 +147,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/DestroyFailovergroup" message="tns:ICloudMoveyService_DestroyFailovergroup_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/DestroyFailovergroupResponse" message="tns:ICloudMoveyService_DestroyFailovergroup_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ListWorkloads">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/ListWorkloads" message="tns:ICloudMoveyService_ListWorkloads_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/ListWorkloadsResponse" message="tns:ICloudMoveyService_ListWorkloads_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkload">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/UpdateWorkload" message="tns:ICloudMoveyService_UpdateWorkload_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/UpdateWorkloadResponse" message="tns:ICloudMoveyService_UpdateWorkload_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ListPlatforms">
       <wsdl:input wsaw:Action="http://tempuri.org/ICloudMoveyService/ListPlatforms" message="tns:ICloudMoveyService_ListPlatforms_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ICloudMoveyService/ListPlatformsResponse" message="tns:ICloudMoveyService_ListPlatforms_OutputMessage" />
@@ -224,6 +244,24 @@
     </wsdl:operation>
     <wsdl:operation name="DestroyFailovergroup">
       <soap:operation soapAction="http://tempuri.org/ICloudMoveyService/DestroyFailovergroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListWorkloads">
+      <soap:operation soapAction="http://tempuri.org/ICloudMoveyService/ListWorkloads" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkload">
+      <soap:operation soapAction="http://tempuri.org/ICloudMoveyService/UpdateWorkload" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

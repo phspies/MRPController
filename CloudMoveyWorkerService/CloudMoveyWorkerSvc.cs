@@ -48,7 +48,7 @@ namespace CloudMoveyWorkerService
             Settings.RegisterAgent();
             Global.event_log.WriteEntry(String.Format("organization id: {0}", Global.organization_id));
 
-            SchedulerWorker _scheduler = new SchedulerWorker();
+            TaskWorker _scheduler = new TaskWorker();
             if (Global.debug) { Global.event_log.WriteEntry("Starting Scheduler Thread"); };
             scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));
             scheduler_thread.Start();

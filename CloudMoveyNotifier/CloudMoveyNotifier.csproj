@@ -255,6 +255,9 @@
     <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.workerInformation.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Workload.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\CloudMoveyWCF\CloudMoveyService.wsdl" />
     <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService.xsd">
       <SubType>Designer</SubType>

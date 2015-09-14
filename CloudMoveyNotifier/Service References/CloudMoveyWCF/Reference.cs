@@ -186,6 +186,164 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Workload", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite" +
+        ".Models")]
+    [System.SerializableAttribute()]
+    public partial class Workload : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string credential_idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> enabledField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string failovergroup_idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string hash_valueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string hostnameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string moidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string platform_idField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string credential_id {
+            get {
+                return this.credential_idField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.credential_idField, value) != true)) {
+                    this.credential_idField = value;
+                    this.RaisePropertyChanged("credential_id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> enabled {
+            get {
+                return this.enabledField;
+            }
+            set {
+                if ((this.enabledField.Equals(value) != true)) {
+                    this.enabledField = value;
+                    this.RaisePropertyChanged("enabled");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string failovergroup_id {
+            get {
+                return this.failovergroup_idField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.failovergroup_idField, value) != true)) {
+                    this.failovergroup_idField = value;
+                    this.RaisePropertyChanged("failovergroup_id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string hash_value {
+            get {
+                return this.hash_valueField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.hash_valueField, value) != true)) {
+                    this.hash_valueField = value;
+                    this.RaisePropertyChanged("hash_value");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string hostname {
+            get {
+                return this.hostnameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.hostnameField, value) != true)) {
+                    this.hostnameField = value;
+                    this.RaisePropertyChanged("hostname");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string id {
+            get {
+                return this.idField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.idField, value) != true)) {
+                    this.idField = value;
+                    this.RaisePropertyChanged("id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string moid {
+            get {
+                return this.moidField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.moidField, value) != true)) {
+                    this.moidField = value;
+                    this.RaisePropertyChanged("moid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string platform_id {
+            get {
+                return this.platform_idField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.platform_idField, value) != true)) {
+                    this.platform_idField = value;
+                    this.RaisePropertyChanged("platform_id");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Platform", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite" +
         ".Models")]
     [System.SerializableAttribute()]
@@ -204,6 +362,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private string descriptionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string hash_valueField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string human_vendorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -219,7 +380,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private System.Nullable<int> networkdomain_countField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string networkdomain_md5Field;
+        private string networkdomain_sha1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string passwordField;
@@ -246,13 +407,13 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private System.Nullable<int> vlan_countField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string vlan_md5Field;
+        private string vlan_sha1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> workload_countField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string workload_md5Field;
+        private string workload_sha1Field;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -299,6 +460,19 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((object.ReferenceEquals(this.descriptionField, value) != true)) {
                     this.descriptionField = value;
                     this.RaisePropertyChanged("description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string hash_value {
+            get {
+                return this.hash_valueField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.hash_valueField, value) != true)) {
+                    this.hash_valueField = value;
+                    this.RaisePropertyChanged("hash_value");
                 }
             }
         }
@@ -369,14 +543,14 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string networkdomain_md5 {
+        public string networkdomain_sha1 {
             get {
-                return this.networkdomain_md5Field;
+                return this.networkdomain_sha1Field;
             }
             set {
-                if ((object.ReferenceEquals(this.networkdomain_md5Field, value) != true)) {
-                    this.networkdomain_md5Field = value;
-                    this.RaisePropertyChanged("networkdomain_md5");
+                if ((object.ReferenceEquals(this.networkdomain_sha1Field, value) != true)) {
+                    this.networkdomain_sha1Field = value;
+                    this.RaisePropertyChanged("networkdomain_sha1");
                 }
             }
         }
@@ -486,14 +660,14 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string vlan_md5 {
+        public string vlan_sha1 {
             get {
-                return this.vlan_md5Field;
+                return this.vlan_sha1Field;
             }
             set {
-                if ((object.ReferenceEquals(this.vlan_md5Field, value) != true)) {
-                    this.vlan_md5Field = value;
-                    this.RaisePropertyChanged("vlan_md5");
+                if ((object.ReferenceEquals(this.vlan_sha1Field, value) != true)) {
+                    this.vlan_sha1Field = value;
+                    this.RaisePropertyChanged("vlan_sha1");
                 }
             }
         }
@@ -512,14 +686,14 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string workload_md5 {
+        public string workload_sha1 {
             get {
-                return this.workload_md5Field;
+                return this.workload_sha1Field;
             }
             set {
-                if ((object.ReferenceEquals(this.workload_md5Field, value) != true)) {
-                    this.workload_md5Field = value;
-                    this.RaisePropertyChanged("workload_md5");
+                if ((object.ReferenceEquals(this.workload_sha1Field, value) != true)) {
+                    this.workload_sha1Field = value;
+                    this.RaisePropertyChanged("workload_sha1");
                 }
             }
         }
@@ -552,6 +726,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string domainField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string hash_valueField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string human_typeField;
@@ -610,6 +787,19 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((object.ReferenceEquals(this.domainField, value) != true)) {
                     this.domainField = value;
                     this.RaisePropertyChanged("domain");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string hash_value {
+            get {
+                return this.hash_valueField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.hash_valueField, value) != true)) {
+                    this.hash_valueField = value;
+                    this.RaisePropertyChanged("hash_value");
                 }
             }
         }
@@ -3852,6 +4042,8 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.PlatformDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Workload>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Workload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Platform))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Credential>))]
@@ -4161,6 +4353,18 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/DestroyFailovergroup", ReplyAction="http://tempuri.org/ICloudMoveyService/DestroyFailovergroupResponse")]
         System.Threading.Tasks.Task<bool> DestroyFailovergroupAsync(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _destroyfailovergroup);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListWorkloads", ReplyAction="http://tempuri.org/ICloudMoveyService/ListWorkloadsResponse")]
+        System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Workload> ListWorkloads();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListWorkloads", ReplyAction="http://tempuri.org/ICloudMoveyService/ListWorkloadsResponse")]
+        System.Threading.Tasks.Task<System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Workload>> ListWorkloadsAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/UpdateWorkload", ReplyAction="http://tempuri.org/ICloudMoveyService/UpdateWorkloadResponse")]
+        CloudMoveyNotifier.CloudMoveyWCF.Workload UpdateWorkload(CloudMoveyNotifier.CloudMoveyWCF.Workload _updateworkload);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/UpdateWorkload", ReplyAction="http://tempuri.org/ICloudMoveyService/UpdateWorkloadResponse")]
+        System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.Workload> UpdateWorkloadAsync(CloudMoveyNotifier.CloudMoveyWCF.Workload _updateworkload);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICloudMoveyService/ListPlatforms", ReplyAction="http://tempuri.org/ICloudMoveyService/ListPlatformsResponse")]
         System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform> ListPlatforms();
         
@@ -4220,6 +4424,8 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.PlatformDetails))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Workload>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Workload))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Platform))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Credential>))]
@@ -4276,6 +4482,8 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.PlatformDetails))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Failovergroup>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Workload>))]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Workload))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform>))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(CloudMoveyNotifier.CloudMoveyWCF.Platform))]
         [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Credential>))]
@@ -4399,6 +4607,22 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         public System.Threading.Tasks.Task<bool> DestroyFailovergroupAsync(CloudMoveyNotifier.CloudMoveyWCF.Failovergroup _destroyfailovergroup) {
             return base.Channel.DestroyFailovergroupAsync(_destroyfailovergroup);
+        }
+        
+        public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Workload> ListWorkloads() {
+            return base.Channel.ListWorkloads();
+        }
+        
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Workload>> ListWorkloadsAsync() {
+            return base.Channel.ListWorkloadsAsync();
+        }
+        
+        public CloudMoveyNotifier.CloudMoveyWCF.Workload UpdateWorkload(CloudMoveyNotifier.CloudMoveyWCF.Workload _updateworkload) {
+            return base.Channel.UpdateWorkload(_updateworkload);
+        }
+        
+        public System.Threading.Tasks.Task<CloudMoveyNotifier.CloudMoveyWCF.Workload> UpdateWorkloadAsync(CloudMoveyNotifier.CloudMoveyWCF.Workload _updateworkload) {
+            return base.Channel.UpdateWorkloadAsync(_updateworkload);
         }
         
         public System.Collections.Generic.List<CloudMoveyNotifier.CloudMoveyWCF.Platform> ListPlatforms() {

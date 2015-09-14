@@ -12,8 +12,8 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
-    [System.Xml.Serialization.XmlRootAttribute("workload", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
-    public partial class WorkloadType
+    [System.Xml.Serialization.XmlRootAttribute("server", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
+    public partial class ServerType
     {
 
         private string nameField;
@@ -21,11 +21,11 @@ namespace CloudMoveyWorkerService.CaaS
         private OperatingSystemType operatingSystemField;
         private int cpuCountField;
         private int memoryGbField;
-        private List<WorkloadTypeDisk> diskField;
-        private WorkloadTypeNetworkInfo networkInfoField;
-        private WorkloadNic nicField;
-        private WorkloadTypeBackup backupField;
-        private WorkloadTypeMonitoring monitoringField;
+        private List<ServerTypeDisk> diskField;
+        private ServerTypeNetworkInfo networkInfoField;
+        private ServerNic nicField;
+        private ServerTypeBackup backupField;
+        private ServerTypeMonitoring monitoringField;
         private List<string> softwareLabelField;
         private string sourceImageIdField;
         private System.DateTime createTimeField;
@@ -33,18 +33,18 @@ namespace CloudMoveyWorkerService.CaaS
         private bool startedField;
         private string stateField;
         private ProgressType progressField;
-        private List<WorkloadTypeMachineStatus> machineStatusField;
+        private List<ServerTypeMachineStatus> machineStatusField;
         private string idField;
         private string datacenterIdField;
-        public WorkloadType()
+        public ServerType()
         {
-            this.machineStatusField = new List<WorkloadTypeMachineStatus>();
+            this.machineStatusField = new List<ServerTypeMachineStatus>();
             this.progressField = new ProgressType();
             this.softwareLabelField = new List<string>();
-            this.networkInfoField = new WorkloadTypeNetworkInfo();
-            this.monitoringField = new WorkloadTypeMonitoring();
-            this.backupField = new WorkloadTypeBackup();
-            this.diskField = new List<WorkloadTypeDisk>();
+            this.networkInfoField = new ServerTypeNetworkInfo();
+            this.monitoringField = new ServerTypeMonitoring();
+            this.backupField = new ServerTypeBackup();
+            this.diskField = new List<ServerTypeDisk>();
             this.operatingSystemField = new OperatingSystemType();
         }
 
@@ -109,7 +109,7 @@ namespace CloudMoveyWorkerService.CaaS
         }
 
         [System.Xml.Serialization.XmlElementAttribute("disk")]
-        public List<WorkloadTypeDisk> disk
+        public List<ServerTypeDisk> disk
         {
             get
             {
@@ -120,7 +120,7 @@ namespace CloudMoveyWorkerService.CaaS
                 this.diskField = value;
             }
         }
-        public WorkloadNic nic
+        public ServerNic nic
         {
             get
             {
@@ -131,8 +131,8 @@ namespace CloudMoveyWorkerService.CaaS
                 this.nicField = value;
             }
         }
-        [System.Xml.Serialization.XmlElementAttribute("networkInfo", typeof(WorkloadTypeNetworkInfo))]
-        public WorkloadTypeNetworkInfo networkInfo
+        [System.Xml.Serialization.XmlElementAttribute("networkInfo", typeof(ServerTypeNetworkInfo))]
+        public ServerTypeNetworkInfo networkInfo
         {
             get
             {
@@ -144,7 +144,7 @@ namespace CloudMoveyWorkerService.CaaS
             }
         }
 
-        public WorkloadTypeBackup backup
+        public ServerTypeBackup backup
         {
             get
             {
@@ -156,7 +156,7 @@ namespace CloudMoveyWorkerService.CaaS
             }
         }
 
-        public WorkloadTypeMonitoring monitoring
+        public ServerTypeMonitoring monitoring
         {
             get
             {
@@ -254,7 +254,7 @@ namespace CloudMoveyWorkerService.CaaS
         }
 
         [System.Xml.Serialization.XmlElementAttribute("machineStatus")]
-        public List<WorkloadTypeMachineStatus> machineStatus
+        public List<ServerTypeMachineStatus> machineStatus
         {
             get
             {
@@ -293,7 +293,7 @@ namespace CloudMoveyWorkerService.CaaS
         }
     }
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
-    public partial class WorkloadNic
+    public partial class ServerNic
     {
 
         private string idField;
@@ -380,7 +380,7 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
-    public partial class WorkloadTypeDisk
+    public partial class ServerTypeDisk
     {
 
         private string idField;
@@ -463,7 +463,7 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
-    public partial class WorkloadTypeNetworkInfo
+    public partial class ServerTypeNetworkInfo
     {
 
         private NicType primaryNicField;
@@ -472,7 +472,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         private string networkDomainIdField;
 
-        public WorkloadTypeNetworkInfo()
+        public ServerTypeNetworkInfo()
         {
             this.additionalNicField = new List<NicType>();
             this.primaryNicField = new NicType();
@@ -635,7 +635,7 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
-    public partial class WorkloadTypeNic
+    public partial class ServerTypeNic
     {
 
         private string idField;
@@ -733,7 +733,7 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
-    public partial class WorkloadTypeBackup
+    public partial class ServerTypeBackup
     {
 
         private string assetIdField;
@@ -786,7 +786,7 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
-    public partial class WorkloadTypeMonitoring
+    public partial class ServerTypeMonitoring
     {
 
         private string monitoringIdField;
@@ -839,7 +839,7 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
-    public partial class WorkloadTypeMachineStatus
+    public partial class ServerTypeMachineStatus
     {
 
         private string nameField;
@@ -877,11 +877,11 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
-    [System.Xml.Serialization.XmlRootAttribute("workloads", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
-    public partial class WorkloadListType
+    [System.Xml.Serialization.XmlRootAttribute("servers", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
+    public partial class ServerListType
     {
 
-        private List<WorkloadType> workloadField;
+        private List<ServerType> serverField;
 
         private int pageNumberField;
 
@@ -899,21 +899,21 @@ namespace CloudMoveyWorkerService.CaaS
 
         private bool pageSizeFieldSpecified;
 
-        public WorkloadListType()
+        public ServerListType()
         {
-            this.workloadField = new List<WorkloadType>();
+            this.serverField = new List<ServerType>();
         }
 
-        [System.Xml.Serialization.XmlElementAttribute("Workload")]
-        public List<WorkloadType> workload
+        [System.Xml.Serialization.XmlElementAttribute("Server")]
+        public List<ServerType> server
         {
             get
             {
-                return this.workloadField;
+                return this.serverField;
             }
             set
             {
-                this.workloadField = value;
+                this.serverField = value;
             }
         }
 
@@ -1026,8 +1026,8 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
-    [System.Xml.Serialization.XmlRootAttribute("deployWorkload", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
-    public partial class DeployWorkloadType
+    [System.Xml.Serialization.XmlRootAttribute("deployServer", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
+    public partial class DeployServerType
     {
 
         private string nameField;
@@ -1042,11 +1042,11 @@ namespace CloudMoveyWorkerService.CaaS
 
         private object itemField;
 
-        private List<DeployWorkloadTypeDisk> diskField;
+        private List<DeployServerTypeDisk> diskField;
 
-        public DeployWorkloadType()
+        public DeployServerType()
         {
-            this.diskField = new List<DeployWorkloadTypeDisk>();
+            this.diskField = new List<DeployServerTypeDisk>();
         }
 
         public string name
@@ -1109,8 +1109,8 @@ namespace CloudMoveyWorkerService.CaaS
             }
         }
 
-        [System.Xml.Serialization.XmlElementAttribute("network", typeof(DeployWorkloadTypeNetwork))]
-        [System.Xml.Serialization.XmlElementAttribute("networkInfo", typeof(DeployWorkloadTypeNetworkInfo))]
+        [System.Xml.Serialization.XmlElementAttribute("network", typeof(DeployServerTypeNetwork))]
+        [System.Xml.Serialization.XmlElementAttribute("networkInfo", typeof(DeployServerTypeNetworkInfo))]
         public object Item
         {
             get
@@ -1124,7 +1124,7 @@ namespace CloudMoveyWorkerService.CaaS
         }
 
         [System.Xml.Serialization.XmlElementAttribute("disk")]
-        public List<DeployWorkloadTypeDisk> disk
+        public List<DeployServerTypeDisk> disk
         {
             get
             {
@@ -1141,7 +1141,7 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
-    public partial class DeployWorkloadTypeNetwork
+    public partial class DeployServerTypeNetwork
     {
 
         private string itemField;
@@ -1194,7 +1194,7 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
-    public partial class DeployWorkloadTypeNetworkInfo
+    public partial class DeployServerTypeNetworkInfo
     {
 
         private VlanIdOrPrivateIpType primaryNicField;
@@ -1203,7 +1203,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         private string networkDomainIdField;
 
-        public DeployWorkloadTypeNetworkInfo()
+        public DeployServerTypeNetworkInfo()
         {
             this.additionalNicField = new List<VlanIdOrPrivateIpType>();
             this.primaryNicField = new VlanIdOrPrivateIpType();
@@ -1306,7 +1306,7 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:didata.com:api:cloud:types")]
-    public partial class DeployWorkloadTypeDisk
+    public partial class DeployServerTypeDisk
     {
 
         private ushort scsiIdField;
@@ -1396,8 +1396,8 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
-    [System.Xml.Serialization.XmlRootAttribute("deleteWorkload", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
-    public partial class DeleteWorkloadType
+    [System.Xml.Serialization.XmlRootAttribute("deleteServer", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
+    public partial class DeleteServerType
     {
 
         private string idField;
@@ -1420,8 +1420,8 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
-    [System.Xml.Serialization.XmlRootAttribute("cleanWorkload", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
-    public partial class CleanWorkloadType
+    [System.Xml.Serialization.XmlRootAttribute("cleanServer", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
+    public partial class CleanServerType
     {
 
         private string idField;
@@ -1472,7 +1472,7 @@ namespace CloudMoveyWorkerService.CaaS
     public partial class AddNicType
     {
 
-        private string workloadIdField;
+        private string serverIdField;
 
         private VlanIdOrPrivateIpType nicField;
 
@@ -1481,15 +1481,15 @@ namespace CloudMoveyWorkerService.CaaS
             this.nicField = new VlanIdOrPrivateIpType();
         }
 
-        public string workloadId
+        public string serverId
         {
             get
             {
-                return this.workloadIdField;
+                return this.serverIdField;
             }
             set
             {
-                this.workloadIdField = value;
+                this.serverIdField = value;
             }
         }
 
@@ -1510,8 +1510,8 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
-    [System.Xml.Serialization.XmlRootAttribute("enableWorkloadMonitoring", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
-    public partial class EnableWorkloadMonitoringType
+    [System.Xml.Serialization.XmlRootAttribute("enableServerMonitoring", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
+    public partial class EnableServerMonitoringType
     {
 
         private string servicePlanField;
@@ -1548,8 +1548,8 @@ namespace CloudMoveyWorkerService.CaaS
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
-    [System.Xml.Serialization.XmlRootAttribute("disableWorkloadMonitoring", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
-    public partial class DisableWorkloadMonitoringType
+    [System.Xml.Serialization.XmlRootAttribute("disableServerMonitoring", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
+    public partial class DisableServerMonitoringType
     {
 
         private string idField;

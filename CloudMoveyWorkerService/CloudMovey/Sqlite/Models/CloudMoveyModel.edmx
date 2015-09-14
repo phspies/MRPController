@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CloudMoveyModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="foreign keys=True;data source=&quot;C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMovey.sqlite3&quot;;synchronous=Full" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Credentials">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="domain" Type="varchar" MaxLength="50" />
+          <Property Name="credential_type" Type="tinyint" />
+          <Property Name="human_type" Type="varchar" MaxLength="50" />
+          <Property Name="hash_value" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="severity" Type="int" />
+          <Property Name="entity" Type="varchar" MaxLength="50" />
+          <Property Name="component" Type="varchar" MaxLength="50" />
+          <Property Name="summary" Type="varchar" MaxLength="50" />
+          <Property Name="timestamp" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Failovergroups">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="parent_id" Type="varchar" MaxLength="50" />
+          <Property Name="group" Type="varchar" MaxLength="50" />
+          <Property Name="group_type" Type="int" />
+        </EntityType>
+        <EntityType Name="Platforms">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+          <Property Name="username" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="datacenter" Type="varchar" MaxLength="50" />
+          <Property Name="vendor" Type="tinyint" />
+          <Property Name="url" Type="varchar" MaxLength="50" />
+          <Property Name="credential_id" Type="varchar" MaxLength="50" />
+          <Property Name="passwordok" Type="int" />
+          <Property Name="lastupdated" Type="datetime" />
+          <Property Name="platform_details" Type="varchar" MaxLength="50" />
+          <Property Name="human_vendor" Type="varchar" MaxLength="50" />
+          <Property Name="workload_count" Type="int" />
+          <Property Name="vlan_count" Type="int" />
+          <Property Name="networkdomain_count" Type="int" />
+          <Property Name="workload_sha1" Type="varchar" MaxLength="50" />
+          <Property Name="vlan_sha1" Type="varchar" MaxLength="50" />
+          <Property Name="networkdomain_sha1" Type="varchar" MaxLength="50" />
+          <Property Name="platform_version" Type="varchar" MaxLength="50" />
+          <Property Name="moid" Type="varchar" MaxLength="50" />
+          <Property Name="hash_value" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="target" Type="varchar" MaxLength="50" />
+          <Property Name="initiator" Type="varchar" MaxLength="50" />
+          <Property Name="queued_for" Type="varchar" MaxLength="50" />
+          <Property Name="starttime" Type="datetime" />
+          <Property Name="endtime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Workloads">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="hostname" Type="varchar" MaxLength="50" />
+          <Property Name="platform_id" Type="varchar" MaxLength="50" />
+          <Property Name="credential_id" Type="varchar" MaxLength="50" />
+          <Property Name="hash_value" Type="varchar" MaxLength="50" />
+          <Property Name="failovergroup_id" Type="varchar" MaxLength="50" />
+          <Property Name="moid" Type="varchar" MaxLength="50" />
+          <Property Name="enabled" Type="bit" />
+          <Property Name="cpu_count" Type="int" />
+          <Property Name="memory_count" Type="int" />
+          <Property Name="storage_count" Type="integer" />
+        </EntityType>
+        <EntityContainer Name="CloudMoveyModelStoreContainer">
+          <EntitySet Name="Credentials" EntityType="Self.Credentials" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" store:Type="Tables" />
+          <EntitySet Name="Failovergroups" EntityType="Self.Failovergroups" store:Type="Tables" />
+          <EntitySet Name="Platforms" EntityType="Self.Platforms" store:Type="Tables" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" store:Type="Tables" />
+          <EntitySet Name="Workloads" EntityType="Self.Workloads" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CloudMoveyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Credential">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="domain" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="credential_type" Type="Byte" />
+          <Property Name="human_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hash_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Platform">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" MaxLength="36" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="datacenter" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vendor" Type="Byte" />
+          <Property Name="url" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="credential_id" Type="String" MaxLength="36" FixedLength="false" Unicode="false" />
+          <Property Name="passwordok" Type="Int32" />
+          <Property Name="lastupdated" Type="DateTime" />
+          <Property Name="platform_details" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="human_vendor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="workload_count" Type="Int32" />
+          <Property Name="vlan_count" Type="Int32" />
+          <Property Name="networkdomain_count" Type="Int32" />
+          <Property Name="platform_version" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="moid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="workload_sha1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="vlan_sha1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="networkdomain_sha1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hash_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="CloudMoveyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Credentials" EntityType="Self.Credential" />
+          <EntitySet Name="Platforms" EntityType="Self.Platform" />
+          <EntitySet Name="Workloads" EntityType="CloudMoveyModel.Workload" />
+          <EntitySet Name="Failovergroups" EntityType="CloudMoveyModel.Failovergroup" />
+          <EntitySet Name="Events" EntityType="CloudMoveyModel.Event" />
+          <EntitySet Name="Tasks" EntityType="CloudMoveyModel.Task" />
+        </EntityContainer>
+        <EntityType Name="Workload">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hostname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="platform_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="credential_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="failovergroup_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="moid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="enabled" Type="Boolean" />
+          <Property Name="hash_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cpu_count" Type="Int32" />
+          <Property Name="memory_count" Type="Int32" />
+          <Property Name="storage_count" Type="Int64" />
+        </EntityType>
+        <EntityType Name="Failovergroup">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="parent_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="group" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="group_type" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="severity" Type="Int32" />
+          <Property Name="component" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="summary" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="timestamp" Type="DateTime" />
+          <Property Name="entity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="target" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="initiator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="queued_for" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="starttime" Type="DateTime" />
+          <Property Name="endtime" Type="DateTime" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CloudMoveyModelStoreContainer" CdmEntityContainer="CloudMoveyEntities">
+          <EntitySetMapping Name="Credentials">
+            <EntityTypeMapping TypeName="CloudMoveyModel.Credential">
+              <MappingFragment StoreEntitySet="Credentials">
+                <ScalarProperty Name="hash_value" ColumnName="hash_value" />
+                <ScalarProperty Name="human_type" ColumnName="human_type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="domain" ColumnName="domain" />
+                <ScalarProperty Name="credential_type" ColumnName="credential_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Platforms">
+            <EntityTypeMapping TypeName="CloudMoveyModel.Platform">
+              <MappingFragment StoreEntitySet="Platforms">
+                <ScalarProperty Name="hash_value" ColumnName="hash_value" />
+                <ScalarProperty Name="networkdomain_sha1" ColumnName="networkdomain_sha1" />
+                <ScalarProperty Name="vlan_sha1" ColumnName="vlan_sha1" />
+                <ScalarProperty Name="workload_sha1" ColumnName="workload_sha1" />
+                <ScalarProperty Name="moid" ColumnName="moid" />
+                <ScalarProperty Name="platform_version" ColumnName="platform_version" />
+                <ScalarProperty Name="networkdomain_count" ColumnName="networkdomain_count" />
+                <ScalarProperty Name="vlan_count" ColumnName="vlan_count" />
+                <ScalarProperty Name="workload_count" ColumnName="workload_count" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="datacenter" ColumnName="datacenter" />
+                <ScalarProperty Name="vendor" ColumnName="vendor" />
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="credential_id" ColumnName="credential_id" />
+                <ScalarProperty Name="passwordok" ColumnName="passwordok" />
+                <ScalarProperty Name="lastupdated" ColumnName="lastupdated" />
+                <ScalarProperty Name="platform_details" ColumnName="platform_details" />
+                <ScalarProperty Name="human_vendor" ColumnName="human_vendor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workloads">
+            <EntityTypeMapping TypeName="CloudMoveyModel.Workload">
+              <MappingFragment StoreEntitySet="Workloads">
+                <ScalarProperty Name="storage_count" ColumnName="storage_count" />
+                <ScalarProperty Name="memory_count" ColumnName="memory_count" />
+                <ScalarProperty Name="cpu_count" ColumnName="cpu_count" />
+                <ScalarProperty Name="hash_value" ColumnName="hash_value" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="moid" ColumnName="moid" />
+                <ScalarProperty Name="failovergroup_id" ColumnName="failovergroup_id" />
+                <ScalarProperty Name="credential_id" ColumnName="credential_id" />
+                <ScalarProperty Name="platform_id" ColumnName="platform_id" />
+                <ScalarProperty Name="hostname" ColumnName="hostname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Failovergroups">
+            <EntityTypeMapping TypeName="CloudMoveyModel.Failovergroup">
+              <MappingFragment StoreEntitySet="Failovergroups">
+                <ScalarProperty Name="group_type" ColumnName="group_type" />
+                <ScalarProperty Name="group" ColumnName="group" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="CloudMoveyModel.Event">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="entity" ColumnName="entity" />
+                <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+                <ScalarProperty Name="summary" ColumnName="summary" />
+                <ScalarProperty Name="component" ColumnName="component" />
+                <ScalarProperty Name="severity" ColumnName="severity" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="CloudMoveyModel.Task">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="endtime" ColumnName="endtime" />
+                <ScalarProperty Name="starttime" ColumnName="starttime" />
+                <ScalarProperty Name="queued_for" ColumnName="queued_for" />
+                <ScalarProperty Name="initiator" ColumnName="initiator" />
+                <ScalarProperty Name="target" ColumnName="target" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

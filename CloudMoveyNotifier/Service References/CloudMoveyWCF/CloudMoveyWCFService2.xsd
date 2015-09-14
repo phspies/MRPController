@@ -15,6 +15,25 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Failovergroup" nillable="true" type="tns:Failovergroup" />
+  <xs:complexType name="ArrayOfWorkload">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Workload" nillable="true" type="tns:Workload" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfWorkload" nillable="true" type="tns:ArrayOfWorkload" />
+  <xs:complexType name="Workload">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="credential_id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="enabled" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="failovergroup_id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="hash_value" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="hostname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="moid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="platform_id" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Workload" nillable="true" type="tns:Workload" />
   <xs:complexType name="ArrayOfPlatform">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Platform" nillable="true" type="tns:Platform" />
@@ -26,12 +45,13 @@
       <xs:element minOccurs="0" name="credential_id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="datacenter" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="hash_value" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="human_vendor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="lastupdated" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="moid" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="networkdomain_count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="networkdomain_md5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="networkdomain_sha1" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="passwordok" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="platform_details" nillable="true" type="xs:string" />
@@ -40,9 +60,9 @@
       <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="vendor" nillable="true" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="vlan_count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="vlan_md5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="vlan_sha1" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="workload_count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="workload_md5" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="workload_sha1" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Platform" nillable="true" type="tns:Platform" />
@@ -57,6 +77,7 @@
       <xs:element minOccurs="0" name="credential_type" nillable="true" type="xs:unsignedByte" />
       <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="domain" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="hash_value" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="human_type" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />

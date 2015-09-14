@@ -1,0 +1,103 @@
+﻿Installing assembly 'c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Installing service CloudMovey Worker Service...
+Service CloudMovey Worker Service has been successfully installed.
+Creating EventLog source CloudMovey Worker Service in log Application...
+Committing assembly 'c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Uninstalling assembly 'c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Removing EventLog source CloudMovey Worker Service.
+Service CloudMovey Worker Service is being removed from the system...
+Service CloudMovey Worker Service was successfully removed from the system.
+Installing assembly 'c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Installing service CloudMovey Worker Service...
+Service CloudMovey Worker Service has been successfully installed.
+Creating EventLog source CloudMovey Worker Service in log Application...
+Committing assembly 'c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Uninstalling assembly 'c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Removing EventLog source CloudMovey Worker Service.
+Service CloudMovey Worker Service is being removed from the system...
+Service CloudMovey Worker Service was successfully removed from the system.
+Installing assembly 'c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Installing service CloudMovey Worker Service...
+Service CloudMovey Worker Service has been successfully installed.
+Creating EventLog source CloudMovey Worker Service in log Application...
+Committing assembly 'c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = c:\Users\phillip.spies\Documents\Visual Studio 2013\Projects\CloudMoveyWorkerService\CladesWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Installing assembly 'C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Installing service CloudMovey Worker Service...
+Creating EventLog source CloudMovey Worker Service in log Application...
+Rolling back assembly 'C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Restoring event log to previous state for source CloudMovey Worker Service.
+Uninstalling assembly 'C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Removing EventLog source CloudMovey Worker Service.
+Warning: The source CloudMovey Worker Service is not registered on the local machine.
+Service CloudMovey Worker Service is being removed from the system...
+Service CloudMovey Worker Service was successfully removed from the system.
+Installing assembly 'C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Installing service CloudMovey Worker Service...
+Creating EventLog source CloudMovey Worker Service in log Application...
+Rolling back assembly 'C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Restoring event log to previous state for source CloudMovey Worker Service.
+Installing assembly 'C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog
+Installing service CloudMovey Worker Service...
+Service CloudMovey Worker Service has been successfully installed.
+Creating EventLog source CloudMovey Worker Service in log Application...
+Committing assembly 'C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+   logfile = C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.InstallLog

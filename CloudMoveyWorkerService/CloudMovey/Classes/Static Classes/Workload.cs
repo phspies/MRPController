@@ -1,4 +1,5 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
+﻿using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
+using CloudMoveyWorkerService.CloudMovey.Types.API;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -30,8 +31,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 connection.Authority = "ntlmdomain:" + domain;
                 String ipaddresslist = _payload.windows.ipaddress;
                 ManagementScope scope = new ManagementScope();
-                Exception error = new Exception() ;
-                var workingip = find_working_ip(ipaddresslist);
+                Exception error = new Exception();
+                var workingip = Connection.find_working_ip(ipaddresslist);
                 if (workingip != null)
                 {
                     try
@@ -43,8 +44,13 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     catch (Exception e)
                     {
                         error = e;
-                        CloudMovey.task().progress(payload, "WMI Connect - " + workingip + " failed: " + e.Message, 10);
+                        CloudMovey.task().failcomplete(payload, "WMI Connect - " + workingip + " failed: " + e.Message);
+                        return;
                     }
+                } else
+                {
+                    CloudMovey.task().failcomplete(payload, "WMI Connect: No contatable IP found");
+                    return;
                 }
 
                 JObject inventory = new JObject();
@@ -172,25 +178,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
             }
             return inventory;
         }
-        private static string find_working_ip(string iplist)
-        {
-            foreach (string ip in iplist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                Ping pinger = new Ping();
-                try
-                {
-                    PingReply reply = pinger.Send(ip);
-                    if (reply.Status == IPStatus.Success)
-                    {
-                        return ip;
-                    }
-                }
-                catch (PingException)
-                {
-                    // Discard PingExceptions and return false;
-                }
-            }
-            return null;
-        }
+
     }
 }
