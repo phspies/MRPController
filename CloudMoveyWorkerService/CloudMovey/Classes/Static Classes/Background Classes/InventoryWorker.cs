@@ -2,6 +2,7 @@
 using CloudMoveyWorkerService.CaaS.Models;
 using CloudMoveyWorkerService.CloudMovey.Sqlite.Models;
 using CloudMoveyWorkerService.CloudMovey.Types.API;
+using CloudMoveyWorkerService.WCF;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -177,7 +178,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                 int records = dbcontext.Workloads.Count(x => x.moid == _caasworkload.id);
                                 if (records == 0)
                                 {
-                                    dbcontext.Workloads.Add(_workload);
+                                    new CloudMoveyService().AddWorkload(_workload);
                                 }
                                 else
                                 {
@@ -188,8 +189,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                     _database_workload.hostname = _caasworkload.machineName;
                                     _database_workload.moid = _caasworkload.id;
                                     _database_workload.platform_id = _platform.id;
+                                    dbcontext.SaveChanges();
+
                                 }
-                                dbcontext.SaveChanges();
                             }
                         }
                         else if (_platform.platform_version == "MCP 2.0")
@@ -316,7 +318,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                 _workload.platform_id = _platform.id;
                                 if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id) == 0)
                                 {
-                                    dbcontext.Workloads.Add(_workload);
+                                    new CloudMoveyService().AddWorkload(_workload);
                                 }
                                 else
                                 {
@@ -327,8 +329,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                     _database_workload.hostname = _caasworkload.name;
                                     _database_workload.moid = _caasworkload.id;
                                     _database_workload.platform_id = _platform.id;
+                                    dbcontext.SaveChanges();
+
                                 }
-                                dbcontext.SaveChanges();
                             }
                         }
                     }

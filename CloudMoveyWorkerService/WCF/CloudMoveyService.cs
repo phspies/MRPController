@@ -35,7 +35,7 @@ namespace CloudMoveyWorkerService.WCF
             try
             {
                 CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _addfailovergroup.id = Guid.NewGuid().ToString().Replace("-", "").GetSHA1Hash();
+                _addfailovergroup.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
                 _addedfailovergroup = dbcontext.Failovergroups.Add(_addfailovergroup);
                 CloudMoveyEvents.add(new Event() { entity = _addfailovergroup.group, severity = 0, component ="New Failover Group", summary = _addfailovergroup.ToString() });
                 dbcontext.SaveChanges();
@@ -86,6 +86,26 @@ namespace CloudMoveyWorkerService.WCF
             var workloads = from Workload in dbcontext.Workloads select Workload;
             return workloads.ToList<Workload>();
         }
+        public Workload AddWorkload(Workload _addworkload)
+        {
+            Workload _addedworkload = null;
+            try
+            {
+                CloudMoveyEntities dbcontext = new CloudMoveyEntities();
+                _addworkload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+
+                _addedworkload = dbcontext.Workloads.Add(_addworkload);
+                CloudMoveyEvents.add(new Event() { entity = _addworkload.hostname, severity = 0, component = "New Failover Group", summary = _addworkload.ToString() });
+                dbcontext.SaveChanges();
+
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException e)
+            {
+                Global.event_log.WriteEntry(String.Format("Error adding record: {0}", e.ToString()), EventLogEntryType.Error);
+            }
+            return _addedworkload;
+
+        }
         public Workload UpdateWorkload(Workload _updateworkload)
         {
             Workload _update = null;
@@ -97,7 +117,7 @@ namespace CloudMoveyWorkerService.WCF
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateworkload, _update);
-                    _update.hash_value = _update.GetSHA1Hash();
+                    _update.hash_value = _update.GetHashString();
                     CloudMoveyEvents.add(new Event() { entity = _update.hostname, severity = 0, component = "Updated Workload", summary = _update.ToString() });
                     dbcontext.SaveChanges();
                 }
@@ -107,6 +127,15 @@ namespace CloudMoveyWorkerService.WCF
                 Global.event_log.WriteEntry(String.Format("Error updating record: {0}", e.Message), EventLogEntryType.Error);
             }
             return _update;
+        }
+        public bool DestroyWorkload(Workload _destroyworkload)
+        {
+            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
+            Workload _remove = dbcontext.Workloads.Single(d => d.id == _destroyworkload.id);
+            CloudMoveyEvents.add(new Event() { entity = _remove.hostname, severity = 0, component = "Destroy Failover Group", summary = _remove.ToString() });
+            dbcontext.Workloads.Remove(_remove);
+            dbcontext.SaveChanges();
+            return true;
         }
         #endregion
         public workerInformation CollectionInformation()
@@ -130,8 +159,8 @@ namespace CloudMoveyWorkerService.WCF
             try
             {
                 CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _addplatform.id = Guid.NewGuid().ToString().Replace("-", "").GetSHA1Hash();
-                _addplatform.hash_value = _addplatform.GetSHA1Hash();
+                _addplatform.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                _addplatform.hash_value = _addplatform.GetHashString();
                 CloudMoveyEvents.add(new Event() { entity = _addplatform.description, severity = 0, component = "New Failover Group", summary = _addplatform.ToString() });
                 _addedplatform = dbcontext.Platforms.Add(_addplatform);
                 dbcontext.SaveChanges();
@@ -154,7 +183,7 @@ namespace CloudMoveyWorkerService.WCF
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateplatform, _update);
-                    _update.hash_value = _update.GetSHA1Hash();
+                    _update.hash_value = _update.GetHashString();
                     CloudMoveyEvents.add(new Event() { entity = _update.description, severity = 0, component = "Updated Failover Group", summary = _update.ToString() });
                     dbcontext.SaveChanges();
                 }
@@ -244,10 +273,10 @@ namespace CloudMoveyWorkerService.WCF
             try
             {
                 CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _addCredential.id = Guid.NewGuid().ToString().Replace("-", "").GetSHA1Hash();
+                _addCredential.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
                 _addedCredential = dbcontext.Credentials.Add(_addCredential);
                 _addedCredential.human_type = (_addedCredential.credential_type == 0 ? "Platform" : "Workload");
-                _addedCredential.hash_value = _addedCredential.GetSHA1Hash();
+                _addedCredential.hash_value = _addedCredential.GetHashString();
                 CloudMoveyEvents.add(new Event() { entity = _addedCredential.description, severity = 0, component = "New Credential", summary = _addedCredential.ToString() });
                 dbcontext.SaveChanges();
             }
@@ -270,7 +299,7 @@ namespace CloudMoveyWorkerService.WCF
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateCredential, _update);
-                    _update.hash_value = _update.GetSHA1Hash();
+                    _update.hash_value = _update.GetHashString();
                     CloudMoveyEvents.add(new Event() { entity = _update.description, severity = 0, component = "Update Credential", summary = _update.ToString() });
                     dbcontext.SaveChanges();
                 }

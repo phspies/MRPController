@@ -35,7 +35,7 @@ namespace CloudMoveyWorkerService.CaaS1
         /// <returns></returns>
         public ServersWithBackup platformworkloads(List<Option> options = null)
         {
-            orgendpoint("/workloadWithBackup");
+            orgendpoint("/serverWithBackup");
             urloptions = options;
             ServersWithBackup softwarelabels = get<ServersWithBackup>(null, true) as ServersWithBackup;
             return softwarelabels;

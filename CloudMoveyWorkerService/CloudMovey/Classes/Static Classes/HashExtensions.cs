@@ -2,6 +2,7 @@
 using System.IO;
 using System.Runtime.Serialization;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace CloudMoveyWorkerService
 {
@@ -76,7 +77,20 @@ namespace CloudMoveyWorkerService
         {
             return instance.GetHash<SHA1CryptoServiceProvider>();
         }
+        public static byte[] GetHash(string inputString)
+        {
+            HashAlgorithm algorithm = SHA1.Create();  // SHA1.Create()
+            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
 
+        public static string GetHashString(this object instance)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(instance.GetHash<SHA1CryptoServiceProvider>()))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString().ToLower();
+        }
         private static string computeHash<T>(object instance, T cryptoServiceProvider) where T : HashAlgorithm, new()
         {
             DataContractSerializer serializer = new DataContractSerializer(instance.GetType());

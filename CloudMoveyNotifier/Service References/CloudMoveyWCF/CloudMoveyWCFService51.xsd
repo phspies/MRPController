@@ -5,7 +5,7 @@
     <xs:sequence>
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS" minOccurs="0" name="NetworkDomains" nillable="true" type="q1:ArrayOfNetworkDomainType" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS" minOccurs="0" name="Networks" nillable="true" type="q2:ArrayOfVlanType" />
-      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS" minOccurs="0" name="Workloads" nillable="true" type="q3:ArrayOfWorkloadType" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CaaS" minOccurs="0" name="Workloads" nillable="true" type="q3:ArrayOfServerType" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PlatformDetails" nillable="true" type="tns:PlatformDetails" />

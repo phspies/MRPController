@@ -31,7 +31,11 @@ namespace CloudMoveyWorkerService.WCF
         [OperationContract]
         List<Workload> ListWorkloads();
         [OperationContract]
+        Workload AddWorkload(Workload _addworkload);
+        [OperationContract]
         Workload UpdateWorkload(Workload _updateworkload);
+        [OperationContract]
+        bool DestroyWorkload(Workload _destroyworkload);
         #endregion
 
         #region Platforms

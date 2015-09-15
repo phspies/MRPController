@@ -214,28 +214,28 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="VlanTypeNetworkDomain" nillable="true" type="tns:VlanTypeNetworkDomain" />
-  <xs:complexType name="ArrayOfWorkloadType">
+  <xs:complexType name="ArrayOfServerType">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkloadType" nillable="true" type="tns:WorkloadType" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ServerType" nillable="true" type="tns:ServerType" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfWorkloadType" nillable="true" type="tns:ArrayOfWorkloadType" />
-  <xs:complexType name="WorkloadType">
+  <xs:element name="ArrayOfServerType" nillable="true" type="tns:ArrayOfServerType" />
+  <xs:complexType name="ServerType">
     <xs:sequence>
-      <xs:element name="backupField" nillable="true" type="tns:WorkloadTypeBackup" />
+      <xs:element name="backupField" nillable="true" type="tns:ServerTypeBackup" />
       <xs:element name="cpuCountField" type="xs:int" />
       <xs:element name="createTimeField" type="xs:dateTime" />
       <xs:element name="datacenterIdField" nillable="true" type="xs:string" />
       <xs:element name="deployedField" type="xs:boolean" />
       <xs:element name="descriptionField" nillable="true" type="xs:string" />
-      <xs:element name="diskField" nillable="true" type="tns:ArrayOfWorkloadTypeDisk" />
+      <xs:element name="diskField" nillable="true" type="tns:ArrayOfServerTypeDisk" />
       <xs:element name="idField" nillable="true" type="xs:string" />
-      <xs:element name="machineStatusField" nillable="true" type="tns:ArrayOfWorkloadTypeMachineStatus" />
+      <xs:element name="machineStatusField" nillable="true" type="tns:ArrayOfServerTypeMachineStatus" />
       <xs:element name="memoryGbField" type="xs:int" />
-      <xs:element name="monitoringField" nillable="true" type="tns:WorkloadTypeMonitoring" />
+      <xs:element name="monitoringField" nillable="true" type="tns:ServerTypeMonitoring" />
       <xs:element name="nameField" nillable="true" type="xs:string" />
-      <xs:element name="networkInfoField" nillable="true" type="tns:WorkloadTypeNetworkInfo" />
-      <xs:element name="nicField" nillable="true" type="tns:WorkloadNic" />
+      <xs:element name="networkInfoField" nillable="true" type="tns:ServerTypeNetworkInfo" />
+      <xs:element name="nicField" nillable="true" type="tns:ServerNic" />
       <xs:element name="operatingSystemField" nillable="true" type="tns:OperatingSystemType" />
       <xs:element name="progressField" nillable="true" type="tns:ProgressType" />
       <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="softwareLabelField" nillable="true" type="q1:ArrayOfstring" />
@@ -244,22 +244,22 @@
       <xs:element name="stateField" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="WorkloadType" nillable="true" type="tns:WorkloadType" />
-  <xs:complexType name="WorkloadTypeBackup">
+  <xs:element name="ServerType" nillable="true" type="tns:ServerType" />
+  <xs:complexType name="ServerTypeBackup">
     <xs:sequence>
       <xs:element name="assetIdField" nillable="true" type="xs:string" />
       <xs:element name="servicePlanField" nillable="true" type="xs:string" />
       <xs:element name="stateField" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="WorkloadTypeBackup" nillable="true" type="tns:WorkloadTypeBackup" />
-  <xs:complexType name="ArrayOfWorkloadTypeDisk">
+  <xs:element name="ServerTypeBackup" nillable="true" type="tns:ServerTypeBackup" />
+  <xs:complexType name="ArrayOfServerTypeDisk">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkloadTypeDisk" nillable="true" type="tns:WorkloadTypeDisk" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ServerTypeDisk" nillable="true" type="tns:ServerTypeDisk" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfWorkloadTypeDisk" nillable="true" type="tns:ArrayOfWorkloadTypeDisk" />
-  <xs:complexType name="WorkloadTypeDisk">
+  <xs:element name="ArrayOfServerTypeDisk" nillable="true" type="tns:ArrayOfServerTypeDisk" />
+  <xs:complexType name="ServerTypeDisk">
     <xs:sequence>
       <xs:element name="idField" nillable="true" type="xs:string" />
       <xs:element name="scsiIdField" type="xs:int" />
@@ -268,36 +268,36 @@
       <xs:element name="stateField" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="WorkloadTypeDisk" nillable="true" type="tns:WorkloadTypeDisk" />
-  <xs:complexType name="ArrayOfWorkloadTypeMachineStatus">
+  <xs:element name="ServerTypeDisk" nillable="true" type="tns:ServerTypeDisk" />
+  <xs:complexType name="ArrayOfServerTypeMachineStatus">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="WorkloadTypeMachineStatus" nillable="true" type="tns:WorkloadTypeMachineStatus" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ServerTypeMachineStatus" nillable="true" type="tns:ServerTypeMachineStatus" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfWorkloadTypeMachineStatus" nillable="true" type="tns:ArrayOfWorkloadTypeMachineStatus" />
-  <xs:complexType name="WorkloadTypeMachineStatus">
+  <xs:element name="ArrayOfServerTypeMachineStatus" nillable="true" type="tns:ArrayOfServerTypeMachineStatus" />
+  <xs:complexType name="ServerTypeMachineStatus">
     <xs:sequence>
       <xs:element name="nameField" nillable="true" type="xs:string" />
       <xs:element name="valueField" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="WorkloadTypeMachineStatus" nillable="true" type="tns:WorkloadTypeMachineStatus" />
-  <xs:complexType name="WorkloadTypeMonitoring">
+  <xs:element name="ServerTypeMachineStatus" nillable="true" type="tns:ServerTypeMachineStatus" />
+  <xs:complexType name="ServerTypeMonitoring">
     <xs:sequence>
       <xs:element name="monitoringIdField" nillable="true" type="xs:string" />
       <xs:element name="servicePlanField" nillable="true" type="xs:string" />
       <xs:element name="stateField" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="WorkloadTypeMonitoring" nillable="true" type="tns:WorkloadTypeMonitoring" />
-  <xs:complexType name="WorkloadTypeNetworkInfo">
+  <xs:element name="ServerTypeMonitoring" nillable="true" type="tns:ServerTypeMonitoring" />
+  <xs:complexType name="ServerTypeNetworkInfo">
     <xs:sequence>
       <xs:element name="additionalNicField" nillable="true" type="tns:ArrayOfNicType" />
       <xs:element name="networkDomainIdField" nillable="true" type="xs:string" />
       <xs:element name="primaryNicField" nillable="true" type="tns:NicType" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="WorkloadTypeNetworkInfo" nillable="true" type="tns:WorkloadTypeNetworkInfo" />
+  <xs:element name="ServerTypeNetworkInfo" nillable="true" type="tns:ServerTypeNetworkInfo" />
   <xs:complexType name="ArrayOfNicType">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="NicType" nillable="true" type="tns:NicType" />
@@ -316,7 +316,7 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="NicType" nillable="true" type="tns:NicType" />
-  <xs:complexType name="WorkloadNic">
+  <xs:complexType name="ServerNic">
     <xs:sequence>
       <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="networkId" nillable="true" type="xs:string" />
@@ -325,7 +325,7 @@
       <xs:element minOccurs="0" name="state" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="WorkloadNic" nillable="true" type="tns:WorkloadNic" />
+  <xs:element name="ServerNic" nillable="true" type="tns:ServerNic" />
   <xs:complexType name="OperatingSystemType">
     <xs:sequence>
       <xs:element name="displayNameField" nillable="true" type="xs:string" />

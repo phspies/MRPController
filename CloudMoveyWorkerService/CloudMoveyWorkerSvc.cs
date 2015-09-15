@@ -60,7 +60,7 @@ namespace CloudMoveyWorkerService
             mirror_thread.Start();
 
             Thread.Yield();
-
+            //Thread.Sleep(20000);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
