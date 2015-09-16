@@ -39,13 +39,13 @@
                             <ContentControl.Style>
                                 <Style TargetType="{x:Type ContentControl}">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding description}" Value="Dimension Data">
+                                        <DataTrigger Binding="{Binding human_vendor}" Value="Dimension Data">
                                             <Setter Property="Content" Value="{StaticResource dimensiondata}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding description}" Value="VMWare">
+                                        <DataTrigger Binding="{Binding human_vendor}" Value="VMWare">
                                             <Setter Property="Content" Value="{StaticResource vmware}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding description}" Value="Hyper-V">
+                                        <DataTrigger Binding="{Binding human_vendor}" Value="Hyper-V">
                                             <Setter Property="Content" Value="{StaticResource hyper-v}" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -95,13 +95,13 @@
                                 <Style TargetType="{x:Type ContentControl}">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding platform}" Value="Dimension Data">
-                                            <Setter Property="Content" Value="{DynamicResource dimensiondata}" />
+                                            <Setter Property="Content" Value="{StaticResource dimensiondata}" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding platform}" Value="VMWare">
-                                            <Setter Property="Content" Value="{DynamicResource vmware}" />
+                                            <Setter Property="Content" Value="{StaticResource vmware}" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding platform}" Value="Hyper-V">
-                                            <Setter Property="Content" Value="{DynamicResource hyper-v}" />
+                                            <Setter Property="Content" Value="{StaticResource hyper-v}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -361,8 +361,8 @@
             <TabControl Grid.Row="0" DockPanel.Dock="Top"  controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10,10,10,176" Background="#E8F2DC">
                 <TabItem Header="Application Groups" controls:ControlsHelper.HeaderFontSize="18">
                     <Grid Margin="5,5,5,5" x:Name="ApplicationGroupGrid">
-                        <CheckBox Style="{StaticResource OrangeSwitchStyle}" Name="workload_filter_toggleswitch" Margin="263,0,0,0" Checked="workload_filter_toggle" Unchecked="workload_filter_toggle" HorizontalAlignment="Left" Width="94" Height="28" VerticalAlignment="Top" />
-                        <TextBox x:Name="workload_search" Height="23" TextWrapping="Wrap" TextChanged="workload_search_filter" Margin="922,0,0,0" VerticalAlignment="Top" />
+                        <CheckBox Name="workload_filter_toggleswitch" Margin="0,6,148,0" Checked="workload_filter_toggle" Unchecked="workload_filter_toggle" Height="13" VerticalAlignment="Top" HorizontalAlignment="Right" Width="14" />
+                        <TextBox x:Name="workload_search" Height="23" TextWrapping="Wrap" TextChanged="workload_search_filter" Margin="0,0,178,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="299" />
 
                         <TreeView x:Name="Failovergroup_treeview" AllowDrop="True" DragOver="Tree_DragOver" Drop="Tree_Drop" DragLeave="Tree_DragLeave" SelectedItemChanged="failovergroup_treeview_selectionchanged" Margin="0,0,0,0" HorizontalAlignment="Left" Width="248">
                             <TreeView.Resources>
@@ -449,9 +449,9 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Label x:Name="label2" Content="Show Disabled Workloads" HorizontalAlignment="Left" Margin="362,0,0,0" VerticalAlignment="Top" Height="28"/>
+                        <Label x:Name="label2" Content="Show Disabled Workloads" Margin="0,-1,0,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="148"/>
 
-                        <Label x:Name="label" Content="Search" Margin="865,0,311,0" VerticalAlignment="Top" Height="23"/>
+                        <Label x:Name="label" Content="Search" Margin="0,-3,483,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="45"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Platforms" controls:ControlsHelper.HeaderFontSize="18">
