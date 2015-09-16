@@ -37,7 +37,6 @@ namespace CloudMoveyNotifier
 
         public List<Credential> workload_credentials()
         {
-            Debug.WriteLine("Passing _workload_credentials along");
             return channel.ListCredentials().Where(x => x.credential_type == 1).ToList();
         }
         public event PropertyChangedEventHandler PropertyChanged;

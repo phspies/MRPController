@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/entypo-license.txt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("cloudmovey.png")]
 
 

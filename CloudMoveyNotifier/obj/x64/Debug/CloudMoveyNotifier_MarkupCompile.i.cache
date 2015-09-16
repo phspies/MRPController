@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\App.xaml
-71965987352
+8-1067437229
 
-23-1615603523
+24-1783237470
 38-820351126
-Forms\FailovergroupForm.xaml;Forms\CredentialForm.xaml;Forms\PlatformForm.xaml;MainWindow.xaml;Resources\DimensionData.xaml;Resources\Icons.xaml;Resources\logos.xaml;
+Forms\FailovergroupForm.xaml;Forms\CredentialForm.xaml;Forms\PlatformForm.xaml;SplashWindow.xaml;MainWindow.xaml;Resources\DimensionData.xaml;Resources\Icons.xaml;Resources\logos.xaml;
 
-False
+True
 

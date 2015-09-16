@@ -172,6 +172,9 @@
     <Compile Include="Forms\PlatformForm.xaml.cs">
       <DependentUpon>PlatformForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SplashWindow.xaml.cs">
+      <DependentUpon>SplashWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\CredentialTypes.cs" />
     <Compile Include="Models\DimensionDataLocationViewModel.cs" />
     <Compile Include="Models\Datacenter.cs" />
@@ -194,6 +197,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Forms\PlatformForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SplashWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -277,6 +284,7 @@
     <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService3.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Resource Include="CloudMovey.png" />
     <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
