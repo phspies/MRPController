@@ -162,6 +162,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extensions\Class1.cs" />
+    <Compile Include="Extensions\UIServices.cs" />
     <Compile Include="Forms\FailovergroupForm.xaml.cs">
       <DependentUpon>FailovergroupForm.xaml</DependentUpon>
     </Compile>
@@ -178,6 +179,7 @@
     <Compile Include="Models\Types.cs" />
     <Compile Include="Models\FailovergroupTypes.cs" />
     <Compile Include="Models\Vendors.cs" />
+    <Compile Include="Models\Workload.cs" />
     <Compile Include="Service References\CloudMoveyWCF\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

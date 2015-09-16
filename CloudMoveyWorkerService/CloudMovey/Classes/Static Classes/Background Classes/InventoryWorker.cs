@@ -27,8 +27,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                 int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads;
                 _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = 0;
 
-                try {
-                    Global.event_log.WriteEntry("Staring inventory process");              
+                try
+                {
+                    Global.event_log.WriteEntry("Staring inventory process");
                     //process credentials
                     List<Credential> _workercredentials = (dbcontext.Credentials as IQueryable<Credential>).ToList();
                     MoveyCredentialListType _platformcredentials = _cloud_movey.credential().listcredentials();
@@ -62,7 +63,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                         _crudplatform.platform_version = _platform.platform_version;
                         _crudplatform.platformtype = (new Vendors()).VendorList.FirstOrDefault(x => x.ID == _platform.vendor).Vendor.Replace(" ", "_").ToLower();
                         _crudplatform.moid = _platform.moid;
-                      
+
                         _crudplatform.platform = _platform.description;
                         if (_platformplatforms.platforms.Exists(x => x.id == _platform.id))
                         {
@@ -125,7 +126,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                 _moveyworkload.hostname = _caasworkload.name;
                                 _moveyworkload.moid = _caasworkload.id;
                                 _moveyworkload.vcpu = _caasworkload.cpuCount;
-                                _moveyworkload.vmemory = _caasworkload.memoryMb/1024;
+                                _moveyworkload.vmemory = _caasworkload.memoryMb / 1024;
                                 _moveyworkload.platform_id = _platform.id;
                                 _moveyworkload.enabled = true;
                                 _moveyworkload.ostype = _caasworkload.operatingSystem.type.ToLower();
@@ -146,10 +147,10 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                 //Because MCP1.0 only support one nic we will just overide the vnic0 of platform
                                 List<MoveyWorkloadInterfaceType> workloadinterfaces_parameters = new List<MoveyWorkloadInterfaceType>();
                                 MoveyWorkloadInterfaceType _logical_interface = new MoveyWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", netmask = "255.255.255.0", ipaddress = _caasworkload.privateIp };
-                                if (_currentplatformworkloads.workloads.Exists(x => x.interfaces.Exists(y => x.moid == _caasworkload.id &&  y.vnic == 0)))
+                                if (_currentplatformworkloads.workloads.Exists(x => x.interfaces.Exists(y => x.moid == _caasworkload.id && y.vnic == 0)))
 
-                                    {
-                                        _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.vnic == 0).id;
+                                {
+                                    _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.vnic == 0).id;
                                 }
                                 workloadinterfaces_parameters.Add(_logical_interface);
 
@@ -175,6 +176,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                 _workload.hostname = _caasworkload.machineName;
                                 _workload.moid = _caasworkload.id;
                                 _workload.platform_id = _platform.id;
+                                _workload.ostype = _caasworkload.operatingSystem.type.ToLower();
+                                _workload.osedition = _caasworkload.operatingSystem.displayName;
                                 int records = dbcontext.Workloads.Count(x => x.moid == _caasworkload.id);
                                 if (records == 0)
                                 {
@@ -189,6 +192,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                     _database_workload.hostname = _caasworkload.machineName;
                                     _database_workload.moid = _caasworkload.id;
                                     _database_workload.platform_id = _platform.id;
+                                    _database_workload.ostype = _caasworkload.operatingSystem.type.ToLower();
+                                    _database_workload.osedition = _caasworkload.operatingSystem.displayName;
                                     dbcontext.SaveChanges();
 
                                 }
@@ -285,9 +290,12 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                         moid = _caasworkloadinterface.id,
                                         platformnetwork_id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id
                                     };
-                                    if (_currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.Exists(y => y.moid == _caasworkloadinterface.id))
+                                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
                                     {
-                                        _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
+                                        if (_currentplatformworkloads.workloads.Exists((x => x.interfaces.Exists(y => y.moid == _caasworkloadinterface.id))))
+                                        {
+                                            _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
+                                        }
                                     }
                                     workloadinterfaces_parameters.Add(_logical_interface);
                                     nic_index += 1;
@@ -316,6 +324,8 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                 _workload.hostname = _caasworkload.name;
                                 _workload.moid = _caasworkload.id;
                                 _workload.platform_id = _platform.id;
+                                _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
+                                _workload.osedition = _caasworkload.operatingSystem.displayName;
                                 if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id) == 0)
                                 {
                                     new CloudMoveyService().AddWorkload(_workload);
@@ -329,17 +339,18 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                                     _database_workload.hostname = _caasworkload.name;
                                     _database_workload.moid = _caasworkload.id;
                                     _database_workload.platform_id = _platform.id;
+                                    _database_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
+                                    _database_workload.osedition = _caasworkload.operatingSystem.displayName;
                                     dbcontext.SaveChanges();
-
                                 }
                             }
                         }
                     }
                     sw.Stop();
-                    
+
                     Global.event_log.WriteEntry(
                         String.Format("Completed data mirroring process.{6}{0} new credentials.{6}{1} new platforms.{6}{7} new platform networks.{6}{2} new workloads.{6}{3} updated credentials.{6}{4} updated platforms.{6}{8} updated platform networks.{6}{5} updated workloads.{6}{6}Total Execute Time: {9}",
-                        _new_credentials, _new_platforms, _new_workloads, _updated_credentials, _updated_platforms, _updated_workloads, 
+                        _new_credentials, _new_platforms, _new_workloads, _updated_credentials, _updated_platforms, _updated_workloads,
                         Environment.NewLine, _new_platformnetworks, _updated_platformnetworks, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
                         ));
                 }
@@ -353,7 +364,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
         private void MirrorPlatformTemplates(Credential _credential, DimensionData _caas, Platform _platform)
         {
             MoveyPlatformtemplateListType _platformtemplates = _cloud_movey.platformtemplate().listplatformtemplates();
-            
+
             //process platform images
             List<ImagesWithDiskSpeedImage> _caas_templates = _caas.workloadimage().platformworkloadimages().image;
             foreach (var _caas_template in _caas_templates.Where(x => x.location == _platform.moid))

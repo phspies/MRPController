@@ -15,8 +15,8 @@ using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Linq;
 using System.Windows.Input;
-using System.Threading.Tasks;
-using WPF.JoshSmith.Controls.Utilities;
+using System.Data;
+using CloudMoveyNotifier.Extensions;
 
 namespace CloudMoveyNotifier
 {
@@ -31,6 +31,8 @@ namespace CloudMoveyNotifier
         private List<Credential> _credential_list = new List<Credential>();
         private List<Failovergroup> _failovergroup_list = new List<Failovergroup>();
         private ObservableCollection<Failovergroup_TreeModel> _failovergroup_tree = new ObservableCollection<Failovergroup_TreeModel>();
+
+        private List<Workload_ObjectDataModel> _workloads = new List<Workload_ObjectDataModel>();
         workerInformation _information = null;
 
         public List<Credential> workload_credentials()
@@ -54,6 +56,8 @@ namespace CloudMoveyNotifier
             _information = channel.CollectionInformation();
             //Assign global assignment for tree
 
+            _workloads = new Workload_ListDataModel().list;
+            lvWorkloads.ItemsSource = _workloads;
 
             m_notifyIcon = new System.Windows.Forms.NotifyIcon();
             m_notifyIcon.BalloonTipText = "CloudMovey Notifier has been minimised. Click the tray icon to show.";
@@ -128,24 +132,22 @@ namespace CloudMoveyNotifier
         }
         private void lvWorkloads_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+
             if (e.WidthChanged)
             {
-                GridView view = this.lvWorkloads.View as GridView;
-                Decorator border = VisualTreeHelper.GetChild(this.lvWorkloads, 0) as Decorator;
-                if (border != null)
+                double remainingSpace = lvWorkloads.ActualWidth;
+
+                if (remainingSpace > 0)
                 {
-                    ScrollViewer scroller = border.Child as ScrollViewer;
-                    if (scroller != null)
+                    for (int i = 0; i < (lvWorkloads.View as GridView).Columns.Count; i++)
+                        if (i != 2)
+                            remainingSpace -= (lvWorkloads.View as GridView).Columns[i].ActualWidth;
+
+                    //Leave 15 px free for scrollbar
+                    remainingSpace -= 15;
+                    if (remainingSpace > 0)
                     {
-                        ItemsPresenter presenter = scroller.Content as ItemsPresenter;
-                        if (presenter != null)
-                        {
-                            view.Columns[0].Width = presenter.ActualWidth;
-                            for (int i = 1; i < view.Columns.Count; i++)
-                            {
-                                view.Columns[0].Width -= view.Columns[i].ActualWidth;
-                            }
-                        }
+                        (lvWorkloads.View as GridView).Columns.Last().Width = remainingSpace;
                     }
                 }
             }
@@ -331,20 +333,24 @@ namespace CloudMoveyNotifier
         }
         private void failovergroup_treeview_selectionchanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            var model = e.NewValue as Failovergroup_TreeModel;
-
-            if (model != null)
+            UiServices.SetBusyState();
+            Failovergroup_TreeModel _tree_object = e.NewValue as Failovergroup_TreeModel;
+            lvWorkloads.Items.Filter = delegate (object item)
             {
-                if (model.parent_id == null)
+                Workload_ObjectDataModel workload = item as Workload_ObjectDataModel;
+                if (_tree_object.group_object.parent_id == null) //This is the roor object
                 {
-                    lvWorkloads.ItemsSource = channel.ListWorkloads();
+                    return (workload.enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
                 }
-                Debug.WriteLine(String.Format("{0} : {1}", model.id, model.group));
-            }
+                else
+                {
+                    return (workload.failovergroup_id == _tree_object.id && workload.enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
+                }
+            };
         }
-
         private void refresh_platforms_button_clicked(object sender, RoutedEventArgs e)
         {
+            UiServices.SetBusyState();
             refesh_platform_list();
         }
         private void update_platform_button(object sender, RoutedEventArgs e)
@@ -487,18 +493,16 @@ namespace CloudMoveyNotifier
             if (e.LeftButton == MouseButtonState.Pressed && ((Math.Abs(diff.X) > SystemParameters.MinimumHorizontalDragDistance) || (Math.Abs(diff.Y) > SystemParameters.MinimumVerticalDragDistance)))
             {
                 // Get the dragged ListViewItem
-                ListView listView = sender as ListView;
                 ListViewItem listViewItem = FindAncestor<ListViewItem>((DependencyObject)e.OriginalSource);
 
                 // Find the data behind the ListViewItem
-                Workload _workload = (Workload)listView.ItemContainerGenerator.ItemFromContainer(listViewItem);
+                Workload_ObjectDataModel _workload = (Workload_ObjectDataModel)listViewItem.DataContext;
 
-                // Initialize the drag & drop operation
+                //// Initialize the drag & drop operation
                 DataObject dragData = new DataObject(_workload);
                 DragDrop.DoDragDrop(listViewItem, dragData, DragDropEffects.Move);
             }
         }
-
         // Helper to search up the VisualTree
         private static T FindAncestor<T>(DependencyObject current)
             where T : DependencyObject
@@ -519,18 +523,52 @@ namespace CloudMoveyNotifier
         // DROP
         private void Tree_Drop(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(typeof(Workload)))
+            if (e.OriginalSource.GetType() == typeof(TextBlock))
             {
-                var workload = e.Data.GetData(typeof(Workload)) as Workload;
-                var failovergroup = ((TextBlock)e.OriginalSource).DataContext as Failovergroup_TreeModel;
+                if (e.Data.GetDataPresent(typeof(Workload_ObjectDataModel)))
+                {
+                    var workload = e.Data.GetData(typeof(Workload_ObjectDataModel)) as Workload_ObjectDataModel;
+                    var failovergroup = ((TextBlock)e.OriginalSource).DataContext as Failovergroup_TreeModel;
 
-                Debug.WriteLine(String.Format("{0} {1}", workload.hostname, failovergroup.group));
-
+                    _workloads.Find(x => x.id == workload.id).failovergroup_id = failovergroup.id;
+                }
+                Failovergroup_treeview.Items.Refresh();
             }
-            Failovergroup_treeview.Items.Refresh();
+        }
+        private void workload_search_filter(object sender, RoutedEventArgs e)
+        {
+            UiServices.SetBusyState();
+
+            lvWorkloads.Items.Filter = new Predicate<object>(workload_search_object);
 
         }
+        private void workload_filter_toggle(object sender, RoutedEventArgs e)
+        {
+            UiServices.SetBusyState();
 
+            if ((bool)workload_filter_toggleswitch.IsChecked)
+            {
+                lvWorkloads.Items.Filter = new Predicate<object>(workloads_disabled);
+            }
+            else
+            {
+                lvWorkloads.Items.Filter = new Predicate<object>(workloads_enabled);
+            }
+        }
+        public bool workload_search_object(object item)
+        {
+            return ((item as Workload_ObjectDataModel).hostname.IndexOf(workload_search.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+        public bool workloads_enabled(object de)
+        {
+            Workload_ObjectDataModel workload = de as Workload_ObjectDataModel;
+            return (workload.enabled == true);
+        }
+        public bool workloads_disabled(object de)
+        {
+            Workload_ObjectDataModel workload = de as Workload_ObjectDataModel;
+            return (workload.enabled == false);
+        }
         private void Tree_DragOver(object sender, DragEventArgs e)
         {
             TreeViewItem treeViewItem = FindAncestor<TreeViewItem>((DependencyObject)e.OriginalSource);

@@ -18,12 +18,16 @@ namespace CloudMoveyWorkerService.CloudMovey.Sqlite.Models
         public string hostname { get; set; }
         public string platform_id { get; set; }
         public string credential_id { get; set; }
+        public string hash_value { get; set; }
         public string failovergroup_id { get; set; }
         public string moid { get; set; }
         public Nullable<bool> enabled { get; set; }
-        public string hash_value { get; set; }
         public Nullable<int> cpu_count { get; set; }
         public Nullable<int> memory_count { get; set; }
         public Nullable<long> storage_count { get; set; }
+        public bool credential_ok { get; set; }
+        public string application { get; set; }
+        public string osedition { get; set; }
+        public string ostype { get; set; }
     }
 }

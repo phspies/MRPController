@@ -42,23 +42,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Workloads">
-      <EntityTypeMapping TypeName="CloudMoveyModel.Workload">
-        <MappingFragment StoreEntitySet="Workloads">
-          <ScalarProperty Name="storage_count" ColumnName="storage_count" />
-          <ScalarProperty Name="memory_count" ColumnName="memory_count" />
-          <ScalarProperty Name="cpu_count" ColumnName="cpu_count" />
-          <ScalarProperty Name="hash_value" ColumnName="hash_value" />
-          <ScalarProperty Name="enabled" ColumnName="enabled" />
-          <ScalarProperty Name="moid" ColumnName="moid" />
-          <ScalarProperty Name="failovergroup_id" ColumnName="failovergroup_id" />
-          <ScalarProperty Name="credential_id" ColumnName="credential_id" />
-          <ScalarProperty Name="platform_id" ColumnName="platform_id" />
-          <ScalarProperty Name="hostname" ColumnName="hostname" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Failovergroups">
       <EntityTypeMapping TypeName="CloudMoveyModel.Failovergroup">
         <MappingFragment StoreEntitySet="Failovergroups">
@@ -91,6 +74,27 @@
           <ScalarProperty Name="initiator" ColumnName="initiator" />
           <ScalarProperty Name="target" ColumnName="target" />
           <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Workloads">
+      <EntityTypeMapping TypeName="CloudMoveyModel.Workload">
+        <MappingFragment StoreEntitySet="Workloads">
+          <ScalarProperty Name="ostype" ColumnName="ostype" />
+          <ScalarProperty Name="osedition" ColumnName="osedition" />
+          <ScalarProperty Name="application" ColumnName="application" />
+          <ScalarProperty Name="credential_ok" ColumnName="credential_ok" />
+          <ScalarProperty Name="storage_count" ColumnName="storage_count" />
+          <ScalarProperty Name="memory_count" ColumnName="memory_count" />
+          <ScalarProperty Name="cpu_count" ColumnName="cpu_count" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+          <ScalarProperty Name="moid" ColumnName="moid" />
+          <ScalarProperty Name="failovergroup_id" ColumnName="failovergroup_id" />
+          <ScalarProperty Name="hash_value" ColumnName="hash_value" />
+          <ScalarProperty Name="credential_id" ColumnName="credential_id" />
+          <ScalarProperty Name="platform_id" ColumnName="platform_id" />
+          <ScalarProperty Name="hostname" ColumnName="hostname" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

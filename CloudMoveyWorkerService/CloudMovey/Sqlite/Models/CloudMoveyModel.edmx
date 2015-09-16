@@ -92,6 +92,10 @@
           <Property Name="cpu_count" Type="int" />
           <Property Name="memory_count" Type="int" />
           <Property Name="storage_count" Type="integer" />
+          <Property Name="credential_ok" Type="bit" Nullable="false" />
+          <Property Name="application" Type="varchar" MaxLength="50" />
+          <Property Name="osedition" Type="varchar" MaxLength="50" />
+          <Property Name="ostype" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityContainer Name="CloudMoveyModelStoreContainer">
           <EntitySet Name="Credentials" EntityType="Self.Credentials" store:Type="Tables" />
@@ -147,27 +151,11 @@
         <EntityContainer Name="CloudMoveyEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Credentials" EntityType="Self.Credential" />
           <EntitySet Name="Platforms" EntityType="Self.Platform" />
-          <EntitySet Name="Workloads" EntityType="CloudMoveyModel.Workload" />
           <EntitySet Name="Failovergroups" EntityType="CloudMoveyModel.Failovergroup" />
           <EntitySet Name="Events" EntityType="CloudMoveyModel.Event" />
           <EntitySet Name="Tasks" EntityType="CloudMoveyModel.Task" />
+          <EntitySet Name="Workloads" EntityType="CloudMoveyModel.Workload" />
         </EntityContainer>
-        <EntityType Name="Workload">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="hostname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="platform_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="credential_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="failovergroup_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="moid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="enabled" Type="Boolean" />
-          <Property Name="hash_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="cpu_count" Type="Int32" />
-          <Property Name="memory_count" Type="Int32" />
-          <Property Name="storage_count" Type="Int64" />
-        </EntityType>
         <EntityType Name="Failovergroup">
           <Key>
             <PropertyRef Name="id" />
@@ -200,6 +188,26 @@
           <Property Name="queued_for" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="starttime" Type="DateTime" />
           <Property Name="endtime" Type="DateTime" />
+        </EntityType>
+        <EntityType Name="Workload">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hostname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="platform_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="credential_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="hash_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="failovergroup_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="moid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="enabled" Type="Boolean" />
+          <Property Name="cpu_count" Type="Int32" />
+          <Property Name="memory_count" Type="Int32" />
+          <Property Name="storage_count" Type="Int64" />
+          <Property Name="credential_ok" Type="Boolean" Nullable="false" />
+          <Property Name="application" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="osedition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ostype" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -248,23 +256,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Workloads">
-            <EntityTypeMapping TypeName="CloudMoveyModel.Workload">
-              <MappingFragment StoreEntitySet="Workloads">
-                <ScalarProperty Name="storage_count" ColumnName="storage_count" />
-                <ScalarProperty Name="memory_count" ColumnName="memory_count" />
-                <ScalarProperty Name="cpu_count" ColumnName="cpu_count" />
-                <ScalarProperty Name="hash_value" ColumnName="hash_value" />
-                <ScalarProperty Name="enabled" ColumnName="enabled" />
-                <ScalarProperty Name="moid" ColumnName="moid" />
-                <ScalarProperty Name="failovergroup_id" ColumnName="failovergroup_id" />
-                <ScalarProperty Name="credential_id" ColumnName="credential_id" />
-                <ScalarProperty Name="platform_id" ColumnName="platform_id" />
-                <ScalarProperty Name="hostname" ColumnName="hostname" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Failovergroups">
             <EntityTypeMapping TypeName="CloudMoveyModel.Failovergroup">
               <MappingFragment StoreEntitySet="Failovergroups">
@@ -297,6 +288,27 @@
                 <ScalarProperty Name="initiator" ColumnName="initiator" />
                 <ScalarProperty Name="target" ColumnName="target" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workloads">
+            <EntityTypeMapping TypeName="CloudMoveyModel.Workload">
+              <MappingFragment StoreEntitySet="Workloads">
+                <ScalarProperty Name="ostype" ColumnName="ostype" />
+                <ScalarProperty Name="osedition" ColumnName="osedition" />
+                <ScalarProperty Name="application" ColumnName="application" />
+                <ScalarProperty Name="credential_ok" ColumnName="credential_ok" />
+                <ScalarProperty Name="storage_count" ColumnName="storage_count" />
+                <ScalarProperty Name="memory_count" ColumnName="memory_count" />
+                <ScalarProperty Name="cpu_count" ColumnName="cpu_count" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="moid" ColumnName="moid" />
+                <ScalarProperty Name="failovergroup_id" ColumnName="failovergroup_id" />
+                <ScalarProperty Name="hash_value" ColumnName="hash_value" />
+                <ScalarProperty Name="credential_id" ColumnName="credential_id" />
+                <ScalarProperty Name="platform_id" ColumnName="platform_id" />
+                <ScalarProperty Name="hostname" ColumnName="hostname" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

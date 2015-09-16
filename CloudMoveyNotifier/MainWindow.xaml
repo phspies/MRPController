@@ -35,18 +35,18 @@
 
                 <StackPanel Orientation="Horizontal">
                     <Viewbox  Width="25" Height="25" Margin="0,5,0,0" ToolTip="Platform" Stretch="Uniform">
-                        <ContentControl Content="{DynamicResource dimensiondata}">
+                        <ContentControl>
                             <ContentControl.Style>
                                 <Style TargetType="{x:Type ContentControl}">
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding description}" Value="Dimension Data">
-                                            <Setter Property="Content" Value="{DynamicResource dimensiondata}" />
+                                            <Setter Property="Content" Value="{StaticResource dimensiondata}" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding description}" Value="VMWare">
-                                            <Setter Property="Content" Value="{DynamicResource vmware}" />
+                                            <Setter Property="Content" Value="{StaticResource vmware}" />
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding description}" Value="Hyper-V">
-                                            <Setter Property="Content" Value="{DynamicResource hyper-v}" />
+                                            <Setter Property="Content" Value="{StaticResource hyper-v}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -56,48 +56,123 @@
                     <TextBlock Margin="0,7,0,0" Text="{Binding description}"/>
                 </StackPanel>
             </DataTemplate>
+            <DataTemplate x:Key="workload_os">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox  Width="25" Height="25" Margin="0,5,0,0" ToolTip="Operating System" Stretch="Uniform">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="{x:Type ContentControl}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding osshort}" Value="windows">
+                                            <Setter Property="Content" Value="{StaticResource windows}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding osshort}" Value="ubuntu">
+                                            <Setter Property="Content" Value="{StaticResource ubuntu}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding osshort}" Value="centos">
+                                            <Setter Property="Content" Value="{StaticResource centos}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding osshort}" Value="redhat">
+                                            <Setter Property="Content" Value="{StaticResource redhat}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding osshort}" Value="suse">
+                                            <Setter Property="Content" Value="{StaticResource suse}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Viewbox>
+                    <TextBlock Margin="0,7,0,0" Text="{Binding human_os}"/>
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="workload_platform_description">
+                <StackPanel Orientation="Horizontal">
+                    <Viewbox  Width="25" Height="25" Margin="0,5,0,0" ToolTip="Platform" Stretch="Uniform">
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="{x:Type ContentControl}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding platform}" Value="Dimension Data">
+                                            <Setter Property="Content" Value="{DynamicResource dimensiondata}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding platform}" Value="VMWare">
+                                            <Setter Property="Content" Value="{DynamicResource vmware}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding platform}" Value="Hyper-V">
+                                            <Setter Property="Content" Value="{DynamicResource hyper-v}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </Viewbox>
+                    <TextBlock Margin="0,7,0,0" Text="{Binding platform_description}"/>
+                </StackPanel>
+            </DataTemplate>
             <DataTemplate x:Shared="False" x:Key="workload_resources">
                 <StackPanel Orientation="Horizontal">
                     <Viewbox  Width="30" Height="30" ToolTip="Workload CPU Count" Stretch="Uniform">
-                        <ContentControl Content="{DynamicResource appbar_hardware_cpu}" />
+                        <ContentControl Content="{StaticResource appbar_hardware_cpu}" />
                     </Viewbox>
-                    <TextBlock Margin="0,7,0,0" Text="{Binding cpu_count}"/>
+                    <TextBlock Margin="0,10,0,0" Text="{Binding cpu_count}"/>
                     <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
-                    <Viewbox Width="30" Height="30" ToolTip="Workload Memory Capacity" Stretch="Uniform">
-                        <ContentControl Content="{DynamicResource appbar_resource}" />
+                    <Viewbox Width="30" Height="30" Margin="0,7,0,0" ToolTip="Workload Memory Capacity" Stretch="Uniform">
+                        <ContentControl Content="{StaticResource memory}" />
                     </Viewbox>
-                    <TextBlock Margin="0,7,0,0" Text="{Binding memory_count}"/>
+                    <TextBlock Margin="0,10,0,0" Text="{Binding memory_count}"/>
                     <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Viewbox Width="30" Height="30" ToolTip="Workload Storage Capacity" Stretch="Uniform">
-                        <ContentControl Focusable="False" Content="{DynamicResource appbar_disk}" />
+                        <ContentControl Focusable="False" Content="{StaticResource appbar_database}" />
                     </Viewbox>
-                    <TextBlock Margin="0,7,0,0" Text="{Binding storage_count}"/>
+                    <TextBlock Margin="0,10,0,0" Text="{Binding storage_count}"/>
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Shared="False" x:Key="platform_resources">
                 <StackPanel Orientation="Horizontal">
                     <Viewbox  Width="30" Height="30" ToolTip="Workload Count" Stretch="Uniform">
-                        <ContentControl Focusable="true" Content="{DynamicResource appbar_workload}" />
+                        <ContentControl Focusable="true" Content="{StaticResource appbar_workload}" />
                     </Viewbox>
                     <TextBlock Margin="0,7,0,0" Text="{Binding workload_count}"/>
                     <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Viewbox Width="30" Height="30" ToolTip="Logical Network Count" Stretch="Uniform">
-                        <ContentControl Focusable="False" Content="{DynamicResource appbar_network_workload_connecting}" />
+                        <ContentControl Focusable="False" Content="{StaticResource appbar_network_workload_connecting}" />
                     </Viewbox>
                     <TextBlock Margin="0,7,0,0" Text="{Binding vlan_count}"/>
                     <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Viewbox Width="30" Height="30" ToolTip="Network Domain Count" Stretch="Uniform">
-                        <ContentControl Focusable="False" Content="{DynamicResource appbar_network}" />
+                        <ContentControl Focusable="False" Content="{StaticResource appbar_network}" />
                     </Viewbox>
                     <TextBlock Margin="0,7,0,0" Text="{Binding networkdomain_count}"/>
                 </StackPanel>
             </DataTemplate>
-            <DataTemplate x:Shared="False" x:Key="workload_checkhostname">
+
+            <Color x:Key="dd-100">#d3f1bc</Color>
+            <Color x:Key="dd-200">#bcea9a</Color>
+            <Color x:Key="dd-300">#a6e278</Color>
+            <Color x:Key="dd-400">#90db57</Color>
+            <Color x:Key="dd-500">#7ad435</Color>
+            <Color x:Key="dd-700">#549720</Color>
+            <Color x:Key="dd-800">#417619</Color>
+
+            <Style TargetType="ContentControl" x:Key="handmouseover">
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Cursor" Value="Hand" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <DataTemplate x:Shared="False" x:Key="workload_hostname">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Viewbox x:Name="drag_element" Width="25" Height="25" ToolTip="Drag/Drop Control" Stretch="Uniform" PreviewMouseLeftButtonDown="lvWorkloads_PreviewMouseLeftButtonDown" PreviewMouseMove="lvWorkloads_MouseMove">
+                        <ContentControl Focusable="true" Content="{StaticResource appbar_layer_arrange_bringforward}" Style="{StaticResource handmouseover}"/>
+                    </Viewbox>
                     <controls:ToggleSwitch OnLabel="" OffLabel="" IsChecked="{Binding enabled, Mode=TwoWay}" />
                     <TextBlock Text="{Binding hostname}" Margin="5,10,0,0"/>
                 </StackPanel>
             </DataTemplate>
+
             <DataTemplate x:Shared="False" x:Key="workload_credential">
                 <StackPanel Orientation="Horizontal">
                     <ComboBox ItemsSource="{Binding Source={StaticResource workload_credentials_static}}" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
@@ -140,11 +215,116 @@
                 <TextBlock x:Name="TextBlock" Text="{Binding Text}" ContextMenu="{StaticResource TreeViewItemContextMenu}" />
 
             </HierarchicalDataTemplate>
-
+            <LinearGradientBrush x:Key="CheckedBlue" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#FF285AB3" Offset="0" />
+                <GradientStop Color="#FF4184EC" Offset="0.5" />
+                <GradientStop Color="#FF558BED" Offset="0.5" />
+                <GradientStop Color="#FF7DACF0" Offset="1" />
+            </LinearGradientBrush>
+            <LinearGradientBrush x:Key="CheckedOrange" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="#FFCA6A13" Offset="0" />
+                <GradientStop Color="#FFF67D0C" Offset="0.2" />
+                <GradientStop Color="#FFFE7F0C" Offset="0.2" />
+                <GradientStop Color="#FFFA8E12" Offset="0.5" />
+                <GradientStop Color="#FFFF981D" Offset="0.5" />
+                <GradientStop Color="#FFFCBC5A" Offset="1" />
+            </LinearGradientBrush>
+            <SolidColorBrush x:Key="CheckedOrangeBorder" Color="#FF8E4A1B" />
+            <SolidColorBrush x:Key="CheckedBlueBorder" Color="#FF143874" />
+            <Style x:Key="OrangeSwitchStyle" TargetType="{x:Type CheckBox}">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+                <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <ControlTemplate.Resources>
+                                <Storyboard x:Key="OnChecking">
+                                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="53" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Key="OnUnchecking">
+                                    <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="slider" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </ControlTemplate.Resources>
+                            <DockPanel x:Name="dockPanel">
+                                <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" ContentTemplate="{TemplateBinding ContentTemplate}" RecognizesAccessKey="True" VerticalAlignment="Center" />
+                                <Grid>
+                                    <Border x:Name="BackgroundBorder" BorderBrush="#FF939393" BorderThickness="1" CornerRadius="3" Height="27" Width="94">
+                                        <Border.Background>
+                                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                <GradientStop Color="#FFB5B5B5" Offset="0" />
+                                                <GradientStop Color="#FFDEDEDE" Offset="0.1" />
+                                                <GradientStop Color="#FFEEEEEE" Offset="0.5" />
+                                                <GradientStop Color="#FFFAFAFA" Offset="0.5" />
+                                                <GradientStop Color="#FFFEFEFE" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition />
+                                            </Grid.ColumnDefinitions>
+                                            <Ellipse x:Name="Off" Width="14" Height="14" Stroke="#FF7A7A7A" StrokeThickness="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            <Line x:Name="On" X1="0" Y1="0" X2="0" Y2="14" Stroke="#FF7A7A7A" StrokeThickness="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Grid>
+                                    </Border>
+                                    <Border BorderBrush="#FF939393" HorizontalAlignment="Left" x:Name="slider" Width="41" Height="27" BorderThickness="1" CornerRadius="3" RenderTransformOrigin="0.5,0.5" Margin="0">
+                                        <Border.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                <SkewTransform AngleX="0" AngleY="0" />
+                                                <RotateTransform Angle="0" />
+                                                <TranslateTransform X="0" Y="0" />
+                                            </TransformGroup>
+                                        </Border.RenderTransform>
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                                <GradientStop Color="#FFF0F0F0" Offset="0" />
+                                                <GradientStop Color="#FFCDCDCD" Offset="0.1" />
+                                                <GradientStop Color="#FFFBFBFB" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                </Grid>
+                            </DockPanel>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource OnUnchecking}" x:Name="OnUnchecking_BeginStoryboard" />
+                                    </Trigger.ExitActions>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource OnChecking}" x:Name="OnChecking_BeginStoryboard" />
+                                    </Trigger.EnterActions>
+                                    <Setter TargetName="On" Property="Stroke" Value="White" />
+                                    <Setter TargetName="Off" Property="Stroke" Value="White" />
+                                    <!-- Change Orange or Blue color here -->
+                                    <Setter TargetName="BackgroundBorder" Property="Background" Value="{StaticResource CheckedOrange}" />
+                                    <Setter TargetName="BackgroundBorder" Property="BorderBrush" Value="{StaticResource CheckedOrangeBorder}" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <!-- ToDo: Add Style for Isenabled == False -->
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
         </ResourceDictionary>
 
     </controls:MetroWindow.Resources>
+    <Window.Style>
+        <Style TargetType="Window">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                    <Setter Property="Cursor" Value="Wait" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Style>
     <!-- the window button commands -->
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
@@ -165,426 +345,285 @@
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
     <Grid>
-        <TabControl Grid.Row="0" Height="451" DockPanel.Dock="Top"  controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10,10,10,178" Background="#E8F2DC">
-            <TabItem Header="Application Groups" controls:ControlsHelper.HeaderFontSize="18">
-                <Grid Margin="5,5,5,5" x:Name="ApplicationGroupGrid">
-                    <TreeView x:Name="Failovergroup_treeview" AllowDrop="True" DragOver="Tree_DragOver" Drop="Tree_Drop" DragLeave="Tree_DragLeave" SelectedItemChanged="failovergroup_treeview_selectionchanged" Margin="0,0,0,0" HorizontalAlignment="Left" Width="248">
-                        <TreeView.Resources>
-                            <SolidColorBrush Color="#69BE28" x:Key="{x:Static SystemColors.HighlightBrushKey}"/>
-                            <HierarchicalDataTemplate  DataType="{x:Type model:Failovergroup_TreeModel}"  ItemsSource="{Binding children}">
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsBusy}" Value="True">
+                        <Setter Property="IsHitTestVisible" Value="False" />
+                        <!-- Ensures wait cursor is active everywhere in the window -->
+                        <Setter Property="IsEnabled" Value="False" />
+                        <!-- Makes everything appear disabled -->
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
+        <Grid>
+            <TabControl Grid.Row="0" DockPanel.Dock="Top"  controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10,10,10,176" Background="#E8F2DC">
+                <TabItem Header="Application Groups" controls:ControlsHelper.HeaderFontSize="18">
+                    <Grid Margin="5,5,5,5" x:Name="ApplicationGroupGrid">
+                        <CheckBox Style="{StaticResource OrangeSwitchStyle}" Name="workload_filter_toggleswitch" Margin="263,0,0,0" Checked="workload_filter_toggle" Unchecked="workload_filter_toggle" HorizontalAlignment="Left" Width="94" Height="28" VerticalAlignment="Top" />
+                        <TextBox x:Name="workload_search" Height="23" TextWrapping="Wrap" TextChanged="workload_search_filter" Margin="922,0,0,0" VerticalAlignment="Top" />
 
-                                <StackPanel  Orientation="Horizontal" >
-                                    <StackPanel.Style>
-                                        <Style TargetType="{x:Type StackPanel}">
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="#d3f1bc" />
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
+                        <TreeView x:Name="Failovergroup_treeview" AllowDrop="True" DragOver="Tree_DragOver" Drop="Tree_Drop" DragLeave="Tree_DragLeave" SelectedItemChanged="failovergroup_treeview_selectionchanged" Margin="0,0,0,0" HorizontalAlignment="Left" Width="248">
+                            <TreeView.Resources>
+                                <SolidColorBrush Color="#69BE28" x:Key="{x:Static SystemColors.HighlightBrushKey}"/>
+                                <HierarchicalDataTemplate  DataType="{x:Type model:Failovergroup_TreeModel}"  ItemsSource="{Binding children}">
+                                    <StackPanel  Orientation="Horizontal" >
+                                        <Viewbox  Width="25" Height="25" Stretch="Uniform">
+                                            <ContentControl>
+                                                <ContentControl.Style>
+                                                    <Style TargetType="{x:Type ContentControl}">
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding group_type}" Value="10">
+                                                                <Setter Property="Content" Value="{StaticResource appbar_palmtree}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding group_type}" Value="0">
+                                                                <Setter Property="Content" Value="{StaticResource appbar_map_location}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding group_type}" Value="1">
+                                                                <Setter Property="Content" Value="{StaticResource appbar_cog}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding group_type}" Value="2">
+                                                                <Setter Property="Content" Value="{StaticResource appbar_browser_wire}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding group_type}" Value="3">
+                                                                <Setter Property="Content" Value="{StaticResource appbar_people_multiple}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ContentControl.Style>
+                                            </ContentControl>
+                                        </Viewbox>
+                                        <TextBlock Text="{Binding group}" Margin="4,4,4,0"/>
+                                    </StackPanel>
+                                </HierarchicalDataTemplate>
+                            </TreeView.Resources>
+                            <TreeView.ContextMenu>
+                                <StaticResource ResourceKey="TreeViewItemContextMenu"/>
+                            </TreeView.ContextMenu>
+                            <TreeView.ItemContainerStyle>
+                                <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
+                                    <Setter Property="IsExpanded" Value="True"/>
+                                </Style>
+                            </TreeView.ItemContainerStyle>
+                        </TreeView>
+                        <ListView  x:Name="lvWorkloads" Margin="263,33,0,0" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
+                            <ListView.View >
+                                <GridView>
+                                    <GridViewColumn CellTemplate="{StaticResource workload_hostname}">
+                                        <GridViewColumnHeader Tag="platform" Content="Workload"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn CellTemplate="{StaticResource workload_credential}">
+                                        <GridViewColumnHeader Tag="platform" Content="Credential"/>
+                                    </GridViewColumn>
 
-                                    </StackPanel.Style>
+                                    <GridViewColumn  CellTemplate="{StaticResource workload_platform_description}">
+                                        <GridViewColumnHeader Tag="platform" Content="Platform"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn  CellTemplate="{StaticResource workload_os}">
+                                        <GridViewColumnHeader Tag="platform" Content="OS"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Resources" CellTemplate="{StaticResource workload_resources}"/>
+                                    <GridViewColumn Header="Actions" >
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button Margin="5,0,0,0" x:Name="delete_workload_button" Click="delete_workload_button">
+                                                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_page_delete}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Button>
+                                                    <Button Margin="5,0,0,0" x:Name="refresh_workload_button" Click="refresh_workload_button">
+                                                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_inbox_in}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Label x:Name="label2" Content="Show Disabled Workloads" HorizontalAlignment="Left" Margin="362,0,0,0" VerticalAlignment="Top" Height="28"/>
 
-                                    <Viewbox  Width="25" Height="25" Stretch="Uniform">
-                                        <ContentControl>
-                                            <ContentControl.Style>
-                                                <Style TargetType="{x:Type ContentControl}">
+                        <Label x:Name="label" Content="Search" Margin="865,0,311,0" VerticalAlignment="Top" Height="23"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Platforms" controls:ControlsHelper.HeaderFontSize="18">
+                    <Grid Margin="5" x:Name="PlatformGrid">
 
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding group_type}" Value="10">
-                                                            <Setter Property="Content" Value="{DynamicResource appbar_palmtree}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding group_type}" Value="0">
-                                                            <Setter Property="Content" Value="{DynamicResource appbar_map_location}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding group_type}" Value="1">
-                                                            <Setter Property="Content" Value="{DynamicResource appbar_cog}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding group_type}" Value="2">
-                                                            <Setter Property="Content" Value="{DynamicResource appbar_browser_wire}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding group_type}" Value="3">
-                                                            <Setter Property="Content" Value="{DynamicResource appbar_people_multiple}" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </ContentControl.Style>
-                                        </ContentControl>
-                                    </Viewbox>
-                                    <TextBlock Text="{Binding group}" Margin="4,4,4,0"/>
-                                </StackPanel>
-                            </HierarchicalDataTemplate>
-                        </TreeView.Resources>
-                        <TreeView.ContextMenu>
-                            <StaticResource ResourceKey="TreeViewItemContextMenu"/>
-                        </TreeView.ContextMenu>
-                        <TreeView.ItemContainerStyle>
+                        <ListView x:Name="lvPlatforms" SizeChanged="lvPlatforms_SizeChanged" Margin="0,40,0,0" Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
+                            <ListView.View>
+                                <GridView x:Name="platform_grid"  >
 
-                            <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
-                                <Setter Property="AllowDrop" Value="True" />
-                                <Setter Property="HorizontalContentAlignment" Value="Left" />
-                                <Setter Property="IsExpanded" Value="True"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type TreeViewItem}">
-                                            <StackPanel>
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto" MinWidth="19" />
-                                                        <ColumnDefinition Width="*" />
-                                                    </Grid.ColumnDefinitions>
-                                                    <Grid.RowDefinitions>
-                                                        <RowDefinition Height="Auto" />
-                                                        <RowDefinition />
-                                                    </Grid.RowDefinitions>
-                                                    <ToggleButton IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"
-														x:Name="Expander">
-                                                        <ToggleButton.Style>
-                                                            <Style TargetType="{x:Type ToggleButton}">
-                                                                <Setter Property="Focusable"
-																	Value="false" />
-                                                                <Setter Property="Width"
-																	Value="16" />
-                                                                <Setter Property="Height"
-																	Value="16" />
-                                                                <Setter Property="Template">
-                                                                    <Setter.Value>
-                                                                        <ControlTemplate TargetType="{x:Type ToggleButton}">
-                                                                            <Border Padding="5,5,5,5"
-																				Background="#00FFFFFF"
-																				Width="16"
-																				Height="16">
-                                                                                <Path Fill="#00FFFFFF"
-																					Stroke="#FF989898"
-																					x:Name="ExpandPath">
-                                                                                    <Path.Data>
-                                                                                        <PathGeometry Figures="M0,0L0,6L6,0z" />
-                                                                                    </Path.Data>
-                                                                                    <Path.RenderTransform>
-                                                                                        <RotateTransform Angle="135"
-																							CenterX="3"
-																							CenterY="3" />
-                                                                                    </Path.RenderTransform>
-                                                                                </Path>
-                                                                            </Border>
-                                                                            <ControlTemplate.Triggers>
-                                                                                <Trigger Property="IsMouseOver" Value="True">
-                                                                                    <Setter TargetName="ExpandPath"
-																						Property="Stroke"
-																						Value="#FF1BBBFA" />
-                                                                                    <Setter TargetName="ExpandPath"
-																						Property="Fill"
-																						Value="#00FFFFFF" />
-                                                                                </Trigger>
-                                                                                <Trigger Property="IsChecked"
-																					Value="True">
-                                                                                    <Setter TargetName="ExpandPath"
-																						Property="RenderTransform">
-                                                                                        <Setter.Value>
-                                                                                            <RotateTransform Angle="180"
-																								CenterX="3"
-																								CenterY="3" />
-                                                                                        </Setter.Value>
-                                                                                    </Setter>
-                                                                                    <Setter TargetName="ExpandPath"
-																						Property="Fill"
-																						Value="#FF595959" />
-                                                                                    <Setter TargetName="ExpandPath"
-																						Property="Stroke"
-																						Value="#FF262626" />
-                                                                                </Trigger>
-                                                                            </ControlTemplate.Triggers>
-                                                                        </ControlTemplate>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                            </Style>
-                                                        </ToggleButton.Style>
-                                                    </ToggleButton>
-                                                   
-                                                    <Border x:Name="Bd"
-														HorizontalAlignment="Stretch"
-														BorderThickness="{TemplateBinding Border.BorderThickness}"
-														BorderBrush="{TemplateBinding Border.BorderBrush}"
-														Padding="{TemplateBinding Padding}"
-														Background="{TemplateBinding Panel.Background}"
-														SnapsToDevicePixels="True"
-														Grid.Column="1">
-                                                       
-                                                        <ContentPresenter x:Name="PART_Header"
-															Content="{TemplateBinding HeaderedContentControl.Header}"
-															ContentTemplate="{TemplateBinding HeaderedContentControl.HeaderTemplate}"
-															ContentStringFormat="{TemplateBinding HeaderStringFormat}"
-															ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
-															ContentSource="Header"
-															HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-															SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                                    </Border>
-                                                    <ItemsPresenter x:Name="ItemsHost"
-														Grid.Column="1"
-														Grid.Row="1" />
-                                                </Grid>
-                                            </StackPanel>
-                                            <ControlTemplate.Triggers>
-                                                <Trigger Property="IsExpanded"
-													Value="False">
-                                                    <Setter TargetName="ItemsHost"
-														Property="Visibility"
-														Value="Collapsed" />
-                                                </Trigger>
-                                                <Trigger Property="HasItems"
-													Value="False">
-                                                    <Setter TargetName="Expander"
-														Property="Visibility"
-														Value="Hidden" />
-                                                </Trigger>
+                                    <GridViewColumn Header="Resources" Width="200" CellTemplate="{StaticResource platform_description}"/>
+                                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding human_vendor}">
+                                        <GridViewColumnHeader Tag="platform" Content="Vendor"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn  Width="100" DisplayMemberBinding="{Binding platform_version}">
+                                        <GridViewColumnHeader Tag="platform" Content="Version"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Resources" Width="200" CellTemplate="{StaticResource platform_resources}"/>
+                                    <GridViewColumn Header="Actions" Width="100">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button x:Name="update_platform_button" Click="update_platform_button">
+                                                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_edit_box}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Button>
+                                                    <Button Margin="5,0,0,0" x:Name="delete_platform_button" Click="delete_platform_button">
+                                                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Button>
+                                                    <Button Margin="5,0,0,0" x:Name="refresh_platform_button" Click="refresh_platform_button">
+                                                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_inbox_in}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <controls:ProgressRing x:Name="progress_indicator" Height="30" Margin="5,5,0,0" IsEnabled="True" IsActive="True" HorizontalAlignment="Left" Width="30" VerticalAlignment="Top" />
 
-                                                <Trigger Property="IsSelected" Value="True">
-                                                    <Setter TargetName="Bd" Property="Panel.Background"
-														Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-                                                    <Setter Property="TextElement.Foreground"
-														Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
-                                                </Trigger>
-                                                <MultiTrigger>
-                                                    <MultiTrigger.Conditions>
-                                                        <Condition Property="IsSelected"
-															Value="True" />
-                                                        <Condition Property="Selector.IsSelectionActive"
-															Value="False" />
-                                                    </MultiTrigger.Conditions>
-                                                    <Setter TargetName="Bd"
-														Property="Panel.Background"
-														Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" />
-                                                    <Setter Property="TextElement.Foreground"
-														Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-                                                </MultiTrigger>
-                                                <Trigger Property="IsEnabled"
-													Value="False">
-                                                    <Setter Property="TextElement.Foreground"
-														Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
-                                                </Trigger>
-                                            </ControlTemplate.Triggers>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-
-
-                        </TreeView.ItemContainerStyle>
-                    </TreeView>
-                    <ListView PreviewMouseLeftButtonDown="lvWorkloads_PreviewMouseLeftButtonDown" PreviewMouseMove="lvWorkloads_MouseMove" x:Name="lvWorkloads" Margin="263,48,0,0" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Width="150" CellTemplate="{StaticResource workload_checkhostname}">
-                                    <GridViewColumnHeader Tag="platform" Content="Workload"/>
-                                </GridViewColumn>
-                                <GridViewColumn Width="150" CellTemplate="{StaticResource workload_credential}">
-                                    <GridViewColumnHeader Tag="platform" Content="Credential"/>
-                                </GridViewColumn>
-
-                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding platform}">
-                                    <GridViewColumnHeader Tag="platform" Content="Platform"/>
-                                </GridViewColumn>
-                                <GridViewColumn Width="100" DisplayMemberBinding="{Binding human_os}">
-                                    <GridViewColumnHeader Tag="platform" Content="OS"/>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Resources" Width="200" CellTemplate="{StaticResource workload_resources}"/>
-                                <GridViewColumn Header="Actions" Width="100">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button Margin="5,0,0,0" x:Name="delete_workload_button" Click="delete_workload_button">
-                                                    <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                                                        <Rectangle.OpacityMask>
-                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
-                                                        </Rectangle.OpacityMask>
-                                                    </Rectangle>
-                                                </Button>
-                                                <Button Margin="5,0,0,0" x:Name="refresh_workload_button" Click="refresh_workload_button">
-                                                    <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                                                        <Rectangle.OpacityMask>
-                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_inbox_in}" />
-                                                        </Rectangle.OpacityMask>
-                                                    </Rectangle>
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Platforms" controls:ControlsHelper.HeaderFontSize="18">
-                <Grid Margin="5" x:Name="PlatformGrid">
-
-                    <ListView x:Name="lvPlatforms" SizeChanged="lvPlatforms_SizeChanged" Margin="0,40,0,0" Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
-                        <ListView.View>
-                            <GridView x:Name="platform_grid"  >
-
-                                <GridViewColumn Header="Resources" Width="200" CellTemplate="{StaticResource platform_description}"/>
-                                <GridViewColumn Width="150" DisplayMemberBinding="{Binding human_vendor}">
-                                    <GridViewColumnHeader Tag="platform" Content="Vendor"/>
-                                </GridViewColumn>
-                                <GridViewColumn  Width="100" DisplayMemberBinding="{Binding platform_version}">
-                                    <GridViewColumnHeader Tag="platform" Content="Version"/>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Resources" Width="200" CellTemplate="{StaticResource platform_resources}"/>
-                                <GridViewColumn Header="Actions" Width="100">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button x:Name="update_platform_button" Click="update_platform_button">
-                                                    <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                                                        <Rectangle.OpacityMask>
-                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_edit_box}" />
-                                                        </Rectangle.OpacityMask>
-                                                    </Rectangle>
-                                                </Button>
-                                                <Button Margin="5,0,0,0" x:Name="delete_platform_button" Click="delete_platform_button">
-                                                    <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                                                        <Rectangle.OpacityMask>
-                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
-                                                        </Rectangle.OpacityMask>
-                                                    </Rectangle>
-                                                </Button>
-                                                <Button Margin="5,0,0,0" x:Name="refresh_platform_button" Click="refresh_platform_button">
-                                                    <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                                                        <Rectangle.OpacityMask>
-                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_inbox_in}" />
-                                                        </Rectangle.OpacityMask>
-                                                    </Rectangle>
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <controls:ProgressRing x:Name="progress_indicator" Height="30" Margin="5,5,0,0" IsEnabled="True" IsActive="True" HorizontalAlignment="Left" Width="30" VerticalAlignment="Top" />
-
-                    <Button Width="30" Margin="0,0,39,0" ToolTip="Refresh platform list from worker service" HorizontalAlignment="Right" Height="30" VerticalAlignment="Top" Click="refresh_platforms_button_clicked">
-                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill"
+                        <Button Width="30" Margin="0,0,39,0" ToolTip="Refresh platform list from worker service" HorizontalAlignment="Right" Height="30" VerticalAlignment="Top" Click="refresh_platforms_button_clicked">
+                            <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
 									Visual="{DynamicResource appbar_refresh}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                    <Button ToolTip="Add platform to worker list" Click="add_platforms_button_clicked" HorizontalAlignment="Right" Width="30" Height="30" VerticalAlignment="Top">
-                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill"
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                        <Button ToolTip="Add platform to worker list" Click="add_platforms_button_clicked" HorizontalAlignment="Right" Width="30" Height="30" VerticalAlignment="Top">
+                            <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
 									Visual="{DynamicResource appbar_add}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                    <Label x:Name="progress_message" Content="" HorizontalAlignment="Left" Margin="40,5,0,0" VerticalAlignment="Top" Height="31" Width="421"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Credentials" controls:ControlsHelper.HeaderFontSize="18">
-                <Grid Margin="5,5,5,5" x:Name="CredentialGrid">
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                        <Label x:Name="progress_message" Content="" HorizontalAlignment="Left" Margin="40,5,0,0" VerticalAlignment="Top" Height="31" Width="421"/>
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Credentials" controls:ControlsHelper.HeaderFontSize="18">
+                    <Grid Margin="5,5,5,5" x:Name="CredentialGrid">
 
-                    <ListView x:Name="lvCredentials" Margin="0,40,0,0" SizeChanged="lvCredentials_SizeChanged" Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Width="250" DisplayMemberBinding="{Binding description}">
-                                    <GridViewColumnHeader Tag="platform" Content="Credential"/>
-                                </GridViewColumn>
-                                <GridViewColumn Width="200" DisplayMemberBinding="{Binding username}">
-                                    <GridViewColumnHeader Tag="Username" Content="Username"/>
-                                </GridViewColumn>
-                                <GridViewColumn Width="200" DisplayMemberBinding="{Binding human_type}">
-                                    <GridViewColumnHeader Tag="Type" Content="Type"/>
-                                </GridViewColumn>
-                                <GridViewColumn Header="Actions" Width="90">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-                                                <Button x:Name="update_credential_button" Click="update_credential_button">
-                                                    <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                                                        <Rectangle.OpacityMask>
-                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_edit_box}" />
-                                                        </Rectangle.OpacityMask>
-                                                    </Rectangle>
-                                                </Button>
-                                                <Button Margin="5,0,0,0" x:Name="delete_credential_button" Click="delete_credential_button">
-                                                    <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                                                        <Rectangle.OpacityMask>
-                                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
-                                                        </Rectangle.OpacityMask>
-                                                    </Rectangle>
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                    <Button Width="30" Margin="0,0,39,0" ToolTip="Refresh credentials list from worker service" HorizontalAlignment="Right" Click="refresh_credentials_button_clicked" Height="30" VerticalAlignment="Top">
-                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill"
+                        <ListView x:Name="lvCredentials" Margin="0,40,0,0" SizeChanged="lvCredentials_SizeChanged" Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Width="250" DisplayMemberBinding="{Binding description}">
+                                        <GridViewColumnHeader Tag="platform" Content="Credential"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding username}">
+                                        <GridViewColumnHeader Tag="Username" Content="Username"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn Width="200" DisplayMemberBinding="{Binding human_type}">
+                                        <GridViewColumnHeader Tag="Type" Content="Type"/>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Actions" Width="90">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button x:Name="update_credential_button" Click="update_credential_button">
+                                                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_edit_box}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Button>
+                                                    <Button Margin="5,0,0,0" x:Name="delete_credential_button" Click="delete_credential_button">
+                                                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Button>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                        <Button Width="30" Margin="0,0,39,0" ToolTip="Refresh credentials list from worker service" HorizontalAlignment="Right" Click="refresh_credentials_button_clicked" Height="30" VerticalAlignment="Top">
+                            <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
 									Visual="{DynamicResource appbar_refresh}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                    <Button Width="30" HorizontalAlignment="Right" ToolTip="Add credential to worker service" Height="30" VerticalAlignment="Top" Click="add_credentials_button_clicked">
-                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill"
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                        <Button Width="30" HorizontalAlignment="Right" ToolTip="Add credential to worker service" Height="30" VerticalAlignment="Top" Click="add_credentials_button_clicked">
+                            <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
 									Visual="{DynamicResource appbar_add}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                </Grid>
-            </TabItem>
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                    </Grid>
+                </TabItem>
 
-        </TabControl>
-        <ListView x:Name="lvEvents" Margin="10,466,10,10" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding hostname}">
-                        <GridViewColumnHeader Tag="platform" Content="Workload"/>
-                    </GridViewColumn>
-                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding platform}">
-                        <GridViewColumnHeader Tag="platform" Content="Platform"/>
-                    </GridViewColumn>
-                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding human_credential}">
-                        <GridViewColumnHeader Tag="platform" Content="Credentials"/>
-                    </GridViewColumn>
-                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding human_os}">
-                        <GridViewColumnHeader Tag="platform" Content="OS"/>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Resources" Width="200" CellTemplate="{StaticResource workload_resources}"/>
-                    <GridViewColumn Header="Actions" Width="100">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Margin="5,0,0,0" x:Name="delete_workload_button" Click="delete_workload_button">
-                                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                                            <Rectangle.OpacityMask>
-                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
-                                            </Rectangle.OpacityMask>
-                                        </Rectangle>
-                                    </Button>
-                                    <Button Margin="5,0,0,0" x:Name="refresh_workload_button" Click="refresh_workload_button">
-                                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                                            <Rectangle.OpacityMask>
-                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_inbox_in}" />
-                                            </Rectangle.OpacityMask>
-                                        </Rectangle>
-                                    </Button>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-
+            </TabControl>
+            <ListView x:Name="lvEvents" Margin="10,0,10,10" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2" Height="161" VerticalAlignment="Bottom">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="150" DisplayMemberBinding="{Binding hostname}">
+                            <GridViewColumnHeader Tag="platform" Content="Workload"/>
+                        </GridViewColumn>
+                        <GridViewColumn Width="150" DisplayMemberBinding="{Binding platform}">
+                            <GridViewColumnHeader Tag="platform" Content="Platform"/>
+                        </GridViewColumn>
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding human_credential}">
+                            <GridViewColumnHeader Tag="platform" Content="Credentials"/>
+                        </GridViewColumn>
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding human_os}">
+                            <GridViewColumnHeader Tag="platform" Content="OS"/>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Resources" Width="200" CellTemplate="{StaticResource workload_resources}"/>
+                        <GridViewColumn Header="Actions" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Margin="5,0,0,0" x:Name="delete_workload_button" Click="delete_workload_button">
+                                            <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Button>
+                                        <Button Margin="5,0,0,0" x:Name="refresh_workload_button" Click="refresh_workload_button">
+                                            <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                <Rectangle.OpacityMask>
+                                                    <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_inbox_in}" />
+                                                </Rectangle.OpacityMask>
+                                            </Rectangle>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </controls:MetroWindow>
     

@@ -195,10 +195,16 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string applicationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> cpu_countField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string credential_idField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool credential_okField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<bool> enabledField;
@@ -222,6 +228,12 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private string moidField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string oseditionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ostypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string platform_idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -234,6 +246,19 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
             }
             set {
                 this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string application {
+            get {
+                return this.applicationField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.applicationField, value) != true)) {
+                    this.applicationField = value;
+                    this.RaisePropertyChanged("application");
+                }
             }
         }
         
@@ -259,6 +284,19 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((object.ReferenceEquals(this.credential_idField, value) != true)) {
                     this.credential_idField = value;
                     this.RaisePropertyChanged("credential_id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool credential_ok {
+            get {
+                return this.credential_okField;
+            }
+            set {
+                if ((this.credential_okField.Equals(value) != true)) {
+                    this.credential_okField = value;
+                    this.RaisePropertyChanged("credential_ok");
                 }
             }
         }
@@ -350,6 +388,32 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((object.ReferenceEquals(this.moidField, value) != true)) {
                     this.moidField = value;
                     this.RaisePropertyChanged("moid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string osedition {
+            get {
+                return this.oseditionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.oseditionField, value) != true)) {
+                    this.oseditionField = value;
+                    this.RaisePropertyChanged("osedition");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ostype {
+            get {
+                return this.ostypeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ostypeField, value) != true)) {
+                    this.ostypeField = value;
+                    this.RaisePropertyChanged("ostype");
                 }
             }
         }

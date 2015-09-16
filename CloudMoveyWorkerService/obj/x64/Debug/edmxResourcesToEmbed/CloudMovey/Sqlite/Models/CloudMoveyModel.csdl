@@ -42,27 +42,11 @@
   <EntityContainer Name="CloudMoveyEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Credentials" EntityType="Self.Credential" />
     <EntitySet Name="Platforms" EntityType="Self.Platform" />
-    <EntitySet Name="Workloads" EntityType="CloudMoveyModel.Workload" />
     <EntitySet Name="Failovergroups" EntityType="CloudMoveyModel.Failovergroup" />
     <EntitySet Name="Events" EntityType="CloudMoveyModel.Event" />
     <EntitySet Name="Tasks" EntityType="CloudMoveyModel.Task" />
+    <EntitySet Name="Workloads" EntityType="CloudMoveyModel.Workload" />
   </EntityContainer>
-  <EntityType Name="Workload">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="hostname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="platform_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="credential_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="failovergroup_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="moid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="enabled" Type="Boolean" />
-    <Property Name="hash_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="cpu_count" Type="Int32" />
-    <Property Name="memory_count" Type="Int32" />
-    <Property Name="storage_count" Type="Int64" />
-  </EntityType>
   <EntityType Name="Failovergroup">
     <Key>
       <PropertyRef Name="id" />
@@ -95,5 +79,25 @@
     <Property Name="queued_for" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="starttime" Type="DateTime" />
     <Property Name="endtime" Type="DateTime" />
+  </EntityType>
+  <EntityType Name="Workload">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="hostname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="platform_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="credential_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="hash_value" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="failovergroup_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="moid" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="enabled" Type="Boolean" />
+    <Property Name="cpu_count" Type="Int32" />
+    <Property Name="memory_count" Type="Int32" />
+    <Property Name="storage_count" Type="Int64" />
+    <Property Name="credential_ok" Type="Boolean" Nullable="false" />
+    <Property Name="application" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="osedition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ostype" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

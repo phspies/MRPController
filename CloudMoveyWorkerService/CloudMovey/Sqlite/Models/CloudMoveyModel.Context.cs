@@ -27,9 +27,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Sqlite.Models
     
         public virtual DbSet<Credential> Credentials { get; set; }
         public virtual DbSet<Platform> Platforms { get; set; }
-        public virtual DbSet<Workload> Workloads { get; set; }
         public virtual DbSet<Failovergroup> Failovergroups { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
+        public virtual DbSet<Workload> Workloads { get; set; }
     }
 }

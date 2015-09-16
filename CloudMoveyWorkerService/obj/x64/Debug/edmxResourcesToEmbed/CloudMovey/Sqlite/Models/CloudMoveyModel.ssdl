@@ -87,6 +87,10 @@
     <Property Name="cpu_count" Type="int" />
     <Property Name="memory_count" Type="int" />
     <Property Name="storage_count" Type="integer" />
+    <Property Name="credential_ok" Type="bit" Nullable="false" />
+    <Property Name="application" Type="varchar" MaxLength="50" />
+    <Property Name="osedition" Type="varchar" MaxLength="50" />
+    <Property Name="ostype" Type="varchar" MaxLength="10" />
   </EntityType>
   <EntityContainer Name="CloudMoveyModelStoreContainer">
     <EntitySet Name="Credentials" EntityType="Self.Credentials" store:Type="Tables" />
