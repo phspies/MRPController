@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace CloudMoveyWorkerService.CloudMovey.Classes
 {
-    class InventoryWorker
+    class PlatformInventoryWorker
     {
         CloudMoveyEntities dbcontext = new CloudMoveyEntities();
         CloudMovey _cloud_movey = new CloudMovey();
@@ -29,7 +29,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
 
                 try
                 {
-                    Global.event_log.WriteEntry("Staring inventory process");
+                    Global.event_log.WriteEntry("Staring platform inventory process");
                     //process credentials
                     List<Credential> _workercredentials = (dbcontext.Credentials as IQueryable<Credential>).ToList();
                     MoveyCredentialListType _platformcredentials = _cloud_movey.credential().listcredentials();

@@ -54,7 +54,7 @@ namespace CloudMoveyWorkerService
             scheduler_thread.Start();
 
 
-            InventoryWorker _mirror = new InventoryWorker();
+            PlatformInventoryWorker _mirror = new PlatformInventoryWorker();
             if (Global.debug) { Global.event_log.WriteEntry("Starting Mirror Thread"); };
             mirror_thread = new Thread(new ThreadStart(_mirror.Start));
             mirror_thread.Start();

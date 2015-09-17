@@ -272,8 +272,6 @@ namespace CloudMoveyNotifier
             this.Hide();
             ShowTrayIcon(true);
             m_notifyIcon.ShowBalloonTip(2000);
-
-
         }
 
         private WindowState m_storedWindowState = WindowState.Normal;

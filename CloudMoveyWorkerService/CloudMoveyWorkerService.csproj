@@ -160,13 +160,14 @@
     <Compile Include="CloudMovey\Classes\MoveyPlatformnetwork_Methods.cs" />
     <Compile Include="CloudMovey\Classes\MoveyPlatformtemplate_Methods.cs" />
     <Compile Include="CloudMovey\Classes\Static Classes\Background Classes\PerformanceWorker.cs" />
+    <Compile Include="CloudMovey\Classes\Static Classes\Background Classes\OSInventoryWorker.cs" />
     <Compile Include="CloudMovey\Classes\Static Classes\Connection.cs" />
     <Compile Include="CloudMovey\Classes\Static Classes\DoubleTake.cs" />
     <Compile Include="CloudMovey\Classes\Static Classes\DoubleTake_HA.cs" />
     <Compile Include="CloudMovey\Classes\Static Classes\DoubleTake_DR.cs" />
     <Compile Include="CloudMovey\Classes\Static Classes\Events.cs" />
     <Compile Include="CloudMovey\Classes\Static Classes\HashExtensions.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\Background Classes\InventoryWorker.cs" />
+    <Compile Include="CloudMovey\Classes\Static Classes\Background Classes\PlatformInventoryWorker.cs" />
     <Compile Include="CloudMovey\Classes\Static Classes\Platform.cs" />
     <Compile Include="CloudMovey\Classes\MoveyPlatform_Methods.cs" />
     <Compile Include="CloudMovey\Classes\MoveyWorker_Methods.cs" />

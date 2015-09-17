@@ -29,5 +29,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Sqlite.Models
         public string application { get; set; }
         public string osedition { get; set; }
         public string ostype { get; set; }
+        public Nullable<System.DateTime> last_contact_attempt { get; set; }
+        public Nullable<int> last_contact_status { get; set; }
+        public string last_contact_message { get; set; }
+        public Nullable<int> failed_contact_attempts { get; set; }
     }
 }

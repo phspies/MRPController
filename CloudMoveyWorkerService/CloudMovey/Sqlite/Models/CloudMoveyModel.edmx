@@ -96,6 +96,10 @@
           <Property Name="application" Type="varchar" MaxLength="50" />
           <Property Name="osedition" Type="varchar" MaxLength="50" />
           <Property Name="ostype" Type="varchar" MaxLength="10" />
+          <Property Name="last_contact_attempt" Type="datetime" />
+          <Property Name="last_contact_status" Type="int" />
+          <Property Name="last_contact_message" Type="varchar" MaxLength="50" />
+          <Property Name="failed_contact_attempts" Type="int" />
         </EntityType>
         <EntityContainer Name="CloudMoveyModelStoreContainer">
           <EntitySet Name="Credentials" EntityType="Self.Credentials" store:Type="Tables" />
@@ -208,6 +212,10 @@
           <Property Name="application" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="osedition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ostype" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="last_contact_attempt" Type="DateTime" />
+          <Property Name="last_contact_status" Type="Int32" />
+          <Property Name="last_contact_message" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="failed_contact_attempts" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -295,6 +303,10 @@
           <EntitySetMapping Name="Workloads">
             <EntityTypeMapping TypeName="CloudMoveyModel.Workload">
               <MappingFragment StoreEntitySet="Workloads">
+                <ScalarProperty Name="failed_contact_attempts" ColumnName="failed_contact_attempts" />
+                <ScalarProperty Name="last_contact_message" ColumnName="last_contact_message" />
+                <ScalarProperty Name="last_contact_status" ColumnName="last_contact_status" />
+                <ScalarProperty Name="last_contact_attempt" ColumnName="last_contact_attempt" />
                 <ScalarProperty Name="ostype" ColumnName="ostype" />
                 <ScalarProperty Name="osedition" ColumnName="osedition" />
                 <ScalarProperty Name="application" ColumnName="application" />
