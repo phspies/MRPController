@@ -109,7 +109,5 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.csproj.GenerateResource.Cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.csprojResolveAssemblyReference.cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\WPF.JoshSmith.dll
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\SplashScreen.g.cs
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\SplashScreen.baml
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\splash.g.cs
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\splash.baml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\SplashWindow.g.cs
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\SplashWindow.baml

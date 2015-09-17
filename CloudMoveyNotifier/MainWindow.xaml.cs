@@ -55,8 +55,11 @@ namespace CloudMoveyNotifier
             _information = channel.CollectionInformation();
             //Assign global assignment for tree
 
+            //apply item source and apply filter
             _workloads = new Workload_ListDataModel().list;
             lvWorkloads.ItemsSource = _workloads;
+            lvWorkloads.Items.Filter = new Predicate<object>(workloads_enabled);
+
 
             m_notifyIcon = new System.Windows.Forms.NotifyIcon();
             m_notifyIcon.BalloonTipText = "CloudMovey Notifier has been minimised. Click the tray icon to show.";
@@ -71,16 +74,39 @@ namespace CloudMoveyNotifier
             platformloader.ProgressChanged += new ProgressChangedEventHandler(load_platformlist_changed);
             platformloader.RunWorkerCompleted += new RunWorkerCompletedEventHandler(load_platformlist_complete);
 
-            //attached 
-
-
-
         }
+
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             load_failovergrouptree();
 
         }
+
+        private void lvTasks_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.WidthChanged)
+            {
+                GridView view = this.lvTasks.View as GridView;
+                Decorator border = VisualTreeHelper.GetChild(this.lvTasks, 0) as Decorator;
+                if (border != null)
+                {
+                    ScrollViewer scroller = border.Child as ScrollViewer;
+                    if (scroller != null)
+                    {
+                        ItemsPresenter presenter = scroller.Content as ItemsPresenter;
+                        if (presenter != null)
+                        {
+                            view.Columns[0].Width = presenter.ActualWidth;
+                            for (int i = 1; i < view.Columns.Count; i++)
+                            {
+                                view.Columns[0].Width -= view.Columns[i].ActualWidth;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         private void lvPlatforms_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.WidthChanged)
@@ -240,10 +266,14 @@ namespace CloudMoveyNotifier
         {
 
         }
-        void OnClose(object sender, CancelEventArgs args)
+        void OnClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            m_notifyIcon.Dispose();
-            m_notifyIcon = null;
+            e.Cancel = true;
+            this.Hide();
+            ShowTrayIcon(true);
+            m_notifyIcon.ShowBalloonTip(2000);
+
+
         }
 
         private WindowState m_storedWindowState = WindowState.Normal;
@@ -334,6 +364,7 @@ namespace CloudMoveyNotifier
         {
             UiServices.SetBusyState();
             Failovergroup_TreeModel _tree_object = e.NewValue as Failovergroup_TreeModel;
+            current_group.Content = _tree_object.group;
             lvWorkloads.Items.Filter = delegate (object item)
             {
                 Workload_ObjectDataModel workload = item as Workload_ObjectDataModel;
@@ -556,17 +587,17 @@ namespace CloudMoveyNotifier
         }
         public bool workload_search_object(object item)
         {
-            return ((item as Workload_ObjectDataModel).hostname.IndexOf(workload_search.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            return ((item as Workload_ObjectDataModel).hostname.IndexOf(workload_search.Text, StringComparison.OrdinalIgnoreCase) >= 0 && (item as Workload_ObjectDataModel).enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
         }
         public bool workloads_enabled(object de)
         {
             Workload_ObjectDataModel workload = de as Workload_ObjectDataModel;
-            return (workload.enabled == true);
+            return ((workload.enabled == true) && workload.enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
         }
         public bool workloads_disabled(object de)
         {
             Workload_ObjectDataModel workload = de as Workload_ObjectDataModel;
-            return (workload.enabled == false);
+            return ((workload.enabled == false) && workload.enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
         }
         private void Tree_DragOver(object sender, DragEventArgs e)
         {
@@ -585,7 +616,6 @@ namespace CloudMoveyNotifier
                 treeViewItem.Background = System.Windows.Media.Brushes.White;
             }
         }
-
 
     }
 
