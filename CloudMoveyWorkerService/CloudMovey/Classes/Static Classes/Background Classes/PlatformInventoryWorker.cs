@@ -17,9 +17,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
         CloudMovey _cloud_movey = new CloudMovey();
         public void Start()
         {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            CloudMovey _cloud_movey = new CloudMovey();
-
             while (true)
             {
                 Stopwatch sw = Stopwatch.StartNew();
@@ -123,6 +120,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes
                             {
                                 MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
                                 _moveyworkload.hostname = _caasworkload.name;
+                                _moveyworkload.iplist = ""; //todo!!!!!!!
                                 _moveyworkload.moid = _caasworkload.id;
                                 _moveyworkload.vcpu = _caasworkload.cpuCount;
                                 _moveyworkload.vmemory = _caasworkload.memoryMb / 1024;

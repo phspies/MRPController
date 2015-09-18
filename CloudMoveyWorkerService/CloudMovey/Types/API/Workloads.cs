@@ -14,6 +14,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Types.API
         public string platform_id { get; set; }
         public string failovergroup_id { get; set; }
         public string hostname { get; set; }
+        public string iplist { get; set; }
         public int? vcpu { get; set; }
         public int? vmemory { get; set; }
         public string ostype { get; set; }
@@ -51,6 +52,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Types.API
         public string platform_id { get; set; }
         public string failovergroup_id { get; set; }
         public string hostname { get; set; }
+        public string iplist { get; set; }
         public int position { get; set; }
         public int vcpu { get; set; }
         public int vmemory { get; set; }
