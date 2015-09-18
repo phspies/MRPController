@@ -156,6 +156,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CloudMoveyDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CloudMovey\Classes\MoveyFailovergroup_Methods.cs" />
     <Compile Include="CloudMovey\Classes\MoveyCredential_Methods.cs" />
     <Compile Include="CloudMovey\Classes\MoveyPlatformnetwork_Methods.cs" />
     <Compile Include="CloudMovey\Classes\MoveyPlatformtemplate_Methods.cs" />
@@ -186,6 +187,7 @@
       <DependentUpon>CloudMoveyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CloudMovey\Types\API\Credentials.cs" />
+    <Compile Include="CloudMovey\Types\API\Failovergroups.cs" />
     <Compile Include="CloudMovey\Types\API\PlatformTemplate.cs" />
     <Compile Include="CloudMovey\Types\API\Windows.cs" />
     <Compile Include="CloudMovey\Types\API\CommandWorker.cs" />

@@ -3,7 +3,6 @@ using CloudMoveyWorkerService.CaaS.Models;
 using CloudMoveyWorkerService.CloudMovey.Sqlite.Models;
 using CloudMoveyWorkerService.CloudMovey.Types.API;
 using CloudMoveyWorkerService.WCF;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
