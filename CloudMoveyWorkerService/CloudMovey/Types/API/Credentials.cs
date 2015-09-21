@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace CloudMoveyWorkerService.CloudMovey.Types.API
 {
@@ -40,7 +36,5 @@ namespace CloudMoveyWorkerService.CloudMovey.Types.API
         public bool standalone { get; set; }
         public string organization_id { get; set; }
         public string hash_value { get; set; }
-
     }
-
 }

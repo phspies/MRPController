@@ -83,6 +83,7 @@
           </Key>
           <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="hostname" Type="varchar" MaxLength="50" />
+          <Property Name="iplist" Type="varchar" MaxLength="125" />
           <Property Name="platform_id" Type="varchar" MaxLength="50" />
           <Property Name="credential_id" Type="varchar" MaxLength="50" />
           <Property Name="hash_value" Type="varchar" MaxLength="50" />
@@ -216,6 +217,7 @@
           <Property Name="last_contact_status" Type="Int32" />
           <Property Name="last_contact_message" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="failed_contact_attempts" Type="Int32" />
+          <Property Name="iplist" Type="String" MaxLength="125" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -303,6 +305,7 @@
           <EntitySetMapping Name="Workloads">
             <EntityTypeMapping TypeName="CloudMoveyModel.Workload">
               <MappingFragment StoreEntitySet="Workloads">
+                <ScalarProperty Name="iplist" ColumnName="iplist" />
                 <ScalarProperty Name="failed_contact_attempts" ColumnName="failed_contact_attempts" />
                 <ScalarProperty Name="last_contact_message" ColumnName="last_contact_message" />
                 <ScalarProperty Name="last_contact_status" ColumnName="last_contact_status" />

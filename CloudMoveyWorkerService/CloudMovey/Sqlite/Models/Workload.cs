@@ -33,5 +33,6 @@ namespace CloudMoveyWorkerService.CloudMovey.Sqlite.Models
         public Nullable<int> last_contact_status { get; set; }
         public string last_contact_message { get; set; }
         public Nullable<int> failed_contact_attempts { get; set; }
+        public string iplist { get; set; }
     }
 }
