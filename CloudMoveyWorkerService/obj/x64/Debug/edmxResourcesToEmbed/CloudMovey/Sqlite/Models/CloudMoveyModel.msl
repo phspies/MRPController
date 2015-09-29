@@ -81,6 +81,11 @@
     <EntitySetMapping Name="Workloads">
       <EntityTypeMapping TypeName="CloudMoveyModel.Workload">
         <MappingFragment StoreEntitySet="Workloads">
+          <ScalarProperty Name="iplist" ColumnName="iplist" />
+          <ScalarProperty Name="failed_contact_attempts" ColumnName="failed_contact_attempts" />
+          <ScalarProperty Name="last_contact_message" ColumnName="last_contact_message" />
+          <ScalarProperty Name="last_contact_status" ColumnName="last_contact_status" />
+          <ScalarProperty Name="last_contact_attempt" ColumnName="last_contact_attempt" />
           <ScalarProperty Name="ostype" ColumnName="ostype" />
           <ScalarProperty Name="osedition" ColumnName="osedition" />
           <ScalarProperty Name="application" ColumnName="application" />

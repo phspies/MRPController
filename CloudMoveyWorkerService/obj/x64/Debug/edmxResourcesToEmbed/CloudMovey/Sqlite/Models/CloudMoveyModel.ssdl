@@ -78,6 +78,7 @@
     </Key>
     <Property Name="id" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="hostname" Type="varchar" MaxLength="50" />
+    <Property Name="iplist" Type="varchar" MaxLength="125" />
     <Property Name="platform_id" Type="varchar" MaxLength="50" />
     <Property Name="credential_id" Type="varchar" MaxLength="50" />
     <Property Name="hash_value" Type="varchar" MaxLength="50" />
@@ -91,6 +92,10 @@
     <Property Name="application" Type="varchar" MaxLength="50" />
     <Property Name="osedition" Type="varchar" MaxLength="50" />
     <Property Name="ostype" Type="varchar" MaxLength="10" />
+    <Property Name="last_contact_attempt" Type="datetime" />
+    <Property Name="last_contact_status" Type="int" />
+    <Property Name="last_contact_message" Type="varchar" MaxLength="50" />
+    <Property Name="failed_contact_attempts" Type="int" />
   </EntityType>
   <EntityContainer Name="CloudMoveyModelStoreContainer">
     <EntitySet Name="Credentials" EntityType="Self.Credentials" store:Type="Tables" />

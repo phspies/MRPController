@@ -141,10 +141,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="USN\USN_Program.cs" />
     <Compile Include="RawClone.cs" />
-    <Compile Include="USN.cs" />
-    <Compile Include="Win32Api.cs" />
+    <Compile Include="USN\USN.cs" />
+    <Compile Include="USN\Win32Api.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

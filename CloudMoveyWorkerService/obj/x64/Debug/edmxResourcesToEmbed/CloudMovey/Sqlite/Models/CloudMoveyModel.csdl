@@ -99,5 +99,10 @@
     <Property Name="application" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="osedition" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ostype" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="last_contact_attempt" Type="DateTime" />
+    <Property Name="last_contact_status" Type="Int32" />
+    <Property Name="last_contact_message" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="failed_contact_attempts" Type="Int32" />
+    <Property Name="iplist" Type="String" MaxLength="125" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>
