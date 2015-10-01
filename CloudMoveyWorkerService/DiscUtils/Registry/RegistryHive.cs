@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Registry
+namespace MoveyDiskLib.Registry
 {
     using System;
     using System.Collections.Generic;

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.HfsPlus
+namespace MoveyDiskLib.HfsPlus
 {
     internal sealed class ForkData : IByteArraySerializable
     {

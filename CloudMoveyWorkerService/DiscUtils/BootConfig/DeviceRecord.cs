@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.BootConfig
+namespace MoveyDiskLib.BootConfig
 {
     using System;
     using System.IO;

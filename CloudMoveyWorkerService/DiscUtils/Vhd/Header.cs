@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vhd
+namespace MoveyDiskLib.Vhd
 {
     using System.IO;
 

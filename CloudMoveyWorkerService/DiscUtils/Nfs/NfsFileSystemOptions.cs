@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Nfs
+namespace MoveyDiskLib.Nfs
 {
     /// <summary>
     /// Options controlling the behaviour of NFS file system.

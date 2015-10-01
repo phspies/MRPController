@@ -20,13 +20,13 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs
+namespace MoveyDiskLib.Ntfs
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
 
-    internal class NtfsAttributeBuffer : DiscUtils.Buffer, IMappedBuffer
+    internal class NtfsAttributeBuffer : MoveyDiskLib.Buffer, IMappedBuffer
     {
         private File _file;
         private NtfsAttribute _attribute;

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs.Internals
+namespace MoveyDiskLib.Ntfs.Internals
 {
     /// <summary>
     /// Base class for all attributes within Master File Table entries.

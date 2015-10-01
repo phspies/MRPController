@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Iscsi
+namespace MoveyDiskLib.Iscsi
 {
     internal class DataInPacket : BaseResponse
     {

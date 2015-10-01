@@ -20,10 +20,10 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.ApplePartitionMap
+namespace MoveyDiskLib.ApplePartitionMap
 {
     using System.IO;
-    using DiscUtils.Partitions;
+    using MoveyDiskLib.Partitions;
 
     [PartitionTableFactory]
     internal sealed class PartitionMapFactory : PartitionTableFactory

@@ -20,10 +20,10 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.SquashFs
+namespace MoveyDiskLib.SquashFs
 {
     using System;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     internal class Symlink : File, IVfsSymlink<DirectoryEntry, File>
     {

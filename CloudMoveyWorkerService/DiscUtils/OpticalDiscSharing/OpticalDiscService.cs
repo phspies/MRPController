@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.OpticalDiscSharing
+namespace MoveyDiskLib.OpticalDiscSharing
 {
     using System;
     using System.Collections.Generic;
@@ -30,7 +30,7 @@ namespace DiscUtils.OpticalDiscSharing
     using System.Security;
     using System.Text;
     using System.Threading;
-    using DiscUtils.Net.Dns;
+    using MoveyDiskLib.Net.Dns;
 
     /// <summary>
     /// Represents a particular Optical Disc Sharing service (typically a Mac or PC).

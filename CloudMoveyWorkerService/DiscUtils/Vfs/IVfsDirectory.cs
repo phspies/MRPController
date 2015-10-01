@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vfs
+namespace MoveyDiskLib.Vfs
 {
     using System.Collections.Generic;
 

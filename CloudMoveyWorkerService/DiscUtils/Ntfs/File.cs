@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs
+namespace MoveyDiskLib.Ntfs
 {
     using System;
     using System.Collections.Generic;

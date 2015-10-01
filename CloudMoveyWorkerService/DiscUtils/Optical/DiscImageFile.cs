@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Optical
+namespace MoveyDiskLib.Optical
 {
     using System;
     using System.IO;
-    using DiscUtils.Partitions;
+    using MoveyDiskLib.Partitions;
 
     /// <summary>
     /// Represents a single optical disc image file.

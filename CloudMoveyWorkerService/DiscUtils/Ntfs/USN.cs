@@ -8,7 +8,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using Microsoft.Win32.SafeHandles;
 
-namespace DiscUtils.Ntfs
+namespace MoveyDiskLib.Ntfs
 {
     public class NtfsUsnJournal : IDisposable
     {
@@ -210,8 +210,7 @@ namespace DiscUtils.Ntfs
         /// <remarks>
         /// If function returns ERROR_ACCESS_DENIED you need to run application as an Administrator.
         /// </remarks>
-        public UsnJournalReturnCode
-            CreateUsnJournal(ulong maxSize, ulong allocationDelta)
+        public UsnJournalReturnCode CreateUsnJournal(ulong maxSize, ulong allocationDelta)
         {
             UsnJournalReturnCode usnRtnCode = UsnJournalReturnCode.VOLUME_NOT_NTFS;
             DateTime startTime = DateTime.Now;
@@ -285,8 +284,7 @@ namespace DiscUtils.Ntfs
         /// <remarks>
         /// If function returns ERROR_ACCESS_DENIED you need to run application as an Administrator.
         /// </remarks>
-        public UsnJournalReturnCode
-            DeleteUsnJournal(Win32Api.USN_JOURNAL_DATA journalState)
+        public UsnJournalReturnCode DeleteUsnJournal(Win32Api.USN_JOURNAL_DATA journalState)
         {
             UsnJournalReturnCode usnRtnCode = UsnJournalReturnCode.VOLUME_NOT_NTFS;
             DateTime startTime = DateTime.Now;
@@ -363,8 +361,7 @@ namespace DiscUtils.Ntfs
         /// <remarks>
         /// If function returns ERROR_ACCESS_DENIED you need to run application as an Administrator.
         /// </remarks>
-        public UsnJournalReturnCode
-            GetNtfsVolumeFolders(out List<Win32Api.UsnEntry> folders)
+        public UsnJournalReturnCode GetNtfsVolumeFolders(out List<Win32Api.UsnEntry> folders)
         {
             DateTime startTime = DateTime.Now;
             folders = new List<Win32Api.UsnEntry>();
@@ -450,8 +447,7 @@ namespace DiscUtils.Ntfs
             return usnRtnCode;
         }
 
-        public UsnJournalReturnCode
-            GetFilesMatchingFilter(string filter, out List<Win32Api.UsnEntry> files)
+        public UsnJournalReturnCode GetFilesMatchingFilter(string filter, out List<Win32Api.UsnEntry> files)
         {
             DateTime startTime = DateTime.Now;
             filter = filter.ToLower();
@@ -578,12 +574,10 @@ namespace DiscUtils.Ntfs
         /// If function returns ERROR_ACCESS_DENIED you need to run application as an Administrator.
         /// </remarks>
 
-        public UsnJournalReturnCode
-            GetPathFromFileReference(UInt64 frn, out string path)
+        public UsnJournalReturnCode GetPathFromFileReference(UInt64 frn, out string path)
         {
             DateTime startTime = DateTime.Now;
-            path = "Unavailable"
-                ;
+            path = "Unavailable";
             UsnJournalReturnCode usnRtnCode = UsnJournalReturnCode.VOLUME_NOT_NTFS;
 
             if (bNtfsVolume)
@@ -695,8 +689,7 @@ namespace DiscUtils.Ntfs
         /// <remarks>
         /// If function returns ERROR_ACCESS_DENIED you need to run application as an Administrator.
         /// </remarks>
-        public UsnJournalReturnCode
-            GetUsnJournalState(ref Win32Api.USN_JOURNAL_DATA usnJournalState)
+        public UsnJournalReturnCode GetUsnJournalState(ref Win32Api.USN_JOURNAL_DATA usnJournalState)
         {
             UsnJournalReturnCode usnRtnCode = UsnJournalReturnCode.VOLUME_NOT_NTFS;
             DateTime startTime = DateTime.Now;
@@ -962,8 +955,7 @@ namespace DiscUtils.Ntfs
         /// INVALID_FILE_REFERENCE_NUMBER       bad file reference number - see remarks.
         /// USN_JOURNAL_ERROR                   unspecified usn journal error.
         /// </returns>
-        private UsnJournalReturnCode
-            ConvertWin32ErrorToUsnError(Win32Api.GetLastErrorEnum Win32LastError)
+        private UsnJournalReturnCode ConvertWin32ErrorToUsnError(Win32Api.GetLastErrorEnum Win32LastError)
         {
             UsnJournalReturnCode usnRtnCode;
 
@@ -992,8 +984,7 @@ namespace DiscUtils.Ntfs
         /// <param name="driveInfo">DriveInfo object representing the volume in question.</param>
         /// <param name="volumeSerialNumber">out parameter to hold the volume serial number.</param>
         /// <returns></returns>
-        private UsnJournalReturnCode
-            GetVolumeSerialNumber(DriveInfo driveInfo, out uint volumeSerialNumber)
+        private UsnJournalReturnCode GetVolumeSerialNumber(DriveInfo driveInfo, out uint volumeSerialNumber)
         {
             Console.WriteLine("GetVolumeSerialNumber() function entered for drive '{0}'", driveInfo.Name);
 
@@ -1035,8 +1026,7 @@ namespace DiscUtils.Ntfs
             return usnRtnCode;
         }
 
-        private UsnJournalReturnCode
-            GetRootHandle(out IntPtr rootHandle)
+        private UsnJournalReturnCode GetRootHandle(out IntPtr rootHandle)
         {
             //
             // private functions don't need to check for an NTFS volume or
@@ -1067,8 +1057,7 @@ namespace DiscUtils.Ntfs
         /// </summary>
         /// <param name="usnJournalState">the USN_JOURNAL_DATA object that is associated with this volume</param>
         /// <returns></returns>
-        private UsnJournalReturnCode
-            QueryUsnJournal(ref Win32Api.USN_JOURNAL_DATA usnJournalState)
+        private UsnJournalReturnCode QueryUsnJournal(ref Win32Api.USN_JOURNAL_DATA usnJournalState)
         {
             //
             // private functions don't need to check for an NTFS volume or

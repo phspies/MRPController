@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Iscsi
+namespace MoveyDiskLib.Iscsi
 {
     using System;
     using System.Collections.Generic;
@@ -58,7 +58,7 @@ namespace DiscUtils.Iscsi
                 Stream stream = Content;
                 long pos = stream.Position;
 
-                Geometry result = DiscUtils.Partitions.BiosPartitionTable.DetectGeometry(stream);
+                Geometry result = MoveyDiskLib.Partitions.BiosPartitionTable.DetectGeometry(stream);
 
                 stream.Position = pos;
 

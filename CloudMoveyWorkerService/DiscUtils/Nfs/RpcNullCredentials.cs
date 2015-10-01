@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Nfs
+namespace MoveyDiskLib.Nfs
 {
     /// <summary>
     /// Null RPC credentials, for use with anonymous services / procedures.

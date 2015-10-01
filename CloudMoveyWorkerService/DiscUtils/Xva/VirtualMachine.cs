@@ -20,13 +20,13 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Xva
+namespace MoveyDiskLib.Xva
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Xml.XPath;
-    using DiscUtils.Archives;
+    using MoveyDiskLib.Archives;
 
     /// <summary>
     /// Class representing the virtual machine stored in a Xen Virtual Appliance (XVA)

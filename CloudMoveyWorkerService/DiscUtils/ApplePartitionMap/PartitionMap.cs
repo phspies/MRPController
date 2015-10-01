@@ -20,12 +20,12 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.ApplePartitionMap
+namespace MoveyDiskLib.ApplePartitionMap
 {
     using System;
     using System.Collections.ObjectModel;
     using System.IO;
-    using DiscUtils.Partitions;
+    using MoveyDiskLib.Partitions;
 
     /// <summary>
     /// Interprets Apple Partition Map structures that partition a disk.

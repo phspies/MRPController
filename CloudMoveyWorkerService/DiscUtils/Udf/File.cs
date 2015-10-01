@@ -20,12 +20,12 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Udf
+namespace MoveyDiskLib.Udf
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     internal class File : IVfsFile
     {

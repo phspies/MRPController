@@ -1,8 +1,8 @@
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\DiscUtils\src\bin\Debug\DiscUtils.dll
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\DiscUtils\src\bin\Debug\DiscUtils.pdb
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\DiscUtils\src\bin\Debug\DiscUtils.dll.xml
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\DiscUtils\src\obj\Debug\DiscUtils.csprojResolveAssemblyReference.cache
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\DiscUtils\src\obj\Debug\DiscUtils.Resources.resources
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\DiscUtils\src\obj\Debug\DiscUtils.csproj.GenerateResource.Cache
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\DiscUtils\src\obj\Debug\DiscUtils.dll
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\DiscUtils\src\obj\Debug\DiscUtils.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MoveyDiskLib\src\bin\Debug\MoveyDiskLib.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MoveyDiskLib\src\bin\Debug\MoveyDiskLib.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MoveyDiskLib\src\bin\Debug\MoveyDiskLib.dll.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MoveyDiskLib\src\obj\Debug\MoveyDiskLib.csprojResolveAssemblyReference.cache
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MoveyDiskLib\src\obj\Debug\MoveyDiskLib.Resources.resources
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MoveyDiskLib\src\obj\Debug\MoveyDiskLib.csproj.GenerateResource.Cache
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MoveyDiskLib\src\obj\Debug\MoveyDiskLib.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MoveyDiskLib\src\obj\Debug\MoveyDiskLib.pdb

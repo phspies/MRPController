@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Net.Dns
+namespace MoveyDiskLib.Net.Dns
 {
     using System;
     using System.Collections.Generic;
@@ -152,7 +152,7 @@ namespace DiscUtils.Net.Dns
                 {
                     foreach (var address in nic.GetIPProperties().DnsAddresses)
                     {
-                        if (address.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork && !addresses.ContainsKey(address))
+                        if (address.AddressFamily == AddressFamily.InterNetwork && !addresses.ContainsKey(address))
                         {
                             addresses.Add(address, null);
                         }

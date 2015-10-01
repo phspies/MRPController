@@ -28,10 +28,10 @@
 // (*) Puyo tools implements a different LZ-style algorithm
 //
 
-namespace DiscUtils.Ntfs
+namespace MoveyDiskLib.Ntfs
 {
     using System;
-    using DiscUtils.Compression;
+    using MoveyDiskLib.Compression;
 
     /// <summary>
     /// Implementation of the LZNT1 algorithm used for compressing NTFS files.

@@ -20,14 +20,14 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs
+namespace MoveyDiskLib.Ntfs
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
     using System.Text;
-    using DirectoryIndexEntry = System.Collections.Generic.KeyValuePair<DiscUtils.Ntfs.FileNameRecord, DiscUtils.Ntfs.FileRecordReference>;
+    using DirectoryIndexEntry = System.Collections.Generic.KeyValuePair<MoveyDiskLib.Ntfs.FileNameRecord, MoveyDiskLib.Ntfs.FileRecordReference>;
 
     internal class Directory : File
     {

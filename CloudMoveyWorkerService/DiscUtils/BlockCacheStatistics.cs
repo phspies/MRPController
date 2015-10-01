@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils
+namespace MoveyDiskLib
 {
     /// <summary>
     /// Statistical information about the effectiveness of a BlockCache instance.

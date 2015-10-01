@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Sdi
+namespace MoveyDiskLib.Sdi
 {
     using System;
     using System.Collections.Generic;

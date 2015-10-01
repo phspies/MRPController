@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils
+namespace MoveyDiskLib
 {
     /// <summary>
     /// Well known hard disk adaptor types.

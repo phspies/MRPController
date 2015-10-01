@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Fat
+namespace MoveyDiskLib.Fat
 {
     /// <summary>
     /// Enumeration of known FAT types.

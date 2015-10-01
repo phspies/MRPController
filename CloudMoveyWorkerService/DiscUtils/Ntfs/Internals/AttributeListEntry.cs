@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs.Internals
+namespace MoveyDiskLib.Ntfs.Internals
 {
     /// <summary>
     /// Represents an entry in an AttributeList attribute.

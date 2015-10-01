@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.HfsPlus
+namespace MoveyDiskLib.HfsPlus
 {
     internal delegate int BTreeVisitor<Key>(Key key, byte[] data)
         where Key : BTreeKey;

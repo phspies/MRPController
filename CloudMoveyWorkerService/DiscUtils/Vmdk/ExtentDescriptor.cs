@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vmdk
+namespace MoveyDiskLib.Vmdk
 {
     using System;
     using System.Collections.Generic;

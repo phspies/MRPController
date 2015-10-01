@@ -20,10 +20,10 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs.Internals
+namespace MoveyDiskLib.Ntfs.Internals
 {
     using System.Collections.Generic;
-    using InternalMasterFileTable = DiscUtils.Ntfs.MasterFileTable;
+    using InternalMasterFileTable = MoveyDiskLib.Ntfs.MasterFileTable;
 
     /// <summary>
     /// Provides read-only access to the Master File Table of an NTFS file system.

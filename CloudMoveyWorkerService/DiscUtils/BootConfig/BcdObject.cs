@@ -26,7 +26,7 @@
 //
 //
 
-namespace DiscUtils.BootConfig
+namespace MoveyDiskLib.BootConfig
 {
     using System;
     using System.Collections.Generic;

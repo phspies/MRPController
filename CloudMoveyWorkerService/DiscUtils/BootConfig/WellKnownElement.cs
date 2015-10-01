@@ -26,7 +26,7 @@
 //
 //
 
-namespace DiscUtils.BootConfig
+namespace MoveyDiskLib.BootConfig
 {
     /// <summary>
     /// Enumeration of known BCD elements.

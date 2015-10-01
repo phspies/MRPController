@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vhdx
+namespace MoveyDiskLib.Vhdx
 {
     using System;
     using System.Collections.Generic;
@@ -115,7 +115,7 @@ namespace DiscUtils.Vhdx
                 long sectorBitmapBlocksCount = Utilities.Ceil(dataBlocksCount, chunkRatio);
                 long totalBatEntriesDynamic = dataBlocksCount + ((dataBlocksCount - 1) / chunkRatio);
 
-                FileHeader fileHeader = new FileHeader() { Creator = ".NET DiscUtils" };
+                FileHeader fileHeader = new FileHeader() { Creator = ".NET MoveyDiskLib" };
 
                 long fileEnd = Sizes.OneMiB;
 

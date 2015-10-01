@@ -20,13 +20,13 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils
+namespace MoveyDiskLib
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     /// <summary>
     /// FileSystemManager determines which file systems are present on a volume.

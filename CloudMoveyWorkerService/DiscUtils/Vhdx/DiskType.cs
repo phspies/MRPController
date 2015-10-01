@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vhdx
+namespace MoveyDiskLib.Vhdx
 {
     /// <summary>
     /// The known types of VHDX disks.

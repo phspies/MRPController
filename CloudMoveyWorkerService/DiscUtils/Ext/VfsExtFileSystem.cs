@@ -20,10 +20,10 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ext
+namespace MoveyDiskLib.Ext
 {
     using System.IO;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     internal sealed class VfsExtFileSystem : VfsReadOnlyFileSystem<DirEntry, File, Directory, Context>, IUnixFileSystem
     {

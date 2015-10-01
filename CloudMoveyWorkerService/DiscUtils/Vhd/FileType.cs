@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vhd
+namespace MoveyDiskLib.Vhd
 {
     /// <summary>
     /// The known types of VHD disks.

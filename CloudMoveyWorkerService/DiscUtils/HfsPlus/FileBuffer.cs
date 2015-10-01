@@ -20,13 +20,13 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.HfsPlus
+namespace MoveyDiskLib.HfsPlus
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
 
-    internal sealed class FileBuffer : DiscUtils.Buffer
+    internal sealed class FileBuffer : MoveyDiskLib.Buffer
     {
         private Context _context;
         private ForkData _baseData;

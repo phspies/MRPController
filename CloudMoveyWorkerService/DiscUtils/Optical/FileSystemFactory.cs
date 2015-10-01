@@ -20,20 +20,20 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Optical
+namespace MoveyDiskLib.Optical
 {
     using System.Collections.Generic;
     using System.IO;
-    using DiscUtils.Iso9660;
-    using DiscUtils.Udf;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Iso9660;
+    using MoveyDiskLib.Udf;
+    using MoveyDiskLib.Vfs;
 
     [VfsFileSystemFactory]
     internal class FileSystemFactory : VfsFileSystemFactory
     {
-        public override DiscUtils.FileSystemInfo[] Detect(Stream stream, VolumeInfo volume)
+        public override MoveyDiskLib.FileSystemInfo[] Detect(Stream stream, VolumeInfo volume)
         {
-            List<DiscUtils.FileSystemInfo> detected = new List<DiscUtils.FileSystemInfo>();
+            List<MoveyDiskLib.FileSystemInfo> detected = new List<MoveyDiskLib.FileSystemInfo>();
 
             if (UdfReader.Detect(stream))
             {

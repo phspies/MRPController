@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils
+namespace MoveyDiskLib
 {
     /// <summary>
     /// Describes a particular file that is a constituent part of a virtual disk.

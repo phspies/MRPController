@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vdi
+namespace MoveyDiskLib.Vdi
 {
     using System;
     using System.IO;
@@ -59,7 +59,7 @@ namespace DiscUtils.Vdi
             result.HeaderSize = 400;
             result.ImageType = type;
             result.Flags = flags;
-            result.Comment = "Created by .NET DiscUtils";
+            result.Comment = "Created by .NET MoveyDiskLib";
             result.LegacyGeometry = new GeometryRecord();
             result.DiskSize = size;
             result.BlockSize = blockSize;

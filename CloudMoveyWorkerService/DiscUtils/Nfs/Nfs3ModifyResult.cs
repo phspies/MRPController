@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Nfs
+namespace MoveyDiskLib.Nfs
 {
     internal sealed class Nfs3ModifyResult : Nfs3CallResult
     {

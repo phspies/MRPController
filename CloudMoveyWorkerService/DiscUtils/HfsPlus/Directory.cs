@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.HfsPlus
+namespace MoveyDiskLib.HfsPlus
 {
     using System;
     using System.Collections.Generic;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     internal sealed class Directory : File, IVfsDirectory<DirEntry, File>
     {

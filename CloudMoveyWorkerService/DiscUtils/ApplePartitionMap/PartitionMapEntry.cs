@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.ApplePartitionMap
+namespace MoveyDiskLib.ApplePartitionMap
 {
     using System;
     using System.IO;
-    using DiscUtils.Partitions;
+    using MoveyDiskLib.Partitions;
 
     internal sealed class PartitionMapEntry : PartitionInfo, IByteArraySerializable
     {

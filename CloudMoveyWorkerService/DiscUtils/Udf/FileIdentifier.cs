@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Udf
+namespace MoveyDiskLib.Udf
 {
     using System;
     using System.IO;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     [Flags]
     internal enum FileCharacteristic : byte

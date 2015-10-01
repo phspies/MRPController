@@ -20,13 +20,13 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.SquashFs
+namespace MoveyDiskLib.SquashFs
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
-    using DiscUtils.Compression;
+    using MoveyDiskLib.Compression;
 
     internal sealed class FragmentWriter
     {

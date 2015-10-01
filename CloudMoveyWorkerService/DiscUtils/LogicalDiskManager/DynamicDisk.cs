@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.LogicalDiskManager
+namespace MoveyDiskLib.LogicalDiskManager
 {
     using System;
     using System.IO;
-    using DiscUtils.Partitions;
+    using MoveyDiskLib.Partitions;
 
     internal class DynamicDisk : IDiagnosticTraceable
     {

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Raw
+namespace MoveyDiskLib.Raw
 {
     using System;
     using System.Collections.Generic;

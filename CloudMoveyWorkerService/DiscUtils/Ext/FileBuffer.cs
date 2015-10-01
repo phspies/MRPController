@@ -20,12 +20,12 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ext
+namespace MoveyDiskLib.Ext
 {
     using System;
     using System.Collections.Generic;
 
-    internal class FileBuffer : DiscUtils.Buffer
+    internal class FileBuffer : MoveyDiskLib.Buffer
     {
         private Context _context;
         private Inode _inode;

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Xva
+namespace MoveyDiskLib.Xva
 {
     using System;
     using System.Collections.Generic;

@@ -20,13 +20,13 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Iso9660
+namespace MoveyDiskLib.Iso9660
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Text;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     internal sealed class ReaderDirEntry : VfsDirEntry
     {

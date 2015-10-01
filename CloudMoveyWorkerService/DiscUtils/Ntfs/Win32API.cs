@@ -1,15 +1,12 @@
 ﻿// Win32Api.cs
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
-using Microsoft.Win32;
 using System.ComponentModel;
-using Microsoft.Win32.SafeHandles;
 
-namespace DiscUtils.Ntfs
+namespace MoveyDiskLib.Ntfs
 {
     public class Win32Api
     {
@@ -1115,3 +1112,7 @@ namespace DiscUtils.Ntfs
         #endregion
     }
 }
+
+
+
+

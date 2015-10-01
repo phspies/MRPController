@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Iso9660
+namespace MoveyDiskLib.Iso9660
 {
     using System.Collections.Generic;
     using System.IO;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     internal class IsoContext : VfsContext
     {

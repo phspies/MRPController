@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ext
+namespace MoveyDiskLib.Ext
 {
     using System;
 
@@ -29,7 +29,7 @@ namespace DiscUtils.Ext
         public const ushort Ext2Magic = 0xEF53;
 
         /// <summary>
-        /// Old revision, not supported by DiscUtils.
+        /// Old revision, not supported by MoveyDiskLib.
         /// </summary>
         public const uint OldRevision = 0;
 

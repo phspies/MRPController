@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Udf
+namespace MoveyDiskLib.Udf
 {
     /// <summary>
     /// Contains extended attribute information for a file or directory.

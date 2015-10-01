@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Wim
+namespace MoveyDiskLib.Wim
 {
     using System;
     using System.IO;
-    using DiscUtils.Compression;
+    using MoveyDiskLib.Compression;
 
     /// <summary>
     /// Class to read data compressed using LZX algorithm.

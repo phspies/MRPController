@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Dmg
+namespace MoveyDiskLib.Dmg
 {
     internal enum RunType : uint
     {

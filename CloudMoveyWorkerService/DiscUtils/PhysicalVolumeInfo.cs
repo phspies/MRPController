@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils
+namespace MoveyDiskLib
 {
     using System;
     using System.Globalization;
-    using DiscUtils.Partitions;
+    using MoveyDiskLib.Partitions;
 
     /// <summary>
     /// Enumeration of possible types of physical volume.

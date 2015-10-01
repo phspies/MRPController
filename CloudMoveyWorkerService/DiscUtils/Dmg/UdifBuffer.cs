@@ -20,15 +20,15 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Dmg
+namespace MoveyDiskLib.Dmg
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
-    using DiscUtils.Compression;
+    using MoveyDiskLib.Compression;
 
-    internal class UdifBuffer : DiscUtils.Buffer
+    internal class UdifBuffer : MoveyDiskLib.Buffer
     {
         private Stream _stream;
         private ResourceFork _resources;

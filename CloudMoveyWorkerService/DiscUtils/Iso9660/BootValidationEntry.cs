@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Iso9660
+namespace MoveyDiskLib.Iso9660
 {
     using System;
 
@@ -36,7 +36,7 @@ namespace DiscUtils.Iso9660
         {
             HeaderId = 1;
             PlatformId = 0;
-            ManfId = ".Net DiscUtils";
+            ManfId = ".Net MoveyDiskLib";
         }
 
         public BootValidationEntry(byte[] src, int offset)

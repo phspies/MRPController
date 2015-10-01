@@ -20,12 +20,12 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Iso9660
+namespace MoveyDiskLib.Iso9660
 {
     using System;
     using System.IO;
     using System.Text;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     [Flags]
     internal enum FileFlags : byte

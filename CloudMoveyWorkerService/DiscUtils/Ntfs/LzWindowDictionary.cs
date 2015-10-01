@@ -25,7 +25,7 @@
 //   - Derived from Puyo tools (BSD license)
 //
 
-namespace DiscUtils.Ntfs
+namespace MoveyDiskLib.Ntfs
 {
     using System;
     using System.Collections.Generic;

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Udf
+namespace MoveyDiskLib.Udf
 {
     internal sealed class Type1PartitionMap : PartitionMap
     {

@@ -20,22 +20,22 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.HfsPlus
+namespace MoveyDiskLib.HfsPlus
 {
     using System.IO;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     [VfsFileSystemFactory]
     internal class FileSystemFactory : VfsFileSystemFactory
     {
-        public override DiscUtils.FileSystemInfo[] Detect(Stream stream, VolumeInfo volume)
+        public override MoveyDiskLib.FileSystemInfo[] Detect(Stream stream, VolumeInfo volume)
         {
             if (HfsPlusFileSystem.Detect(stream))
             {
-                return new DiscUtils.FileSystemInfo[] { new VfsFileSystemInfo("HFS+", "Apple HFS+", Open) };
+                return new MoveyDiskLib.FileSystemInfo[] { new VfsFileSystemInfo("HFS+", "Apple HFS+", Open) };
             }
 
-            return new DiscUtils.FileSystemInfo[0];
+            return new MoveyDiskLib.FileSystemInfo[0];
         }
 
         private DiscFileSystem Open(Stream stream, VolumeInfo volumeInfo, FileSystemParameters parameters)

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs.Internals
+namespace MoveyDiskLib.Ntfs.Internals
 {
     /// <summary>
     /// A reference to a Master File Table entry.

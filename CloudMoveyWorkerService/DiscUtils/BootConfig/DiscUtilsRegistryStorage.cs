@@ -20,14 +20,14 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.BootConfig
+namespace MoveyDiskLib.BootConfig
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using DiscUtils.Registry;
+    using MoveyDiskLib.Registry;
 
-    internal class DiscUtilsRegistryStorage : BaseStorage
+    internal class MoveyDiskLibRegistryStorage : BaseStorage
     {
         private const string ElementsPathTemplate = @"Objects\{0}\Elements";
         private const string ElementPathTemplate = @"Objects\{0}\Elements\{1:X8}";
@@ -36,7 +36,7 @@ namespace DiscUtils.BootConfig
 
         private RegistryKey _rootKey;
 
-        public DiscUtilsRegistryStorage(RegistryKey key)
+        public MoveyDiskLibRegistryStorage(RegistryKey key)
         {
             _rootKey = key;
         }

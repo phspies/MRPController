@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vfs
+namespace MoveyDiskLib.Vfs
 {
     using System.IO;
 
@@ -36,7 +36,7 @@ namespace DiscUtils.Vfs
     /// <summary>
     /// Class holding information about a file system.
     /// </summary>
-    public sealed class VfsFileSystemInfo : DiscUtils.FileSystemInfo
+    public sealed class VfsFileSystemInfo : MoveyDiskLib.FileSystemInfo
     {
         private string _name;
         private string _description;

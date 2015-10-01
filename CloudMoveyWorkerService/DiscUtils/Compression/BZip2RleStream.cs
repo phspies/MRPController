@@ -24,7 +24,7 @@
 // Based on "libbzip2", Copyright (C) 1996-2007 Julian R Seward.
 //
 
-namespace DiscUtils.Compression
+namespace MoveyDiskLib.Compression
 {
     using System;
     using System.IO;

@@ -20,13 +20,13 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.SquashFs
+namespace MoveyDiskLib.SquashFs
 {
     using System;
     using System.IO;
     using System.IO.Compression;
-    using DiscUtils.Compression;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Compression;
+    using MoveyDiskLib.Vfs;
 
     internal class VfsSquashFileSystemReader : VfsReadOnlyFileSystem<DirectoryEntry, File, Directory, Context>, IUnixFileSystem
     {

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Udf
+namespace MoveyDiskLib.Udf
 {
     internal class ApplicationEntityIdentifier : EntityIdentifier
     {

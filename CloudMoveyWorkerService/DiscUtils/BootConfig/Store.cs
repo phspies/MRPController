@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.BootConfig
+namespace MoveyDiskLib.BootConfig
 {
     using System;
     using System.Collections.Generic;
-    using DiscUtils.Registry;
+    using MoveyDiskLib.Registry;
 
     /// <summary>
     /// Represents a Boot Configuration Database store (i.e. a BCD file).
@@ -39,7 +39,7 @@ namespace DiscUtils.BootConfig
         /// <param name="key">The registry key that is the root of the configuration database.</param>
         public Store(RegistryKey key)
         {
-            _store = new DiscUtilsRegistryStorage(key);
+            _store = new MoveyDiskLibRegistryStorage(key);
         }
 
         /// <summary>

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Sdi
+namespace MoveyDiskLib.Sdi
 {
     /// <summary>
     /// Information about a blob (or section) within an SDI file.

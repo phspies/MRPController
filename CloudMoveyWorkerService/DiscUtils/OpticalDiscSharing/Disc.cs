@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.OpticalDiscSharing
+namespace MoveyDiskLib.OpticalDiscSharing
 {
     using System;
     using System.Collections.Generic;

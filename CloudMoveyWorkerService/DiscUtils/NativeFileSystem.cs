@@ -1,5 +1,5 @@
 //
-// DiscUtils Copyright (c) 2008-2011, Kenneth Bell
+// MoveyDiskLib Copyright (c) 2008-2011, Kenneth Bell
 //
 // Original NativeFileSystem contributed by bsobel:
 //    http://discutils.codeplex.com/workitem/5190
@@ -23,7 +23,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils
+namespace MoveyDiskLib
 {
     using System;
     using System.IO;

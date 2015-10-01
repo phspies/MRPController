@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils
+namespace MoveyDiskLib
 {
     /// <summary>
     /// Represents a Reparse Point, which can be associated with a file or directory.

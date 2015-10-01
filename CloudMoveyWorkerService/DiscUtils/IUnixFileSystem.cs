@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils
+namespace MoveyDiskLib
 {
     /// <summary>
     /// Provides the base class for all file systems that support Unix semantics.

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Net.Dns
+namespace MoveyDiskLib.Net.Dns
 {
     /// <summary>
     /// Enumeration of known DNS record classes (CLASS in DNS).

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Sdi
+namespace MoveyDiskLib.Sdi
 {
     internal class SectionRecord
     {

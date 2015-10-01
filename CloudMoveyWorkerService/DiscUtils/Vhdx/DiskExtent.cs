@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vhdx
+namespace MoveyDiskLib.Vhdx
 {
     internal sealed class DiskExtent : VirtualDiskExtent
     {

@@ -20,12 +20,12 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.SquashFs
+namespace MoveyDiskLib.SquashFs
 {
     using System;
     using System.IO;
     using System.IO.Compression;
-    using DiscUtils.Compression;
+    using MoveyDiskLib.Compression;
 
     internal sealed class MetablockWriter : IDisposable
     {

@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.OpticalDiscSharing
+namespace MoveyDiskLib.OpticalDiscSharing
 {
     using System;
     using System.Collections.Generic;
-    using DiscUtils.Net.Dns;
+    using MoveyDiskLib.Net.Dns;
 
     /// <summary>
     /// Provides access to Optical Disc Sharing services.

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs.Internals
+namespace MoveyDiskLib.Ntfs.Internals
 {
     internal sealed class UnknownAttribute : GenericAttribute
     {

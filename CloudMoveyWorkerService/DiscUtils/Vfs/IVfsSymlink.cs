@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vfs
+namespace MoveyDiskLib.Vfs
 {
     /// <summary>
     /// Interface implemented by classes representing a directory.

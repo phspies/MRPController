@@ -22,7 +22,7 @@
 
 using System;
 
-namespace DiscUtils.Ntfs.Internals
+namespace MoveyDiskLib.Ntfs.Internals
 {
     /// <summary>
     /// Flags indicating the state of a Master File Table entry.

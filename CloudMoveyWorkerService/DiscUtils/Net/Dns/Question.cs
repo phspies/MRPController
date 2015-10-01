@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Net.Dns
+namespace MoveyDiskLib.Net.Dns
 {
     internal sealed class Question
     {

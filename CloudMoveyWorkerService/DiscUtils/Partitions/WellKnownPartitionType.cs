@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Partitions
+namespace MoveyDiskLib.Partitions
 {
     /// <summary>
     /// Enumeration of partition-table technology neutral partition types.

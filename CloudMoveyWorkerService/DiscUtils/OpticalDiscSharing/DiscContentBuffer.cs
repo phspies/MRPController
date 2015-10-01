@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.OpticalDiscSharing
+namespace MoveyDiskLib.OpticalDiscSharing
 {
     using System;
     using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace DiscUtils.OpticalDiscSharing
     using System.Security.Cryptography;
     using System.Text;
 
-    internal sealed class DiscContentBuffer : DiscUtils.Buffer
+    internal sealed class DiscContentBuffer : MoveyDiskLib.Buffer
     {
         private Uri _uri;
         private string _userName;

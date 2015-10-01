@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Raw
+namespace MoveyDiskLib.Raw
 {
     using System;
     using System.IO;
-    using DiscUtils.Partitions;
+    using MoveyDiskLib.Partitions;
 
     /// <summary>
     /// Represents a single raw disk image file.

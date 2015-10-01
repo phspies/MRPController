@@ -1,4 +1,4 @@
-namespace DiscUtils.Ntfs.Internals
+namespace MoveyDiskLib.Ntfs.Internals
 {
     using System;
     using System.Collections.Generic;

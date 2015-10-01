@@ -20,13 +20,13 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs
+namespace MoveyDiskLib.Ntfs
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
-    using DiscUtils;
+    using MoveyDiskLib;
 
     /// <summary>
     /// Low-level non-resident attribute operations.

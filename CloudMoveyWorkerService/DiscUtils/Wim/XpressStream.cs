@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Wim
+namespace MoveyDiskLib.Wim
 {
     using System;
     using System.IO;
-    using DiscUtils.Compression;
+    using MoveyDiskLib.Compression;
 
     /// <summary>
     /// Implements the XPRESS decompression algorithm.

@@ -20,12 +20,12 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Udf
+namespace MoveyDiskLib.Udf
 {
     using System.Collections.Generic;
     using System.IO;
-    using DiscUtils.Iso9660;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Iso9660;
+    using MoveyDiskLib.Vfs;
 
     /// <summary>
     /// Class for accessing OSTA Universal Disk Format file systems.

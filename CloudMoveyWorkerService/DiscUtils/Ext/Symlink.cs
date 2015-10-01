@@ -20,9 +20,9 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ext
+namespace MoveyDiskLib.Ext
 {
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     internal class Symlink : File, IVfsSymlink<DirEntry, File>
     {

@@ -20,12 +20,12 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs
+namespace MoveyDiskLib.Ntfs
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using DiscUtils.Compression;
+    using MoveyDiskLib.Compression;
 
     internal sealed class CompressedClusterStream : ClusterStream
     {

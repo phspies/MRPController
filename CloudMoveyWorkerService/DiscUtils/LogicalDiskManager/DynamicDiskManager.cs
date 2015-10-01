@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.LogicalDiskManager
+namespace MoveyDiskLib.LogicalDiskManager
 {
     using System.Collections.Generic;
     using System.IO;
-    using DiscUtils.Partitions;
+    using MoveyDiskLib.Partitions;
 
     /// <summary>
     /// A class that understands Windows LDM structures, mapping physical volumes to logical volumes.

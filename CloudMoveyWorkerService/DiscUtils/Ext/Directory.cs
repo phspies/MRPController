@@ -20,11 +20,11 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ext
+namespace MoveyDiskLib.Ext
 {
     using System;
     using System.Collections.Generic;
-    using DiscUtils.Vfs;
+    using MoveyDiskLib.Vfs;
 
     internal class Directory : File, IVfsDirectory<DirEntry, File>
     {

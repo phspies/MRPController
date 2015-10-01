@@ -20,9 +20,9 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Ntfs
+namespace MoveyDiskLib.Ntfs
 {
-    using DiscUtils.Compression;
+    using MoveyDiskLib.Compression;
 
     /// <summary>
     /// Class whose instances hold options controlling how <see cref="NtfsFileSystem"/> works.

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Iso9660
+namespace MoveyDiskLib.Iso9660
 {
     internal sealed class PosixNameSystemUseEntry : SystemUseEntry
     {

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Partitions
+namespace MoveyDiskLib.Partitions
 {
     using System;
 

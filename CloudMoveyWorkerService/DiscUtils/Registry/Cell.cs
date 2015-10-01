@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Registry
+namespace MoveyDiskLib.Registry
 {
     /// <summary>
     /// Base class for the different kinds of cell present in a hive.

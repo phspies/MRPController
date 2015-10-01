@@ -20,13 +20,13 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Xva
+namespace MoveyDiskLib.Xva
 {
     using System;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
-    using DiscUtils.Archives;
+    using MoveyDiskLib.Archives;
 
     internal class DiskStream : SparseStream
     {

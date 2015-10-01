@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Xva
+namespace MoveyDiskLib.Xva
 {
     using System;
     using System.Collections.Generic;
@@ -28,8 +28,8 @@ namespace DiscUtils.Xva
     using System.IO;
     using System.Security.Cryptography;
     using System.Text;
-    using DiscUtils.Archives;
-    using DiskRecord = DiscUtils.Tuple<string, DiscUtils.SparseStream, DiscUtils.Ownership>;
+    using MoveyDiskLib.Archives;
+    using DiskRecord = MoveyDiskLib.Tuple<string, MoveyDiskLib.SparseStream, MoveyDiskLib.Ownership>;
 
     /// <summary>
     /// A class that can be used to create Xen Virtual Appliance (XVA) files.

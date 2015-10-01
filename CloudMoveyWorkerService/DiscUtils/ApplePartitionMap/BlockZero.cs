@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.ApplePartitionMap
+namespace MoveyDiskLib.ApplePartitionMap
 {
     internal sealed class BlockZero : IByteArraySerializable
     {

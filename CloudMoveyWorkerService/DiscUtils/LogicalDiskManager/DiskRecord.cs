@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.LogicalDiskManager
+namespace MoveyDiskLib.LogicalDiskManager
 {
     internal sealed class DiskRecord : DatabaseRecord
     {

@@ -20,7 +20,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-namespace DiscUtils.Vhdx
+namespace MoveyDiskLib.Vhdx
 {
     using System;
     using System.Globalization;
