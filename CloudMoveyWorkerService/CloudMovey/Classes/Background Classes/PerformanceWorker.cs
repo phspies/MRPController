@@ -1,4 +1,4 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Sqlite.Models;
+﻿using CloudMoveyWorkerService.Portal.Sqlite.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Threading;
 
-namespace CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes.Background_Classes
+namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Classes
 {
     class PerformanceWorker
     {
@@ -47,7 +47,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes.Background_C
         private static List<String> _categories = new List<string>();
         private static String machinename = null;
         private static CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-        private static CloudMovey _cloud_movey = new CloudMovey();
+        private static CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
         static void Start()
         {
 

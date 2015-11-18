@@ -3,12 +3,12 @@ using System.Diagnostics;
 using System.ServiceProcess;
 using System.ServiceModel;
 using System.ServiceModel.Description;
-using CloudMoveyWorkerService.CloudMovey;
-using CloudMoveyWorkerService.CloudMovey.Controllers;
+using CloudMoveyWorkerService.Portal;
+using CloudMoveyWorkerService.Portal.Controllers;
 using System.Threading;
 using CloudMoveyWorkerService.WCF;
 using System.Data.Services;
-using CloudMoveyWorkerService.CloudMovey.Classes;
+using CloudMoveyWorkerService.Portal.Classes;
 
 namespace CloudMoveyWorkerService
 {

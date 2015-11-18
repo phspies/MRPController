@@ -1,15 +1,15 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
+﻿using CloudMoveyWorkerService.Portal.Types.API;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Linq;
 using System.Net;
 
-namespace CloudMoveyWorkerService.CloudMovey
+namespace CloudMoveyWorkerService.Portal
 {
     class MoveyWorker : Core
     {
         MoveyWorkerType worker = new MoveyWorkerType();
-        public MoveyWorker(CloudMovey _CloudMovey) : base(_CloudMovey)
+        public MoveyWorker(CloudMoveyPortal _CloudMovey) : base(_CloudMovey)
         {
             worker.worker_hostname = Environment.MachineName;
             worker.worker_version = Global.version_number;

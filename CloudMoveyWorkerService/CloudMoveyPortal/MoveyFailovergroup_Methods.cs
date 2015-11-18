@@ -1,15 +1,15 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
+﻿using CloudMoveyWorkerService.Portal.Types.API;
 using System;
 using System.Net;
 
-namespace CloudMoveyWorkerService.CloudMovey
+namespace CloudMoveyWorkerService.Portal
 {
-    class MoveyFailovergroup : Core
+    class PortalFailovergroup : Core
     {
-        public MoveyFailovergroup(CloudMovey _CloudMovey) : base(_CloudMovey)
+        public PortalFailovergroup(CloudMoveyPortal _CloudMovey) : base(_CloudMovey)
         {
         }
-        public CloudMovey CloudMovey = new CloudMovey();
+        public CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
 
         public MoveyFailovergroupListType listfailovergroups()
         {

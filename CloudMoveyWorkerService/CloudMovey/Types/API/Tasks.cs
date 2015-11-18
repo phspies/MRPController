@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using CloudMoveyWorkerService.CloudMovey.Types.API;
+using CloudMoveyWorkerService.Portal.Types.API;
 
-namespace CloudMoveyWorkerService.CloudMovey.Types.API
+namespace CloudMoveyWorkerService.Portal.Types.API
 {
 
 

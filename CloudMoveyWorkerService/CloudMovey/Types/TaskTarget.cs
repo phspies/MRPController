@@ -1,11 +1,11 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
+﻿using CloudMoveyWorkerService.Portal.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudMoveyWorkerService.CloudMovey.Types
+namespace CloudMoveyWorkerService.Portal.Types
 {
 
     public class Target

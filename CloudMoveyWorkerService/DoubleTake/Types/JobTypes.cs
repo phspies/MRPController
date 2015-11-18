@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudMoveyWorkerService.DT.Types
+namespace CloudMoveyWorkerService.DoubleTakeNS.Types
 {
     public static class JobTypes
     {

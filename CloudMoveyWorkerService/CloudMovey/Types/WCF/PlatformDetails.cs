@@ -1,11 +1,11 @@
 ﻿using CloudMoveyWorkerService.CaaS;
-using CloudMoveyWorkerService.CloudMovey.Sqlite.Models;
+using CloudMoveyWorkerService.Portal.Sqlite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace CloudMoveyWorkerService.CloudMovey.Models
+namespace CloudMoveyWorkerService.Portal.Models
 {
     [DataContract]
     public class PlatformDetails

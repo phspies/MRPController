@@ -9,7 +9,7 @@ using System.Net;
 using System.Collections;
 using CloudMoveyWorkerService.CaaS.Models;
 
-namespace CloudMoveyWorkerService.DT
+namespace CloudMoveyWorkerService.DoubleTakeNS
 {
     class Core
     {

@@ -1,6 +1,7 @@
 ﻿using CloudMoveyWorkerService.CaaS;
 using CloudMoveyWorkerService.CaaS.Models;
-using CloudMoveyWorkerService.CloudMovey.Types.API;
+using CloudMoveyWorkerService.Portal;
+using CloudMoveyWorkerService.Portal.Types.API;
 using Newtonsoft.Json;
 using SimpleImpersonation;
 using System;
@@ -17,7 +18,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         public static void mcp_provisionvm(MoveyTaskType payload)
         {
             MoveyTaskPayloadType _payload = payload.submitpayload;
-            CloudMovey CloudMovey = new CloudMovey();
+            CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
             DimensionData CaaS = new DimensionData((string)_payload.platform.mcpendpoint.url, (string)_payload.platform.username, (string)_payload.platform.password, null);
             try
             {
@@ -295,7 +296,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         }
         public static void mcp_getdatacenters(dynamic payload)
         {
-            CloudMovey CloudMovey = new CloudMovey();
+            CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
             MoveyTask tasks = new MoveyTask(CloudMovey);
             DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.username, (string)payload.payload.password, null);
             try
@@ -310,7 +311,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         }
         public static void mcp_gettemplates(dynamic payload)
         {
-            CloudMovey CloudMovey = new CloudMovey();
+            CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
             MoveyTask tasks = new MoveyTask(CloudMovey);
             DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.username, (string)payload.payload.password, null);
             try
@@ -329,7 +330,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         }
         public static void mcp_retrieveworkloads(dynamic payload)
         {
-            CloudMovey CloudMovey = new CloudMovey();
+            CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
             MoveyTask tasks = new MoveyTask(CloudMovey);
             DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.platform.username, (string)payload.payload.platform.password, null);
             try
@@ -359,7 +360,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
         }
         public static void mcp_retrievenetworks(dynamic payload)
         {
-            CloudMovey CloudMovey = new CloudMovey();
+            CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
             DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.platform.username, (string)payload.payload.platform.password, null);
             try
             {

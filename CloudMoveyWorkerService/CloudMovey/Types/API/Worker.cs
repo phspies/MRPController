@@ -1,4 +1,4 @@
-﻿namespace CloudMoveyWorkerService.CloudMovey.Types.API
+﻿namespace CloudMoveyWorkerService.Portal.Types.API
 {
     class MoveyWorkerType
     {

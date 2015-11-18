@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CloudMoveyWorkerService.CloudMovey.Models;
 
-namespace CloudMoveyWorkerService.CloudMovey
+namespace CloudMoveyWorkerService.Portal
 {
-    class CloudMovey
+    class CloudMoveyPortal
     {
         private String _apiBase;
 
-        public CloudMovey()
+        public CloudMoveyPortal()
         {
             _apiBase = Global.api_base;
         }
@@ -24,9 +19,9 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             return new MoveyPlatformtemplate(this);
         }
-        public MoveyCredential credential()
+        public PortalCredential credential()
         {
-            return new MoveyCredential(this);
+            return new PortalCredential(this);
         }
         public MoveyWorker worker()
         {
@@ -36,9 +31,9 @@ namespace CloudMoveyWorkerService.CloudMovey
         {
             return new MoveyWorkload(this);
         }
-        public MoveyPlatform platform()
+        public PortalPlatform platform()
         {
-            return new MoveyPlatform(this);
+            return new PortalPlatform(this);
         }
         public MoveyPlatformnetwork platformnetwork()
         {

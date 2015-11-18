@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudMoveyWorkerService.CloudMovey.Types.API
+namespace CloudMoveyWorkerService.Portal.Types.API
 {
     public class MoveyFailovergroupsCRUDType
     {

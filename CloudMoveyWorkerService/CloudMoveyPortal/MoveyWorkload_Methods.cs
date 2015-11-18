@@ -1,15 +1,15 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
+﻿using CloudMoveyWorkerService.Portal.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Net;
 
-namespace CloudMoveyWorkerService.CloudMovey
+namespace CloudMoveyWorkerService.Portal
 {
     class MoveyWorkload : Core
     {
-        public MoveyWorkload(CloudMovey _CloudMovey) : base(_CloudMovey) {
+        public MoveyWorkload(CloudMoveyPortal _CloudMovey) : base(_CloudMovey) {
         }
-        public CloudMovey CloudMovey = new CloudMovey();
+        public CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
 
         public MoveyWorkloadListType listworkloads()
         {

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CloudMoveyWorkerService</RootNamespace>
     <AssemblyName>CloudMoveyWorkerService</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -40,6 +40,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +50,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -187,8 +189,27 @@
       <HintPath>..\packages\Rackspace.0.2.0\lib\net45\Rackspace.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RestSharp, Version=105.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\RestSharp.105.1.0\lib\net45\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp">
+      <HintPath>..\..\..\..\Visual Studio 2013\Projects\CloudMoveyWorkerService\packages\RestSharp.105.1.0\lib\net45-client\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack, Version=4.0.46.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.4.0.46\lib\net40\ServiceStack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Client, Version=4.0.46.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Client.4.0.46\lib\net40\ServiceStack.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=4.0.46.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Common.4.0.46\lib\net40\ServiceStack.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=4.0.0.0, Culture=neutral, PublicKeyToken=e06fbc6124f57c43, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Interfaces.4.0.46\lib\portable-wp80+sl5+net40+win8+monotouch+monoandroid+xamarin.ios10\ServiceStack.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=4.0.46.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ServiceStack.Text.4.0.46\lib\net40\ServiceStack.Text.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SimpleImpersonation">
@@ -200,17 +221,17 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SQLite, Version=1.0.98.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Core.1.0.98.1\lib\net451\System.Data.SQLite.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Data.SQLite, Version=1.0.98.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Data.SQLite.Core.1.0.98.1\lib\net45\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SQLite.EF6, Version=1.0.98.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.98.1\lib\net451\System.Data.SQLite.EF6.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Data.SQLite.EF6.1.0.98.1\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.98.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.98.1\lib\net451\System.Data.SQLite.Linq.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Data.SQLite.Linq.1.0.98.1\lib\net45\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Management" />
     <Reference Include="System.Net" />
@@ -249,24 +270,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CloudMoveyDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="CloudMovey\Classes\MoveyFailovergroup_Methods.cs" />
-    <Compile Include="CloudMovey\Classes\MoveyCredential_Methods.cs" />
-    <Compile Include="CloudMovey\Classes\MoveyPlatformnetwork_Methods.cs" />
-    <Compile Include="CloudMovey\Classes\MoveyPlatformtemplate_Methods.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\Background Classes\PerformanceWorker.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\Background Classes\OSInventoryWorker.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\Connection.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\DoubleTake.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\DoubleTake_HA.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\DoubleTake_DR.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\Events.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\HashExtensions.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\Background Classes\PlatformInventoryWorker.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\Platform.cs" />
-    <Compile Include="CloudMovey\Classes\MoveyPlatform_Methods.cs" />
-    <Compile Include="CloudMovey\Classes\MoveyWorker_Methods.cs" />
-    <Compile Include="CloudMovey\Classes\MoveyWorkload_Methods.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\Workload.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyFailovergroup_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyCredential_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyPlatformnetwork_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyPlatformtemplate_Methods.cs" />
+    <Compile Include="CloudMovey\Classes\Background Classes\PerformanceWorker.cs" />
+    <Compile Include="CloudMovey\Classes\Background Classes\OSInventoryWorker.cs" />
+    <Compile Include="CloudMovey\Classes\Connection.cs" />
+    <Compile Include="DoubleTake\DoubleTake.cs" />
+    <Compile Include="DoubleTake\DoubleTake_DR.cs" />
+    <Compile Include="DoubleTake\DoubleTake_HA.cs" />
+    <Compile Include="CloudMovey\Classes\Events.cs" />
+    <Compile Include="CloudMovey\Classes\HashExtensions.cs" />
+    <Compile Include="CloudMovey\Classes\Background Classes\PlatformInventoryWorker.cs" />
+    <Compile Include="CloudMovey\Classes\Platform.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyPlatform_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyWorker_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyWorkload_Methods.cs" />
+    <Compile Include="CloudMovey\Classes\Workload.cs" />
     <Compile Include="CloudMovey\Sqlite\Models\Event.cs">
       <DependentUpon>CloudMoveyModel.tt</DependentUpon>
     </Compile>
@@ -1075,6 +1096,9 @@
     <Compile Include="DoubleTake\Controllers\Core.cs" />
     <Compile Include="DoubleTake\DT.cs" />
     <Compile Include="DoubleTake\Types\JobTypes.cs" />
+    <Compile Include="EMC\RecoverPoint\fapi.cs">
+      <DependentUpon>fapi.xsd</DependentUpon>
+    </Compile>
     <Compile Include="VirtualCenter\Core.cs" />
     <Compile Include="VirtualCenter\Workloads.cs" />
     <Compile Include="VirtualCenter\Datacenters.cs" />
@@ -1100,15 +1124,15 @@
     <Compile Include="CloudMovey\Sqlite\Models\Platform.cs">
       <DependentUpon>CloudMoveyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CloudMovey\Classes\Core.cs" />
-    <Compile Include="CloudMovey\Classes\JSONSerializer.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\Background Classes\TaskWorker.cs" />
-    <Compile Include="CloudMovey\Classes\Static Classes\Settings.cs" />
+    <Compile Include="CloudMoveyPortal\Core.cs" />
+    <Compile Include="CloudMoveyPortal\JSONSerializer.cs" />
+    <Compile Include="CloudMovey\Classes\Background Classes\TaskWorker.cs" />
+    <Compile Include="CloudMovey\Classes\Settings.cs" />
     <Compile Include="CloudMovey\Types\WCF\PlatformDetails.cs" />
     <Compile Include="CloudMovey\Types\Vendors.cs" />
     <Compile Include="CloudMovey\Types\API\Worker.cs" />
-    <Compile Include="CloudMovey\Classes\MoveyTask_Methods.cs" />
-    <Compile Include="CloudMovey\CloudMovey.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyTask_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\CloudMoveyPortal.cs" />
     <Compile Include="CloudMovey\Types\API\RecoveryJobTypes.cs" />
     <Compile Include="CloudMovey\Types\API\Workloads.cs" />
     <Compile Include="CloudMovey\Types\API\Error.cs" />
@@ -1258,6 +1282,10 @@
     <None Include="DiscUtils\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="DiscUtils\obj\Debug\DiscUtils.csproj.GenerateResource.Cache" />
     <None Include="DiscUtils\obj\Debug\DiscUtils.csprojResolveAssemblyReference.cache" />
+    <None Include="EMC\RecoverPoint\fapi.wadl" />
+    <None Include="EMC\RecoverPoint\fapi.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

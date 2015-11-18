@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-namespace CloudMoveyWorkerService.CloudMovey
+namespace CloudMoveyWorkerService.Portal
 {
     class Settings 
     {
@@ -16,7 +16,7 @@ namespace CloudMoveyWorkerService.CloudMovey
         static public void RegisterAgent()
         {
 
-            CloudMovey CloudMovey = new CloudMovey();
+            CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
             if (!CloudMovey.worker().confirm_worker())
             {
                 Global.event_log.WriteEntry("Worker not registered, registering worker with CloudMovey portal");

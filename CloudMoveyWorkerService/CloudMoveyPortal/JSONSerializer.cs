@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp.Serializers;
 using System.IO;
-namespace CloudMoveyWorkerService.CloudMovey
+namespace CloudMoveyWorkerService.Portal
 {
 
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CloudMoveyWorkerService.CloudMovey.Types.API
+namespace CloudMoveyWorkerService.Portal.Types.API
 {
     public class MoveyCredentialsCRUDType
     {

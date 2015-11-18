@@ -1,15 +1,15 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
+﻿using CloudMoveyWorkerService.Portal.Types.API;
 using System;
 using System.Diagnostics;
 using System.Net;
 
-namespace CloudMoveyWorkerService.CloudMovey
+namespace CloudMoveyWorkerService.Portal
 {
     class MoveyTask : Core
     {
-        public MoveyTask(CloudMovey _CloudMovey) : base(_CloudMovey) {
+        public MoveyTask(CloudMoveyPortal _CloudMovey) : base(_CloudMovey) {
         }
-        public CloudMovey CloudMovey = new CloudMovey();
+        public CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
 
         public dynamic tasks()
         {

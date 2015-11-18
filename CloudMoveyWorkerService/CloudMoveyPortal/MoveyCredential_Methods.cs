@@ -1,14 +1,14 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
+﻿using CloudMoveyWorkerService.Portal.Types.API;
 using System;
 using System.Net;
 
-namespace CloudMoveyWorkerService.CloudMovey
+namespace CloudMoveyWorkerService.Portal
 {
-    class MoveyCredential : Core
+    class PortalCredential : Core
     {
-        public MoveyCredential(CloudMovey _CloudMovey) : base(_CloudMovey) {
+        public PortalCredential(CloudMoveyPortal _CloudMovey) : base(_CloudMovey) {
         }
-        public CloudMovey CloudMovey = new CloudMovey();
+        public CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
 
         public MoveyCredentialListType listcredentials()
         {

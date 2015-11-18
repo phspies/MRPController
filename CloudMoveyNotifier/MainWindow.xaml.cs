@@ -26,6 +26,7 @@ namespace CloudMoveyNotifier
     public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
         CloudMoveyServiceClient channel = new CloudMoveyServiceClient();
+
         private BackgroundWorker platformloader = new BackgroundWorker();
         private List<Platform> _platform_list = new List<Platform>();
         private List<Credential> _credential_list = new List<Credential>();

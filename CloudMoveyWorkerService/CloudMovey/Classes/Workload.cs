@@ -1,5 +1,6 @@
 ﻿using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
-using CloudMoveyWorkerService.CloudMovey.Types.API;
+using CloudMoveyWorkerService.Portal.Classes.Static_Classes;
+using CloudMoveyWorkerService.Portal.Types.API;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -10,14 +11,14 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudMoveyWorkerService.CloudMovey.Controllers
+namespace CloudMoveyWorkerService.Portal.Controllers
 {
     class CloudMoveyWorkload
     {
         public static void workload_getinformation(MoveyTaskType payload)
         {
             MoveyTaskPayloadType _payload = payload.submitpayload;
-            CloudMovey CloudMovey = new CloudMovey();
+            CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
             try
             {
                 string username = _payload.windows.username;

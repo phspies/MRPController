@@ -1,20 +1,15 @@
 ﻿using CloudMoveyWorkerService.CaaS;
 using CloudMoveyWorkerService.CaaS.Models;
-using CloudMoveyWorkerService.CloudMovey;
-using CloudMoveyWorkerService.CloudMovey.Models;
-using CloudMoveyWorkerService.CloudMovey.Sqlite.Models;
-using CloudMoveyWorkerService;
+using CloudMoveyWorkerService.Portal;
+using CloudMoveyWorkerService.Portal.Models;
+using CloudMoveyWorkerService.Portal.Sqlite.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
-using System.Security.Cryptography;
 using System.ServiceModel;
-using System.Text;
 using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
 
 namespace CloudMoveyWorkerService.WCF

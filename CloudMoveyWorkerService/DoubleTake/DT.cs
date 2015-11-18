@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudMoveyWorkerService.DT
+namespace CloudMoveyWorkerService.DoubleTakeNS
 {
     class DT
     {

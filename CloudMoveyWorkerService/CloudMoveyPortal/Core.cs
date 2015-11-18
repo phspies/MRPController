@@ -5,14 +5,14 @@ using System.Net;
 using System.Threading;
 using Newtonsoft.Json;
 
-namespace CloudMoveyWorkerService.CloudMovey
+namespace CloudMoveyWorkerService.Portal
 {
     class Core
     {
         private String _apibase, _endpoint;
-        private CloudMovey _client;
+        private CloudMoveyPortal _client;
 
-        public Core(CloudMovey _CloudMovey)
+        public Core(CloudMoveyPortal _CloudMovey)
         {
             _apibase = _CloudMovey.ApiBase;
             _client = _CloudMovey;

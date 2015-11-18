@@ -1,12 +1,12 @@
-﻿using CloudMoveyWorkerService.CloudMovey.Types.API;
+﻿using CloudMoveyWorkerService.Portal.Types.API;
 using System;
 using System.Net;
 
-namespace CloudMoveyWorkerService.CloudMovey
+namespace CloudMoveyWorkerService.Portal
 {
     class MoveyPlatformnetwork : Core
     {
-        public MoveyPlatformnetwork(CloudMovey _CloudMovey) : base(_CloudMovey) {
+        public MoveyPlatformnetwork(CloudMoveyPortal _CloudMovey) : base(_CloudMovey) {
         }
          
         public MoveyPlatformnetworkListType listplatformnetworks()
