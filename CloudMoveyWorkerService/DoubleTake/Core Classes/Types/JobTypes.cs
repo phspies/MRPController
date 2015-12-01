@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudMoveyWorkerService.DoubleTakeNS.Types
+namespace CloudMoveyWorkerService.CMDoubleTake.Types
 {
     public static class JobTypes
     {
@@ -21,4 +21,5 @@ namespace CloudMoveyWorkerService.DoubleTakeNS.Types
         public static string DR_Full_Protection = "FullWorkloadImageProtection";
         public static string DR_Full_Recovery = "FullWorkloadImageRecovery";
     }
+    enum CMWorkloadType { Source, Target};
 }

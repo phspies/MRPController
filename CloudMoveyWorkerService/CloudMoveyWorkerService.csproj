@@ -277,9 +277,10 @@
     <Compile Include="CloudMovey\Classes\Background Classes\PerformanceWorker.cs" />
     <Compile Include="CloudMovey\Classes\Background Classes\OSInventoryWorker.cs" />
     <Compile Include="CloudMovey\Classes\Connection.cs" />
-    <Compile Include="DoubleTake\DoubleTake.cs" />
-    <Compile Include="DoubleTake\DoubleTake_DR.cs" />
-    <Compile Include="DoubleTake\DoubleTake_HA.cs" />
+    <Compile Include="DoubleTake\Core Classes\Core.cs" />
+    <Compile Include="DoubleTake\Controllers\CMDoubleTake_Installation.cs" />
+    <Compile Include="DoubleTake\Controllers\CMDoubleTake_DisasterRecovery.cs" />
+    <Compile Include="DoubleTake\Controllers\CMDoubleTake_HighAvailability.cs" />
     <Compile Include="CloudMovey\Classes\Events.cs" />
     <Compile Include="CloudMovey\Classes\HashExtensions.cs" />
     <Compile Include="CloudMovey\Classes\Background Classes\PlatformInventoryWorker.cs" />
@@ -1093,9 +1094,8 @@
     <Compile Include="DiscUtils\Xva\VirtualMachine.cs" />
     <Compile Include="DiscUtils\Xva\VirtualMachineBuilder.cs" />
     <Compile Include="DiscUtils\ZeroStream.cs" />
-    <Compile Include="DoubleTake\Controllers\Core.cs" />
-    <Compile Include="DoubleTake\DT.cs" />
-    <Compile Include="DoubleTake\Types\JobTypes.cs" />
+    <Compile Include="DoubleTake\Core Classes\Types\JobTypes.cs" />
+    <Compile Include="DoubleTake\Core Classes\CMDoubleTake.cs" />
     <Compile Include="EMC\RecoverPoint\fapi.cs">
       <DependentUpon>fapi.xsd</DependentUpon>
     </Compile>
@@ -1180,9 +1180,7 @@
     <Compile Include="DimensionData\Types\MCP2.0\NetworkDomainTypes.cs" />
     <Compile Include="DimensionData\Types\MCP2.0\VlanTypes.cs" />
     <Compile Include="DimensionData\Types\MCP2.0\DatacenterTypes.cs" />
-    <Compile Include="DoubleTake\WSDL\DoubleTake.Wsdl.Contracts.cs" />
-    <Compile Include="DoubleTake\DoubleTakeJobManager.svc.cs" />
-    <Compile Include="DoubleTake\DoubleTakeManagementService.svc.cs" />
+    <Compile Include="DoubleTake\Core Classes\WSDL\DoubleTake.Wsdl.Contracts.cs" />
     <Compile Include="CloudMoveyWorkerSvc.cs">
       <SubType>Component</SubType>
     </Compile>
