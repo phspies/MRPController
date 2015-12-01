@@ -18,7 +18,7 @@ using CloudMoveyWorkerService.Portal;
 
 namespace CloudMoveyWorkerService.CMDoubleTake
 {
-    class CMDoubleTake_Installation
+    class CMDoubleTake_Common
     {
         static String workload = "";
         static string username = "";

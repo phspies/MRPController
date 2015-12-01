@@ -278,7 +278,7 @@
     <Compile Include="CloudMovey\Classes\Background Classes\OSInventoryWorker.cs" />
     <Compile Include="CloudMovey\Classes\Connection.cs" />
     <Compile Include="DoubleTake\Core Classes\Core.cs" />
-    <Compile Include="DoubleTake\Controllers\CMDoubleTake_Installation.cs" />
+    <Compile Include="DoubleTake\Controllers\CMDoubleTake_Common.cs" />
     <Compile Include="DoubleTake\Controllers\CMDoubleTake_DisasterRecovery.cs" />
     <Compile Include="DoubleTake\Controllers\CMDoubleTake_HighAvailability.cs" />
     <Compile Include="CloudMovey\Classes\Events.cs" />
