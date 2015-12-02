@@ -15,11 +15,15 @@ using System.Security;
 using System.ServiceModel;
 using System.Threading;
 using CloudMoveyWorkerService.Portal;
+using DoubleTake.Core.Contract;
+using CloudMoveyWorkerService.CMDoubleTake.Types;
 
 namespace CloudMoveyWorkerService.CMDoubleTake
 {
-    class CMDoubleTake_Common
+    class CMDoubleTake_Common : Core
     {
+        public CMDoubleTake_Common(CMDoubleTake cmdoubletake) : base(cmdoubletake) { }
+
         static String workload = "";
         static string username = "";
         static string password = "";
@@ -33,15 +37,11 @@ namespace CloudMoveyWorkerService.CMDoubleTake
         static dynamic _payload = null;
         public static void dt_getproductinformation(MoveyTaskType payload)
         {
-            CloudMovey.task().progress(payload, "DT Connection", 50);
-            String url = BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService", 0);
-            ChannelFactory<IManagementService> MgtServiceFactory =
-                new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService", new EndpointAddress(url));
-            MgtServiceFactory.Credentials.Windows.ClientCredential = GetCredentials(payload, 2);
-            MgtServiceFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-            IManagementService iMgrSrc = MgtServiceFactory.CreateChannel();
             try
             {
+                CloudMovey.task().progress(payload, "Creating ManagementService process", 9);
+                IManagementService iMgrSrc = ManagementService(CMWorkloadType.Target).CreateChannel();
+
                 CloudMovey.task().progress(payload, "DT Data Gathering", 50);
                 CloudMovey.task().successcomplete(payload, JsonConvert.SerializeObject(iMgrSrc.GetWorkloadInfo()));
             }
@@ -50,6 +50,7 @@ namespace CloudMoveyWorkerService.CMDoubleTake
                 CloudMovey.task().failcomplete(payload, e.ToString());
             }
         }
+
         public static void dt_getimages(MoveyTaskType payload)
         {
             CloudMovey.task().progress(payload, "DT Connection", 50);
@@ -237,9 +238,9 @@ namespace CloudMoveyWorkerService.CMDoubleTake
 
         }
 
-        private static DT.Core.Contract.ProductVersion ValidateManagementServiceRunning()
+        private static ProductVersion ValidateManagementServiceRunning()
         {
-            DT.Core.Contract.ProductVersion version = null;
+            ProductVersion version = null;
             var endTime = DateTime.Now.AddMinutes(2);
             while (DateTime.Now < endTime)
             {

@@ -61,7 +61,7 @@ namespace CloudMoveyWorkerService.CMDoubleTake
                     {
                         CloudMovey.task().progress(request, String.Format("Deleting existing HA jobs between {0} and {1}", _source_ips[0], _target_ips[0]), 10);
 
-                        DoubleTake.Jobs.Contract.DeleteOptions _delete_options = new DoubleTakeNS.Jobs.Contract.DeleteOptions();
+                        DoubleTake.Jobs.Contract.DeleteOptions _delete_options = new DoubleTake.Jobs.Contract.DeleteOptions();
                         _delete_options.DeleteReplica = true;
                         _delete_options.DiscardTargetQueue = true;
                         ImageDeleteInfo _delete_info = new ImageDeleteInfo();
@@ -167,7 +167,7 @@ namespace CloudMoveyWorkerService.CMDoubleTake
                     Thread.Sleep(1000);
                     jobinfo = iJobMgr.GetJob(jobId);
                 }
-                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorState == DoubleTakeNS.Core.Contract.Connection.MirrorState.Unknown)
+                while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorState == MirrorState.Unknown)
                 {
                     Thread.Sleep(5000);
                     jobinfo = iJobMgr.GetJob(jobId);
