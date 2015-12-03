@@ -23,7 +23,7 @@ using DTJobs = DoubleTake.Jobs.Contract;
 
 namespace CloudMoveyWorkerService.CMDoubleTake
 {
-    class CMDoubleTake_DisasterRecovery : Core
+    class CMDoubleTake_DisasterRecovery : CMDoubleTake_Core
     {
         public CMDoubleTake_DisasterRecovery(CMDoubleTake cmdoubletake) : base(cmdoubletake) { }
 

@@ -20,7 +20,7 @@ using CloudMoveyWorkerService.CMDoubleTake.Types;
 
 namespace CloudMoveyWorkerService.CMDoubleTake
 {
-    class CMDoubleTake_Common : Core
+    class CMDoubleTake_Common : CMDoubleTake_Core
     {
         public CMDoubleTake_Common(CMDoubleTake cmdoubletake) : base(cmdoubletake) { }
 

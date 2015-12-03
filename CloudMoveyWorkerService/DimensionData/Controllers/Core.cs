@@ -8,6 +8,7 @@ using System.IO;
 using System.Net;
 using System.Collections;
 using CloudMoveyWorkerService.CaaS.Models;
+using RestSharp.Authenticators;
 
 namespace CloudMoveyWorkerService.CaaS
 {

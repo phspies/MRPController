@@ -3,7 +3,6 @@ using CloudMoveyWorkerService.Portal;
 using CloudMoveyWorkerService.Portal.Types.API;
 using DoubleTake.Common.Contract;
 using DoubleTake.Common.Tasks;
-using DoubleTake.Communication;
 using DoubleTake.Core.Contract;
 using DoubleTake.Core.Contract.Connection;
 using DoubleTake.Jobs.Contract;
@@ -12,18 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Management;
-using System.Net;
-using System.Net.NetworkInformation;
-using System.Net.Sockets;
-using System.ServiceModel;
 using System.Threading;
-using DTJobs = DoubleTake.Jobs.Contract;
 
 
 namespace CloudMoveyWorkerService.CMDoubleTake
 {
-    class CMDoubleTake_HighAvailability : Core
+    class CMDoubleTake_HighAvailability : CMDoubleTake_Core
     {
         public CMDoubleTake_HighAvailability(CMDoubleTake cmdoubletake) : base(cmdoubletake) { }
 
@@ -53,11 +46,10 @@ namespace CloudMoveyWorkerService.CMDoubleTake
                 JobInfo[] _jobs = iJobMgr.GetJobs();
                 String[] _source_ips = ((string)request.submitpayload.dt.source.ipaddress).Split(',');
                 String[] _target_ips = ((string)request.submitpayload.dt.target.ipaddress).Split(',');
-                String jobTypeConstant = @"FullWorkloadFailover";
 
                 if (_delete_current_job)
                 {
-                    foreach (JobInfo _delete_job in _jobs.Where(x => x.JobType == jobTypeConstant && _source_ips.Any(x.SourceHostUri.Host.Contains) && _target_ips.Any(x.TargetHostUri.Host.Contains)))
+                    foreach (JobInfo _delete_job in _jobs.Where(x => x.JobType == DTJobTypes.HA_Full_Failover && _source_ips.Any(x.SourceHostUri.Host.Contains) && _target_ips.Any(x.TargetHostUri.Host.Contains)))
                     {
                         CloudMovey.task().progress(request, String.Format("Deleting existing HA jobs between {0} and {1}", _source_ips[0], _target_ips[0]), 10);
 
@@ -86,7 +78,7 @@ namespace CloudMoveyWorkerService.CMDoubleTake
                 Workload wkld = (Workload)null;
                 try
                 {
-                    workloadId = workloadMgr.Create(jobTypeConstant);
+                    workloadId = workloadMgr.Create(DTJobTypes.HA_Full_Failover);
                     wkld = workloadMgr.GetWorkload(workloadId);
                 }
                 finally
@@ -101,7 +93,7 @@ namespace CloudMoveyWorkerService.CMDoubleTake
                 };
 
                 RecommendedJobOptions jobInfo = VerifierFactory.GetRecommendedJobOptions(
-                    jobTypeConstant,
+                    DTJobTypes.HA_Full_Failover,
                     wkld,
                     jobCreds);
                 //jobInfo.JobOptions.ImageProtectionOptions.ImageName = request.payload;
@@ -129,7 +121,7 @@ namespace CloudMoveyWorkerService.CMDoubleTake
                 jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.SnapshotSchedule = _snapshot;
 
                 ActivityToken activityToken = VerifierFactory.VerifyJobOptions(
-                    jobTypeConstant,
+                    DTJobTypes.HA_Full_Failover,
                     jobInfo.JobOptions,
                     jobCreds);
 
@@ -155,7 +147,7 @@ namespace CloudMoveyWorkerService.CMDoubleTake
                 {
                     JobOptions = jobInfo.JobOptions,
                     JobCredentials = jobCreds,
-                    JobType = jobTypeConstant
+                    JobType = DTJobTypes.HA_Full_Failover
                 }, Guid.NewGuid());
                 iJobMgr.Start(jobId);
 

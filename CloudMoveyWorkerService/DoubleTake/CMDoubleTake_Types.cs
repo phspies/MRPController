@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CloudMoveyWorkerService.CMDoubleTake.Types
 {
-    public static class JobTypes
+    public static class DTJobTypes
     {
         public static string HA_FilesFolders = "FilesAndFolders";
         public static string HA_Cluster_FilesFolders = "ClusterAwareFilesAndFolders";

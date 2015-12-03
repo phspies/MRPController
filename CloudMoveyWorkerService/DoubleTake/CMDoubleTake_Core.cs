@@ -1,27 +1,21 @@
-﻿using CloudMoveyWorkerService.CaaS1;
-using CloudMoveyWorkerService.CaaS2;
-using CloudMoveyWorkerService.CMDoubleTake.Types;
+﻿using CloudMoveyWorkerService.CMDoubleTake.Types;
 using CloudMoveyWorkerService.Portal;
 using CloudMoveyWorkerService.Portal.Sqlite.Models;
 using DoubleTake.Communication;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudMoveyWorkerService.CMDoubleTake
 {
-    class Core
+    class CMDoubleTake_Core
     {
         private static CloudMoveyEntities dbcontext = new CloudMoveyEntities();
         public static Workload _source_workload, _target_workload;
         static CloudMoveyPortal CloudMovey = null;
 
-        public Core(CMDoubleTake _cmdoubletake)
+        public CMDoubleTake_Core(CMDoubleTake _cmdoubletake)
         {
             _source_workload = _cmdoubletake._source_workload;
             _target_workload = _cmdoubletake._target_workload;
