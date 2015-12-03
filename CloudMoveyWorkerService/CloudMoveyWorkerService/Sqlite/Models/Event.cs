@@ -7,19 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CloudMoveyWorkerService.Portal.Sqlite.Models
+namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Task
+    public partial class Event
     {
         public string id { get; set; }
-        public string name { get; set; }
-        public string target { get; set; }
-        public string initiator { get; set; }
-        public string queued_for { get; set; }
-        public Nullable<System.DateTime> starttime { get; set; }
-        public Nullable<System.DateTime> endtime { get; set; }
+        public string status { get; set; }
+        public Nullable<int> severity { get; set; }
+        public string component { get; set; }
+        public string summary { get; set; }
+        public Nullable<System.DateTime> timestamp { get; set; }
+        public string entity { get; set; }
     }
 }

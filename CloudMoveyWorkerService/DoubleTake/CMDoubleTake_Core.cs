@@ -1,6 +1,6 @@
 ﻿using CloudMoveyWorkerService.CMDoubleTake.Types;
 using CloudMoveyWorkerService.Portal;
-using CloudMoveyWorkerService.Portal.Sqlite.Models;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
 using DoubleTake.Communication;
 using System;
 using System.Net;

@@ -2,7 +2,7 @@
 using CloudMoveyWorkerService.CaaS.Models;
 using CloudMoveyWorkerService.Portal;
 using CloudMoveyWorkerService.Portal.Models;
-using CloudMoveyWorkerService.Portal.Sqlite.Models;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

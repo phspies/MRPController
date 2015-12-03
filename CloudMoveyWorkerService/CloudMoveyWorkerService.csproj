@@ -275,44 +275,44 @@
     <Compile Include="CloudMoveyPortal\MoveyCredential_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyPlatformnetwork_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyPlatformtemplate_Methods.cs" />
-    <Compile Include="CloudMovey\Classes\Background Classes\PerformanceWorker.cs" />
-    <Compile Include="CloudMovey\Classes\Background Classes\OSInventoryWorker.cs" />
-    <Compile Include="CloudMovey\Classes\Connection.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\PerformanceWorker.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\OSInventoryWorker.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Connection.cs" />
     <Compile Include="DoubleTake\CMDoubleTake_Core.cs" />
     <Compile Include="DoubleTake\CMDoubleTake_Common.cs" />
     <Compile Include="DoubleTake\CMDoubleTake_DisasterRecovery.cs" />
     <Compile Include="DoubleTake\CMDoubleTake_HighAvailability.cs" />
-    <Compile Include="CloudMovey\Classes\Events.cs" />
-    <Compile Include="CloudMovey\Classes\HashExtensions.cs" />
-    <Compile Include="CloudMovey\Classes\Background Classes\PlatformInventoryWorker.cs" />
-    <Compile Include="CloudMovey\Classes\Platform.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Events.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\HashExtensions.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\PlatformInventoryWorker.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Platform.cs" />
     <Compile Include="CloudMoveyPortal\MoveyPlatform_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyWorker_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyWorkload_Methods.cs" />
-    <Compile Include="CloudMovey\Classes\Workload.cs" />
-    <Compile Include="CloudMovey\Sqlite\Models\Event.cs">
+    <Compile Include="CloudMoveyWorkerService\Classes\Workload.cs" />
+    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Event.cs">
       <DependentUpon>CloudMoveyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CloudMovey\Sqlite\Models\Failovergroup.cs">
+    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Failovergroup.cs">
       <DependentUpon>CloudMoveyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CloudMovey\Sqlite\Models\Task.cs">
+    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Task.cs">
       <DependentUpon>CloudMoveyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CloudMovey\Sqlite\Models\Workload.cs">
+    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Workload.cs">
       <DependentUpon>CloudMoveyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CloudMovey\Types\API\Credentials.cs" />
-    <Compile Include="CloudMovey\Types\API\Failovergroups.cs" />
-    <Compile Include="CloudMovey\Types\API\PlatformTemplate.cs" />
-    <Compile Include="CloudMovey\Types\API\Windows.cs" />
-    <Compile Include="CloudMovey\Types\API\CommandWorker.cs" />
-    <Compile Include="CloudMovey\Types\API\PlatformNetwork.cs" />
-    <Compile Include="CloudMovey\Types\API\Platforms.cs" />
-    <Compile Include="CloudMovey\Types\API\PlatformStorageTier.cs" />
-    <Compile Include="CloudMovey\Types\API\RecoveryPolicy.cs" />
-    <Compile Include="CloudMovey\Types\API\WorkloadInterfaces.cs" />
-    <Compile Include="CloudMovey\Types\API\WorkloadVolumes.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\Credentials.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\Failovergroups.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\PlatformTemplate.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\Windows.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\CommandWorker.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\PlatformNetwork.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\Platforms.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\PlatformStorageTier.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\RecoveryPolicy.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\WorkloadInterfaces.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\WorkloadVolumes.cs" />
     <Compile Include="DimensionData\Types\CustomerImagesTypes.cs" />
     <Compile Include="DimensionData\Types\MCP2.0\ServerTypes.cs">
       <SubType>code</SubType>
@@ -1104,41 +1104,41 @@
     <Compile Include="VirtualCenter\Workloads.cs" />
     <Compile Include="VirtualCenter\Datacenters.cs" />
     <Compile Include="VirtualCenter\VirtualCenter.cs" />
-    <Compile Include="CloudMovey\Sqlite\Models\CloudMoveyModel.Context.cs">
+    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CloudMoveyModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="CloudMovey\Sqlite\Models\CloudMoveyModel.cs">
+    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CloudMoveyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CloudMovey\Sqlite\Models\CloudMoveyModel.Designer.cs">
+    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CloudMoveyModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="CloudMovey\Sqlite\Models\Credential.cs">
+    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Credential.cs">
       <DependentUpon>CloudMoveyModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="CloudMovey\Sqlite\Models\Platform.cs">
+    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Platform.cs">
       <DependentUpon>CloudMoveyModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CloudMoveyPortal\Core.cs" />
     <Compile Include="CloudMoveyPortal\JSONSerializer.cs" />
-    <Compile Include="CloudMovey\Classes\Background Classes\TaskWorker.cs" />
-    <Compile Include="CloudMovey\Classes\Settings.cs" />
-    <Compile Include="CloudMovey\Types\WCF\PlatformDetails.cs" />
-    <Compile Include="CloudMovey\Types\Vendors.cs" />
-    <Compile Include="CloudMovey\Types\API\Worker.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\TaskWorker.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Settings.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\WCF\PlatformDetails.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\Vendors.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\Worker.cs" />
     <Compile Include="CloudMoveyPortal\MoveyTask_Methods.cs" />
     <Compile Include="CloudMoveyPortal\CloudMoveyPortal.cs" />
-    <Compile Include="CloudMovey\Types\API\RecoveryJobTypes.cs" />
-    <Compile Include="CloudMovey\Types\API\Workloads.cs" />
-    <Compile Include="CloudMovey\Types\API\Error.cs" />
-    <Compile Include="CloudMovey\Types\TaskTarget.cs" />
-    <Compile Include="CloudMovey\Types\API\Tasks.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\RecoveryJobTypes.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\Workloads.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\Error.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\TaskTarget.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\Tasks.cs" />
     <Compile Include="DimensionData\Controllers\Account.cs" />
     <Compile Include="DimensionData\Controllers\Core.cs" />
     <Compile Include="DimensionData\Controllers\MCP1.0\Datacenter.cs" />
@@ -1202,8 +1202,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="WCF\CloudMoveyService.cs" />
-    <Compile Include="WCF\ICloudMoveyService.cs" />
+    <Compile Include="CloudMoveyWorkerService\WCF\CloudMoveyService.cs" />
+    <Compile Include="CloudMoveyWorkerService\WCF\ICloudMoveyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -1220,11 +1220,11 @@
     <None Include="CloudMoveyDataSet.xss">
       <DependentUpon>CloudMoveyDataSet.xsd</DependentUpon>
     </None>
-    <EntityDeploy Include="CloudMovey\Sqlite\Models\CloudMoveyModel.edmx">
+    <EntityDeploy Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CloudMoveyModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="CloudMovey\Sqlite\Models\CloudMoveyModel.edmx.diagram">
+    <None Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.edmx.diagram">
       <DependentUpon>CloudMoveyModel.edmx</DependentUpon>
     </None>
     <None Include="DimensionData\XSD\antiaffinityrule.xsd">
@@ -1303,7 +1303,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CloudMovey\Sqlite\Structures\" />
+    <Folder Include="CloudMoveyWorkerService\Sqlite\Structures\" />
     <Folder Include="DiscUtils\bin\Release\" />
     <Folder Include="DiscUtils\bin\SignedRelease\" />
     <Folder Include="DiscUtils\obj\Debug\TempPE\" />
@@ -1326,12 +1326,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CloudMovey\Sqlite\Models\CloudMoveyModel.Context.tt">
+    <Content Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CloudMoveyModel.edmx</DependentUpon>
       <LastGenOutput>CloudMoveyModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="CloudMovey\Sqlite\Models\CloudMoveyModel.tt">
+    <Content Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CloudMoveyModel.edmx</DependentUpon>
       <LastGenOutput>CloudMoveyModel.cs</LastGenOutput>

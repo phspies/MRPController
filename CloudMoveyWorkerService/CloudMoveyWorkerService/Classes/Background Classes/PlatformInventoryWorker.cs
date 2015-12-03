@@ -1,9 +1,8 @@
 ﻿using CloudMoveyWorkerService.CaaS;
 using CloudMoveyWorkerService.CaaS.Models;
-using CloudMoveyWorkerService.Portal.Sqlite.Models;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
 using CloudMoveyWorkerService.Portal.Types.API;
 using CloudMoveyWorkerService.WCF;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,15 +11,12 @@ using System.Threading;
 
 namespace CloudMoveyWorkerService.Portal.Classes
 {
-    class OSInventoryWorker
+    class PlatformInventoryWorker
     {
         CloudMoveyEntities dbcontext = new CloudMoveyEntities();
         CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
         public void Start()
         {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
-
             while (true)
             {
                 Stopwatch sw = Stopwatch.StartNew();
@@ -29,7 +25,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
 
                 try
                 {
-                    Global.event_log.WriteEntry("Staring operating system inventory process");
+                    Global.event_log.WriteEntry("Staring platform inventory process");
                     //process credentials
                     List<Credential> _workercredentials = (dbcontext.Credentials as IQueryable<Credential>).ToList();
                     MoveyCredentialListType _platformcredentials = _cloud_movey.credential().listcredentials();
@@ -122,15 +118,6 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             List<ServersWithBackupServer> _caasworkloads = _caas.workload().platformworkloads(_caas_mcp1_options).server.ToList();
                             foreach (ServersWithBackupServer _caasworkload in _caasworkloads.Where(x => x.isStarted == true))
                             {
-                                MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
-                                _moveyworkload.hostname = _caasworkload.name;
-                                _moveyworkload.moid = _caasworkload.id;
-                                _moveyworkload.vcpu = _caasworkload.cpuCount;
-                                _moveyworkload.vmemory = _caasworkload.memoryMb / 1024;
-                                _moveyworkload.platform_id = _platform.id;
-                                _moveyworkload.enabled = true;
-                                _moveyworkload.ostype = _caasworkload.operatingSystem.type.ToLower();
-                                _moveyworkload.osedition = _caasworkload.operatingSystem.displayName;
                                 //Pupulate logical volumes for workload
                                 List<MoveyWorkloadVolumeType> workloaddisks_parameters = new List<MoveyWorkloadVolumeType>();
                                 foreach (ServersWithBackupServerDisk _workloaddisk in _caasworkload.disk)
@@ -148,54 +135,70 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                 List<MoveyWorkloadInterfaceType> workloadinterfaces_parameters = new List<MoveyWorkloadInterfaceType>();
                                 MoveyWorkloadInterfaceType _logical_interface = new MoveyWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", netmask = "255.255.255.0", ipaddress = _caasworkload.privateIp };
                                 if (_currentplatformworkloads.workloads.Exists(x => x.interfaces.Exists(y => x.moid == _caasworkload.id && y.vnic == 0)))
-
                                 {
                                     _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.vnic == 0).id;
                                 }
                                 workloadinterfaces_parameters.Add(_logical_interface);
 
-                                _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
-                                _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
+                                //First check to see if we have this server in the local database and if it's enabled
+                                if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id && x.enabled == true) > 0)
+                                {
+                                    Workload dbworkload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
+                                    MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
+                                    _moveyworkload.hostname = _caasworkload.name;
+                                    _moveyworkload.moid = _caasworkload.id;
+                                    _moveyworkload.failovergroup_id = dbworkload.failovergroup_id;
+                                    _moveyworkload.vcpu = _caasworkload.cpuCount;
+                                    _moveyworkload.vmemory = _caasworkload.memoryMb / 1024;
+                                    _moveyworkload.platform_id = _platform.id;
+                                    _moveyworkload.enabled = true;
+                                    _moveyworkload.ostype = _caasworkload.operatingSystem.type.ToLower();
+                                    _moveyworkload.osedition = _caasworkload.operatingSystem.displayName;
 
-                                if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
-                                {
-                                    _moveyworkload.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).id;
-                                    _cloud_movey.workload().updateworkload(_moveyworkload);
-                                    _updated_workloads += 1;
+                                    _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
+                                    _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
+                                    _moveyworkload.iplist = string.Join(",", workloadinterfaces_parameters.SelectMany(x => x.ipaddress));
+
+                                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                                    {
+                                        _moveyworkload.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).id;
+                                        _cloud_movey.workload().updateworkload(_moveyworkload);
+                                        _updated_workloads += 1;
+                                    }
+                                    else
+                                    {
+                                        _cloud_movey.workload().createworkload(_moveyworkload);
+                                        _new_workloads += 1;
+                                    }
+
                                 }
-                                else
-                                {
-                                    _cloud_movey.workload().createworkload(_moveyworkload);
-                                    _new_workloads += 1;
-                                }
-                                //Update database with workload information
-                                Workload _workload = new Workload();
-                                _workload.cpu_count = _caasworkload.cpuCount;
-                                _workload.memory_count = _caasworkload.memoryMb / 1024;
-                                _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                                _workload.hostname = _caasworkload.machineName;
-                                _workload.moid = _caasworkload.id;
-                                _workload.platform_id = _platform.id;
-                                _workload.ostype = _caasworkload.operatingSystem.type.ToLower();
-                                _workload.osedition = _caasworkload.operatingSystem.displayName;
-                                int records = dbcontext.Workloads.Count(x => x.moid == _caasworkload.id);
-                                if (records == 0)
-                                {
-                                    new CloudMoveyService().AddWorkload(_workload);
-                                }
-                                else
+                                else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id && x.enabled == false) > 0)
                                 {
                                     Workload _database_workload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
                                     _database_workload.cpu_count = _caasworkload.cpuCount;
                                     _database_workload.memory_count = _caasworkload.memoryMb / 1024;
                                     _database_workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
                                     _database_workload.hostname = _caasworkload.machineName;
+                                    _database_workload.iplist = string.Join(",", workloadinterfaces_parameters.SelectMany(x => x.ipaddress));
                                     _database_workload.moid = _caasworkload.id;
                                     _database_workload.platform_id = _platform.id;
                                     _database_workload.ostype = _caasworkload.operatingSystem.type.ToLower();
                                     _database_workload.osedition = _caasworkload.operatingSystem.displayName;
                                     dbcontext.SaveChanges();
-
+                                }
+                                else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id) == 0)
+                                {
+                                    Workload _workload = new Workload();
+                                    _workload.cpu_count = _caasworkload.cpuCount;
+                                    _workload.memory_count = _caasworkload.memoryMb / 1024;
+                                    _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
+                                    _workload.hostname = _caasworkload.machineName;
+                                    _workload.iplist = string.Join(",", workloadinterfaces_parameters.SelectMany(x => x.ipaddress));
+                                    _workload.moid = _caasworkload.id;
+                                    _workload.platform_id = _platform.id;
+                                    _workload.ostype = _caasworkload.operatingSystem.type.ToLower();
+                                    _workload.osedition = _caasworkload.operatingSystem.displayName;
+                                    new CloudMoveyService().AddWorkload(_workload);
                                 }
                             }
                         }
@@ -247,16 +250,6 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             List<ServerType> _caasworkloads = _caas.mcp2workloads().listworkloads(_workload_mcp2_options).server.ToList();
                             foreach (ServerType _caasworkload in _caasworkloads.Where(x => x.datacenterId == _platform.datacenter))
                             {
-                                MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
-                                _moveyworkload.hostname = _caasworkload.name;
-                                _moveyworkload.moid = _caasworkload.id;
-                                _moveyworkload.vcpu = _caasworkload.cpuCount;
-                                _moveyworkload.vmemory = _caasworkload.memoryGb;
-                                _moveyworkload.platform_id = _platform.id;
-                                _moveyworkload.enabled = true;
-                                _moveyworkload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                _moveyworkload.osedition = _caasworkload.operatingSystem.displayName;
-
                                 //Pupulate logical volumes for workload
                                 List<MoveyWorkloadVolumeType> workloaddisks_parameters = new List<MoveyWorkloadVolumeType>();
                                 foreach (ServerTypeDisk _workloaddisk in _caasworkload.disk)
@@ -267,7 +260,6 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                         _logical_volume.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).volumes.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
                                     }
                                     workloaddisks_parameters.Add(_logical_volume);
-
                                 }
 
                                 //populate network interfaces for workload
@@ -300,37 +292,37 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                     workloadinterfaces_parameters.Add(_logical_interface);
                                     nic_index += 1;
                                 }
-
-                                _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
-                                _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
-
-                                if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                                //First check to see if we have this server in the local database and if it's enabled
+                                if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id && x.enabled == true) > 0)
                                 {
-                                    _moveyworkload.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).id;
-                                    _cloud_movey.workload().updateworkload(_moveyworkload);
-                                    _updated_workloads += 1;
-                                }
-                                else
-                                {
-                                    _cloud_movey.workload().createworkload(_moveyworkload);
-                                    _new_workloads += 1;
-                                }
+                                    Workload dbworkload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
+                                    MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
+                                    _moveyworkload.hostname = _caasworkload.name;
+                                    _moveyworkload.moid = _caasworkload.id;
+                                    _moveyworkload.failovergroup_id = dbworkload.failovergroup_id;
+                                    _moveyworkload.vcpu = _caasworkload.cpuCount;
+                                    _moveyworkload.vmemory = _caasworkload.memoryGb;
+                                    _moveyworkload.platform_id = _platform.id;
+                                    _moveyworkload.enabled = true;
+                                    _moveyworkload.ostype = _caasworkload.operatingSystem.family.ToLower();
+                                    _moveyworkload.osedition = _caasworkload.operatingSystem.displayName;
 
-                                //Update database with workload information
-                                Workload _workload = new Workload();
-                                _workload.cpu_count = _caasworkload.cpuCount;
-                                _workload.memory_count = _caasworkload.memoryGb;
-                                _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                                _workload.hostname = _caasworkload.name;
-                                _workload.moid = _caasworkload.id;
-                                _workload.platform_id = _platform.id;
-                                _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                _workload.osedition = _caasworkload.operatingSystem.displayName;
-                                if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id) == 0)
-                                {
-                                    new CloudMoveyService().AddWorkload(_workload);
+                                    _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
+                                    _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
+
+                                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                                    {
+                                        _moveyworkload.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).id;
+                                        _cloud_movey.workload().updateworkload(_moveyworkload);
+                                        _updated_workloads += 1;
+                                    }
+                                    else
+                                    {
+                                        _cloud_movey.workload().createworkload(_moveyworkload);
+                                        _new_workloads += 1;
+                                    }
                                 }
-                                else
+                                else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id && x.enabled == false) > 0)
                                 {
                                     Workload _database_workload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
                                     _database_workload.cpu_count = _caasworkload.cpuCount;
@@ -342,6 +334,20 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                     _database_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
                                     _database_workload.osedition = _caasworkload.operatingSystem.displayName;
                                     dbcontext.SaveChanges();
+                                }
+                                else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id) == 0)
+                                {
+                                    Workload _workload = new Workload();
+                                    _workload.cpu_count = _caasworkload.cpuCount;
+                                    _workload.memory_count = _caasworkload.memoryGb;
+                                    _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
+                                    _workload.hostname = _caasworkload.name;
+                                    _workload.iplist = string.Join(",", workloadinterfaces_parameters.SelectMany(x => x.ipaddress));
+                                    _workload.moid = _caasworkload.id;
+                                    _workload.platform_id = _platform.id;
+                                    _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
+                                    _workload.osedition = _caasworkload.operatingSystem.displayName;
+                                    new CloudMoveyService().AddWorkload(_workload);
                                 }
                             }
                         }

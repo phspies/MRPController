@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CloudMoveyWorkerService.Portal.Sqlite.Models
+namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models
 {
     using System;
     using System.Data.Entity;

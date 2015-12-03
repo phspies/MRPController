@@ -1,7 +1,7 @@
 ﻿using CloudMoveyWorkerService.CaaS;
 using CloudMoveyWorkerService.CaaS.Models;
 using CloudMoveyWorkerService.Portal.Models;
-using CloudMoveyWorkerService.Portal.Sqlite.Models;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
