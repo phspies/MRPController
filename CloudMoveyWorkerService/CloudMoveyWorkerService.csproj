@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CloudMoveyWorkerService</RootNamespace>
     <AssemblyName>CloudMoveyWorkerService</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
@@ -85,11 +85,11 @@
       <HintPath>lib\CloudMovey.Ssh.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Flurl, Version=1.0.8.0, Culture=neutral, PublicKeyToken=1308302a96879dfb, processorArchitecture=MSIL">
@@ -189,8 +189,9 @@
       <HintPath>..\packages\Rackspace.0.2.0\lib\net45\Rackspace.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RestSharp">
-      <HintPath>..\..\..\..\Visual Studio 2013\Projects\CloudMoveyWorkerService\packages\RestSharp.105.1.0\lib\net45-client\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="ServiceStack, Version=4.0.46.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.4.0.46\lib\net40\ServiceStack.dll</HintPath>
@@ -226,8 +227,8 @@
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.98.1\lib\net45\System.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SQLite.EF6, Version=1.0.98.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Data.SQLite.EF6.1.0.98.1\lib\net45\System.Data.SQLite.EF6.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.SQLite.Linq, Version=1.0.98.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -275,6 +276,9 @@
     <Compile Include="CloudMoveyPortal\MoveyCredential_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyPlatformnetwork_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyPlatformtemplate_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\XSD\cloudmoveyprotal.cs">
+      <DependentUpon>cloudmoveyprotal.xsd</DependentUpon>
+    </Compile>
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\PerformanceWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\OSInventoryWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Connection.cs" />
@@ -1214,8 +1218,8 @@
     </None>
     <None Include="CloudMoveyDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>CloudMoveyDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>CloudMoveyDataSet.Designer.cs</LastGenOutput>
     </None>
     <None Include="CloudMoveyDataSet.xss">
       <DependentUpon>CloudMoveyDataSet.xsd</DependentUpon>
@@ -1224,6 +1228,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CloudMoveyModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="CloudMoveyPortal\XSD\cloudmoveyprotal.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.edmx.diagram">
       <DependentUpon>CloudMoveyModel.edmx</DependentUpon>
     </None>
