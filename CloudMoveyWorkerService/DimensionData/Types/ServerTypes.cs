@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Xml.Serialization;
 
 namespace CloudMoveyWorkerService.CaaS
@@ -653,7 +654,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         private uint memoryGbField;
 
-        private ServerTypeDisk[] diskField;
+        private List<ServerTypeDisk> diskField;
 
         private object itemField;
 
@@ -661,7 +662,9 @@ namespace CloudMoveyWorkerService.CaaS
 
         private ServerTypeMonitoring monitoringField;
 
-        private string[] softwareLabelField;
+        private ServerTypeNetworkInfo networkinfoField;
+
+        private List<string> softwareLabelField;
 
         private string sourceImageIdField;
 
@@ -750,7 +753,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("disk")]
-        public ServerTypeDisk[] disk
+        public List<ServerTypeDisk> disk
         {
             get
             {
@@ -764,16 +767,15 @@ namespace CloudMoveyWorkerService.CaaS
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("networkInfo", typeof(ServerTypeNetworkInfo))]
-        [System.Xml.Serialization.XmlElementAttribute("nic", typeof(ServerTypeNic))]
-        public object Item
+        public ServerTypeNetworkInfo networkInfo
         {
             get
             {
-                return this.itemField;
+                return this.networkinfoField;
             }
             set
             {
-                this.itemField = value;
+                this.networkinfoField = value;
             }
         }
 
@@ -805,7 +807,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("softwareLabel")]
-        public string[] softwareLabel
+        public List<string> softwareLabel
         {
             get
             {
@@ -1051,7 +1053,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         private NicType primaryNicField;
 
-        private NicType[] additionalNicField;
+        private List<NicType> additionalNicField;
 
         private string networkDomainIdField;
 
@@ -1070,7 +1072,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("additionalNic")]
-        public NicType[] additionalNic
+        public List<NicType> additionalNic
         {
             get
             {
@@ -1329,7 +1331,7 @@ namespace CloudMoveyWorkerService.CaaS
     public partial class ServersType
     {
 
-        private ServerType[] serverField;
+        private List<ServerType> serverField;
 
         private int pageNumberField;
 
@@ -1349,7 +1351,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("server")]
-        public ServerType[] server
+        public List<ServerType> server
         {
             get
             {
@@ -1498,6 +1500,8 @@ namespace CloudMoveyWorkerService.CaaS
 
         private uint memoryGbField;
 
+        private DeployServerTypeNetworkInfo networkInfoField;
+
         private bool memoryGbFieldSpecified;
 
         private object itemField;
@@ -1506,7 +1510,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         private string secondaryDnsField;
 
-        private DeployServerTypeDisk[] diskField;
+        private List<DeployServerTypeDisk> diskField;
 
         private string microsoftTimeZoneField;
 
@@ -1616,17 +1620,16 @@ namespace CloudMoveyWorkerService.CaaS
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute("network", typeof(DeployServerTypeNetwork))]
         [System.Xml.Serialization.XmlElementAttribute("networkInfo", typeof(DeployServerTypeNetworkInfo))]
-        public object Item
+        public DeployServerTypeNetworkInfo networkInfo
         {
             get
             {
-                return this.itemField;
+                return this.networkInfoField;
             }
             set
             {
-                this.itemField = value;
+                this.networkInfoField = value;
             }
         }
 
@@ -1658,7 +1661,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("disk")]
-        public DeployServerTypeDisk[] disk
+        public List<DeployServerTypeDisk> disk
         {
             get
             {
@@ -2015,6 +2018,31 @@ namespace CloudMoveyWorkerService.CaaS
         }
     }
     /// <remarks/>
+    ///     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
+    [System.Xml.Serialization.XmlRootAttribute("cleanServer", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
+    public partial class CleanServerType
+    {
+
+        private string idField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+    }
     [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2022,6 +2050,31 @@ namespace CloudMoveyWorkerService.CaaS
     [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
     [System.Xml.Serialization.XmlRootAttribute("deleteServer", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
     public partial class DeleteServerType
+    {
+
+        private string idField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string id
+        {
+            get
+            {
+                return this.idField;
+            }
+            set
+            {
+                this.idField = value;
+            }
+        }
+    }
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
+    [System.Xml.Serialization.XmlRootAttribute("updateVmwareTools", Namespace = "urn:didata.com:api:cloud:types", IsNullable = false)]
+    public partial class UpdateVmwareToolsType
     {
 
         private string idField;

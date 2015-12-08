@@ -29,40 +29,23 @@ namespace CloudMoveyWorkerService.CaaS
         }
         public WorkloadObject workload()
         {
-            return new CaaS2.WorkloadObject(this);
+            return new WorkloadObject(this);
         }
-        public SoftwareObject software()
+        public VLANObject vlans()
         {
-            return new SoftwareObject(this);
+            return new VLANObject(this);
         }
-        public WorkloadObject workloadimage()
+        public WorkloadObject workloads()
         {
             return new WorkloadObject(this);
         }
-        public MCP2VLANObject mcp2vlans()
+        public TemplateObject templates()
         {
-            return new MCP2VLANObject(this);
+            return new TemplateObject(this);
         }
-        public WorkloadObject mcp2workloads()
+        public NetworkDomainObject networkdomain()
         {
-            return new CaaS2.WorkloadObject(this);
-        }
-        public MCP2NetworkDomainObject mcp2networkdomain()
-        {
-            return new MCP2NetworkDomainObject(this);
-        }
-        public NetworkObject network()
-        {
-            return new NetworkObject(this);
-        }
-
-        public ACLObject acl()
-        {
-            return new ACLObject(this);
-        }
-        public NATObject nat()
-        {
-            return new NATObject(this);
+            return new NetworkDomainObject(this);
         }
         public String ApiBase
         {

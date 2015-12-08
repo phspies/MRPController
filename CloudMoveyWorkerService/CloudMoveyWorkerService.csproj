@@ -282,6 +282,7 @@
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\PerformanceWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\OSInventoryWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Connection.cs" />
+    <Compile Include="DimensionData\Controllers\Datacenter.cs" />
     <Compile Include="DimensionData\Controllers\Template.cs" />
     <Compile Include="DimensionData\Types\AccountTypes.cs">
       <SubType>Code</SubType>
@@ -1158,7 +1159,6 @@
     <Compile Include="DimensionData\Controllers\NetworkDomain.cs" />
     <Compile Include="DimensionData\Controllers\Server.cs" />
     <Compile Include="DimensionData\Controllers\ServerImage.cs" />
-    <Compile Include="DimensionData\Controllers\Software.cs" />
     <Compile Include="DimensionData\DimensionData.cs" />
     <Compile Include="DoubleTake\DoubleTake.Wsdl.Contracts.cs" />
     <Compile Include="CloudMoveyWorkerSvc.cs">
@@ -1235,7 +1235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CloudMoveyWorkerService\Sqlite\Structures\" />
-    <Folder Include="DimensionData\Controllers\MCP2.0\" />
+    <Folder Include="DimensionData\Controllers\MCP1.0\" />
     <Folder Include="DiscUtils\bin\Release\" />
     <Folder Include="DiscUtils\bin\SignedRelease\" />
     <Folder Include="DiscUtils\obj\Debug\TempPE\" />

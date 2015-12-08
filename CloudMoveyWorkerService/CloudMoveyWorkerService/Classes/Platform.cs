@@ -1,5 +1,4 @@
 ﻿using CloudMoveyWorkerService.CaaS;
-using CloudMoveyWorkerService.CaaS.Models;
 using CloudMoveyWorkerService.Portal;
 using CloudMoveyWorkerService.Portal.Types.API;
 using Newtonsoft.Json;
@@ -32,7 +31,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 _options.Add(new Option() { option = "location", value = _payload.platform.moid });
                 _options.Add(new Option() { option = "state", value = "NORMAL" });
 
-                ImagesWithDiskSpeedImage _platformimage = CaaS.workloadimage().platformworkloadimages(_options).image.Find(x => x.softwareLabel.Count == 0);
+                ServerType _platformimage = new ServerType();
                 if (_platformimage == null)
                 {
                     CloudMovey.task().failcomplete(payload, "Template image not found: " + JsonConvert.SerializeObject(_options));
