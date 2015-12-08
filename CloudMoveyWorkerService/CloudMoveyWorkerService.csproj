@@ -282,6 +282,19 @@
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\PerformanceWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\OSInventoryWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Connection.cs" />
+    <Compile Include="DimensionData\Controllers\Template.cs" />
+    <Compile Include="DimensionData\Types\AccountTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DimensionData\Types\GeneralTypes.cs" />
+    <Compile Include="DimensionData\Types\DatacenterTypes.cs" />
+    <Compile Include="DimensionData\Types\ImageTypes.cs" />
+    <Compile Include="DimensionData\Types\NetworkDomainTypes.cs" />
+    <Compile Include="DimensionData\Types\StatusType.cs" />
+    <Compile Include="DimensionData\Types\VlanTypes.cs" />
+    <Compile Include="DimensionData\Types\ServerTypes.cs">
+      <SubType>code</SubType>
+    </Compile>
     <Compile Include="DoubleTake\CMDoubleTake_Core.cs" />
     <Compile Include="DoubleTake\CMDoubleTake_Common.cs" />
     <Compile Include="DoubleTake\CMDoubleTake_DisasterRecovery.cs" />
@@ -317,10 +330,6 @@
     <Compile Include="CloudMoveyWorkerService\Types\API\RecoveryPolicy.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\WorkloadInterfaces.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\WorkloadVolumes.cs" />
-    <Compile Include="DimensionData\Types\CustomerImagesTypes.cs" />
-    <Compile Include="DimensionData\Types\MCP2.0\ServerTypes.cs">
-      <SubType>code</SubType>
-    </Compile>
     <Compile Include="DiscUtils\AligningStream.cs" />
     <Compile Include="DiscUtils\ApplePartitionMap\BlockZero.cs" />
     <Compile Include="DiscUtils\ApplePartitionMap\PartitionMap.cs" />
@@ -1145,46 +1154,12 @@
     <Compile Include="CloudMoveyWorkerService\Types\API\Tasks.cs" />
     <Compile Include="DimensionData\Controllers\Account.cs" />
     <Compile Include="DimensionData\Controllers\Core.cs" />
-    <Compile Include="DimensionData\Controllers\MCP1.0\Datacenter.cs" />
-    <Compile Include="DimensionData\Controllers\MCP2.0\VLAN.cs" />
-    <Compile Include="DimensionData\Controllers\MCP1.0\Network.cs" />
-    <Compile Include="DimensionData\Controllers\MCP1.0\NetworkACL.cs" />
-    <Compile Include="DimensionData\Controllers\MCP2.0\NetworkDomain.cs" />
-    <Compile Include="DimensionData\Controllers\MCP1.0\NetworkNAT.cs" />
-    <Compile Include="DimensionData\Controllers\MCP2.0\Server.cs" />
-    <Compile Include="DimensionData\Controllers\MCP1.0\Server.cs" />
+    <Compile Include="DimensionData\Controllers\VLAN.cs" />
+    <Compile Include="DimensionData\Controllers\NetworkDomain.cs" />
+    <Compile Include="DimensionData\Controllers\Server.cs" />
     <Compile Include="DimensionData\Controllers\ServerImage.cs" />
     <Compile Include="DimensionData\Controllers\Software.cs" />
     <Compile Include="DimensionData\DimensionData.cs" />
-    <Compile Include="DimensionData\Types\AccountTypes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DimensionData\Types\MCP1.0\ACLTypes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DimensionData\Types\GenericTypes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DimensionData\Types\MCP1.0\NATTypes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DimensionData\Types\MCP1.0\NetworkTypes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DimensionData\Types\MCP1.0\ServerImageTypes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DimensionData\Types\MCP1.0\ServerTypes.cs" />
-    <Compile Include="DimensionData\Types\MCP1.0\SoftwareLabelTypes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DimensionData\Types\StatusType.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DimensionData\Types\MCP2.0\GeneralTypes.cs" />
-    <Compile Include="DimensionData\Types\MCP2.0\NetworkDomainTypes.cs" />
-    <Compile Include="DimensionData\Types\MCP2.0\VlanTypes.cs" />
-    <Compile Include="DimensionData\Types\MCP2.0\DatacenterTypes.cs" />
     <Compile Include="DoubleTake\DoubleTake.Wsdl.Contracts.cs" />
     <Compile Include="CloudMoveyWorkerSvc.cs">
       <SubType>Component</SubType>
@@ -1234,57 +1209,6 @@
     <None Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.edmx.diagram">
       <DependentUpon>CloudMoveyModel.edmx</DependentUpon>
     </None>
-    <None Include="DimensionData\XSD\antiaffinityrule.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\datacenter.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\firewall.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\general.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\healthmonitor.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\ipaddress.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\irule.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\natrule.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\networkdomain.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\node.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\persistenceprofile.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\pool.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\poolmember.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\publicipblock.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\server.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\virtuallistener.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DimensionData\XSD\vlan.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="DiscUtils\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="DiscUtils\obj\Debug\DiscUtils.csproj.GenerateResource.Cache" />
     <None Include="DiscUtils\obj\Debug\DiscUtils.csprojResolveAssemblyReference.cache" />
@@ -1311,6 +1235,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CloudMoveyWorkerService\Sqlite\Structures\" />
+    <Folder Include="DimensionData\Controllers\MCP2.0\" />
     <Folder Include="DiscUtils\bin\Release\" />
     <Folder Include="DiscUtils\bin\SignedRelease\" />
     <Folder Include="DiscUtils\obj\Debug\TempPE\" />

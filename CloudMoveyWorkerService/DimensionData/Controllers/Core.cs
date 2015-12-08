@@ -27,7 +27,7 @@ namespace CloudMoveyWorkerService.CaaS
             _datacenter = _dimensiondata.Datacenter;
             _client = _dimensiondata;
         }
-        public Boolean orgendpoint2(String _endpoint)
+        public Boolean orgendpoint(String _endpoint)
         {
             if (_client.OrganizationId == null)
             {
@@ -45,26 +45,6 @@ namespace CloudMoveyWorkerService.CaaS
                 }
             }
             this.endpoint = "/caas/2.0/" + _client.OrganizationId + _endpoint;
-            return false;
-        }
-		public bool orgendpoint(String _endpoint)
-        {
-            if (_client.OrganizationId == null)
-            {
-                var response = _client.account().myaccount();
-                if (response.GetType() == typeof(Account))
-                {
-                    _client.OrganizationId = (response as Account).orgId;
-                    this.endpoint = "/oec/0.9/" + _client.OrganizationId + _endpoint;
-                    return true;
-                }
-                else
-                {
-                    _lastresponse = (ResponseType)response;
-                    return false;
-                }
-            }
-            this.endpoint = "/oec/0.9/" + _client.OrganizationId + _endpoint;
             return false;
         }
         public void simpleendpoint(String _endpoint)

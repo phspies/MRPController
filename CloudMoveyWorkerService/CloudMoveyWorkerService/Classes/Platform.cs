@@ -38,15 +38,15 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     CloudMovey.task().failcomplete(payload, "Template image not found: " + JsonConvert.SerializeObject(_options));
                     return;
                 }
-                DeployServer _vm = new DeployServer();
+                DeployServerType _vm = new DeployServerType();
 
-                List<DeployServerDisk> _disks = new List<DeployServerDisk>();
+                List<DeployServerTypeDisk> _disks = new List<DeployServerTypeDisk>();
                
                 foreach (MoveyWorkloadVolumeType volume in _target.volumes)
                 {
                     if (_platformimage.disk.Exists(x => x.scsiId == volume.diskindex))
                     {
-                        _disks.Add(new DeployServerDisk() { scsiId = (byte)volume.diskindex, speed = volume.platformstoragetier.shortname });
+                        _disks.Add(new DeployServerTypeDisk() { scsiId = (byte)volume.diskindex, speed = volume.platformstoragetier.shortname });
                     }
                 }
 
@@ -54,20 +54,14 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                 List<Option> _dcoptions = new List<Option>();
                 _dcoptions.Add(new Option() { option = "id", value = moid });
                 DatacenterType dc = (CaaS.datacenter().datacenters(_dcoptions) as DatacenterListType).datacenter[0];
-                switch (dc.type)
-                {
-                    case "MCP 1.0":
-                        _vm.name = _target.hostname;
-                        _vm.description = String.Format("Workload Created by CloudMovey [{0}]", DateTime.Now);
-                        _vm.networkId = _target.interfaces[0].platformnetwork.moid;
-                        _vm.imageId = _platformimage.id;
-                        _vm.start = false;
-                        _vm.disk = _disks;
-                        _vm.administratorPassword = (string)_target.password;
-                        break;
-                    case "MCP 2.0":
-                        break;
-                }
+
+                _vm.name = _target.hostname;
+                _vm.description = String.Format("Workload Created by CloudMovey [{0}]", DateTime.Now);
+                _vm.networkId = _target.interfaces[0].platformnetwork.moid;
+                _vm.imageId = _platformimage.id;
+                _vm.start = false;
+                _vm.disk = _disks;
+                _vm.administratorPassword = (string)_target.password;
 
                 Status _status = CaaS.workloadimage().workloadimagedeploy(_vm);
                 if (_status.resultCode == "REASON_0")
@@ -76,14 +70,14 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     CloudMovey.task().progress(payload, String.Format("{0} provisioning started in {1}({2})", _vm.name, dc.displayName, dc.id), 20);
                     List<Option> _vmoptions = new List<Option>();
                     _vmoptions.Add(new Option() { option = "id", value = _vm_id });
-                    ServersWithBackupServer _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
-                    while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
+                    ServerType _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
+                    while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
-                        if (_newvm.status != null)
+                        if (_newvm.progress != null)
                         {
-                            if (_newvm.status.step != null)
+                            if (_newvm.progress.step != null)
                             {
-                                CloudMovey.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.status.step.name), 30 + _newvm.status.step.number);
+                                CloudMovey.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.progress.step.name), 30 + _newvm.progress.step.number);
                             }
                         }
                         _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
@@ -94,7 +88,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     CaaS.workloadimage().workloadmodify(workload_id: _vm_id, cpuCount: _target.cpu, memory: _target.memory);
                     _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                     CloudMovey.task().progress(payload, String.Format("Updating CPU and Memory: {0} : {1}", _target.cpu, _target.memory), 60);
-                    while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
+                    while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
                     _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                         Thread.Sleep(5000);
@@ -118,7 +112,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                             CaaS.workloadimage().workloadaddstorage(_vm_id, _volume.disksize, _volume.platformstoragetier.shortname);
                         }
                         _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
-                        while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
+                        while (_newvm.state != "NORMAL" && _newvm.started == false)
                         {
                             _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                             Thread.Sleep(5000);
@@ -130,7 +124,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
                     CloudMovey.task().progress(payload, String.Format("Power on workload"), 60 + count + 1);
                     CaaS.workloadimage().workloadstart(_vm_id);
                     _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
-                    while (_newvm.state != "NORMAL" && _newvm.isStarted == false)
+                    while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
                         _newvm = CaaS.workload().platformworkloads(_vmoptions).server[0];
                         Thread.Sleep(5000);
