@@ -13,19 +13,7 @@ namespace CloudMoveyWorkerService.WCF
     [ServiceContract]
     public interface ICloudMoveyService
     {
-        [OperationContract]
-        workerInformation CollectionInformation();
-        #region Failovergroups
-        [OperationContract]
-        List<Failovergroup> ListFailovergroups();
-        [OperationContract]
-        Failovergroup AddFailovergroup(Failovergroup _addfailovergroup);
-        [OperationContract]
-        Failovergroup UpdateFailovergroup(Failovergroup _updatefailovergroup);
-        [OperationContract]
-        bool DestroyFailovergroup(Failovergroup _destroyfailovergroup);
-        #endregion
-
+        
         #region Workloads
         [OperationContract]
         List<Workload> ListWorkloads();
@@ -61,7 +49,8 @@ namespace CloudMoveyWorkerService.WCF
         bool DestroyCredential(Credential _destroyCredential);
         #endregion
 
-
+        [OperationContract]
+        workerInformation CollectionInformation();
         [OperationContract]
         [ServiceKnownType(typeof(Status))]
         [ServiceKnownType(typeof(DatacenterListType))]

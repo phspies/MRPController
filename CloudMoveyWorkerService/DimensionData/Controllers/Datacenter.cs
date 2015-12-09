@@ -17,13 +17,7 @@ namespace CloudMoveyWorkerService.CaaS1
         {
             orgendpoint("/infrastructure/datacenter");
             urloptions = _options;
-            return get<DatacenterListType>(null, true);
-        }
-        public Object templates(List<Option> options = null)
-        {
-            simpleendpoint("/base/imageWithDiskSpeed");
-            urloptions = options;
-            return get<ImagesWithDiskSpeed>(null, true);
+            return get<DatacenterListType>(null, true) as DatacenterListType;
         }
     }
 }

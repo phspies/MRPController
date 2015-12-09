@@ -19,8 +19,8 @@ namespace CloudMoveyWorkerService.Portal.Classes
             while (true)
             {
                 Stopwatch sw = Stopwatch.StartNew();
-                int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads;
-                _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = 0;
+                int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads, _removed_workloads;
+                _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = _removed_workloads = 0;
 
                 try
                 {
@@ -121,6 +121,20 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             _workload_mcp2_options.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
                             _workload_mcp2_options.Add(new Option() { option = "state", value = "NORMAL" });
                             List<ServerType> _caasworkloads = _caas.workloads().list(_workload_mcp2_options).server.ToList();
+                            
+                            
+                            //process deleted platform workloads
+                            foreach (Workload _workload in dbcontext.Workloads)
+                            {
+                                if (!_caasworkloads.Exists(x => x.id == _workload.moid))
+                                {
+                                    dbcontext.Workloads.Remove(_workload);
+                                    _removed_workloads += 1;
+                                }
+                            }
+                            dbcontext.SaveChanges();
+
+
                             foreach (ServerType _caasworkload in _caasworkloads.Where(x => x.datacenterId == _platform.datacenter))
                             {
                                 //Pupulate logical volumes for workload
@@ -172,7 +186,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                     MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
                                     _moveyworkload.hostname = _caasworkload.name;
                                     _moveyworkload.moid = _caasworkload.id;
-                                    _moveyworkload.failovergroup_id = dbworkload.failovergroup_id;
+                                    //_moveyworkload.failovergroup_id = dbworkload.failovergroup_id;
                                     _moveyworkload.vcpu = (_caasworkload.cpu.coresPerSocket * _caasworkload.cpu.count) as int?;
                                     _moveyworkload.vmemory = _caasworkload.memoryGb as int?;
                                     _moveyworkload.platform_id = _platform.id;
@@ -195,6 +209,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                         _new_workloads += 1;
                                     }
                                 }
+                                //if workload is local but disabled - just updated the local db record
                                 else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id && x.enabled == false) > 0)
                                 {
                                     Workload _database_workload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
@@ -208,6 +223,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                     _database_workload.osedition = _caasworkload.operatingSystem.displayName;
                                     dbcontext.SaveChanges();
                                 }
+                                //if workload is not found localy - it should be added...
                                 else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id) == 0)
                                 {
                                     Workload _workload = new Workload();
@@ -228,9 +244,9 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     sw.Stop();
 
                     Global.event_log.WriteEntry(
-                        String.Format("Completed data mirroring process.{6}{0} new credentials.{6}{1} new platforms.{6}{7} new platform networks.{6}{2} new workloads.{6}{3} updated credentials.{6}{4} updated platforms.{6}{8} updated platform networks.{6}{5} updated workloads.{6}{6}Total Execute Time: {9}",
+                        String.Format("Completed data mirroring process.{6}{0} new credentials.{6}{1} new platforms.{6}{7} new platform networks.{6}{2} new workloads.{6}{3} updated credentials.{6}{4} updated platforms.{6}{8} updated platform networks.{6}{5} updated workloads.{6}{10} removed workloads.{6}{6}Total Execute Time: {9}",
                         _new_credentials, _new_platforms, _new_workloads, _updated_credentials, _updated_platforms, _updated_workloads,
-                        Environment.NewLine, _new_platformnetworks, _updated_platformnetworks, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
+                        Environment.NewLine, _new_platformnetworks, _updated_platformnetworks, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _removed_workloads
                         ));
                 }
                 catch (Exception ex)
@@ -246,10 +262,10 @@ namespace CloudMoveyWorkerService.Portal.Classes
 
             //process platform images
             OsImagesType _caas_templates = _caas.templates().platformtemplates();
-            foreach (var _caas_template in _caas_templates.osImage.Where(x => x.datacenterId == _platform.moid))
+            foreach (OsImageType _caas_template in _caas_templates.osImage.Where(x => x.datacenterId == _platform.moid))
             {
                 MoveyPlatformtemplateCRUDType _moveytemplate = new MoveyPlatformtemplateCRUDType();
-                _moveytemplate.image_type = _caas_template.softwareLabel.Count() == 0 ? "os" : "software";
+                _moveytemplate.image_type = _caas_template.softwareLabel == null ? "os" : "software";
                 _moveytemplate.image_description = _caas_template.description;
                 _moveytemplate.image_moid = _caas_template.id;
                 _moveytemplate.image_name = _caas_template.name;

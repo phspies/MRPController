@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\
 CloudMoveyNotifier
 none
 false
 DEBUG;TRACE
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\App.xaml
-8-1067437229
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\App.xaml
+7-1567461477
 
-241580477900
-35-1047981378
-Forms\FailovergroupForm.xaml;Forms\CredentialForm.xaml;Forms\PlatformForm.xaml;SplashWindow.xaml;MainWindow.xaml;Resources\DimensionData.xaml;Resources\Icons.xaml;Resources\logos.xaml;
+21946539275
+342036237331
+Forms\CredentialForm.xaml;Forms\PlatformForm.xaml;SplashWindow.xaml;MainWindow.xaml;Resources\DimensionData.xaml;Resources\Icons.xaml;Resources\logos.xaml;
 
 False
 

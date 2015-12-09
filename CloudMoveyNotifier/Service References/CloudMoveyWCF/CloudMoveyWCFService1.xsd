@@ -1,74 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF" />
-  <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" />
-  <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Models" />
-  <xs:element name="CollectionInformation">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="CollectionInformationResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF" minOccurs="0" name="CollectionInformationResult" nillable="true" type="q1:workerInformation" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ListFailovergroups">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ListFailovergroupsResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="ListFailovergroupsResult" nillable="true" type="q2:ArrayOfFailovergroup" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddFailovergroup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_addfailovergroup" nillable="true" type="q3:Failovergroup" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AddFailovergroupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="AddFailovergroupResult" nillable="true" type="q4:Failovergroup" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UpdateFailovergroup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_updatefailovergroup" nillable="true" type="q5:Failovergroup" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UpdateFailovergroupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="UpdateFailovergroupResult" nillable="true" type="q6:Failovergroup" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="DestroyFailovergroup">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_destroyfailovergroup" nillable="true" type="q7:Failovergroup" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="DestroyFailovergroupResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="DestroyFailovergroupResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
+  <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" />
+  <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF" />
+  <xs:import schemaLocation="http://localhost:8734/CloudMoveyWCFService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.Portal.Models" />
   <xs:element name="ListWorkloads">
     <xs:complexType>
       <xs:sequence />
@@ -77,42 +11,42 @@
   <xs:element name="ListWorkloadsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="ListWorkloadsResult" nillable="true" type="q8:ArrayOfWorkload" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="ListWorkloadsResult" nillable="true" type="q1:ArrayOfWorkload" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddWorkload">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_addworkload" nillable="true" type="q9:Workload" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_addworkload" nillable="true" type="q2:Workload" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddWorkloadResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="AddWorkloadResult" nillable="true" type="q10:Workload" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="AddWorkloadResult" nillable="true" type="q3:Workload" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateWorkload">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_updateworkload" nillable="true" type="q11:Workload" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_updateworkload" nillable="true" type="q4:Workload" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateWorkloadResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="UpdateWorkloadResult" nillable="true" type="q12:Workload" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="UpdateWorkloadResult" nillable="true" type="q5:Workload" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DestroyWorkload">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_destroyworkload" nillable="true" type="q13:Workload" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_destroyworkload" nillable="true" type="q6:Workload" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -131,42 +65,42 @@
   <xs:element name="ListPlatformsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="ListPlatformsResult" nillable="true" type="q14:ArrayOfPlatform" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="ListPlatformsResult" nillable="true" type="q7:ArrayOfPlatform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddPlatform">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_addplatform" nillable="true" type="q15:Platform" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_addplatform" nillable="true" type="q8:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddPlatformResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="AddPlatformResult" nillable="true" type="q16:Platform" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="AddPlatformResult" nillable="true" type="q9:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdatePlatform">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_updateplatform" nillable="true" type="q17:Platform" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_updateplatform" nillable="true" type="q10:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdatePlatformResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="UpdatePlatformResult" nillable="true" type="q18:Platform" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="UpdatePlatformResult" nillable="true" type="q11:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DestroyPlatform">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_destroyplatform" nillable="true" type="q19:Platform" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_destroyplatform" nillable="true" type="q12:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -180,7 +114,7 @@
   <xs:element name="RefreshPlatform">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_platform" nillable="true" type="q20:Platform" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_platform" nillable="true" type="q13:Platform" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -197,42 +131,42 @@
   <xs:element name="ListCredentialsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="ListCredentialsResult" nillable="true" type="q21:ArrayOfCredential" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="ListCredentialsResult" nillable="true" type="q14:ArrayOfCredential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddCredential">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_addCredential" nillable="true" type="q22:Credential" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_addCredential" nillable="true" type="q15:Credential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="AddCredentialResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="AddCredentialResult" nillable="true" type="q23:Credential" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="AddCredentialResult" nillable="true" type="q16:Credential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateCredential">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_updateCredential" nillable="true" type="q24:Credential" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_updateCredential" nillable="true" type="q17:Credential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateCredentialResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="UpdateCredentialResult" nillable="true" type="q25:Credential" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="UpdateCredentialResult" nillable="true" type="q18:Credential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DestroyCredential">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_destroyCredential" nillable="true" type="q26:Credential" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_destroyCredential" nillable="true" type="q19:Credential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -243,11 +177,23 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="CollectionInformation">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CollectionInformationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.WCF" minOccurs="0" name="CollectionInformationResult" nillable="true" type="q20:workerInformation" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ListDatacenters">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="url" nillable="true" type="xs:string" />
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_credential" nillable="true" type="q27:Credential" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_credential" nillable="true" type="q21:Credential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -262,7 +208,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="url" nillable="true" type="xs:string" />
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_credential" nillable="true" type="q28:Credential" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_credential" nillable="true" type="q22:Credential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -278,14 +224,14 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="_datacenterId" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="_url" nillable="true" type="xs:string" />
-        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Sqlite.Models" minOccurs="0" name="_credential" nillable="true" type="q29:Credential" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" minOccurs="0" name="_credential" nillable="true" type="q23:Credential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PlatformDetailsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMovey.Models" minOccurs="0" name="PlatformDetailsResult" nillable="true" type="q30:PlatformDetails" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.Portal.Models" minOccurs="0" name="PlatformDetailsResult" nillable="true" type="q24:PlatformDetails" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

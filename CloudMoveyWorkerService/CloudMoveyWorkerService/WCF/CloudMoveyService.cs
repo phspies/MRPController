@@ -16,63 +16,6 @@ namespace CloudMoveyWorkerService.WCF
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class CloudMoveyService : ICloudMoveyService
     {
-        #region failovergroups
-        public List<Failovergroup> ListFailovergroups()
-        {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            var failovergroups = from Failovergroup in dbcontext.Failovergroups select Failovergroup;
-            return failovergroups.ToList<Failovergroup>();
-        }
-        public Failovergroup AddFailovergroup(Failovergroup _addfailovergroup)
-        {
-            Failovergroup _addedfailovergroup = null;
-            try
-            {
-                CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _addfailovergroup.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                _addedfailovergroup = dbcontext.Failovergroups.Add(_addfailovergroup);
-                CloudMoveyEvents.add(new Event() { entity = _addfailovergroup.group, severity = 0, component ="New Failover Group", summary = _addfailovergroup.ToString() });
-                dbcontext.SaveChanges();
-
-            }
-            catch (System.Data.Entity.Validation.DbEntityValidationException e)
-            {
-                Global.event_log.WriteEntry(String.Format("Error adding record: {0}", e.ToString()), EventLogEntryType.Error);
-            }
-            return _addedfailovergroup;
-
-        }
-        public Failovergroup UpdateFailovergroup(Failovergroup _updatefailovergroup)
-        {
-            Failovergroup _update = null;
-            try
-            {
-                CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _update = dbcontext.Failovergroups.FirstOrDefault(d => d.id == _updatefailovergroup.id);
-                IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updatefailovergroup, _update);
-                if (_changes.Count() > 0)
-                {
-                    Copy(_updatefailovergroup, _update);
-                    CloudMoveyEvents.add(new Event() { entity = _update.group, severity = 0, summary = _changes.ToString() });
-                    dbcontext.SaveChanges();
-                }
-            }
-            catch (Exception e)
-            {
-                Global.event_log.WriteEntry(String.Format("Error updating record: {0}", e.Message), EventLogEntryType.Error);
-            }
-            return _update;
-        }
-        public bool DestroyFailovergroup(Failovergroup _destroyfailovergroup)
-        {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            Failovergroup _remove = dbcontext.Failovergroups.Single(d => d.id == _destroyfailovergroup.id);
-            CloudMoveyEvents.add(new Event() { entity = _remove.group, severity = 0, component = "Destroy Failover Group", summary = _remove.ToString() });
-            dbcontext.Failovergroups.Remove(_remove);
-            dbcontext.SaveChanges();
-            return true;
-        }
-        #endregion
         #region workloads
         public List<Workload> ListWorkloads()
         {
@@ -203,40 +146,26 @@ namespace CloudMoveyWorkerService.WCF
                 CloudMoveyEntities dbcontext = new CloudMoveyEntities();
                 Credential _credential = dbcontext.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
                 DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
-                List<CaaS.Models.Option> _dcoptions = new List<CaaS.Models.Option>();
-                List<CaaS.Models.Option> _resourceoptions = new List<CaaS.Models.Option>();
-                _resourceoptions.Add(new CaaS.Models.Option() { option = "datacenterId", value = _platform.datacenter });
+                List<Option> _dcoptions = new List<Option>();
+                List<Option> _resourceoptions = new List<Option>();
+                _resourceoptions.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
 
-                _dcoptions.Add(new CaaS.Models.Option() { option = "id", value = _platform.datacenter });
+                _dcoptions.Add(new Option() { option = "id", value = _platform.datacenter });
                 DatacenterType _dc = ((DatacenterListType)_caas.datacenter().datacenters(_dcoptions)).datacenter[0];
                 int workloads, networkdomains, vlans;
                 string workloads_md5, networkdomains_md5, vlans_md5;
                 workloads = networkdomains = vlans = 0;
-                if (_dc.type == "MCP 2.0")
-                {
-                    List<ServerType> workload_list = _caas.mcp2workloads().listworkloads(_resourceoptions).server;
-                    workloads = workload_list.Count();
-                    workloads_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(workload_list));
-                    List<VlanType> vlan_list = _caas.mcp2vlans().listvlan(_resourceoptions).vlan;
-                    vlans = vlan_list.Count();
-                    vlans_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(vlan_list));
-                    List<NetworkDomainType> networkdomain_list = _caas.mcp2networkdomain().networkdomainlist(_resourceoptions).networkDomain;
-                    networkdomains = networkdomain_list.Count();
-                    networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(networkdomain_list));
-                }
-                else
-                {
-                    List<CaaS.Models.Option> _dc1options = new List<CaaS.Models.Option>();
-                    _dc1options.Add(new CaaS.Models.Option() { option = "location", value = _platform.datacenter });
-                    networkdomains = 1;
-                    networkdomains_md5 = "";
-                    List<ServersWithBackupServer> workload_list = _caas.workload().platformworkloads(_dc1options).server.ToList();
-                    workloads = workload_list.Count();
-                    workloads_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(workload_list));
-                    List<NetworkWithLocationsNetwork> vlan_list = _caas.network().networklist(_platform.datacenter).network.ToList();
-                    vlans = vlan_list.Count();
-                    vlans_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(vlan_list));
-                }
+
+                List<ServerType> workload_list = _caas.workloads().list(_resourceoptions).server;
+                workloads = workload_list.Count();
+                workloads_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(workload_list));
+                List<VlanType> vlan_list = _caas.vlans().list(_resourceoptions).vlan;
+                vlans = vlan_list.Count();
+                vlans_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(vlan_list));
+                List<NetworkDomainType> networkdomain_list = _caas.networkdomain().list(_resourceoptions).networkDomain;
+                networkdomains = networkdomain_list.Count();
+                networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(networkdomain_list));
+
                 Platform __platform = dbcontext.Platforms.FirstOrDefault(x => x.id == _platform.id);
                 __platform.vlan_count = vlans;
                 __platform.workload_count = workloads;

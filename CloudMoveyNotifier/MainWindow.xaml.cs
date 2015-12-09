@@ -30,8 +30,6 @@ namespace CloudMoveyNotifier
         private BackgroundWorker platformloader = new BackgroundWorker();
         private List<Platform> _platform_list = new List<Platform>();
         private List<Credential> _credential_list = new List<Credential>();
-        private List<Failovergroup> _failovergroup_list = new List<Failovergroup>();
-        private ObservableCollection<Failovergroup_TreeModel> _failovergroup_tree = new ObservableCollection<Failovergroup_TreeModel>();
 
         private List<Workload_ObjectDataModel> _workloads = new List<Workload_ObjectDataModel>();
         workerInformation _information = null;
@@ -79,7 +77,6 @@ namespace CloudMoveyNotifier
 
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-            load_failovergrouptree();
 
         }
 
@@ -189,69 +186,6 @@ namespace CloudMoveyNotifier
             }
             return parent;
         }
-        private void Failovergroup_add_click(object sender, RoutedEventArgs e)
-        {
-
-            MenuItem item = (MenuItem)e.OriginalSource;
-            Failovergroup_TreeModel _parent_failovergroup = (Failovergroup_TreeModel)(Failovergroup_treeview.SelectedValue);
-            if (_parent_failovergroup != null)
-            {
-                FailovergroupForm _form = new FailovergroupForm(new Failovergroup(), 0);
-                if (_form.ShowDialog() == true)
-                {
-                    _form._record.parent_id = _parent_failovergroup.group_object.id;
-                    channel.AddFailovergroup(_form._record);
-                }
-                load_failovergrouptree();
-            }
-        }
-        private void Failovergroup_update_click(object sender, RoutedEventArgs e)
-        {
-            Failovergroup_TreeModel _failovergroup = (Failovergroup_TreeModel)(Failovergroup_treeview.SelectedValue);
-            FailovergroupForm _form = new FailovergroupForm(_failovergroup.group_object, 1);
-            if (_form.ShowDialog() == true)
-            {
-                channel.UpdateFailovergroup(_form._record);
-            }
-            load_failovergrouptree();
-        }
-        private void Failovergroup_destroy_click(object sender, RoutedEventArgs e)
-        {
-            Failovergroup_TreeModel item = ((sender as MenuItem).DataContext) as Failovergroup_TreeModel;
-
-        }
-        private void Failovergroup_moveup_click(object sender, RoutedEventArgs e)
-        {
-            Failovergroup_TreeModel item = ((sender as MenuItem).DataContext) as Failovergroup_TreeModel;
-
-        }
-        private void Failovergroup_movedown_click(object sender, RoutedEventArgs e)
-        {
-            Failovergroup_TreeModel item = ((sender as MenuItem).DataContext) as Failovergroup_TreeModel;
-
-        }
-
-        private void load_failovergrouptree(Failovergroup _failovergroup = null)
-        {
-            _failovergroup_list = channel.ListFailovergroups();
-            if (_failovergroup == null && _failovergroup_list.Count == 0)
-            {
-                channel.AddFailovergroup(new Failovergroup() { group = "Root Group", group_type = 10 });
-                _failovergroup_list = channel.ListFailovergroups();
-            }
-            _failovergroup_tree = FlatToHierarchy(_failovergroup_list);
-            Failovergroup_treeview.ItemsSource = _failovergroup_tree;
-
-        }
-        public ObservableCollection<Failovergroup_TreeModel> FlatToHierarchy(IEnumerable<Failovergroup> list, string id = null)
-        {
-            ObservableCollection<Failovergroup_TreeModel> _children = new ObservableCollection<Failovergroup_TreeModel>();
-            foreach (Failovergroup _group in list.Where(x => x.parent_id == id))
-            {
-                _children.Add(new Failovergroup_TreeModel() { group = _group.group, group_object = _group, id = _group.id, group_type = _group.group_type, children = FlatToHierarchy(list, _group.id) });
-            }
-            return _children;
-        }
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             refesh_platform_list();
@@ -359,24 +293,6 @@ namespace CloudMoveyNotifier
         {
 
         }
-        private void failovergroup_treeview_selectionchanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            UiServices.SetBusyState();
-            Failovergroup_TreeModel _tree_object = e.NewValue as Failovergroup_TreeModel;
-            current_group.Content = _tree_object.group;
-            lvWorkloads.Items.Filter = delegate (object item)
-            {
-                Workload_ObjectDataModel workload = item as Workload_ObjectDataModel;
-                if (_tree_object.group_object.parent_id == null) //This is the roor object
-                {
-                    return (workload.enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
-                }
-                else
-                {
-                    return (workload.failovergroup_id == _tree_object.id && workload.enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
-                }
-            };
-        }
         private void refresh_platforms_button_clicked(object sender, RoutedEventArgs e)
         {
             UiServices.SetBusyState();
@@ -418,9 +334,9 @@ namespace CloudMoveyNotifier
         }
         private void refresh_workload_button(object sender, RoutedEventArgs e)
         {
-            Platform _platform = (Platform)((Button)sender).DataContext;
-            channel.RefreshPlatform(_platform);
-            refesh_platform_list();
+            Workload_ObjectDataModel _workload = (Workload_ObjectDataModel)((Button)sender).DataContext;
+            //channel.RefreshPlatform(_platform);
+            //refesh_platform_list();
         }
         private async void delete_workload_button(object sender, RoutedEventArgs e)
         {
@@ -549,21 +465,7 @@ namespace CloudMoveyNotifier
         }
 
 
-        // DROP
-        private void Tree_Drop(object sender, DragEventArgs e)
-        {
-            if (e.OriginalSource.GetType() == typeof(TextBlock))
-            {
-                if (e.Data.GetDataPresent(typeof(Workload_ObjectDataModel)))
-                {
-                    var workload = e.Data.GetData(typeof(Workload_ObjectDataModel)) as Workload_ObjectDataModel;
-                    var failovergroup = ((TextBlock)e.OriginalSource).DataContext as Failovergroup_TreeModel;
 
-                    _workloads.Find(x => x.id == workload.id).failovergroup_id = failovergroup.id;
-                }
-                Failovergroup_treeview.Items.Refresh();
-            }
-        }
         private void workload_search_filter(object sender, RoutedEventArgs e)
         {
             UiServices.SetBusyState();
@@ -598,24 +500,6 @@ namespace CloudMoveyNotifier
             Workload_ObjectDataModel workload = de as Workload_ObjectDataModel;
             return ((workload.enabled == false) && workload.enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
         }
-        private void Tree_DragOver(object sender, DragEventArgs e)
-        {
-            TreeViewItem treeViewItem = FindAncestor<TreeViewItem>((DependencyObject)e.OriginalSource);
-            if (treeViewItem != null)
-            {
-                BrushConverter conv = new BrushConverter();
-                treeViewItem.Background = conv.ConvertFromString("#69BE28") as SolidColorBrush;
-            }
-        }
-        private void Tree_DragLeave(object sender, DragEventArgs e)
-        {
-            TreeViewItem treeViewItem = FindAncestor<TreeViewItem>((DependencyObject)e.OriginalSource);
-            if (treeViewItem != null)
-            {
-                treeViewItem.Background = System.Windows.Media.Brushes.White;
-            }
-        }
-
     }
 
     public partial class WorkerState

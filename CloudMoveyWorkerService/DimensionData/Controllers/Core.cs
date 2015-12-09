@@ -34,7 +34,7 @@ namespace CloudMoveyWorkerService.CaaS
                 if (response.GetType() == typeof(Account))
                 {
                     _client.OrganizationId = (response as Account).orgId;
-                    this.endpoint = "/caas/2.0/" + _client.OrganizationId + _endpoint;
+                    this.endpoint = "/caas/2.1/" + _client.OrganizationId + _endpoint;
                     return true;
                 }
                 else
@@ -43,7 +43,7 @@ namespace CloudMoveyWorkerService.CaaS
                     return false;
                 }
             }
-            this.endpoint = "/caas/2.0/" + _client.OrganizationId + _endpoint;
+            this.endpoint = "/caas/2.1/" + _client.OrganizationId + _endpoint;
             return false;
         }
         public void simpleendpoint(String _endpoint)

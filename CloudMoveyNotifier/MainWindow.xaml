@@ -160,9 +160,6 @@
             </Style>
             <DataTemplate x:Shared="False" x:Key="workload_hostname">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Viewbox x:Name="drag_element" Width="25" Height="25" ToolTip="Drag/Drop Control" Stretch="Uniform" PreviewMouseLeftButtonDown="lvWorkloads_PreviewMouseLeftButtonDown" PreviewMouseMove="lvWorkloads_MouseMove">
-                        <ContentControl Focusable="true" Content="{StaticResource appbar_layer_arrange_bringforward}" Style="{StaticResource handmouseover}"/>
-                    </Viewbox>
                     <controls:ToggleSwitch OnLabel="" OffLabel="" IsChecked="{Binding enabled, Mode=TwoWay}" />
                     <TextBlock Text="{Binding hostname}" Margin="5,10,0,0"/>
                 </StackPanel>
@@ -192,24 +189,11 @@
                     <Trigger Property="IsSelected" Value="True">
                         <Setter Property="Background" Value="#BAD895"/>
                     </Trigger>
+
                 </Style.Triggers>
             </Style>
-            <!-- the context menu for all tree view items -->
-
-            <ContextMenu  x:Key="TreeViewItemContextMenu" StaysOpen="true">
-                <MenuItem Header="Add" Click="Failovergroup_add_click"/>
-                <MenuItem Header="Update"  Click="Failovergroup_update_click"/>
-                <MenuItem Header="Destroy"  Click="Failovergroup_destroy_click"/>
-                <Separator/>
-                <MenuItem Header="Move up" Click="Failovergroup_moveup_click"/>
-                <MenuItem Header="Move Down" Click="Failovergroup_movedown_click"/>
-            </ContextMenu>
 
             <!-- the data template for all tree view items -->
-            <HierarchicalDataTemplate x:Key="TreeViewItemTemplate">
-                <TextBlock x:Name="TextBlock" Text="{Binding Text}" ContextMenu="{StaticResource TreeViewItemContextMenu}" />
-
-            </HierarchicalDataTemplate>
             <LinearGradientBrush x:Key="CheckedBlue" StartPoint="0,0" EndPoint="0,1">
                 <GradientStop Color="#FF285AB3" Offset="0" />
                 <GradientStop Color="#FF4184EC" Offset="0.5" />
@@ -354,56 +338,12 @@
         </Grid.Style>
         <Grid>
             <TabControl Grid.Row="0" DockPanel.Dock="Top"  controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10,10,10,176" Background="#E8F2DC">
-                <TabItem Header="Application Groups" controls:ControlsHelper.HeaderFontSize="18">
+                <TabItem Header="Workloads" controls:ControlsHelper.HeaderFontSize="18">
                     <Grid Margin="5,5,5,5" x:Name="ApplicationGroupGrid">
                         <CheckBox Name="workload_filter_toggleswitch" Margin="0,6,148,0" Checked="workload_filter_toggle" Unchecked="workload_filter_toggle" Height="13" VerticalAlignment="Top" HorizontalAlignment="Right" Width="14" />
                         <TextBox x:Name="workload_search" Height="23" TextWrapping="Wrap" TextChanged="workload_search_filter" Margin="0,0,178,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="299" />
-
-                        <TreeView x:Name="Failovergroup_treeview" AllowDrop="True" DragOver="Tree_DragOver" Drop="Tree_Drop" DragLeave="Tree_DragLeave" SelectedItemChanged="failovergroup_treeview_selectionchanged" Margin="0,0,0,0" HorizontalAlignment="Left" Width="248">
-                            <TreeView.Resources>
-                                <SolidColorBrush Color="#69BE28" x:Key="{x:Static SystemColors.HighlightBrushKey}"/>
-                                <HierarchicalDataTemplate  DataType="{x:Type model:Failovergroup_TreeModel}"  ItemsSource="{Binding children}">
-                                    <StackPanel  Orientation="Horizontal" >
-                                        <Viewbox  Width="25" Height="25" Stretch="Uniform">
-                                            <ContentControl>
-                                                <ContentControl.Style>
-                                                    <Style TargetType="{x:Type ContentControl}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding group_type}" Value="10">
-                                                                <Setter Property="Content" Value="{StaticResource appbar_palmtree}" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding group_type}" Value="0">
-                                                                <Setter Property="Content" Value="{StaticResource appbar_map_location}" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding group_type}" Value="1">
-                                                                <Setter Property="Content" Value="{StaticResource appbar_cog}" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding group_type}" Value="2">
-                                                                <Setter Property="Content" Value="{StaticResource appbar_browser_wire}" />
-                                                            </DataTrigger>
-                                                            <DataTrigger Binding="{Binding group_type}" Value="3">
-                                                                <Setter Property="Content" Value="{StaticResource appbar_people_multiple}" />
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                    </Style>
-                                                </ContentControl.Style>
-                                            </ContentControl>
-                                        </Viewbox>
-                                        <TextBlock Text="{Binding group}" Margin="4,4,4,0"/>
-                                    </StackPanel>
-                                </HierarchicalDataTemplate>
-                            </TreeView.Resources>
-                            <TreeView.ContextMenu>
-                                <StaticResource ResourceKey="TreeViewItemContextMenu"/>
-                            </TreeView.ContextMenu>
-                            <TreeView.ItemContainerStyle>
-                                <Style TargetType="{x:Type TreeViewItem}" BasedOn="{StaticResource {x:Type TreeViewItem}}">
-                                    <Setter Property="IsExpanded" Value="True"/>
-                                </Style>
-                            </TreeView.ItemContainerStyle>
-                        </TreeView>
-                        <ListView  x:Name="lvWorkloads" Margin="263,33,0,0" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
-                            <ListView.View >
+                        <ListView  x:Name="lvWorkloads" Margin="0,33,0,0" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2">
+                            <ListView.View>
                                 <GridView>
                                     <GridViewColumn CellTemplate="{StaticResource workload_hostname}">
                                         <GridViewColumnHeader Tag="platform" Content="Workload"/>
