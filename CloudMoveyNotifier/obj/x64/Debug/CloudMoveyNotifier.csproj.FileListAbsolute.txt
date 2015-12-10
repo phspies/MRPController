@@ -204,3 +204,4 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.csproj.GenerateResource.Cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.csprojResolveAssemblyReference.cache

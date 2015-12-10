@@ -34,5 +34,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models
         public string last_contact_message { get; set; }
         public Nullable<int> failed_contact_attempts { get; set; }
         public string iplist { get; set; }
+        public Nullable<int> cpu_coresPerSocket { get; set; }
+        public bool perf_collection { get; set; }
     }
 }

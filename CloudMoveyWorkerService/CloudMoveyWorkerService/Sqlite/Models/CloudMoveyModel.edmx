@@ -91,6 +91,7 @@
           <Property Name="moid" Type="varchar" MaxLength="50" />
           <Property Name="enabled" Type="bit" />
           <Property Name="cpu_count" Type="int" />
+          <Property Name="cpu_coresPerSocket" Type="int" />
           <Property Name="memory_count" Type="int" />
           <Property Name="storage_count" Type="integer" />
           <Property Name="credential_ok" Type="bit" Nullable="false" />
@@ -101,6 +102,7 @@
           <Property Name="last_contact_status" Type="int" />
           <Property Name="last_contact_message" Type="varchar" MaxLength="50" />
           <Property Name="failed_contact_attempts" Type="int" />
+          <Property Name="perf_collection" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="CloudMoveyModelStoreContainer">
           <EntitySet Name="Credentials" EntityType="Self.Credentials" store:Type="Tables" />
@@ -218,6 +220,8 @@
           <Property Name="last_contact_message" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="failed_contact_attempts" Type="Int32" />
           <Property Name="iplist" Type="String" MaxLength="125" FixedLength="false" Unicode="false" />
+          <Property Name="cpu_coresPerSocket" Type="Int32" />
+          <Property Name="perf_collection" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -305,6 +309,8 @@
           <EntitySetMapping Name="Workloads">
             <EntityTypeMapping TypeName="CloudMoveyModel.Workload">
               <MappingFragment StoreEntitySet="Workloads">
+                <ScalarProperty Name="perf_collection" ColumnName="perf_collection" />
+                <ScalarProperty Name="cpu_coresPerSocket" ColumnName="cpu_coresPerSocket" />
                 <ScalarProperty Name="iplist" ColumnName="iplist" />
                 <ScalarProperty Name="failed_contact_attempts" ColumnName="failed_contact_attempts" />
                 <ScalarProperty Name="last_contact_message" ColumnName="last_contact_message" />

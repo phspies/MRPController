@@ -14,6 +14,13 @@ namespace CloudMoveyWorkerService.Portal.Classes
     {
         CloudMoveyEntities dbcontext = new CloudMoveyEntities();
         CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
+
+        //Order or sync process
+        // 1. update worker information from portal - perf_collection
+        // 2. push credentials to portal
+        // 3. delete workloads from local DB that is no longer in source platforms
+        // 4. push workloads and networks to portal
+
         public void Start()
         {
             while (true)
@@ -24,6 +31,19 @@ namespace CloudMoveyWorkerService.Portal.Classes
 
                 try
                 {
+                    MoveyWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
+                    foreach (MoveyWorkloadType _portalworkload in _currentplatformworkloads.workloads)
+                    {
+                        if (dbcontext.Workloads.Count(x => x.id == _portalworkload.id) > 0)
+                        {
+                            Workload dbworkload = dbcontext.Workloads.FirstOrDefault(x => x.id == _portalworkload.id);
+
+                            //attributes that needs to be synced back to the worker...
+                            dbworkload.perf_collection = _portalworkload.perf_collection;
+                        }
+                    }
+                    dbcontext.SaveChanges();
+
                     Global.event_log.WriteEntry("Staring platform inventory process");
                     //process credentials
                     List<Credential> _workercredentials = (dbcontext.Credentials as IQueryable<Credential>).ToList();
@@ -75,171 +95,175 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     //process dimension data networks
                     foreach (var _platform in _workerplatforms.Where(x => x.vendor == 0 && x.platform_version == "MCP 2.0"))
                     {
-                        if (_platform.platform_version == "MCP 2.0")
+                        MoveyPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
+                        Credential _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
+                        DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
+
+                        //mirror platorm templates for this platform
+                        MirrorPlatformTemplates(_credential, _caas, _platform);
+
+                        List<Option> _options = new List<Option>();
+                        _options.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
+                        _options.Add(new Option() { option = "state", value = "NORMAL" });
+                        foreach (VlanType _network in _caas.vlans().list(_options).vlan)
                         {
-                            MoveyPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
-                            Credential _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
-                            DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
-
-                            //mirror platorm templates for this platform
-                            MirrorPlatformTemplates(_credential, _caas, _platform);
-
-                            List<Option> _options = new List<Option>();
-                            _options.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
-                            _options.Add(new Option() { option = "state", value = "NORMAL" });
-                            foreach (VlanType _network in _caas.vlans().list(_options).vlan)
+                            MoveyPlatformnetworkCRUDType _platformnetwork = new MoveyPlatformnetworkCRUDType();
+                            _platformnetwork.moid = _network.id;
+                            _platformnetwork.network = _network.name;
+                            _platformnetwork.description = _network.description;
+                            _platformnetwork.platform_id = _platform.id;
+                            _platformnetwork.ipv4subnet = _network.privateIpv4Range.address;
+                            _platformnetwork.ipv4netmask = _network.privateIpv4Range.prefixSize;
+                            _platformnetwork.ipv6subnet = _network.ipv6Range.address;
+                            _platformnetwork.ipv6netmask = _network.ipv6Range.prefixSize;
+                            _platformnetwork.networkdomain_moid = _network.networkDomain.id;
+                            _platformnetwork.provisioned = true;
+                            if (_currentplatformnetworks.platformnetworks.Exists(x => x.moid == _network.id))
                             {
-                                MoveyPlatformnetworkCRUDType _platformnetwork = new MoveyPlatformnetworkCRUDType();
-                                _platformnetwork.moid = _network.id;
-                                _platformnetwork.network = _network.name;
-                                _platformnetwork.description = _network.description;
-                                _platformnetwork.platform_id = _platform.id;
-                                _platformnetwork.ipv4subnet = _network.privateIpv4Range.address;
-                                _platformnetwork.ipv4netmask = _network.privateIpv4Range.prefixSize;
-                                _platformnetwork.ipv6subnet = _network.ipv6Range.address;
-                                _platformnetwork.ipv6netmask = _network.ipv6Range.prefixSize;
-                                _platformnetwork.networkdomain_moid = _network.networkDomain.id;
-                                _platformnetwork.provisioned = true;
-                                if (_currentplatformnetworks.platformnetworks.Exists(x => x.moid == _network.id))
+                                _platformnetwork.id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _network.id).id;
+                                _cloud_movey.platformnetwork().updateplatformnetwork(_platformnetwork);
+                                _updated_platformnetworks += 1;
+                            }
+                            else
+                            {
+                                _cloud_movey.platformnetwork().createplatformnetwork(_platformnetwork);
+                                _new_platformnetworks += 1;
+                            }
+                        }
+                        //refresh platform network list from portal
+                        _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
+
+                        //process workloads
+                        List<Option> _workload_mcp2_options = new List<Option>();
+                        _workload_mcp2_options.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
+                        _workload_mcp2_options.Add(new Option() { option = "state", value = "NORMAL" });
+                        List<ServerType> _caasworkloads = _caas.workloads().list(_workload_mcp2_options).server.ToList();
+                            
+                            
+                        //process deleted platform workloads
+                        foreach (Workload _workload in dbcontext.Workloads.Where(x => x.platform_id == _platform.id))
+                        {
+                            if (!_caasworkloads.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                            {
+                                dbcontext.Workloads.Remove(_workload);
+                                _removed_workloads += 1;
+                                dbcontext.SaveChanges();
+                            }
+                        }
+
+
+                        foreach (ServerType _caasworkload in _caasworkloads.Where(x => x.datacenterId == _platform.datacenter && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                        {
+                            //Pupulate logical volumes for workload
+                            List<MoveyWorkloadVolumeType> workloaddisks_parameters = new List<MoveyWorkloadVolumeType>();
+                            foreach (ServerTypeDisk _workloaddisk in _caasworkload.disk)
+                            {
+                                MoveyWorkloadVolumeType _logical_volume = new MoveyWorkloadVolumeType() { moid = _workloaddisk.id, diskindex = _workloaddisk.scsiId, provisioned = true, disksize = _workloaddisk.sizeGb };
+                                if (_currentplatformworkloads.workloads.Exists(x => x.volumes.Exists(y => y.moid == _workloaddisk.id)))
                                 {
-                                    _platformnetwork.id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _network.id).id;
-                                    _cloud_movey.platformnetwork().updateplatformnetwork(_platformnetwork);
-                                    _updated_platformnetworks += 1;
+                                    _logical_volume.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).volumes.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
+                                }
+                                workloaddisks_parameters.Add(_logical_volume);
+                            }
+
+                            //populate network interfaces for workload
+                            List<MoveyWorkloadInterfaceType> workloadinterfaces_parameters = new List<MoveyWorkloadInterfaceType>();
+                            MoveyWorkloadInterfaceType _primary_logical_interface = new MoveyWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", ipv6address = _caasworkload.networkInfo.primaryNic.ipv6, ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4, moid = _caasworkload.networkInfo.primaryNic.id };
+                            if (_currentplatformworkloads.workloads.Exists(x => x.interfaces.Exists(y => x.moid == _caasworkload.id && y.moid == _caasworkload.networkInfo.primaryNic.id)))
+                            {
+                                _primary_logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkload.networkInfo.primaryNic.id).id;
+                            }
+                            workloadinterfaces_parameters.Add(_primary_logical_interface);
+                            int nic_index = 1;
+                            foreach (NicType _caasworkloadinterface in _caasworkload.networkInfo.additionalNic)
+                            {
+                                MoveyWorkloadInterfaceType _logical_interface = new MoveyWorkloadInterfaceType()
+                                {
+                                    vnic = nic_index,
+                                    ipassignment = "manual_ip",
+                                    ipv6address = _caasworkloadinterface.ipv6,
+                                    ipaddress = _caasworkloadinterface.privateIpv4,
+                                    moid = _caasworkloadinterface.id,
+                                    platformnetwork_id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id
+                                };
+                                if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                                {
+                                    if (_currentplatformworkloads.workloads.Exists((x => x.interfaces.Exists(y => y.moid == _caasworkloadinterface.id))))
+                                    {
+                                        _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
+                                    }
+                                }
+                                workloadinterfaces_parameters.Add(_logical_interface);
+                                nic_index += 1;
+                            }
+                            //First check to see if we have this server in the local database and if it's enabled
+                            //These should be uploaded to the portal for use for portal customers only....
+                            if (dbcontext.Workloads.Any(x => x.moid == _caasworkload.id && x.enabled == true))
+                            {
+                                Workload dbworkload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
+                                MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
+                                _moveyworkload.hostname = _caasworkload.name;
+                                _moveyworkload.moid = _caasworkload.id;
+                                //_moveyworkload.failovergroup_id = dbworkload.failovergroup_id;
+                                _moveyworkload.vcpu = _caasworkload.cpu.count;
+                                _moveyworkload.vcore = _caasworkload.cpu.coresPerSocket;
+                                _moveyworkload.vmemory = _caasworkload.memoryGb as int?;
+                                _moveyworkload.platform_id = _platform.id;
+                                _moveyworkload.enabled = true;
+                                _moveyworkload.ostype = _caasworkload.operatingSystem.family.ToLower();
+                                _moveyworkload.osedition = _caasworkload.operatingSystem.displayName;
+
+                                _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
+                                _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
+
+                                //Update if the portal has this workload and create if it's new to the portal....
+                                if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                                {
+                                    _moveyworkload.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).id;
+                                    _cloud_movey.workload().updateworkload(_moveyworkload);
+                                    _updated_workloads += 1;
                                 }
                                 else
                                 {
-                                    _cloud_movey.platformnetwork().createplatformnetwork(_platformnetwork);
-                                    _new_platformnetworks += 1;
+                                    _cloud_movey.workload().createworkload(_moveyworkload);
+                                    _new_workloads += 1;
                                 }
                             }
-                            //refresh platform network list from portal
-                            _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
-
-                            //process workloads
-                            MoveyWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
-                            List<Option> _workload_mcp2_options = new List<Option>();
-                            _workload_mcp2_options.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
-                            _workload_mcp2_options.Add(new Option() { option = "state", value = "NORMAL" });
-                            List<ServerType> _caasworkloads = _caas.workloads().list(_workload_mcp2_options).server.ToList();
-                            
-                            
-                            //process deleted platform workloads
-                            foreach (Workload _workload in dbcontext.Workloads)
+                            //if workload is local but disabled - just updated the local db record
+                            //User might use these servers later...
+                            else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id && x.enabled == false) > 0)
                             {
-                                if (!_caasworkloads.Exists(x => x.id == _workload.moid))
-                                {
-                                    dbcontext.Workloads.Remove(_workload);
-                                    _removed_workloads += 1;
-                                }
+                                Workload _database_workload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
+                                _database_workload.cpu_count = _caasworkload.cpu.count;
+                                _database_workload.cpu_coresPerSocket = _caasworkload.cpu.coresPerSocket;
+                                _database_workload.memory_count = _caasworkload.memoryGb;
+                                _database_workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
+                                _database_workload.hostname = _caasworkload.name;
+                                _database_workload.moid = _caasworkload.id;
+                                _database_workload.platform_id = _platform.id;
+                                _database_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
+                                _database_workload.osedition = _caasworkload.operatingSystem.displayName;
+                                dbcontext.SaveChanges();
                             }
-                            dbcontext.SaveChanges();
-
-
-                            foreach (ServerType _caasworkload in _caasworkloads.Where(x => x.datacenterId == _platform.datacenter))
+                            //if workload is not found localy - it should be added...
+                            //new servers.... should be added....
+                            //here we use the WCF method as we need to set the ID field with a unique UUID...
+                            else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id) == 0)
                             {
-                                //Pupulate logical volumes for workload
-                                List<MoveyWorkloadVolumeType> workloaddisks_parameters = new List<MoveyWorkloadVolumeType>();
-                                foreach (ServerTypeDisk _workloaddisk in _caasworkload.disk)
-                                {
-                                    MoveyWorkloadVolumeType _logical_volume = new MoveyWorkloadVolumeType() { moid = _workloaddisk.id, diskindex = _workloaddisk.scsiId, provisioned = true, disksize = _workloaddisk.sizeGb };
-                                    if (_currentplatformworkloads.workloads.Exists(x => x.volumes.Exists(y => y.moid == _workloaddisk.id)))
-                                    {
-                                        _logical_volume.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).volumes.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
-                                    }
-                                    workloaddisks_parameters.Add(_logical_volume);
-                                }
-
-                                //populate network interfaces for workload
-                                List<MoveyWorkloadInterfaceType> workloadinterfaces_parameters = new List<MoveyWorkloadInterfaceType>();
-                                MoveyWorkloadInterfaceType _primary_logical_interface = new MoveyWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", ipv6address = _caasworkload.networkInfo.primaryNic.ipv6, ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4, moid = _caasworkload.networkInfo.primaryNic.id };
-                                if (_currentplatformworkloads.workloads.Exists(x => x.interfaces.Exists(y => x.moid == _caasworkload.id && y.moid == _caasworkload.networkInfo.primaryNic.id)))
-                                {
-                                    _primary_logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkload.networkInfo.primaryNic.id).id;
-                                }
-                                workloadinterfaces_parameters.Add(_primary_logical_interface);
-                                int nic_index = 1;
-                                foreach (NicType _caasworkloadinterface in _caasworkload.networkInfo.additionalNic)
-                                {
-                                    MoveyWorkloadInterfaceType _logical_interface = new MoveyWorkloadInterfaceType()
-                                    {
-                                        vnic = nic_index,
-                                        ipassignment = "manual_ip",
-                                        ipv6address = _caasworkloadinterface.ipv6,
-                                        ipaddress = _caasworkloadinterface.privateIpv4,
-                                        moid = _caasworkloadinterface.id,
-                                        platformnetwork_id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id
-                                    };
-                                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
-                                    {
-                                        if (_currentplatformworkloads.workloads.Exists((x => x.interfaces.Exists(y => y.moid == _caasworkloadinterface.id))))
-                                        {
-                                            _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
-                                        }
-                                    }
-                                    workloadinterfaces_parameters.Add(_logical_interface);
-                                    nic_index += 1;
-                                }
-                                //First check to see if we have this server in the local database and if it's enabled
-                                if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id && x.enabled == true) > 0)
-                                {
-                                    Workload dbworkload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
-                                    MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
-                                    _moveyworkload.hostname = _caasworkload.name;
-                                    _moveyworkload.moid = _caasworkload.id;
-                                    //_moveyworkload.failovergroup_id = dbworkload.failovergroup_id;
-                                    _moveyworkload.vcpu = (_caasworkload.cpu.coresPerSocket * _caasworkload.cpu.count) as int?;
-                                    _moveyworkload.vmemory = _caasworkload.memoryGb as int?;
-                                    _moveyworkload.platform_id = _platform.id;
-                                    _moveyworkload.enabled = true;
-                                    _moveyworkload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                    _moveyworkload.osedition = _caasworkload.operatingSystem.displayName;
-
-                                    _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
-                                    _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
-
-                                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
-                                    {
-                                        _moveyworkload.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).id;
-                                        _cloud_movey.workload().updateworkload(_moveyworkload);
-                                        _updated_workloads += 1;
-                                    }
-                                    else
-                                    {
-                                        _cloud_movey.workload().createworkload(_moveyworkload);
-                                        _new_workloads += 1;
-                                    }
-                                }
-                                //if workload is local but disabled - just updated the local db record
-                                else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id && x.enabled == false) > 0)
-                                {
-                                    Workload _database_workload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
-                                    _database_workload.cpu_count = (_caasworkload.cpu.coresPerSocket * _caasworkload.cpu.count) as int?;
-                                    _database_workload.memory_count = _caasworkload.memoryGb as int?;
-                                    _database_workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                                    _database_workload.hostname = _caasworkload.name;
-                                    _database_workload.moid = _caasworkload.id;
-                                    _database_workload.platform_id = _platform.id;
-                                    _database_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                    _database_workload.osedition = _caasworkload.operatingSystem.displayName;
-                                    dbcontext.SaveChanges();
-                                }
-                                //if workload is not found localy - it should be added...
-                                else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id) == 0)
-                                {
-                                    Workload _workload = new Workload();
-                                    _workload.cpu_count = (_caasworkload.cpu.coresPerSocket * _caasworkload.cpu.count) as int?;
-                                    _workload.memory_count = _caasworkload.memoryGb as int?;
-                                    _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                                    _workload.hostname = _caasworkload.name;
-                                    _workload.iplist = string.Join(",", workloadinterfaces_parameters.SelectMany(x => x.ipaddress));
-                                    _workload.moid = _caasworkload.id;
-                                    _workload.platform_id = _platform.id;
-                                    _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                    _workload.osedition = _caasworkload.operatingSystem.displayName;
-                                    new CloudMoveyService().AddWorkload(_workload);
-                                }
+                                Workload _workload = new Workload();
+                                _workload.cpu_count = _caasworkload.cpu.count;
+                                _workload.cpu_coresPerSocket = _caasworkload.cpu.coresPerSocket; _workload.memory_count = _caasworkload.memoryGb as int?;
+                                _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
+                                _workload.hostname = _caasworkload.name;
+                                _workload.iplist = string.Join(",", workloadinterfaces_parameters.SelectMany(x => x.ipaddress));
+                                _workload.moid = _caasworkload.id;
+                                _workload.platform_id = _platform.id;
+                                _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
+                                _workload.osedition = _caasworkload.operatingSystem.displayName;
+                                new CloudMoveyService().AddWorkload(_workload);
                             }
                         }
+                        
                     }
                     sw.Stop();
 

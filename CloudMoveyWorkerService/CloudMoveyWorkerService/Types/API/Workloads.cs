@@ -16,6 +16,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string hostname { get; set; }
         public string iplist { get; set; }
         public int? vcpu { get; set; }
+        public int? vcore { get; set; }
         public int? vmemory { get; set; }
         public string ostype { get; set; }
         public string platform_ostype { get; set; }
@@ -39,6 +40,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string password { get; set; }
         public string ipaddress { get; set; }
         public string hash_value { get; set; }
+        public bool perf_collection { get; set; }
         public List<MoveyWorkloadVolumeType> workloaddisks_attributes { get; set; }
         public List<MoveyWorkloadInterfaceType> workloadinterfaces_attributes { get; set; }
     }
@@ -57,6 +59,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public int vcpu { get; set; }
         public int vmemory { get; set; }
         public int cpu { get; set; }
+        public int vcore { get; set; }
         public int memory { get; set; }
         public string ostype { get; set; }
         public object platform_ostype { get; set; }
@@ -80,7 +83,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string password { get; set; }
         public string ipaddress { get; set; }
         public string hash_value { get; set; }
-
+        public bool perf_collection { get; set; }
         public List<MoveyWorkloadVolumeType> volumes { get; set; }
         public List<MoveyWorkloadInterfaceType> interfaces { get; set; }
     }

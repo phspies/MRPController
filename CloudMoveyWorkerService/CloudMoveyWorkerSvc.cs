@@ -9,14 +9,14 @@ using System.Threading;
 using CloudMoveyWorkerService.WCF;
 using System.Data.Services;
 using CloudMoveyWorkerService.Portal.Classes;
+using CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Classes;
 
 namespace CloudMoveyWorkerService
 {
   
     public partial class CloudMoveyWorkerSvc : ServiceBase
     {
-        Thread scheduler_thread;
-        Thread mirror_thread;
+        Thread scheduler_thread, mirror_thread, _performance_thread;
         ServiceHost serviceHost;
         public CloudMoveyWorkerSvc()
         {
@@ -58,6 +58,11 @@ namespace CloudMoveyWorkerService
             if (Global.debug) { Global.event_log.WriteEntry("Starting Mirror Thread"); };
             mirror_thread = new Thread(new ThreadStart(_mirror.Start));
             mirror_thread.Start();
+
+            PerformanceWorker _performance = new PerformanceWorker();
+            if (Global.debug) { Global.event_log.WriteEntry("Starting Performance Collection Thread"); };
+            _performance_thread = new Thread(new ThreadStart(_performance.Start));
+            _performance_thread.Start();
 
             Thread.Yield();
             //Thread.Sleep(20000);

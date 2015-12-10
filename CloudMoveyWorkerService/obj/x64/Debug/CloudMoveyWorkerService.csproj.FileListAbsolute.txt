@@ -185,9 +185,13 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.csprojResolveAssemblyReference.cache
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Rackspace.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Rackspace.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Newtonsoft.Json.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\RestSharp.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\SimpleImpersonation.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\System.Data.SQLite.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\lib\CloudMovey.Ssh.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe.config
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\AWSSDK.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Cassia.dll
@@ -218,16 +222,12 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Microsoft.WindowsAzure.Management.Sql.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Microsoft.WindowsAzure.Management.Storage.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Microsoft.WindowsAzure.Management.WebSites.dll
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Newtonsoft.Json.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\openstacknet.dll
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\RestSharp.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\ServiceStack.Client.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\ServiceStack.Common.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\ServiceStack.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\ServiceStack.Interfaces.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\ServiceStack.Text.dll
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\SimpleImpersonation.dll
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\System.Data.SQLite.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\System.Data.SQLite.EF6.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\System.Data.SQLite.Linq.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\System.Net.Http.Extensions.dll

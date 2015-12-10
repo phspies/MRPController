@@ -1,4 +1,5 @@
-﻿using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
+﻿using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,7 +34,6 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
             public double value { get; set; }
             public CounterSample s0 { get; set; }
             public CounterSample s1 { get; set; }
-
             public DateTime timestamp { get; set; }
         }
         public class PerfCounter
@@ -41,16 +41,14 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
             public string category { get; set; }
             public string counter { get; set; }
             public List<InstanceCounters> instances { get; set; }
-
         }
         public static List<PerfCounter> _countertree = new List<PerfCounter>();
         private static List<String> _categories = new List<string>();
         private static String machinename = null;
         private static CloudMoveyEntities dbcontext = new CloudMoveyEntities();
         private static CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
-        static void Start()
+        public void Start()
         {
-
             _categories.Add("Processor");
             _categories.Add("Processor Information");
             _categories.Add("Memory");
@@ -63,18 +61,11 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
             _categories.Add("Double-Take Source");
             _categories.Add("Double-Take Target");
 
-            
-
             while (true)
             {
-                foreach (var _workload in dbcontext.Workloads.Where(x => x.enabled == true))
+                foreach (var _workload in dbcontext.Workloads.Where(x => x.enabled == true && x.perf_collection == true))
                 {
-                    //var workingip = Connection.find_working_ip(ipaddresslist);
-                    //if (workingip != null)
-
-
-
-                        machinename = _workload.hostname;
+                    string workload_ip = Connection.find_working_ip_workload(_workload);
                     Credential _credential = dbcontext.Credentials.FirstOrDefault(x => x.id == _workload.credential_id);
                     IntPtr userHandle = new IntPtr(0);
                     LogonUser(_credential.username, (_credential.domain == null ? "." : _credential.domain), _credential.password, LOGON32_LOGON_SERVICE, LOGON32_PROVIDER_DEFAULT, ref userHandle);
@@ -84,7 +75,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                     {
                         try
                         {
-                            PerformanceCounterCategory _pc = new PerformanceCounterCategory(pcc, machinename);
+                            PerformanceCounterCategory _pc = new PerformanceCounterCategory(pcc, workload_ip);
                             //_countertree.Add(new _PerfCounter() { category = pcc, counter = "" });
                             if (_pc.CategoryType == PerformanceCounterCategoryType.SingleInstance)
                             {
@@ -152,11 +143,8 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                         _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
                                         _counterobject.s0 = _counterobject.s1;
                                         Console.WriteLine(String.Format("{0}   {1}:{2}:{3} = {4}", _counterobject.timestamp, _pcounter.CategoryName, _pcounter.CounterName, _counterobject.instance, _counterobject.value));
-
                                     }
                                 }
-
-
                             }
                         }
                         catch (System.InvalidOperationException error)
@@ -170,7 +158,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                     }
                     context.Undo();
                 }
-                Thread.Sleep(new TimeSpan(0, 5, 0));
+                Thread.Sleep(new TimeSpan(0, 30, 0));
             }
         }
     }

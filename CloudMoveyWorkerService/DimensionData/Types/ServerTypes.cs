@@ -527,15 +527,15 @@ namespace CloudMoveyWorkerService.CaaS
     public partial class CpuType
     {
 
-        private uint countField;
+        private int countField;
 
         private string speedField;
 
-        private uint coresPerSocketField;
+        private int coresPerSocketField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint count
+        public int count
         {
             get
             {
@@ -563,7 +563,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public uint coresPerSocket
+        public int coresPerSocket
         {
             get
             {
@@ -652,7 +652,7 @@ namespace CloudMoveyWorkerService.CaaS
 
         private CpuType cpuField;
 
-        private uint memoryGbField;
+        private int memoryGbField;
 
         private List<ServerTypeDisk> diskField;
 
@@ -739,7 +739,7 @@ namespace CloudMoveyWorkerService.CaaS
         }
 
         /// <remarks/>
-        public uint memoryGb
+        public int memoryGb
         {
             get
             {
