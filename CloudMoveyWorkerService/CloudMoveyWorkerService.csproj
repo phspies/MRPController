@@ -219,6 +219,10 @@
     <Reference Include="SimpleImpersonation">
       <HintPath>..\packages\SimpleImpersonation.1.0.1\lib\net40-Client\SimpleImpersonation.dll</HintPath>
     </Reference>
+    <Reference Include="SQLite.CodeFirst, Version=1.0.0.0, Culture=neutral, PublicKeyToken=eb96ba0a78d831a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\SQLite.CodeFirst.1.0.0.0\lib\net45\SQLite.CodeFirst.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -285,6 +289,78 @@
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\PerformanceWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\OSInventoryWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Connection.cs" />
+    <Compile Include="CloudMoveyWorkerService\Database\LocalData.cs" />
+    <Compile Include="CloudMoveyWorkerService\Database\Structures\Credential.cs" />
+    <Compile Include="CloudMoveyWorkerService\Database\Structures\Event.cs" />
+    <Compile Include="CloudMoveyWorkerService\Database\Structures\Platform.cs" />
+    <Compile Include="CloudMoveyWorkerService\Database\Structures\Workload.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\DataTypes\DataTypesConvertor.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\DataTypes\DbAscii.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\DataTypes\DbCustomSerializer.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\DataTypes\DbMJSON.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\DataTypes\DbUnicode.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\DataTypes\DbUTF8.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\DataTypes\DbXML.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\DataTypes\IDBConvertable.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\DataTypes\Row.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Diagnostic\SpeedStatistic.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Engine\DBreezeConfiguration.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Engine\DBreezeEngine.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Engine\DBreezeRemoteEngine.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Engine\Scheme.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Exceptions\DBreezeException.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Exceptions\TableNotOperableException.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\Iterations\Backward.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\Iterations\Forward.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\LianaTrie.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\LTrieGenerationMap.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\LTrieGenerationNode.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\LTrieKid.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\LTrieKidsInNode.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\LTrieRootNode.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\LTrieRow.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\LTrieSetupKidResult.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\LTrieWriteCache.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\NestedTables\NestedTable.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\NestedTables\NestedTableInternal.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\NestedTables\NestedTablesCoordinator.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\LianaTrie\NestedTables\NestedTableStorage.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\SchemeInternal\Scheme.CachedTableNames.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\SchemeInternal\Sheme.OpenTable.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\SchemeInternal\Sheme.UserTable.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\Backup\Backup.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\Backup\BackupRestorer.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\FSR.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\IStorage.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\MemoryStorage.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\MSR.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\RemoteInstance\IRemoteInstanceCommander.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\RemoteInstance\IRemoteInstanceCommunicator.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\RemoteInstance\RemoteInstanceCommander.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\RemoteInstance\RemoteTable.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\RemoteInstance\RemoteTablesHandler.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\RISR.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\StorageLayer.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Storage\TrieSettings.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Transactions\ITransactable.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Transactions\Transaction.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Transactions\TransactionsCoordinator.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Transactions\TransactionsJournal.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Transactions\TransactionTablesLocker.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Transactions\TransactionUnit.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Tries\ITrie.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Tries\ITrieRootNode.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\AsyncOperations.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\BloomFilter.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\BytesProcessing.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\CustomSerializator.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\DbReaderWriterLock.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\DbReaderWriterSpinLock.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\DbThreadsGator.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\MJsonSerializator.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\MurMurHash.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\StringProcessing.cs" />
+    <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\XmlSerializator.cs" />
     <Compile Include="DimensionData\Controllers\Datacenter.cs" />
     <Compile Include="DimensionData\Controllers\Template.cs" />
     <Compile Include="DimensionData\Types\AccountTypes.cs">
@@ -311,18 +387,6 @@
     <Compile Include="CloudMoveyPortal\MoveyWorker_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyWorkload_Methods.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Workload.cs" />
-    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Event.cs">
-      <DependentUpon>CloudMoveyModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Failovergroup.cs">
-      <DependentUpon>CloudMoveyModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Task.cs">
-      <DependentUpon>CloudMoveyModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Workload.cs">
-      <DependentUpon>CloudMoveyModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="CloudMoveyWorkerService\Types\API\Credentials.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\Failovergroups.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\PlatformTemplate.cs" />
@@ -1121,27 +1185,6 @@
     <Compile Include="VirtualCenter\Workloads.cs" />
     <Compile Include="VirtualCenter\Datacenters.cs" />
     <Compile Include="VirtualCenter\VirtualCenter.cs" />
-    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CloudMoveyModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CloudMoveyModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CloudMoveyModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Credential.cs">
-      <DependentUpon>CloudMoveyModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CloudMoveyWorkerService\Sqlite\Models\Platform.cs">
-      <DependentUpon>CloudMoveyModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="CloudMoveyPortal\Core.cs" />
     <Compile Include="CloudMoveyPortal\JSONSerializer.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\TaskWorker.cs" />
@@ -1201,15 +1244,8 @@
     <None Include="CloudMoveyDataSet.xss">
       <DependentUpon>CloudMoveyDataSet.xsd</DependentUpon>
     </None>
-    <EntityDeploy Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CloudMoveyModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="CloudMoveyPortal\XSD\cloudmoveyprotal.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.edmx.diagram">
-      <DependentUpon>CloudMoveyModel.edmx</DependentUpon>
     </None>
     <None Include="DiscUtils\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="DiscUtils\obj\Debug\DiscUtils.csproj.GenerateResource.Cache" />
@@ -1260,16 +1296,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CloudMoveyModel.edmx</DependentUpon>
-      <LastGenOutput>CloudMoveyModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="CloudMoveyWorkerService\Sqlite\Models\CloudMoveyModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CloudMoveyModel.edmx</DependentUpon>
-      <LastGenOutput>CloudMoveyModel.cs</LastGenOutput>
-    </Content>
     <Content Include="DiscUtils\bin\Debug\DiscUtils.dll" />
     <Content Include="DiscUtils\bin\Debug\DiscUtils.dll.xml" />
     <Content Include="DiscUtils\bin\Debug\DiscUtils.pdb" />

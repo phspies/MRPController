@@ -1,4 +1,4 @@
-﻿using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
+﻿using CloudMoveyWorkerService.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -12,7 +12,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Credential
+    public partial class Credential : IEntity
     {
         public string id { get; set; }
         public string description { get; set; }

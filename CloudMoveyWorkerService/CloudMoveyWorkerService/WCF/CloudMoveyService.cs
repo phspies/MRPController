@@ -1,7 +1,6 @@
 ﻿using CloudMoveyWorkerService.CaaS;
 using CloudMoveyWorkerService.Portal;
 using CloudMoveyWorkerService.Portal.Models;
-using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,6 +9,8 @@ using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
 using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
+using CloudMoveyWorkerService.Database;
+using DBreeze.DataTypes;
 
 namespace CloudMoveyWorkerService.WCF
 {
@@ -19,22 +20,14 @@ namespace CloudMoveyWorkerService.WCF
         #region workloads
         public List<Workload> ListWorkloads()
         {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            var workloads = from Workload in dbcontext.Workloads select Workload;
-            return workloads.ToList<Workload>();
+            return LocalData.search<Workload>();
         }
         public Workload AddWorkload(Workload _addworkload)
         {
-            Workload _addedworkload = null;
+            Workload _addedworkload = new Workload();
             try
             {
-                CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _addworkload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-
-                _addedworkload = dbcontext.Workloads.Add(_addworkload);
-                CloudMoveyEvents.add(new Event() { entity = _addworkload.hostname, severity = 0, component = "New Failover Group", summary = _addworkload.ToString() });
-                dbcontext.SaveChanges();
-
+                _addedworkload = (Workload)LocalData.insert<Workload>(_addworkload);
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException e)
             {
@@ -48,15 +41,13 @@ namespace CloudMoveyWorkerService.WCF
             Workload _update = null;
             try
             {
-                CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _update = dbcontext.Workloads.FirstOrDefault(d => d.id == _updateworkload.id);
+                _update = LocalData.search<Workload>().FirstOrDefault(d => d.id == _updateworkload.id);
                 IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateworkload, _update);
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateworkload, _update);
                     _update.hash_value = _update.GetHashString();
-                    CloudMoveyEvents.add(new Event() { entity = _update.hostname, severity = 0, component = "Updated Workload", summary = _update.ToString() });
-                    dbcontext.SaveChanges();
+                    LocalData.update<Workload>(_update);
                 }
             }
             catch (Exception e)
@@ -67,11 +58,7 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyWorkload(Workload _destroyworkload)
         {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            Workload _remove = dbcontext.Workloads.Single(d => d.id == _destroyworkload.id);
-            CloudMoveyEvents.add(new Event() { entity = _remove.hostname, severity = 0, component = "Destroy Failover Group", summary = _remove.ToString() });
-            dbcontext.Workloads.Remove(_remove);
-            dbcontext.SaveChanges();
+            LocalData.delete<Workload>(_destroyworkload.id);
             return true;
         }
         #endregion
@@ -86,21 +73,14 @@ namespace CloudMoveyWorkerService.WCF
         #region Platforms
         public List<Platform> ListPlatforms()
         {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            var platforms = from Platform in dbcontext.Platforms select Platform;
-            return platforms.ToList<Platform>();
+            return LocalData.search<Platform>();
         }
         public Platform AddPlatform(Platform _addplatform)
         {
             Platform _addedplatform = null;
             try
             {
-                CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _addplatform.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                _addplatform.hash_value = _addplatform.GetHashString();
-                CloudMoveyEvents.add(new Event() { entity = _addplatform.description, severity = 0, component = "New Failover Group", summary = _addplatform.ToString() });
-                _addedplatform = dbcontext.Platforms.Add(_addplatform);
-                dbcontext.SaveChanges();
+                return LocalData.insert<Platform>(_addplatform);
             }
             catch (Exception e)
             {
@@ -114,15 +94,13 @@ namespace CloudMoveyWorkerService.WCF
             Platform _update = null;
             try
             {
-                CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _update = dbcontext.Platforms.FirstOrDefault(d => d.id == _updateplatform.id);
+                _update = LocalData.search<Platform>().FirstOrDefault(d => d.id == _updateplatform.id);
                 IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateplatform, _update);
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateplatform, _update);
                     _update.hash_value = _update.GetHashString();
-                    CloudMoveyEvents.add(new Event() { entity = _update.description, severity = 0, component = "Updated Failover Group", summary = _update.ToString() });
-                    dbcontext.SaveChanges();
+                    LocalData.update<Platform>(_update);
                 }
             }
             catch (Exception e)
@@ -133,18 +111,13 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyPlatform(Platform _destroyplatform)
         {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            Platform _remove = dbcontext.Platforms.Single(d => d.id == _destroyplatform.id);
-            CloudMoveyEvents.add(new Event() { entity = _remove.description, severity = 0, component = "Destroyed Failover Group", summary = _remove.ToString() });
-            dbcontext.Platforms.Remove(_remove);
-            dbcontext.SaveChanges();
+            LocalData.delete<Platform>(_destroyplatform.id);
             return true;
         }
         public void RefreshPlatform(Platform _platform)
         {
             try {
-                CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                Credential _credential = dbcontext.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
+                Credential _credential = LocalData.retrieve<Credential>(_platform.credential_id);
                 DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
                 List<Option> _dcoptions = new List<Option>();
                 List<Option> _resourceoptions = new List<Option>();
@@ -166,7 +139,7 @@ namespace CloudMoveyWorkerService.WCF
                 networkdomains = networkdomain_list.Count();
                 networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(networkdomain_list));
 
-                Platform __platform = dbcontext.Platforms.FirstOrDefault(x => x.id == _platform.id);
+                Platform __platform = LocalData.retrieve<Platform>(_platform.id);
                 __platform.vlan_count = vlans;
                 __platform.workload_count = workloads;
                 __platform.networkdomain_count = networkdomains;
@@ -175,7 +148,7 @@ namespace CloudMoveyWorkerService.WCF
                 __platform.lastupdated = DateTime.Now;
                 __platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
                 __platform.moid = _dc.id;
-                dbcontext.SaveChanges();
+                LocalData.update<Platform>(__platform);
             }
             catch (Exception ex)
             {
@@ -186,22 +159,18 @@ namespace CloudMoveyWorkerService.WCF
         #region Credentials
         public List<Credential> ListCredentials()
         {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            var Credentials = from Credential in dbcontext.Credentials select Credential;
-            return Credentials.ToList<Credential>();
+            List<Credential> _credentials = LocalData.search<Credential>();
+            return _credentials;
         }
         public Credential AddCredential(Credential _addCredential)
         {
             Credential _addedCredential = null;
             try
             {
-                CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _addCredential.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                _addedCredential = dbcontext.Credentials.Add(_addCredential);
+                _addedCredential = LocalData.insert<Credential>(_addCredential);
                 _addedCredential.human_type = (_addedCredential.credential_type == 0 ? "Platform" : "Workload");
                 _addedCredential.hash_value = _addedCredential.GetHashString();
-                CloudMoveyEvents.add(new Event() { entity = _addedCredential.description, severity = 0, component = "New Credential", summary = _addedCredential.ToString() });
-                dbcontext.SaveChanges();
+                LocalData.update<Credential>(_addedCredential);
             }
             catch (Exception e)
             {
@@ -215,16 +184,14 @@ namespace CloudMoveyWorkerService.WCF
             Credential _update = null;
             try
             {
-                CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-                _update = dbcontext.Credentials.FirstOrDefault(d => d.id == _updateCredential.id);
+                _update = LocalData.retrieve<Credential>(_updateCredential.id);
                 _update.human_type = (_updateCredential.credential_type == 0 ? "Platform" : "Workload");
                 IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateCredential, _update);
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateCredential, _update);
                     _update.hash_value = _update.GetHashString();
-                    CloudMoveyEvents.add(new Event() { entity = _update.description, severity = 0, component = "Update Credential", summary = _update.ToString() });
-                    dbcontext.SaveChanges();
+                    LocalData.update<Credential>(_update);
                 }
             }
             catch (Exception e)
@@ -235,11 +202,7 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyCredential(Credential _destroyCredential)
         {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            Credential _remove = dbcontext.Credentials.Single(d => d.id == _destroyCredential.id);
-            dbcontext.Credentials.Remove(_remove);
-            CloudMoveyEvents.add(new Event() { entity = _remove.description, severity = 0, component = "Destroy Credential", summary = _remove.ToString() });
-            dbcontext.SaveChanges();
+            LocalData.delete<Credential>(_destroyCredential.id);
             return true;
         }
 
@@ -273,9 +236,7 @@ namespace CloudMoveyWorkerService.WCF
         }
         public List<Event> Events()
         {
-            CloudMoveyEntities dbcontext = new CloudMoveyEntities();
-            var Events = from Event in dbcontext.Events select Event;
-            return Events.ToList<Event>();
+            return LocalData.search<Event>();
         }
     }
     public class workerInformation

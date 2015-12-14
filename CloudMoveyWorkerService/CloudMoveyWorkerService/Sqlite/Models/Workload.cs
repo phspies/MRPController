@@ -12,7 +12,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Workload
+    public partial class Workload : IEntity
     {
         public string id { get; set; }
         public string hostname { get; set; }

@@ -276,7 +276,7 @@
       <xs:element name="diskField" nillable="true" type="tns:ArrayOfServerTypeDisk" />
       <xs:element name="idField" nillable="true" type="xs:string" />
       <xs:element name="itemField" nillable="true" type="xs:anyType" />
-      <xs:element name="memoryGbField" type="xs:unsignedInt" />
+      <xs:element name="memoryGbField" type="xs:int" />
       <xs:element name="monitoringField" nillable="true" type="tns:ServerTypeMonitoring" />
       <xs:element name="nameField" nillable="true" type="xs:string" />
       <xs:element name="networkinfoField" nillable="true" type="tns:ServerTypeNetworkInfo" />
@@ -301,8 +301,8 @@
   <xs:element name="ServerTypeBackup" nillable="true" type="tns:ServerTypeBackup" />
   <xs:complexType name="CpuType">
     <xs:sequence>
-      <xs:element name="coresPerSocketField" type="xs:unsignedInt" />
-      <xs:element name="countField" type="xs:unsignedInt" />
+      <xs:element name="coresPerSocketField" type="xs:int" />
+      <xs:element name="countField" type="xs:int" />
       <xs:element name="speedField" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

@@ -12,7 +12,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Event
+    public partial class Event : IEntity
     {
         public string id { get; set; }
         public string status { get; set; }

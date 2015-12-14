@@ -1,8 +1,10 @@
 ﻿using CloudMoveyWorkerService.Portal.Types.API;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Threading;
 
 namespace CloudMoveyWorkerService.Portal
 {
@@ -19,15 +21,21 @@ namespace CloudMoveyWorkerService.Portal
         public bool confirm_worker()
         {
             endpoint = ("/api/v1/workers/confirm.json");
-            Object returnval = post<MoveyWorkerRegisterType>(worker);
-            if (returnval is MoveyError)
+            MoveyWorkerRegisterType returnval = post<MoveyWorkerRegisterType>(worker);
+            if (returnval.worker.message == "Registered")
             {
-                return false;
+                while (String.IsNullOrEmpty(((MoveyWorkerRegisterType)returnval).worker.organization_id))
+                {
+                    Global.event_log.WriteEntry("Worker registered, but not associated to a organization", EventLogEntryType.Warning);
+                    Thread.Sleep(new TimeSpan(0, 0, 30));
+                    returnval = post<MoveyWorkerRegisterType>(worker) as MoveyWorkerRegisterType;
+                }
+                Global.organization_id = ((MoveyWorkerRegisterType)returnval).worker.organization_id;
+                return true;
             }
             else
             {
-                Global.organization_id = ((MoveyWorkerRegisterType)returnval).worker.organization_id;
-                return true;
+                return false;
             }
         }
         public bool register_worker()

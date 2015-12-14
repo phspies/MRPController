@@ -1,5 +1,5 @@
 ﻿using CloudMoveyWorkerService.CaaS;
-using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
+using CloudMoveyWorkerService.Database;
 using CloudMoveyWorkerService.Portal.Types.API;
 using CloudMoveyWorkerService.WCF;
 using System;
@@ -12,7 +12,6 @@ namespace CloudMoveyWorkerService.Portal.Classes
 {
     class PlatformInventoryWorker
     {
-        CloudMoveyEntities dbcontext = new CloudMoveyEntities();
         CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
 
         //Order or sync process
@@ -34,21 +33,22 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     MoveyWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
                     foreach (MoveyWorkloadType _portalworkload in _currentplatformworkloads.workloads)
                     {
-                        if (dbcontext.Workloads.Count(x => x.id == _portalworkload.id) > 0)
+                        if (LocalData.search<Workload>().Count(x => x.id == _portalworkload.id) > 0)
                         {
-                            Workload dbworkload = dbcontext.Workloads.FirstOrDefault(x => x.id == _portalworkload.id);
+                            var dbworkload = LocalData.search<Workload>().FirstOrDefault(x => x.id == _portalworkload.id);
 
                             //attributes that needs to be synced back to the worker...
                             dbworkload.perf_collection = _portalworkload.perf_collection;
+                            LocalData.update<Workload>(dbworkload);
                         }
                     }
-                    dbcontext.SaveChanges();
+                    
 
                     Global.event_log.WriteEntry("Staring platform inventory process");
                     //process credentials
-                    List<Credential> _workercredentials = (dbcontext.Credentials as IQueryable<Credential>).ToList();
+                    var _workercredentials = LocalData.search<Credential>();
                     MoveyCredentialListType _platformcredentials = _cloud_movey.credential().listcredentials();
-                    foreach (Credential _credential in _workercredentials)
+                    foreach (var _credential in _workercredentials)
                     {
                         MoveyCredentialCRUDType _crudcredential = new MoveyCredentialCRUDType();
                         _crudcredential.id = _credential.id;
@@ -67,9 +67,9 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     }
 
                     //process platforns
-                    List<Platform> _workerplatforms = (dbcontext.Platforms as IQueryable<Platform>).ToList();
+                    var _workerplatforms = LocalData.search<Platform>();
                     MoveyPlatformListType _platformplatforms = _cloud_movey.platform().listplatforms();
-                    foreach (Platform _platform in _workerplatforms)
+                    foreach (var _platform in _workerplatforms)
                     {
                         MoveyPlatformCRUDType _crudplatform = new MoveyPlatformCRUDType();
                         _crudplatform.id = _platform.id;
@@ -96,7 +96,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     foreach (var _platform in _workerplatforms.Where(x => x.vendor == 0 && x.platform_version == "MCP 2.0"))
                     {
                         MoveyPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
-                        Credential _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
+                        var _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
                         DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
 
                         //mirror platorm templates for this platform
@@ -141,13 +141,12 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             
                             
                         //process deleted platform workloads
-                        foreach (Workload _workload in dbcontext.Workloads.Where(x => x.platform_id == _platform.id))
+                        foreach (var _workload in LocalData.search<Workload>().Where(x => x.platform_id == _platform.id))
                         {
                             if (!_caasworkloads.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
                             {
-                                dbcontext.Workloads.Remove(_workload);
+                                LocalData.delete<Workload>(_workload.id);
                                 _removed_workloads += 1;
-                                dbcontext.SaveChanges();
                             }
                         }
 
@@ -198,9 +197,9 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             }
                             //First check to see if we have this server in the local database and if it's enabled
                             //These should be uploaded to the portal for use for portal customers only....
-                            if (dbcontext.Workloads.Any(x => x.moid == _caasworkload.id && x.enabled == true))
+                            if (LocalData.search<Workload>().Any(x => x.moid == _caasworkload.id && x.enabled == true))
                             {
-                                Workload dbworkload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
+                                var dbworkload = LocalData.retrieve<Workload>(_caasworkload.id);
                                 MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
                                 _moveyworkload.hostname = _caasworkload.name;
                                 _moveyworkload.moid = _caasworkload.id;
@@ -231,9 +230,9 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             }
                             //if workload is local but disabled - just updated the local db record
                             //User might use these servers later...
-                            else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id && x.enabled == false) > 0)
+                            else if (LocalData.search<Workload>().Count(x => x.moid == _caasworkload.id && x.enabled == false) > 0)
                             {
-                                Workload _database_workload = dbcontext.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
+                                Workload _database_workload = LocalData.retrieve<Workload>(_caasworkload.id);
                                 _database_workload.cpu_count = _caasworkload.cpu.count;
                                 _database_workload.cpu_coresPerSocket = _caasworkload.cpu.coresPerSocket;
                                 _database_workload.memory_count = _caasworkload.memoryGb;
@@ -243,12 +242,12 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                 _database_workload.platform_id = _platform.id;
                                 _database_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
                                 _database_workload.osedition = _caasworkload.operatingSystem.displayName;
-                                dbcontext.SaveChanges();
+                                LocalData.update<Workload>(_database_workload);
                             }
                             //if workload is not found localy - it should be added...
                             //new servers.... should be added....
                             //here we use the WCF method as we need to set the ID field with a unique UUID...
-                            else if (dbcontext.Workloads.Count(x => x.moid == _caasworkload.id) == 0)
+                            else if (LocalData.search<Workload>().Count(x => x.moid == _caasworkload.id) == 0)
                             {
                                 Workload _workload = new Workload();
                                 _workload.cpu_count = _caasworkload.cpu.count;

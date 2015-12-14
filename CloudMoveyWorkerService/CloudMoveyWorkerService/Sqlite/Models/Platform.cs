@@ -12,7 +12,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Platform
+    public partial class Platform : IEntity
     {
         public string id { get; set; }
         public string description { get; set; }

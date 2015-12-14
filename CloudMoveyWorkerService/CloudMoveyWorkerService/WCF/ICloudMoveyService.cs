@@ -1,19 +1,17 @@
 ﻿using CloudMoveyWorkerService.CaaS;
 using CloudMoveyWorkerService.Portal.Models;
-using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
+using CloudMoveyWorkerService.Database;
+using DBreeze.DataTypes;
 
 namespace CloudMoveyWorkerService.WCF
 {
     [ServiceContract]
     public interface ICloudMoveyService
     {
-        
+
         #region Workloads
         [OperationContract]
         List<Workload> ListWorkloads();

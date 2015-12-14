@@ -15,8 +15,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Workload", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerS" +
-        "ervice.Sqlite.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Workload", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.Database")]
     [System.SerializableAttribute()]
     public partial class Workload : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -25,6 +24,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string applicationField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> cpu_coresPerSocketField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> cpu_countField;
@@ -78,6 +80,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private string ostypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool perf_collectionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string platform_idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -102,6 +107,19 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((object.ReferenceEquals(this.applicationField, value) != true)) {
                     this.applicationField = value;
                     this.RaisePropertyChanged("application");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> cpu_coresPerSocket {
+            get {
+                return this.cpu_coresPerSocketField;
+            }
+            set {
+                if ((this.cpu_coresPerSocketField.Equals(value) != true)) {
+                    this.cpu_coresPerSocketField = value;
+                    this.RaisePropertyChanged("cpu_coresPerSocket");
                 }
             }
         }
@@ -328,6 +346,19 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool perf_collection {
+            get {
+                return this.perf_collectionField;
+            }
+            set {
+                if ((this.perf_collectionField.Equals(value) != true)) {
+                    this.perf_collectionField = value;
+                    this.RaisePropertyChanged("perf_collection");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string platform_id {
             get {
                 return this.platform_idField;
@@ -365,8 +396,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Platform", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerS" +
-        "ervice.Sqlite.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Platform", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.Database")]
     [System.SerializableAttribute()]
     public partial class Platform : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -731,8 +761,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Credential", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerS" +
-        "ervice.Sqlite.Models")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Credential", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.Database")]
     [System.SerializableAttribute()]
     public partial class Credential : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -1490,7 +1519,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         private object itemFieldField;
         
-        private uint memoryGbFieldField;
+        private int memoryGbFieldField;
         
         private CloudMoveyNotifier.CloudMoveyWCF.ServerTypeMonitoring monitoringFieldField;
         
@@ -1642,7 +1671,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public uint memoryGbField {
+        public int memoryGbField {
             get {
                 return this.memoryGbFieldField;
             }
@@ -2261,9 +2290,9 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private uint coresPerSocketFieldField;
+        private int coresPerSocketFieldField;
         
-        private uint countFieldField;
+        private int countFieldField;
         
         private string speedFieldField;
         
@@ -2278,7 +2307,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public uint coresPerSocketField {
+        public int coresPerSocketField {
             get {
                 return this.coresPerSocketFieldField;
             }
@@ -2291,7 +2320,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public uint countField {
+        public int countField {
             get {
                 return this.countFieldField;
             }

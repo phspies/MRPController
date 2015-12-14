@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.Database" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.Database" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:complexType name="ArrayOfWorkload">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Workload" nillable="true" type="tns:Workload" />
@@ -9,6 +9,7 @@
   <xs:complexType name="Workload">
     <xs:sequence>
       <xs:element minOccurs="0" name="application" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cpu_coresPerSocket" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="cpu_count" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="credential_id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="credential_ok" type="xs:boolean" />
@@ -26,6 +27,7 @@
       <xs:element minOccurs="0" name="moid" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="osedition" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ostype" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="perf_collection" type="xs:boolean" />
       <xs:element minOccurs="0" name="platform_id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="storage_count" nillable="true" type="xs:long" />
     </xs:sequence>

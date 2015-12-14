@@ -16,6 +16,7 @@
     public class Worker
     {
         public string organization_id { get; set; }
+        public string message { get; set; }
     }
 
 

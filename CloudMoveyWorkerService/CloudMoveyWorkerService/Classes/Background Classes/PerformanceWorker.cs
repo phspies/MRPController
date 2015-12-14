@@ -1,5 +1,5 @@
 ﻿using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
-using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
+using CloudMoveyWorkerService.Database;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -45,7 +45,6 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
         public static List<PerfCounter> _countertree = new List<PerfCounter>();
         private static List<String> _categories = new List<string>();
         private static String machinename = null;
-        private static CloudMoveyEntities dbcontext = new CloudMoveyEntities();
         private static CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
         public void Start()
         {
@@ -59,14 +58,16 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
             _categories.Add("Double-Take Connection");
             _categories.Add("Double-Take Kernel");
             _categories.Add("Double-Take Source");
-            _categories.Add("Double-Take Target");
+            _categories.Add("Double-Take Target");         
 
             while (true)
             {
-                foreach (var _workload in dbcontext.Workloads.Where(x => x.enabled == true && x.perf_collection == true))
+                List<Workload> _workloads = LocalData.search<Workload>();
+
+                foreach (var _workload in _workloads.Where(x => x.enabled == true && x.perf_collection == true))
                 {
                     string workload_ip = Connection.find_working_ip_workload(_workload);
-                    Credential _credential = dbcontext.Credentials.FirstOrDefault(x => x.id == _workload.credential_id);
+                    Credential _credential = LocalData.search<Credential>().FirstOrDefault(x => x.id == _workload.credential_id);
                     IntPtr userHandle = new IntPtr(0);
                     LogonUser(_credential.username, (_credential.domain == null ? "." : _credential.domain), _credential.password, LOGON32_LOGON_SERVICE, LOGON32_PROVIDER_DEFAULT, ref userHandle);
                     WindowsIdentity identity = new WindowsIdentity(userHandle);
@@ -159,6 +160,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                     context.Undo();
                 }
                 Thread.Sleep(new TimeSpan(0, 30, 0));
+
             }
         }
     }

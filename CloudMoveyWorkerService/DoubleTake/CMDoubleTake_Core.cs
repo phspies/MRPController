@@ -1,17 +1,16 @@
 ﻿using CloudMoveyWorkerService.CMDoubleTake.Types;
 using CloudMoveyWorkerService.Portal;
-using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
 using DoubleTake.Communication;
 using System;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.ServiceModel;
+using CloudMoveyWorkerService.Database;
 
 namespace CloudMoveyWorkerService.CMDoubleTake
 {
     class CMDoubleTake_Core
     {
-        private static CloudMoveyEntities dbcontext = new CloudMoveyEntities();
         public static Workload _source_workload, _target_workload;
         static CloudMoveyPortal CloudMovey = null;
 
@@ -97,7 +96,7 @@ namespace CloudMoveyWorkerService.CMDoubleTake
         private static NetworkCredential GetCredentials(Workload _workload)
         {
             NetworkCredential credentials = new NetworkCredential();
-            Credential _credential = dbcontext.Credentials.Find(_workload.credential_id);
+            Credential _credential = LocalData.retrieve<Credential>(_workload.credential_id);
             credentials.UserName = Uri.EscapeDataString((String)_credential.username);
             credentials.Password = Uri.EscapeDataString((String)_credential.password);
             credentials.Domain = Uri.EscapeDataString((String)_credential.domain);
@@ -106,7 +105,7 @@ namespace CloudMoveyWorkerService.CMDoubleTake
         public static ServiceConnectionParameters DTConnectionParams(Workload _workload)
         {
             ServiceConnectionParameters connparams = new ServiceConnectionParameters();
-            Credential _credential = dbcontext.Credentials.Find(_workload.credential_id);
+            Credential _credential = LocalData.retrieve<Credential>(_workload.credential_id);
             connparams.UserName = Uri.EscapeDataString((String)_credential.username);
             connparams.Password = Uri.EscapeDataString((String)_credential.password);
             connparams.Domain = Uri.EscapeDataString((String)_credential.domain);

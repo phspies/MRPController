@@ -18,9 +18,9 @@ namespace CloudMoveyWorkerService.Portal
             _client = _CloudMovey;
         }
 
-        public Object post<type>(Object _object) where type : new()
+        public type post<type>(Object _object) where type : new()
         {
-            return perform<type>(Method.POST, _object);
+            return (type)perform<type>(Method.POST, _object);
         }
         public Object put<type>(Object _object) where type : new()
         {
@@ -47,7 +47,7 @@ namespace CloudMoveyWorkerService.Portal
             while (true)
             {
                 var response = client.Execute(request);
-                if (response.StatusCode == HttpStatusCode.OK)
+                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
                 {
                     try {
                         responseobject = JsonConvert.DeserializeObject<type>(response.Content);

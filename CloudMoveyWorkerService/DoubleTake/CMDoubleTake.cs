@@ -1,24 +1,17 @@
-﻿using CloudMoveyWorkerService.CaaS1;
-using CloudMoveyWorkerService.CaaS2;
-using CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models;
-using System;
-using System.Collections.Generic;
+﻿using CloudMoveyWorkerService.Database;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CloudMoveyWorkerService.CMDoubleTake
 {
     class CMDoubleTake
     {
         public Workload _source_workload, _target_workload;
-        private static CloudMoveyEntities dbcontext = new CloudMoveyEntities();
 
         public CMDoubleTake(string source_workload_id, string target_workload_id)
         {
             //confirm systems exists
-            _target_workload = dbcontext.Workloads.FirstOrDefault(x => x.id == target_workload_id);
-            _source_workload = dbcontext.Workloads.FirstOrDefault(x => x.id == source_workload_id);
+            _target_workload = LocalData.search<Workload>().FirstOrDefault(x => x.id == target_workload_id);
+            _source_workload = LocalData.search<Workload>().FirstOrDefault(x => x.id == source_workload_id);
 
             //target can never be empty
             if (_target_workload == null)

@@ -16,8 +16,6 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.pdb
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\CloudMoveyNotifier.exe
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\CloudMoveyNotifier.pdb
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\EntityFramework.dll
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\EntityFramework.SqlServer.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\FontAwesome.WPF.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\MahApps.Metro.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Microsoft.Data.Edm.dll
@@ -30,8 +28,6 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\System.Spatial.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\System.Windows.Interactivity.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\WPF.JoshSmith.dll
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\EntityFramework.xml
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\EntityFramework.SqlServer.xml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\FontAwesome.WPF.xml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\MahApps.Metro.xml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Microsoft.Data.Edm.xml
@@ -92,7 +88,6 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Resources\Icons.baml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Resources\logos.baml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\App.baml
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Forms\FailovergroupForm.g.cs
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Forms\CredentialForm.g.cs
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Forms\PlatformForm.g.cs
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\SplashWindow.g.cs
@@ -103,7 +98,6 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier_MarkupCompile.cache
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier_MarkupCompile.lref
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Forms\FailovergroupForm.baml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Forms\CredentialForm.baml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Forms\PlatformForm.baml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\SplashWindow.baml

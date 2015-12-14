@@ -9,27 +9,59 @@
 
 namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Sqlite.Models
 {
-    using System;
+    using SQLite.CodeFirst;
     using System.Data.Entity;
-    using System.Data.Entity.Infrastructure;
-    
+    using System.Data.Entity.ModelConfiguration.Conventions;
+    using System.Data.SQLite;
+    using System.Data.SQLite.EF6;
     public partial class CloudMoveyEntities : DbContext
     {
         public CloudMoveyEntities()
-            : base("name=CloudMoveyEntities")
+        //: base(@"metadata=res://*/CloudMoveyWorkerService.Sqlite.Models.CloudMoveyModel.csdl|res://*/CloudMoveyWorkerService.Sqlite.Models.CloudMoveyModel.ssdl|res://*/CloudMoveyWorkerService.Sqlite.Models.CloudMoveyModel.msl;provider=System.Data.SQLite.EF6;provider connection string=""data source=" + System.Environment.CurrentDirectory + @"\CloudMovey.sqlite3""")
+        : base("CloudMoveyEntities")
         {
+            
+            //Configuration.ProxyCreationEnabled = true;
+            //Configuration.LazyLoadingEnabled = true;
         }
-    
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            throw new UnintentionalCodeFirstException();
+            //modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            ConfigureCredentialEntity(modelBuilder);
+            ConfigurePlatformEntity(modelBuilder);
+            ConfigureWorkloadEntity(modelBuilder);
+
+            var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<CloudMoveyEntities>(modelBuilder);
+            //var sqliteConnectionInitializer = new DbInitializer(modelBuilder);
+
+            Database.SetInitializer(sqliteConnectionInitializer);
         }
-    
+
         public virtual DbSet<Credential> Credentials { get; set; }
         public virtual DbSet<Platform> Platforms { get; set; }
         public virtual DbSet<Failovergroup> Failovergroups { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<Workload> Workloads { get; set; }
+
+
+
+        public class DbInitializer : SqliteDropCreateDatabaseAlways<CloudMoveyEntities>
+        {
+            public DbInitializer(DbModelBuilder modelBuilder)
+                : base(modelBuilder)
+            { }
+
+            protected override void Seed(CloudMoveyEntities context)
+            {
+                context.Set<Workload>().Add(new Workload
+                {
+                    id = "dummy",
+                    hostname = "dummy"
+                });
+            }
+
+        }
     }
 }
