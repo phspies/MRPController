@@ -286,6 +286,8 @@
     <Compile Include="CloudMoveyPortal\XSD\cloudmoveyprotal.cs">
       <DependentUpon>cloudmoveyprotal.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\NetflowV5Worker.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\NetflowV9Worker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\PerformanceWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\OSInventoryWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Connection.cs" />
@@ -1181,6 +1183,15 @@
     <Compile Include="EMC\RecoverPoint\fapi.cs">
       <DependentUpon>fapi.xsd</DependentUpon>
     </Compile>
+    <Compile Include="NetFlow\v5\Header.cs" />
+    <Compile Include="NetFlow\v5\Packet.cs" />
+    <Compile Include="NetFlow\v9\Field.cs" />
+    <Compile Include="NetFlow\v9\FieldType.cs" />
+    <Compile Include="NetFlow\v9\FlowSet.cs" />
+    <Compile Include="NetFlow\v9\Header.cs" />
+    <Compile Include="NetFlow\v9\Packet.cs" />
+    <Compile Include="NetFlow\v9\Template.cs" />
+    <Compile Include="NetFlow\v9\Templates.cs" />
     <Compile Include="VirtualCenter\Core.cs" />
     <Compile Include="VirtualCenter\Workloads.cs" />
     <Compile Include="VirtualCenter\Datacenters.cs" />

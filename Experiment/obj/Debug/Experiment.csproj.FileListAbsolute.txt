@@ -53,3 +53,6 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\Experiment\bin\Debug\System.Net.Http.Extensions.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\Experiment\bin\Debug\System.Net.Http.Primitives.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\Experiment\obj\Debug\Experiment.csproj.App.config
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Experiment\bin\Debug\Experiment.exe.config
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Experiment\obj\Debug\Experiment.exe
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Experiment\obj\Debug\Experiment.pdb
