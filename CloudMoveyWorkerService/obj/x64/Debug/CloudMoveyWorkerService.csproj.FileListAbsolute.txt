@@ -326,4 +326,3 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.pdb
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\SQLite.CodeFirst.dll
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.csprojResolveAssemblyReference.cache

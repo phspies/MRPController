@@ -63,78 +63,37 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
             while (true)
             {
                 List<Workload> _workloads = LocalData.search<Workload>();
-
-                foreach (var _workload in _workloads.Where(x => x.enabled == true && x.perf_collection == true))
+                if (_workloads != null)
                 {
-                    string workload_ip = Connection.find_working_ip_workload(_workload);
-                    Credential _credential = LocalData.search<Credential>().FirstOrDefault(x => x.id == _workload.credential_id);
-                    IntPtr userHandle = new IntPtr(0);
-                    LogonUser(_credential.username, (_credential.domain == null ? "." : _credential.domain), _credential.password, LOGON32_LOGON_SERVICE, LOGON32_PROVIDER_DEFAULT, ref userHandle);
-                    WindowsIdentity identity = new WindowsIdentity(userHandle);
-                    WindowsImpersonationContext context = identity.Impersonate();
-                    foreach (string pcc in _categories)
+                    foreach (var _workload in _workloads.Where(x => x.enabled == true && x.perf_collection == true))
                     {
-                        try
+                        string workload_ip = Connection.find_working_ip_workload(_workload);
+                        Credential _credential = LocalData.search<Credential>().FirstOrDefault(x => x.id == _workload.credential_id);
+                        IntPtr userHandle = new IntPtr(0);
+                        LogonUser(_credential.username, (_credential.domain == null ? "." : _credential.domain), _credential.password, LOGON32_LOGON_SERVICE, LOGON32_PROVIDER_DEFAULT, ref userHandle);
+                        WindowsIdentity identity = new WindowsIdentity(userHandle);
+                        WindowsImpersonationContext context = identity.Impersonate();
+                        foreach (string pcc in _categories)
                         {
-                            PerformanceCounterCategory _pc = new PerformanceCounterCategory(pcc, workload_ip);
-                            //_countertree.Add(new _PerfCounter() { category = pcc, counter = "" });
-                            if (_pc.CategoryType == PerformanceCounterCategoryType.SingleInstance)
+                            try
                             {
-                                List<InstanceCounters> _instances = new List<InstanceCounters>();
-                                _instances.Add(new InstanceCounters() { instance = "" });
-                                foreach (var _counter in _pc.GetCounters())
+                                PerformanceCounterCategory _pc = new PerformanceCounterCategory(pcc, workload_ip);
+                                //_countertree.Add(new _PerfCounter() { category = pcc, counter = "" });
+                                if (_pc.CategoryType == PerformanceCounterCategoryType.SingleInstance)
                                 {
-                                    if (!_countertree.Exists(x => x.category == pcc && x.counter == _counter.CounterName))
-                                    {
-                                        _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
-                                    }
-                                    PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, string.Empty, machinename);
-                                    InstanceCounters _counterobject = _countertree.Where(
-                                        x => x.category == _counter.CategoryName &&
-                                        x.counter == _counter.CounterName)
-                                        .Select(x => x.instances.SingleOrDefault(y => y.instance == ""))
-                                        .FirstOrDefault();
-                                    _counterobject.s1 = _pcounter.NextSample();
-                                    if (_counterobject.s0.CounterType != _counterobject.s1.CounterType)
-                                    {
-                                        _counterobject.s0 = _counter.NextSample();
-                                    }
-                                    _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
-                                    _counterobject.s0 = _counterobject.s1;
-                                    Console.WriteLine(String.Format("{0}   {1}:{2}:{3} = {4}", _counterobject.timestamp, _pcounter.CategoryName, _pcounter.CounterName, _counterobject.instance, _counterobject.value));
-                                }
-                            }
-                            else
-                            {
-                                List<InstanceCounters> _instances = new List<InstanceCounters>();
-                                foreach (string _instance in _pc.GetInstanceNames())
-                                {
-                                    if (!_instances.Exists(x => x.instance == _instance))
-                                    {
-                                        _instances.Add(new InstanceCounters() { instance = _instance });
-                                    }
-                                }
-                                foreach (var _instance in _instances)
-                                {
-                                    foreach (var _counter in _pc.GetCounters(_instance.instance))
+                                    List<InstanceCounters> _instances = new List<InstanceCounters>();
+                                    _instances.Add(new InstanceCounters() { instance = "" });
+                                    foreach (var _counter in _pc.GetCounters())
                                     {
                                         if (!_countertree.Exists(x => x.category == pcc && x.counter == _counter.CounterName))
                                         {
                                             _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
                                         }
-                                        else
-                                        {
-                                            if (!_countertree.Find(x => x.category == pcc && x.counter == _counter.CounterName).instances.Exists(x => x.instance == _instance.instance))
-                                            {
-                                                _countertree.Find(x => x.category == pcc && x.counter == _counter.CounterName).instances.Add(_instance);
-                                            }
-                                        }
-                                        PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, _counter.InstanceName, machinename);
-
+                                        PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, string.Empty, machinename);
                                         InstanceCounters _counterobject = _countertree.Where(
                                             x => x.category == _counter.CategoryName &&
                                             x.counter == _counter.CounterName)
-                                            .Select(x => x.instances.SingleOrDefault(y => y.instance == _counter.InstanceName))
+                                            .Select(x => x.instances.SingleOrDefault(y => y.instance == ""))
                                             .FirstOrDefault();
                                         _counterobject.s1 = _pcounter.NextSample();
                                         if (_counterobject.s0.CounterType != _counterobject.s1.CounterType)
@@ -146,21 +105,64 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                         Console.WriteLine(String.Format("{0}   {1}:{2}:{3} = {4}", _counterobject.timestamp, _pcounter.CategoryName, _pcounter.CounterName, _counterobject.instance, _counterobject.value));
                                     }
                                 }
+                                else
+                                {
+                                    List<InstanceCounters> _instances = new List<InstanceCounters>();
+                                    foreach (string _instance in _pc.GetInstanceNames())
+                                    {
+                                        if (!_instances.Exists(x => x.instance == _instance))
+                                        {
+                                            _instances.Add(new InstanceCounters() { instance = _instance });
+                                        }
+                                    }
+                                    foreach (var _instance in _instances)
+                                    {
+                                        foreach (var _counter in _pc.GetCounters(_instance.instance))
+                                        {
+                                            if (!_countertree.Exists(x => x.category == pcc && x.counter == _counter.CounterName))
+                                            {
+                                                _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
+                                            }
+                                            else
+                                            {
+                                                if (!_countertree.Find(x => x.category == pcc && x.counter == _counter.CounterName).instances.Exists(x => x.instance == _instance.instance))
+                                                {
+                                                    _countertree.Find(x => x.category == pcc && x.counter == _counter.CounterName).instances.Add(_instance);
+                                                }
+                                            }
+                                            PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, _counter.InstanceName, machinename);
+
+                                            InstanceCounters _counterobject = _countertree.Where(
+                                                x => x.category == _counter.CategoryName &&
+                                                x.counter == _counter.CounterName)
+                                                .Select(x => x.instances.SingleOrDefault(y => y.instance == _counter.InstanceName))
+                                                .FirstOrDefault();
+                                            _counterobject.s1 = _pcounter.NextSample();
+                                            if (_counterobject.s0.CounterType != _counterobject.s1.CounterType)
+                                            {
+                                                _counterobject.s0 = _counter.NextSample();
+                                            }
+                                            _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
+                                            _counterobject.s0 = _counterobject.s1;
+                                            Console.WriteLine(String.Format("{0}   {1}:{2}:{3} = {4}", _counterobject.timestamp, _pcounter.CategoryName, _pcounter.CounterName, _counterobject.instance, _counterobject.value));
+                                        }
+                                    }
+                                }
+                            }
+                            catch (System.InvalidOperationException error)
+                            {
+                                Console.WriteLine(error.Message);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.ToString());
                             }
                         }
-                        catch (System.InvalidOperationException error)
-                        {
-                            Console.WriteLine(error.Message);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.ToString());
-                        }
+                        context.Undo();
                     }
-                    context.Undo();
+                    
                 }
                 Thread.Sleep(new TimeSpan(0, 30, 0));
-
             }
         }
     }

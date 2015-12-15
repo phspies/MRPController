@@ -10,13 +10,14 @@ using CloudMoveyWorkerService.WCF;
 using System.Data.Services;
 using CloudMoveyWorkerService.Portal.Classes;
 using CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Classes;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Classes;
 
 namespace CloudMoveyWorkerService
 {
   
     public partial class CloudMoveyWorkerSvc : ServiceBase
     {
-        Thread scheduler_thread, mirror_thread, _performance_thread;
+        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread;
         ServiceHost serviceHost;
         public CloudMoveyWorkerSvc()
         {
@@ -63,6 +64,11 @@ namespace CloudMoveyWorkerService
             if (Global.debug) { Global.event_log.WriteEntry("Starting Performance Collection Thread"); };
             _performance_thread = new Thread(new ThreadStart(_performance.Start));
             _performance_thread.Start();
+
+            NetflowWorker _netflow = new NetflowWorker();
+            if (Global.debug) { Global.event_log.WriteEntry("Starting Netflow v5 Collection Thread"); };
+            _netflow_thread = new Thread(new ThreadStart(_netflow.Start));
+            _netflow_thread.Start();
 
             Thread.Yield();
             //Thread.Sleep(20000);

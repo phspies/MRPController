@@ -33,21 +33,21 @@ namespace Netflow5
                 NetflowCommon common = new NetflowCommon(_bytes);
                 if (common._version == 5)
                 {
-                    Console.WriteLine("Version 5 Netflow");
                     PacketV5 packet = new PacketV5(_bytes);
-                    Console.WriteLine("Version: " + packet.Header._version);
                     Console.WriteLine("Source Addr: " + Int32ToIp(packet.SrcAddr));
                     Console.WriteLine("Destination Addr: " + Int32ToIp(packet.DstAddr));
                     Console.WriteLine("Source Port: " + packet.SrcPort);
                     Console.WriteLine("Destination Port: " + packet.DstPort);
-                    Console.WriteLine("Next Hop Addr: " + Int32ToIp(packet.NextHop));
-                    Console.WriteLine("Uptime First: " + UnixTimeStampToDateTime(packet.UptimeFirst));
-                    Console.WriteLine("Uptime Last: " + UnixTimeStampToDateTime(packet.UptimeLast));
-
-                    Console.WriteLine("Ingress Inf: " + packet.InInf);
-                    Console.WriteLine("Egress Inf: " + packet.OutInf);
+                    Console.WriteLine("Protocol: " + packet.Prot);
+                    Console.WriteLine("Flow Timestamp: " + packet.Header.Secs);
+                    Console.WriteLine("Flow Start DateTime: " + packet.UptimeFirst);
+                    Console.WriteLine("Flow End DateTime: " + packet.UptimeLast);
                     Console.WriteLine("Packets: " + packet.Packets);
-                    Console.WriteLine("Octects: " + packet.Octets);
+                    Console.WriteLine("Kbyte: " + Math.Round((double)((packet.Octets * 8) / 1024),4));
+
+
+
+
                     Console.WriteLine("------------------------------------------------");
                 }
                 else if (common._version == 9)

@@ -286,7 +286,7 @@
     <Compile Include="CloudMoveyPortal\XSD\cloudmoveyprotal.cs">
       <DependentUpon>cloudmoveyprotal.xsd</DependentUpon>
     </Compile>
-    <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\NetflowV5Worker.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\NetflowWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\NetflowV9Worker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\PerformanceWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\OSInventoryWorker.cs" />
@@ -294,6 +294,7 @@
     <Compile Include="CloudMoveyWorkerService\Database\LocalData.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Credential.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Event.cs" />
+    <Compile Include="CloudMoveyWorkerService\Database\Structures\NetworkFlow.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Platform.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Workload.cs" />
     <Compile Include="CloudMoveyWorkerService\DBreeze\DataTypes\DataTypesConvertor.cs" />
@@ -1183,6 +1184,7 @@
     <Compile Include="EMC\RecoverPoint\fapi.cs">
       <DependentUpon>fapi.xsd</DependentUpon>
     </Compile>
+    <Compile Include="NetFlow\NetflowCommon.cs" />
     <Compile Include="NetFlow\v5\Header.cs" />
     <Compile Include="NetFlow\v5\Packet.cs" />
     <Compile Include="NetFlow\v9\Field.cs" />

@@ -21,7 +21,7 @@ namespace CloudMoveyWorkerService.NetFlow.v5
         private ushort _dstPort;  /* TCP/UDP dest port number or equivalent */
         private byte _pad;
         private byte _tcp_flags;  /* bitwise OR of all TCP flags in flow; 0x10 */
-                                 /*	for non-TCP flows */
+                                  /*	for non-TCP flows */
         private byte _prot;       /* IP Protocol, e.g., 6=TCP, 17=UDP, ... */
         private byte _tos;        /* IP Type-of-Service */
         private ushort _dst_as;       /* originating AS of destination address */
@@ -39,6 +39,7 @@ namespace CloudMoveyWorkerService.NetFlow.v5
         public uint NextHop { get { return this._nextHop; } }
         public uint InInf { get { return this._in_if; } }
         public uint OutInf { get { return this._out_if; } }
+        public uint Packets { get { return this._pkts; } }
         public uint Octets { get { return this._octets; } }
         public uint UptimeFirst { get { return this._uptime_first; } }
         public uint UptimeLast { get { return this._uptime_last; } }
@@ -68,10 +69,27 @@ namespace CloudMoveyWorkerService.NetFlow.v5
             Array.Copy(_bytes, 24, packet, 0, length);
 
             this._header = new V5Header(header);
+
             byte[] reverse = packet.Reverse().ToArray();
 
+            this._srcAddr = BitConverter.ToUInt32(reverse, packet.Length - sizeof(UInt32) - 0);
+            this._dstAddr = BitConverter.ToUInt32(reverse, packet.Length - sizeof(UInt32) - 4);
+            this._nextHop = BitConverter.ToUInt32(reverse, packet.Length - sizeof(UInt32) - 8);
+            this._in_if = BitConverter.ToUInt16(reverse, packet.Length - sizeof(UInt16) - 12);
+            this._out_if = BitConverter.ToUInt16(reverse, packet.Length - sizeof(UInt16) - 14);
+            this._pkts = BitConverter.ToUInt32(reverse, packet.Length - sizeof(UInt32) - 16);
+            this._octets = BitConverter.ToUInt32(reverse, packet.Length - sizeof(UInt32) - 20);
+            if (reverse.Length > 24)
+            {
+                this._uptime_first = BitConverter.ToUInt32(reverse, packet.Length - sizeof(UInt32) - 24);
+                this._uptime_last = BitConverter.ToUInt32(reverse, packet.Length - sizeof(UInt32) - 28);
+                this._srcPort = BitConverter.ToUInt16(reverse, packet.Length - sizeof(UInt16) - 32);
+                this._dstPort = BitConverter.ToUInt16(reverse, packet.Length - sizeof(UInt16) - 34);
+                this._pad = reverse[36];
+                this._tcp_flags = reverse[37];
+                this._prot = reverse[38];
+                this._tos = reverse[39];
+            }
         }
-
-  
     };
 }
