@@ -22,14 +22,14 @@ namespace DBreeze
         /// <summary>
         /// DBreezeRemoteEngine instantiator
         /// </summary>
-        /// <param name="dbreezeConfiguration"></param>
-        public DBreezeRemoteEngine(DBreezeConfiguration dbreezeConfiguration)            
+        /// <param name="dbConfiguration"></param>
+        public DBreezeRemoteEngine(DBreezeConfiguration dbConfiguration)            
         {
 
-            if (dbreezeConfiguration == null)
-                throw new Exception("DBreeze.DbreezeRemoteEngine.DbreezeRemoteEngine:  dbreezeConfiguration is NULL");
+            if (dbConfiguration == null)
+                throw new Exception("DBreeze.DbreezeRemoteEngine.DbreezeRemoteEngine:  dbConfiguration is NULL");
 
-            conf = dbreezeConfiguration;
+            conf = dbConfiguration;
             this.RemoteEngine = true;
                         
         }

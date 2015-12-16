@@ -47,7 +47,7 @@ namespace DBreeze.Storage
         /// </summary>
         public string DataBaseFolder { get; set; }
         /// <summary>
-        /// Place where reside incremnetal dbreeze backup files
+        /// Place where reside incremnetal db backup files
         /// </summary>
         public string BackupFolder { get; set; }
 
@@ -113,7 +113,7 @@ namespace DBreeze.Storage
                 byte[] pack = null;
                 uint packSize = 0;
 
-                foreach (var file in diBP.GetFiles().Where(r => r.Name.StartsWith("dbreeze_ibp_")).OrderBy(r => r.Name))
+                foreach (var file in diBP.GetFiles().Where(r => r.Name.StartsWith("db_ibp_")).OrderBy(r => r.Name))
                 {
                     using (var bfs = new FileStream(file.FullName, FileMode.Open, FileAccess.Read, FileShare.None))
                     {

@@ -1,5 +1,5 @@
 ﻿/* 
-  Copyright (C) 2012 dbreeze.tiesky.com / Alex Solovyov / Ivars Sudmalis.
+  Copyright (C) 2012 db.tiesky.com / Alex Solovyov / Ivars Sudmalis.
   It's a free software for those, who thinks that it should be free.
 */
 
@@ -65,13 +65,13 @@ namespace DBreeze
         /// <summary>
         /// Dbreeze instantiator
         /// </summary>
-        /// <param name="dbreezeConfiguration"></param>
-        public DBreezeEngine(DBreezeConfiguration dbreezeConfiguration)
+        /// <param name="dbConfiguration"></param>
+        public DBreezeEngine(DBreezeConfiguration dbConfiguration)
         {
-            ConstructFromConfiguration(dbreezeConfiguration);
+            ConstructFromConfiguration(dbConfiguration);
 
             //if (Configuration != null)
-            //    Configuration = dbreezeConfiguration;
+            //    Configuration = dbConfiguration;
             
             ////Setting up in backup DbreezeFolderName, there must be found at least TransJournal and Scheme.
             ////Configuration.Backup.SynchronizeBackup has more information
@@ -93,13 +93,13 @@ namespace DBreeze
         }
 
         /// <summary>
-        /// Constructing Dbreeze from dbreezeConfiguration
+        /// Constructing Dbreeze from dbConfiguration
         /// </summary>
-        /// <param name="dbreezeConfiguration"></param>
-        internal void ConstructFromConfiguration(DBreezeConfiguration dbreezeConfiguration)
+        /// <param name="dbConfiguration"></param>
+        internal void ConstructFromConfiguration(DBreezeConfiguration dbConfiguration)
         {
              if (Configuration != null)
-                Configuration = dbreezeConfiguration;
+                Configuration = dbConfiguration;
              else
                  throw new Exception("DBreeze.DBreezeEngine.DBreezeEngine: please supply DBreezeConfiguration");
             
@@ -113,7 +113,7 @@ namespace DBreeze
                 //Configuration.Backup.SynchronizeBackup();
             }
                         
-            if (dbreezeConfiguration.Storage == DBreezeConfiguration.eStorage.RemoteInstance && !RemoteEngine)
+            if (dbConfiguration.Storage == DBreezeConfiguration.eStorage.RemoteInstance && !RemoteEngine)
                 throw new Exception("DBreeze.DBreezeEngine.DBreezeEngine: remote instance must be initiated via new DBreezeRemoteEngine");
 
             MainFolder = Configuration.DBreezeDataFolderName;

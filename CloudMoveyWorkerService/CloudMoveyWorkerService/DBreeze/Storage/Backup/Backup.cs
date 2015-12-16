@@ -1,5 +1,5 @@
 ﻿/* 
-  Copyright (C) 2012 dbreeze.tiesky.com / Alex Solovyov / Ivars Sudmalis.
+  Copyright (C) 2012 db.tiesky.com / Alex Solovyov / Ivars Sudmalis.
   It's a free software for those, who thinks that it should be free.
 */
 
@@ -130,9 +130,9 @@ namespace DBreeze.Storage
             {
                 switch (fileName)
                 {
-                    case "_DBreezeSchema":
+                    case "_DBSchema":
                         return UInt64.MaxValue - 1;
-                    case "_DBreezeTranJrnl":
+                    case "_DBTranJrnl":
                         return UInt64.MaxValue - 2;
                     default:
                         return Convert.ToUInt64(fileName);
@@ -145,9 +145,9 @@ namespace DBreeze.Storage
                 switch (filenumber)
                 {
                     case (UInt64.MaxValue - 1):
-                        return "_DBreezeSchema";
+                        return "_DBSchema";
                     case (UInt64.MaxValue - 2):
-                        return "_DBreezeTranJrnl";
+                        return "_DBTranJrnl";
                     default:
                         return filenumber.ToString();
                 }
@@ -246,7 +246,7 @@ namespace DBreeze.Storage
             {
 
                 currentBackup = bupTime;
-                string bupFileName = String.Format("dbreeze_ibp_{0}.ibp", bupTime);
+                string bupFileName = String.Format("db_ibp_{0}.ibp", bupTime);
                 string fullBackupFileName = Path.Combine(this._backupFolderName, bupFileName);
 
                 //fs = new FileStream(fullBackupFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None,_bufferSize,FileOptions.WriteThrough);
@@ -265,7 +265,7 @@ namespace DBreeze.Storage
                     fs.Close();
                     fs.Dispose();
                     currentBackup = bupTime;
-                    string bupFileName = String.Format("dbreeze_ibp_{0}.ibp", bupTime);
+                    string bupFileName = String.Format("db_ibp_{0}.ibp", bupTime);
                     string fullBackupFileName = Path.Combine(this._backupFolderName, bupFileName);
                     //fs = new FileStream(fullBackupFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None, _bufferSize, FileOptions.WriteThrough);
                     fs = new FileStream(fullBackupFileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None, _bufferSize, FileOptions.WriteThrough);

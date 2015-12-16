@@ -1,5 +1,5 @@
 ﻿/* 
-  Copyright (C) 2012 dbreeze.tiesky.com / Alex Solovyov / Ivars Sudmalis.
+  Copyright (C) 2012 db.tiesky.com / Alex Solovyov / Ivars Sudmalis.
   It's a free software for those, who thinks that it should be free.
 */
 
@@ -31,9 +31,9 @@ namespace DBreeze
         /// </summary>
         internal bool AutoCloseOpenTables = true;
 
-        static string Copyright = "DBreeze.tiesky.com";
+        static string Copyright = "";
 
-        static string SchemaFileName = "_DBreezeSchema";
+        static string SchemaFileName = "_DBSchema";
 
         //For System Tables or Records we reserve "@@@@" sequence
         static string LastFileNumberKeyName = "@@@@LastFileNumber";
@@ -300,7 +300,7 @@ namespace DBreeze
 
 
             //Schema protocol: 2 bytes - protocol version, other data
-            //For protocol 1: first 8 bytes will be TheFileName, starting from db10000-dbN (0-N ulong). up to 10000 are reserved for dbreeze.
+            //For protocol 1: first 8 bytes will be TheFileName, starting from db10000-dbN (0-N ulong). up to 10000 are reserved for db.
 
             //Table names are UTF-8 based, no limits
 

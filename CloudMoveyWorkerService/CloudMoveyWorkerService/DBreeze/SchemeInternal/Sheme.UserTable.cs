@@ -1,5 +1,5 @@
 ﻿/* 
-  Copyright (C) 2012 dbreeze.tiesky.com / Alex Solovyov / Ivars Sudmalis.
+  Copyright (C) 2012 db.tiesky.com / Alex Solovyov / Ivars Sudmalis.
   It's a free software for those, who thinks that it should be free.
 */
 
@@ -31,10 +31,10 @@ namespace DBreeze.SchemeInternal
                     case '#':   //used as pattern mask
                     case '$':   //used as pattern mask
                     case '@':   //used for system tables
-                    case '\\':  //reserved by dbreeze
-                    case '^':   //reserved by dbreeze                    
-                    case '~':   //reserved by dbreeze
-                    case '´':   //reserved by dbreeze                    
+                    case '\\':  //reserved by db
+                    case '^':   //reserved by db                    
+                    case '~':   //reserved by db
+                    case '´':   //reserved by db                    
                         throw DBreezeException.Throw(DBreezeException.eDBreezeExceptions.TABLE_NAMES_TABLENAMECANT_CONTAINRESERVEDSYMBOLS); 
                 }
             }
