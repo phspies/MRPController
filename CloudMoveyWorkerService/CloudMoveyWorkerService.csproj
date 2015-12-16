@@ -188,6 +188,10 @@
       <HintPath>..\packages\openstack.net.1.5.0.1\lib\net45\openstacknet.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Rackspace, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rackspace.0.2.0\lib\net45\Rackspace.dll</HintPath>
       <Private>True</Private>
@@ -292,6 +296,7 @@
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\OSInventoryWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Connection.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\LocalData.cs" />
+    <Compile Include="CloudMoveyWorkerService\Database\SimpleEAS.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Credential.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Event.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\NetworkFlow.cs" />
