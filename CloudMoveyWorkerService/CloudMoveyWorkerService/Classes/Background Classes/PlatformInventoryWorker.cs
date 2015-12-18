@@ -205,6 +205,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                 _moveyworkload.moid = _caasworkload.id;
                                 //_moveyworkload.failovergroup_id = dbworkload.failovergroup_id;
                                 _moveyworkload.vcpu = _caasworkload.cpu.count;
+                                _moveyworkload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.privateIpv4, _caasworkload.networkInfo.primaryNic.ipv6);
                                 _moveyworkload.vcore = _caasworkload.cpu.coresPerSocket;
                                 _moveyworkload.vmemory = _caasworkload.memoryGb as int?;
                                 _moveyworkload.platform_id = _platform.id;
@@ -228,14 +229,15 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                     _new_workloads += 1;
                                 }
                             }
-                            //if workload is local but disabled - just updated the local db record
+                            //if workload is local, updated the local db record
                             //User might use these servers later...
-                            else if (LocalData.search<Workload>().Count(x => x.moid == _caasworkload.id && x.enabled == false) > 0)
+                            if (LocalData.search<Workload>().Count(x => x.moid == _caasworkload.id) > 0)
                             {
-                                Workload _database_workload = LocalData.retrieve<Workload>(_caasworkload.id);
+                                Workload _database_workload = LocalData.search<Workload>().FirstOrDefault(x => x.moid == _caasworkload.id);
                                 _database_workload.cpu_count = _caasworkload.cpu.count;
                                 _database_workload.cpu_coresPerSocket = _caasworkload.cpu.coresPerSocket;
                                 _database_workload.memory_count = _caasworkload.memoryGb;
+                                _database_workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.ipv6, _caasworkload.networkInfo.primaryNic.privateIpv4);
                                 _database_workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
                                 _database_workload.hostname = _caasworkload.name;
                                 _database_workload.moid = _caasworkload.id;
@@ -254,7 +256,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                 _workload.cpu_coresPerSocket = _caasworkload.cpu.coresPerSocket; _workload.memory_count = _caasworkload.memoryGb as int?;
                                 _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
                                 _workload.hostname = _caasworkload.name;
-                                _workload.iplist = string.Join(",", workloadinterfaces_parameters.SelectMany(x => x.ipaddress));
+                                _workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.privateIpv4, _caasworkload.networkInfo.primaryNic.ipv6);
                                 _workload.moid = _caasworkload.id;
                                 _workload.platform_id = _platform.id;
                                 _workload.ostype = _caasworkload.operatingSystem.family.ToLower();

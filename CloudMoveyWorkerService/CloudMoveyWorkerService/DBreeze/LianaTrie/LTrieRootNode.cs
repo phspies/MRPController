@@ -106,15 +106,11 @@ namespace DBreeze.LianaTrie
         {
             byte[] newRoot = null;
 
-            //db.tiesky.com (18 bytes)
-            byte[] db = new byte[] { 0x64, 0x62, 0x72, 0x65, 0x65, 0x7A, 0x65, 0x2E, 0x74, 0x69, 0x65, 0x73, 0x6B, 0x79, 0x2E, 0x63, 0x6F, 0x6D };
-
             newRoot = newRoot.ConcatMany(
                 new byte[] { 1 },  //For supporting Memory Element. It shows that Root Is created                
                 new byte[] { 1 }, //-File protocol identifier
                 this.LinkToZeroNode,                         //Link to zero node
                 this.RecordsCount.To_8_bytes_array_BigEndian()
-                
                 );
 
             newRoot = newRoot.EnlargeByteArray_LittleEndian(DefaultRootSize);

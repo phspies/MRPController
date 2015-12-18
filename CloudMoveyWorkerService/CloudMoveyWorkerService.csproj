@@ -285,8 +285,10 @@
     </Compile>
     <Compile Include="CloudMoveyPortal\MoveyFailovergroup_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyCredential_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyPerformance_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyPlatformnetwork_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyPlatformtemplate_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyNetworkflow_Methods.cs" />
     <Compile Include="CloudMoveyPortal\XSD\cloudmoveyprotal.cs">
       <DependentUpon>cloudmoveyprotal.xsd</DependentUpon>
     </Compile>
@@ -294,11 +296,13 @@
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\NetflowV9Worker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\PerformanceWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\OSInventoryWorker.cs" />
+    <Compile Include="CloudMoveyWorkerService\Classes\Background Classes\PortalDataUploadWorker.cs" />
     <Compile Include="CloudMoveyWorkerService\Classes\Connection.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\LocalData.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\SimpleEAS.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Credential.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Event.cs" />
+    <Compile Include="CloudMoveyWorkerService\Database\Structures\Performance.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\NetworkFlow.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Platform.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Workload.cs" />
@@ -369,6 +373,8 @@
     <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\MurMurHash.cs" />
     <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\StringProcessing.cs" />
     <Compile Include="CloudMoveyWorkerService\DBreeze\Utils\XmlSerializator.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\NetworkFlow.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\Performance.cs" />
     <Compile Include="DimensionData\Controllers\Datacenter.cs" />
     <Compile Include="DimensionData\Controllers\Template.cs" />
     <Compile Include="DimensionData\Types\AccountTypes.cs">
@@ -1199,6 +1205,7 @@
     <Compile Include="NetFlow\v9\Packet.cs" />
     <Compile Include="NetFlow\v9\Template.cs" />
     <Compile Include="NetFlow\v9\Templates.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="VirtualCenter\Core.cs" />
     <Compile Include="VirtualCenter\Workloads.cs" />
     <Compile Include="VirtualCenter\Datacenters.cs" />

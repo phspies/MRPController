@@ -31,7 +31,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes
             }
             return null;
         }
-        public static string find_working_ip_workload(Workload _workload)
+        public static string find_working_ip_workload_literal(Workload _workload)
         {
             String ipaddresslist = _workload.iplist;
             String workingip = null;
@@ -57,6 +57,23 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes
                 _workingip = _workingip + ".ipv6-literal.net";
                 workingip = _workingip;
             }
+            return workingip;
+        }
+        public static string find_working_ip_workload_normal(Workload _workload)
+        {
+            String ipaddresslist = _workload.iplist;
+            String workingip = null;
+            Ping testPing = new Ping();
+            foreach (string ip in ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                PingReply reply = testPing.Send(ip, 1000);
+                if (reply != null)
+                {
+                    workingip = ip;
+                    break;
+                }
+            }
+            testPing.Dispose();
             return workingip;
         }
     }

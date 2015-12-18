@@ -15,6 +15,8 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
         public const int LOGON32_LOGON_INTERACTIVE = 2;
         public const int LOGON32_LOGON_SERVICE = 3;
         public const int LOGON32_PROVIDER_DEFAULT = 0;
+        public const int LOGON32_LOGON_NETWORK_CLEARTEXT = 8;
+        public const int LOGON32_LOGON_NEW_CREDENTIALS = 9;
 
         [DllImport("advapi32.dll", CharSet = CharSet.Auto)]
         public static extern bool LogonUser(
@@ -27,7 +29,6 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
 
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public extern static bool CloseHandle(IntPtr handle);
-
         public class InstanceCounters
         {
             public string instance { get; set; }
@@ -42,54 +43,136 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
             public string counter { get; set; }
             public List<InstanceCounters> instances { get; set; }
         }
+        public class CollectionCounter
+        {
+            public string category { get; set; }
+            public string counter { get; set; }
+
+        }
         public static List<PerfCounter> _countertree = new List<PerfCounter>();
         private static List<String> _categories = new List<string>();
-        private static String machinename = null;
+        private static List<CollectionCounter> _counters = new List<CollectionCounter>();
         private static CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
+
         public void Start()
         {
-            _categories.Add("Processor");
-            _categories.Add("Processor Information");
-            _categories.Add("Memory");
-            _categories.Add("LogicalDisk");
-            _categories.Add("PhysicalDisk");
-            _categories.Add("Network Interface");
-            _categories.Add("Server");
-            _categories.Add("Double-Take Connection");
-            _categories.Add("Double-Take Kernel");
-            _categories.Add("Double-Take Source");
-            _categories.Add("Double-Take Target");         
+            _categories.Add("");
+
+            _counters.Add(new CollectionCounter() { category = "Processor", counter = "% Idle Time" });
+            _counters.Add(new CollectionCounter() { category = "Processor", counter = "% User Time" });
+            _counters.Add(new CollectionCounter() { category = "Processor", counter = "% Processor Time" });
+            _counters.Add(new CollectionCounter() { category = "Processor", counter = "Interrupts/sec" });
+
+
+            _counters.Add(new CollectionCounter() { category = "Memory", counter = "Available Bytes" });
+            _counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Faults/sec" });
+            _counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Reads/sec" });
+            _counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Writes/sec" });
+
+
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = " % Free Space" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Disk Time" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Write Disk Time" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Read Disk Time" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Reads/sec" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Writes/sec" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Read Bytes/sec" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Write Bytes/sec" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Bytes/sec" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Split IO/sec" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Current Disk Queue Length" });
+
+            _counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Disk Time" });
+            _counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Write Disk Time" });
+            _counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Read Disk Time" });
+            _counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Reads/sec" });
+            _counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Writes/sec" });
+            _counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Read Bytes/sec" });
+            _counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Write Bytes/sec" });
+            _counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Bytes/sec" });
+            _counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Split IO/sec" });
+            _counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Current Disk Queue Length" });
+
+            _counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Bytes Received/sec" });
+            _counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Bytes Sent/sec" });
+            _counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Current Bandwidth" });
+            _counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Output Queue Length" });
+            _counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Packets Recieved/sec" });
+            _counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Packets Sent/sec" });
+
+
+            _counters.Add(new CollectionCounter() { category = "Double-Take Connection", counter = "*" });
+            _counters.Add(new CollectionCounter() { category = "Double-Take Kernel", counter = "*" });
+            _counters.Add(new CollectionCounter() { category = "Double-Take Source", counter = "*" });
+            _counters.Add(new CollectionCounter() { category = "Double-Take Target", counter = "*" });
 
             while (true)
             {
                 List<Workload> _workloads = LocalData.search<Workload>();
                 if (_workloads != null)
                 {
-                    foreach (var _workload in _workloads.Where(x => x.enabled == true && x.perf_collection == true))
+                    foreach (var _workload in _workloads.Where(x => x.enabled == true))
                     {
-                        string workload_ip = Connection.find_working_ip_workload(_workload);
+                        string workload_ip = Connection.find_working_ip_workload_normal(_workload);
                         Credential _credential = LocalData.search<Credential>().FirstOrDefault(x => x.id == _workload.credential_id);
                         IntPtr userHandle = new IntPtr(0);
-                        LogonUser(_credential.username, (_credential.domain == null ? "." : _credential.domain), _credential.password, LOGON32_LOGON_SERVICE, LOGON32_PROVIDER_DEFAULT, ref userHandle);
-                        WindowsIdentity identity = new WindowsIdentity(userHandle);
-                        WindowsImpersonationContext context = identity.Impersonate();
-                        foreach (string pcc in _categories)
+                        
+                        try {
+                            LogonUser(_credential.username, (_credential.domain == null ? "." : _credential.domain), _credential.password, LOGON32_LOGON_NEW_CREDENTIALS, LOGON32_PROVIDER_DEFAULT, ref userHandle);
+                            WindowsIdentity identity = new WindowsIdentity(userHandle);
+                            WindowsImpersonationContext context = identity.Impersonate();
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                        }
+                        foreach (string pcc in _counters.Select(x => x.category).Distinct())
                         {
                             try
                             {
+                                if (!PerformanceCounterCategory.Exists(pcc, workload_ip))
+                                {
+
+                                    continue;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Global.event_log.WriteEntry(String.Format("{0} returned the following error while collecting performance data: {1}", workload_ip, ex.ToString()));
+                                continue;
+                            }
+
+
+
+                            try
+                            {
+
                                 PerformanceCounterCategory _pc = new PerformanceCounterCategory(pcc, workload_ip);
-                                //_countertree.Add(new _PerfCounter() { category = pcc, counter = "" });
                                 if (_pc.CategoryType == PerformanceCounterCategoryType.SingleInstance)
                                 {
                                     List<InstanceCounters> _instances = new List<InstanceCounters>();
                                     _instances.Add(new InstanceCounters() { instance = "" });
+
+
+
+
+
+
                                     foreach (var _counter in _pc.GetCounters())
                                     {
+                                        if (_counters.Find(x => x.category == pcc).counter != "*")
+                                        {
+                                            if (!_counters.Exists(x => x.counter == _counter.CounterName))
+                                            {
+                                                continue;
+                                            }
+                                        }
+
                                         if (!_countertree.Exists(x => x.category == pcc && x.counter == _counter.CounterName))
                                         {
                                             _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
                                         }
-                                        PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, string.Empty, machinename);
+                                        PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, string.Empty, workload_ip);
                                         InstanceCounters _counterobject = _countertree.Where(
                                             x => x.category == _counter.CategoryName &&
                                             x.counter == _counter.CounterName)
@@ -102,7 +185,15 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                         }
                                         _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
                                         _counterobject.s0 = _counterobject.s1;
-                                        Console.WriteLine(String.Format("{0}   {1}:{2}:{3} = {4}", _counterobject.timestamp, _pcounter.CategoryName, _pcounter.CounterName, _counterobject.instance, _counterobject.value));
+
+                                        Performance _perf = new Performance();
+                                        _perf.workload_id = _workload.id;
+                                        _perf.timestamp = _counterobject.timestamp;
+                                        _perf.category_name = _pcounter.CategoryName;
+                                        _perf.counter_name = _pcounter.CounterName;
+                                        _perf.instance = _counterobject.instance;
+                                        _perf.value = _counterobject.value;
+                                        LocalData.insert<Performance>(_perf);
                                     }
                                 }
                                 else
@@ -119,6 +210,16 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                     {
                                         foreach (var _counter in _pc.GetCounters(_instance.instance))
                                         {
+
+                                            //only collect info for specified counters or evenrything within the category
+                                            if (_counters.Find(x => x.category == pcc).counter != "*")
+                                            {
+                                                if (!_counters.Exists(x => x.counter == _counter.CounterName))
+                                                {
+                                                    continue;
+                                                }
+                                            }
+
                                             if (!_countertree.Exists(x => x.category == pcc && x.counter == _counter.CounterName))
                                             {
                                                 _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
@@ -130,7 +231,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                                     _countertree.Find(x => x.category == pcc && x.counter == _counter.CounterName).instances.Add(_instance);
                                                 }
                                             }
-                                            PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, _counter.InstanceName, machinename);
+                                            PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, _counter.InstanceName, workload_ip);
 
                                             InstanceCounters _counterobject = _countertree.Where(
                                                 x => x.category == _counter.CategoryName &&
@@ -144,21 +245,30 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                             }
                                             _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
                                             _counterobject.s0 = _counterobject.s1;
-                                            Console.WriteLine(String.Format("{0}   {1}:{2}:{3} = {4}", _counterobject.timestamp, _pcounter.CategoryName, _pcounter.CounterName, _counterobject.instance, _counterobject.value));
+
+                                            Performance _perf = new Performance();
+                                            _perf.workload_id = _workload.id;
+                                            _perf.timestamp = _counterobject.timestamp;
+                                            _perf.category_name = _pcounter.CategoryName;
+                                            _perf.counter_name = _pcounter.CounterName;
+                                            _perf.instance = _counterobject.instance;
+                                            _perf.value = _counterobject.value;
+                                            LocalData.insert<Performance>(_perf);
+
                                         }
                                     }
                                 }
                             }
                             catch (System.InvalidOperationException error)
                             {
-                                Console.WriteLine(error.Message);
+                                Global.event_log.WriteEntry(error.ToString(), EventLogEntryType.Error);
                             }
                             catch (Exception ex)
                             {
-                                Console.WriteLine(ex.ToString());
+                                Global.event_log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
                             }
                         }
-                        context.Undo();
+                        
                     }
                     
                 }
