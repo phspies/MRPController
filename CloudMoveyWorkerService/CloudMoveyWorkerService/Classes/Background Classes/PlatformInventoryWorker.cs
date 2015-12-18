@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using Utils;
 
 namespace CloudMoveyWorkerService.Portal.Classes
 {
@@ -197,74 +198,59 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             }
                             //First check to see if we have this server in the local database and if it's enabled
                             //These should be uploaded to the portal for use for portal customers only....
-                            if (LocalData.search<Workload>().Any(x => x.moid == _caasworkload.id && x.enabled == true))
+                            if (LocalData.search<Workload>().Exists(x => x.moid == _caasworkload.id && x.enabled == true))
                             {
-                                var dbworkload = LocalData.retrieve<Workload>(_caasworkload.id);
-                                MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
-                                _moveyworkload.hostname = _caasworkload.name;
-                                _moveyworkload.moid = _caasworkload.id;
-                                //_moveyworkload.failovergroup_id = dbworkload.failovergroup_id;
-                                _moveyworkload.vcpu = _caasworkload.cpu.count;
-                                _moveyworkload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.privateIpv4, _caasworkload.networkInfo.primaryNic.ipv6);
-                                _moveyworkload.vcore = _caasworkload.cpu.coresPerSocket;
-                                _moveyworkload.vmemory = _caasworkload.memoryGb as int?;
-                                _moveyworkload.platform_id = _platform.id;
-                                _moveyworkload.enabled = true;
-                                _moveyworkload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                _moveyworkload.osedition = _caasworkload.operatingSystem.displayName;
 
-                                _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
-                                _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
-
-                                //Update if the portal has this workload and create if it's new to the portal....
-                                if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
-                                {
-                                    _moveyworkload.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).id;
-                                    _cloud_movey.workload().updateworkload(_moveyworkload);
-                                    _updated_workloads += 1;
-                                }
-                                else
-                                {
-                                    _cloud_movey.workload().createworkload(_moveyworkload);
-                                    _new_workloads += 1;
-                                }
                             }
                             //if workload is local, updated the local db record
                             //User might use these servers later...
-                            if (LocalData.search<Workload>().Count(x => x.moid == _caasworkload.id) > 0)
+                            bool _new_workload = true;
+                            Workload _workload = new Workload();
+                            if (LocalData.search<Workload>().Exists(x => x.moid == _caasworkload.id))
                             {
-                                Workload _database_workload = LocalData.search<Workload>().FirstOrDefault(x => x.moid == _caasworkload.id);
-                                _database_workload.cpu_count = _caasworkload.cpu.count;
-                                _database_workload.cpu_coresPerSocket = _caasworkload.cpu.coresPerSocket;
-                                _database_workload.memory_count = _caasworkload.memoryGb;
-                                _database_workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.ipv6, _caasworkload.networkInfo.primaryNic.privateIpv4);
-                                _database_workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                                _database_workload.hostname = _caasworkload.name;
-                                _database_workload.moid = _caasworkload.id;
-                                _database_workload.platform_id = _platform.id;
-                                _database_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                _database_workload.osedition = _caasworkload.operatingSystem.displayName;
-                                LocalData.update<Workload>(_database_workload);
+                                _new_workload = false;
+                                _workload = LocalData.search<Workload>().FirstOrDefault(x => x.moid == _caasworkload.id);
                             }
-                            //if workload is not found localy - it should be added...
-                            //new servers.... should be added....
-                            //here we use the WCF method as we need to set the ID field with a unique UUID...
-                            else if (LocalData.search<Workload>().Count(x => x.moid == _caasworkload.id) == 0)
+                            _workload.cpu_count = _caasworkload.cpu.count;
+                            _workload.cpu_coresPerSocket = _caasworkload.cpu.coresPerSocket;
+                            _workload.memory_count = _caasworkload.memoryGb;
+                            _workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.ipv6, _caasworkload.networkInfo.primaryNic.privateIpv4);
+                            _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
+                            _workload.hostname = _caasworkload.name;
+                            _workload.moid = _caasworkload.id;
+                            _workload.platform_id = _platform.id;
+                            _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
+                            _workload.osedition = _caasworkload.operatingSystem.displayName;
+                            if (_new_workload)
                             {
-                                Workload _workload = new Workload();
-                                _workload.cpu_count = _caasworkload.cpu.count;
-                                _workload.cpu_coresPerSocket = _caasworkload.cpu.coresPerSocket; _workload.memory_count = _caasworkload.memoryGb as int?;
-                                _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                                _workload.hostname = _caasworkload.name;
-                                _workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.privateIpv4, _caasworkload.networkInfo.primaryNic.ipv6);
-                                _workload.moid = _caasworkload.id;
-                                _workload.platform_id = _platform.id;
-                                _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                _workload.osedition = _caasworkload.operatingSystem.displayName;
-                                new CloudMoveyService().AddWorkload(_workload);
+                                LocalData.insert<Workload>(_workload);
+                            }
+                            else
+                            {
+                                LocalData.update<Workload>(_workload);
+                                if (_workload.enabled == true)
+                                {
+                                    MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
+                                    Objects.MapObjects(_workload, _moveyworkload);
+
+                                    _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
+                                    _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
+
+                                    //Update if the portal has this workload and create if it's new to the portal....
+                                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                                    {
+                                        _moveyworkload.id = _workload.id;
+                                        _cloud_movey.workload().updateworkload(_moveyworkload);
+                                        _updated_workloads += 1;
+                                    }
+                                    else
+                                    {
+                                        _cloud_movey.workload().createworkload(_moveyworkload);
+                                        _new_workloads += 1;
+                                    }
+                                }
                             }
                         }
-                        
                     }
                     sw.Stop();
 
