@@ -83,7 +83,6 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\ru\System.Spatial.resources.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\zh-Hans\System.Spatial.resources.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\zh-Hant\System.Spatial.resources.dll
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.csprojResolveAssemblyReference.cache
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Resources\DimensionData.baml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Resources\Icons.baml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\Resources\logos.baml
@@ -199,3 +198,4 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.csprojResolveAssemblyReference.cache
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.csprojResolveAssemblyReference.cache

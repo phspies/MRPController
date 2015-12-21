@@ -23,28 +23,28 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                     Stopwatch sw = Stopwatch.StartNew();
                     int _new_networkflows, _new_performancecounters;
                     _new_networkflows = _new_performancecounters = 0;
-                    foreach (NetworkFlow _flow in LocalData.search<NetworkFlow>())
+                    foreach (NetworkFlow _flow in LocalData.get_as_list<NetworkFlow>())
                     {
                         MoveyNetworkFlowCRUDType _flowcrud = new MoveyNetworkFlowCRUDType();
                         Objects.MapObjects(_flow, _flowcrud);
                         _cloud_movey.netflow().createnetworkflow(_flowcrud);
 
                         //remove from local database
-                        LocalData.delete<NetworkFlow>(_flow.id);
+                        LocalData.delete_record<NetworkFlow>(_flow.id);
 
                         _new_networkflows += 1;
                     }
                     
 
                     //process performancecounters
-                    foreach (Performance _performance in LocalData.search<Performance>())
+                    foreach (Performance _performance in LocalData.get_as_list<Performance>())
                     {
                         MoveyPerformanceCRUDType _performancecrud = new MoveyPerformanceCRUDType();
                         Objects.MapObjects(_performance, _performancecrud);
                         _cloud_movey.performance().createnetworkflow(_performancecrud);
 
                         //remove from local database
-                        LocalData.delete<Performance>(_performance.id);
+                        LocalData.delete_record<Performance>(_performance.id);
 
                         _new_performancecounters += 1;
                     }

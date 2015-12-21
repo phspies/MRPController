@@ -33,7 +33,7 @@ namespace CloudMoveyWorkerService.Portal.Controllers
                 String ipaddresslist = _payload.windows.ipaddress;
                 ManagementScope scope = new ManagementScope();
                 Exception error = new Exception();
-                var workingip = Connection.find_working_ip_string(ipaddresslist);
+                var workingip = Connection.find_working_ip(ipaddresslist, true);
                 if (workingip != null)
                 {
                     try

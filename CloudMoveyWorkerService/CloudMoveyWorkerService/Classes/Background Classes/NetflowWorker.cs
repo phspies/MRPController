@@ -48,7 +48,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                     _netflow.stop_timestamp = packet.UptimeLast;
                     _netflow.packets = packet.Packets;
                     _netflow.kbyte = Convert.ToUInt32(Math.Round((double)((packet.Octets * 8) / 1024)));
-                    LocalData.insert<NetworkFlow>(_netflow);
+                    LocalData.insert_record<NetworkFlow>(_netflow);
                 }
             }
             sock.Close();

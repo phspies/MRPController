@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudMoveyWorkerService.Database;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -13,6 +14,9 @@ namespace CloudMoveyWorkerService
         /// <summary>
         /// Static value protected by access routine.
         /// </summary>
+        /// 
+
+
         static bool _debug;
         static String _agent_id;
         static String _api_base;
@@ -23,9 +27,11 @@ namespace CloudMoveyWorkerService
      
         public static int worker_queue_count
         {
+            
             get { return _worker_queue_count; }
             set { _worker_queue_count = value; }
         }
+
         public static EventLog event_log
         {
             get

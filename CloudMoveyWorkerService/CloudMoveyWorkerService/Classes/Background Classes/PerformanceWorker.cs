@@ -70,7 +70,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
             _counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Writes/sec" });
 
 
-            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = " % Free Space" });
+            _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Free Space" });
             _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Disk Time" });
             _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Write Disk Time" });
             _counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Read Disk Time" });
@@ -108,13 +108,13 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
 
             while (true)
             {
-                List<Workload> _workloads = LocalData.search<Workload>();
+                List<Workload> _workloads = LocalData.get_as_list<Workload>();
                 if (_workloads != null)
                 {
                     foreach (var _workload in _workloads.Where(x => x.enabled == true))
                     {
-                        string workload_ip = Connection.find_working_ip_workload_normal(_workload);
-                        Credential _credential = LocalData.search<Credential>().FirstOrDefault(x => x.id == _workload.credential_id);
+                        string workload_ip = Connection.find_working_ip(_workload);
+                        Credential _credential = LocalData.get_as_list<Credential>().FirstOrDefault(x => x.id == _workload.credential_id);
                         IntPtr userHandle = new IntPtr(0);
                         
                         try {
@@ -193,7 +193,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                         _perf.counter_name = _pcounter.CounterName;
                                         _perf.instance = _counterobject.instance;
                                         _perf.value = _counterobject.value;
-                                        LocalData.insert<Performance>(_perf);
+                                        LocalData.insert_record<Performance>(_perf);
                                     }
                                 }
                                 else
@@ -253,7 +253,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                             _perf.counter_name = _pcounter.CounterName;
                                             _perf.instance = _counterobject.instance;
                                             _perf.value = _counterobject.value;
-                                            LocalData.insert<Performance>(_perf);
+                                            LocalData.insert_record<Performance>(_perf);
 
                                         }
                                     }

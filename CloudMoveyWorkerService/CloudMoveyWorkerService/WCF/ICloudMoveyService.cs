@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using CloudMoveyWorkerService.Database;
-using DBreeze.DataTypes;
 
 namespace CloudMoveyWorkerService.WCF
 {

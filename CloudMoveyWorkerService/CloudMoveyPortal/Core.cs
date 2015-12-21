@@ -74,7 +74,7 @@ namespace CloudMoveyWorkerService.Portal
                 }
                 else
                 {
-                    Global.event_log.WriteEntry(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.Content), EventLogEntryType.Error);
+                    Global.event_log.WriteEntry(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), EventLogEntryType.Error);
                     Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
             }

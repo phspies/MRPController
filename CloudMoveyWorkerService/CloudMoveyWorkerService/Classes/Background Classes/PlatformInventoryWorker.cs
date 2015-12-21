@@ -34,20 +34,20 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     MoveyWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
                     foreach (MoveyWorkloadType _portalworkload in _currentplatformworkloads.workloads)
                     {
-                        if (LocalData.search<Workload>().Count(x => x.id == _portalworkload.id) > 0)
+                        if (LocalData.get_as_list<Workload>().Count(x => x.id == _portalworkload.id) > 0)
                         {
-                            var dbworkload = LocalData.search<Workload>().FirstOrDefault(x => x.id == _portalworkload.id);
+                            var dbworkload = LocalData.get_as_list<Workload>().FirstOrDefault(x => x.id == _portalworkload.id);
 
                             //attributes that needs to be synced back to the worker...
                             dbworkload.perf_collection = _portalworkload.perf_collection;
-                            LocalData.update<Workload>(dbworkload);
+                            LocalData.update_record<Workload>(dbworkload);
                         }
                     }
                     
 
                     Global.event_log.WriteEntry("Staring platform inventory process");
                     //process credentials
-                    var _workercredentials = LocalData.search<Credential>();
+                    var _workercredentials = LocalData.get_as_list<Credential>();
                     MoveyCredentialListType _platformcredentials = _cloud_movey.credential().listcredentials();
                     foreach (var _credential in _workercredentials)
                     {
@@ -68,7 +68,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     }
 
                     //process platforns
-                    var _workerplatforms = LocalData.search<Platform>();
+                    var _workerplatforms = LocalData.get_as_list<Platform>();
                     MoveyPlatformListType _platformplatforms = _cloud_movey.platform().listplatforms();
                     foreach (var _platform in _workerplatforms)
                     {
@@ -142,11 +142,11 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             
                             
                         //process deleted platform workloads
-                        foreach (var _workload in LocalData.search<Workload>().Where(x => x.platform_id == _platform.id))
+                        foreach (var _workload in LocalData.get_as_list<Workload>().Where(x => x.platform_id == _platform.id))
                         {
                             if (!_caasworkloads.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
                             {
-                                LocalData.delete<Workload>(_workload.id);
+                                LocalData.delete_record<Workload>(_workload.id);
                                 _removed_workloads += 1;
                             }
                         }
@@ -198,7 +198,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             }
                             //First check to see if we have this server in the local database and if it's enabled
                             //These should be uploaded to the portal for use for portal customers only....
-                            if (LocalData.search<Workload>().Exists(x => x.moid == _caasworkload.id && x.enabled == true))
+                            if (LocalData.get_as_list<Workload>().Exists(x => x.moid == _caasworkload.id && x.enabled == true))
                             {
 
                             }
@@ -206,10 +206,10 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             //User might use these servers later...
                             bool _new_workload = true;
                             Workload _workload = new Workload();
-                            if (LocalData.search<Workload>().Exists(x => x.moid == _caasworkload.id))
+                            if (LocalData.get_as_list<Workload>().Exists(x => x.moid == _caasworkload.id))
                             {
                                 _new_workload = false;
-                                _workload = LocalData.search<Workload>().FirstOrDefault(x => x.moid == _caasworkload.id);
+                                _workload = LocalData.get_as_list<Workload>().FirstOrDefault(x => x.moid == _caasworkload.id);
                             }
                             _workload.cpu_count = _caasworkload.cpu.count;
                             _workload.cpu_coresPerSocket = _caasworkload.cpu.coresPerSocket;
@@ -223,11 +223,11 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             _workload.osedition = _caasworkload.operatingSystem.displayName;
                             if (_new_workload)
                             {
-                                LocalData.insert<Workload>(_workload);
+                                LocalData.insert_record<Workload>(_workload);
                             }
                             else
                             {
-                                LocalData.update<Workload>(_workload);
+                                LocalData.update_record<Workload>(_workload);
                                 if (_workload.enabled == true)
                                 {
                                     MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();

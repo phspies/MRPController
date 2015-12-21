@@ -8,7 +8,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes
         public static void add(Event _event)
         {
             _event.timestamp = DateTime.Now;
-            LocalData.insert<Event>(_event);
+            LocalData.insert_record<Event>(_event);
         }
     }
 }

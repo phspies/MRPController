@@ -37,11 +37,11 @@ namespace CloudMoveyWorkerService
             if (Global.debug) {
                 Global.event_log.WriteEntry(String.Format("Starting WCF Service{0}{0}Platforms: {1}{0}Workloads: {2}{0}Credentials: {3}{0}Performance Counters: {4}{0}Network Flows: {5}{0}",
                     Environment.NewLine,
-                    LocalData.count<Platform>(),
-                    LocalData.count<Workload>(),
-                    LocalData.count<Credential>(),
-                    LocalData.count<Performance>(),
-                    LocalData.count<NetworkFlow>()
+                    LocalData.get_as_list<Platform>().Count,
+                    LocalData.get_as_list<Workload>().Count,
+                    LocalData.get_as_list<Credential>().Count,
+                    LocalData.get_as_list<Performance>().Count,
+                    LocalData.get_as_list<NetworkFlow>().Count
                     ));
             };
 

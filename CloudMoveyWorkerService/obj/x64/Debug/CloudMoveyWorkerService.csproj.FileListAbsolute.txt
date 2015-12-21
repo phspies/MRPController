@@ -329,4 +329,3 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\protobuf-net.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\protobuf-net.pdb
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\protobuf-net.xml
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.csprojResolveAssemblyReference.cache
