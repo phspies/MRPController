@@ -19,6 +19,7 @@ namespace CloudMoveyWorkerService.Database
         public string moid { get; set; }
         public Nullable<bool> enabled { get; set; }
         public Nullable<int> cpu_count { get; set; }
+        public Nullable<int> core_count { get; set; }
         public Nullable<int> memory_count { get; set; }
         public Nullable<long> storage_count { get; set; }
         public bool credential_ok { get; set; }

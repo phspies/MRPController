@@ -196,12 +196,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                 workloadinterfaces_parameters.Add(_logical_interface);
                                 nic_index += 1;
                             }
-                            //First check to see if we have this server in the local database and if it's enabled
-                            //These should be uploaded to the portal for use for portal customers only....
-                            if (LocalData.get_as_list<Workload>().Exists(x => x.moid == _caasworkload.id && x.enabled == true))
-                            {
 
-                            }
                             //if workload is local, updated the local db record
                             //User might use these servers later...
                             bool _new_workload = true;

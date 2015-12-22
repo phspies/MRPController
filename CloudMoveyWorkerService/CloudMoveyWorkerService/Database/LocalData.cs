@@ -108,10 +108,10 @@ namespace CloudMoveyWorkerService.Database
                 string _class= "";
                 using (LocalDB db = new LocalDB())
                 {
-                    if (db.Database.Connection.State == System.Data.ConnectionState.Closed)
-                    {
-                        try { db.Database.Connection.Open(); } catch { }
-                    }
+                    //if (db.Database.Connection.State == System.Data.ConnectionState.Closed)
+                    //{
+                    //    try { db.Database.Connection.Open(); } catch { }
+                    //}
                     switch(_class = typeof(T).Name.ToLower())
                     {
                         case "workload":

@@ -16,6 +16,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
         {
             public string category { get; set; }
             public string counter { get; set; }
+            public string workload_id { get; set; }
         }
         public void Start()
         {
@@ -44,22 +45,16 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                     List<Performance> _local_performance = LocalData.get_as_list<Performance>().ToList();
                     //first ensure we have a list of the portal performance categories and add what is missing
                     MoveyPerformanceCategoryListType _categories = _cloud_movey.performancecategory().list();
-                    var _local_counterscategories = _local_performance.GroupBy(x => new { x.category_name, x.counter_name })
-                        .Select(y => new countercategory()
-                        {
-                            category = y.Key.category_name,
-                            counter = y.Key.counter_name,
-                        }
-                    );
+                    var _local_counterscategories = _local_performance.GroupBy(x => new { x.category_name, x.counter_name, x.workload_id }).Select(group => new countercategory() {  category = group.Key.category_name, counter = group.Key.counter_name, workload_id = group.Key.workload_id }).ToList();
+                    
 
                     bool counters_changed = false;
-                    foreach (MoveyPerformanceCategoryType _cat in _categories.performancecategories)
+                    foreach (countercategory _cat in _local_counterscategories)
                     {
-                        //if category does not exist in the portal, add it
-                        if (!_local_counterscategories.ToList().Exists(x => x.category == _cat.category_name && x.counter == _cat.counter_name))
+                        if (!_categories.performancecategories.Exists(x => x.category_name == _cat.category && x.counter_name == _cat.counter && x.workload_id == _cat.workload_id))
                         {
                             counters_changed = true;
-                            _cloud_movey.performancecategory().create(new MoveyPerformanceCategoryCRUDType() { category_name = _cat.category_name, counter_name = _cat.counter_name });
+                            _cloud_movey.performancecategory().create(new MoveyPerformanceCategoryCRUDType() { category_name = _cat.category, counter_name = _cat.counter, workload_id = _cat.workload_id });
                         }
                     }
                     //get new categories if we add one... 

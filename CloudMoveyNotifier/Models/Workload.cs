@@ -61,6 +61,7 @@ namespace CloudMoveyNotifier.Models
         public string _failovergroup_id;
         public string _moid;
         public string _platform;
+        public string _ip_list;
         public string _human_os;
         public string _application;
         public string _ostype;
@@ -68,6 +69,7 @@ namespace CloudMoveyNotifier.Models
         public bool _enabled;
         public bool _credential_ok;
         public int _cpu_count;
+        public int _core_count;
         public int _memory_count;
         public long _storage_count;
 
@@ -172,6 +174,32 @@ namespace CloudMoveyNotifier.Models
                 if (value != this._credential_ok)
                 {
                     this._credential_ok = value;
+                    NotifyPropertyChanged();
+                }
+            }
+
+        }
+        public int core_count
+        {
+            get { return _core_count; }
+            set
+            {
+                if (value != this._core_count)
+                {
+                    this._core_count = value;
+                    NotifyPropertyChanged();
+                }
+            }
+
+        }
+        public string ip_list
+        {
+            get { return _ip_list; }
+            set
+            {
+                if (value != this._ip_list)
+                {
+                    this._ip_list = value;
                     NotifyPropertyChanged();
                 }
             }
