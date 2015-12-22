@@ -285,7 +285,8 @@
     </Compile>
     <Compile Include="CloudMoveyPortal\MoveyFailovergroup_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyCredential_Methods.cs" />
-    <Compile Include="CloudMoveyPortal\MoveyPerformance_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyPerformanceCategory_Methods.cs" />
+    <Compile Include="CloudMoveyPortal\MoveyPerformanceCounter_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyPlatformnetwork_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyPlatformtemplate_Methods.cs" />
     <Compile Include="CloudMoveyPortal\MoveyNetworkflow_Methods.cs" />
@@ -309,7 +310,8 @@
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Platform.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Workload.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\NetworkFlow.cs" />
-    <Compile Include="CloudMoveyWorkerService\Types\API\Performance.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\PerformanceCategory.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\PerformanceCounter.cs" />
     <Compile Include="DimensionData\Controllers\Datacenter.cs" />
     <Compile Include="DimensionData\Controllers\Template.cs" />
     <Compile Include="DimensionData\Types\AccountTypes.cs">

@@ -5,21 +5,21 @@ using System.Net;
 
 namespace CloudMoveyWorkerService.Portal
 {
-    class MoveyPerformance : Core
+    class MoveyPerformanceCounter : Core
     {
-        public MoveyPerformance(CloudMoveyPortal _CloudMovey) : base(_CloudMovey) {
+        public MoveyPerformanceCounter(CloudMoveyPortal _CloudMovey) : base(_CloudMovey) {
         }
          
-        public void createnetworkflow(MoveyPerformanceCRUDType _performancecounter)
+        public void create(MoveyPerformanceCounterCRUDType _performancecounter)
         {
-            MoveyPerformancesCRUDType performance = new MoveyPerformancesCRUDType()
+            MoveyPerformanceCountersCRUDType performance = new MoveyPerformanceCountersCRUDType()
             {
                 worker_id = Global.agent_id,
                 worker_hostname = Environment.MachineName,
                 performancecounter = _performancecounter
             };
             endpoint = "/api/v1/performancecounters/create.json";
-            post<MoveyPerformanceCRUDType>(performance);
+            post<MoveyPerformanceCounterCRUDType>(performance);
 
         }
     }

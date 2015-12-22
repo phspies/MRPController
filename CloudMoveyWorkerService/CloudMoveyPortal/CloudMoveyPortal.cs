@@ -35,9 +35,13 @@ namespace CloudMoveyWorkerService.Portal
         {
             return new MoveyNetworkflow(this);
         }
-        public MoveyPerformance performance()
+        public MoveyPerformanceCounter performancecounter()
         {
-            return new MoveyPerformance(this);
+            return new MoveyPerformanceCounter(this);
+        }
+        public MoveyPerformanceCategory performancecategory()
+        {
+            return new MoveyPerformanceCategory(this);
         }
         public PortalPlatform platform()
         {

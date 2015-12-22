@@ -2,6 +2,7 @@
 using CloudMoveyWorkerService.Portal;
 using CloudMoveyWorkerService.Portal.Types.API;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -11,6 +12,11 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
 {
     class PortalDataUploadWorker
     {
+        class countercategory
+        {
+            public string category { get; set; }
+            public string counter { get; set; }
+        }
         public void Start()
         {
             CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
@@ -34,14 +40,47 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
 
                         _new_networkflows += 1;
                     }
-                    
+
+                    List<Performance> _local_performance = LocalData.get_as_list<Performance>().ToList();
+                    //first ensure we have a list of the portal performance categories and add what is missing
+                    MoveyPerformanceCategoryListType _categories = _cloud_movey.performancecategory().list();
+                    var _local_counterscategories = _local_performance.GroupBy(x => new { x.category_name, x.counter_name })
+                        .Select(y => new countercategory()
+                        {
+                            category = y.Key.category_name,
+                            counter = y.Key.counter_name,
+                        }
+                    );
+
+                    bool counters_changed = false;
+                    foreach (MoveyPerformanceCategoryType _cat in _categories.performancecategories)
+                    {
+                        //if category does not exist in the portal, add it
+                        if (!_local_counterscategories.ToList().Exists(x => x.category == _cat.category_name && x.counter == _cat.counter_name))
+                        {
+                            counters_changed = true;
+                            _cloud_movey.performancecategory().create(new MoveyPerformanceCategoryCRUDType() { category_name = _cat.category_name, counter_name = _cat.counter_name });
+                        }
+                    }
+                    //get new categories if we add one... 
+                    if (counters_changed)
+                    {
+                        _categories = _cloud_movey.performancecategory().list();
+                    }
+
+
 
                     //process performancecounters
-                    foreach (Performance _performance in LocalData.get_as_list<Performance>())
+                    foreach (Performance _performance in _local_performance)
                     {
-                        MoveyPerformanceCRUDType _performancecrud = new MoveyPerformanceCRUDType();
+                        MoveyPerformanceCounterCRUDType _performancecrud = new MoveyPerformanceCounterCRUDType();
                         Objects.MapObjects(_performance, _performancecrud);
-                        _cloud_movey.performance().createnetworkflow(_performancecrud);
+
+                        //inject performance unique ID into crud object
+                        _performancecrud.performancecategory_id = _categories.performancecategories.Find(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name).id;
+
+                        //add record to portal
+                        _cloud_movey.performancecounter().create(_performancecrud);
 
                         //remove from local database
                         LocalData.delete_record<Performance>(_performance.id);
