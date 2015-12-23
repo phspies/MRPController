@@ -20,6 +20,8 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
         }
         public void Start()
         {
+            LocalData _localdata = new LocalData();
+
             CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
             while (true)
             {
@@ -30,19 +32,19 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                     Stopwatch sw = Stopwatch.StartNew();
                     int _new_networkflows, _new_performancecounters;
                     _new_networkflows = _new_performancecounters = 0;
-                    foreach (NetworkFlow _flow in LocalData.get_as_list<NetworkFlow>())
+                    foreach (NetworkFlow _flow in _localdata.get_as_list<NetworkFlow>())
                     {
                         MoveyNetworkFlowCRUDType _flowcrud = new MoveyNetworkFlowCRUDType();
                         Objects.MapObjects(_flow, _flowcrud);
                         _cloud_movey.netflow().createnetworkflow(_flowcrud);
 
                         //remove from local database
-                        LocalData.delete_record<NetworkFlow>(_flow.id);
+                        _localdata.delete_record<NetworkFlow>(_flow.id);
 
                         _new_networkflows += 1;
                     }
 
-                    List<Performance> _local_performance = LocalData.get_as_list<Performance>().ToList();
+                    List<Performance> _local_performance = _localdata.get_as_list<Performance>().ToList();
                     //first ensure we have a list of the portal performance categories and add what is missing
                     MoveyPerformanceCategoryListType _categories = _cloud_movey.performancecategory().list();
                     var _local_counterscategories = _local_performance.GroupBy(x => new { x.category_name, x.counter_name, x.workload_id }).Select(group => new countercategory() {  category = group.Key.category_name, counter = group.Key.counter_name, workload_id = group.Key.workload_id }).ToList();
@@ -51,10 +53,15 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                     bool counters_changed = false;
                     foreach (countercategory _cat in _local_counterscategories)
                     {
+                        bool _mutiple_instances = false;
+                        if (!_local_performance.Exists(x => x.category_name == _cat.category && x.counter_name == _cat.counter && x.instance == ""))
+                        {
+                            _mutiple_instances = true;
+                        }
                         if (!_categories.performancecategories.Exists(x => x.category_name == _cat.category && x.counter_name == _cat.counter && x.workload_id == _cat.workload_id))
                         {
                             counters_changed = true;
-                            _cloud_movey.performancecategory().create(new MoveyPerformanceCategoryCRUDType() { category_name = _cat.category, counter_name = _cat.counter, workload_id = _cat.workload_id });
+                            _cloud_movey.performancecategory().create(new MoveyPerformanceCategoryCRUDType() { category_name = _cat.category, counter_name = _cat.counter, workload_id = _cat.workload_id, instances = _mutiple_instances });
                         }
                     }
                     //get new categories if we add one... 
@@ -72,13 +79,13 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                         Objects.MapObjects(_performance, _performancecrud);
 
                         //inject performance unique ID into crud object
-                        _performancecrud.performancecategory_id = _categories.performancecategories.Find(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name).id;
+                        _performancecrud.performancecategory_id = _categories.performancecategories.Find(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name && x.workload_id == _performance.workload_id).id;
 
                         //add record to portal
                         _cloud_movey.performancecounter().create(_performancecrud);
 
                         //remove from local database
-                        LocalData.delete_record<Performance>(_performance.id);
+                        _localdata.delete_record<Performance>(_performance.id);
 
                         _new_performancecounters += 1;
                     }

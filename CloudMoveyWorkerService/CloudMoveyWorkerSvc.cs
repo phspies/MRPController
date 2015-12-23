@@ -29,6 +29,8 @@ namespace CloudMoveyWorkerService
         {
             Global.event_log = CloudMoveyWorkerLog1;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            LocalData _localdata = new LocalData();
+
 
             Settings.SetupAgent();
             Settings.RegisterAgent();
@@ -37,11 +39,11 @@ namespace CloudMoveyWorkerService
             if (Global.debug) {
                 Global.event_log.WriteEntry(String.Format("Starting WCF Service{0}{0}Platforms: {1}{0}Workloads: {2}{0}Credentials: {3}{0}Performance Counters: {4}{0}Network Flows: {5}{0}",
                     Environment.NewLine,
-                    LocalData.get_as_list<Platform>().Count,
-                    LocalData.get_as_list<Workload>().Count,
-                    LocalData.get_as_list<Credential>().Count,
-                    LocalData.get_as_list<Performance>().Count,
-                    LocalData.get_as_list<NetworkFlow>().Count
+                    _localdata.get_as_list<Platform>().Count,
+                    _localdata.get_as_list<Workload>().Count,
+                    _localdata.get_as_list<Credential>().Count,
+                    _localdata.get_as_list<Performance>().Count,
+                    _localdata.get_as_list<NetworkFlow>().Count
                     ));
             };
 

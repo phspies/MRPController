@@ -17,6 +17,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Data;
 using CloudMoveyNotifier.Extensions;
+using System.Threading;
 
 namespace CloudMoveyNotifier
 {
@@ -311,7 +312,21 @@ namespace CloudMoveyNotifier
         private void refresh_platform_button(object sender, RoutedEventArgs e)
         {
             Platform _platform = (Platform)((Button)sender).DataContext;
-            channel.RefreshPlatform(_platform);
+            BackgroundWorker bgwanalysis = new BackgroundWorker();
+            bgwanalysis.DoWork += delegate
+            {
+                channel.RefreshPlatform(_platform);
+            };
+            bgwanalysis.RunWorkerAsync();
+
+            while (bgwanalysis.IsBusy)
+            {
+                Thread.Sleep(2000);
+            }
+            //reload workload list
+            _workloads = new Workload_ListDataModel().list;
+
+
             refesh_platform_list();
         }
         private async void delete_platform_button(object sender, RoutedEventArgs e)

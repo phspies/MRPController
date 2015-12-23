@@ -7,20 +7,48 @@ using System.Linq;
 
 namespace CloudMoveyWorkerService.Database
 {
-    static class LocalData
+    class LocalData
     {
 
-        static public type insert_record<type>(object _tablerow) where type : new()
+        public type insert_record<type>(object _tablerow) where type : new()
         {
             try
             {
                 object _returndata = new object();
                 using (LocalDB db = new LocalDB())
                 {
-                    string _uniq_id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                    _tablerow.GetType().GetProperty("id").SetValue(_tablerow, _uniq_id, null);
+                    string _current_id = _tablerow.GetType().GetProperty("id").GetValue(_tablerow) as string;
 
-                    _returndata = db.Set(typeof(type)).Add((type)_tablerow);
+                    if (String.IsNullOrEmpty(_current_id))
+                    {
+                        string _uniq_id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                        _tablerow.GetType().GetProperty("id").SetValue(_tablerow, _uniq_id, null);
+                    }
+                    string _class = "";
+                    switch (_class = typeof(type).Name.ToLower())
+                    {
+                        case "workload":
+                            _returndata = db.Workloads.Add((Workload)_tablerow);
+                            break;
+                        case "credential":
+                            _returndata = db.Credentials.Add((Credential)_tablerow);
+                            break;
+                        case "networkflow":
+                            _returndata = db.NetworkFlows.Add((NetworkFlow)_tablerow);
+                            break;
+                        case "performance":
+                            _returndata = db.Performance.Add((Performance)_tablerow);
+                            break;
+                        case "platform":
+                            _returndata = db.Platforms.Add((Platform)_tablerow);
+                            break;
+                        case "event":
+                            _returndata = db.Events.Add((Event)_tablerow);
+                            break;
+                        default:
+                            Global.event_log.WriteEntry(String.Format("Error processing table type: {0}", _class), EventLogEntryType.Error);
+                            break;
+                    }
                     db.SaveChanges();
                 }
                 return (type)_returndata;
@@ -31,20 +59,52 @@ namespace CloudMoveyWorkerService.Database
                 return new type();
             }
         }
-        static public type update_record<type>(object _tablerow) where type : new()
+        public type update_record<type>(object _tablerow) where type : new()
         {
             try {
                 using (LocalDB db = new LocalDB())
                 {
-                    if (db.Database.Connection.State == System.Data.ConnectionState.Closed)
-                    {
-                        try { db.Database.Connection.Open(); } catch { }
-                    }
-                    string _key = (string)_tablerow.GetType().GetProperty("id").GetValue(_tablerow, null);
 
-                    object _dbobject = db.Set(typeof(type)).Find(_key);
-                    Utils.Objects.MapObjects(_tablerow, _dbobject);
-                    db.SaveChanges();
+                    string _key = (string)_tablerow.GetType().GetProperty("id").GetValue(_tablerow, null);
+                    object _dbobject = new object();
+                    string _class = "";
+
+                    switch (_class = typeof(type).Name.ToLower())
+                    {
+                        case "workload":
+                            _dbobject = db.Workloads.Find(_key);
+                            Utils.Objects.MapObjects(_tablerow, _dbobject);
+                            db.SaveChanges();
+                            break;
+                        case "credential":
+                            _dbobject = db.Credentials.Find(_key);
+                            Utils.Objects.MapObjects(_tablerow, _dbobject);
+                            db.SaveChanges();
+                            break;
+                        case "networkflow":
+                            _dbobject = db.NetworkFlows.Find(_key);
+                            Utils.Objects.MapObjects(_tablerow, _dbobject);
+                            db.SaveChanges();
+                            break;
+                        case "performance":
+                            _dbobject = db.Performance.Find(_key);
+                            Utils.Objects.MapObjects(_tablerow, _dbobject);
+                            db.SaveChanges();
+                            break;
+                        case "platform":
+                            _dbobject = db.Platforms.Find(_key);
+                            Utils.Objects.MapObjects(_tablerow, _dbobject);
+                            db.SaveChanges();
+                            break;
+                        case "event":
+                            _dbobject = db.Events.Find(_key);
+                            Utils.Objects.MapObjects(_tablerow, _dbobject);
+                            db.SaveChanges();
+                            break;
+                        default:
+                            Global.event_log.WriteEntry(String.Format("Error processing table type: {0}", _class), EventLogEntryType.Error);
+                            break;
+                    }
                     return (type)_dbobject;
                 }
             }
@@ -55,17 +115,13 @@ namespace CloudMoveyWorkerService.Database
             }
 
         }
-        static public type get_record<type>(string _primarykey_value) where type : new()
+        public type get_record<type>(string _primarykey_value) where type : new()
         {
             type _returndata = new type();
             try
             {
                 using (LocalDB db = new LocalDB())
                 {
-                    if (db.Database.Connection.State == System.Data.ConnectionState.Closed)
-                    {
-                        try { db.Database.Connection.Open(); } catch { }
-                    }
                     object _dbobject = db.Set(typeof(type)).Find(_primarykey_value);
                     return (type)_dbobject;
                 }
@@ -76,19 +132,43 @@ namespace CloudMoveyWorkerService.Database
                 return _returndata;
             }
         }
-        static public bool delete_record<type>(string _primarykey_value) where type : new()
+        public bool delete_record<type>(string _primarykey_value) where type : new()
         {
             try
             {
                 using (LocalDB db = new LocalDB())
                 {
-                    if (db.Database.Connection.State == System.Data.ConnectionState.Closed)
+                    string _class = "";
+                    switch (_class = typeof(type).Name.ToLower())
                     {
-                        try { db.Database.Connection.Open(); } catch { }
+                        case "workload":
+                            db.Workloads.Remove(db.Workloads.Find(_primarykey_value));
+                            db.SaveChanges();
+                            break;
+                        case "credential":
+                            db.Credentials.Remove(db.Credentials.Find(_primarykey_value));
+                            db.SaveChanges();
+                            break;
+                        case "networkflow":
+                            db.NetworkFlows.Remove(db.NetworkFlows.Find(_primarykey_value));
+                            db.SaveChanges();
+                            break;
+                        case "performance":
+                            db.Performance.Remove(db.Performance.Find(_primarykey_value));
+                            db.SaveChanges();
+                            break;
+                        case "platform":
+                            db.Platforms.Remove(db.Platforms.Find(_primarykey_value));
+                            db.SaveChanges();
+                            break;
+                        case "event":
+                            db.Events.Remove(db.Events.Find(_primarykey_value));
+                            db.SaveChanges();
+                            break;
+                        default:
+                            Global.event_log.WriteEntry(String.Format("Error processing table type: {0}", _class), EventLogEntryType.Error);
+                            break;
                     }
-                    object _dbobject = db.Set(typeof(type)).Find(_primarykey_value);
-                    db.Set(typeof(type)).Remove(_dbobject);
-                    db.SaveChanges();
                     return true;
                 }
             }
@@ -99,7 +179,7 @@ namespace CloudMoveyWorkerService.Database
             }
         }
 
-        static public List<T> get_as_list<T>()
+        public List<T> get_as_list<T>()
         {
             List<T> _returndata = new List<T>();
 
@@ -108,10 +188,7 @@ namespace CloudMoveyWorkerService.Database
                 string _class= "";
                 using (LocalDB db = new LocalDB())
                 {
-                    //if (db.Database.Connection.State == System.Data.ConnectionState.Closed)
-                    //{
-                    //    try { db.Database.Connection.Open(); } catch { }
-                    //}
+
                     switch(_class = typeof(T).Name.ToLower())
                     {
                         case "workload":

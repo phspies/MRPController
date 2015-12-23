@@ -61,16 +61,16 @@ namespace CloudMoveyNotifier.Models
         public string _failovergroup_id;
         public string _moid;
         public string _platform;
-        public string _ip_list;
+        public string _iplist;
         public string _human_os;
         public string _application;
         public string _ostype;
         public string _osedition;
         public bool _enabled;
         public bool _credential_ok;
-        public int _cpu_count;
-        public int _core_count;
-        public int _memory_count;
+        public int _vcpu;
+        public int _vcore;
+        public int _vmemory;
         public long _storage_count;
 
         public string id
@@ -179,27 +179,27 @@ namespace CloudMoveyNotifier.Models
             }
 
         }
-        public int core_count
+        public int vcore
         {
-            get { return _core_count; }
+            get { return _vcore; }
             set
             {
-                if (value != this._core_count)
+                if (value != this._vcore)
                 {
-                    this._core_count = value;
+                    this._vcore = value;
                     NotifyPropertyChanged();
                 }
             }
 
         }
-        public string ip_list
+        public string iplist
         {
-            get { return _ip_list; }
+            get { return _iplist; }
             set
             {
-                if (value != this._ip_list)
+                if (value != this._iplist)
                 {
-                    this._ip_list = value;
+                    this._iplist = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -370,19 +370,19 @@ namespace CloudMoveyNotifier.Models
                 }
             }
         }
-        public int cpu_count
+        public int vcpu
         {
-            get { return _cpu_count; }
-            set { _cpu_count = value; }
+            get { return _vcpu; }
+            set { _vcpu = value; }
         }
-        public int memory_count
+        public int vmemory
         {
-            get { return _memory_count; }
+            get { return _vmemory; }
             set
             {
-                if (value != this._memory_count)
+                if (value != this._vmemory)
                 {
-                    this._memory_count = value;
+                    this._vmemory = value;
                     NotifyPropertyChanged();
                 }
             }

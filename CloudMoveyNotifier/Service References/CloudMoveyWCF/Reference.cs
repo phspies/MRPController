@@ -29,9 +29,6 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private System.Nullable<int> cpu_coresPerSocketField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> cpu_countField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string credential_idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -68,9 +65,6 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private System.Nullable<int> last_contact_statusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> memory_countField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string moidField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -87,6 +81,15 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<long> storage_countField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> vcoreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> vcpuField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> vmemoryField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -120,19 +123,6 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((this.cpu_coresPerSocketField.Equals(value) != true)) {
                     this.cpu_coresPerSocketField = value;
                     this.RaisePropertyChanged("cpu_coresPerSocket");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> cpu_count {
-            get {
-                return this.cpu_countField;
-            }
-            set {
-                if ((this.cpu_countField.Equals(value) != true)) {
-                    this.cpu_countField = value;
-                    this.RaisePropertyChanged("cpu_count");
                 }
             }
         }
@@ -294,19 +284,6 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> memory_count {
-            get {
-                return this.memory_countField;
-            }
-            set {
-                if ((this.memory_countField.Equals(value) != true)) {
-                    this.memory_countField = value;
-                    this.RaisePropertyChanged("memory_count");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string moid {
             get {
                 return this.moidField;
@@ -380,6 +357,45 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
                 if ((this.storage_countField.Equals(value) != true)) {
                     this.storage_countField = value;
                     this.RaisePropertyChanged("storage_count");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> vcore {
+            get {
+                return this.vcoreField;
+            }
+            set {
+                if ((this.vcoreField.Equals(value) != true)) {
+                    this.vcoreField = value;
+                    this.RaisePropertyChanged("vcore");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> vcpu {
+            get {
+                return this.vcpuField;
+            }
+            set {
+                if ((this.vcpuField.Equals(value) != true)) {
+                    this.vcpuField = value;
+                    this.RaisePropertyChanged("vcpu");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> vmemory {
+            get {
+                return this.vmemoryField;
+            }
+            set {
+                if ((this.vmemoryField.Equals(value) != true)) {
+                    this.vmemoryField = value;
+                    this.RaisePropertyChanged("vmemory");
                 }
             }
         }

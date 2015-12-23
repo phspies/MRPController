@@ -16,6 +16,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
         public void Start()
         {
             CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
+            LocalData _localdata = new LocalData();
 
             while (true)
             {
@@ -28,7 +29,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     Global.event_log.WriteEntry("Staring operating system inventory process");
                     //process credentials
                     MoveyCredentialListType _platformcredentials = _cloud_movey.credential().listcredentials();
-                    foreach (var _credential in LocalData.get_as_list<Credential>())
+                    foreach (var _credential in _localdata.get_as_list<Credential>())
                     {
                         MoveyCredentialCRUDType _crudcredential = new MoveyCredentialCRUDType();
                         _crudcredential.id = _credential.id;
@@ -48,7 +49,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
 
                     //process platforns
                     MoveyPlatformListType _platformplatforms = _cloud_movey.platform().listplatforms();
-                    foreach (var _platform in LocalData.get_as_list<Platform>())
+                    foreach (var _platform in _localdata.get_as_list<Platform>())
                     {
                         MoveyPlatformCRUDType _crudplatform = new MoveyPlatformCRUDType();
                         _crudplatform.id = _platform.id;
@@ -72,12 +73,12 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     }
 
                     //process dimension data networks
-                    foreach (var _platform in LocalData.get_as_list<Platform>().Where(x => x.vendor == 0 && x.platform_version == "MCP 2.0"))
+                    foreach (var _platform in _localdata.get_as_list<Platform>().Where(x => x.vendor == 0 && x.platform_version == "MCP 2.0"))
                     {
                         if (_platform.platform_version == "MCP 2.0")
                         {
                             MoveyPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
-                            var _credential = LocalData.get_as_list<Credential>().FirstOrDefault(x => x.id == _platform.credential_id);
+                            var _credential = _localdata.get_as_list<Credential>().FirstOrDefault(x => x.id == _platform.credential_id);
                             DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
 
                             //mirror platorm templates for this platform
@@ -193,30 +194,32 @@ namespace CloudMoveyWorkerService.Portal.Classes
 
                                 //Update database with workload information
                                 Workload _workload = new Workload();
-                                _workload.cpu_count = (_caasworkload.cpu.coresPerSocket * _caasworkload.cpu.count) as int?;
-                                _workload.memory_count = _caasworkload.memoryGb as int?;
+                                _workload.vcpu = _caasworkload.cpu.count;
+                                _workload.vcore = _caasworkload.cpu.coresPerSocket;
+                                _workload.vmemory = _caasworkload.memoryGb;
                                 _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
                                 _workload.hostname = _caasworkload.name;
                                 _workload.moid = _caasworkload.id;
                                 _workload.platform_id = _platform.id;
                                 _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
                                 _workload.osedition = _caasworkload.operatingSystem.displayName;
-                                if (LocalData.get_as_list<Workload>().Count(x => x.moid == _caasworkload.id) == 0)
+                                if (_localdata.get_as_list<Workload>().Count(x => x.moid == _caasworkload.id) == 0)
                                 {
                                     new CloudMoveyService().AddWorkload(_workload);
                                 }
                                 else
                                 {
-                                    Workload _database_workload = LocalData.get_record<Workload>(_caasworkload.id);
-                                    _database_workload.cpu_count = (_caasworkload.cpu.coresPerSocket * _caasworkload.cpu.count) as int?;
-                                    _database_workload.memory_count = _caasworkload.memoryGb as int?;
+                                    Workload _database_workload = _localdata.get_record<Workload>(_caasworkload.id);
+                                    _database_workload.vcpu = _caasworkload.cpu.count;
+                                    _database_workload.vcore = _caasworkload.cpu.coresPerSocket;
+                                    _database_workload.vmemory = _caasworkload.memoryGb;
                                     _database_workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
                                     _database_workload.hostname = _caasworkload.name;
                                     _database_workload.moid = _caasworkload.id;
                                     _database_workload.platform_id = _platform.id;
                                     _database_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
                                     _database_workload.osedition = _caasworkload.operatingSystem.displayName;
-                                    LocalData.update_record<Workload>(_database_workload);
+                                    _localdata.update_record<Workload>(_database_workload);
                                 }
                             }
                         }

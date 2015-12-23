@@ -18,9 +18,9 @@ namespace CloudMoveyWorkerService.Database
         public string failovergroup_id { get; set; }
         public string moid { get; set; }
         public Nullable<bool> enabled { get; set; }
-        public Nullable<int> cpu_count { get; set; }
-        public Nullable<int> core_count { get; set; }
-        public Nullable<int> memory_count { get; set; }
+        public Nullable<int> vcpu { get; set; }
+        public Nullable<int> vcore { get; set; }
+        public Nullable<int> vmemory { get; set; }
         public Nullable<long> storage_count { get; set; }
         public bool credential_ok { get; set; }
         public string application { get; set; }

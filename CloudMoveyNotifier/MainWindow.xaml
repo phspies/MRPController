@@ -111,12 +111,17 @@
                     <Viewbox  Width="30" Height="30" ToolTip="Workload CPU Count" Stretch="Uniform">
                         <ContentControl Content="{StaticResource appbar_hardware_cpu}" />
                     </Viewbox>
-                    <TextBlock Margin="0,10,0,0" Text="{Binding cpu_count}"/>
+                    <TextBlock Margin="0,10,0,0" Text="{Binding vcore}"/>
+                    <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
+                    <Viewbox  Width="30" Height="30" ToolTip="Workload Core Count" Stretch="Uniform">
+                        <ContentControl Content="{StaticResource appbar_starwars_sith}" />
+                    </Viewbox>
+                    <TextBlock Margin="0,10,0,0" Text="{Binding vcpu}"/>
                     <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Viewbox Width="30" Height="30" Margin="0,7,0,0" ToolTip="Workload Memory Capacity" Stretch="Uniform">
                         <ContentControl Content="{StaticResource memory}" />
                     </Viewbox>
-                    <TextBlock Margin="0,10,0,0" Text="{Binding memory_count}"/>
+                    <TextBlock Margin="0,10,0,0" Text="{Binding vmemory}"/>
                     <Separator Margin="5,0,0,0" Style="{StaticResource {x:Static ToolBar.SeparatorStyleKey}}" />
                     <Viewbox Width="30" Height="30" ToolTip="Workload Storage Capacity" Stretch="Uniform">
                         <ContentControl Focusable="False" Content="{StaticResource appbar_database}" />

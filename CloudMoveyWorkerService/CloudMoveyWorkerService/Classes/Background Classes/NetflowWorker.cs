@@ -16,6 +16,8 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
     {
         public void Start()
         {
+            LocalData _localdata = new LocalData();
+
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             IPEndPoint iep = new IPEndPoint(IPAddress.Any, 9991);
             sock.Bind(iep);
@@ -48,7 +50,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                     _netflow.stop_timestamp = packet.UptimeLast;
                     _netflow.packets = packet.Packets;
                     _netflow.kbyte = Convert.ToUInt32(Math.Round((double)((packet.Octets * 8) / 1024)));
-                    LocalData.insert_record<NetworkFlow>(_netflow);
+                    _localdata.insert_record<NetworkFlow>(_netflow);
                 }
             }
             sock.Close();

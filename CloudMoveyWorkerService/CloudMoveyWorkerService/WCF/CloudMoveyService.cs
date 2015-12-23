@@ -10,23 +10,25 @@ using System.Reflection;
 using System.ServiceModel;
 using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
 using CloudMoveyWorkerService.Database;
+using CloudMoveyWorkerService.Portal.Classes;
 
 namespace CloudMoveyWorkerService.WCF
 {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class CloudMoveyService : ICloudMoveyService
     {
+        LocalData _localdata = new LocalData();
         #region workloads
         public List<Workload> ListWorkloads()
         {
-            return LocalData.get_as_list<Workload>();
+            return _localdata.get_as_list<Workload>();
         }
         public Workload AddWorkload(Workload _addworkload)
         {
             Workload _addedworkload = new Workload();
             try
             {
-                _addedworkload = (Workload)LocalData.insert_record<Workload>(_addworkload);
+                _addedworkload = (Workload)_localdata.insert_record<Workload>(_addworkload);
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException e)
             {
@@ -40,13 +42,13 @@ namespace CloudMoveyWorkerService.WCF
             Workload _update = null;
             try
             {
-                _update = LocalData.get_as_list<Workload>().FirstOrDefault(d => d.id == _updateworkload.id);
+                _update = _localdata.get_as_list<Workload>().FirstOrDefault(d => d.id == _updateworkload.id);
                 IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateworkload, _update);
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateworkload, _update);
                     _update.hash_value = _update.GetHashString();
-                    LocalData.update_record<Workload>(_update);
+                    _localdata.update_record<Workload>(_update);
                 }
             }
             catch (Exception e)
@@ -57,7 +59,7 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyWorkload(Workload _destroyworkload)
         {
-            LocalData.delete_record<Workload>(_destroyworkload.id);
+            _localdata.delete_record<Workload>(_destroyworkload.id);
             return true;
         }
         #endregion
@@ -72,14 +74,14 @@ namespace CloudMoveyWorkerService.WCF
         #region Platforms
         public List<Platform> ListPlatforms()
         {
-            return LocalData.get_as_list<Platform>();
+            return _localdata.get_as_list<Platform>();
         }
         public Platform AddPlatform(Platform _addplatform)
         {
             Platform _addedplatform = null;
             try
             {
-                return LocalData.insert_record<Platform>(_addplatform);
+                return _localdata.insert_record<Platform>(_addplatform);
             }
             catch (Exception e)
             {
@@ -93,13 +95,13 @@ namespace CloudMoveyWorkerService.WCF
             Platform _update = null;
             try
             {
-                _update = LocalData.get_as_list<Platform>().FirstOrDefault(d => d.id == _updateplatform.id);
+                _update = _localdata.get_as_list<Platform>().FirstOrDefault(d => d.id == _updateplatform.id);
                 IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateplatform, _update);
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateplatform, _update);
                     _update.hash_value = _update.GetHashString();
-                    LocalData.update_record<Platform>(_update);
+                    _localdata.update_record<Platform>(_update);
                 }
             }
             catch (Exception e)
@@ -110,44 +112,15 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyPlatform(Platform _destroyplatform)
         {
-            LocalData.delete_record<Platform>(_destroyplatform.id);
+            _localdata.delete_record<Platform>(_destroyplatform.id);
             return true;
         }
         public void RefreshPlatform(Platform _platform)
         {
             try {
-                Credential _credential = LocalData.get_record<Credential>(_platform.credential_id);
-                DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
-                List<Option> _dcoptions = new List<Option>();
-                List<Option> _resourceoptions = new List<Option>();
-                _resourceoptions.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
+                PlatformInventoryWorker _inventory = new PlatformInventoryWorker();
+                _inventory.UpdateMCPPlatform(_platform);
 
-                _dcoptions.Add(new Option() { option = "id", value = _platform.datacenter });
-                DatacenterType _dc = ((DatacenterListType)_caas.datacenter().datacenters(_dcoptions)).datacenter[0];
-                int workloads, networkdomains, vlans;
-                string workloads_md5, networkdomains_md5, vlans_md5;
-                workloads = networkdomains = vlans = 0;
-
-                List<ServerType> workload_list = _caas.workloads().list(_resourceoptions).server;
-                workloads = workload_list.Count();
-                workloads_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(workload_list));
-                List<VlanType> vlan_list = _caas.vlans().list(_resourceoptions).vlan;
-                vlans = vlan_list.Count();
-                vlans_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(vlan_list));
-                List<NetworkDomainType> networkdomain_list = _caas.networkdomain().list(_resourceoptions).networkDomain;
-                networkdomains = networkdomain_list.Count();
-                networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(networkdomain_list));
-
-                Platform __platform = LocalData.get_record<Platform>(_platform.id);
-                __platform.vlan_count = vlans;
-                __platform.workload_count = workloads;
-                __platform.networkdomain_count = networkdomains;
-                __platform.platform_version = _dc.type;
-
-                __platform.lastupdated = DateTime.Now;
-                __platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
-                __platform.moid = _dc.id;
-                LocalData.update_record<Platform>(__platform);
             }
             catch (Exception ex)
             {
@@ -158,7 +131,7 @@ namespace CloudMoveyWorkerService.WCF
         #region Credentials
         public List<Credential> ListCredentials()
         {
-            List<Credential> _credentials = LocalData.get_as_list<Credential>();
+            List<Credential> _credentials = _localdata.get_as_list<Credential>();
             return _credentials;
         }
         public Credential AddCredential(Credential _addCredential)
@@ -166,10 +139,10 @@ namespace CloudMoveyWorkerService.WCF
             Credential _addedCredential = null;
             try
             {
-                _addedCredential = LocalData.insert_record<Credential>(_addCredential);
+                _addedCredential = _localdata.insert_record<Credential>(_addCredential);
                 _addedCredential.human_type = (_addedCredential.credential_type == 0 ? "Platform" : "Workload");
                 _addedCredential.hash_value = _addedCredential.GetHashString();
-                LocalData.update_record<Credential>(_addedCredential);
+                _localdata.update_record<Credential>(_addedCredential);
             }
             catch (Exception e)
             {
@@ -183,14 +156,14 @@ namespace CloudMoveyWorkerService.WCF
             Credential _update = null;
             try
             {
-                _update = LocalData.get_record<Credential>(_updateCredential.id);
+                _update = _localdata.get_record<Credential>(_updateCredential.id);
                 _update.human_type = (_updateCredential.credential_type == 0 ? "Platform" : "Workload");
                 IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateCredential, _update);
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateCredential, _update);
                     _update.hash_value = _update.GetHashString();
-                    LocalData.update_record<Credential>(_update);
+                    _localdata.update_record<Credential>(_update);
                 }
             }
             catch (Exception e)
@@ -201,7 +174,7 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyCredential(Credential _destroyCredential)
         {
-            LocalData.delete_record<Credential>(_destroyCredential.id);
+            _localdata.delete_record<Credential>(_destroyCredential.id);
             return true;
         }
 
@@ -235,7 +208,7 @@ namespace CloudMoveyWorkerService.WCF
         }
         public List<Event> Events()
         {
-            return LocalData.get_as_list<Event>();
+            return _localdata.get_as_list<Event>();
         }
     }
     public class workerInformation

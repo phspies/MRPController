@@ -84,9 +84,9 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 
                     //Update CPU and Memory for workload
                     ReconfigureServerType _reconfiure = new ReconfigureServerType();
-                    CaaS.workload().reconfigure(new ReconfigureServerType() { id = _vm_id, cpuCount = (uint)_target.cpu, cpuCountSpecified = true, memoryGb = (uint)_target.memory, memoryGbSpecified = true });
+                    CaaS.workload().reconfigure(new ReconfigureServerType() { id = _vm_id, cpuCount = (uint)_target.vcpu, cpuCountSpecified = true, memoryGb = (uint)_target.vmemory, memoryGbSpecified = true });
                     _newvm = CaaS.workload().get(_vm_id);
-                    CloudMovey.task().progress(payload, String.Format("Updating CPU and Memory: {0} : {1}", _target.cpu, _target.memory), 60);
+                    CloudMovey.task().progress(payload, String.Format("Updating CPU and Memory: {0} : {1}", _target.vcpu, _target.vmemory), 60);
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
                         _newvm = CaaS.workload().get(_vm_id);

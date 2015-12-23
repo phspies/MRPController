@@ -56,6 +56,9 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
 
         public void Start()
         {
+            LocalData _localdata = new LocalData();
+
+
             _categories.Add("");
 
             _counters.Add(new CollectionCounter() { category = "Processor", counter = "% Idle Time" });
@@ -108,13 +111,13 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
 
             while (true)
             {
-                List<Workload> _workloads = LocalData.get_as_list<Workload>();
+                List<Workload> _workloads = _localdata.get_as_list<Workload>();
                 if (_workloads != null)
                 {
                     foreach (var _workload in _workloads.Where(x => x.enabled == true))
                     {
                         string workload_ip = Connection.find_working_ip(_workload);
-                        Credential _credential = LocalData.get_as_list<Credential>().FirstOrDefault(x => x.id == _workload.credential_id);
+                        Credential _credential = _localdata.get_as_list<Credential>().FirstOrDefault(x => x.id == _workload.credential_id);
                         IntPtr userHandle = new IntPtr(0);
                         
                         try {
@@ -152,12 +155,6 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                 {
                                     List<InstanceCounters> _instances = new List<InstanceCounters>();
                                     _instances.Add(new InstanceCounters() { instance = "" });
-
-
-
-
-
-
                                     foreach (var _counter in _pc.GetCounters())
                                     {
                                         if (_counters.Find(x => x.category == pcc).counter != "*")
@@ -188,12 +185,12 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
 
                                         Performance _perf = new Performance();
                                         _perf.workload_id = _workload.id;
-                                        _perf.timestamp = _counterobject.timestamp;
+                                        _perf.timestamp = DateTime.Now; //_counterobject.timestamp;
                                         _perf.category_name = _pcounter.CategoryName;
                                         _perf.counter_name = _pcounter.CounterName;
                                         _perf.instance = _counterobject.instance;
                                         _perf.value = _counterobject.value;
-                                        LocalData.insert_record<Performance>(_perf);
+                                        _localdata.insert_record<Performance>(_perf);
                                     }
                                 }
                                 else
@@ -233,11 +230,9 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                             }
                                             PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, _counter.InstanceName, workload_ip);
 
-                                            InstanceCounters _counterobject = _countertree.Where(
-                                                x => x.category == _counter.CategoryName &&
-                                                x.counter == _counter.CounterName)
-                                                .Select(x => x.instances.SingleOrDefault(y => y.instance == _counter.InstanceName))
-                                                .FirstOrDefault();
+                                            InstanceCounters _counterobject = _countertree.Where(x => x.category == _counter.CategoryName &&
+                                                        x.counter == _counter.CounterName).Select(x => x.instances.SingleOrDefault(y => y.instance == _counter.InstanceName)).FirstOrDefault();
+
                                             _counterobject.s1 = _pcounter.NextSample();
                                             if (_counterobject.s0.CounterType != _counterobject.s1.CounterType)
                                             {
@@ -248,12 +243,12 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
 
                                             Performance _perf = new Performance();
                                             _perf.workload_id = _workload.id;
-                                            _perf.timestamp = _counterobject.timestamp;
+                                            _perf.timestamp = DateTime.Now; //_counterobject.timestamp;
                                             _perf.category_name = _pcounter.CategoryName;
                                             _perf.counter_name = _pcounter.CounterName;
                                             _perf.instance = _counterobject.instance;
                                             _perf.value = _counterobject.value;
-                                            LocalData.insert_record<Performance>(_perf);
+                                            _localdata.insert_record<Performance>(_perf);
 
                                         }
                                     }

@@ -95,8 +95,10 @@ namespace CloudMoveyWorkerService.CMDoubleTake
         }
         private static NetworkCredential GetCredentials(Workload _workload)
         {
+            LocalData _localdata = new LocalData();
+
             NetworkCredential credentials = new NetworkCredential();
-            Credential _credential = LocalData.get_record<Credential>(_workload.credential_id);
+            Credential _credential = _localdata.get_record<Credential>(_workload.credential_id);
             credentials.UserName = Uri.EscapeDataString((String)_credential.username);
             credentials.Password = Uri.EscapeDataString((String)_credential.password);
             credentials.Domain = Uri.EscapeDataString((String)_credential.domain);
@@ -104,8 +106,10 @@ namespace CloudMoveyWorkerService.CMDoubleTake
         }
         public static ServiceConnectionParameters DTConnectionParams(Workload _workload)
         {
+            LocalData _localdata = new LocalData();
+
             ServiceConnectionParameters connparams = new ServiceConnectionParameters();
-            Credential _credential = LocalData.get_record<Credential>(_workload.credential_id);
+            Credential _credential = _localdata.get_record<Credential>(_workload.credential_id);
             connparams.UserName = Uri.EscapeDataString((String)_credential.username);
             connparams.Password = Uri.EscapeDataString((String)_credential.password);
             connparams.Domain = Uri.EscapeDataString((String)_credential.domain);
