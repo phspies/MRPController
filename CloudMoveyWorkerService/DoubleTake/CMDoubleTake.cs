@@ -9,12 +9,12 @@ namespace CloudMoveyWorkerService.CMDoubleTake
 
         public CMDoubleTake(string source_workload_id, string target_workload_id)
         {
-            LocalData _localdata = new LocalData();
+            LocalDB db = new LocalDB();
 
 
             //confirm systems exists
-            _target_workload = _localdata.get_as_list<Workload>().FirstOrDefault(x => x.id == target_workload_id);
-            _source_workload = _localdata.get_as_list<Workload>().FirstOrDefault(x => x.id == source_workload_id);
+            _target_workload = db.Workloads.FirstOrDefault(x => x.id == target_workload_id);
+            _source_workload = db.Workloads.FirstOrDefault(x => x.id == source_workload_id);
 
             //target can never be empty
             if (_target_workload == null)

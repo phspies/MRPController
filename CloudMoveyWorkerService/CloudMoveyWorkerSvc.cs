@@ -12,6 +12,7 @@ using CloudMoveyWorkerService.Portal.Classes;
 using CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Classes;
 using CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Classes;
 using CloudMoveyWorkerService.Database;
+using System.Linq;
 
 namespace CloudMoveyWorkerService
 {
@@ -29,7 +30,7 @@ namespace CloudMoveyWorkerService
         {
             Global.event_log = CloudMoveyWorkerLog1;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            LocalData _localdata = new LocalData();
+            LocalDB db = new LocalDB();
 
 
             Settings.SetupAgent();
@@ -39,11 +40,11 @@ namespace CloudMoveyWorkerService
             if (Global.debug) {
                 Global.event_log.WriteEntry(String.Format("Starting WCF Service{0}{0}Platforms: {1}{0}Workloads: {2}{0}Credentials: {3}{0}Performance Counters: {4}{0}Network Flows: {5}{0}",
                     Environment.NewLine,
-                    _localdata.get_as_list<Platform>().Count,
-                    _localdata.get_as_list<Workload>().Count,
-                    _localdata.get_as_list<Credential>().Count,
-                    _localdata.get_as_list<Performance>().Count,
-                    _localdata.get_as_list<NetworkFlow>().Count
+                    db.Platforms.ToList().Count,
+                    db.Workloads.ToList().Count,
+                    db.Credentials.ToList().Count,
+                    db.Performance.ToList().Count,
+                    db.NetworkFlows.ToList().Count
                     ));
             };
 

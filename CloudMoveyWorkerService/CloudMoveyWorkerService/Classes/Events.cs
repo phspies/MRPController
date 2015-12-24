@@ -7,10 +7,12 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes
     {
         public static void add(Event _event)
         {
-            LocalData _localdata = new LocalData();
+            LocalDB db = new LocalDB();
 
             _event.timestamp = DateTime.Now;
-            _localdata.insert_record<Event>(_event);
+            _event.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+            db.Events.Add(_event);
+            db.SaveChanges();
         }
     }
 }

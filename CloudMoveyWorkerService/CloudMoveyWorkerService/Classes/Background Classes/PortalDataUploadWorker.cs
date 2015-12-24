@@ -20,8 +20,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
         }
         public void Start()
         {
-            LocalData _localdata = new LocalData();
-
+            LocalDB db = new LocalDB();
             CloudMoveyPortal _cloud_movey = new CloudMoveyPortal();
             while (true)
             {
@@ -32,19 +31,19 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                     Stopwatch sw = Stopwatch.StartNew();
                     int _new_networkflows, _new_performancecounters;
                     _new_networkflows = _new_performancecounters = 0;
-                    foreach (NetworkFlow _flow in _localdata.get_as_list<NetworkFlow>())
+                    foreach (NetworkFlow _flow in db.NetworkFlows)
                     {
                         MoveyNetworkFlowCRUDType _flowcrud = new MoveyNetworkFlowCRUDType();
                         Objects.MapObjects(_flow, _flowcrud);
                         _cloud_movey.netflow().createnetworkflow(_flowcrud);
 
                         //remove from local database
-                        _localdata.delete_record<NetworkFlow>(_flow.id);
+                        db.NetworkFlows.Remove(db.NetworkFlows.Find(_flow.id));
 
                         _new_networkflows += 1;
                     }
 
-                    List<Performance> _local_performance = _localdata.get_as_list<Performance>().ToList();
+                    List<Performance> _local_performance = db.Performance.ToList();
                     //first ensure we have a list of the portal performance categories and add what is missing
                     MoveyPerformanceCategoryListType _categories = _cloud_movey.performancecategory().list();
                     var _local_counterscategories = _local_performance.GroupBy(x => new { x.category_name, x.counter_name, x.workload_id }).Select(group => new countercategory() {  category = group.Key.category_name, counter = group.Key.counter_name, workload_id = group.Key.workload_id }).ToList();
@@ -85,7 +84,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                         _cloud_movey.performancecounter().create(_performancecrud);
 
                         //remove from local database
-                        _localdata.delete_record<Performance>(_performance.id);
+                        db.Performance.Remove(db.Performance.Find(_performance.id));
 
                         _new_performancecounters += 1;
                     }

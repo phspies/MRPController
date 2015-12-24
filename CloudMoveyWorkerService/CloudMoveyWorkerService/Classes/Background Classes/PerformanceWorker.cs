@@ -56,7 +56,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
 
         public void Start()
         {
-            LocalData _localdata = new LocalData();
+            LocalDB db = new LocalDB();
 
 
             _categories.Add("");
@@ -111,13 +111,13 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
 
             while (true)
             {
-                List<Workload> _workloads = _localdata.get_as_list<Workload>();
+                List<Workload> _workloads = db.Workloads.ToList();
                 if (_workloads != null)
                 {
                     foreach (var _workload in _workloads.Where(x => x.enabled == true))
                     {
                         string workload_ip = Connection.find_working_ip(_workload);
-                        Credential _credential = _localdata.get_as_list<Credential>().FirstOrDefault(x => x.id == _workload.credential_id);
+                        Credential _credential = db.Credentials.FirstOrDefault(x => x.id == _workload.credential_id);
                         IntPtr userHandle = new IntPtr(0);
                         
                         try {
@@ -190,7 +190,9 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                         _perf.counter_name = _pcounter.CounterName;
                                         _perf.instance = _counterobject.instance;
                                         _perf.value = _counterobject.value;
-                                        _localdata.insert_record<Performance>(_perf);
+                                        _perf.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                                        db.Performance.Add(_perf);
+                                        db.SaveChanges();
                                     }
                                 }
                                 else
@@ -248,7 +250,9 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                             _perf.counter_name = _pcounter.CounterName;
                                             _perf.instance = _counterobject.instance;
                                             _perf.value = _counterobject.value;
-                                            _localdata.insert_record<Performance>(_perf);
+                                            _perf.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                                            db.Performance.Add(_perf);
+                                            db.SaveChanges();
 
                                         }
                                     }

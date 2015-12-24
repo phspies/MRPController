@@ -301,7 +301,6 @@
     <Compile Include="CloudMoveyWorkerService\Classes\Connection.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\CloudMoveyContext.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\InCodeEFConfig.cs" />
-    <Compile Include="CloudMoveyWorkerService\Database\LocalData.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\SimpleEAS.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Credential.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Event.cs" />

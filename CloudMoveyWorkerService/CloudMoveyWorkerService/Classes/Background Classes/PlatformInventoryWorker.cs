@@ -26,7 +26,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
         {
             while (true)
             {
-                LocalData _localdata = new LocalData();
+                LocalDB db = new LocalDB();
 
 
                 Stopwatch sw = Stopwatch.StartNew();
@@ -42,7 +42,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     //process platform independant items
 
                     //process platforms
-                    var _workerplatforms = _localdata.get_as_list<Platform>();
+                    var _workerplatforms = db.Platforms.ToList();
                     MoveyPlatformListType _platformplatforms = _cloud_movey.platform().listplatforms();
                     foreach (var _platform in _workerplatforms)
                     {
@@ -92,7 +92,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
         {
             try
             {
-                LocalData _localdata = new LocalData();
+                LocalDB db = new LocalDB();
 
                 Global.event_log.WriteEntry(String.Format("Started data mirroring process for {0}", (_platform.human_vendor + " : " + _platform.datacenter)));
                 Stopwatch sw = Stopwatch.StartNew();
@@ -100,7 +100,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                 _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = _removed_workloads = 0;
 
                 //define object lists
-                List<Credential> _workercredentials = _localdata.get_as_list<Credential>();
+                List<Credential> _workercredentials = db.Credentials.ToList();
                 MoveyWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
                 MoveyPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
 
@@ -182,7 +182,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                 networkdomains = networkdomain_list.Count();
                 networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(networkdomain_list));
 
-                Platform __platform = _localdata.get_record<Platform>(_platform.id);
+                Platform __platform = db.Platforms.Find(_platform.id);
                 __platform.vlan_count = vlans;
                 __platform.workload_count = workloads;
                 __platform.networkdomain_count = networkdomains;
@@ -191,7 +191,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                 __platform.lastupdated = DateTime.Now;
                 __platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
                 __platform.moid = _dc.id;
-                _localdata.update_record<Platform>(__platform);
+                db.SaveChanges();
 
 
                 //process platform networks
@@ -234,11 +234,12 @@ namespace CloudMoveyWorkerService.Portal.Classes
 
 
                 //process deleted platform workloads
-                foreach (var _workload in _localdata.get_as_list<Workload>().Where(x => x.platform_id == _platform.id))
+                foreach (var _workload in db.Workloads.Where(x => x.platform_id == _platform.id))
                 {
                     if (!_caasworkloads.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
                     {
-                        _localdata.delete_record<Workload>(_workload.id);
+                        db.Workloads.Remove(db.Workloads.Find(_workload.id));
+                        db.SaveChanges();
                         _removed_workloads += 1;
                     }
                 }
@@ -293,10 +294,10 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     //User might use these servers later...
                     bool _new_workload = true;
                     Workload _workload = new Workload();
-                    if (_localdata.get_as_list<Workload>().Exists(x => x.moid == _caasworkload.id))
+                    if (db.Workloads.ToList().Exists(x => x.moid == _caasworkload.id))
                     {
                         _new_workload = false;
-                        _workload = _localdata.get_as_list<Workload>().FirstOrDefault(x => x.moid == _caasworkload.id);
+                        _workload = db.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
                     }
                     else
                     {
@@ -304,6 +305,10 @@ namespace CloudMoveyWorkerService.Portal.Classes
                         if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
                         {
                             _workload.id = _currentplatformworkloads.workloads.Find(x => x.moid == _caasworkload.id).id;
+                        }
+                        else
+                        {
+                            _workload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
                         }
                     }
                     _workload.vcpu = _caasworkload.cpu.count;
@@ -318,13 +323,12 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     _workload.osedition = _caasworkload.operatingSystem.displayName;
                     if (_new_workload)
                     {
-
-
-                        _localdata.insert_record<Workload>(_workload);
+                        db.Workloads.Add(_workload);
+                        db.SaveChanges();
                     }
                     else
                     {
-                        _localdata.update_record<Workload>(_workload);
+                        db.SaveChanges();
                         if (_workload.enabled == true)
                         {
                             MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
@@ -360,10 +364,6 @@ namespace CloudMoveyWorkerService.Portal.Classes
             {
                 Global.event_log.WriteEntry(String.Format("Error in data mirroring process for {0}: {1}", (_platform.human_vendor + " : " + _platform.datacenter), ex.ToString()), EventLogEntryType.Error);
             }
-
-        }
-        private void MirrorPlatformTemplates(Credential _credential, DimensionData _caas, Platform _platform)
-        {
 
         }
     }

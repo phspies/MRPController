@@ -8,7 +8,10 @@ namespace CloudMoveyWorkerService.Database
 	{
 		public LocalDB() : base(InCodeEFConfig.Connection, false)
 		{
-
+            if (this.Database.Connection.State == System.Data.ConnectionState.Closed)
+            {
+                this.Database.Connection.Open();
+            }
 		}
 
         public virtual DbSet<Credential> Credentials { get; set; }

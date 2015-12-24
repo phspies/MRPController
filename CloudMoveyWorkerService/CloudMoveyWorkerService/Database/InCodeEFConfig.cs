@@ -28,7 +28,7 @@ namespace CloudMoveyWorkerService.Database
 		private static string GetConnectionString()
 		{
 			// "foreign key=true" activates the FK-Constraints
-			return "Data Source=" + GetFilePath() + ";foreign keys=true";
+			return "Data Source=" + GetFilePath() + ";foreign keys=true;synchronous=Full";
 		}
 
 		private static string GetFilePath()

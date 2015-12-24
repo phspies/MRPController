@@ -17,18 +17,20 @@ namespace CloudMoveyWorkerService.WCF
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class CloudMoveyService : ICloudMoveyService
     {
-        LocalData _localdata = new LocalData();
+        LocalDB db = new LocalDB();
         #region workloads
         public List<Workload> ListWorkloads()
         {
-            return _localdata.get_as_list<Workload>();
+            return db.Workloads.ToList();
         }
         public Workload AddWorkload(Workload _addworkload)
         {
             Workload _addedworkload = new Workload();
             try
             {
-                _addedworkload = (Workload)_localdata.insert_record<Workload>(_addworkload);
+                _addedworkload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                _addedworkload = (Workload)db.Workloads.Add(_addworkload);
+                db.SaveChanges();
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException e)
             {
@@ -42,13 +44,13 @@ namespace CloudMoveyWorkerService.WCF
             Workload _update = null;
             try
             {
-                _update = _localdata.get_as_list<Workload>().FirstOrDefault(d => d.id == _updateworkload.id);
+                _update = db.Workloads.FirstOrDefault(d => d.id == _updateworkload.id);
                 IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateworkload, _update);
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateworkload, _update);
                     _update.hash_value = _update.GetHashString();
-                    _localdata.update_record<Workload>(_update);
+                    db.SaveChanges();
                 }
             }
             catch (Exception e)
@@ -59,7 +61,8 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyWorkload(Workload _destroyworkload)
         {
-            _localdata.delete_record<Workload>(_destroyworkload.id);
+            db.Workloads.Remove(_destroyworkload);
+            db.SaveChanges();
             return true;
         }
         #endregion
@@ -74,14 +77,15 @@ namespace CloudMoveyWorkerService.WCF
         #region Platforms
         public List<Platform> ListPlatforms()
         {
-            return _localdata.get_as_list<Platform>();
+            return db.Platforms.ToList();
         }
         public Platform AddPlatform(Platform _addplatform)
         {
             Platform _addedplatform = null;
             try
             {
-                return _localdata.insert_record<Platform>(_addplatform);
+                _addedplatform.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                return db.Platforms.Add(_addplatform);
             }
             catch (Exception e)
             {
@@ -95,13 +99,13 @@ namespace CloudMoveyWorkerService.WCF
             Platform _update = null;
             try
             {
-                _update = _localdata.get_as_list<Platform>().FirstOrDefault(d => d.id == _updateplatform.id);
+                _update = db.Platforms.FirstOrDefault(d => d.id == _updateplatform.id);
                 IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateplatform, _update);
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateplatform, _update);
                     _update.hash_value = _update.GetHashString();
-                    _localdata.update_record<Platform>(_update);
+                    db.SaveChanges();
                 }
             }
             catch (Exception e)
@@ -112,7 +116,8 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyPlatform(Platform _destroyplatform)
         {
-            _localdata.delete_record<Platform>(_destroyplatform.id);
+            db.Platforms.Remove(_destroyplatform);
+            db.SaveChanges();
             return true;
         }
         public void RefreshPlatform(Platform _platform)
@@ -131,18 +136,19 @@ namespace CloudMoveyWorkerService.WCF
         #region Credentials
         public List<Credential> ListCredentials()
         {
-            List<Credential> _credentials = _localdata.get_as_list<Credential>();
-            return _credentials;
+            return db.Credentials.ToList();
         }
         public Credential AddCredential(Credential _addCredential)
         {
             Credential _addedCredential = null;
             try
             {
-                _addedCredential = _localdata.insert_record<Credential>(_addCredential);
-                _addedCredential.human_type = (_addedCredential.credential_type == 0 ? "Platform" : "Workload");
-                _addedCredential.hash_value = _addedCredential.GetHashString();
-                _localdata.update_record<Credential>(_addedCredential);
+                _addCredential.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                _addCredential.human_type = (_addedCredential.credential_type == 0 ? "Platform" : "Workload");
+                _addCredential.hash_value = _addedCredential.GetHashString();
+                _addCredential = db.Credentials.Add(_addCredential);
+                _addedCredential = db.Credentials.Add(_addCredential);
+                db.SaveChanges();
             }
             catch (Exception e)
             {
@@ -156,14 +162,14 @@ namespace CloudMoveyWorkerService.WCF
             Credential _update = null;
             try
             {
-                _update = _localdata.get_record<Credential>(_updateCredential.id);
+                _update = db.Credentials.Find(_updateCredential.id);
                 _update.human_type = (_updateCredential.credential_type == 0 ? "Platform" : "Workload");
                 IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateCredential, _update);
                 if (_changes.Count() > 0)
                 {
                     Copy(_updateCredential, _update);
                     _update.hash_value = _update.GetHashString();
-                    _localdata.update_record<Credential>(_update);
+                    db.SaveChanges();
                 }
             }
             catch (Exception e)
@@ -174,7 +180,8 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyCredential(Credential _destroyCredential)
         {
-            _localdata.delete_record<Credential>(_destroyCredential.id);
+            db.Credentials.Remove(db.Credentials.Find(_destroyCredential.id));
+            db.SaveChanges();
             return true;
         }
 
@@ -208,7 +215,7 @@ namespace CloudMoveyWorkerService.WCF
         }
         public List<Event> Events()
         {
-            return _localdata.get_as_list<Event>();
+            return db.Events.ToList();
         }
     }
     public class workerInformation
