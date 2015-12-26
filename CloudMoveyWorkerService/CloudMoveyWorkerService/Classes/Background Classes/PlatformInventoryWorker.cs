@@ -1,5 +1,5 @@
 ﻿using CloudMoveyWorkerService.CaaS;
-using CloudMoveyWorkerService.Database;
+using CloudMoveyWorkerService.LocalDatabase;
 using CloudMoveyWorkerService.Portal.Types.API;
 using CloudMoveyWorkerService.WCF;
 using Newtonsoft.Json;
@@ -25,9 +25,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
         public void Start()
         {
             while (true)
-            {
-                LocalDB db = new LocalDB();
-
+            { 
 
                 Stopwatch sw = Stopwatch.StartNew();
                 int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads, _removed_workloads;
@@ -42,7 +40,11 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     //process platform independant items
 
                     //process platforms
-                    var _workerplatforms = db.Platforms.ToList();
+                    List<Platform> _workerplatforms;
+                    using (LocalDB db = new LocalDB())
+                    {
+                        _workerplatforms = db.Platforms.ToList();
+                    }
                     MoveyPlatformListType _platformplatforms = _cloud_movey.platform().listplatforms();
                     foreach (var _platform in _workerplatforms)
                     {
@@ -92,7 +94,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
         {
             try
             {
-                LocalDB db = new LocalDB();
+                
 
                 Global.event_log.WriteEntry(String.Format("Started data mirroring process for {0}", (_platform.human_vendor + " : " + _platform.datacenter)));
                 Stopwatch sw = Stopwatch.StartNew();
@@ -100,12 +102,17 @@ namespace CloudMoveyWorkerService.Portal.Classes
                 _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = _removed_workloads = 0;
 
                 //define object lists
-                List<Credential> _workercredentials = db.Credentials.ToList();
+                Credential _credential;
+                using (LocalDB db = new LocalDB())
+                {
+                    List<Credential> _workercredentials = db.Credentials.ToList();
+                    _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
+
+                }
                 MoveyWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
                 MoveyPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
 
                 //populate platform credential object
-                var _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
 
                 //create dimension data mcp object
                 DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
@@ -182,16 +189,19 @@ namespace CloudMoveyWorkerService.Portal.Classes
                 networkdomains = networkdomain_list.Count();
                 networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(networkdomain_list));
 
-                Platform __platform = db.Platforms.Find(_platform.id);
-                __platform.vlan_count = vlans;
-                __platform.workload_count = workloads;
-                __platform.networkdomain_count = networkdomains;
-                __platform.platform_version = _dc.type;
+                using (LocalDB db = new LocalDB())
+                {
+                    Platform __platform = db.Platforms.Find(_platform.id);
+                    __platform.vlan_count = vlans;
+                    __platform.workload_count = workloads;
+                    __platform.networkdomain_count = networkdomains;
+                    __platform.platform_version = _dc.type;
 
-                __platform.lastupdated = DateTime.Now;
-                __platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
-                __platform.moid = _dc.id;
-                db.SaveChanges();
+                    __platform.lastupdated = DateTime.Now;
+                    __platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
+                    __platform.moid = _dc.id;
+                    db.SaveChanges();
+                }
 
 
                 //process platform networks
@@ -234,16 +244,18 @@ namespace CloudMoveyWorkerService.Portal.Classes
 
 
                 //process deleted platform workloads
-                foreach (var _workload in db.Workloads.Where(x => x.platform_id == _platform.id))
+                using (LocalDB db = new LocalDB())
                 {
-                    if (!_caasworkloads.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                    foreach (var _workload in db.Workloads.Where(x => x.platform_id == _platform.id))
                     {
-                        db.Workloads.Remove(db.Workloads.Find(_workload.id));
-                        db.SaveChanges();
-                        _removed_workloads += 1;
+                        if (!_caasworkloads.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                        {
+                            db.Workloads.Remove(db.Workloads.Find(_workload.id));
+                            db.SaveChanges();
+                            _removed_workloads += 1;
+                        }
                     }
                 }
-
 
                 foreach (ServerType _caasworkload in _caasworkloads.Where(x => x.datacenterId == _platform.datacenter && x.operatingSystem.family.ToUpper() == "WINDOWS"))
                 {
@@ -293,61 +305,66 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     //if workload is local, updated the local db record
                     //User might use these servers later...
                     bool _new_workload = true;
-                    Workload _workload = new Workload();
-                    if (db.Workloads.ToList().Exists(x => x.moid == _caasworkload.id))
+                    using (LocalDB db = new LocalDB())
                     {
-                        _new_workload = false;
-                        _workload = db.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
-                    }
-                    else
-                    {
-                        //if server already exists in portal, retain GUID for the server to keep other table depedencies intact
-                        if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                        Workload _workload = new Workload();
+                        if (db.Workloads.ToList().Exists(x => x.moid == _caasworkload.id))
                         {
-                            _workload.id = _currentplatformworkloads.workloads.Find(x => x.moid == _caasworkload.id).id;
+                            _new_workload = false;
+                            _workload = db.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
                         }
                         else
                         {
-                            _workload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                        }
-                    }
-                    _workload.vcpu = _caasworkload.cpu.count;
-                    _workload.vcore = _caasworkload.cpu.coresPerSocket;
-                    _workload.vmemory = _caasworkload.memoryGb;
-                    _workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.ipv6, _caasworkload.networkInfo.primaryNic.privateIpv4);
-                    _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                    _workload.hostname = _caasworkload.name;
-                    _workload.moid = _caasworkload.id;
-                    _workload.platform_id = _platform.id;
-                    _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                    _workload.osedition = _caasworkload.operatingSystem.displayName;
-                    if (_new_workload)
-                    {
-                        db.Workloads.Add(_workload);
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        db.SaveChanges();
-                        if (_workload.enabled == true)
-                        {
-                            MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
-                            Objects.MapObjects(_workload, _moveyworkload);
-
-                            _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
-                            _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
-
-                            //Update if the portal has this workload and create if it's new to the portal....
+                            //if server already exists in portal, retain GUID for the server to keep other table depedencies intact
                             if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
                             {
-                                _moveyworkload.id = _workload.id;
-                                _cloud_movey.workload().updateworkload(_moveyworkload);
-                                _updated_workloads += 1;
+                                _workload.id = _currentplatformworkloads.workloads.Find(x => x.moid == _caasworkload.id).id;
                             }
                             else
                             {
-                                _cloud_movey.workload().createworkload(_moveyworkload);
-                                _new_workloads += 1;
+                                _workload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                            }
+                        }
+
+                        _workload.vcpu = _caasworkload.cpu.count;
+                        _workload.vcore = _caasworkload.cpu.coresPerSocket;
+                        _workload.vmemory = _caasworkload.memoryGb;
+                        _workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.ipv6, _caasworkload.networkInfo.primaryNic.privateIpv4);
+                        _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
+                        _workload.hostname = _caasworkload.name;
+                        _workload.moid = _caasworkload.id;
+                        _workload.platform_id = _platform.id;
+                        _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
+                        _workload.osedition = _caasworkload.operatingSystem.displayName;
+                        if (_new_workload)
+                        {
+                            _workload.id = Objects.RamdomGuid();
+                            db.Workloads.Add(_workload);
+                            db.SaveChanges();
+                        }
+                        else
+                        {
+                            db.SaveChanges();
+                            if (_workload.enabled == true)
+                            {
+                                MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
+                                Objects.MapObjects(_workload, _moveyworkload);
+
+                                _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
+                                _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
+
+                                //Update if the portal has this workload and create if it's new to the portal....
+                                if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                                {
+                                    _moveyworkload.id = _workload.id;
+                                    _cloud_movey.workload().updateworkload(_moveyworkload);
+                                    _updated_workloads += 1;
+                                }
+                                else
+                                {
+                                    _cloud_movey.workload().createworkload(_moveyworkload);
+                                    _new_workloads += 1;
+                                }
                             }
                         }
                     }
@@ -364,7 +381,6 @@ namespace CloudMoveyWorkerService.Portal.Classes
             {
                 Global.event_log.WriteEntry(String.Format("Error in data mirroring process for {0}: {1}", (_platform.human_vendor + " : " + _platform.datacenter), ex.ToString()), EventLogEntryType.Error);
             }
-
         }
     }
 }

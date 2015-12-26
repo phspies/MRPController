@@ -1,5 +1,5 @@
 ﻿using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
-using CloudMoveyWorkerService.Database;
+using CloudMoveyWorkerService.LocalDatabase;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Threading;
+using Utils;
 
 namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Classes
 {
@@ -183,16 +184,20 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                         _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
                                         _counterobject.s0 = _counterobject.s1;
 
-                                        Performance _perf = new Performance();
-                                        _perf.workload_id = _workload.id;
-                                        _perf.timestamp = DateTime.Now; //_counterobject.timestamp;
-                                        _perf.category_name = _pcounter.CategoryName;
-                                        _perf.counter_name = _pcounter.CounterName;
-                                        _perf.instance = _counterobject.instance;
-                                        _perf.value = _counterobject.value;
-                                        _perf.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                                        db.Performance.Add(_perf);
-                                        db.SaveChanges();
+                                        using (var _db = new LocalDB())
+                                        {
+                                            Performance _perf = new Performance();
+                                            _perf.workload_id = _workload.id;
+                                            _perf.timestamp = DateTime.Now; //_counterobject.timestamp;
+                                            _perf.category_name = _pcounter.CategoryName;
+                                            _perf.counter_name = _pcounter.CounterName;
+                                            _perf.instance = _counterobject.instance;
+                                            _perf.value = _counterobject.value;
+                                            _perf.id = Objects.RamdomGuid();
+
+                                            db.Performance.Add(_perf);
+                                            db.SaveChanges();
+                                        }
                                     }
                                 }
                                 else
@@ -250,9 +255,13 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                             _perf.counter_name = _pcounter.CounterName;
                                             _perf.instance = _counterobject.instance;
                                             _perf.value = _counterobject.value;
-                                            _perf.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                                            db.Performance.Add(_perf);
-                                            db.SaveChanges();
+                                            _perf.id = Objects.RamdomGuid();
+                                            using (var _db = new LocalDB())
+                                            {
+                                                db.Performance.Add(_perf);
+                                                db.SaveChanges();
+                                            }
+
 
                                         }
                                     }

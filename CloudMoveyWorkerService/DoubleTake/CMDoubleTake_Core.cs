@@ -5,7 +5,7 @@ using System;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.ServiceModel;
-using CloudMoveyWorkerService.Database;
+using CloudMoveyWorkerService.LocalDatabase;
 
 namespace CloudMoveyWorkerService.CMDoubleTake
 {

@@ -3,7 +3,7 @@ using CloudMoveyWorkerService.Portal.Models;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
-using CloudMoveyWorkerService.Database;
+using CloudMoveyWorkerService.LocalDatabase;
 
 namespace CloudMoveyWorkerService.WCF
 {

@@ -1,65 +1,60 @@
 ﻿using System.Data.Entity;
-using SQLite.CodeFirst;
-using System.Linq;
+using System.IO;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.SqlServerCompact;
+using System.Data.Common;
+using System.Data.SqlServerCe;
 
-namespace CloudMoveyWorkerService.Database
+namespace CloudMoveyWorkerService.LocalDatabase
 {
-	public partial class LocalDB : DbContext
+    [DbConfigurationType(typeof(MyDbConfiguration))]
+    public class LocalDB : DbContext
 	{
-		public LocalDB() : base(InCodeEFConfig.Connection, false)
-		{
-            if (this.Database.Connection.State == System.Data.ConnectionState.Closed)
+
+        public LocalDB() : base(GetConnection(), true)
+        {
+            Database.SetInitializer<LocalDB>(new CloudMoveyDBInitializer());
+
+        }
+
+        public DbSet<Credential> Credentials { get; set; }
+        public DbSet<Platform> Platforms { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Workload> Workloads { get; set; }
+        public DbSet<NetworkFlow> NetworkFlows { get; set; }
+        public DbSet<Performance> Performance { get; set; }
+
+        public static DbConnection GetConnection()
+        {
+            string dblocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string dbfilename = "CloudMoveyWorker.sdf";
+
+
+            var factory = DbProviderFactories.GetFactory("System.Data.SqlServerCe.4.0");
+            var connection = factory.CreateConnection();
+            string dbfullpath = Path.Combine(dblocation, dbfilename);
+            connection.ConnectionString = "Data Source=" + dbfullpath + "; Persist Security Info=False;";
+            return connection;
+        }
+
+        public class CloudMoveyDBInitializer : CreateDatabaseIfNotExists<LocalDB>
+        {
+            protected override void Seed(LocalDB context)
             {
-                this.Database.Connection.Open();
+                base.Seed(context);
             }
-		}
-
-        public virtual DbSet<Credential> Credentials { get; set; }
-        public virtual DbSet<Platform> Platforms { get; set; }
-        public virtual DbSet<Event> Events { get; set; }
-        public virtual DbSet<Workload> Workloads { get; set; }
-        public virtual DbSet<NetworkFlow> NetworkFlows { get; set; }
-        public virtual DbSet<Performance> Performance { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-		{
-
-			ConfigureCredentialEntity(modelBuilder);
-			ConfigurePlatformEntity(modelBuilder);
-            ConfigureEventEntity(modelBuilder);
-            ConfigureNetworkFlowEntity(modelBuilder);
-            ConfigurePerformanceEntity(modelBuilder);
-            ConfigureWorkloadEntity(modelBuilder);
-
-            SqliteCreateDatabaseIfNotExists<LocalDB> sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<LocalDB>(modelBuilder);
-
-			System.Data.Entity.Database.SetInitializer(sqliteConnectionInitializer);
-		}
-
-        private static void ConfigureCredentialEntity(DbModelBuilder modelBuilder)
-		{
-			modelBuilder.Entity<Credential>().HasKey(p => p.id);
-		}
-
-		private static void ConfigurePlatformEntity(DbModelBuilder modelBuilder)
-		{
-			modelBuilder.Entity<Platform>().HasKey(p => p.id);
-		}
-        private static void ConfigureEventEntity(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Event>().HasKey(p => p.id);
         }
-        private static void ConfigureNetworkFlowEntity(DbModelBuilder modelBuilder)
+
+        public class MyDbConfiguration : DbConfiguration
         {
-            modelBuilder.Entity<NetworkFlow>().HasKey(p => p.id);
-        }
-        private static void ConfigurePerformanceEntity(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Performance>().HasKey(p => p.id);
-        }
-        private static void ConfigureWorkloadEntity(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Workload>().HasKey(p => p.id);
+            public MyDbConfiguration()
+            {
+                this.SetDefaultConnectionFactory(new System.Data.Entity.Infrastructure.SqlCeConnectionFactory("System.Data.SqlServerCe.4.0"));
+
+                this.SetProviderServices("System.Data.SqlServerCe.4.0", SqlCeProviderServices.Instance);
+
+                this.SetMigrationSqlGenerator("System.Data.SqlServerCe.4.0", () => new SqlCeMigrationSqlGenerator());
+            }
         }
 
     }

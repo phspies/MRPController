@@ -7,16 +7,15 @@ using CloudMoveyWorkerService.Portal;
 using CloudMoveyWorkerService.Portal.Controllers;
 using System.Threading;
 using CloudMoveyWorkerService.WCF;
-using System.Data.Services;
 using CloudMoveyWorkerService.Portal.Classes;
 using CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Classes;
 using CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Classes;
-using CloudMoveyWorkerService.Database;
 using System.Linq;
+using CloudMoveyWorkerService.LocalDatabase;
 
 namespace CloudMoveyWorkerService
 {
-  
+
     public partial class CloudMoveyWorkerSvc : ServiceBase
     {
         Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread;
@@ -28,6 +27,8 @@ namespace CloudMoveyWorkerService
 
         protected override void OnStart(string[] args)
         {
+
+
             Global.event_log = CloudMoveyWorkerLog1;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             LocalDB db = new LocalDB();

@@ -1,39 +1,58 @@
 ﻿using System.Data.Common;
+using System.Data.SqlServerCe;
 using System.Data.Entity;
-using System.Data.Entity.Core.Common;
-using System.Data.SQLite;
-using System.Data.SQLite.EF6;
+using System.Data.SqlClient;
+using System.Data.EntityClient;
+using System;
 
-namespace CloudMoveyWorkerService.Database
+namespace CloudMoveyWorkerService.LocalDatabase
 {
-	public class InCodeEFConfig : DbConfiguration
+    public class InCodeEFConfig
 	{
 		private const string DbFileName = "CloudMoveyWorker.sqlite3";
 
-		public InCodeEFConfig()
-		{
-			SetProviderFactory(nameof(System.Data.SQLite), SQLiteFactory.Instance);
-			SetProviderFactory(nameof(System.Data.SQLite.EF6), SQLiteProviderFactory.Instance);
-			SetProviderServices(nameof(System.Data.SQLite), (DbProviderServices)SQLiteProviderFactory.Instance.GetService(typeof(DbProviderServices)));
-		}
 
-		/// <summary>
-		///     A <see cref="DbConnection" /> to the SQLite Database.
-		/// </summary>
-		/// <value>
-		///     The connection.
-		/// </value>
-		public static DbConnection Connection { get; } = new SQLiteConnection(GetConnectionString(), true);
+        public static DbConnection Connection { get; } = new SqlCeConnection(GetConnectionString());
 
 		private static string GetConnectionString()
 		{
-			// "foreign key=true" activates the FK-Constraints
-			return "Data Source=" + GetFilePath() + ";foreign keys=true;synchronous=Full";
-		}
+            string providerName = "System.Data.SqlClient";
+            string serverName = ".";
+            string databaseName = "CloudMoveyWorker";
+
+            // Initialize the connection string builder for the
+            // underlying provider.
+            SqlConnectionStringBuilder sqlBuilder = new SqlConnectionStringBuilder();
+
+            // Set the properties for the data source.
+            sqlBuilder.DataSource = serverName;
+            sqlBuilder.InitialCatalog = databaseName;
+            sqlBuilder.IntegratedSecurity = true;
+
+            // Build the SqlConnection connection string.
+            string providerString = sqlBuilder.ToString();
+
+            // Initialize the EntityConnectionStringBuilder.
+            EntityConnectionStringBuilder entityBuilder =
+            new EntityConnectionStringBuilder();
+
+            //Set the provider name.
+            entityBuilder.Provider = providerName;
+
+            // Set the provider-specific connection string.
+            entityBuilder.ProviderConnectionString = providerString;
+
+            // Set the Metadata location.
+            entityBuilder.Metadata = @"res://*/AdventureWorksModel.csdl|
+                        res://*/AdventureWorksModel.ssdl|
+                        res://*/AdventureWorksModel.msl";
+            Console.WriteLine(entityBuilder.ToString());
+            return entityBuilder.ToString();
+        }
 
 		private static string GetFilePath()
 		{
 			return "|DataDirectory|" + DbFileName;
 		}
-	}
+    }
 }

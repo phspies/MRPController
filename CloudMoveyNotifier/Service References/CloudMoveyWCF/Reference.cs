@@ -15,7 +15,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Workload", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.Database")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Workload", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.LocalDatabase")]
     [System.SerializableAttribute()]
     public partial class Workload : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -412,7 +412,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Platform", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.Database")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Platform", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.LocalDatabase")]
     [System.SerializableAttribute()]
     public partial class Platform : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -468,7 +468,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private string usernameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<byte> vendorField;
+        private int vendorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> vlan_countField;
@@ -701,7 +701,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<byte> vendor {
+        public int vendor {
             get {
                 return this.vendorField;
             }
@@ -777,7 +777,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Credential", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.Database")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Credential", Namespace="http://schemas.datacontract.org/2004/07/CloudMoveyWorkerService.LocalDatabase")]
     [System.SerializableAttribute()]
     public partial class Credential : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -785,7 +785,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<byte> credential_typeField;
+        private int credential_typeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string descriptionField;
@@ -819,7 +819,7 @@ namespace CloudMoveyNotifier.CloudMoveyWCF {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<byte> credential_type {
+        public int credential_type {
             get {
                 return this.credential_typeField;
             }

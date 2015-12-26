@@ -13,7 +13,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string id { get; set; }
         public string description { get; set; }
         public bool default_credential { get; set; }
-        public byte? credential_type { get; set; }
+        public int credential_type { get; set; }
         public bool standalone { get; set; }
         public string hash_value { get; set; }
 
@@ -30,7 +30,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string password { get; set; }
         public string domain { get; set; }
         public bool default_credential { get; set; }
-        public byte? credential_type { get; set; }
+        public int credential_type { get; set; }
         public bool enabled { get; set; }
         public string description { get; set; }
         public bool standalone { get; set; }

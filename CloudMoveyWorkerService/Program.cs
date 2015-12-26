@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudMoveyWorkerService.LocalDatabase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -16,6 +17,7 @@ namespace CloudMoveyWorkerService
         /// </summary>
         static void Main()
         {
+           
             ServiceBase[] servicesToRun;
             servicesToRun = new ServiceBase[]
             {

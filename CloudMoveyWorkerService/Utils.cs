@@ -1,15 +1,21 @@
-﻿using System;
+﻿using CloudMoveyWorkerService;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Utils
 {
     static class Objects
      {
+        public static string RamdomGuid()
+        {
+            return (Guid.NewGuid().ToString("N") + (new Random().NextDouble()) + DateTime.UtcNow.ToString("hh.mm.ss.ffffff")).GetHashString();
+        }
         public static void Copy(object src, object dest)
         {
             if (src != null)

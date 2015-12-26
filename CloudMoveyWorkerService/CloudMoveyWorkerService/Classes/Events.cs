@@ -1,4 +1,4 @@
-﻿using CloudMoveyWorkerService.Database;
+﻿using CloudMoveyWorkerService.LocalDatabase;
 using System;
 
 namespace CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes

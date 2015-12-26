@@ -22,7 +22,6 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Microsoft.Data.OData.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Microsoft.Data.Services.Client.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Microsoft.Data.Services.dll
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Microsoft.OData.EntityFrameworkProvider.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Newtonsoft.Json.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\RestSharp.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\System.Spatial.dll
@@ -34,7 +33,6 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Microsoft.Data.OData.xml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Microsoft.Data.Services.xml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Microsoft.Data.Services.Client.xml
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Microsoft.OData.EntityFrameworkProvider.xml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\Newtonsoft.Json.xml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\RestSharp.xml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\System.Spatial.xml
@@ -198,3 +196,7 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\CloudMoveyNotifier.csprojResolveAssemblyReference.cache
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\FirstFloor.ModernUI.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\log4net.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\FirstFloor.ModernUI.xml
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\bin\x64\Debug\log4net.xml

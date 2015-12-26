@@ -1,36 +1,38 @@
 ﻿using CloudMoveyWorkerService.CaaS;
-using CloudMoveyWorkerService.Portal;
 using CloudMoveyWorkerService.Portal.Models;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
-using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
-using CloudMoveyWorkerService.Database;
 using CloudMoveyWorkerService.Portal.Classes;
+using CloudMoveyWorkerService.LocalDatabase;
 
 namespace CloudMoveyWorkerService.WCF
 {
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class CloudMoveyService : ICloudMoveyService
     {
-        LocalDB db = new LocalDB();
         #region workloads
         public List<Workload> ListWorkloads()
         {
-            return db.Workloads.ToList();
+            using (LocalDB db = new LocalDB())
+            {
+                return db.Workloads.ToList();
+            }
         }
         public Workload AddWorkload(Workload _addworkload)
         {
             Workload _addedworkload = new Workload();
             try
             {
-                _addedworkload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                _addedworkload = (Workload)db.Workloads.Add(_addworkload);
-                db.SaveChanges();
+                using (LocalDB db = new LocalDB())
+                {
+                    _addedworkload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                    _addedworkload = (Workload)db.Workloads.Add(_addworkload);
+                    db.SaveChanges();
+                }
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException e)
             {
@@ -44,13 +46,16 @@ namespace CloudMoveyWorkerService.WCF
             Workload _update = null;
             try
             {
-                _update = db.Workloads.FirstOrDefault(d => d.id == _updateworkload.id);
-                IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateworkload, _update);
-                if (_changes.Count() > 0)
+                using (LocalDB db = new LocalDB())
                 {
-                    Copy(_updateworkload, _update);
-                    _update.hash_value = _update.GetHashString();
-                    db.SaveChanges();
+                    _update = db.Workloads.FirstOrDefault(d => d.id == _updateworkload.id);
+                    IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateworkload, _update);
+                    if (_changes.Count() > 0)
+                    {
+                        Copy(_updateworkload, _update);
+                        _update.hash_value = _update.GetHashString();
+                        db.SaveChanges();
+                    }
                 }
             }
             catch (Exception e)
@@ -61,8 +66,11 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyWorkload(Workload _destroyworkload)
         {
-            db.Workloads.Remove(_destroyworkload);
-            db.SaveChanges();
+            using (LocalDB db = new LocalDB())
+            {
+                db.Workloads.Remove(_destroyworkload);
+                db.SaveChanges();
+            }
             return true;
         }
         #endregion
@@ -77,15 +85,22 @@ namespace CloudMoveyWorkerService.WCF
         #region Platforms
         public List<Platform> ListPlatforms()
         {
-            return db.Platforms.ToList();
+            using (LocalDB db = new LocalDB())
+            {
+                return db.Platforms.ToList();
+            }
         }
         public Platform AddPlatform(Platform _addplatform)
         {
             Platform _addedplatform = null;
             try
             {
-                _addedplatform.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                return db.Platforms.Add(_addplatform);
+                _addplatform.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                using (LocalDB db = new LocalDB())
+                {
+                    _addedplatform = db.Platforms.Add(_addplatform);
+                    db.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -99,13 +114,16 @@ namespace CloudMoveyWorkerService.WCF
             Platform _update = null;
             try
             {
-                _update = db.Platforms.FirstOrDefault(d => d.id == _updateplatform.id);
-                IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateplatform, _update);
-                if (_changes.Count() > 0)
+                using (LocalDB db = new LocalDB())
                 {
-                    Copy(_updateplatform, _update);
-                    _update.hash_value = _update.GetHashString();
-                    db.SaveChanges();
+                    _update = db.Platforms.FirstOrDefault(d => d.id == _updateplatform.id);
+                    IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateplatform, _update);
+                    if (_changes.Count() > 0)
+                    {
+                        Copy(_updateplatform, _update);
+                        _update.hash_value = _update.GetHashString();
+                        db.SaveChanges();
+                    }
                 }
             }
             catch (Exception e)
@@ -116,8 +134,11 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyPlatform(Platform _destroyplatform)
         {
-            db.Platforms.Remove(_destroyplatform);
-            db.SaveChanges();
+            using (LocalDB db = new LocalDB())
+            {
+                db.Platforms.Remove(_destroyplatform);
+                db.SaveChanges();
+            }
             return true;
         }
         public void RefreshPlatform(Platform _platform)
@@ -136,19 +157,23 @@ namespace CloudMoveyWorkerService.WCF
         #region Credentials
         public List<Credential> ListCredentials()
         {
-            return db.Credentials.ToList();
+            using (LocalDB db = new LocalDB())
+            {
+                return db.Credentials.ToList();
+            }
         }
         public Credential AddCredential(Credential _addCredential)
         {
             Credential _addedCredential = null;
             try
             {
-                _addCredential.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                _addCredential.human_type = (_addedCredential.credential_type == 0 ? "Platform" : "Workload");
-                _addCredential.hash_value = _addedCredential.GetHashString();
-                _addCredential = db.Credentials.Add(_addCredential);
-                _addedCredential = db.Credentials.Add(_addCredential);
-                db.SaveChanges();
+                using (LocalDB db = new LocalDB())
+                {
+                    _addCredential.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                    _addCredential.human_type = (_addCredential.credential_type == 0 ? "Platform" : "Workload");
+                    _addedCredential = db.Credentials.Add(_addCredential);
+                    db.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -162,14 +187,17 @@ namespace CloudMoveyWorkerService.WCF
             Credential _update = null;
             try
             {
-                _update = db.Credentials.Find(_updateCredential.id);
-                _update.human_type = (_updateCredential.credential_type == 0 ? "Platform" : "Workload");
-                IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateCredential, _update);
-                if (_changes.Count() > 0)
+                using (LocalDB db = new LocalDB())
                 {
-                    Copy(_updateCredential, _update);
-                    _update.hash_value = _update.GetHashString();
-                    db.SaveChanges();
+                    _update = db.Credentials.Find(_updateCredential.id);
+                    _update.human_type = (_updateCredential.credential_type == 0 ? "Platform" : "Workload");
+                    IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateCredential, _update);
+                    if (_changes.Count() > 0)
+                    {
+                        Copy(_updateCredential, _update);
+                        _update.hash_value = _update.GetHashString();
+                        db.SaveChanges();
+                    }
                 }
             }
             catch (Exception e)
@@ -180,8 +208,11 @@ namespace CloudMoveyWorkerService.WCF
         }
         public bool DestroyCredential(Credential _destroyCredential)
         {
-            db.Credentials.Remove(db.Credentials.Find(_destroyCredential.id));
-            db.SaveChanges();
+            using (LocalDB db = new LocalDB())
+            {
+                db.Credentials.Remove(db.Credentials.Find(_destroyCredential.id));
+                db.SaveChanges();
+            }
             return true;
         }
 
@@ -215,7 +246,10 @@ namespace CloudMoveyWorkerService.WCF
         }
         public List<Event> Events()
         {
-            return db.Events.ToList();
+            using (LocalDB db = new LocalDB())
+            {
+                return db.Events.ToList();
+            }
         }
     }
     public class workerInformation
