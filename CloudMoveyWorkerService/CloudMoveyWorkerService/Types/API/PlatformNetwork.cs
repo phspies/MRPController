@@ -19,7 +19,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
     public class MoveyPlatformnetworkCRUDType
     {
         public string id { get; set; }
-        public string platform_id { get; set; }
+        public string platformdomain_id { get; set; }
         public string network { get; set; }
         public string description { get; set; }
         public string ipv4subnet { get; set; }
@@ -29,11 +29,12 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public object ipv6subnet { get; set; }
         public object ipv6netmask { get; set; }
         public object networkdomain_moid { get; set; }
+        public object networkdomain_name { get; set; }
     }
     public class MoveyPlatformnetworkType
     {
         public string id { get; set; }
-        public string platform_id { get; set; }
+        public string platformdomain_id { get; set; }
         public string network { get; set; }
         public string description { get; set; }
         public string ipv4subnet { get; set; }
@@ -44,5 +45,6 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public object ipv6subnet { get; set; }
         public object ipv6netmask { get; set; }
         public object networkdomain_moid { get; set; }
+        public object networkdomain_name { get; set; }
     }
 }

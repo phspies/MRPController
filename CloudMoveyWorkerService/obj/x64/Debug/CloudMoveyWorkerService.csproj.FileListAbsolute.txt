@@ -335,3 +335,4 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Microsoft.WindowsAzure.Management.Sql.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\EntityFramework.xml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Microsoft.WindowsAzure.Management.Sql.xml
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.csprojResolveAssemblyReference.cache

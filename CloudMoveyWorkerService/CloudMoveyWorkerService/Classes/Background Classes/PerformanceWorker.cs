@@ -188,7 +188,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                                         {
                                             Performance _perf = new Performance();
                                             _perf.workload_id = _workload.id;
-                                            _perf.timestamp = DateTime.Now; //_counterobject.timestamp;
+                                            _perf.timestamp = RoundDown(DateTime.UtcNow, TimeSpan.FromMinutes(30)); //_counterobject.timestamp;
                                             _perf.category_name = _pcounter.CategoryName;
                                             _perf.counter_name = _pcounter.CounterName;
                                             _perf.instance = _counterobject.instance;
@@ -250,7 +250,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
 
                                             Performance _perf = new Performance();
                                             _perf.workload_id = _workload.id;
-                                            _perf.timestamp = DateTime.Now; //_counterobject.timestamp;
+                                            _perf.timestamp = RoundDown(DateTime.UtcNow, TimeSpan.FromMinutes(30)); //_counterobject.timestamp;
                                             _perf.category_name = _pcounter.CategoryName;
                                             _perf.counter_name = _pcounter.CounterName;
                                             _perf.instance = _counterobject.instance;
@@ -282,6 +282,11 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                 }
                 Thread.Sleep(new TimeSpan(0, 30, 0));
             }
+        }
+
+        DateTime RoundDown(DateTime dt, TimeSpan d)
+        {
+            return new DateTime((dt.Ticks / d.Ticks) * d.Ticks);
         }
     }
 }

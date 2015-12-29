@@ -78,40 +78,65 @@ namespace CloudMoveyWorkerService.Portal.Classes
                         if (_platform.platform_version == "MCP 2.0")
                         {
                             MoveyPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
+                            MoveyPlatformdomainListType _currentplatformdomains = _cloud_movey.platformdomain().listplatformdomains();
+
                             var _credential = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
                             DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
 
                             //mirror platorm templates for this platform
                             MirrorPlatformTemplates(_credential, _caas, _platform);
 
-                            List<Option> _options = new List<Option>();
-                            _options.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
-                            _options.Add(new Option() { option = "state", value = "NORMAL" });
-                            foreach (VlanType _network in _caas.vlans().list(_options).vlan)
+                            List<Option> _domainoptions = new List<Option>();
+                            _domainoptions.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
+                            _domainoptions.Add(new Option() { option = "state", value = "NORMAL" });
+                            foreach (NetworkDomainType _domain in _caas.networkdomain().list(_domainoptions).networkDomain)
                             {
-                                MoveyPlatformnetworkCRUDType _platformnetwork = new MoveyPlatformnetworkCRUDType();
-                                _platformnetwork.moid = _network.id;
-                                _platformnetwork.network = _network.name;
-                                _platformnetwork.description = _network.description;
-                                _platformnetwork.platform_id = _platform.id;
-                                _platformnetwork.ipv4subnet = _network.privateIpv4Range.address;
-                                _platformnetwork.ipv4netmask = _network.privateIpv4Range.prefixSize;
-                                _platformnetwork.ipv6subnet = _network.ipv6Range.address;
-                                _platformnetwork.ipv6netmask = _network.ipv6Range.prefixSize;
-                                _platformnetwork.networkdomain_moid = _network.networkDomain.id;
-                                _platformnetwork.provisioned = true;
-                                if (_currentplatformnetworks.platformnetworks.Exists(x => x.moid == _network.id))
+                                MoveyPlatformdomainCRUDType _platformdomain = new MoveyPlatformdomainCRUDType();
+                                _platformdomain.moid = _domain.id;
+                                _platformdomain.domain = _domain.name;
+                                _platformdomain.platform_id = _platform.id;
+                                if (_currentplatformdomains.platformdomains.Exists(x => x.moid == _domain.id))
                                 {
-                                    _platformnetwork.id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _network.id).id;
-                                    _cloud_movey.platformnetwork().updateplatformnetwork(_platformnetwork);
+                                    _platformdomain.id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _domain.id).id;
+                                    _cloud_movey.platformdomain().updateplatformdomain(_platformdomain);
                                     _updated_platformnetworks += 1;
                                 }
                                 else
                                 {
-                                    _cloud_movey.platformnetwork().createplatformnetwork(_platformnetwork);
+                                    _cloud_movey.platformdomain().createplatformdomain(_platformdomain);
                                     _new_platformnetworks += 1;
                                 }
+                                List<Option> _networkoptions = new List<Option>();
+                                _networkoptions.Add(new Option() { option = "networkDomainId", value = _domain.id });
+                                _networkoptions.Add(new Option() { option = "state", value = "NORMAL" });
+                                foreach (VlanType _network in _caas.vlans().list(_networkoptions).vlan)
+                                {
+                                    MoveyPlatformnetworkCRUDType _platformnetwork = new MoveyPlatformnetworkCRUDType();
+                                    _platformnetwork.moid = _network.id;
+                                    _platformnetwork.network = _network.name;
+                                    _platformnetwork.description = _network.description;
+                                    _platformnetwork.platformdomain_id = _platformdomain.id;
+                                    _platformnetwork.ipv4subnet = _network.privateIpv4Range.address;
+                                    _platformnetwork.ipv4netmask = _network.privateIpv4Range.prefixSize;
+                                    _platformnetwork.ipv6subnet = _network.ipv6Range.address;
+                                    _platformnetwork.ipv6netmask = _network.ipv6Range.prefixSize;
+                                    _platformnetwork.networkdomain_moid = _network.networkDomain.id;
+                                    _platformnetwork.provisioned = true;
+                                    if (_currentplatformnetworks.platformnetworks.Exists(x => x.moid == _network.id))
+                                    {
+                                        _platformnetwork.id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _network.id).id;
+                                        _cloud_movey.platformnetwork().updateplatformnetwork(_platformnetwork);
+                                        _updated_platformnetworks += 1;
+                                    }
+                                    else
+                                    {
+                                        _cloud_movey.platformnetwork().createplatformnetwork(_platformnetwork);
+                                        _new_platformnetworks += 1;
+                                    }
+                                }
                             }
+
+ 
                             //refresh platform network list from portal
                             _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
 

@@ -47,6 +47,10 @@ namespace CloudMoveyWorkerService.Portal
         {
             return new PortalPlatform(this);
         }
+        public MoveyPlatformdomain platformdomain()
+        {
+            return new MoveyPlatformdomain(this);
+        }
         public MoveyPlatformnetwork platformnetwork()
         {
             return new MoveyPlatformnetwork(this);
