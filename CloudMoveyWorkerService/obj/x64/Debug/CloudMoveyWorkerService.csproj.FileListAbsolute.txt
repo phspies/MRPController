@@ -166,12 +166,6 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\ko\Microsoft.Expression.Interactions.resources.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.csproj.App.config
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.CloudMoveyWorkerSvc.resources
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.ProjectInstaller.resources
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.csproj.GenerateResource.Cache
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.exe
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\CloudMoveyWorkerService.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Newtonsoft.Json.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\RestSharp.dll
@@ -335,4 +329,42 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Clou
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Microsoft.WindowsAzure.Management.Sql.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\EntityFramework.xml
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\x64\Debug\Microsoft.WindowsAzure.Management.Sql.xml
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\lib\CloudMovey.Ssh.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\CloudMoveyWorkerService.exe.config
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\CloudMoveyWorkerService.exe
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\CloudMoveyWorkerService.pdb
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\Microsoft.Data.Edm.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\System.Spatial.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\Microsoft.Expression.Interactions.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\Microsoft.Data.Edm.xml
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\System.Spatial.xml
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\System.Windows.Interactivity.xml
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\Microsoft.Expression.Interactions.xml
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\de\System.Windows.Interactivity.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\en\System.Windows.Interactivity.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\es\System.Windows.Interactivity.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\fr\System.Windows.Interactivity.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\it\System.Windows.Interactivity.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\ja\System.Windows.Interactivity.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\ko\System.Windows.Interactivity.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\de\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\en\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\es\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\it\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.csproj.App.config
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.CloudMoveyWorkerSvc.resources
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.ProjectInstaller.resources
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.csproj.GenerateResource.Cache
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.exe
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.pdb
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.csprojResolveAssemblyReference.cache
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\bin\Debug\bin\Debug\CloudMoveyWorker.sdf
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\obj\x64\Debug\CloudMoveyWorkerService.Migrations.networflow.resources

@@ -17,15 +17,14 @@ namespace CloudMoveyWorkerService.LocalDatabase
         public string source_address { get; set; }
         [StringLength(50)]
         public string target_address { get; set; }
-        [StringLength(50)]
-        public uint source_port { get; set; }
-        public uint target_port { get; set; }
-        public uint protocol { get; set; }
+        public int source_port { get; set; }
+        public int target_port { get; set; }
+        public int protocol { get; set; }
         public DateTime timestamp { get; set; }
         public DateTime start_timestamp { get; set; }
         public DateTime stop_timestamp { get; set; }
-        public uint packets { get; set; }
-        public uint kbyte { get; set; }
+        public int packets { get; set; }
+        public int kbyte { get; set; }
         
     }
 

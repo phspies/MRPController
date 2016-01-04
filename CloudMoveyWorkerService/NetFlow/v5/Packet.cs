@@ -44,7 +44,7 @@ namespace CloudMoveyWorkerService.NetFlow.v5
         public DateTime UptimeFirst { get { return new DateTime(1970, 1, 1).AddSeconds(this._uptime_first); } }
         public DateTime UptimeLast { get { return new DateTime(1970, 1, 1).AddSeconds(this._uptime_first); } }
         public uint SrcPort { get { return this._srcPort; } }
-        public uint DstPort { get { return this._dstPort; } }
+        public int DstPort { get { return this._dstPort; } }
         public uint TcpFlags { get { return this._tcp_flags; } }
         public uint Prot { get { return this._prot; } }
         public uint TOS { get { return this._tos; } }

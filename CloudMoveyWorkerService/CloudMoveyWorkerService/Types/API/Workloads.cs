@@ -41,6 +41,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string ipaddress { get; set; }
         public string hash_value { get; set; }
         public bool perf_collection { get; set; }
+        public string platformtemplate_id { get; set; }
         public List<MoveyWorkloadVolumeType> workloaddisks_attributes { get; set; }
         public List<MoveyWorkloadInterfaceType> workloadinterfaces_attributes { get; set; }
     }
@@ -82,6 +83,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string ipaddress { get; set; }
         public string hash_value { get; set; }
         public bool perf_collection { get; set; }
+        public string platformtemplate_id { get; set; }
         public List<MoveyWorkloadVolumeType> volumes { get; set; }
         public List<MoveyWorkloadInterfaceType> interfaces { get; set; }
     }

@@ -16,6 +16,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
     {
         public string id { get; set; }
         public string organization_id { get; set; }
+        public string platform_id { get; set; }
         public string platform_moid { get; set; }
         public string image_moid { get; set; }
         public string image_name { get; set; }
@@ -33,6 +34,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         {
         public string id { get; set; }
         public string organization_id { get; set; }
+        public string platform_id { get; set; }
         public string platform_moid { get; set; }
         public string image_moid { get; set; }
         public string image_name { get; set; }

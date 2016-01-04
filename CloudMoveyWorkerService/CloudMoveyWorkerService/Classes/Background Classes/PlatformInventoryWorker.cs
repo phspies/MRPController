@@ -128,6 +128,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     MoveyPlatformtemplateCRUDType _moveytemplate = new MoveyPlatformtemplateCRUDType();
                     _moveytemplate.image_type = _caas_template.softwareLabel == null ? "os" : "software";
                     _moveytemplate.image_description = _caas_template.description;
+                    _moveytemplate.platform_id = _platform.id;
                     _moveytemplate.image_moid = _caas_template.id;
                     _moveytemplate.image_name = _caas_template.name;
                     _moveytemplate.os_displayname = _caas_template.operatingSystem.displayName;
@@ -153,6 +154,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     _moveytemplate.image_type = "os";
                     _moveytemplate.image_description = _caas_template.description;
                     _moveytemplate.image_moid = _caas_template.id;
+                    _moveytemplate.platform_id = _platform.id;
                     _moveytemplate.image_name = _caas_template.name;
                     _moveytemplate.os_displayname = _caas_template.operatingSystem.displayName;
                     _moveytemplate.os_id = _caas_template.operatingSystem.id;
@@ -169,6 +171,8 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     }
                 }
 
+                //refresh templates
+                _platformtemplates = _cloud_movey.platformtemplate().listplatformtemplates();
 
                 //update localdb platform information
                 List<Option> _dcoptions = new List<Option>();
@@ -371,6 +375,10 @@ namespace CloudMoveyWorkerService.Portal.Classes
                             {
                                 MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
                                 Objects.MapObjects(_workload, _moveyworkload);
+
+
+                                //update workload source template id with portal template id
+                                _moveyworkload.platformtemplate_id = _platformtemplates.platformtemplates.Find(x => x.image_moid == _caasworkload.sourceImageId).id;
 
                                 _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
                                 _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;

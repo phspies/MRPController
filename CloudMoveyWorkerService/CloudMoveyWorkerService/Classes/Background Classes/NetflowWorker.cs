@@ -12,10 +12,9 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
     {
         public void Start()
         {
-            LocalDB db = new LocalDB();
 
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-            IPEndPoint iep = new IPEndPoint(IPAddress.Any, 9991);
+            IPEndPoint iep = new IPEndPoint(IPAddress.Any, 9001);
             sock.Bind(iep);
             EndPoint ep = (EndPoint)iep;
 
@@ -38,17 +37,20 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                     NetworkFlow _netflow = new NetworkFlow();
                     _netflow.source_address = Int32ToIp(packet.SrcAddr);
                     _netflow.target_address = Int32ToIp(packet.DstAddr);
-                    _netflow.source_port = packet.SrcPort;
-                    _netflow.target_port = packet.DstPort;
-                    _netflow.protocol = packet.Prot;
+                    _netflow.source_port = (int)packet.SrcPort;
+                    _netflow.target_port = (int)packet.DstPort;
+                    _netflow.protocol = (int)packet.Prot;
                     _netflow.timestamp = packet.Header.Secs;
                     _netflow.start_timestamp = packet.UptimeFirst;
                     _netflow.stop_timestamp = packet.UptimeLast;
-                    _netflow.packets = packet.Packets;
-                    _netflow.kbyte = Convert.ToUInt32(Math.Round((double)((packet.Octets * 8) / 1024)));
+                    _netflow.packets = (int)packet.Packets;
+                    _netflow.kbyte = Convert.ToInt32(Math.Round((double)((packet.Octets * 8) / 1024)));
                     _netflow.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                    db.NetworkFlows.Add(_netflow);
-                    db.SaveChanges();
+                    using (LocalDB db = new LocalDB())
+                    {
+                        db.NetworkFlows.Add(_netflow);
+                        db.SaveChanges();
+                    }
                 }
             }
             sock.Close();
