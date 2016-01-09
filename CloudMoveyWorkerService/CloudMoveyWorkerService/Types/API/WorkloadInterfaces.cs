@@ -18,6 +18,8 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string platformnetwork_id { get; set; }
         public string ipassignment { get; set; }
         public string moid { get; set; }
+        public int connection_index { get; set; }
+        public string connection_id { get; set; }
         public MoveyPlatformnetworkType platformnetwork { get; set; }
     }
 }

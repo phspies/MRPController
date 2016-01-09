@@ -26,6 +26,8 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public DateTime stop_timestamp { get; set; }
         public int packets { get; set; }
         public int kbyte { get; set; }
+        public string source_workload_id { get; set; }
+        public string target_workload_id { get; set; }
         
     }
 

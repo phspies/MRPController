@@ -63,7 +63,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string hostname { get; set; }
         public string ipaddress { get; set; }
         public string domain { get; set; }
-        public List<MoveyWorkloadVolumeType> volumes { get; set; }
+        public List<MoveyWorkloadDiskType> volumes { get; set; }
         public MoveyTaskFailovergroupType failovergroup { get; set; }
         public MoveyTaskOriginalType original { get; set; }
         public MoveyTaskSourceType source { get; set; }
@@ -101,7 +101,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string hostname { get; set; }
         public string ipaddress { get; set; }
         public string domain { get; set; }
-        public List<MoveyWorkloadVolumeType> volumes { get; set; }
+        public List<MoveyWorkloadDiskType> volumes { get; set; }
     }
 
     public class MoveyTaskSourceType
@@ -111,7 +111,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string hostname { get; set; }
         public string ipaddress { get; set; }
         public string domain { get; set; }
-        public List<MoveyWorkloadVolumeType> volumes { get; set; }
+        public List<MoveyWorkloadDiskType> volumes { get; set; }
     }
     public class MoveyTaskTargetType
     {

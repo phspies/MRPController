@@ -6,19 +6,17 @@ using System.Threading.Tasks;
 
 namespace CloudMoveyWorkerService.Portal.Types.API
 {
-    public class MoveyWorkloadVolumeType
+    public class MoveyWorkloadDiskType
     {
         public string id { get; set; }
         public string workload_id { get; set; }
         public int diskindex { get; set; }
-        public string driveletter { get; set; }
-        public Int64 volumesize { get; set; }
-        public Int64 volumefreespace { get; set; }
+        public int disksize { get; set; }
+        public string platformstoragetier_id { get; set; }
+        public string moid { get; set; }
+        public int position { get; set; }
         public bool provisioned { get; set; }
-        public string serialnumber { get; set; }
-        public string volumename { get; set; }
         public string deviceid { get; set; }
-        public Int64 blocksize { get; set; }
         public int _destroy { get; set; }
         public MoveyPlatformStorageTierType platformstoragetier { get; set; }
     }

@@ -286,13 +286,13 @@ namespace CloudMoveyWorkerService.Portal.Classes
                 foreach (ServerType _caasworkload in _caasworkloads.Where(x => x.datacenterId == _platform.datacenter && x.operatingSystem.family.ToUpper() == "WINDOWS"))
                 {
                     //Pupulate logical volumes for workload
-                    List<MoveyWorkloadVolumeType> workloaddisks_parameters = new List<MoveyWorkloadVolumeType>();
+                    List<MoveyWorkloadDiskType> workloaddisks_parameters = new List<MoveyWorkloadDiskType>();
                     foreach (ServerTypeDisk _workloaddisk in _caasworkload.disk)
                     {
-                        MoveyWorkloadVolumeType _logical_volume = new MoveyWorkloadVolumeType() { moid = _workloaddisk.id, diskindex = _workloaddisk.scsiId, provisioned = true, disksize = _workloaddisk.sizeGb };
-                        if (_currentplatformworkloads.workloads.Exists(x => x.volumes.Exists(y => y.moid == _workloaddisk.id)))
+                        MoveyWorkloadDiskType _logical_volume = new MoveyWorkloadDiskType() { moid = _workloaddisk.id, diskindex = _workloaddisk.scsiId, provisioned = true, disksize = _workloaddisk.sizeGb };
+                        if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id && x.disks.Exists(y => y.moid == _workloaddisk.id)))
                         {
-                            _logical_volume.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).volumes.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
+                            _logical_volume.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).disks.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
                         }
                         workloaddisks_parameters.Add(_logical_volume);
                     }

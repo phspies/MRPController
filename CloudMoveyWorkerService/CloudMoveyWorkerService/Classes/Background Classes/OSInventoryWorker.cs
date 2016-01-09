@@ -1,11 +1,16 @@
 ﻿using CloudMoveyWorkerService.CaaS;
+using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
 using CloudMoveyWorkerService.LocalDatabase;
 using CloudMoveyWorkerService.Portal.Types.API;
 using CloudMoveyWorkerService.WCF;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Management;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 
 namespace CloudMoveyWorkerService.Portal.Classes
@@ -24,298 +29,280 @@ namespace CloudMoveyWorkerService.Portal.Classes
                 int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads;
                 _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = 0;
 
-                try
-                {
+
+
                     Global.event_log.WriteEntry("Staring operating system inventory process");
-                    //process credentials
-                    MoveyCredentialListType _platformcredentials = _cloud_movey.credential().listcredentials();
-                    foreach (var _credential in db.Credentials)
+
+                    MoveyWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
+                    foreach (MoveyWorkloadType _workload in _currentplatformworkloads.workloads)
                     {
-                        MoveyCredentialCRUDType _crudcredential = new MoveyCredentialCRUDType();
-                        _crudcredential.id = _credential.id;
-                        _crudcredential.description = _credential.description;
-                        _crudcredential.credential_type = _credential.credential_type;
-                        if (_platformcredentials.credentials.Exists(x => x.id == _credential.id))
+                        try
                         {
-                            _cloud_movey.credential().updatecredential(_crudcredential);
-                            _updated_credentials += 1;
-                        }
-                        else
-                        {
-                            _cloud_movey.credential().createcredential(_crudcredential);
-                            _new_credentials += 1;
-                        }
-                    }
+                            Workload __workload = db.Workloads.FirstOrDefault(x => x.id == _workload.id);
+                            string workload_ip = Connection.find_working_ip(__workload, true);
+                            Credential _credential = db.Credentials.FirstOrDefault(x => x.id == _workload.credential_id);
 
-                    //process platforns
-                    MoveyPlatformListType _platformplatforms = _cloud_movey.platform().listplatforms();
-                    foreach (var _platform in db.Platforms)
-                    {
-                        MoveyPlatformCRUDType _crudplatform = new MoveyPlatformCRUDType();
-                        _crudplatform.id = _platform.id;
-                        _crudplatform.worker_id = Global.agent_id;
-                        _crudplatform.credential_id = _platform.credential_id;
-                        _crudplatform.platform_version = _platform.platform_version;
-                        _crudplatform.platformtype = (new Vendors()).VendorList.FirstOrDefault(x => x.ID == _platform.vendor).Vendor.Replace(" ", "_").ToLower();
-                        _crudplatform.moid = _platform.moid;
+                            ConnectionOptions options = ProcessConnectionOptions();
 
-                        _crudplatform.platform = _platform.description;
-                        if (_platformplatforms.platforms.Exists(x => x.id == _platform.id))
-                        {
-                            _cloud_movey.platform().updateplatform(_crudplatform);
-                            _updated_platforms += 1;
-                        }
-                        else
-                        {
-                            _cloud_movey.platform().createplatform(_crudplatform);
-                            _new_platforms += 1;
-                        }
-                    }
+                            options.Username = (String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain) + "\\" + _credential.username;
+                            options.Password = _credential.password;
 
-                    //process dimension data networks
-                    foreach (var _platform in db.Platforms.Where(x => x.vendor == 0 && x.platform_version == "MCP 2.0"))
-                    {
-                        if (_platform.platform_version == "MCP 2.0")
-                        {
-                            MoveyPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
-                            MoveyPlatformdomainListType _currentplatformdomains = _cloud_movey.platformdomain().listplatformdomains();
+                            ManagementScope connectionScope = ConnectionScope(workload_ip, options);
 
-                            var _credential = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
-                            DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
+                            //process running processes
+                            SelectQuery msProcessQuery = new SelectQuery("SELECT * FROM Win32_Process");
+                            ManagementObjectSearcher searchProcessProcedure = new ManagementObjectSearcher(connectionScope, msProcessQuery);
 
-                            //mirror platorm templates for this platform
-                            MirrorPlatformTemplates(_credential, _caas, _platform);
 
-                            List<Option> _domainoptions = new List<Option>();
-                            _domainoptions.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
-                            _domainoptions.Add(new Option() { option = "state", value = "NORMAL" });
-                            foreach (NetworkDomainType _domain in _caas.networkdomain().list(_domainoptions).networkDomain)
+                            foreach (ManagementObject item in searchProcessProcedure.Get())
                             {
-                                MoveyPlatformdomainCRUDType _platformdomain = new MoveyPlatformdomainCRUDType();
-                                _platformdomain.moid = _domain.id;
-                                _platformdomain.domain = _domain.name;
-                                _platformdomain.platform_id = _platform.id;
-                                if (_currentplatformdomains.platformdomains.Exists(x => x.moid == _domain.id))
+                                MoveyWorkloadProcessType _process;
+
+                                //if procces already exists in portal, just update it   
+                                if (_workload.processes.Exists(x => x.caption == item["Caption"].ToString()))
                                 {
-                                    _platformdomain.id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _domain.id).id;
-                                    _cloud_movey.platformdomain().updateplatformdomain(_platformdomain);
-                                    _updated_platformnetworks += 1;
+                                    _process = _workload.processes.FirstOrDefault(x => x.caption == item["Caption"].ToString());
                                 }
                                 else
                                 {
-                                    _cloud_movey.platformdomain().createplatformdomain(_platformdomain);
-                                    _new_platformnetworks += 1;
+                                    _process = new MoveyWorkloadProcessType();
+                                    _workload.processes.Add(_process);
                                 }
-                                List<Option> _networkoptions = new List<Option>();
-                                _networkoptions.Add(new Option() { option = "networkDomainId", value = _domain.id });
-                                _networkoptions.Add(new Option() { option = "state", value = "NORMAL" });
-                                foreach (VlanType _network in _caas.vlans().list(_networkoptions).vlan)
+
+                                try { _process.caption = item["Caption"].ToString(); } catch (Exception) { }
+                                try { _process.commandline = item["CommandLine"].ToString(); } catch (Exception) { }
+                                try { _process.name = item["Name"].ToString(); } catch (Exception) { }
+                                try { _process.processid = Int16.Parse(item["ProcessId"].ToString()); } catch (Exception) { }
+                                try { _process.writeoperationcount = Int64.Parse(item["WriteOperationCount"].ToString()); } catch (Exception) { }
+                                try { _process.writetransfercount = Int64.Parse(item["WriteTransferCount"].ToString()); } catch (Exception) { }
+                                try { _process.readoperationcount = Int64.Parse(item["ReadOperationCount"].ToString()); } catch (Exception) { }
+                                try { _process.readtransfercount = Int64.Parse(item["ReadTransferCount"].ToString()); } catch (Exception) { }
+                                try { _process.threadcount = Int16.Parse(item["ThreadCount"].ToString()); } catch (Exception) { }
+                                try { _process.virtualsize = Int16.Parse(item["ThreadCount"].ToString()); } catch (Exception) { }
+                            }
+
+                            //process installed software
+                            SelectQuery msSoftwareQuery = new SelectQuery("SELECT * FROM Win32_Product");
+                            ManagementObjectSearcher searchSoftwareProcedure = new ManagementObjectSearcher(connectionScope, msSoftwareQuery);
+
+
+                            foreach (ManagementObject item in searchSoftwareProcedure.Get())
+                            {
+                                MoveyWorkloadSoftwareType _software;
+
+                                //if procces already exists in portal, just update it   
+                                if (_workload.softwares.Exists(x => x.name == item["Name"].ToString()))
                                 {
-                                    MoveyPlatformnetworkCRUDType _platformnetwork = new MoveyPlatformnetworkCRUDType();
-                                    _platformnetwork.moid = _network.id;
-                                    _platformnetwork.network = _network.name;
-                                    _platformnetwork.description = _network.description;
-                                    _platformnetwork.platformdomain_id = _platformdomain.id;
-                                    _platformnetwork.ipv4subnet = _network.privateIpv4Range.address;
-                                    _platformnetwork.ipv4netmask = _network.privateIpv4Range.prefixSize;
-                                    _platformnetwork.ipv6subnet = _network.ipv6Range.address;
-                                    _platformnetwork.ipv6netmask = _network.ipv6Range.prefixSize;
-                                    _platformnetwork.networkdomain_moid = _network.networkDomain.id;
-                                    _platformnetwork.provisioned = true;
-                                    if (_currentplatformnetworks.platformnetworks.Exists(x => x.moid == _network.id))
+                                    _software = _workload.softwares.FirstOrDefault(x => x.name == item["Name"].ToString());
+                                }
+                                else
+                                {
+                                    _software = new MoveyWorkloadSoftwareType();
+                                    _workload.softwares.Add(_software);
+                                }
+                                try { _software.name = item["Name"].ToString(); } catch (Exception) { }
+                                try { _software.caption = item["Caption"].ToString(); } catch (Exception) { }
+                                try { _software.description = item["Description"].ToString(); } catch (Exception) { }
+                                try { _software.installlocation = item["InstallLocation"].ToString(); } catch (Exception) { }
+                                try { _software.installstate = Int16.Parse(item["InstallState"].ToString()); } catch (Exception) { }
+                                try { _software.vendor = item["Vendor"].ToString(); } catch (Exception) { }
+                                try { _software.version = item["Version"].ToString(); } catch (Exception) { }
+                            }
+
+                            //process logical volumes
+
+                            //set all volumes to be destroyed and remove destroy tag as we processes volumes
+                            _workload.volumes.ForEach(x => x._destroy = 1);
+                            _workload.disks.ForEach(x => x._destroy = 1);
+
+                            SelectQuery wmiDiskDrives = new SelectQuery("SELECT * FROM Win32_DiskDrive");
+                            ManagementObjectSearcher searchDiskProcedure = new ManagementObjectSearcher(connectionScope, wmiDiskDrives);
+
+                            foreach (ManagementObject wmiDiskDrive in searchDiskProcedure.Get())
+                            {
+
+                                MoveyWorkloadDiskType _disk;
+
+                                //if volume already exists in portal, just update it   
+                                if (_workload.disks.Exists(x => x.diskindex == Int16.Parse(wmiDiskDrive["Index"].ToString())))
+                                {
+                                    _disk = _workload.disks.FirstOrDefault(x => x.diskindex == Int16.Parse(wmiDiskDrive["Index"].ToString()));
+                                    _disk._destroy = 0;
+                                }
+                                else
+                                {
+                                    _disk = new MoveyWorkloadDiskType();
+                                    _workload.disks.Add(_disk);
+                                }
+
+                                try { _disk.disksize = Int16.Parse(wmiDiskDrive["Size"].ToString()); } catch (Exception) { }
+                                try { _disk.deviceid = wmiDiskDrive["DeviceID"].ToString(); } catch (Exception) { }
+
+
+                                foreach (ManagementObject wmiPartitionDrive in wmiDiskDrive.GetRelated("Win32_DiskPartition"))
+                                {
+
+                                    foreach (ManagementObject wmiLogicalDrive in wmiPartitionDrive.GetRelated("Win32_LogicalDisk"))
                                     {
-                                        _platformnetwork.id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _network.id).id;
-                                        _cloud_movey.platformnetwork().updateplatformnetwork(_platformnetwork);
-                                        _updated_platformnetworks += 1;
+                                        SelectQuery wmiVolumes = new SelectQuery("SELECT * FROM Win32_Volume where DriveLetter='" + wmiLogicalDrive["DeviceId"] + "'");
+                                        ManagementObjectSearcher searchVolumes = new ManagementObjectSearcher(connectionScope, wmiVolumes);
+                                        foreach (ManagementObject wmiVolume in searchVolumes.Get())
+                                        {
+
+
+                                            MoveyWorkloadVolumeType _volume;
+
+                                            //if volume already exists in portal, just update it   
+                                            if (_workload.volumes.Exists(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()))
+                                            {
+                                                _volume = _workload.volumes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString());
+                                                _volume._destroy = 0;
+                                            }
+                                            else
+                                            {
+                                                _volume = new MoveyWorkloadVolumeType();
+                                                _workload.volumes.Add(_volume);
+                                            }
+                                            try { _volume.diskindex = Int16.Parse(wmiDiskDrive["Index"].ToString()); } catch (Exception) { }
+                                            try { _volume.driveletter = wmiVolume["DriveLetter"].ToString(); } catch (Exception) { }
+                                            try { _volume.serialnumber = wmiVolume["SerialNumber"].ToString(); } catch (Exception) { }
+                                            try { _volume.blocksize = Int16.Parse(wmiVolume["BlockSize"].ToString()); } catch (Exception) { }
+                                            try { _volume.volumename = wmiVolume["Label"].ToString(); } catch (Exception) { }
+                                            try { _volume.deviceid = wmiVolume["DeviceID"].ToString(); } catch (Exception) { }
+                                            try { _volume.volumefreespace = Int64.Parse(wmiVolume["FreeSpace"].ToString()); } catch (Exception) { }
+                                            try { _volume.volumesize = Int64.Parse(wmiVolume["Capacity"].ToString()); } catch (Exception) { }
+                                            try { _volume.provisioned = true; } catch (Exception) { }
+                                        }
+                                    }
+                                }
+                            }
+
+
+                            //process network interfaces
+                            SelectQuery wmiNetInterfaces = new SelectQuery("select * from Win32_NetworkAdapterConfiguration where IPEnabled = 'True'");
+                            ManagementObjectSearcher searchNetInterfacesConfig = new ManagementObjectSearcher(connectionScope, wmiNetInterfaces);
+                            foreach (ManagementObject searchNetInterfaceConfig in searchNetInterfacesConfig.Get())
+                            {
+                                foreach (ManagementObject searchNetInterface in searchNetInterfaceConfig.GetRelated("Win32_NetworkAdapter"))
+                                {
+                                    MoveyWorkloadInterfaceType _interface;
+
+                                    String[] addresses = (String[])searchNetInterfaceConfig["IPAddress"];
+                                    String[] netmask = (String[])searchNetInterfaceConfig["IPSubnet"];
+
+                                    //if interface already exists in portal, just update it   
+                                    if (_workload.interfaces.Exists(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.'))))
+                                    {
+                                        _interface = _workload.interfaces.FirstOrDefault(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')));
                                     }
                                     else
                                     {
-                                        _cloud_movey.platformnetwork().createplatformnetwork(_platformnetwork);
-                                        _new_platformnetworks += 1;
+                                        _interface = new MoveyWorkloadInterfaceType();
+                                        _workload.interfaces.Add(_interface);
                                     }
+                                    _interface.ipaddress = addresses.FirstOrDefault(s => s.Contains('.'));
+                                    _interface.ipv6address = addresses.FirstOrDefault(s => s.Contains(':'));
+                                    _interface.netmask = netmask.FirstOrDefault(s => s.Contains('.'));
+                                    _interface.ipv6netmask = netmask.FirstOrDefault(s => s.Contains(':'));
+                                    try { _interface.connection_index = Int16.Parse(searchNetInterfaceConfig["Index"].ToString()); } catch (Exception) { }
+                                    try { _interface.connection_id = searchNetInterface["NetConnectionID"].ToString(); } catch (Exception) { }
                                 }
+
                             }
+                            //Update workload in the portal
+                            MoveyWorkloadCRUDType _update_workload = new MoveyWorkloadCRUDType();
+                            _update_workload.id = _workload.id;
+                            _update_workload.workloaddisks_attributes = _workload.disks;
+                            _update_workload.workloadvolumes_attributes = _workload.volumes;
+                            _update_workload.workloadinterfaces_attributes = _workload.interfaces;
+                            _update_workload.workloadprocesses_attributes = _workload.processes;
+                            _update_workload.workloadsoftwares_attributes = _workload.softwares;
 
- 
-                            //refresh platform network list from portal
-                            _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
+                            _cloud_movey.workload().updateworkload(_update_workload);
 
-                            //process workloads
-                            MoveyWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
-                            List<Option> _workload_mcp2_options = new List<Option>();
-                            _workload_mcp2_options.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
-                            _workload_mcp2_options.Add(new Option() { option = "state", value = "NORMAL" });
-                            List<ServerType> _caasworkloads = _caas.workloads().list(_workload_mcp2_options).server.ToList();
-                            foreach (ServerType _caasworkload in _caasworkloads.Where(x => x.datacenterId == _platform.datacenter))
-                            {
-                                MoveyWorkloadCRUDType _moveyworkload = new MoveyWorkloadCRUDType();
-                                _moveyworkload.hostname = _caasworkload.name;
-                                _moveyworkload.moid = _caasworkload.id;
-                                _moveyworkload.vcpu = (_caasworkload.cpu.coresPerSocket * _caasworkload.cpu.count) as int?;
-                                _moveyworkload.vmemory = _caasworkload.memoryGb as int?;
-                                _moveyworkload.platform_id = _platform.id;
-                                _moveyworkload.enabled = true;
-                                _moveyworkload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                _moveyworkload.osedition = _caasworkload.operatingSystem.displayName;
-
-                                //Pupulate logical volumes for workload
-                                List<MoveyWorkloadVolumeType> workloaddisks_parameters = new List<MoveyWorkloadVolumeType>();
-                                foreach (ServerTypeDisk _workloaddisk in _caasworkload.disk)
-                                {
-                                    MoveyWorkloadVolumeType _logical_volume = new MoveyWorkloadVolumeType() { moid = _workloaddisk.id, diskindex = _workloaddisk.scsiId, provisioned = true, disksize = _workloaddisk.sizeGb };
-                                    if (_currentplatformworkloads.workloads.Exists(x => x.volumes.Exists(y => y.moid == _workloaddisk.id)))
-                                    {
-                                        _logical_volume.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).volumes.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
-                                    }
-                                    workloaddisks_parameters.Add(_logical_volume);
-
-                                }
-
-                                //populate network interfaces for workload
-                                List<MoveyWorkloadInterfaceType> workloadinterfaces_parameters = new List<MoveyWorkloadInterfaceType>();
-                                MoveyWorkloadInterfaceType _primary_logical_interface = new MoveyWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", ipv6address = _caasworkload.networkInfo.primaryNic.ipv6, ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4, moid = _caasworkload.networkInfo.primaryNic.id };
-                                if (_currentplatformworkloads.workloads.Exists(x => x.interfaces.Exists(y => x.moid == _caasworkload.id && y.moid == _caasworkload.networkInfo.primaryNic.id)))
-                                {
-                                    _primary_logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkload.networkInfo.primaryNic.id).id;
-                                }
-                                workloadinterfaces_parameters.Add(_primary_logical_interface);
-                                int nic_index = 1;
-                                foreach (NicType _caasworkloadinterface in _caasworkload.networkInfo.additionalNic)
-                                {
-                                    MoveyWorkloadInterfaceType _logical_interface = new MoveyWorkloadInterfaceType()
-                                    {
-                                        vnic = nic_index,
-                                        ipassignment = "manual_ip",
-                                        ipv6address = _caasworkloadinterface.ipv6,
-                                        ipaddress = _caasworkloadinterface.privateIpv4,
-                                        moid = _caasworkloadinterface.id,
-                                        platformnetwork_id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id
-                                    };
-                                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
-                                    {
-                                        if (_currentplatformworkloads.workloads.Exists((x => x.interfaces.Exists(y => y.moid == _caasworkloadinterface.id))))
-                                        {
-                                            _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
-                                        }
-                                    }
-                                    workloadinterfaces_parameters.Add(_logical_interface);
-                                    nic_index += 1;
-                                }
-
-                                _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
-                                _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
-
-                                if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
-                                {
-                                    _moveyworkload.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).id;
-                                    _cloud_movey.workload().updateworkload(_moveyworkload);
-                                    _updated_workloads += 1;
-                                }
-                                else
-                                {
-                                    _cloud_movey.workload().createworkload(_moveyworkload);
-                                    _new_workloads += 1;
-                                }
-
-                                //Update database with workload information
-                                Workload _workload = new Workload();
-                                _workload.vcpu = _caasworkload.cpu.count;
-                                _workload.vcore = _caasworkload.cpu.coresPerSocket;
-                                _workload.vmemory = _caasworkload.memoryGb;
-                                _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                                _workload.hostname = _caasworkload.name;
-                                _workload.moid = _caasworkload.id;
-                                _workload.platform_id = _platform.id;
-                                _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                _workload.osedition = _caasworkload.operatingSystem.displayName;
-                                if (!db.Workloads.ToList().Exists(x => x.moid == _caasworkload.id))
-                                {
-                                    new CloudMoveyService().AddWorkload(_workload);
-                                }
-                                else
-                                {
-                                    Workload _database_workload = db.Workloads.Find(_caasworkload.id);
-                                    _database_workload.vcpu = _caasworkload.cpu.count;
-                                    _database_workload.vcore = _caasworkload.cpu.coresPerSocket;
-                                    _database_workload.vmemory = _caasworkload.memoryGb;
-                                    _database_workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                                    _database_workload.hostname = _caasworkload.name;
-                                    _database_workload.moid = _caasworkload.id;
-                                    _database_workload.platform_id = _platform.id;
-                                    _database_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                                    _database_workload.osedition = _caasworkload.operatingSystem.displayName;
-                                    db.SaveChanges();
-                                }
-                            }
-                        }
                     }
-                    sw.Stop();
+                    catch (Exception ex)
+                    {
+                        Global.event_log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
+                    }
+                }
 
-                    Global.event_log.WriteEntry(
-                        String.Format("Completed data mirroring process.{6}{0} new credentials.{6}{1} new platforms.{6}{7} new platform networks.{6}{2} new workloads.{6}{3} updated credentials.{6}{4} updated platforms.{6}{8} updated platform networks.{6}{5} updated workloads.{6}{6}Total Execute Time: {9}",
-                        _new_credentials, _new_platforms, _new_workloads, _updated_credentials, _updated_platforms, _updated_workloads,
-                        Environment.NewLine, _new_platformnetworks, _updated_platformnetworks, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
-                        ));
-                }
-                catch (Exception ex)
-                {
-                    Global.event_log.WriteEntry(String.Format("Error in mirror task: {0}", ex.ToString()), EventLogEntryType.Error);
-                }
-                Thread.Sleep(new TimeSpan(1, 0, 0));
+
+
+                sw.Stop();
+
+                Global.event_log.WriteEntry(
+                    String.Format("Completed data mirroring process.{6}{0} new credentials.{6}{1} new platforms.{6}{7} new platform networks.{6}{2} new workloads.{6}{3} updated credentials.{6}{4} updated platforms.{6}{8} updated platform networks.{6}{5} updated workloads.{6}{6}Total Execute Time: {9}",
+                    _new_credentials, _new_platforms, _new_workloads, _updated_credentials, _updated_platforms, _updated_workloads,
+                    Environment.NewLine, _new_platformnetworks, _updated_platformnetworks, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
+                    ));
+
+                Thread.Sleep(new TimeSpan(24, 0, 0));
+
             }
+
         }
-        private void MirrorPlatformTemplates(Credential _credential, DimensionData _caas, Platform _platform)
+    
+        private static string TranslateMemoryUsage(string workingSet)
         {
-            MoveyPlatformtemplateListType _platformtemplates = _cloud_movey.platformtemplate().listplatformtemplates();
+            int calc = Convert.ToInt32(workingSet);
+            calc = calc / 1024;
+            return calc.ToString();
+        }
+        private static ConnectionOptions ProcessConnectionOptions()
+        {
+            ConnectionOptions options = new ConnectionOptions();
+            options.Impersonation = ImpersonationLevel.Impersonate;
+            options.Authentication = AuthenticationLevel.Default;
+            options.EnablePrivileges = true;
+            return options;
+        }
 
-            //process platform images
-            OsImagesType _caas_templates = _caas.templates().platformtemplates();
-            foreach (var _caas_template in _caas_templates.osImage.Where(x => x.datacenterId == _platform.moid))
+        private static ManagementScope ConnectionScope(string machineName, ConnectionOptions options)
+        {
+            ManagementScope connectScope = new ManagementScope();
+            connectScope.Path = new ManagementPath(@"\\" + machineName + @"\root\CIMV2");
+            connectScope.Options = options;
+
+            try
             {
-                MoveyPlatformtemplateCRUDType _moveytemplate = new MoveyPlatformtemplateCRUDType();
-                _moveytemplate.image_type = _caas_template.softwareLabel.Count() == 0 ? "os" : "software";
-                _moveytemplate.image_description = _caas_template.description;
-                _moveytemplate.image_moid = _caas_template.id;
-                _moveytemplate.image_name = _caas_template.name;
-                _moveytemplate.os_displayname = _caas_template.operatingSystem.displayName;
-                _moveytemplate.os_id = _caas_template.operatingSystem.id;
-                _moveytemplate.os_type = _caas_template.operatingSystem.family;
-                _moveytemplate.platform_moid = _platform.moid;
-                if (_platformtemplates.platformtemplates.Exists(x => x.image_moid == _caas_template.id))
-                {
-                    _moveytemplate.id = _platformtemplates.platformtemplates.FirstOrDefault(x => x.image_moid == _caas_template.id).id;
-                    _cloud_movey.platformtemplate().updateplatformtemplate(_moveytemplate);
-                }
-                else
-                {
-                    _cloud_movey.platformtemplate().createplatformtemplate(_moveytemplate);
-                }
+                connectScope.Connect();
             }
-
-            //process customer images
-            CustomerImagesType _customer_templates = _caas.templates().customertemplates();
-            foreach (var _caas_template in _customer_templates.customerImage.Where(x => x.datacenterId == _platform.moid))
+            catch (ManagementException e)
             {
-                MoveyPlatformtemplateCRUDType _moveytemplate = new MoveyPlatformtemplateCRUDType();
-                _moveytemplate.image_type = "os";
-                _moveytemplate.image_description = _caas_template.description;
-                _moveytemplate.image_moid = _caas_template.id;
-                _moveytemplate.image_name = _caas_template.name;
-                _moveytemplate.os_displayname = _caas_template.operatingSystem.displayName;
-                _moveytemplate.os_id = _caas_template.operatingSystem.id;
-                _moveytemplate.os_type = _caas_template.operatingSystem.family;
-                _moveytemplate.platform_moid = _platform.moid;
-                if (_platformtemplates.platformtemplates.Exists(x => x.image_moid == _caas_template.id))
-                {
-                    _moveytemplate.id = _platformtemplates.platformtemplates.FirstOrDefault(x => x.image_moid == _caas_template.id).id;
-                    _cloud_movey.platformtemplate().updateplatformtemplate(_moveytemplate);
-                }
-                else
-                {
-                    _cloud_movey.platformtemplate().createplatformtemplate(_moveytemplate);
-                }
+                Console.WriteLine("An Error Occurred: " + e.Message.ToString());
             }
+            return connectScope;
+        }
 
+        private String GetPartName(String inp)
+        {
+            String Dependent = "", ret = "";
+            ManagementObjectSearcher LogicalDisk = new ManagementObjectSearcher("Select * from Win32_LogicalDiskToPartition");
+            foreach (ManagementObject drive in LogicalDisk.Get())
+            {
+                if (drive["Antecedent"].ToString().Contains(inp))
+                {
+                    Dependent = drive["Dependent"].ToString();
+                    ret = Dependent.Substring(Dependent.Length - 3, 2);
+                    break;
+                }
+
+            }
+            return ret;
+
+        }
+
+        public static T DeepClone<T>(T obj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
+
+                return (T)formatter.Deserialize(ms);
+            }
         }
     }
 }

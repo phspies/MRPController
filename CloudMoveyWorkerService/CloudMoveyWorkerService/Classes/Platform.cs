@@ -41,7 +41,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 
                 List<DeployServerTypeDisk> _disks = new List<DeployServerTypeDisk>();
                
-                foreach (MoveyWorkloadVolumeType volume in _target.volumes)
+                foreach (MoveyWorkloadDiskType volume in _target.disks)
                 {
                     if (_platformimage.disk.Exists(x => x.scsiId == volume.diskindex))
                     {
@@ -95,7 +95,7 @@ namespace CloudMoveyWorkerService.CloudMovey.Controllers
 
                     //Expand C: drive and Add additional disks if required
                     int count = 0;
-                    foreach (MoveyWorkloadVolumeType _volume in _target.volumes)
+                    foreach (MoveyWorkloadDiskType _volume in _target.disks)
                     {
                         if (_newvm.disk.ToList().Exists(x => x.scsiId == _volume.diskindex))
                         {

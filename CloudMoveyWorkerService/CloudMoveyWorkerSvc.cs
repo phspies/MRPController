@@ -18,7 +18,7 @@ namespace CloudMoveyWorkerService
 
     public partial class CloudMoveyWorkerSvc : ServiceBase
     {
-        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread;
+        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread, _osinventody_thread;
         ServiceHost serviceHost;
         public CloudMoveyWorkerSvc()
         {
@@ -84,6 +84,12 @@ namespace CloudMoveyWorkerService
             if (Global.debug) { Global.event_log.WriteEntry("Starting Data Upload Thread"); };
             _dataupload_thread = new Thread(new ThreadStart(_dataupload.Start));
             _dataupload_thread.Start();
+
+
+            OSInventoryWorker _osinventody = new OSInventoryWorker();
+            if (Global.debug) { Global.event_log.WriteEntry("Starting OS Inventory Thread"); };
+            _osinventody_thread = new Thread(new ThreadStart(_osinventody.Start));
+            _osinventody_thread.Start();
 
             Thread.Yield();
             //Thread.Sleep(20000);

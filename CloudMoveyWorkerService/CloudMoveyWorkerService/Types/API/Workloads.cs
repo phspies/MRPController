@@ -14,7 +14,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string platform_id { get; set; }
         public string failovergroup_id { get; set; }
         public string hostname { get; set; }
-        public string ip_list { get; set; }
+        public string iplist { get; set; }
         public int? vcpu { get; set; }
         public int? vcore { get; set; }
         public int? vmemory { get; set; }
@@ -42,8 +42,11 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string hash_value { get; set; }
         public bool perf_collection { get; set; }
         public string platformtemplate_id { get; set; }
-        public List<MoveyWorkloadVolumeType> workloaddisks_attributes { get; set; }
+        public List<MoveyWorkloadDiskType> workloaddisks_attributes { get; set; }
+        public List<MoveyWorkloadVolumeType> workloadvolumes_attributes { get; set; }
         public List<MoveyWorkloadInterfaceType> workloadinterfaces_attributes { get; set; }
+        public List<MoveyWorkloadProcessType> workloadprocesses_attributes { get; set; }
+        public List<MoveyWorkloadSoftwareType> workloadsoftwares_attributes { get; set; }
     }
     public class MoveyWorkloadListType
     {
@@ -56,7 +59,6 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string failovergroup_id { get; set; }
         public string hostname { get; set; }
         public string iplist { get; set; }
-        public int position { get; set; }
         public int vcpu { get; set; }
         public int vmemory { get; set; }
         public int vcore { get; set; }
@@ -84,7 +86,10 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string hash_value { get; set; }
         public bool perf_collection { get; set; }
         public string platformtemplate_id { get; set; }
-        public List<MoveyWorkloadVolumeType> volumes { get; set; }
+        public List<MoveyWorkloadDiskType> disks { get; set; }
         public List<MoveyWorkloadInterfaceType> interfaces { get; set; }
+        public List<MoveyWorkloadProcessType> processes { get; set; }
+        public List<MoveyWorkloadSoftwareType> softwares { get; set; }
+        public List<MoveyWorkloadVolumeType> volumes { get; set; }
     }
 }

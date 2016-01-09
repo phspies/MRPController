@@ -14,7 +14,11 @@ namespace CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes
             Ping testPing = new Ping();
             foreach (string ip in ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
             {
-                PingReply reply = testPing.Send(ip, 1000);
+                PingReply reply = null;
+                try {
+                    reply = testPing.Send(ip, 1000);
+                }
+                catch (Exception ex) { }
                 if (reply != null)
                 {
                     workingip = ip;

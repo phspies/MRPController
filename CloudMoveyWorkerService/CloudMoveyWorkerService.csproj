@@ -309,6 +309,9 @@
     <Compile Include="CloudMoveyWorkerService\Types\API\PerformanceCategory.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\PerformanceCounter.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\PlatformDomain.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\WorkloadProcesses.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\WorkloadSoftwares.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\WorkloadVolumes.cs" />
     <Compile Include="DimensionData\Controllers\Datacenter.cs" />
     <Compile Include="DimensionData\Controllers\Template.cs" />
     <Compile Include="DimensionData\Types\AccountTypes.cs">
@@ -345,7 +348,7 @@
     <Compile Include="CloudMoveyWorkerService\Types\API\PlatformStorageTier.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\RecoveryPolicy.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\WorkloadInterfaces.cs" />
-    <Compile Include="CloudMoveyWorkerService\Types\API\WorkloadVolumes.cs" />
+    <Compile Include="CloudMoveyWorkerService\Types\API\Workloaddisks.cs" />
     <Compile Include="DiscUtils\AligningStream.cs" />
     <Compile Include="DiscUtils\ApplePartitionMap\BlockZero.cs" />
     <Compile Include="DiscUtils\ApplePartitionMap\PartitionMap.cs" />

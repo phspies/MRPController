@@ -36,10 +36,29 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
                     Stopwatch sw = Stopwatch.StartNew();
                     int _new_networkflows, _new_performancecounters;
                     _new_networkflows = _new_performancecounters = 0;
+
+                    List<Workload> _workloads;
+                    using (LocalDB db = new LocalDB())
+                    {
+                        _workloads = db.Workloads.ToList();
+                    }
+
                     foreach (NetworkFlow _flow in _db_flows)
                     {
                         MoveyNetworkFlowCRUDType _flowcrud = new MoveyNetworkFlowCRUDType();
                         Objects.MapObjects(_flow, _flowcrud);
+
+                        Workload _source_workload = _workloads.FirstOrDefault(x => x.iplist.Split(',').Contains(_flow.source_address));
+                        if (_source_workload != null)
+                        {
+                            _flowcrud.source_workload_id = _source_workload.id;
+                        }
+                        Workload _target_workload = _workloads.FirstOrDefault(x => x.iplist.Split(',').Contains(_flow.target_address));
+                        if (_target_workload != null)
+                        {
+                            _flowcrud.target_workload_id = _target_workload.id;
+                        }
+                        
                         _cloud_movey.netflow().createnetworkflow(_flowcrud);
 
                         //remove from local database
