@@ -8,6 +8,7 @@ using System.Reflection;
 using System.ServiceModel;
 using CloudMoveyWorkerService.Portal.Classes;
 using CloudMoveyWorkerService.LocalDatabase;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
 
 namespace CloudMoveyWorkerService.WCF
 {
@@ -36,7 +37,7 @@ namespace CloudMoveyWorkerService.WCF
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException e)
             {
-                Global.event_log.WriteEntry(String.Format("Error adding record: {0}", e.ToString()), EventLogEntryType.Error);
+                Logger.log(String.Format("Error adding record: {0}", e.ToString()), Logger.Severity.Error);
             }
             return _addedworkload;
 
@@ -60,7 +61,7 @@ namespace CloudMoveyWorkerService.WCF
             }
             catch (Exception e)
             {
-                Global.event_log.WriteEntry(String.Format("Error updating record: {0}", e.Message), EventLogEntryType.Error);
+                Logger.log(String.Format("Error updating record: {0}", e.Message), Logger.Severity.Error);
             }
             return _update;
         }
@@ -104,7 +105,7 @@ namespace CloudMoveyWorkerService.WCF
             }
             catch (Exception e)
             {
-                Global.event_log.WriteEntry(String.Format("Error adding record: {0} | {1}", e.Message, e.InnerException.ToString()), EventLogEntryType.Error);
+                Logger.log(String.Format("Error adding record: {0} | {1}", e.Message, e.InnerException.ToString()), Logger.Severity.Error);
             }
             return _addedplatform;
 
@@ -128,7 +129,7 @@ namespace CloudMoveyWorkerService.WCF
             }
             catch (Exception e)
             {
-                Global.event_log.WriteEntry(String.Format("Error updating record: {0}", e.Message), EventLogEntryType.Error);
+                Logger.log(String.Format("Error updating record: {0}", e.Message), Logger.Severity.Error);
             }
             return _update;
         }
@@ -150,7 +151,7 @@ namespace CloudMoveyWorkerService.WCF
             }
             catch (Exception ex)
             {
-                Global.event_log.WriteEntry(ex.ToString());
+                Logger.log(ex.ToString(), Logger.Severity.Error);
             }
         }
         #endregion
@@ -177,7 +178,7 @@ namespace CloudMoveyWorkerService.WCF
             }
             catch (Exception e)
             {
-                Global.event_log.WriteEntry(String.Format("Error adding record: {0} | {1}", e.Message, e.InnerException.ToString()), EventLogEntryType.Error);
+                Logger.log(String.Format("Error adding record: {0} | {1}", e.Message, e.InnerException.ToString()), Logger.Severity.Error);
             }
             return _addedCredential;
 
@@ -202,7 +203,7 @@ namespace CloudMoveyWorkerService.WCF
             }
             catch (Exception e)
             {
-                Global.event_log.WriteEntry(String.Format("Error updating record: {0} | {1}", e.Message, e.InnerException.ToString()), EventLogEntryType.Error);
+                Logger.log(String.Format("Error updating record: {0} | {1}", e.Message, e.InnerException.ToString()), Logger.Severity.Error);
             }
             return _update;
         }

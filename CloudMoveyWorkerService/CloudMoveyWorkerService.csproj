@@ -305,6 +305,7 @@
     <Compile Include="CloudMoveyWorkerService\Database\Structures\NetworkFlow.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Platform.cs" />
     <Compile Include="CloudMoveyWorkerService\Database\Structures\Workload.cs" />
+    <Compile Include="CloudMoveyWorkerService\Logging.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\NetworkFlow.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\PerformanceCategory.cs" />
     <Compile Include="CloudMoveyWorkerService\Types\API\PerformanceCounter.cs" />

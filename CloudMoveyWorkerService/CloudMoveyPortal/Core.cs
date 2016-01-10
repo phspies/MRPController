@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Threading;
 using Newtonsoft.Json;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
 
 namespace CloudMoveyWorkerService.Portal
 {
@@ -55,26 +56,26 @@ namespace CloudMoveyWorkerService.Portal
                     }
                     catch (Exception ex)
                     {
-                        Global.event_log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
-                        Global.event_log.WriteEntry(JsonConvert.SerializeObject(_object), EventLogEntryType.Error);
-                        Global.event_log.WriteEntry(response.Content, EventLogEntryType.Error);
+                        Logger.log(ex.ToString(), Logger.Severity.Error);
+                        Logger.log(JsonConvert.SerializeObject(_object), Logger.Severity.Error);
+                        Logger.log(response.Content, Logger.Severity.Error);
                         break;
                     }
                     break;
                 }
                 else if (response.StatusCode == HttpStatusCode.RequestTimeout)
                 {
-                    Global.event_log.WriteEntry(String.Format("Connection timeout to {0}", client.BuildUri(request).ToString()), EventLogEntryType.Error);
+                    Logger.log(String.Format("Connection timeout to {0}", client.BuildUri(request).ToString()), Logger.Severity.Error);
                     Thread.Sleep(new TimeSpan(0,0,30));
                 }
                 else if (response.StatusCode == 0)
                 {
-                    Global.event_log.WriteEntry(String.Format("Unexpected error connecting to {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), EventLogEntryType.Error);
+                    Logger.log(String.Format("Unexpected error connecting to {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), Logger.Severity.Error);
                     Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
                 else
                 {
-                    Global.event_log.WriteEntry(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), EventLogEntryType.Error);
+                    Logger.log(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), Logger.Severity.Error);
                     Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
             }

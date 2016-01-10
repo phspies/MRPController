@@ -1,4 +1,5 @@
-﻿using CloudMoveyWorkerService.Portal.Types.API;
+﻿using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
+using CloudMoveyWorkerService.Portal.Types.API;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
@@ -26,7 +27,7 @@ namespace CloudMoveyWorkerService.Portal
             {
                 while (String.IsNullOrEmpty(((MoveyWorkerRegisterType)returnval).worker.organization_id))
                 {
-                    Global.event_log.WriteEntry("Worker registered, but not associated to a organization", EventLogEntryType.Warning);
+                    Logger.log("Worker registered, but not associated to a organization", Logger.Severity.Warn);
                     Thread.Sleep(new TimeSpan(0, 0, 30));
                     returnval = post<MoveyWorkerRegisterType>(worker) as MoveyWorkerRegisterType;
                 }

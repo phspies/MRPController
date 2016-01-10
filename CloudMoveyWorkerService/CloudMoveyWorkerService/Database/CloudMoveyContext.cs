@@ -27,7 +27,7 @@ namespace CloudMoveyWorkerService.LocalDatabase
         public static DbConnection GetConnection()
         {
             string dblocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string dbfilename = "CloudMoveyWorker.sdf";
+            string dbfilename = Path.Combine(dblocation,"Database","CloudMoveyWorker.sdf");
 
 
             var factory = DbProviderFactories.GetFactory("System.Data.SqlServerCe.4.0");

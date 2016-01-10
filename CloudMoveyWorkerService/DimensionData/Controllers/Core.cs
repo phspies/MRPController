@@ -8,6 +8,7 @@ using System.IO;
 using System.Net;
 using System.Collections;
 using RestSharp.Authenticators;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
 
 namespace CloudMoveyWorkerService.CaaS
 {
@@ -84,7 +85,6 @@ namespace CloudMoveyWorkerService.CaaS
             {
                 if (!Object.ReferenceEquals(null, _object))
                 {
-                    Global.event_log.WriteEntry(_object.ToQueryString());
                     request.AddParameter("application/x-www-form-urlencoded", _object.ToQueryString(), ParameterType.RequestBody);
                 }
             }
@@ -110,15 +110,15 @@ namespace CloudMoveyWorkerService.CaaS
                     }
                     catch (Exception ex)
                     {
-                        Global.event_log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
-                        Global.event_log.WriteEntry(response.Content, EventLogEntryType.Error);
+                        Logger.log(ex.ToString(), Logger.Severity.Error);
+                        Logger.log(response.Content, Logger.Severity.Error);
                     }
                 }
             }
             else if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
                 {
-                    Global.event_log.WriteEntry("Access Denied Error",EventLogEntryType.Error);
+                    Logger.log("Access Denied Error",Logger.Severity.Error);
                     responseobject =  new ResponseType() { message = "Access Denied" };
                 }
             }

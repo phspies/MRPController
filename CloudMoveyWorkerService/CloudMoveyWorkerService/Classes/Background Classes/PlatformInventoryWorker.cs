@@ -1,4 +1,5 @@
 ﻿using CloudMoveyWorkerService.CaaS;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
 using CloudMoveyWorkerService.LocalDatabase;
 using CloudMoveyWorkerService.Portal.Types.API;
 using CloudMoveyWorkerService.WCF;
@@ -35,7 +36,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                 {
                     
 
-                    Global.event_log.WriteEntry("Staring platform inventory process");
+                    Logger.log("Staring platform inventory process", Logger.Severity.Info);
 
                     //process platform independant items
 
@@ -76,15 +77,14 @@ namespace CloudMoveyWorkerService.Portal.Classes
                     }
                     sw.Stop();
 
-                    Global.event_log.WriteEntry(
-                        String.Format("Completed data mirroring process.{2}{0} new platforms.{2}{1} updated platforms.{2}{2}{3} total elapsed time",
-                        _new_platforms, _updated_platforms, 
-                        Environment.NewLine, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
-                        ));
+                    Logger.log(
+                        String.Format("Completed data mirroring process.{0} new platforms, {1} updated platforms = total elapsed time: {2}",
+                        _new_platforms, _updated_platforms,TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
+                        ), Logger.Severity.Info);
                 }
                 catch (Exception ex)
                 {
-                    Global.event_log.WriteEntry(String.Format("Error in mirror task: {0}", ex.ToString()), EventLogEntryType.Error);
+                    Logger.log(String.Format("Error in mirror task: {0}", ex.ToString()), Logger.Severity.Error);
                 }
                 Thread.Sleep(new TimeSpan(1, 0, 0));
             }
@@ -94,9 +94,9 @@ namespace CloudMoveyWorkerService.Portal.Classes
         {
             try
             {
-                
 
-                Global.event_log.WriteEntry(String.Format("Started data mirroring process for {0}", (_platform.human_vendor + " : " + _platform.datacenter)));
+
+                Logger.log(String.Format("Started data mirroring process for {0}", (_platform.human_vendor + " : " + _platform.datacenter)), Logger.Severity.Info);
                 Stopwatch sw = Stopwatch.StartNew();
                 int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads, _removed_workloads;
                 _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = _removed_workloads = 0;
@@ -401,15 +401,15 @@ namespace CloudMoveyWorkerService.Portal.Classes
                 }
                 sw.Stop();
 
-                Global.event_log.WriteEntry(
-                    String.Format("Completed data mirroring process for {6}.{5}{0} new workloads.{5}{1} updated platform networks.{5}{2} updated workloads.{5}{3} removed workloads.{5}{5}Total Execute Time: {4}",
+                Logger.log(
+                    String.Format("Completed data mirroring process for {5}.{0} new workloads.{1} updated platform networks.{2} updated workloads.{3} removed workloads. = Total Execute Time: {4}",
                     _new_workloads, _updated_platforms, _updated_workloads, _removed_workloads,
-                     TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), Environment.NewLine, (_platform.human_vendor + " : " + _platform.datacenter)
-                    ));
+                     TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), (_platform.human_vendor + " : " + _platform.datacenter)
+                    ), Logger.Severity.Info);
             }
             catch(Exception ex)
             {
-                Global.event_log.WriteEntry(String.Format("Error in data mirroring process for {0}: {1}", (_platform.human_vendor + " : " + _platform.datacenter), ex.ToString()), EventLogEntryType.Error);
+                Logger.log(String.Format("Error in data mirroring process for {0}: {1}", (_platform.human_vendor + " : " + _platform.datacenter), ex.ToString()), Logger.Severity.Error);
             }
         }
     }

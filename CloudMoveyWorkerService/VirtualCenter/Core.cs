@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,7 +27,7 @@ namespace CloudMoveyWorkerService.VirtualCenter
             }
             catch (Exception ex)
             {
-                Global.event_log.WriteEntry(ex.ToString());
+                Logger.log(ex.ToString(), Logger.Severity.Error);
             }
         }
         public void connect()

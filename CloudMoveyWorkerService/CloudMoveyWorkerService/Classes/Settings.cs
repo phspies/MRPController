@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
+using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 
@@ -19,16 +20,16 @@ namespace CloudMoveyWorkerService.Portal
             CloudMoveyPortal CloudMovey = new CloudMoveyPortal();
             if (!CloudMovey.worker().confirm_worker())
             {
-                Global.event_log.WriteEntry("Worker not registered, registering worker with CloudMovey portal");
+                Logger.log("Worker not registered, registering worker with CloudMovey portal", Logger.Severity.Warn);
                 if (CloudMovey.worker().register_worker())
                 {
                     if (CloudMovey.worker().confirm_worker())
                     {
-                        Global.event_log.WriteEntry("Worker Registered");
+                        Logger.log("Worker Registered", Logger.Severity.Warn);
                     }
                     else
                     {
-                        Global.event_log.WriteEntry("Registration Failed", EventLogEntryType.Error);
+                        Logger.log("Registration Failed", Logger.Severity.Error);
                     }
                 }
             }
@@ -38,11 +39,11 @@ namespace CloudMoveyWorkerService.Portal
             //Define global version number
             String _registry = @"SOFTWARE\CloudMovey Worker Service";
             Global.version_number = "0.0.1";
-            Global.event_log.WriteEntry("Starting CloudMovey Worker Service");
+            Logger.log("Starting CloudMovey Worker Service", Logger.Severity.Info);
             RegistryKey rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
             if (rkSubKey == null)
             {
-                Global.event_log.WriteEntry("Creating Registry Hive");
+                Logger.log("Creating Registry Hive", Logger.Severity.Info);
                 RegistryKey key = Registry.LocalMachine.CreateSubKey(_registry);
                 key.SetValue("Debug", false);
                 Global.debug = false;
@@ -55,11 +56,11 @@ namespace CloudMoveyWorkerService.Portal
                 Global.debug = Convert.ToBoolean(rkSubKey.GetValue("debug"));
                 if (Global.debug)
                 {
-                    Global.event_log.WriteEntry("Debug Enabled!");
+                    Logger.log("Debug Enabled!", Logger.Severity.Info);
                 }
                 else
                 {
-                    Global.event_log.WriteEntry("Debug Disabled!");
+                    Logger.log("Debug Disabled!", Logger.Severity.Info);
                 }
             }
             //check if agent Id exists
@@ -73,25 +74,25 @@ namespace CloudMoveyWorkerService.Portal
             {
                 Global.agent_id = _agentId.ToString();
             }
-            if (Global.debug) {Global.event_log.WriteEntry("CloudMovey Worker Agent ID:" + Global.agent_id);};
+            if (Global.debug) {Logger.log("CloudMovey Worker Agent ID:" + Global.agent_id, Logger.Severity.Info);};
 
             //load portal API base url
             String _apiBase = rkSubKey.GetValue("apiBase", null) as String;
             if (String.IsNullOrEmpty(_apiBase))
             {
                 rkSubKey.SetValue("apiBase", "<missing url base>", RegistryValueKind.String);
-                Global.event_log.WriteEntry("Missing base URL", EventLogEntryType.Error);
+                Logger.log("Missing base URL", Logger.Severity.Error);
             }
             else
             {
                 Global.api_base = _apiBase.ToString();
                 if (Uri.IsWellFormedUriString(Global.api_base, UriKind.Absolute))
                 {
-                    if (Global.debug) { Global.event_log.WriteEntry("CloudMovey Portal URL:" + Global.api_base); };
+                    if (Global.debug) { Logger.log("CloudMovey Portal URL:" + Global.api_base, Logger.Severity.Info); };
                 }
                 else
                 {
-                    Global.event_log.WriteEntry("incorrect base url format", EventLogEntryType.Error);
+                    Logger.log("incorrect base url format", Logger.Severity.Error);
                 }
 
             }

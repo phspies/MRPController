@@ -1,4 +1,5 @@
-﻿using CloudMoveyWorkerService.Portal.Types.API;
+﻿using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
+using CloudMoveyWorkerService.Portal.Types.API;
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -40,7 +41,7 @@ namespace CloudMoveyWorkerService.Portal
             object returnval = put<MoveyTaskType>(task);
             if (returnval is MoveyError)
             {
-                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Logger.log((returnval as MoveyError).error, Logger.Severity.Error);
                 return false;
             }
             else
@@ -69,7 +70,7 @@ namespace CloudMoveyWorkerService.Portal
             object returnval = put<MoveyTaskType>(task);
             if (returnval is MoveyError)
             {
-                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Logger.log((returnval as MoveyError).error, Logger.Severity.Error);
                 return false;
             }
             else
@@ -96,7 +97,7 @@ namespace CloudMoveyWorkerService.Portal
             object returnval = put<MoveyTaskType>(task);
             if (returnval is MoveyError)
             {
-                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Logger.log((returnval as MoveyError).error, Logger.Severity.Error);
                 return false;
             }
             else
@@ -122,7 +123,7 @@ namespace CloudMoveyWorkerService.Portal
             object returnval = put<MoveyTaskType>(task);
             if (returnval is MoveyError)
             {
-                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Logger.log((returnval as MoveyError).error, Logger.Severity.Error);
                 return false;
             }
             else
@@ -147,7 +148,7 @@ namespace CloudMoveyWorkerService.Portal
             object returnval = put<MoveyTaskType>(task);
             if (returnval is MoveyError)
             {
-                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Logger.log((returnval as MoveyError).error, Logger.Severity.Error);
                 return false;
             }
             else
@@ -161,7 +162,7 @@ namespace CloudMoveyWorkerService.Portal
             object returnval = put<MoveyTaskType>(_object);
             if (returnval is MoveyError)
             {
-                Global.event_log.WriteEntry((returnval as MoveyError).error, EventLogEntryType.Error);
+                Logger.log((returnval as MoveyError).error, Logger.Severity.Error);
                 return false;
             }
             else

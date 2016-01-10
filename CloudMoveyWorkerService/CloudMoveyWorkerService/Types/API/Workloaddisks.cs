@@ -11,7 +11,7 @@ namespace CloudMoveyWorkerService.Portal.Types.API
         public string id { get; set; }
         public string workload_id { get; set; }
         public int diskindex { get; set; }
-        public int disksize { get; set; }
+        public Int64 disksize { get; set; }
         public string platformstoragetier_id { get; set; }
         public string moid { get; set; }
         public int position { get; set; }

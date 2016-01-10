@@ -1,5 +1,6 @@
 ﻿using CloudMoveyWorkerService.CaaS;
 using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
 using CloudMoveyWorkerService.LocalDatabase;
 using CloudMoveyWorkerService.Portal.Types.API;
 using CloudMoveyWorkerService.WCF;
@@ -26,20 +27,20 @@ namespace CloudMoveyWorkerService.Portal.Classes
             while (true)
             {
                 Stopwatch sw = Stopwatch.StartNew();
-                int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads;
-                _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = 0;
+                int _updated_workloads = 0;
 
 
 
-                    Global.event_log.WriteEntry("Staring operating system inventory process");
+                    Logger.log("Staring operating system inventory process", Logger.Severity.Info);
 
                     MoveyWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
                     foreach (MoveyWorkloadType _workload in _currentplatformworkloads.workloads)
                     {
+                    string workload_ip=null;
                         try
                         {
                             Workload __workload = db.Workloads.FirstOrDefault(x => x.id == _workload.id);
-                            string workload_ip = Connection.find_working_ip(__workload, true);
+                            workload_ip = Connection.find_working_ip(__workload, true);
                             Credential _credential = db.Credentials.FirstOrDefault(x => x.id == _workload.credential_id);
 
                             ConnectionOptions options = ProcessConnectionOptions();
@@ -135,7 +136,7 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                     _workload.disks.Add(_disk);
                                 }
 
-                                try { _disk.disksize = Int16.Parse(wmiDiskDrive["Size"].ToString()); } catch (Exception) { }
+                                try { _disk.disksize = Int64.Parse(wmiDiskDrive["Size"].ToString()); } catch (Exception) { }
                                 try { _disk.deviceid = wmiDiskDrive["DeviceID"].ToString(); } catch (Exception) { }
 
 
@@ -209,21 +210,33 @@ namespace CloudMoveyWorkerService.Portal.Classes
                                 }
 
                             }
-                            //Update workload in the portal
-                            MoveyWorkloadCRUDType _update_workload = new MoveyWorkloadCRUDType();
-                            _update_workload.id = _workload.id;
-                            _update_workload.workloaddisks_attributes = _workload.disks;
-                            _update_workload.workloadvolumes_attributes = _workload.volumes;
-                            _update_workload.workloadinterfaces_attributes = _workload.interfaces;
-                            _update_workload.workloadprocesses_attributes = _workload.processes;
-                            _update_workload.workloadsoftwares_attributes = _workload.softwares;
+                        //Update workload in the portal
+                        MoveyWorkloadCRUDType _update_workload = new MoveyWorkloadCRUDType();
+                        _update_workload.id = _workload.id;
+                        _update_workload.os_collection_status = true;
+                        _update_workload.os_collection_message = "Success";
 
-                            _cloud_movey.workload().updateworkload(_update_workload);
+                        _update_workload.workloaddisks_attributes = _workload.disks;
+                        _update_workload.workloadvolumes_attributes = _workload.volumes;
+                        _update_workload.workloadinterfaces_attributes = _workload.interfaces;
+                        _update_workload.workloadprocesses_attributes = _workload.processes;
+                        _update_workload.workloadsoftwares_attributes = _workload.softwares;
+
+                        _cloud_movey.workload().updateworkload(_update_workload);
 
                     }
                     catch (Exception ex)
                     {
-                        Global.event_log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
+                        Logger.log("Error connecting to: " + workload_ip + "[" + ex.ToString() + "]", Logger.Severity.Error);
+
+                        //update portal with error
+                        MoveyWorkloadCRUDType _update_workload = new MoveyWorkloadCRUDType();
+                        _update_workload.id = _workload.id;
+                        _update_workload.os_collection_status = false;
+                        _update_workload.os_collection_message = ex.Message;
+                        _cloud_movey.workload().updateworkload(_update_workload);
+
+
                     }
                 }
 
@@ -231,11 +244,8 @@ namespace CloudMoveyWorkerService.Portal.Classes
 
                 sw.Stop();
 
-                Global.event_log.WriteEntry(
-                    String.Format("Completed data mirroring process.{6}{0} new credentials.{6}{1} new platforms.{6}{7} new platform networks.{6}{2} new workloads.{6}{3} updated credentials.{6}{4} updated platforms.{6}{8} updated platform networks.{6}{5} updated workloads.{6}{6}Total Execute Time: {9}",
-                    _new_credentials, _new_platforms, _new_workloads, _updated_credentials, _updated_platforms, _updated_workloads,
-                    Environment.NewLine, _new_platformnetworks, _updated_platformnetworks, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
-                    ));
+                Logger.log(String.Format("Completed operating system inventory. [updated workloads.{0}] = Total Execute Time: {1}",
+                    _updated_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)),Logger.Severity.Info);
 
                 Thread.Sleep(new TimeSpan(24, 0, 0));
 

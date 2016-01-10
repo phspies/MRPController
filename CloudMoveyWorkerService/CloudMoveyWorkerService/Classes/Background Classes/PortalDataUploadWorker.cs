@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading;
 using Utils;
 using CloudMoveyWorkerService.LocalDatabase;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
 
 namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Classes
 {
@@ -25,7 +26,7 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
             {
                 try
                 {
-                    Global.event_log.WriteEntry("Staring data upload process");
+                    Logger.log("Staring data upload process", Logger.Severity.Info);
 
                     List<NetworkFlow> _db_flows;
                     using (LocalDB db = new LocalDB())
@@ -130,15 +131,14 @@ namespace CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Cla
 
                     sw.Stop();
 
-                    Global.event_log.WriteEntry(
-                        String.Format("Completed data upload process.{2}{0} netflows.{2}{1} performancecounters.{2}{2} Total Execute Time: {3}",
-                        _new_networkflows, _new_performancecounters,
-                        Environment.NewLine, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
-                        ));
+                    Logger.log(
+                        String.Format("Completed data upload process.{0} netflows.{1} performancecounters. = Total Elapsed Time: {2}",
+                        _new_networkflows, _new_performancecounters, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
+                        ), Logger.Severity.Info);
                 }
                 catch (Exception ex)
                 {
-                    Global.event_log.WriteEntry(String.Format("Error in data upload task: {0}", ex.ToString()), EventLogEntryType.Error);
+                    Logger.log(String.Format("Error in data upload task: {0}", ex.ToString()), Logger.Severity.Error);
                 }
                 Thread.Sleep(new TimeSpan(1, 0, 0));
             }

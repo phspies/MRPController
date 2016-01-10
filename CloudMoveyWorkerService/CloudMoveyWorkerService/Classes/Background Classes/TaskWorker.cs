@@ -1,4 +1,5 @@
 ﻿using CloudMoveyWorkerService.CloudMovey.Controllers;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
 using CloudMoveyWorkerService.Portal.Types.API;
 using System;
 using System.Collections.Generic;
@@ -161,7 +162,7 @@ namespace CloudMoveyWorkerService.Portal.Controllers
                 }
                 else
                 {
-                    Global.event_log.WriteEntry("Agent not associated to organization!", System.Diagnostics.EventLogEntryType.Warning);
+                    Logger.log("Agent not associated to organization!", Logger.Severity.Warn);
                 }
 
                 lstThreads.RemoveAll(x => x.task.ThreadState == ThreadState.Stopped);

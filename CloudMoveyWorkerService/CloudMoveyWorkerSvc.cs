@@ -12,6 +12,7 @@ using CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Classes;
 using CloudMoveyWorkerService.CloudMoveyWorkerService.Classes.Background_Classes;
 using System.Linq;
 using CloudMoveyWorkerService.LocalDatabase;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
 
 namespace CloudMoveyWorkerService
 {
@@ -39,14 +40,13 @@ namespace CloudMoveyWorkerService
 
             // Start WCF Service
             if (Global.debug) {
-                Global.event_log.WriteEntry(String.Format("Starting WCF Service{0}{0}Platforms: {1}{0}Workloads: {2}{0}Credentials: {3}{0}Performance Counters: {4}{0}Network Flows: {5}{0}",
-                    Environment.NewLine,
+                Logger.log(String.Format("Starting WCF Service | Platforms: {0}, Workloads: {1}, Credentials: {2}, Performance Counters: {3}, Network Flows: {4}",
                     db.Platforms.ToList().Count,
                     db.Workloads.ToList().Count,
                     db.Credentials.ToList().Count,
                     db.Performance.ToList().Count,
                     db.NetworkFlows.ToList().Count
-                    ));
+                    ), Logger.Severity.Debug);
             };
 
             Uri wcfbaseAddress = new Uri("http://localhost:8734/CloudMoveyWCFService");
@@ -57,37 +57,37 @@ namespace CloudMoveyWorkerService
             serviceHost.Open();
 
 
-            Global.event_log.WriteEntry(String.Format("organization id: {0}", Global.organization_id));
+            Logger.log(String.Format("organization id: {0}", Global.organization_id), Logger.Severity.Debug);
 
             TaskWorker _scheduler = new TaskWorker();
-            if (Global.debug) { Global.event_log.WriteEntry("Starting Scheduler Thread"); };
+            if (Global.debug) { Logger.log("Starting Scheduler Thread", Logger.Severity.Debug); };
             scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));
             scheduler_thread.Start();
 
 
             PlatformInventoryWorker _mirror = new PlatformInventoryWorker();
-            if (Global.debug) { Global.event_log.WriteEntry("Starting Mirror Thread"); };
+            if (Global.debug) { Logger.log("Starting Mirror Thread", Logger.Severity.Debug); };
             mirror_thread = new Thread(new ThreadStart(_mirror.Start));
             mirror_thread.Start();
 
             PerformanceWorker _performance = new PerformanceWorker();
-            if (Global.debug) { Global.event_log.WriteEntry("Starting Performance Collection Thread"); };
+            if (Global.debug) { Logger.log("Starting Performance Collection Thread", Logger.Severity.Debug); };
             _performance_thread = new Thread(new ThreadStart(_performance.Start));
             _performance_thread.Start();
 
             NetflowWorker _netflow = new NetflowWorker();
-            if (Global.debug) { Global.event_log.WriteEntry("Starting Netflow v5 Collection Thread"); };
+            if (Global.debug) { Logger.log("Starting Netflow v5 Collection Thread", Logger.Severity.Debug); };
             _netflow_thread = new Thread(new ThreadStart(_netflow.Start));
             _netflow_thread.Start();
 
             PortalDataUploadWorker _dataupload = new PortalDataUploadWorker();
-            if (Global.debug) { Global.event_log.WriteEntry("Starting Data Upload Thread"); };
+            if (Global.debug) { Logger.log("Starting Data Upload Thread", Logger.Severity.Debug); };
             _dataupload_thread = new Thread(new ThreadStart(_dataupload.Start));
             _dataupload_thread.Start();
 
 
             OSInventoryWorker _osinventody = new OSInventoryWorker();
-            if (Global.debug) { Global.event_log.WriteEntry("Starting OS Inventory Thread"); };
+            if (Global.debug) { Logger.log("Starting OS Inventory Thread", Logger.Severity.Debug); };
             _osinventody_thread = new Thread(new ThreadStart(_osinventody.Start));
             _osinventody_thread.Start();
 
@@ -102,7 +102,7 @@ namespace CloudMoveyWorkerService
 
         static void HandleException(Exception e)
         {
-            Global.event_log.WriteEntry(e.ToString(), EventLogEntryType.Error);
+            Logger.log(e.ToString(), Logger.Severity.Error);
         }
         protected override void OnStop()
         {

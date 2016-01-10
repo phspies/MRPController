@@ -1,5 +1,7 @@
 ﻿using CloudMoveyWorkerService.CloudMovey.Classes.Static_Classes;
+using CloudMoveyWorkerService.CloudMoveyWorkerService.Log;
 using CloudMoveyWorkerService.LocalDatabase;
+using CloudMoveyWorkerService.Portal.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -112,6 +114,8 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
 
             while (true)
             {
+                Stopwatch sw = Stopwatch.StartNew();
+                Logger.log("Starting workload performance collection", Logger.Severity.Info);
                 List<Workload> _workloads = db.Workloads.ToList();
                 if (_workloads != null)
                 {
@@ -128,7 +132,13 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine(ex.ToString());
+                            Logger.log(ex.Message, Logger.Severity.Error);
+                            //update portal with error
+                            MoveyWorkloadCRUDType _error_update_workload = new MoveyWorkloadCRUDType();
+                            _error_update_workload.id = _workload.id;
+                            _error_update_workload.perf_collection_status = false;
+                            _error_update_workload.perf_collection_message = ex.Message;
+                            _cloud_movey.workload().updateworkload(_error_update_workload);
                         }
                         foreach (string pcc in _counters.Select(x => x.category).Distinct())
                         {
@@ -142,7 +152,7 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                             }
                             catch (Exception ex)
                             {
-                                Global.event_log.WriteEntry(String.Format("{0} returned the following error while collecting performance data: {1}", workload_ip, ex.ToString()));
+                                Logger.log(String.Format("{0} returned the following error while collecting performance data: {1}", workload_ip, ex.ToString()), Logger.Severity.Error);
                                 continue;
                             }
 
@@ -269,17 +279,34 @@ namespace CloudMoveyWorkerService.Portal.Classes.Static_Classes.Background_Class
                             }
                             catch (System.InvalidOperationException error)
                             {
-                                Global.event_log.WriteEntry(error.ToString(), EventLogEntryType.Error);
+                                Logger.log(error.ToString(), Logger.Severity.Error);
+
+
                             }
                             catch (Exception ex)
                             {
-                                Global.event_log.WriteEntry(ex.ToString(), EventLogEntryType.Error);
+                                Logger.log(ex.ToString(), Logger.Severity.Error);
+
+
+                                //update portal with error
+                                MoveyWorkloadCRUDType _error_update_workload = new MoveyWorkloadCRUDType();
+                                _error_update_workload.id = _workload.id;
+                                _error_update_workload.os_collection_status = false;
+                                _error_update_workload.os_collection_message = ex.Message;
+                                _cloud_movey.workload().updateworkload(_error_update_workload);
                             }
                         }
-                        
+                        //update portal with success
+                        MoveyWorkloadCRUDType _update_workload = new MoveyWorkloadCRUDType();
+                        _update_workload.id = _workload.id;
+                        _update_workload.perf_collection_status = true;
+                        _update_workload.perf_collection_message = "Success";
+                        _cloud_movey.workload().updateworkload(_update_workload);
                     }
                     
                 }
+                sw.Stop();
+                Logger.log(String.Format("Completed performance collection | Elapsed Time {0} ", TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
                 Thread.Sleep(new TimeSpan(0, 30, 0));
             }
         }
