@@ -1,0 +1,1192 @@
+2016/01/20 12:10:45 Info > Staring data upload process
+2016/01/20 12:12:01 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:16.2240000
+2016/01/20 12:24:41 Info > Starting workload performance collection
+2016/01/20 12:27:07 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 12:27:24 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 12:28:00 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 12:28:18 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 12:28:51 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 12:29:07 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 12:29:42 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 12:30:01 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 12:30:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 12:30:34 Info > Completed performance collection | Elapsed Time 00:05:52.9990000 
+2016/01/20 12:45:17 Info > Staring platform inventory process
+2016/01/20 12:45:18 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 12:45:27 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.1400000
+2016/01/20 12:45:27 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.3810000
+2016/01/20 01:00:34 Info > Starting workload performance collection
+2016/01/20 01:02:57 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 01:03:14 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 01:03:49 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 01:04:08 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 01:04:44 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 01:04:59 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 01:05:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 01:05:52 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 01:06:25 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 01:06:25 Info > Completed performance collection | Elapsed Time 00:05:51.1860000 
+2016/01/20 01:12:01 Info > Staring data upload process
+2016/01/20 01:13:25 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:23.9500000
+2016/01/20 01:36:25 Info > Starting workload performance collection
+2016/01/20 01:39:05 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 01:39:23 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 01:39:54 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 01:40:12 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 01:40:44 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 01:41:03 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 01:41:37 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 01:41:54 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 01:42:30 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 01:42:30 Info > Completed performance collection | Elapsed Time 00:06:04.7820000 
+2016/01/20 01:45:27 Info > Staring platform inventory process
+2016/01/20 01:45:27 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 01:45:36 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.7720000
+2016/01/20 01:45:36 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:08.9900000
+2016/01/20 02:12:30 Info > Starting workload performance collection
+2016/01/20 02:13:25 Info > Staring data upload process
+2016/01/20 02:14:26 Info > Completed data upload process.0 netflows.317 performancecounters. = Total Elapsed Time: 00:01:01.4920000
+2016/01/20 02:15:06 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 02:15:24 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 02:16:02 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 02:16:19 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 02:16:54 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 02:17:07 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 02:17:41 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 02:17:58 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 02:18:30 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 02:18:30 Info > Completed performance collection | Elapsed Time 00:06:00.4630000 
+2016/01/20 02:45:36 Info > Staring platform inventory process
+2016/01/20 02:45:36 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 02:45:46 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.4690000
+2016/01/20 02:45:46 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.7260000
+2016/01/20 02:48:30 Info > Starting workload performance collection
+2016/01/20 02:50:51 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 02:51:09 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 02:51:43 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 02:51:57 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 02:52:30 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 02:52:47 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 02:53:21 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 02:53:39 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 02:54:13 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 02:54:13 Info > Completed performance collection | Elapsed Time 00:05:42.3710000 
+2016/01/20 03:14:26 Info > Staring data upload process
+2016/01/20 03:15:26 Info > Completed data upload process.0 netflows.313 performancecounters. = Total Elapsed Time: 00:00:59.7620000
+2016/01/20 03:24:13 Info > Starting workload performance collection
+2016/01/20 03:26:33 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 03:26:50 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 03:27:27 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 03:27:45 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 03:28:18 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 03:28:36 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 03:29:10 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 03:29:28 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 03:30:01 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 03:30:01 Info > Completed performance collection | Elapsed Time 00:05:48.0470000 
+2016/01/20 03:45:46 Info > Staring platform inventory process
+2016/01/20 03:45:46 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 03:45:55 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.1230000
+2016/01/20 03:45:55 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.4060000
+2016/01/20 04:00:01 Info > Starting workload performance collection
+2016/01/20 04:02:32 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 04:02:49 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 04:03:21 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 04:03:40 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 04:04:13 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 04:04:31 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 04:05:10 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 04:05:28 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 04:06:00 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 04:06:01 Info > Completed performance collection | Elapsed Time 00:05:59.7260000 
+2016/01/20 04:15:26 Info > Staring data upload process
+2016/01/20 04:16:44 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:17.9030000
+2016/01/20 04:36:01 Info > Starting workload performance collection
+2016/01/20 04:38:24 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 04:38:43 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 04:39:15 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 04:39:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 04:40:10 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 04:40:28 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 04:41:02 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 04:41:20 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 04:41:50 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 04:41:51 Info > Completed performance collection | Elapsed Time 00:05:49.9640000 
+2016/01/20 04:45:55 Info > Staring platform inventory process
+2016/01/20 04:46:07 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 04:46:17 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.4960000
+2016/01/20 04:46:17 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:21.9190000
+2016/01/20 05:11:51 Info > Starting workload performance collection
+2016/01/20 05:14:14 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 05:14:28 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 05:14:58 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 05:15:12 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 05:15:27 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 05:16:04 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 05:16:23 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 05:16:44 Info > Staring data upload process
+2016/01/20 05:16:56 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 05:17:15 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 05:17:15 Info > Completed performance collection | Elapsed Time 00:05:24.8240000 
+2016/01/20 05:17:58 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:14.1640000
+2016/01/20 05:46:17 Info > Staring platform inventory process
+2016/01/20 05:46:17 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 05:46:27 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.3860000
+2016/01/20 05:46:27 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.6620000
+2016/01/20 05:47:15 Info > Starting workload performance collection
+2016/01/20 05:49:43 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 05:49:58 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 05:50:32 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 05:50:52 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 05:51:23 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 05:51:41 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 05:52:12 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 05:52:30 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 05:53:01 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 05:53:01 Info > Completed performance collection | Elapsed Time 00:05:45.6550000 
+2016/01/20 06:16:58 Info > Staring data upload process
+2016/01/20 06:17:49 Info > Completed data upload process.0 netflows.210 performancecounters. = Total Elapsed Time: 00:00:51.3640000
+2016/01/20 06:22:01 Info > Starting workload performance collection
+2016/01/20 06:24:32 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 06:24:50 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 06:25:24 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 06:25:43 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 06:26:20 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 06:26:37 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 06:27:09 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 06:27:27 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 06:27:59 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 06:27:59 Info > Completed performance collection | Elapsed Time 00:05:57.9130000 
+2016/01/20 06:45:26 Info > Staring platform inventory process
+2016/01/20 06:45:26 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 06:45:36 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.2360000
+2016/01/20 06:45:36 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.4510000
+2016/01/20 06:57:59 Info > Starting workload performance collection
+2016/01/20 07:00:30 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 07:00:49 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 07:01:22 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 07:01:39 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 07:02:12 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 07:02:30 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 07:03:04 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 07:03:22 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 07:03:55 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 07:03:55 Info > Completed performance collection | Elapsed Time 00:05:56.3080000 
+2016/01/20 07:17:49 Info > Staring data upload process
+2016/01/20 07:19:05 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:15.5500000
+2016/01/20 07:33:55 Info > Starting workload performance collection
+2016/01/20 07:36:21 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 07:36:39 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 07:37:09 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 07:37:20 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 07:37:36 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 07:38:05 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 07:38:23 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 07:38:59 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 07:39:15 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 07:39:16 Info > Completed performance collection | Elapsed Time 00:05:20.6570000 
+2016/01/20 07:45:36 Info > Staring platform inventory process
+2016/01/20 07:45:36 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 07:45:45 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.0550000
+2016/01/20 07:45:45 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.4550000
+2016/01/20 08:09:16 Info > Starting workload performance collection
+2016/01/20 08:11:48 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 08:12:04 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 08:12:37 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 08:12:55 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 08:13:30 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 08:13:43 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 08:14:13 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 08:14:29 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 08:15:03 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 08:15:03 Info > Completed performance collection | Elapsed Time 00:05:47.6670000 
+2016/01/20 08:19:05 Info > Staring data upload process
+2016/01/20 08:20:47 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:42.3250000
+2016/01/20 08:45:03 Info > Starting workload performance collection
+2016/01/20 08:45:45 Info > Staring platform inventory process
+2016/01/20 08:45:45 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 08:45:56 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:10.7090000
+2016/01/20 08:45:56 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:10.9340000
+2016/01/20 08:47:36 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 08:47:55 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 08:48:31 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 08:48:47 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 08:49:16 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 08:49:33 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 08:50:07 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 08:50:25 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 08:50:57 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 08:50:58 Info > Completed performance collection | Elapsed Time 00:05:54.1350000 
+2016/01/20 09:20:47 Info > Staring data upload process
+2016/01/20 09:20:58 Info > Starting workload performance collection
+2016/01/20 09:21:29 Info > Completed data upload process.0 netflows.210 performancecounters. = Total Elapsed Time: 00:00:41.3020000
+2016/01/20 09:23:27 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 09:23:47 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 09:24:17 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 09:24:36 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 09:25:08 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 09:25:23 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 09:25:42 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 09:26:17 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 09:26:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 09:26:34 Info > Completed performance collection | Elapsed Time 00:05:36.4770000 
+2016/01/20 09:45:56 Info > Staring platform inventory process
+2016/01/20 09:45:56 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 09:46:06 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.4500000
+2016/01/20 09:46:06 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.6430000
+2016/01/20 09:56:34 Info > Starting workload performance collection
+2016/01/20 09:59:16 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 09:59:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 10:00:05 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 10:00:19 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 10:00:51 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 10:01:07 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 10:01:44 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 10:02:02 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 10:02:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 10:02:34 Info > Completed performance collection | Elapsed Time 00:06:00.2170000 
+2016/01/20 10:21:29 Info > Staring data upload process
+2016/01/20 10:22:45 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:16.5350000
+2016/01/20 10:32:34 Info > Starting workload performance collection
+2016/01/20 10:35:00 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 10:35:15 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 10:35:50 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 10:36:09 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 10:36:41 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 10:36:59 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 10:37:33 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 10:37:49 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 10:38:21 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 10:38:21 Info > Completed performance collection | Elapsed Time 00:05:47.1570000 
+2016/01/20 10:46:06 Info > Staring platform inventory process
+2016/01/20 10:46:06 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 10:46:15 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.3290000
+2016/01/20 10:46:15 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.5330000
+2016/01/20 11:08:21 Info > Starting workload performance collection
+2016/01/20 11:10:51 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 11:11:05 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 11:11:36 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 11:11:54 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 11:12:27 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 11:12:46 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 11:13:19 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 11:13:33 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 11:13:51 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 11:13:51 Info > Completed performance collection | Elapsed Time 00:05:29.9770000 
+2016/01/20 11:22:45 Info > Staring data upload process
+2016/01/20 11:24:00 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:14.2770000
+2016/01/20 11:43:51 Info > Starting workload performance collection
+2016/01/20 11:46:15 Info > Staring platform inventory process
+2016/01/20 11:46:16 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 11:46:16 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 11:46:25 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.7650000
+2016/01/20 11:46:25 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.9760000
+2016/01/20 11:46:37 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 11:47:10 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 11:47:28 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 11:48:00 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 11:48:17 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 11:48:56 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 11:49:12 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 11:49:45 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 11:49:45 Info > Completed performance collection | Elapsed Time 00:05:53.1630000 
+2016/01/20 12:19:45 Info > Starting workload performance collection
+2016/01/20 12:22:27 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 12:22:44 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 12:23:14 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 12:23:33 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 12:24:00 Info > Staring data upload process
+2016/01/20 12:24:05 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 12:24:22 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 12:24:56 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 12:25:14 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 12:25:16 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:16.2450000
+2016/01/20 12:25:45 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 12:25:46 Info > Completed performance collection | Elapsed Time 00:06:01.0930000 
+2016/01/20 12:46:25 Info > Staring platform inventory process
+2016/01/20 12:46:26 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 12:46:36 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:10.0440000
+2016/01/20 12:46:36 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:10.3340000
+2016/01/20 12:55:46 Info > Starting workload performance collection
+2016/01/20 12:58:18 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 12:58:32 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 12:58:53 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 12:59:23 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 12:59:41 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 01:00:16 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 01:00:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 01:01:08 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 01:01:25 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 01:01:25 Info > Completed performance collection | Elapsed Time 00:05:39.2250000 
+2016/01/20 01:25:16 Info > Staring data upload process
+2016/01/20 01:26:20 Info > Completed data upload process.0 netflows.210 performancecounters. = Total Elapsed Time: 00:01:04.0890000
+2016/01/20 01:31:25 Info > Starting workload performance collection
+2016/01/20 01:33:56 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 01:34:13 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 01:34:44 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 01:35:02 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 01:35:37 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 01:35:56 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 01:36:28 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 01:36:45 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 01:37:19 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 01:37:19 Info > Completed performance collection | Elapsed Time 00:05:53.8640000 
+2016/01/20 01:46:36 Info > Staring platform inventory process
+2016/01/20 01:46:36 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 01:46:45 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.3350000
+2016/01/20 01:46:45 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.5470000
+2016/01/20 02:07:19 Info > Starting workload performance collection
+2016/01/20 02:10:05 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 02:10:23 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 02:10:56 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 02:11:15 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 02:11:54 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 02:12:13 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 02:12:46 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 02:13:04 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 02:13:40 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 02:13:40 Info > Completed performance collection | Elapsed Time 00:06:21.4110000 
+2016/01/20 02:26:20 Info > Staring data upload process
+2016/01/20 02:27:38 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:18.2560000
+2016/01/20 02:43:40 Info > Starting workload performance collection
+2016/01/20 02:46:22 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 02:46:41 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 02:46:45 Info > Staring platform inventory process
+2016/01/20 02:46:45 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 02:46:55 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.8050000
+2016/01/20 02:46:55 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:10.0130000
+2016/01/20 02:47:16 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 02:47:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 02:48:07 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 02:48:25 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 02:48:58 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 02:49:15 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 02:49:47 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 02:49:47 Info > Completed performance collection | Elapsed Time 00:06:06.7250000 
+2016/01/20 03:19:47 Info > Starting workload performance collection
+2016/01/20 03:22:48 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 03:23:06 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 03:23:38 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 03:23:57 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 03:24:26 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 03:24:44 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 03:25:18 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 03:25:36 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 03:26:12 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 03:26:12 Info > Completed performance collection | Elapsed Time 00:06:25.3440000 
+2016/01/20 03:27:38 Info > Staring data upload process
+2016/01/20 03:28:56 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:17.7060000
+2016/01/20 03:46:55 Info > Staring platform inventory process
+2016/01/20 03:46:55 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 03:47:09 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:13.5760000
+2016/01/20 03:47:09 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:13.8350000
+2016/01/20 03:56:12 Info > Starting workload performance collection
+2016/01/20 03:59:23 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 03:59:41 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 04:00:12 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 04:00:28 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 04:01:03 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 04:01:17 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 04:01:54 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 04:02:12 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 04:02:47 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 04:02:48 Info > Completed performance collection | Elapsed Time 00:06:35.6200000 
+2016/01/20 04:28:56 Info > Staring data upload process
+2016/01/20 04:29:35 Info > Completed data upload process.0 netflows.210 performancecounters. = Total Elapsed Time: 00:00:38.4450000
+2016/01/20 04:32:48 Info > Starting workload performance collection
+2016/01/20 04:35:47 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 04:36:01 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 04:36:32 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 04:36:48 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 04:37:21 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 04:37:38 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 04:38:12 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 04:38:30 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 04:39:00 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 04:39:00 Info > Completed performance collection | Elapsed Time 00:06:12.4540000 
+2016/01/20 04:47:09 Info > Staring platform inventory process
+2016/01/20 04:47:09 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 04:47:19 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.8530000
+2016/01/20 04:47:19 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:10.0790000
+2016/01/20 05:09:00 Info > Starting workload performance collection
+2016/01/20 05:11:40 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 05:11:59 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 05:12:29 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 05:12:47 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 05:13:21 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 05:13:38 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 05:14:13 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 05:14:32 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 05:15:02 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 05:15:02 Info > Completed performance collection | Elapsed Time 00:06:01.7970000 
+2016/01/20 05:29:35 Info > Staring data upload process
+2016/01/20 05:30:52 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:16.9420000
+2016/01/20 05:45:02 Info > Starting workload performance collection
+2016/01/20 05:47:19 Info > Staring platform inventory process
+2016/01/20 05:47:19 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 05:47:29 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.4860000
+2016/01/20 05:47:29 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.6650000
+2016/01/20 05:47:35 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 05:47:54 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 05:48:30 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 05:48:45 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 05:49:18 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 05:49:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 05:50:06 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 05:50:21 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 05:50:39 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 05:50:39 Info > Completed performance collection | Elapsed Time 00:05:37.0680000 
+2016/01/20 06:20:39 Info > Starting workload performance collection
+2016/01/20 06:23:31 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 06:23:45 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 06:24:16 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 06:24:31 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 06:25:08 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 06:25:23 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 06:25:54 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 06:26:13 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 06:26:45 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 06:26:45 Info > Completed performance collection | Elapsed Time 00:06:05.4360000 
+2016/01/20 06:30:52 Info > Staring data upload process
+2016/01/20 06:32:21 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:01:29.7930000
+2016/01/20 06:47:29 Info > Staring platform inventory process
+2016/01/20 06:47:29 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 06:47:39 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.5830000
+2016/01/20 06:47:39 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.8340000
+2016/01/20 06:56:45 Info > Starting workload performance collection
+2016/01/20 06:59:39 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 06:59:54 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 07:00:30 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 07:00:48 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 07:01:16 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 07:01:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 07:02:07 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 07:02:25 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 07:02:57 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 07:02:57 Info > Completed performance collection | Elapsed Time 00:06:12.1820000 
+2016/01/20 07:32:21 Info > Staring data upload process
+2016/01/20 07:32:57 Info > Starting workload performance collection
+2016/01/20 07:33:05 Info > Completed data upload process.0 netflows.210 performancecounters. = Total Elapsed Time: 00:00:43.2350000
+2016/01/20 07:35:41 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 07:35:59 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 07:36:35 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 07:36:51 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 07:37:24 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 07:37:42 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 07:38:16 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 07:38:34 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 07:39:07 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 07:39:07 Info > Completed performance collection | Elapsed Time 00:06:10.0470000 
+2016/01/20 07:47:39 Info > Staring platform inventory process
+2016/01/20 07:47:39 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 07:47:49 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.6850000
+2016/01/20 07:47:49 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.9490000
+2016/01/20 08:09:07 Info > Starting workload performance collection
+2016/01/20 08:12:21 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 08:12:39 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 08:13:09 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 08:13:27 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 08:14:02 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 08:14:19 Error > 2607:f480:111:1520:1c67:edaa:40ac:5ad9 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 08:47:18 Info > Starting CloudMovey Worker Service
+2016/01/20 08:47:18 Info > Debug Enabled!
+2016/01/20 08:47:18 Info > CloudMovey Worker Agent ID:636aafd21e70435fabe6374a099322d4
+2016/01/20 08:47:18 Info > CloudMovey Portal URL:https://www.cloudmovey.com
+2016/01/20 08:47:23 Debug > Starting WCF Service | Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 420, Network Flows: 0
+2016/01/20 08:47:28 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/01/20 08:47:28 Debug > Starting Scheduler Thread
+2016/01/20 08:47:28 Debug > Starting Mirror Thread
+2016/01/20 08:47:28 Debug > Starting Performance Collection Thread
+2016/01/20 08:47:28 Info > Staring platform inventory process
+2016/01/20 08:47:29 Debug > Starting Netflow v5 Collection Thread
+2016/01/20 08:47:29 Debug > Starting Data Upload Thread
+2016/01/20 08:47:29 Info > Starting workload performance collection
+2016/01/20 08:47:30 Debug > Starting OS Inventory Thread
+2016/01/20 08:47:30 Info > Staring data upload process
+2016/01/20 08:47:30 Info > Staring operating system inventory process
+2016/01/20 08:47:30 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:00.2010000
+2016/01/20 08:47:30 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 08:47:49 Error > Unexpected API error on https://www.cloudmovey.com/api/v1/platformnetworks/create.json with error ()
+2016/01/20 08:48:12 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 08:48:19 Error > Unexpected API error on https://www.cloudmovey.com/api/v1/platformnetworks/create.json with error ()
+2016/01/20 08:48:34 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 08:48:50 Error > Unexpected API error on https://www.cloudmovey.com/api/v1/platformnetworks/create.json with error ()
+2016/01/20 08:49:16 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 08:49:20 Error > Unexpected API error on https://www.cloudmovey.com/api/v1/platformnetworks/create.json with error ()
+2016/01/20 08:49:38 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 08:49:51 Error > Unexpected API error on https://www.cloudmovey.com/api/v1/platformnetworks/create.json with error ()
+2016/01/20 08:50:20 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 08:50:21 Error > Unexpected API error on https://www.cloudmovey.com/api/v1/platformnetworks/create.json with error ()
+2016/01/20 08:50:41 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 08:50:47 Info > Completed data upload process.0 netflows.420 performancecounters. = Total Elapsed Time: 00:03:17.4560000
+2016/01/20 08:50:51 Error > Unexpected API error on https://www.cloudmovey.com/api/v1/platformnetworks/create.json with error ()
+2016/01/20 08:51:22 Error > Unexpected API error on https://www.cloudmovey.com/api/v1/platformnetworks/create.json with error ()
+2016/01/20 08:51:23 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 08:51:44 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 08:51:52 Error > Unexpected API error on https://www.cloudmovey.com/api/v1/platformnetworks/create.json with error ()
+2016/01/20 09:04:09 Info > Starting CloudMovey Worker Service
+2016/01/20 09:04:09 Info > Debug Enabled!
+2016/01/20 09:04:09 Info > CloudMovey Worker Agent ID:636aafd21e70435fabe6374a099322d4
+2016/01/20 09:04:09 Info > CloudMovey Portal URL:https://www.cloudmovey.com
+2016/01/20 09:04:13 Debug > Starting WCF Service | Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/01/20 09:04:16 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/01/20 09:04:16 Debug > Starting Scheduler Thread
+2016/01/20 09:04:16 Debug > Starting Mirror Thread
+2016/01/20 09:04:16 Debug > Starting Performance Collection Thread
+2016/01/20 09:04:17 Info > Staring platform inventory process
+2016/01/20 09:04:17 Debug > Starting Netflow v5 Collection Thread
+2016/01/20 09:04:17 Debug > Starting Data Upload Thread
+2016/01/20 09:04:18 Info > Starting workload performance collection
+2016/01/20 09:04:18 Debug > Starting OS Inventory Thread
+2016/01/20 09:04:19 Info > Staring data upload process
+2016/01/20 09:04:19 Info > Staring operating system inventory process
+2016/01/20 09:04:19 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:00.5020000
+2016/01/20 09:04:19 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.5850000
+2016/01/20 09:04:20 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 09:04:35 Error > Error in data mirroring process for Dimension Data : NA9: System.NullReferenceException: Object reference not set to an instance of an object.
+   at CloudMoveyWorkerService.Portal.Classes.PlatformInventoryWorker.UpdateMCPPlatform(Platform _platform) in C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\CloudMoveyWorkerService\Classes\Background Classes\PlatformInventoryWorker.cs:line 248
+2016/01/20 09:04:35 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:17.9350000
+2016/01/20 09:05:48 Info > Starting CloudMovey Worker Service
+2016/01/20 09:05:48 Info > Debug Enabled!
+2016/01/20 09:05:48 Info > CloudMovey Worker Agent ID:636aafd21e70435fabe6374a099322d4
+2016/01/20 09:05:48 Info > CloudMovey Portal URL:https://www.cloudmovey.com
+2016/01/20 09:05:52 Debug > Starting WCF Service | Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/01/20 09:05:56 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/01/20 09:05:56 Debug > Starting Scheduler Thread
+2016/01/20 09:05:56 Debug > Starting Mirror Thread
+2016/01/20 09:05:56 Debug > Starting Performance Collection Thread
+2016/01/20 09:05:57 Debug > Starting Netflow v5 Collection Thread
+2016/01/20 09:05:57 Debug > Starting Data Upload Thread
+2016/01/20 09:05:57 Debug > Starting OS Inventory Thread
+2016/01/20 09:05:58 Info > Starting workload performance collection
+2016/01/20 09:05:58 Info > Staring data upload process
+2016/01/20 09:05:58 Info > Staring operating system inventory process
+2016/01/20 09:05:58 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:00.2580000
+2016/01/20 09:05:58 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.4090000
+2016/01/20 09:05:59 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 09:06:14 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.0 updated workloads.4 removed workloads. = Total Execute Time: 00:00:15.8320000
+2016/01/20 09:06:14 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:18.2440000
+2016/01/20 09:06:40 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 09:07:01 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 09:07:44 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 09:08:05 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 09:08:48 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 09:09:09 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 09:09:52 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 09:10:13 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 09:10:55 Error > 2607:f480:111:1520:5c79:c1bf:3414:939c returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 09:11:38 Error > 2607:f480:111:1520:4d01:127d:ec29:a7d2 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 09:12:00 Error > 2607:f480:111:1520:4d01:127d:ec29:a7d2 returned the following error while collecting performance data for counter : Memory : The network path was not found.
+
+2016/01/20 09:12:42 Error > 2607:f480:111:1520:4d01:127d:ec29:a7d2 returned the following error while collecting performance data for counter : LogicalDisk : The network path was not found.
+
+2016/01/20 09:13:04 Error > 2607:f480:111:1520:4d01:127d:ec29:a7d2 returned the following error while collecting performance data for counter : PhysicalDisk : The network path was not found.
+
+2016/01/20 09:13:46 Error > 2607:f480:111:1520:4d01:127d:ec29:a7d2 returned the following error while collecting performance data for counter : Network Interface : The network path was not found.
+
+2016/01/20 09:14:28 Error > 2607:f480:111:1520:4d01:127d:ec29:a7d2 returned the following error while collecting performance data for counter : Double-Take Connection : The network path was not found.
+
+2016/01/20 09:14:50 Error > 2607:f480:111:1520:4d01:127d:ec29:a7d2 returned the following error while collecting performance data for counter : Double-Take Kernel : The network path was not found.
+
+2016/01/20 09:15:32 Error > 2607:f480:111:1520:4d01:127d:ec29:a7d2 returned the following error while collecting performance data for counter : Double-Take Source : The network path was not found.
+
+2016/01/20 09:15:53 Error > 2607:f480:111:1520:4d01:127d:ec29:a7d2 returned the following error while collecting performance data for counter : Double-Take Target : The network path was not found.
+
+2016/01/20 09:16:36 Error > 2607:f480:111:1520:3105:79a9:99dd:d625 returned the following error while collecting performance data for counter : Processor : The network path was not found.
+
+2016/01/20 09:17:25 Info > Starting CloudMovey Worker Service
+2016/01/20 09:17:25 Info > Debug Enabled!
+2016/01/20 09:17:25 Info > CloudMovey Worker Agent ID:636aafd21e70435fabe6374a099322d4
+2016/01/20 09:17:25 Info > CloudMovey Portal URL:https://www.cloudmovey.com
+2016/01/20 09:17:31 Debug > Starting WCF Service | Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/01/20 09:17:35 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/01/20 09:17:35 Debug > Starting Scheduler Thread
+2016/01/20 09:17:35 Debug > Starting Mirror Thread
+2016/01/20 09:17:35 Debug > Starting Performance Collection Thread
+2016/01/20 09:17:35 Info > Staring platform inventory process
+2016/01/20 09:17:35 Debug > Starting Netflow v5 Collection Thread
+2016/01/20 09:17:35 Debug > Starting Data Upload Thread
+2016/01/20 09:17:35 Debug > Starting OS Inventory Thread
+2016/01/20 09:17:35 Info > Starting workload performance collection
+2016/01/20 09:17:36 Info > Staring data upload process
+2016/01/20 09:17:36 Info > Staring operating system inventory process
+2016/01/20 09:17:37 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.8340000
+2016/01/20 09:17:37 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:00.2890000
+2016/01/20 09:17:37 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 09:17:38 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:40 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:41 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:44 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:45 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:47 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:48 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:50 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:51 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:53 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:54 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:55 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:57 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:17:59 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:00 Info > Completed data mirroring process for Dimension Data : NA9.4 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:00:22.7110000
+2016/01/20 09:18:00 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:24.9560000
+2016/01/20 09:18:01 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:03 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:04 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:06 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:07 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:08 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:09 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:11 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:12 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:14 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:15 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:17 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:18 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:20 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:21 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:22 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:24 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:25 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:26 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:28 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:29 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:30 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:18:31 Info > Completed performance collection | Elapsed Time 00:00:55.3120000 
+2016/01/20 09:20:27 Info > Starting CloudMovey Worker Service
+2016/01/20 09:20:27 Info > Debug Enabled!
+2016/01/20 09:20:27 Info > CloudMovey Worker Agent ID:636aafd21e70435fabe6374a099322d4
+2016/01/20 09:20:27 Info > CloudMovey Portal URL:https://www.cloudmovey.com
+2016/01/20 09:20:43 Debug > Starting WCF Service | Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/01/20 09:20:46 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/01/20 09:20:46 Debug > Starting Scheduler Thread
+2016/01/20 09:20:46 Debug > Starting Mirror Thread
+2016/01/20 09:20:46 Debug > Starting Performance Collection Thread
+2016/01/20 09:20:46 Debug > Starting Netflow v5 Collection Thread
+2016/01/20 09:20:47 Info > Staring platform inventory process
+2016/01/20 09:20:47 Info > Starting workload performance collection
+2016/01/20 09:20:47 Debug > Starting Data Upload Thread
+2016/01/20 09:20:47 Debug > Starting OS Inventory Thread
+2016/01/20 09:20:47 Info > Staring data upload process
+2016/01/20 09:20:48 Info > Staring operating system inventory process
+2016/01/20 09:20:48 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.8080000
+2016/01/20 09:20:48 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 09:20:50 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:20:50 Error > Error connecting to WMI : appserver04 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:20:51 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:20:53 Error > Error connecting to WMI : appserver02 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:20:53 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:20:54 Error > Error connecting to WMI : appserver03 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:20:55 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:20:55 Error > Error connecting to WMI : appserver01 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:20:56 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:07.8640000
+2016/01/20 09:20:57 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:20:59 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:01 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:03 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:05 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:07 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:08 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:11 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:13 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:14 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:15 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:26.2620000
+2016/01/20 09:21:15 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:28.1030000
+2016/01/20 09:21:16 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:17 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:19 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:20 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:21 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:23 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:24 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:25 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:26 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:28 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:29 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:21:30 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:22:44 Info > Starting CloudMovey Worker Service
+2016/01/20 09:22:45 Info > Debug Enabled!
+2016/01/20 09:22:45 Info > CloudMovey Worker Agent ID:636aafd21e70435fabe6374a099322d4
+2016/01/20 09:22:45 Info > CloudMovey Portal URL:https://www.cloudmovey.com
+2016/01/20 09:22:53 Debug > Starting WCF Service | Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/01/20 09:22:57 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/01/20 09:22:57 Debug > Starting Scheduler Thread
+2016/01/20 09:22:57 Debug > Starting Mirror Thread
+2016/01/20 09:22:57 Debug > Starting Performance Collection Thread
+2016/01/20 09:22:57 Info > Staring platform inventory process
+2016/01/20 09:22:58 Debug > Starting Netflow v5 Collection Thread
+2016/01/20 09:22:58 Debug > Starting Data Upload Thread
+2016/01/20 09:22:58 Debug > Starting OS Inventory Thread
+2016/01/20 09:22:58 Info > Staring data upload process
+2016/01/20 09:22:58 Info > Staring operating system inventory process
+2016/01/20 09:22:58 Info > Starting workload performance collection
+2016/01/20 09:23:01 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:03 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:06 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:06 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:08.0570000
+2016/01/20 09:23:07 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 09:23:07 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:09 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:09 Error > Error connecting to WMI : appserver04 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:23:10 Error > Error connecting to WMI : appserver02 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:23:12 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:14 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:14 Error > Error connecting to WMI : appserver03 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:23:15 Error > Error connecting to WMI : appserver01 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:23:15 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:15 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:17.0270000
+2016/01/20 09:23:17 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:23 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:25 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:27 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:28 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:30 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:33 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:34 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:37 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:39 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:39 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:32.2060000
+2016/01/20 09:23:39 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:41.6090000
+2016/01/20 09:23:41 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:42 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:45 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:47 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:49 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:50 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:53 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:54 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:56 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:58 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:23:59 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:24:01 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:24:03 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:24:08 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:24:09 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:24:11 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:24:13 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:24:14 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:24:14 Info > Completed performance collection | Elapsed Time 00:01:15.7380000 
+2016/01/20 09:26:20 Info > Starting CloudMovey Worker Service
+2016/01/20 09:26:20 Info > Debug Enabled!
+2016/01/20 09:26:20 Info > CloudMovey Worker Agent ID:636aafd21e70435fabe6374a099322d4
+2016/01/20 09:26:20 Info > CloudMovey Portal URL:https://www.cloudmovey.com
+2016/01/20 09:26:39 Debug > Starting WCF Service | Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/01/20 09:26:42 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/01/20 09:26:42 Debug > Starting Scheduler Thread
+2016/01/20 09:26:42 Debug > Starting Mirror Thread
+2016/01/20 09:26:42 Info > Staring platform inventory process
+2016/01/20 09:26:42 Debug > Starting Performance Collection Thread
+2016/01/20 09:26:43 Debug > Starting Netflow v5 Collection Thread
+2016/01/20 09:26:43 Info > Starting workload performance collection
+2016/01/20 09:26:43 Debug > Starting Data Upload Thread
+2016/01/20 09:26:43 Debug > Starting OS Inventory Thread
+2016/01/20 09:26:43 Info > Staring data upload process
+2016/01/20 09:26:44 Info > Staring operating system inventory process
+2016/01/20 09:26:44 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.6990000
+2016/01/20 09:26:44 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 09:26:45 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:26:46 Error > Error connecting to WMI : appserver04 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:26:47 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:26:48 Error > Error connecting to WMI : appserver02 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:26:49 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:26:49 Error > Error connecting to WMI : appserver03 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:26:51 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:26:51 Error > Error connecting to WMI : appserver01 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net [Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))]
+2016/01/20 09:26:52 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:07.7820000
+2016/01/20 09:26:54 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:26:55 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:26:57 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:26:59 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:01 Error > 2607:f480:111:1359:492b:1740:ea0a:5f9c returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:02 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:04 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:06 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:07 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:09 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:09 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:24.9060000
+2016/01/20 09:27:09 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:26.9180000
+2016/01/20 09:27:13 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:15 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:17 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:19 Error > 2607:f480:111:1359:7f7e:61a5:36c2:345b returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:21 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:24 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:26 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:27 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:32 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:33 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:35 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:37 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:38 Error > 2607:f480:111:1359:14a4:ac63:1ae:a393 returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:40 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:41 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:43 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:45 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:46 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:48 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:49 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:51 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:52 Error > 2607:f480:111:1359:dda:e8fe:c7f2:9e7e returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/01/20 09:27:52 Info > Completed performance collection | Elapsed Time 00:01:09.4640000 
+2016/01/20 09:29:02 Info > Starting CloudMovey Worker Service
+2016/01/20 09:29:02 Info > Debug Enabled!
+2016/01/20 09:29:02 Info > CloudMovey Worker Agent ID:636aafd21e70435fabe6374a099322d4
+2016/01/20 09:29:02 Info > CloudMovey Portal URL:https://www.cloudmovey.com
+2016/01/20 09:29:09 Debug > Starting WCF Service | Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/01/20 09:29:13 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/01/20 09:29:13 Debug > Starting Scheduler Thread
+2016/01/20 09:29:13 Debug > Starting Mirror Thread
+2016/01/20 09:29:13 Debug > Starting Performance Collection Thread
+2016/01/20 09:29:14 Info > Staring platform inventory process
+2016/01/20 09:29:14 Debug > Starting Netflow v5 Collection Thread
+2016/01/20 09:29:14 Debug > Starting Data Upload Thread
+2016/01/20 09:29:14 Info > Starting workload performance collection
+2016/01/20 09:29:14 Debug > Starting OS Inventory Thread
+2016/01/20 09:29:15 Info > Staring data upload process
+2016/01/20 09:29:15 Info > Staring operating system inventory process
+2016/01/20 09:29:15 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.6400000
+2016/01/20 09:29:15 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 09:29:36 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:20.1160000
+2016/01/20 09:29:36 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:22.0370000
+2016/01/20 09:30:56 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:01:41.6430000
+2016/01/20 09:33:59 Info > Completed performance collection | Elapsed Time 00:04:44.8570000 
+2016/01/20 10:03:59 Info > Starting workload performance collection
+2016/01/20 10:07:21 Info > Completed performance collection | Elapsed Time 00:03:22.1120000 
+2016/01/20 10:29:15 Info > Staring data upload process
+2016/01/20 10:29:36 Info > Staring platform inventory process
+2016/01/20 10:29:36 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 10:29:50 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:13.3420000
+2016/01/20 10:29:50 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:14.1800000
+2016/01/20 10:31:54 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:38.4320000
+2016/01/20 10:37:21 Info > Starting workload performance collection
+2016/01/20 10:40:12 Info > Completed performance collection | Elapsed Time 00:02:50.9330000 
+2016/01/20 11:10:12 Info > Starting workload performance collection
+2016/01/20 11:12:35 Info > Completed performance collection | Elapsed Time 00:02:23.2150000 
+2016/01/20 11:29:50 Info > Staring platform inventory process
+2016/01/20 11:29:58 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/20 11:30:08 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:10.2770000
+2016/01/20 11:30:08 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:18.2750000
+2016/01/20 11:31:54 Info > Staring data upload process
+2016/01/20 11:33:48 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:01:54.4950000
+2016/01/20 11:42:35 Info > Starting workload performance collection
+2016/01/20 11:45:05 Info > Completed performance collection | Elapsed Time 00:02:29.6120000 

@@ -1,0 +1,6 @@
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Netflow5\bin\Debug\Netflow5.exe.config
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Netflow5\bin\Debug\Netflow5.exe
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Netflow5\bin\Debug\Netflow5.pdb
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Netflow5\obj\Debug\Netflow5.csprojResolveAssemblyReference.cache
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Netflow5\obj\Debug\Netflow5.exe
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Netflow5\obj\Debug\Netflow5.pdb

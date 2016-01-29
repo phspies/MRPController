@@ -1,0 +1,8 @@
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPDiskLib\src\bin\Debug\MRPDiskLib.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPDiskLib\src\bin\Debug\MRPDiskLib.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPDiskLib\src\bin\Debug\MRPDiskLib.dll.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPDiskLib\src\obj\Debug\MRPDiskLib.csprojResolveAssemblyReference.cache
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPDiskLib\src\obj\Debug\MRPDiskLib.Resources.resources
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPDiskLib\src\obj\Debug\MRPDiskLib.csproj.GenerateResource.Cache
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPDiskLib\src\obj\Debug\MRPDiskLib.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPDiskLib\src\obj\Debug\MRPDiskLib.pdb

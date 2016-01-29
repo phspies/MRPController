@@ -1,0 +1,6 @@
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Partition\bin\Debug\Partition.exe.config
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Partition\bin\Debug\Partition.exe
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Partition\bin\Debug\Partition.pdb
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Partition\obj\Debug\Partition.csprojResolveAssemblyReference.cache
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Partition\obj\Debug\Partition.exe
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\Partition\obj\Debug\Partition.pdb

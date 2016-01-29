@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CloudMoveyModelStoreContainer" CdmEntityContainer="CloudMoveyEntities">
+    <EntitySetMapping Name="Credentials">
+      <EntityTypeMapping TypeName="CloudMoveyModel.Credential">
+        <MappingFragment StoreEntitySet="Credentials">
+          <ScalarProperty Name="hash_value" ColumnName="hash_value" />
+          <ScalarProperty Name="human_type" ColumnName="human_type" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="domain" ColumnName="domain" />
+          <ScalarProperty Name="credential_type" ColumnName="credential_type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Platforms">
+      <EntityTypeMapping TypeName="CloudMoveyModel.Platform">
+        <MappingFragment StoreEntitySet="Platforms">
+          <ScalarProperty Name="hash_value" ColumnName="hash_value" />
+          <ScalarProperty Name="networkdomain_sha1" ColumnName="networkdomain_sha1" />
+          <ScalarProperty Name="vlan_sha1" ColumnName="vlan_sha1" />
+          <ScalarProperty Name="workload_sha1" ColumnName="workload_sha1" />
+          <ScalarProperty Name="moid" ColumnName="moid" />
+          <ScalarProperty Name="platform_version" ColumnName="platform_version" />
+          <ScalarProperty Name="networkdomain_count" ColumnName="networkdomain_count" />
+          <ScalarProperty Name="vlan_count" ColumnName="vlan_count" />
+          <ScalarProperty Name="workload_count" ColumnName="workload_count" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="datacenter" ColumnName="datacenter" />
+          <ScalarProperty Name="vendor" ColumnName="vendor" />
+          <ScalarProperty Name="url" ColumnName="url" />
+          <ScalarProperty Name="credential_id" ColumnName="credential_id" />
+          <ScalarProperty Name="passwordok" ColumnName="passwordok" />
+          <ScalarProperty Name="lastupdated" ColumnName="lastupdated" />
+          <ScalarProperty Name="platform_details" ColumnName="platform_details" />
+          <ScalarProperty Name="human_vendor" ColumnName="human_vendor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Failovergroups">
+      <EntityTypeMapping TypeName="CloudMoveyModel.Failovergroup">
+        <MappingFragment StoreEntitySet="Failovergroups">
+          <ScalarProperty Name="group_type" ColumnName="group_type" />
+          <ScalarProperty Name="group" ColumnName="group" />
+          <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="CloudMoveyModel.Event">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="entity" ColumnName="entity" />
+          <ScalarProperty Name="timestamp" ColumnName="timestamp" />
+          <ScalarProperty Name="summary" ColumnName="summary" />
+          <ScalarProperty Name="component" ColumnName="component" />
+          <ScalarProperty Name="severity" ColumnName="severity" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tasks">
+      <EntityTypeMapping TypeName="CloudMoveyModel.Task">
+        <MappingFragment StoreEntitySet="Tasks">
+          <ScalarProperty Name="endtime" ColumnName="endtime" />
+          <ScalarProperty Name="starttime" ColumnName="starttime" />
+          <ScalarProperty Name="queued_for" ColumnName="queued_for" />
+          <ScalarProperty Name="initiator" ColumnName="initiator" />
+          <ScalarProperty Name="target" ColumnName="target" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Workloads">
+      <EntityTypeMapping TypeName="CloudMoveyModel.Workload">
+        <MappingFragment StoreEntitySet="Workloads">
+          <ScalarProperty Name="iplist" ColumnName="iplist" />
+          <ScalarProperty Name="failed_contact_attempts" ColumnName="failed_contact_attempts" />
+          <ScalarProperty Name="last_contact_message" ColumnName="last_contact_message" />
+          <ScalarProperty Name="last_contact_status" ColumnName="last_contact_status" />
+          <ScalarProperty Name="last_contact_attempt" ColumnName="last_contact_attempt" />
+          <ScalarProperty Name="ostype" ColumnName="ostype" />
+          <ScalarProperty Name="osedition" ColumnName="osedition" />
+          <ScalarProperty Name="application" ColumnName="application" />
+          <ScalarProperty Name="credential_ok" ColumnName="credential_ok" />
+          <ScalarProperty Name="storage_count" ColumnName="storage_count" />
+          <ScalarProperty Name="memory_count" ColumnName="memory_count" />
+          <ScalarProperty Name="cpu_count" ColumnName="cpu_count" />
+          <ScalarProperty Name="enabled" ColumnName="enabled" />
+          <ScalarProperty Name="moid" ColumnName="moid" />
+          <ScalarProperty Name="failovergroup_id" ColumnName="failovergroup_id" />
+          <ScalarProperty Name="hash_value" ColumnName="hash_value" />
+          <ScalarProperty Name="credential_id" ColumnName="credential_id" />
+          <ScalarProperty Name="platform_id" ColumnName="platform_id" />
+          <ScalarProperty Name="hostname" ColumnName="hostname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

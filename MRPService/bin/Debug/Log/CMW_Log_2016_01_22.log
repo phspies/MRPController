@@ -1,0 +1,233 @@
+2016/01/22 12:16:47 Info > Staring data upload process
+2016/01/22 12:18:22 Info > Completed data upload process.0 netflows.390 performancecounters. = Total Elapsed Time: 00:01:34.6910000
+2016/01/22 12:18:43 Info > Starting workload performance collection
+2016/01/22 12:21:36 Info > Completed performance collection | Elapsed Time 00:02:52.9210000 
+2016/01/22 12:31:59 Info > Staring platform inventory process
+2016/01/22 12:32:00 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 12:32:08 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.4810000
+2016/01/22 12:32:08 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:08.8830000
+2016/01/22 12:51:36 Info > Starting workload performance collection
+2016/01/22 12:54:31 Info > Completed performance collection | Elapsed Time 00:02:54.2880000 
+2016/01/22 01:18:22 Info > Staring data upload process
+2016/01/22 01:20:17 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:01:54.9120000
+2016/01/22 01:24:31 Info > Starting workload performance collection
+2016/01/22 01:27:22 Info > Completed performance collection | Elapsed Time 00:02:50.9850000 
+2016/01/22 01:32:08 Info > Staring platform inventory process
+2016/01/22 01:32:08 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 01:32:17 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.8730000
+2016/01/22 01:32:18 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.2630000
+2016/01/22 01:57:22 Info > Starting workload performance collection
+2016/01/22 02:00:34 Info > Completed performance collection | Elapsed Time 00:03:12.1990000 
+2016/01/22 02:20:17 Info > Staring data upload process
+2016/01/22 02:22:14 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:01:57.6730000
+2016/01/22 02:30:34 Info > Starting workload performance collection
+2016/01/22 02:32:18 Info > Staring platform inventory process
+2016/01/22 02:32:18 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 02:32:30 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:12.3040000
+2016/01/22 02:32:30 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:12.5520000
+2016/01/22 02:33:28 Info > Completed performance collection | Elapsed Time 00:02:54.2790000 
+2016/01/22 03:03:28 Info > Starting workload performance collection
+2016/01/22 03:06:21 Info > Completed performance collection | Elapsed Time 00:02:53.4540000 
+2016/01/22 03:22:14 Info > Staring data upload process
+2016/01/22 03:24:38 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:23.0050000
+2016/01/22 03:32:30 Info > Staring platform inventory process
+2016/01/22 03:32:30 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 03:32:39 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.7360000
+2016/01/22 03:32:39 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:08.9440000
+2016/01/22 03:36:21 Info > Starting workload performance collection
+2016/01/22 03:39:37 Info > Completed performance collection | Elapsed Time 00:03:15.6890000 
+2016/01/22 04:09:37 Info > Starting workload performance collection
+2016/01/22 04:12:33 Info > Completed performance collection | Elapsed Time 00:02:56.1960000 
+2016/01/22 04:24:38 Info > Staring data upload process
+2016/01/22 04:26:39 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:01.7320000
+2016/01/22 04:32:39 Info > Staring platform inventory process
+2016/01/22 04:32:39 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 04:32:48 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.7560000
+2016/01/22 04:32:48 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:08.9910000
+2016/01/22 04:42:33 Info > Starting workload performance collection
+2016/01/22 04:45:29 Info > Completed performance collection | Elapsed Time 00:02:55.9040000 
+2016/01/22 05:15:29 Info > Starting workload performance collection
+2016/01/22 05:18:29 Info > Completed performance collection | Elapsed Time 00:02:59.6810000 
+2016/01/22 05:26:39 Info > Staring data upload process
+2016/01/22 05:28:33 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:01:53.8730000
+2016/01/22 05:32:48 Info > Staring platform inventory process
+2016/01/22 05:32:48 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 05:32:49 Error > Error in data mirroring process for Dimension Data : NA9: System.InvalidCastException: Unable to cast object of type 'System.Object' to type 'CloudMoveyWorkerService.CaaS.ResponseType'.
+   at CloudMoveyWorkerService.CaaS.Core.orgendpoint(String _endpoint) in C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\DimensionData\Controllers\Core.cs:line 43
+   at CloudMoveyWorkerService.CaaS.TemplateObject.platformtemplates(List`1 options) in C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\DimensionData\Controllers\Template.cs:line 11
+   at CloudMoveyWorkerService.Portal.Classes.PlatformInventoryWorker.UpdateMCPPlatform(Platform _platform) in C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyWorkerService\CloudMoveyWorkerService\Classes\Background Classes\PlatformInventoryWorker.cs:line 124
+2016/01/22 05:32:49 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:01.1910000
+2016/01/22 05:48:29 Info > Starting workload performance collection
+2016/01/22 05:51:25 Info > Completed performance collection | Elapsed Time 00:02:56.0890000 
+2016/01/22 06:21:25 Info > Starting workload performance collection
+2016/01/22 06:24:25 Info > Completed performance collection | Elapsed Time 00:02:59.4330000 
+2016/01/22 06:28:33 Info > Staring data upload process
+2016/01/22 06:30:34 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:00.8960000
+2016/01/22 06:32:49 Info > Staring platform inventory process
+2016/01/22 06:32:50 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 06:32:58 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.7920000
+2016/01/22 06:32:58 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.0470000
+2016/01/22 06:54:25 Info > Starting workload performance collection
+2016/01/22 06:57:27 Info > Completed performance collection | Elapsed Time 00:03:02.5840000 
+2016/01/22 07:27:27 Info > Starting workload performance collection
+2016/01/22 07:30:26 Info > Completed performance collection | Elapsed Time 00:02:58.4370000 
+2016/01/22 07:30:34 Info > Staring data upload process
+2016/01/22 07:32:55 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:20.3980000
+2016/01/22 07:32:58 Info > Staring platform inventory process
+2016/01/22 07:32:59 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 07:33:07 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.3700000
+2016/01/22 07:33:07 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:08.6020000
+2016/01/22 08:00:26 Info > Starting workload performance collection
+2016/01/22 08:03:34 Info > Completed performance collection | Elapsed Time 00:03:08.1790000 
+2016/01/22 08:32:55 Info > Staring data upload process
+2016/01/22 08:33:07 Info > Staring platform inventory process
+2016/01/22 08:33:07 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 08:33:17 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:10.1210000
+2016/01/22 08:33:17 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:10.3610000
+2016/01/22 08:33:34 Info > Starting workload performance collection
+2016/01/22 08:33:59 Info > Completed data upload process.0 netflows.312 performancecounters. = Total Elapsed Time: 00:01:04.1650000
+2016/01/22 08:36:40 Info > Completed performance collection | Elapsed Time 00:03:06.0020000 
+2016/01/22 09:06:40 Info > Starting workload performance collection
+2016/01/22 09:09:50 Info > Completed performance collection | Elapsed Time 00:03:10.3720000 
+2016/01/22 09:33:17 Info > Staring platform inventory process
+2016/01/22 09:33:20 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 09:33:29 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.4850000
+2016/01/22 09:33:29 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:11.3540000
+2016/01/22 09:33:59 Info > Staring data upload process
+2016/01/22 09:35:52 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:01:53.6190000
+2016/01/22 09:39:50 Info > Starting workload performance collection
+2016/01/22 09:43:21 Info > Completed performance collection | Elapsed Time 00:03:31.3500000 
+2016/01/22 10:13:21 Info > Starting workload performance collection
+2016/01/22 10:17:07 Info > Completed performance collection | Elapsed Time 00:03:45.4070000 
+2016/01/22 10:33:29 Info > Staring platform inventory process
+2016/01/22 10:33:29 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 10:33:38 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.4080000
+2016/01/22 10:33:38 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.6170000
+2016/01/22 10:35:52 Info > Staring data upload process
+2016/01/22 10:38:17 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:24.3210000
+2016/01/22 10:47:07 Info > Starting workload performance collection
+2016/01/22 10:51:11 Info > Completed performance collection | Elapsed Time 00:04:04.2430000 
+2016/01/22 11:21:11 Info > Starting workload performance collection
+2016/01/22 11:24:51 Info > Completed performance collection | Elapsed Time 00:03:40.2960000 
+2016/01/22 11:33:38 Info > Staring platform inventory process
+2016/01/22 11:33:38 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 11:33:53 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:14.4940000
+2016/01/22 11:33:53 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:14.7090000
+2016/01/22 11:38:17 Info > Staring data upload process
+2016/01/22 11:40:14 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:01:57.1710000
+2016/01/22 11:54:51 Info > Starting workload performance collection
+2016/01/22 11:58:05 Info > Completed performance collection | Elapsed Time 00:03:13.2870000 
+2016/01/22 12:28:05 Info > Starting workload performance collection
+2016/01/22 12:31:19 Info > Completed performance collection | Elapsed Time 00:03:14.7230000 
+2016/01/22 12:33:53 Info > Staring platform inventory process
+2016/01/22 12:33:53 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 12:34:02 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.7550000
+2016/01/22 12:34:02 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:08.9960000
+2016/01/22 12:40:14 Info > Staring data upload process
+2016/01/22 12:42:10 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:01:56.1190000
+2016/01/22 01:01:19 Info > Starting workload performance collection
+2016/01/22 01:05:01 Info > Completed performance collection | Elapsed Time 00:03:41.4860000 
+2016/01/22 01:34:02 Info > Staring platform inventory process
+2016/01/22 01:34:02 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 01:34:11 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.6090000
+2016/01/22 01:34:11 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:08.8010000
+2016/01/22 01:35:01 Info > Starting workload performance collection
+2016/01/22 01:38:12 Info > Completed performance collection | Elapsed Time 00:03:10.8330000 
+2016/01/22 01:42:10 Info > Staring data upload process
+2016/01/22 01:44:23 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:12.4730000
+2016/01/22 02:08:12 Info > Starting workload performance collection
+2016/01/22 02:11:20 Info > Completed performance collection | Elapsed Time 00:03:08.4920000 
+2016/01/22 02:34:11 Info > Staring platform inventory process
+2016/01/22 02:34:11 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 02:34:20 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.2090000
+2016/01/22 02:34:20 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.4530000
+2016/01/22 02:41:20 Info > Starting workload performance collection
+2016/01/22 02:44:23 Info > Staring data upload process
+2016/01/22 02:45:00 Info > Completed performance collection | Elapsed Time 00:03:39.3160000 
+2016/01/22 02:46:39 Info > Completed data upload process.0 netflows.573 performancecounters. = Total Elapsed Time: 00:02:15.8270000
+2016/01/22 03:13:58 Info > Starting workload performance collection
+2016/01/22 03:17:46 Info > Completed performance collection | Elapsed Time 00:03:48.4030000 
+2016/01/22 03:33:18 Info > Staring platform inventory process
+2016/01/22 03:33:18 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 03:33:27 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.7470000
+2016/01/22 03:33:27 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:08.9810000
+2016/01/22 03:45:36 Info > Staring data upload process
+2016/01/22 03:46:43 Info > Completed data upload process.0 netflows.363 performancecounters. = Total Elapsed Time: 00:01:06.2920000
+2016/01/22 03:47:46 Info > Starting workload performance collection
+2016/01/22 03:51:14 Info > Completed performance collection | Elapsed Time 00:03:28.1270000 
+2016/01/22 04:21:14 Info > Starting workload performance collection
+2016/01/22 04:24:25 Info > Completed performance collection | Elapsed Time 00:03:11.2350000 
+2016/01/22 04:33:27 Info > Staring platform inventory process
+2016/01/22 04:33:27 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 04:33:37 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.4580000
+2016/01/22 04:33:37 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.7090000
+2016/01/22 04:46:43 Info > Staring data upload process
+2016/01/22 04:49:06 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:23.0840000
+2016/01/22 04:54:25 Info > Starting workload performance collection
+2016/01/22 04:58:16 Info > Completed performance collection | Elapsed Time 00:03:50.7890000 
+2016/01/22 05:28:16 Info > Starting workload performance collection
+2016/01/22 05:32:20 Info > Completed performance collection | Elapsed Time 00:04:04.0300000 
+2016/01/22 05:33:37 Info > Staring platform inventory process
+2016/01/22 05:33:37 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 05:33:46 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.1530000
+2016/01/22 05:33:46 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.4080000
+2016/01/22 05:49:06 Info > Staring data upload process
+2016/01/22 05:51:24 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:18.5860000
+2016/01/22 06:02:20 Info > Starting workload performance collection
+2016/01/22 06:05:30 Info > Completed performance collection | Elapsed Time 00:03:10.2530000 
+2016/01/22 06:33:46 Info > Staring platform inventory process
+2016/01/22 06:33:46 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 06:33:55 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:08.6790000
+2016/01/22 06:33:55 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:08.8890000
+2016/01/22 06:35:30 Info > Starting workload performance collection
+2016/01/22 06:38:58 Info > Completed performance collection | Elapsed Time 00:03:27.4570000 
+2016/01/22 06:51:24 Info > Staring data upload process
+2016/01/22 06:54:28 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:03:03.4260000
+2016/01/22 07:08:58 Info > Starting workload performance collection
+2016/01/22 07:13:27 Info > Completed performance collection | Elapsed Time 00:04:29.5570000 
+2016/01/22 07:33:55 Info > Staring platform inventory process
+2016/01/22 07:33:55 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 07:34:05 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.4870000
+2016/01/22 07:34:05 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.6840000
+2016/01/22 07:43:27 Info > Starting workload performance collection
+2016/01/22 07:47:45 Info > Completed performance collection | Elapsed Time 00:04:17.2360000 
+2016/01/22 07:54:28 Info > Staring data upload process
+2016/01/22 07:56:31 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:02.8580000
+2016/01/22 08:17:45 Info > Starting workload performance collection
+2016/01/22 08:21:57 Info > Completed performance collection | Elapsed Time 00:04:12.0590000 
+2016/01/22 08:34:05 Info > Staring platform inventory process
+2016/01/22 08:34:05 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 08:34:18 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:12.4570000
+2016/01/22 08:34:18 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:12.7610000
+2016/01/22 08:51:57 Info > Starting workload performance collection
+2016/01/22 08:56:00 Info > Completed performance collection | Elapsed Time 00:04:02.8960000 
+2016/01/22 08:56:31 Info > Staring data upload process
+2016/01/22 08:58:49 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:18.2630000
+2016/01/22 09:26:00 Info > Starting workload performance collection
+2016/01/22 09:28:45 Info > Staring operating system inventory process
+2016/01/22 09:29:45 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:01:00.1020000
+2016/01/22 09:30:02 Info > Completed performance collection | Elapsed Time 00:04:02.4740000 
+2016/01/22 09:34:18 Info > Staring platform inventory process
+2016/01/22 09:34:18 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 09:34:27 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.4740000
+2016/01/22 09:34:27 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.6790000
+2016/01/22 09:58:49 Info > Staring data upload process
+2016/01/22 10:00:02 Info > Starting workload performance collection
+2016/01/22 10:00:06 Info > Completed data upload process.0 netflows.312 performancecounters. = Total Elapsed Time: 00:01:16.4500000
+2016/01/22 10:04:11 Info > Completed performance collection | Elapsed Time 00:04:09.1480000 
+2016/01/22 10:34:11 Info > Starting workload performance collection
+2016/01/22 10:34:27 Info > Staring platform inventory process
+2016/01/22 10:34:27 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 10:34:37 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.7710000
+2016/01/22 10:34:37 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.9410000
+2016/01/22 10:38:15 Info > Completed performance collection | Elapsed Time 00:04:03.2890000 
+2016/01/22 11:00:06 Info > Staring data upload process
+2016/01/22 11:02:21 Info > Completed data upload process.0 netflows.624 performancecounters. = Total Elapsed Time: 00:02:15.4920000
+2016/01/22 11:08:15 Info > Starting workload performance collection
+2016/01/22 11:11:52 Info > Completed performance collection | Elapsed Time 00:03:37.9350000 
+2016/01/22 11:34:37 Info > Staring platform inventory process
+2016/01/22 11:34:37 Info > Started data mirroring process for Dimension Data : NA9
+2016/01/22 11:34:47 Info > Completed data mirroring process for Dimension Data : NA9.0 new workloads.0 updated platform networks.4 updated workloads.0 removed workloads. = Total Execute Time: 00:00:09.3770000
+2016/01/22 11:34:47 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:09.5720000
+2016/01/22 11:41:52 Info > Starting workload performance collection
+2016/01/22 11:45:24 Info > Completed performance collection | Elapsed Time 00:03:31.7610000 
