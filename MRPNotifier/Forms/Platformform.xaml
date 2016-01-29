@@ -1,0 +1,167 @@
+﻿<Controls:MetroWindow 
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    xmlns:CloudMRPWCF="clr-namespace:CloudMRPNotifier.CloudMRPWCF" 
+                    mc:Ignorable="d" x:Class="CloudMRPNotifier.Forms.PlatformForm" 
+                      Icon="../cloudmovey.ico"
+                      EnableDWMDropShadow="True"
+                      WindowStartupLocation="CenterScreen"
+                      Title="Platform Form"  SizeToContent="WidthAndHeight"
+                      ResizeMode="NoResize"
+    Background="#FDFEFB"
+                    xmlns:local="clr-namespace:CloudMRPNotifier.Forms"
+                    xmlns:model="clr-namespace:CloudMRPNotifier.Models"
+                   
+    FocusManager.FocusedElement="{Binding ElementName=platform_description}"
+    >
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+    <Grid>
+
+        <WrapPanel Margin="10" Orientation="Vertical" Grid.ColumnSpan="2">
+            <StackPanel Orientation="Horizontal">
+                <Grid x:Name="grid1" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label  Width="100" Content="Description" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <TextBox  x:Name="platform_description" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="220"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                <Grid x:Name="grid2" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                </Grid>
+
+            </StackPanel>
+            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                <Grid x:Name="grid3" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Width="100" Content="Vendor" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="platform_vendor" SelectionChanged="platform_vendor_changed" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
+                            SelectedValuePath="ID"
+                            SelectedValue="{Binding Path=vendor, Mode=TwoWay}" 
+                            DisplayMemberPath="Vendor"/>
+                </Grid>
+
+            </StackPanel>
+            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                <Grid x:Name="grid4" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Width="100" Content="Target" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="platform_url" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding url, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="200"/>
+                    <ComboBox x:Name="platform_dimensiondata_url" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
+                            SelectedValuePath="Url"
+                            SelectedValue="{Binding Path=url, Mode=TwoWay}" 
+                            DisplayMemberPath="Description"/>
+                </Grid>
+
+            </StackPanel>
+
+            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                <Grid x:Name="grid6" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Width="100" Content="Credential" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="platform_credential" SelectionChanged="platform_credential_changed" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Width="120"
+                        SelectedValuePath="id"
+                            SelectedValue="{Binding Path=credential_id, Mode=TwoWay}" 
+                            DisplayMemberPath="description" />
+
+                </Grid>
+                <Button Margin="10,0,0,0" x:Name="test_connection_button"  Height="23" Click="test_connection_button_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle  Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_camera_flash}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock Margin="5,0,0,0">Test</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
+                <Grid x:Name="grid7" HorizontalAlignment="Left" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Width="100" Content="Datacenter" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="platform_datacenter" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="100"
+                            SelectedValuePath="moid"
+                            SelectedValue="{Binding Path=datacenter, Mode=TwoWay}" 
+                            DisplayMemberPath="datacenter"/>
+                    <TextBlock x:Name="current_platform_datacenter" Text="{Binding datacenter}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Margin="116,8,-121,0" Width="111"/>
+                </Grid>
+
+            </StackPanel>
+            <Separator Margin="0,10,0,10"/>
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                
+                <TextBlock x:Name="message" HorizontalAlignment="Left" Width="160" Margin="0,0,30,0"/>
+
+                <Button x:Name="accept_platform" IsDefault="true" Click="accept_platform_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_check}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock Margin="5,0,0,0">Accept</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="cancel_platform" IsCancel="True" Margin="15,0,0,0" Click="cancel_platform_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_close}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                        <TextBlock Margin="5,0,0,0">Cancel</TextBlock>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+
+        </WrapPanel>
+    </Grid>
+</Controls:MetroWindow>

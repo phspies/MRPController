@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CloudMoveyWorkerService.NetFlow.v5
+namespace MRPService.NetFlow.v5
 {
     public class V5Header
     {
