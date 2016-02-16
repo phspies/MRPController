@@ -16,10 +16,10 @@ using System.ServiceModel;
 using System.Threading;
 using MRPService.Portal;
 using DoubleTake.Core.Contract;
-using MRPService.DoubleTake.Types;
+using MRPService.MRPDoubleTake.Types;
 using MRPService.MRPService.Types.API;
 
-namespace MRPService.DoubleTake
+namespace MRPService.MRPDoubleTake
 {
     class CMDoubleTake_Common : MRPDoubleTake_Core
     {

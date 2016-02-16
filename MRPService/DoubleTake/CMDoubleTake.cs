@@ -1,7 +1,7 @@
 ﻿using MRPService.LocalDatabase;
 using System.Linq;
 
-namespace MRPService.DoubleTake
+namespace MRPService.MRPDoubleTake
 {
     public class MRPDoubleTake
     {

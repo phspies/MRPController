@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRPService.DoubleTake.Types
+namespace MRPService.MRPDoubleTake.Types
 {
     public static class DTJobTypes
     {

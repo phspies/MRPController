@@ -1,4 +1,5 @@
 ﻿using MRPService.CloudMRP.Controllers;
+using MRPService.MRPDoubleTake;
 using MRPService.MRPService.Log;
 using MRPService.MRPService.Types.API;
 using MRPService.Portal.Types.API;
@@ -34,10 +35,10 @@ namespace MRPService.Portal.Controllers
                                     {
                                         switch (task.task_type)
                                         {
-                                            case "deploy":
-                                                    Thread newThread = new Thread(() => DoubleTakeNS.dt_deploy(task));
+                                            case "deploy_method":
+                                                    Thread newThread = new Thread(() => MRPDoubleTake_Deploy.dt_deploy(task));
                                                     newThread.Name = task.target_id;
-                                                    newThread.Start(task);
+                                                    newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 break;
                                                 //case "getproductinformation":

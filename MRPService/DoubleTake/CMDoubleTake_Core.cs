@@ -1,4 +1,4 @@
-﻿using MRPService.DoubleTake.Types;
+﻿using MRPService.MRPDoubleTake.Types;
 using MRPService.Portal;
 using DoubleTake.Communication;
 using System;
@@ -8,7 +8,7 @@ using System.ServiceModel;
 using MRPService.LocalDatabase;
 using MRPService.CloudMRP.Classes.Static_Classes;
 
-namespace MRPService.DoubleTake
+namespace MRPService.MRPDoubleTake
 {
     public class MRPDoubleTake_Core
     {

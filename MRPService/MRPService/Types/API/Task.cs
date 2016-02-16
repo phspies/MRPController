@@ -78,7 +78,7 @@ namespace MRPService.MRPService.Types.API
         public string dt_queue_folder { get; set; }
         public int dt_queue_limit_disk_size { get; set; }
         public int dt_queue_min_disk_free_size { get; set; }
-        public int dt_queue_scheme { get; set; }
+        public string dt_queue_scheme { get; set; }
         public string activation_code { get; set; }
     }
 

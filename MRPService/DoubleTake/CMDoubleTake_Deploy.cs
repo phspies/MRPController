@@ -1,7 +1,7 @@
 ﻿using DoubleTake.Core.Contract;
 using Microsoft.Win32;
 using MRPService.CloudMRP.Classes.Static_Classes;
-using MRPService.DoubleTake;
+using MRPService.MRPDoubleTake;
 using MRPService.LocalDatabase;
 using MRPService.MRPService.Types.API;
 using MRPService.Portal;
@@ -17,9 +17,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MRPService.DoubleTake
+namespace MRPService.MRPDoubleTake
 {
-    class CMDoubleTake_Deploy
+    class MRPDoubleTake_Deploy
     {
         public static void dt_deploy(MRPTaskType payload)
         {
@@ -31,10 +31,12 @@ namespace MRPService.DoubleTake
                 MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
                 MRPTaskWorkloadType _target_workload = payload.submitpayload.target;
 
-                int _counter = 10;
+                int _counter = 1;
                 foreach (MRPTaskWorkloadType _working_workload in (new List<MRPTaskWorkloadType> { _source_workload, _target_workload }))
                 {
-                    string remoteTempLocation = _working_workload.deploymentpolicy.dt_installpath;
+                    _mrp_portal.task().progress(payload, String.Format("Starting DT deploying process on {0}", _working_workload.hostname), _counter + 5);
+
+                    string remoteTempLocation = _working_workload.deploymentpolicy.dt_temppath;
                     Credential _workload_credentials = _db.Credentials.FirstOrDefault(x => x.id == _source_workload.credential_id);
                     string _contactable_ip = Connection.find_working_ip(_source_workload.iplist, true);
                     if (_contactable_ip == null)
@@ -44,7 +46,6 @@ namespace MRPService.DoubleTake
                     }
 
                     _mrp_portal.task().progress(payload, "Get remote architecture", _counter + 10);
-
                     string systemArchitecture = null;
                     //Determine if the setup to be installed is 32 bit or 64 bit
                     string keyString = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
@@ -76,11 +77,11 @@ namespace MRPService.DoubleTake
                         if (File.Exists(RemoteFilePath))
                         {
                             remoteFileVersion = FileVersionInfo.GetVersionInfo(RemoteFilePath);
-                            _mrp_portal.task().progress(payload, String.Format("Double-Take version on {0} : {1}", _working_workload.hostname, remoteFileVersion), _counter + 20);
+                            _mrp_portal.task().progress(payload, String.Format("Double-Take version on {0} : {1}", _working_workload.hostname, remoteFileVersion), _counter + 16);
                         }
                         else
                         {
-                            _mrp_portal.task().progress(payload, string.Format("It's a fresh install; no Double-Take version found on {0}", _working_workload.hostname), _counter + 25);
+                            _mrp_portal.task().progress(payload, string.Format("It's a fresh install; no Double-Take version found on {0}", _working_workload.hostname), _counter + 16);
                         }
 
                         string localConfigFilePath = @"C:\Program Files\Vision Solutions\Double-Take\" + systemArchitecture;
@@ -90,7 +91,7 @@ namespace MRPService.DoubleTake
                         if (File.Exists(LocalPath))
                         {
                             localFileVersion = FileVersionInfo.GetVersionInfo(LocalPath);
-                            _mrp_portal.task().progress(payload, String.Format("Double-Take {0} being installed on {1}", localFileVersion, _working_workload.hostname), _counter + 30);
+                            _mrp_portal.task().progress(payload, String.Format("Double-Take {0} being installed on {1}", localFileVersion, _working_workload.hostname), _counter + 17);
                         }
                         else
                         {
@@ -102,7 +103,7 @@ namespace MRPService.DoubleTake
                             int versionCompare = CompareVersions(localFileVersion.ProductVersion, remoteFileVersion.ProductVersion);
                             if (versionCompare <= 0)
                             {
-                                _mrp_portal.task().progress(payload, String.Format("Product version being PushInstalled is same or less than the version ({0}) installed on {1}", localFileVersion, _working_workload.hostname), _counter + 35);
+                                _mrp_portal.task().progress(payload, String.Format("Product version being PushInstalled is same or less than the version ({0}) installed on {1}", localFileVersion, _working_workload.hostname), _counter + 18);
                                 _mrp_portal.task().successcomplete(payload);
                                 return;
                             }
@@ -111,7 +112,7 @@ namespace MRPService.DoubleTake
 
                         #region Copy files process
                         //Copy install options in configuration file and setup files for 32 bit and 64 bit to remote machine
-                        _mrp_portal.task().progress(payload, String.Format("Copy files to {0} on {1} ({2})", remoteTempLocation, _working_workload.hostname, systemArchitecture), _counter + 36);
+                        _mrp_portal.task().progress(payload, String.Format("Copy binaries to {0} on {1} ({2})", remoteTempLocation, _working_workload.hostname, systemArchitecture), _counter + 20);
                         remoteTempLocation = remoteTempLocation.Replace(':', '$');
                         string _target_workload_temp_path = Path.Combine(_contactable_ip, remoteTempLocation);
                         _target_workload_temp_path = @"\\" + _target_workload_temp_path + @"\" + systemArchitecture;
@@ -134,7 +135,8 @@ namespace MRPService.DoubleTake
                         localFilePath = Path.Combine(localFilePath, @"setup.exe");
                         if (!File.Exists(localFilePath))
                         {
-                            Console.Error.Write("Couldn't locate required installation file(s) {0} \n", localFilePath);
+                            _mrp_portal.task().failcomplete(payload, String.Format("Couldn't locate required installation file(s) {0}", localFilePath));
+                            return;
                         }
 
                         remoteTempLocation = remoteTempLocation.Replace(':', '$');
@@ -145,14 +147,17 @@ namespace MRPService.DoubleTake
 
                         Thread.Sleep(TimeSpan.FromSeconds(1));
                         File.Copy(localFilePath, setupFileOnWorkload, true);
+                        _mrp_portal.task().progress(payload, String.Format("Complete binaries copy process for {0}", _working_workload.hostname), _counter + 21);
 
+                        _mrp_portal.task().progress(payload, String.Format("Copy configuration file to {0} on {1} ({2})", remoteTempLocation, _working_workload.hostname, systemArchitecture), _counter + 25);
                         string configFileOnWorkload = @"\\" + _target_workload_temp_path + @"\DTSetup.ini";
                         File.WriteAllLines(configFileOnWorkload, BuildINIFile(_working_workload.deploymentpolicy).ConvertAll(Convert.ToString));
+                        _mrp_portal.task().progress(payload, String.Format("Complete configuration copy process for {0}", _working_workload.hostname), _counter + 26);
 
                         #endregion
 
                         #region Start Remote Installer
-                        _mrp_portal.task().progress(payload, "Starting installer on remote workload", 80);
+                        _mrp_portal.task().progress(payload, String.Format("Starting installer on {0}", _working_workload.hostname), _counter + 30);
 
 
                         //Invoke install process on the remote machine
@@ -204,11 +209,11 @@ namespace MRPService.DoubleTake
 
                         if (processId == 0)
                         {
-                            _mrp_portal.task().failcomplete(payload, "Process ID not found");
+                            _mrp_portal.task().failcomplete(payload, String.Format("Process ID not found on {0}", _working_workload.hostname));
                             return;
                         }
                         //Wait for the process to complete
-                        _mrp_portal.task().progress(payload, "Wait for remote installer to complete", 90);
+                        _mrp_portal.task().progress(payload, "Wait for remote installer to complete", _counter + 31);
 
                         DateTime installEndTime = DateTime.Now.AddSeconds(2700);
                         Process process;
@@ -221,18 +226,21 @@ namespace MRPService.DoubleTake
                             }
                             catch (Exception)
                             {
-                                Console.Write("Install process completed \n");
+                                _mrp_portal.task().progress(payload, "Remote installer to completed", _counter + 31);
                                 break;
                             }
                             Thread.Sleep(TimeSpan.FromSeconds(10));
                         }
                         if (installEndTime <= DateTime.Now)
                         {
-                            Console.Error.Write("Timed out while waiting for install \n");
+                            _mrp_portal.task().failcomplete(payload, String.Format("Timeout waiting for install process to complete on {0}", _working_workload.hostname));
+                            return;
                         }
 
                         #endregion
 
+                        #region Verify DT Installation
+                        _mrp_portal.task().progress(payload, String.Format("Verify DT connectivity on {0}", _working_workload.hostname), _counter + 40);
 
                         //Verify if the management service of Double-Take is running
                         // to determine that the software is installed properly
@@ -242,12 +250,14 @@ namespace MRPService.DoubleTake
                         if (_dt_version == null)
                         {
                             _mrp_portal.task().failcomplete(payload, "Cannot determine installed version of Double-Take");
-                            return;
+                            break;
                         }
                         _mrp_portal.task().successcomplete(payload, String.Format("Double-Take version {0}.{1}.{2} has successfully installed on workload {3} ", _dt_version.Major, _dt_version.Minor, _dt_version.Build, _working_workload.hostname));
 
-
+                        #endregion
                     }
+                    _counter += 50;
+
                 }
             }
             catch (SecurityException ex)
@@ -260,69 +270,8 @@ namespace MRPService.DoubleTake
             }
         }
 
-        private static ProductVersion ValidateManagementServiceRunning()
-        {
-            ProductVersion version = null;
-            var endTime = DateTime.Now.AddMinutes(2);
-            while (DateTime.Now < endTime)
-            {
-                try
-                {
-                    string uri = @"http://" + workload + @":6325/DoubleTake/Common/Contract/ManagementService";
-                    ChannelFactory<IManagementService> mgmtServiceFactory = new ChannelFactory<IManagementService>(
-                        "DefaultBinding_IManagementService_IManagementService",
-                        new EndpointAddress(new Uri(uri))
-                        );
-                    mgmtServiceFactory.Credentials.Windows.ClientCredential = new System.Net.NetworkCredential { UserName = username, Password = password, Domain = domain };
-                    mgmtServiceFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
 
-                    IManagementService mgmtServiceMgr = mgmtServiceFactory.CreateChannel();
-                    version = mgmtServiceMgr.GetProductInfo().ManagementServiceVersion;
-
-                    if (version != null)
-                    {
-                        break;
-                    }
-                }
-                catch (EndpointNotFoundException ex)
-                {
-                    Console.Error.Write("Could not contact management service: {0} \n", ex.Message);
-
-                }
-                Thread.Sleep(1000);
-            }
-            return version;
-        }
-        private static bool WaitForInstallToFinish(int processId)
-        {
-            bool completed = false;
-
-            installEndTime = DateTime.Now.AddSeconds(InstallWaitTimeoutInSeconds);
-            Process process;
-            using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
-            {
-                while (DateTime.Now < installEndTime)
-                {
-                    try
-                    {
-                        process = Process.GetProcessById(processId, workload);
-                    }
-                    catch (Exception)
-                    {
-                        Console.Write("Install process completed \n");
-                        completed = true;
-                        break;
-                    }
-                    Thread.Sleep(TimeSpan.FromSeconds(10));
-                }
-                if (installEndTime <= DateTime.Now)
-                {
-                    Console.Error.Write("Timed out while waiting for install \n");
-                }
-
-                return completed;
-            }
-        }
+    
 
         private static List<String> BuildINIFile(MRPTaskDeploymentpolicyType _deployment_policy)
         {
@@ -335,13 +284,13 @@ namespace MRPService.DoubleTake
             _setup_file.Add("DISKQUEUEFOLDER=" + '"' + _deployment_policy.dt_queue_folder +'"');
             switch(_deployment_policy.dt_queue_scheme)
             {
-                case 0:
+                case "no_queue":
                     _setup_file.Add("DISKQUEUEMAXSIZE=0");
                     break;
-                case 1:
+                case "unlimited_queue":
                     _setup_file.Add("DISKQUEUEMAXSIZE=UNLIMITED");
                     break;
-                case 2:
+                case "limit_queue":
                     _setup_file.Add("DISKQUEUEMAXSIZE=" + _deployment_policy.dt_queue_limit_disk_size.ToString());
                     break;
             }
@@ -353,63 +302,7 @@ namespace MRPService.DoubleTake
 
             return _setup_file;
         }
-    private static bool CopyRequiredInstallationFiles(string selection)
-        {
-            using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
-            {
-
-                string path = @"C:\Program Files\Vision Solutions\Double-Take";
-
-                string localFilePath = Path.Combine(path, selection);
-                localFilePath = Path.Combine(localFilePath, @"setup.exe");
-                if (!File.Exists(localFilePath))
-                {
-                    Console.Error.Write("Couldn't locate required installation file(s) {0} \n", localFilePath);
-                    return false;
-                }
-
-                remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
-                string workloadPath = Path.Combine(workload, remoteInstallFiles);
-                workloadPath = @"\\" + workloadPath + @"\" + selection;
-                string setupFileOnWorkload = workloadPath + @"\setup.exe";
-
-                if (File.Exists(setupFileOnWorkload))
-                    File.SetAttributes(setupFileOnWorkload, FileAttributes.Normal);
-
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-                CloudMRP.task().progress(_payload, String.Format("Copy installation files to {0} on {1}", workloadPath, workload), 57);
-
-                File.Copy(localFilePath, setupFileOnWorkload, true);
-                CloudMRP.task().progress(_payload, String.Format("Setup file copied successfully {0}", workload), 58);
-
-                return true;
-            }
-        }
-        private static bool CopyConfigFile()
-        {
-            using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
-            {
-                string localConfigFilePath = @"C:\Program Files\Vision Solutions\Double-Take\DTSetup.ini";
-                if (!File.Exists(localConfigFilePath))
-                {
-                    CloudMRP.task().failcomplete(_payload, String.Format("Couldn't locate required configuration file(s) {0}", localConfigFilePath));
-                    return false;
-                }
-                remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
-                string workloadPath = Path.Combine(workload, remoteInstallFiles);
-                string configFileOnWorkload = @"\\" + workloadPath + @"\DTSetup.ini";
-
-                if (File.Exists(configFileOnWorkload))
-                    File.SetAttributes(configFileOnWorkload, FileAttributes.Normal);
-
-                Thread.Sleep(TimeSpan.FromSeconds(1));
-                File.Copy(localConfigFilePath, configFileOnWorkload, true);
-
-                CloudMRP.task().progress(_payload, String.Format("Configuration file copied successfully {0}", configFileOnWorkload));
-
-                return true;
-            }
-        }
+ 
         static int CompareVersions(string sa, string sb)
         {
             Func<string, int?> parse = s => { int ret; return int.TryParse(s, out ret) ? (int?)ret : null; };

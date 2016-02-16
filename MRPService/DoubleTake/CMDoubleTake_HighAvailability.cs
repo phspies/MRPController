@@ -1,4 +1,4 @@
-﻿using MRPService.DoubleTake.Types;
+﻿using MRPService.MRPDoubleTake.Types;
 using MRPService.Portal;
 using MRPService.Portal.Types.API;
 using DoubleTake.Common.Contract;
@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading;
 using MRPService.MRPService.Types.API;
 
-namespace MRPService.DoubleTake
+namespace MRPService.MRPDoubleTake
 {
     public class MRPDoubleTake_HighAvailability : MRPDoubleTake_Core
     {
