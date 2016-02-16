@@ -1,5 +1,4 @@
-﻿using MRPService.CaaS;
-using MRPService.Portal.Models;
+﻿using MRPService.Portal.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +8,11 @@ using System.ServiceModel;
 using MRPService.Portal.Classes;
 using MRPService.LocalDatabase;
 using MRPService.MRPService.Log;
+using System.Net;
+using DD.CBU.Compute.Api.Client;
+using DD.CBU.Compute.Api.Contracts.Requests;
+using DD.CBU.Compute.Api.Contracts.Directory;
+using DD.CBU.Compute.Api.Contracts.Network20;
 
 namespace MRPService.WCF
 {
@@ -219,19 +223,19 @@ namespace MRPService.WCF
 
         #endregion
         #region Caas Methods
-        public Object ListDatacenters(string url, Credential _credential)
+        public List<DatacenterType> ListDatacenters(string url, Credential _credential)
         {
-            DimensionData _caas = new DimensionData(url, _credential.username, _credential.password);
-            return _caas.datacenter().datacenters();
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(url), new NetworkCredential(_credential.username, _credential.password));
+            return CaaS.Infrastructure.GetDataCenters(new PageableRequest() { PageSize = 1000 }).Result.ToList();
         }
         public PlatformDetails PlatformDetails(String _datacenterId, String _url, Credential _credential)
         {
             return new PlatformDetails( _datacenterId,  _url, _credential);
         }
-        public Object Account(string url, Credential _credential)
+        public AccountWithPhoneNumber Account(string url, Credential _credential)
         {
-            DimensionData _caas = new DimensionData(url, _credential.username, _credential.password);
-            return _caas.account().myaccount();
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(url), new NetworkCredential(_credential.username, _credential.password));
+            return CaaS.Account.GetAdministratorAccount(_credential.username).Result;
         }
         #endregion
         static void Copy(object a, object b)

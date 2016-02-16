@@ -17,6 +17,18 @@ namespace MRPService.Portal
             return (MRPPlatformListType)post<MRPPlatformListType>(worker);
         }
 
+        public MRPPlatformType getplatform(string _platform_id)
+        {
+            endpoint = "/api/v1/platforms/get_byid.json";
+            MRPPlatformGETType worker = new MRPPlatformGETType()
+            {
+                worker_id = Global.agent_id,
+                worker_hostname = Environment.MachineName,
+                platform_id = _platform_id
+            };
+            return post<MRPPlatformType>(worker);
+        }
+
         public MRPPlatformType createplatform(MRPPlatformCRUDType _platform)
         {
             MRPPlatformsCRUDType platform = new MRPPlatformsCRUDType()

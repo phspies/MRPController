@@ -1,4 +1,5 @@
 ﻿using MRPService.MRPService.Log;
+using MRPService.MRPService.Types.API;
 using MRPService.Portal.Types.API;
 using System;
 using System.Diagnostics;
@@ -12,7 +13,7 @@ namespace MRPService.Portal
         }
         public CloudMRPPortal CloudMRP = new CloudMRPPortal();
 
-        public dynamic tasks()
+        public MRPTaskListType tasks()
         {
             endpoint = "/api/v1/tasks/list.json";
             MRPCommandWorkerType worker = new MRPCommandWorkerType() { worker_id = Global.agent_id, worker_hostname = Environment.MachineName };
@@ -23,12 +24,12 @@ namespace MRPService.Portal
         {
             int _status = (bool)payload.internal_complete == true ? 3 : 0;
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
-            CompleteTaskUpdateType task = new CompleteTaskUpdateType()
+            MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
                 worker_id = Global.agent_id,
                 worker_hostname = Environment.MachineName,
                 task_id = payload.id,
-                attributes = new CompleteTaskUpdateAttributesType()
+                attributes = new MRPCompleteTaskUpdateAttributesType()
                 {
                     percentage = _percentage,
                     returnpayload = returnpayload,
@@ -53,12 +54,12 @@ namespace MRPService.Portal
         {
             int _status = (bool)payload.internal_complete == true ? 3 : 0;
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
-            CompleteTaskUpdateType task = new CompleteTaskUpdateType()
+            MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
                 worker_id = Global.agent_id,
                 worker_hostname = Environment.MachineName,
                 task_id = payload.id,
-                attributes = new CompleteTaskUpdateAttributesType()
+                attributes = new MRPCompleteTaskUpdateAttributesType()
                 {
                     percentage = _percentage,
                     status = _status,
@@ -80,12 +81,12 @@ namespace MRPService.Portal
         }
         public bool failcomplete(MRPTaskType payload, string returnpayload)
         {
-            CompleteTaskUpdateType task = new CompleteTaskUpdateType()
+            MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
                 worker_id = Global.agent_id,
                 worker_hostname = Environment.MachineName,
                 task_id = payload.id,
-                attributes = new CompleteTaskUpdateAttributesType()
+                attributes = new MRPCompleteTaskUpdateAttributesType()
                 {
                     percentage = 100,
                     returnpayload = returnpayload,
@@ -107,12 +108,12 @@ namespace MRPService.Portal
         }
         public bool progress(MRPTaskType payload, string _step, double _progress)
         {
-            ProgressTaskUpdateType task = new ProgressTaskUpdateType()
+            MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
                 worker_id = Global.agent_id,
                 worker_hostname = Environment.MachineName,
                 task_id = payload.id,
-                attributes = new ProgressTaskUpdateAttributesType()
+                attributes = new MRPProgressTaskUpdateAttributesType()
                 {
                     percentage = _progress,
                     step = _step
@@ -133,12 +134,12 @@ namespace MRPService.Portal
         }
         public bool progress(MRPTaskType payload, string _step)
         {
-            ProgressTaskUpdateType task = new ProgressTaskUpdateType()
+            MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
                 worker_id = Global.agent_id,
                 worker_hostname = Environment.MachineName,
                 task_id = payload.id,
-                attributes = new ProgressTaskUpdateAttributesType()
+                attributes = new MRPProgressTaskUpdateAttributesType()
                 {
                     step = _step
                 }

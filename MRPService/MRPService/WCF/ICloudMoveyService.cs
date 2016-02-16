@@ -1,9 +1,11 @@
-﻿using MRPService.CaaS;
-using MRPService.Portal.Models;
+﻿using MRPService.Portal.Models;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
 using MRPService.LocalDatabase;
+using DD.CBU.Compute.Api.Contracts.General;
+using DD.CBU.Compute.Api.Contracts.Network20;
+using DD.CBU.Compute.Api.Contracts.Directory;
 
 namespace MRPService.WCF
 {
@@ -50,12 +52,12 @@ namespace MRPService.WCF
         workerInformation CollectionInformation();
         [OperationContract]
         [ServiceKnownType(typeof(Status))]
-        [ServiceKnownType(typeof(DatacenterListType))]
-        Object ListDatacenters(string url, Credential _credential);
+        [ServiceKnownType(typeof(List<DatacenterType>))]
+        List<DatacenterType> ListDatacenters(string url, Credential _credential);
         [OperationContract]
         [ServiceKnownType(typeof(ResponseType))]
         [ServiceKnownType(typeof(Account))]
-        Object Account(string url, Credential _credential);
+        AccountWithPhoneNumber Account(string url, Credential _credential);
         [OperationContract]
         PlatformDetails PlatformDetails(String _datacenterId, String _url, Credential _credential);
         List<Event> Events();

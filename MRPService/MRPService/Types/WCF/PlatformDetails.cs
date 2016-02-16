@@ -1,8 +1,10 @@
-﻿using MRPService.CaaS;
+﻿using DD.CBU.Compute.Api.Client;
+using DD.CBU.Compute.Api.Contracts.Network20;
 using MRPService.LocalDatabase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization;
 
 namespace MRPService.Portal.Models
@@ -18,21 +20,11 @@ namespace MRPService.Portal.Models
         public List<VlanType> Networks { get; set; }
         public PlatformDetails(String _datacenterId, String _url, Credential _credential)
         {
-            DimensionData _caas = new DimensionData(_url, _credential.username, _credential.password);
-            List<Option> _dcoptions = new List<Option>();
-            List<Option> _workloadoptions = new List<Option>();
-            List<Option> _networkdomainoptions = new List<Option>();
-            List<Option> _vlanoptions = new List<Option>();
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_url), new NetworkCredential(_credential.username, _credential.password));
 
-
-            _dcoptions.Add(new Option() { option = "id", value = _datacenterId });
-            DatacenterType _dc = ((DatacenterListType)_caas.datacenter().datacenters(_dcoptions)).datacenter[0];
-            _workloadoptions.Add(new Option() { option = "datacenterId", value = _datacenterId });
-            _networkdomainoptions.Add(new Option() { option = "datacenterId", value = _datacenterId });
-      
-            NetworkDomains = _caas.networkdomain().list(_networkdomainoptions).networkDomain;
-            Workloads = _caas.workloads().list(_workloadoptions).server;
-            Networks = _caas.vlans().list(_vlanoptions).vlan;
+            NetworkDomains = CaaS.Networking.NetworkDomain.GetNetworkDomains(new DD.CBU.Compute.Api.Contracts.Requests.Network20.NetworkDomainListOptions() { DatacenterId = _datacenterId }).Result.ToList();
+            Workloads = CaaS.ServerManagement.Server.GetServers(new DD.CBU.Compute.Api.Contracts.Requests.Server20.ServerListOptions() { DatacenterId = _datacenterId }).Result.ToList();
+            Networks = CaaS.Networking.Vlan.GetVlans(new DD.CBU.Compute.Api.Contracts.Requests.Network20.VlanListOptions() { DatacenterId = _datacenterId }).Result.ToList();
 
         }
     }

@@ -2,6 +2,13 @@
 
 namespace MRPService.Portal.Types.API
 {
+
+    public class MRPWorkloadGETType
+    {
+        public string worker_id { get; set; }
+        public string worker_hostname { get; set; }
+        public string workload_id { get; set; }
+    }
     public class MRPWorkloadsCRUDType
     {
         public string worker_id { get; set; }

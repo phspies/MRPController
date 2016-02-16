@@ -18,6 +18,19 @@ namespace MRPService.Portal
             return (MRPWorkloadListType)post<MRPWorkloadListType>(worker);
         }
 
+        public MRPWorkloadType getworkload(string _workload_id)
+        {
+            endpoint = "/api/v1/workloads/get.json";
+            MRPWorkloadGETType worker = new MRPWorkloadGETType()
+            {
+                worker_id = Global.agent_id,
+                worker_hostname = Environment.MachineName,
+                workload_id = _workload_id
+                
+            };
+            return post<MRPWorkloadType>(worker);
+        }
+
         public MRPWorkloadType createworkload(MRPWorkloadCRUDType _workload)
         {
             MRPWorkloadsCRUDType platform = new MRPWorkloadsCRUDType()
@@ -28,7 +41,7 @@ namespace MRPService.Portal
             };
 
             endpoint = "/api/v1/workloads/create.json";
-            return (MRPWorkloadType)post<MRPWorkloadType>(platform);
+            return post<MRPWorkloadType>(platform);
         }
         public MRPWorkloadType updateworkload(MRPWorkloadCRUDType _workload)
         {

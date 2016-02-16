@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace MRPService.Portal.Types.API
 {
+    public class MRPPlatformGETType
+    {
+        public string worker_id { get; set; }
+        public string worker_hostname { get; set; }
+        public string platform_id { get; set; }
+    }
     public class MRPPlatformsCRUDType
     {
         public string worker_id { get; set; }
@@ -51,7 +57,6 @@ namespace MRPService.Portal.Types.API
         public string username { get; set; }
         public string password { get; set; }
         public string mcpendpoint_id { get; set; }
-        public MRPTaskMcpendpointType mcpendpoint { get; set; }
         public string organization_id { get; set; }
         public string hash_value { get; set; }
 

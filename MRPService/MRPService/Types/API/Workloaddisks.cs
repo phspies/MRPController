@@ -17,7 +17,7 @@ namespace MRPService.Portal.Types.API
         public int position { get; set; }
         public bool provisioned { get; set; }
         public string deviceid { get; set; }
-        public int _destroy { get; set; }
+        public bool _destroy { get; set; }
         public MRPPlatformStorageTierType platformstoragetier { get; set; }
     }
 }

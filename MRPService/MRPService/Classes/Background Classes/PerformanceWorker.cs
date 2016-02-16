@@ -119,7 +119,7 @@ namespace MRPService.Portal.Classes.Static_Classes.Background_Classes
                 List<Workload> _workloads = db.Workloads.ToList();
                 if (_workloads != null)
                 {
-                    foreach (var _workload in _workloads.Where(x => x.enabled == true))
+                    foreach (var _workload in _workloads.Where(x => x.enabled == true && x.iplist != null))
                     {
                         string workload_ip = Connection.find_working_ip(_workload);
                         Credential _credential = db.Credentials.FirstOrDefault(x => x.id == _workload.credential_id);

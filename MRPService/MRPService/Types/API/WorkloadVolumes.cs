@@ -19,7 +19,7 @@ namespace MRPService.Portal.Types.API
         public string volumename { get; set; }
         public string deviceid { get; set; }
         public Int64 blocksize { get; set; }
-        public int _destroy { get; set; }
+        public bool _destroy { get; set; }
         public MRPPlatformStorageTierType platformstoragetier { get; set; }
     }
 }

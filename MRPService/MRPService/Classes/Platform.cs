@@ -1,5 +1,13 @@
-﻿using MRPService.CaaS;
+﻿using DD.CBU.Compute.Api.Client;
+using DD.CBU.Compute.Api.Client.Interfaces;
+using DD.CBU.Compute.Api.Contracts.Network20;
+using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
+using MRPService.CloudMRP.Classes.Static_Classes;
+using MRPService.LocalDatabase;
+using MRPService.MRPService.Log;
+using MRPService.MRPService.Types.API;
 using MRPService.Portal;
+using MRPService.Portal.Classes;
 using MRPService.Portal.Types.API;
 using Newtonsoft.Json;
 using SimpleImpersonation;
@@ -8,67 +16,119 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Net;
+using System.Runtime.InteropServices;
+using System.Security.Principal;
 using System.Threading;
+using Utils;
 
 namespace MRPService.CloudMRP.Controllers
 {
     class CloudMRPPlatform
     {
+        public const int LOGON32_LOGON_INTERACTIVE = 2;
+        public const int LOGON32_LOGON_SERVICE = 3;
+        public const int LOGON32_PROVIDER_DEFAULT = 0;
+        public const int LOGON32_LOGON_NETWORK_CLEARTEXT = 8;
+        public const int LOGON32_LOGON_NEW_CREDENTIALS = 9;
+
+        [DllImport("advapi32.dll", CharSet = CharSet.Auto)]
+        public static extern bool LogonUser(
+            String lpszUserName,
+            String lpszDomain,
+            String lpszPassword,
+            int dwLogonType,
+            int dwLogonProvider,
+            ref IntPtr phToken);
+
+        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+        public extern static bool CloseHandle(IntPtr handle);
+
         public static void mcp_provisionvm(MRPTaskType payload)
         {
-            MRPTaskPayloadType _payload = payload.submitpayload;
+            //Get workload object from portal to perform updates once provisioned
+            CloudMRPPortal _cloud_movey = new CloudMRPPortal();
+
+            MRPTaskSubmitpayloadType _payload = payload.submitpayload;
+            LocalDB db = new LocalDB();
+            List<Platform> _list = db.Platforms.ToList();
+            Platform _platform = db.Platforms.FirstOrDefault(x => x.id == _payload.platform.id);
+
+            //Retrieve or create new standalone credentials
+            Credential _stadalone_creadential;
+            if (db.Credentials.Any(x => x.description == "Internal Windows Credentials"))
+            {
+                _stadalone_creadential = db.Credentials.FirstOrDefault(x => x.description == "Internal Windows Credentials");
+            }
+            else
+            {
+                _stadalone_creadential = new Credential();
+                _stadalone_creadential.credential_type = 1;
+                _stadalone_creadential.description = "Internal Windows Credentials";
+                _stadalone_creadential.username = "Administrator";
+                _stadalone_creadential.password = new Random().GetSHA1Hash().Substring(0,12);
+                _stadalone_creadential.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                db.Credentials.Add(_stadalone_creadential);
+                db.SaveChanges();
+            }
+
             CloudMRPPortal CloudMRP = new CloudMRPPortal();
-            DimensionData CaaS = new DimensionData((string)_payload.platform.mcpendpoint.url, (string)_payload.platform.username, (string)_payload.platform.password, null);
+            Credential _platform_credentails = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
+
+
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentails.username, _platform_credentails.password));
+            CaaS.Login().Wait();    
+
             try
             {
-                MRPWorkloadType _target = _payload.mcp.target;
+                DataCenterListOptions _dc_options = new DataCenterListOptions();
+                _dc_options.Id = _platform.moid;
+                DatacenterType _dc = CaaS.Infrastructure.GetDataCenters(null, _dc_options).Result.FirstOrDefault();
 
-                String _ostype = String.Format("{0} {1}", _target.ostype, _target.osedition);
-                String mcp_template_name = mcp_getimage_name(_ostype);
-                List<Option> _options = new List<Option>();
-                _options.Add(new Option() { option = "operatingSystemId", value = mcp_template_name });
-                _options.Add(new Option() { option = "operatingSystemFamily", value = "WINDOWS" });
-                _options.Add(new Option() { option = "location", value = _payload.platform.moid });
-                _options.Add(new Option() { option = "state", value = "NORMAL" });
 
-                ServerType _platformimage = new ServerType();
-                if (_platformimage == null)
-                {
-                    CloudMRP.task().failcomplete(payload, "Template image not found: " + JsonConvert.SerializeObject(_options));
-                    return;
-                }
+                MRPTaskWorkloadType _target = _payload.target;
+
                 DeployServerType _vm = new DeployServerType();
 
                 List<DeployServerTypeDisk> _disks = new List<DeployServerTypeDisk>();
-               
-                foreach (MRPWorkloadDiskType volume in _target.disks)
-                {
-                    if (_platformimage.disk.Exists(x => x.scsiId == volume.diskindex))
-                    {
-                        _disks.Add(new DeployServerTypeDisk() { scsiId = (byte)volume.diskindex, speed = volume.platformstoragetier.shortname });
-                    }
-                }
 
-                string moid = _payload.platform.moid;
-                List<Option> _dcoptions = new List<Option>();
-                _dcoptions.Add(new Option() { option = "id", value = moid });
-                DatacenterType dc = (CaaS.datacenter().datacenters(_dcoptions) as DatacenterListType).datacenter[0];
+                //Set Tier for first disk being deployed
+                MRPTaskDiskType _first_disk = _target.disks.FirstOrDefault(x => x.diskindex == 0);
+                _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier.shortname });
 
                 _vm.name = _target.hostname;
-                _vm.description = String.Format("Workload Created by CloudMRP [{0}]", DateTime.Now);
-                _vm.networkInfo.primaryNic = new VlanIdOrPrivateIpType() { ItemElementName = ItemChoiceType1.privateIpv4, Item = _target.interfaces[0].platformnetwork.moid };
-                _vm.imageId = _platformimage.id;
+                _vm.description = String.Format("Workload Created by Dimension Data MRP [{0}]", DateTime.Now);
+                DeployServerTypeNetwork _network = new DeployServerTypeNetwork();
+                _network.Item = _target.interfaces[0].platformnetwork.moid;
+                _network.ItemElementName = NetworkIdOrPrivateIpv4ChoiceType.networkId;
+                _network.networkId = _target.interfaces[0].platformnetwork.moid;
+                DeployServerTypeNetworkInfo _networkInfo = new DeployServerTypeNetworkInfo();
+                _networkInfo.networkDomainId = _target.interfaces[0].platformnetwork.networkdomain_moid;
+                _networkInfo.primaryNic = new VlanIdOrPrivateIpType()
+                {
+                    vlanId = _target.interfaces[0].platformnetwork.moid != null ? _target.interfaces[0].platformnetwork.moid : null,
+                    privateIpv4 = _target.interfaces[0].ipassignment != "auto_ip" ? _target.interfaces[0].ipaddress : null
+                };
+                _vm.network = _network;
+                _vm.networkInfo = _networkInfo;
+                _vm.imageId = _target.platform_template.image_moid;
+                _vm.cpu = new DeployServerTypeCpu() { count = Convert.ToUInt16(_target.vcpu), countSpecified = true, coresPerSocket = Convert.ToUInt16(_target.vcore), coresPerSocketSpecified = true };
+                _vm.memoryGb = Convert.ToUInt16(_target.vmemory);
                 _vm.start = false;
-                _vm.disk = _disks;
-                _vm.administratorPassword = (string)_target.password;
+                _vm.disk = _disks.ToArray();
+                _vm.administratorPassword =  _stadalone_creadential.password;
 
-                ResponseType _status = CaaS.workload().deploy(_vm);
-                if (_status.responseCode == "REASON_0")
+                ResponseType _status = CaaS.ServerManagement.Server.DeployServer(_vm).Result;
+                var serverInfo = _status.info.Single(info => info.name == "serverId");
+                ServerType deployedServer = null;
+                {
+                    deployedServer = CaaS.ServerManagement.Server.GetServer(Guid.Parse(serverInfo.value)).Result;
+                }
+                if (_status.responseCode == "IN_PROGRESS")
                 {
                     String _vm_id = _status.info[0].value;
-                    CloudMRP.task().progress(payload, String.Format("{0} provisioning started in {1}({2})", _vm.name, dc.displayName, dc.id), 20);
-                    List<Option> _vmoptions = new List<Option>();
-                    ServerType _newvm = CaaS.workload().get(_vm_id);
+                    CloudMRP.task().progress(payload, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), 20);
+                    ServerType _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
                         if (_newvm.progress != null)
@@ -78,42 +138,31 @@ namespace MRPService.CloudMRP.Controllers
                                 CloudMRP.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.progress.step.name), 30 + _newvm.progress.step.number);
                             }
                         }
-                        _newvm = CaaS.workload().get(_vm_id);
-                        Thread.Sleep(5000);
-                    }
-
-                    //Update CPU and Memory for workload
-                    ReconfigureServerType _reconfiure = new ReconfigureServerType();
-                    CaaS.workload().reconfigure(new ReconfigureServerType() { id = _vm_id, cpuCount = (uint)_target.vcpu, cpuCountSpecified = true, memoryGb = (uint)_target.vmemory, memoryGbSpecified = true });
-                    _newvm = CaaS.workload().get(_vm_id);
-                    CloudMRP.task().progress(payload, String.Format("Updating CPU and Memory: {0} : {1}", _target.vcpu, _target.vmemory), 60);
-                    while (_newvm.state != "NORMAL" && _newvm.started == false)
-                    {
-                        _newvm = CaaS.workload().get(_vm_id);
+                        _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                         Thread.Sleep(5000);
                     }
 
                     //Expand C: drive and Add additional disks if required
                     int count = 0;
-                    foreach (MRPWorkloadDiskType _volume in _target.disks)
+                    foreach (MRPTaskDiskType _volume in _target.disks)
                     {
                         if (_newvm.disk.ToList().Exists(x => x.scsiId == _volume.diskindex))
                         {
                             if (_newvm.disk.ToList().Find(x => x.scsiId == _volume.diskindex).sizeGb < _volume.disksize)
                             {
                                 CloudMRP.task().progress(payload, String.Format("Extending storage: {0} : {1}GB", _volume.diskindex, _volume.disksize), 60 + count);
-                                //CaaS.workload().workloaddiskexpand(_vm_id, _volume.diskindex, (byte)_volume.disksize);
+                                CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(_vm_id, _volume.diskindex.ToString(), _volume.disksize.ToString());
                             }
                         }
                         else
                         {
                             CloudMRP.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _volume.diskindex, _volume.disksize, _volume.platformstoragetier.storagetier), 60 + count);
-                            //CaaS.workloadimage().workloadaddstorage(_vm_id, _volume.disksize, _volume.platformstoragetier.shortname);
+                            CaaS.ServerManagementLegacy.Server.AddServerDisk(_vm_id, _volume.disksize.ToString(), _volume.platformstoragetier.shortname);
                         }
-                        _newvm = CaaS.workload().get(_vm_id);
+                        _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                         while (_newvm.state != "NORMAL" && _newvm.started == false)
                         {
-                            _newvm = CaaS.workload().get(_vm_id);
+                            _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                             Thread.Sleep(5000);
                         }
                         count += 1;
@@ -121,16 +170,17 @@ namespace MRPService.CloudMRP.Controllers
 
                     //Start Workload
                     CloudMRP.task().progress(payload, String.Format("Power on workload"), 60 + count + 1);
-                    CaaS.workload().start(new StartServerType() { id = _vm_id });
-                    _newvm = CaaS.workload().get(_vm_id);
+                    CaaS.ServerManagement.Server.StartServer(Guid.Parse(deployedServer.id));
+                    _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
-                        _newvm = CaaS.workload().get(_vm_id);
+                        _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                         Thread.Sleep(5000);
                     }
 
                     CloudMRP.task().progress(payload, String.Format("Workload powered on"), 60 + count + 2);
-                    _newvm = CaaS.workload().get(_vm_id);
+                    _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+
 
                     //create diskpart file for virtual machine and copy it to the remote workload
                     List<String> _driveletters = new List<String>();
@@ -160,30 +210,50 @@ namespace MRPService.CloudMRP.Controllers
                         _diskpart_struct.Add("");
                     }
 
-                    using (Impersonation.LogonUser(".", "Administrator", _target.password, LogonType.Batch))
+                    Thread.Sleep(new TimeSpan(0, 0, 30));
+
+                    string _ip_list = String.Join(",", _newvm.networkInfo.primaryNic.ipv6,_newvm.networkInfo.primaryNic.privateIpv4);
+                    string _working_ip = Connection.find_working_ip(_ip_list, true);
+
+                    Logger.log(String.Format("Found working ip: {0}", _working_ip), Logger.Severity.Info);
+
+                    IntPtr userHandle = new IntPtr(0);
+
+                    try
                     {
-                        try
-                        {
-                            string remoteInstallFiles = @"C:\";
-                            remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
-                            string workloadPath = Path.Combine(_newvm.networkInfo.primaryNic.privateIpv4, remoteInstallFiles);
-                            workloadPath = @"\\" + workloadPath + @"\diskpart.txt";
-                            File.WriteAllLines(workloadPath, _diskpart_struct.ConvertAll(Convert.ToString));
-                        }
-                        catch (Exception e)
-                        {
-                            CloudMRP.task().failcomplete(payload, String.Format("Error creating disk layout file on workload: {0}", e.Message)); 
-                        }
+                        LogonUser("Administrator", ".", _stadalone_creadential.password, LOGON32_LOGON_NEW_CREDENTIALS, LOGON32_PROVIDER_DEFAULT, ref userHandle);
+                        WindowsIdentity identity = new WindowsIdentity(userHandle);
+                        WindowsImpersonationContext context = identity.Impersonate();
+                    }
+                    catch (Exception ex)
+                    {
+                        CloudMRP.task().failcomplete(payload, String.Format("Error impersonating Administrator user: {0}", ex.Message));
+                        Logger.log(ex.Message, Logger.Severity.Error);
+                        return;
+                    }
+                    string workloadPath = null;
+                    try
+                    {
+                        string remoteInstallFiles = @"C:\";
+                        remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
+                        workloadPath = @"\\" + Path.Combine(_working_ip, remoteInstallFiles, "diskpart.txt");
+                        File.WriteAllLines(workloadPath, _diskpart_struct.ConvertAll(Convert.ToString));
+                    }
+                    catch (Exception e)
+                    {
+                        Logger.log(String.Format("Error creating disk layout file on workload {0}: {1} : {2}", _working_ip, e.Message, workloadPath), Logger.Severity.Info);
+                        CloudMRP.task().failcomplete(payload, String.Format("Error creating disk layout file on workload: {0}", e.Message));
+                        return;
                     }
 
                     //Run Diskpart Command on Workload
                     //Create connection object to remote machine
                     CloudMRP.task().progress(payload, String.Format("Volume setup process on {0}", _newvm.name), 80);
 
-                    ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _target.password };
+                    ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _stadalone_creadential.password };
                     connOptions.Impersonation = ImpersonationLevel.Impersonate;
                     connOptions.Authentication = AuthenticationLevel.Default;
-                    ManagementScope scope = new ManagementScope(@"\\" + _newvm.networkInfo.primaryNic.privateIpv4 + @"\root\CIMV2", connOptions);
+                    ManagementScope scope = new ManagementScope(@"\\" + _working_ip + @"\root\CIMV2", connOptions);
                     scope.Connect();
 
                     string diskpartCmd = @"diskpart /s C:\diskpart.txt";
@@ -223,17 +293,57 @@ namespace MRPService.CloudMRP.Controllers
                     {
                         CloudMRP.task().progress(payload, String.Format("Volume setup process exit code: {0}", _exitcode), 81);
                     }
+                    //Add or update workload record in database
+                    Workload _new_workload = new Workload() { id = _target.id, moid = _newvm.id, enabled = true, hostname = _target.hostname, platform_id = _platform.id, credential_id = _stadalone_creadential.id };
+                    if (db.Workloads.Any(x => x.id == _target.id))
+                    {
+                        Workload _current_workload = db.Workloads.FirstOrDefault(x => x.id == _target.id);
+                        Objects.Copy(_new_workload, _current_workload);
+                    }
+                    else
+                    {
+                        db.Workloads.Add(_new_workload);
+                    }
+                    db.SaveChanges();
 
+                    //Get updated workload object from portal and update the moid,credential_id,provisioned on the portal
+                    MRPWorkloadType _workload = _cloud_movey.workload().getworkload(_target.id);
+                    MRPWorkloadCRUDType _update_workload = new MRPWorkloadCRUDType();
+                    _update_workload.id = _target.id;
+                    _update_workload.moid = _newvm.id;
+                    _update_workload.credential_id = _stadalone_creadential.id;
+                    _update_workload.provisioned = true;
+
+                    //clear all disks, volumes and interfaces and force new discovery
+                    _update_workload.workloaddisks_attributes = _workload.disks.Select(x => new MRPWorkloadDiskType() { id = x.id, _destroy = true }).ToList();
+                    _update_workload.workloadvolumes_attributes = _workload.volumes.Select(x => new MRPWorkloadVolumeType() { id = x.id, _destroy = true }).ToList();
+                    _update_workload.workloadinterfaces_attributes = _workload.interfaces.Select(x => new MRPWorkloadInterfaceType() { id = x.id, _destroy = true }).ToList();
+                    _cloud_movey.workload().updateworkload(_update_workload);
+
+                    //update Platform inventory for server
+                    CloudMRP.task().progress(payload, String.Format("Updating platform information for {0}", _target.hostname), 91);
+                    PlatformInventoryWorker.UpdateMCPWorkload(_newvm.id, _newvm.datacenterId);
+
+                    //update OS information or newly provisioned server
+                    _workload = _cloud_movey.workload().getworkload(_target.id);
+                    CloudMRP.task().progress(payload, String.Format("Updating operating system information for {0}", _target.hostname), 92);
+                    OSInventoryWorker.UpdateWorkload(_workload); 
+
+                    //log the success
+                    Logger.log(String.Format("Successfully provinioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);
                     CloudMRP.task().successcomplete(payload, JsonConvert.SerializeObject(_newvm));
                 }
                 else
                 {
-                    CloudMRP.task().failcomplete(payload, String.Format("Failed to create target virtual machine: {0}",_status.error));
+                    CloudMRP.task().failcomplete(payload, String.Format("Failed to create target virtual machine: {0}",_status.ToString()));
+                    Logger.log(String.Format("Failed to create target virtual machine: {0}", _status.error), Logger.Severity.Error);
+
                 }
             }
             catch (Exception e)
             {
-                CloudMRP.task().failcomplete(payload, e.ToString());
+                CloudMRP.task().failcomplete(payload, e.Message);
+                Logger.log(e.ToString(), Logger.Severity.Error);
             }
         }
         public static string mcp_getimage_name(String _ostype)
@@ -286,80 +396,6 @@ namespace MRPService.CloudMRP.Controllers
                     break;
             }
             return _template;
-        }
-        public static void mcp_getdatacenters(dynamic payload)
-        {
-            CloudMRPPortal CloudMRP = new CloudMRPPortal();
-            MRPTask tasks = new MRPTask(CloudMRP);
-            DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.username, (string)payload.payload.password, null);
-            try
-            {
-                CloudMRP.task().progress(payload, "MCP Data Gathering", 50);
-                CloudMRP.task().successcomplete(payload, JsonConvert.SerializeObject(CaaS.datacenter().datacenters()));
-            }
-            catch (Exception e)
-            {
-                CloudMRP.task().failcomplete(payload, e.ToString());
-            }
-        }
-        public static void mcp_gettemplates(dynamic payload)
-        {
-            CloudMRPPortal CloudMRP = new CloudMRPPortal();
-            MRPTask tasks = new MRPTask(CloudMRP);
-            DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.username, (string)payload.payload.password, null);
-            try
-            {
-                CloudMRP.task().progress(payload, "MCP Data Gathering", 50);
-                List<Option> filter = new List<Option>();
-                filter.Add(new Option() { option = "location", value = payload.payload.locationId });
-                filter.Add(new Option() { option = "operatingSystemFamily", value = "WINDOWS" });
-                filter.Add(new Option() { option = "state", value = "NORMAL" });
-                CloudMRP.task().successcomplete(payload, JsonConvert.SerializeObject(CaaS.templates().customertemplates(filter)));
-            }
-            catch (Exception e)
-            {
-                CloudMRP.task().failcomplete(payload, e.ToString());
-            }
-        }
-        public static void mcp_retrieveworkloads(dynamic payload)
-        {
-            CloudMRPPortal CloudMRP = new CloudMRPPortal();
-            MRPTask tasks = new MRPTask(CloudMRP);
-            DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.platform.username, (string)payload.payload.platform.password, null);
-            try
-            {
-                CloudMRP.task().progress(payload, "MCP Data Gathering", 50);
-                string moid = payload.payload.platform.moid;
-                List<Option> options = new List<Option>();
-                options.Add(new Option() { option = "id", value = moid });
-                DatacenterType dc = (CaaS.datacenter().datacenters(options) as DatacenterListType).datacenter[0];
-                List<Option> _options = new List<Option>() { new Option() { option = "datacenterId", value = moid } };
-                CloudMRP.task().successcomplete(payload, JsonConvert.SerializeObject(CaaS.workloads().list(_options)));
-            }
-            catch (Exception e)
-            {
-                CloudMRP.task().failcomplete(payload, e.ToString());
-            }
-        }
-        public static void mcp_retrievenetworks(dynamic payload)
-        {
-            CloudMRPPortal CloudMRP = new CloudMRPPortal();
-            DimensionData CaaS = new DimensionData((string)payload.payload.mcp.url, (string)payload.payload.platform.username, (string)payload.payload.platform.password, null);
-            try
-            {
-                CloudMRP.task().progress(payload, "MCP Data Gathering", 50);
-                string moid = payload.payload.platform.moid;
-                List<Option> options = new List<Option>();
-                options.Add(new Option() { option = "id", value = moid });
-                DatacenterType dc = (CaaS.datacenter().datacenters(options) as DatacenterListType).datacenter[0];
-                List<Option> _options = new List<Option>() { new Option() {option = "datacenterId", value = moid}};
-                CloudMRP.task().successcomplete(payload, JsonConvert.SerializeObject(CaaS.vlans().list(_options)));
-                
-            }
-            catch (Exception e)
-            {
-                CloudMRP.task().failcomplete(payload, e.ToString());
-            }
         }
     }
 }

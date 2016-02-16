@@ -1,5 +1,4 @@
-﻿using MRPService.CaaS;
-using MRPService.MRPService.Log;
+﻿using MRPService.MRPService.Log;
 using MRPService.LocalDatabase;
 using MRPService.Portal.Types.API;
 using MRPService.WCF;
@@ -10,6 +9,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Utils;
+using DD.CBU.Compute.Api.Client;
+using System.Net;
+using DD.CBU.Compute.Api.Contracts.Requests.Server20;
+using DD.CBU.Compute.Api.Contracts.Network20;
+using DD.CBU.Compute.Api.Contracts.Requests;
+using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
+using DD.CBU.Compute.Api.Contracts.General;
 
 namespace MRPService.Portal.Classes
 {
@@ -34,8 +40,7 @@ namespace MRPService.Portal.Classes
 
                 try
                 {
-                    
-
+   
                     Logger.log("Staring platform inventory process", Logger.Severity.Info);
 
                     //process platform independant items
@@ -117,13 +122,15 @@ namespace MRPService.Portal.Classes
                 //populate platform credential object
 
                 //create dimension data mcp object
-                DimensionData _caas = new DimensionData(_platform.url, _credential.username, _credential.password);
+                ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_credential.username, _credential.password));
+                CaaS.Login().Wait();
+
 
                 //mirror platorm templates for this platform
                 MRPPlatformtemplateListType _platformtemplates = _cloud_movey.platformtemplate().listplatformtemplates();
-                OsImagesType _caas_templates = _caas.templates().platformtemplates();
+                List<OsImageType> _caas_templates = CaaS.ServerManagement.ServerImage.GetOsImages(new ServerOsImageListOptions() {DatacenterId = _platform.moid }, new PageableRequest() { PageSize = 250 }).Result.items.ToList();
 
-                foreach (OsImageType _caas_template in _caas_templates.osImage.Where(x => x.datacenterId == _platform.moid))
+                foreach (OsImageType _caas_template in _caas_templates)
                 {
                     MRPPlatformtemplateCRUDType _moveytemplate = new MRPPlatformtemplateCRUDType();
                     _moveytemplate.image_type = _caas_template.softwareLabel == null ? "os" : "software";
@@ -147,27 +154,30 @@ namespace MRPService.Portal.Classes
                 }
 
                 //process customer images
-                CustomerImagesType _customer_templates = _caas.templates().customertemplates();
-                foreach (var _caas_template in _customer_templates.customerImage.Where(x => x.datacenterId == _platform.moid))
+                PagedResponse<CustomerImageType> _customer_templates = CaaS.ServerManagement.ServerImage.GetCustomerImages(new ServerCustomerImageListOptions() { DatacenterId = _platform.moid }, new PageableRequest() { PageSize = 250 }).Result;
+                if (_customer_templates.totalCount > 0)
                 {
-                    MRPPlatformtemplateCRUDType _moveytemplate = new MRPPlatformtemplateCRUDType();
-                    _moveytemplate.image_type = "os";
-                    _moveytemplate.image_description = _caas_template.description;
-                    _moveytemplate.image_moid = _caas_template.id;
-                    _moveytemplate.platform_id = _platform.id;
-                    _moveytemplate.image_name = _caas_template.name;
-                    _moveytemplate.os_displayname = _caas_template.operatingSystem.displayName;
-                    _moveytemplate.os_id = _caas_template.operatingSystem.id;
-                    _moveytemplate.os_type = _caas_template.operatingSystem.family;
-                    _moveytemplate.platform_moid = _platform.moid;
-                    if (_platformtemplates.platformtemplates.Exists(x => x.image_moid == _caas_template.id))
+                    foreach (var _caas_template in _customer_templates.items)
                     {
-                        _moveytemplate.id = _platformtemplates.platformtemplates.FirstOrDefault(x => x.image_moid == _caas_template.id).id;
-                        _cloud_movey.platformtemplate().updateplatformtemplate(_moveytemplate);
-                    }
-                    else
-                    {
-                        _cloud_movey.platformtemplate().createplatformtemplate(_moveytemplate);
+                        MRPPlatformtemplateCRUDType _moveytemplate = new MRPPlatformtemplateCRUDType();
+                        _moveytemplate.image_type = "os";
+                        _moveytemplate.image_description = _caas_template.description;
+                        _moveytemplate.image_moid = _caas_template.id;
+                        _moveytemplate.platform_id = _platform.id;
+                        _moveytemplate.image_name = _caas_template.name;
+                        _moveytemplate.os_displayname = _caas_template.operatingSystem.displayName;
+                        _moveytemplate.os_id = _caas_template.operatingSystem.id;
+                        _moveytemplate.os_type = _caas_template.operatingSystem.family;
+                        _moveytemplate.platform_moid = _platform.moid;
+                        if (_platformtemplates.platformtemplates.Exists(x => x.image_moid == _caas_template.id))
+                        {
+                            _moveytemplate.id = _platformtemplates.platformtemplates.FirstOrDefault(x => x.image_moid == _caas_template.id).id;
+                            _cloud_movey.platformtemplate().updateplatformtemplate(_moveytemplate);
+                        }
+                        else
+                        {
+                            _cloud_movey.platformtemplate().createplatformtemplate(_moveytemplate);
+                        }
                     }
                 }
 
@@ -175,23 +185,19 @@ namespace MRPService.Portal.Classes
                 _platformtemplates = _cloud_movey.platformtemplate().listplatformtemplates();
 
                 //update localdb platform information
-                List<Option> _dcoptions = new List<Option>();
-                List<Option> _resourceoptions = new List<Option>();
-                _resourceoptions.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
+                List<NetworkDomainType> networkdomain_list = CaaS.Networking.NetworkDomain.GetNetworkDomains(new DD.CBU.Compute.Api.Contracts.Requests.Network20.NetworkDomainListOptions() { DatacenterId = _platform.moid }).Result.ToList();
+                List<ServerType> workload_list = CaaS.ServerManagement.Server.GetServers(new DD.CBU.Compute.Api.Contracts.Requests.Server20.ServerListOptions() { DatacenterId = _platform.moid, State = "NORMAL" }).Result.ToList();
+                List<VlanType> vlan_list = CaaS.Networking.Vlan.GetVlans(new DD.CBU.Compute.Api.Contracts.Requests.Network20.VlanListOptions() { DatacenterId = _platform.moid }).Result.ToList();
+                DatacenterType _dc = CaaS.Infrastructure.GetDataCenters(new PageableRequest() { PageSize = 250 }, new DataCenterListOptions() { Id = _platform.moid }).Result.ToList().FirstOrDefault();
 
-                _dcoptions.Add(new Option() { option = "id", value = _platform.datacenter });
-                DatacenterType _dc = ((DatacenterListType)_caas.datacenter().datacenters(_dcoptions)).datacenter[0];
                 int workloads, networkdomains, vlans;
                 string workloads_md5, networkdomains_md5, vlans_md5;
                 workloads = networkdomains = vlans = 0;
 
-                List<ServerType> workload_list = _caas.workloads().list(_resourceoptions).server;
                 workloads = workload_list.Count();
                 workloads_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(workload_list));
-                List<VlanType> vlan_list = _caas.vlans().list(_resourceoptions).vlan;
                 vlans = vlan_list.Count();
                 vlans_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(vlan_list));
-                List<NetworkDomainType> networkdomain_list = _caas.networkdomain().list(_resourceoptions).networkDomain;
                 networkdomains = networkdomain_list.Count();
                 networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(networkdomain_list));
 
@@ -209,11 +215,7 @@ namespace MRPService.Portal.Classes
                     db.SaveChanges();
                 }
 
-
-                List<Option> _domainoptions = new List<Option>();
-                _domainoptions.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
-                _domainoptions.Add(new Option() { option = "state", value = "NORMAL" });
-                foreach (NetworkDomainType _domain in _caas.networkdomain().list(_domainoptions).networkDomain)
+                foreach (NetworkDomainType _domain in networkdomain_list)
                 {
                     MRPPlatformdomainCRUDType _platformdomain = new MRPPlatformdomainCRUDType();
                     _platformdomain.platformnetworks_attributes = new List<MRPPlatformnetworkCRUDType>();
@@ -221,10 +223,7 @@ namespace MRPService.Portal.Classes
                     _platformdomain.domain = _domain.name;
                     _platformdomain.platform_id = _platform.id;
 
-                    List<Option> _networkoptions = new List<Option>();
-                    _networkoptions.Add(new Option() { option = "networkDomainId", value = _domain.id });
-                    _networkoptions.Add(new Option() { option = "state", value = "NORMAL" });
-                    foreach (VlanType _network in _caas.vlans().list(_networkoptions).vlan)
+                    foreach (VlanType _network in CaaS.Networking.Vlan.GetVlans(new DD.CBU.Compute.Api.Contracts.Requests.Network20.VlanListOptions() { NetworkDomainId = Guid.Parse(_domain.id) }).Result.ToList())
                     {
                         MRPPlatformnetworkCRUDType _platformnetwork = new MRPPlatformnetworkCRUDType();
                         _platformnetwork.moid = _network.id;
@@ -264,18 +263,13 @@ namespace MRPService.Portal.Classes
                 _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
 
                 //process workloads
-                List<Option> _workload_mcp2_options = new List<Option>();
-                _workload_mcp2_options.Add(new Option() { option = "datacenterId", value = _platform.datacenter });
-                _workload_mcp2_options.Add(new Option() { option = "state", value = "NORMAL" });
-                List<ServerType> _caasworkloads = _caas.workloads().list(_workload_mcp2_options).server.ToList();
-
 
                 //process deleted platform workloads
                 using (LocalDB db = new LocalDB())
                 {
                     foreach (var _workload in db.Workloads.Where(x => x.platform_id == _platform.id))
                     {
-                        if (!_caasworkloads.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                        if (!workload_list.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
                         {
                             db.Workloads.Remove(db.Workloads.Find(_workload.id));
                             db.SaveChanges();
@@ -284,124 +278,9 @@ namespace MRPService.Portal.Classes
                     }
                 }
 
-                foreach (ServerType _caasworkload in _caasworkloads.Where(x => x.datacenterId == _platform.datacenter && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                foreach (ServerType _caasworkload in workload_list.Where(x => x.datacenterId == _platform.datacenter && x.operatingSystem.family.ToUpper() == "WINDOWS"))
                 {
-                    //Pupulate logical volumes for workload
-                    List<MRPWorkloadDiskType> workloaddisks_parameters = new List<MRPWorkloadDiskType>();
-                    foreach (ServerTypeDisk _workloaddisk in _caasworkload.disk)
-                    {
-                        MRPWorkloadDiskType _logical_volume = new MRPWorkloadDiskType() { moid = _workloaddisk.id, diskindex = _workloaddisk.scsiId, provisioned = true, disksize = _workloaddisk.sizeGb };
-                        if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id && x.disks.Exists(y => y.moid == _workloaddisk.id)))
-                        {
-                            _logical_volume.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).disks.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
-                        }
-                        workloaddisks_parameters.Add(_logical_volume);
-                    }
-
-                    //populate network interfaces for workload
-                    List<MRPWorkloadInterfaceType> workloadinterfaces_parameters = new List<MRPWorkloadInterfaceType>();
-                    MRPWorkloadInterfaceType _primary_logical_interface = new MRPWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", ipv6address = _caasworkload.networkInfo.primaryNic.ipv6, ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4, moid = _caasworkload.networkInfo.primaryNic.id };
-                    if (_currentplatformworkloads.workloads.Exists(x => x.interfaces.Exists(y => x.moid == _caasworkload.id && y.moid == _caasworkload.networkInfo.primaryNic.id)))
-                    {
-                        _primary_logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkload.networkInfo.primaryNic.id).id;
-                    }
-                    workloadinterfaces_parameters.Add(_primary_logical_interface);
-                    int nic_index = 1;
-                    foreach (NicType _caasworkloadinterface in _caasworkload.networkInfo.additionalNic)
-                    {
-                        MRPWorkloadInterfaceType _logical_interface = new MRPWorkloadInterfaceType()
-                        {
-                            vnic = nic_index,
-                            ipassignment = "manual_ip",
-                            ipv6address = _caasworkloadinterface.ipv6,
-                            ipaddress = _caasworkloadinterface.privateIpv4,
-                            moid = _caasworkloadinterface.id,
-                            platformnetwork_id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id
-                        };
-                        if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
-                        {
-                            if (_currentplatformworkloads.workloads.Exists((x => x.interfaces.Exists(y => y.moid == _caasworkloadinterface.id))))
-                            {
-                                _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
-                            }
-                        }
-                        workloadinterfaces_parameters.Add(_logical_interface);
-                        nic_index += 1;
-                    }
-
-                    //if workload is local, updated the local db record
-                    //User might use these servers later...
-                    bool _new_workload = true;
-                    using (LocalDB db = new LocalDB())
-                    {
-                        Workload _workload = new Workload();
-                        if (db.Workloads.ToList().Exists(x => x.moid == _caasworkload.id))
-                        {
-                            _new_workload = false;
-                            _workload = db.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
-                        }
-                        else
-                        {
-                            //if server already exists in portal, retain GUID for the server to keep other table depedencies intact
-                            if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
-                            {
-                                _workload.id = _currentplatformworkloads.workloads.Find(x => x.moid == _caasworkload.id).id;
-                            }
-                            else
-                            {
-                                _workload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                            }
-                        }
-
-                        _workload.vcpu = _caasworkload.cpu.count;
-                        _workload.vcore = _caasworkload.cpu.coresPerSocket;
-                        _workload.vmemory = _caasworkload.memoryGb;
-                        _workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.ipv6, _caasworkload.networkInfo.primaryNic.privateIpv4);
-                        _workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                        _workload.hostname = _caasworkload.name;
-                        _workload.moid = _caasworkload.id;
-                        _workload.platform_id = _platform.id;
-                        _workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                        _workload.osedition = _caasworkload.operatingSystem.displayName;
-                        if (_new_workload)
-                        {
-                            _workload.id = Objects.RamdomGuid();
-                            db.Workloads.Add(_workload);
-                            db.SaveChanges();
-                        }
-                        else
-                        {
-                            db.SaveChanges();
-                            if (_workload.enabled == true)
-                            {
-                                MRPWorkloadCRUDType _moveyworkload = new MRPWorkloadCRUDType();
-                                Objects.MapObjects(_workload, _moveyworkload);
-
-
-                                //update workload source template id with portal template id
-                                _moveyworkload.platformtemplate_id = _platformtemplates.platformtemplates.Find(x => x.image_moid == _caasworkload.sourceImageId).id;
-
-                                _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
-                                _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
-
-                                _moveyworkload.provisioned = true;
-
-
-                                //Update if the portal has this workload and create if it's new to the portal....
-                                if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
-                                {
-                                    _moveyworkload.id = _workload.id;
-                                    _cloud_movey.workload().updateworkload(_moveyworkload);
-                                    _updated_workloads += 1;
-                                }
-                                else
-                                {
-                                    _cloud_movey.workload().createworkload(_moveyworkload);
-                                    _new_workloads += 1;
-                                }
-                            }
-                        }
-                    }
+                    UpdateMCPWorkload(_caasworkload.id, _platform.moid);
                 }
                 sw.Stop();
 
@@ -415,6 +294,164 @@ namespace MRPService.Portal.Classes
             {
                 Logger.log(String.Format("Error in data mirroring process for {0}: {1}", (_platform.human_vendor + " : " + _platform.datacenter), ex.ToString()), Logger.Severity.Error);
             }
+        }
+        public static void UpdateMCPWorkload(string _workload_moid, string _platform_moid)
+        {
+
+            CloudMRPPortal _cloud_movey = new CloudMRPPortal();
+
+
+            Platform _platform;
+            Credential _platform_credential;
+
+            using (LocalDB db = new LocalDB())
+            {
+                _platform = db.Platforms.FirstOrDefault(x => x.moid == _platform_moid);
+                _platform_credential = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
+
+            }
+
+            //create dimension data mcp object
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credential.username, _platform_credential.password));
+            CaaS.Login().Wait();
+
+            //get workload object from MCP
+            ServerType _caasworkload = CaaS.ServerManagement.Server.GetServer(Guid.Parse(_workload_moid)).Result;
+
+            //Retrieve portal objects
+            MRPWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
+            MRPPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
+            MRPPlatformdomainListType _currentplatformdomains = _cloud_movey.platformdomain().listplatformdomains();
+            MRPPlatformtemplateListType _platformtemplates = _cloud_movey.platformtemplate().listplatformtemplates();
+
+
+
+            //Pupulate logical volumes for workload
+            List<MRPWorkloadDiskType> workloaddisks_parameters = new List<MRPWorkloadDiskType>();
+            foreach (ServerTypeDisk _workloaddisk in _caasworkload.disk)
+            {
+                MRPWorkloadDiskType _virtual_disk = new MRPWorkloadDiskType()
+                {
+                    moid = _workloaddisk.id,
+                    diskindex = _workloaddisk.scsiId,
+                    provisioned = true,
+                    disksize = _workloaddisk.sizeGb,
+                    _destroy = false
+                };
+                if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id && x.disks.Exists(y => y.moid == _workloaddisk.id)))
+                {
+                    _virtual_disk.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).disks.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
+                }
+                workloaddisks_parameters.Add(_virtual_disk);
+            }
+
+            //populate network interfaces for workload
+            List<MRPWorkloadInterfaceType> workloadinterfaces_parameters = new List<MRPWorkloadInterfaceType>();
+            MRPWorkloadInterfaceType _primary_logical_interface = new MRPWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", ipv6address = _caasworkload.networkInfo.primaryNic.ipv6, ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4, moid = _caasworkload.networkInfo.primaryNic.id };
+            if (_currentplatformworkloads.workloads.Exists(x => x.interfaces.Exists(y => x.moid == _caasworkload.id && y.moid == _caasworkload.networkInfo.primaryNic.id)))
+            {
+                _primary_logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkload.networkInfo.primaryNic.id).id;
+            }
+            workloadinterfaces_parameters.Add(_primary_logical_interface);
+            int nic_index = 1;
+            if (_caasworkload.networkInfo.additionalNic != null)
+            {
+                foreach (NicType _caasworkloadinterface in _caasworkload.networkInfo.additionalNic)
+                {
+                    MRPWorkloadInterfaceType _logical_interface = new MRPWorkloadInterfaceType()
+                    {
+                        vnic = nic_index,
+                        ipassignment = "manual_ip",
+                        ipv6address = _caasworkloadinterface.ipv6,
+                        ipaddress = _caasworkloadinterface.privateIpv4,
+                        moid = _caasworkloadinterface.id,
+                        _destroy = false,
+                        platformnetwork_id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id
+                    };
+                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                    {
+                        if (_currentplatformworkloads.workloads.Exists((x => x.interfaces.Exists(y => y.moid == _caasworkloadinterface.id))))
+                        {
+                            _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
+                        }
+                    }
+                    workloadinterfaces_parameters.Add(_logical_interface);
+                    nic_index += 1;
+                }
+            }
+
+            //if workload is local, updated the local db record
+            //User might use these servers later...
+            bool _new_workload_flag = true;
+            using (LocalDB db = new LocalDB())
+            {
+                Workload _new_workload = new Workload();
+                if (db.Workloads.ToList().Exists(x => x.moid == _caasworkload.id))
+                {
+                    _new_workload_flag = false;
+                    _new_workload = db.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
+                }
+                else
+                {
+                    //if server already exists in portal, retain GUID for the server to keep other table depedencies intact
+                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                    {
+                        _new_workload.id = _currentplatformworkloads.workloads.Find(x => x.moid == _caasworkload.id).id;
+                    }
+                    else
+                    {
+                        _new_workload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
+                    }
+                }
+
+                _new_workload.vcpu = Convert.ToUInt16(_caasworkload.cpu.count);
+                _new_workload.vcore = Convert.ToUInt16(_caasworkload.cpu.coresPerSocket);
+                _new_workload.vmemory = Convert.ToUInt16(_caasworkload.memoryGb);
+                _new_workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.ipv6, _caasworkload.networkInfo.primaryNic.privateIpv4);
+                _new_workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
+                _new_workload.hostname = _caasworkload.name;
+                _new_workload.moid = _caasworkload.id;
+                _new_workload.platform_id = _platform.id;
+                _new_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
+                _new_workload.osedition = _caasworkload.operatingSystem.displayName;
+                if (_new_workload_flag)
+                {
+                    _new_workload.id = Objects.RamdomGuid();
+                    db.Workloads.Add(_new_workload);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    db.SaveChanges();
+                    if (_new_workload.enabled == true)
+                    {
+                        MRPWorkloadCRUDType _moveyworkload = new MRPWorkloadCRUDType();
+                        Objects.MapObjects(_new_workload, _moveyworkload);
+
+
+                        //update workload source template id with portal template id
+                        _moveyworkload.platformtemplate_id = _platformtemplates.platformtemplates.Find(x => x.image_moid == _caasworkload.sourceImageId).id;
+
+                        _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
+                        _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
+
+                        _moveyworkload.provisioned = true;
+
+
+                        //Update if the portal has this workload and create if it's new to the portal....
+                        if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                        {
+                            _moveyworkload.id = _new_workload.id;
+                            _cloud_movey.workload().updateworkload(_moveyworkload);
+                        }
+                        else
+                        {
+                            _cloud_movey.workload().createworkload(_moveyworkload);
+                        }
+                    }
+                }
+            }
+
         }
     }
 }

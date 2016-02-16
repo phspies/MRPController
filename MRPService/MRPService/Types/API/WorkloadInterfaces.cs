@@ -21,6 +21,7 @@ namespace MRPService.Portal.Types.API
         public int connection_index { get; set; }
         public string connection_id { get; set; }
         public string macaddress { get; set; }
+        public bool _destroy { get; set; }
         public MRPPlatformnetworkType platformnetwork { get; set; }
     }
 }
