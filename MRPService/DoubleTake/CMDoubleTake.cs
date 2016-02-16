@@ -1,41 +1,39 @@
 ﻿using MRPService.LocalDatabase;
 using System.Linq;
 
-namespace MRPService.CMDoubleTake
+namespace MRPService.DoubleTake
 {
-    class CMDoubleTake
+    public class MRPDoubleTake
     {
         public Workload _source_workload, _target_workload;
 
-        public CMDoubleTake(string source_workload_id, string target_workload_id)
+        public MRPDoubleTake(string source_workload_id, string target_workload_id)
         {
             LocalDB db = new LocalDB();
 
-
-            //confirm systems exists
-            _target_workload = db.Workloads.FirstOrDefault(x => x.id == target_workload_id);
-            _source_workload = db.Workloads.FirstOrDefault(x => x.id == source_workload_id);
-
-            //target can never be empty
-            if (_target_workload == null)
+            if (_target_workload != null)
             {
-                //report error to console
+                _target_workload = db.Workloads.FirstOrDefault(x => x.id == target_workload_id);
             }
 
             //source could be empty in certian instances
-            if (_source_workload == null)
+            if (_source_workload != null)
             {
-
+                _source_workload = db.Workloads.FirstOrDefault(x => x.id == source_workload_id);
             }
         }
 
-        public CMDoubleTake_DisasterRecovery disasterrecovery() {
-            return new CMDoubleTake_DisasterRecovery(this);
+        public MRPDoubleTake_DisasterRecovery disasterrecovery() {
+            return new MRPDoubleTake_DisasterRecovery(this);
         }
 
-        public CMDoubleTake_HighAvailability highavailability()
+        public MRPDoubleTake_HighAvailability highavailability()
         {
-            return new CMDoubleTake_HighAvailability(this);
+            return new MRPDoubleTake_HighAvailability(this);
+        }
+        public MRPDoubleTake_Core common()
+        {
+            return new MRPDoubleTake_Core(this);
         }
 
     }

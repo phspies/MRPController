@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\obj\x64\Debug\
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\MRPNotifier\obj\x64\Debug\
 CloudMoveyNotifier
 none
 false
 DEBUG;TRACE
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\CloudMoveyWorkerService\CloudMoveyNotifier\App.xaml
+C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\MRPNotifier\App.xaml
 7-1567461477
 
 171760779539
-341416679435
+34-1314512182
 Forms\CredentialForm.xaml;Forms\PlatformForm.xaml;SplashWindow.xaml;MainWindow.xaml;Resources\DimensionData.xaml;Resources\Icons.xaml;Resources\logos.xaml;
 
 False

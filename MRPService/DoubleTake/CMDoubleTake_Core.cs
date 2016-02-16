@@ -1,4 +1,4 @@
-﻿using MRPService.CMDoubleTake.Types;
+﻿using MRPService.DoubleTake.Types;
 using MRPService.Portal;
 using DoubleTake.Communication;
 using System;
@@ -8,20 +8,20 @@ using System.ServiceModel;
 using MRPService.LocalDatabase;
 using MRPService.CloudMRP.Classes.Static_Classes;
 
-namespace MRPService.CMDoubleTake
+namespace MRPService.DoubleTake
 {
-    class CMDoubleTake_Core
+    public class MRPDoubleTake_Core
     {
         public static Workload _source_workload, _target_workload;
         static CloudMRPPortal CloudMRP = null;
 
-        public CMDoubleTake_Core(CMDoubleTake _cmdoubletake)
+        public MRPDoubleTake_Core(MRPDoubleTake _cmdoubletake)
         {
             _source_workload = _cmdoubletake._source_workload;
             _target_workload = _cmdoubletake._target_workload;
         }
 
-        public static ChannelFactory<IJobManager> JobManager()
+        public ChannelFactory<IJobManager> JobManager()
         {
             Workload _current_workload = _target_workload;
             String joburl = BuildConnectionUrl(_current_workload, "/DoubleTake/Jobs/JobManager");           
@@ -30,25 +30,27 @@ namespace MRPService.CMDoubleTake
             jobMgrFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
             return jobMgrFactory;
         }
-        public static ChannelFactory<IWorkloadManager> WorkloadManager()
+        public IWorkloadManager WorkloadManager()
         {
             Workload _current_workload = _source_workload;
             String workloadurl = BuildConnectionUrl(_current_workload, "/DoubleTake/Common/WorkloadManager");
             var workloadFactory = new ChannelFactory<IWorkloadManager>("DefaultBinding_IWorkloadManager_IWorkloadManager", new EndpointAddress(workloadurl));
             workloadFactory.Credentials.Windows.ClientCredential = GetCredentials(_current_workload);
             workloadFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-            return workloadFactory;
+            IWorkloadManager workloadMgr = workloadFactory.CreateChannel();
+            return workloadMgr;
         }
-        public static ChannelFactory<IManagementService> ManagementService(CMWorkloadType type)
+        public IManagementService ManagementService(CMWorkloadType type)
         {
             Workload _current_workload = (type == CMWorkloadType.Source ? _source_workload : _target_workload);
             String url = BuildConnectionUrl(_current_workload, "/DoubleTake/Common/Contract/ManagementService");
             ChannelFactory<IManagementService> MgtServiceFactory = new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService", new EndpointAddress(url));
             MgtServiceFactory.Credentials.Windows.ClientCredential = GetCredentials(_current_workload);
             MgtServiceFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-            return MgtServiceFactory;
+            IManagementService mgmtServiceMgr = MgtServiceFactory.CreateChannel();
+            return mgmtServiceMgr;
         }
-        public static ChannelFactory<IJobConfigurationVerifier> ConfigurationVerifier()
+        public ChannelFactory<IJobConfigurationVerifier> ConfigurationVerifier()
         {
             Workload _current_workload = _target_workload;
             String configurl = BuildConnectionUrl(_current_workload, "/DoubleTake/Jobs/JobConfigurationVerifier");
@@ -57,9 +59,6 @@ namespace MRPService.CMDoubleTake
             configurationVerifierFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
             return configurationVerifierFactory;
         }
-
-
- 
 
         private static String BuildConnectionUrl(Workload workload, string method)
         {

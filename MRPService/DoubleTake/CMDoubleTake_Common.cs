@@ -16,14 +16,14 @@ using System.ServiceModel;
 using System.Threading;
 using MRPService.Portal;
 using DoubleTake.Core.Contract;
-using MRPService.CMDoubleTake.Types;
+using MRPService.DoubleTake.Types;
 using MRPService.MRPService.Types.API;
 
-namespace MRPService.CMDoubleTake
+namespace MRPService.DoubleTake
 {
-    class CMDoubleTake_Common : CMDoubleTake_Core
+    class CMDoubleTake_Common : MRPDoubleTake_Core
     {
-        public CMDoubleTake_Common(CMDoubleTake cmdoubletake) : base(cmdoubletake) { }
+        public CMDoubleTake_Common(MRPDoubleTake cmdoubletake) : base(cmdoubletake) { }
 
         static String workload = "";
         static string username = "";

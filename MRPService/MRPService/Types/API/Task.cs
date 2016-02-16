@@ -58,10 +58,28 @@ namespace MRPService.MRPService.Types.API
         public int vcpu { get; set; }
         public int vcore { get; set; }
         public int vmemory { get; set; }
+        public MRPTaskDeploymentpolicyType deploymentpolicy { get; set; }
         public List<MRPTaskDiskType> disks { get; set; }
         public List<MRPTaskVolumeType> volumes { get; set; }
         public List<MRPTaskInterfaceType> interfaces { get; set; }
         public MRPTaskTemplateType platform_template { get; set; }
+    }
+    public class MRPTaskDeploymentpolicyType
+    {
+        public string id { get; set; }
+        public string policy { get; set; }
+        public string dt_installpath { get; set; }
+        public string dt_temppath { get; set; }
+        public string dt_inifile { get; set; }
+        public string organization_id { get; set; }
+        public bool _default { get; set; }
+        public bool enabled { get; set; }
+        public int dt_max_memory { get; set; }
+        public string dt_queue_folder { get; set; }
+        public int dt_queue_limit_disk_size { get; set; }
+        public int dt_queue_min_disk_free_size { get; set; }
+        public int dt_queue_scheme { get; set; }
+        public string activation_code { get; set; }
     }
 
     public class MRPTaskTemplateType

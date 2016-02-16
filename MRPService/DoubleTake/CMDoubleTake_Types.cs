@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRPService.CMDoubleTake.Types
+namespace MRPService.DoubleTake.Types
 {
     public static class DTJobTypes
     {
@@ -21,5 +21,5 @@ namespace MRPService.CMDoubleTake.Types
         public static string DR_Full_Protection = "FullWorkloadImageProtection";
         public static string DR_Full_Recovery = "FullWorkloadImageRecovery";
     }
-    enum CMWorkloadType { Source, Target};
+    public enum CMWorkloadType { Source, Target};
 }

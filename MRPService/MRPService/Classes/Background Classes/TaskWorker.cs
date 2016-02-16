@@ -34,48 +34,45 @@ namespace MRPService.Portal.Controllers
                                     {
                                         switch (task.task_type)
                                         {
-                                            //case "deploy":
-                                            //    if (task.submitpayload.dt != null)
-                                            //    {
-                                            //        //Thread newThread = new Thread(() => DoubleTakeNS.dt_deploy(task));
-                                            //        //newThread.Name = task.target_id;
-                                            //        //newThread.Start(task);
-                                            //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                            //    }
-                                            //    break;
-                                            //case "getproductinformation":
-                                            //    if (task.submitpayload.dt != null)
-                                            //    {
-                                            //        //Thread newThread = new Thread(() => DoubleTakeNS.dt_getproductinformation(task));
-                                            //        //newThread.Name = task.target_id;
-                                            //        //newThread.Start(task);
-                                            //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                            //    }
-                                            //    break;
-                                            //case "createdrseedjob":
-                                            //    {
-                                            //        //Thread newThread = new Thread(() => DT_DR.dt_create_dr_seedjob(task));
-                                            //        //newThread.Name = task.target_id;
-                                            //        //newThread.Start(task);
-                                            //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                            //    }
-                                            //    break;
-                                            //case "createdrsyncjob":
-                                            //    {
-                                            //        //Thread newThread = new Thread(() => DT_DR.dt_create_dr_syncjob(task));
-                                            //        //newThread.Name = task.target_id;
-                                            //        //newThread.Start();
-                                            //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                            //    }
-                                            //    break;
-                                            //case "createdrpopulatejob":
-                                            //    {
-                                            //        //Thread newThread = new Thread(() => DT_DR.dt_create_dr_restorejob(task));
-                                            //        //newThread.Name = task.target_id;
-                                            //        //newThread.Start();
-                                            //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                            //    }
-                                            //    break;
+                                            case "deploy":
+                                                    Thread newThread = new Thread(() => DoubleTakeNS.dt_deploy(task));
+                                                    newThread.Name = task.target_id;
+                                                    newThread.Start(task);
+                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                break;
+                                                //case "getproductinformation":
+                                                //    if (task.submitpayload.dt != null)
+                                                //    {
+                                                //        //Thread newThread = new Thread(() => DoubleTakeNS.dt_getproductinformation(task));
+                                                //        //newThread.Name = task.target_id;
+                                                //        //newThread.Start(task);
+                                                //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                //    }
+                                                //    break;
+                                                //case "createdrseedjob":
+                                                //    {
+                                                //        //Thread newThread = new Thread(() => DT_DR.dt_create_dr_seedjob(task));
+                                                //        //newThread.Name = task.target_id;
+                                                //        //newThread.Start(task);
+                                                //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                //    }
+                                                //    break;
+                                                //case "createdrsyncjob":
+                                                //    {
+                                                //        //Thread newThread = new Thread(() => DT_DR.dt_create_dr_syncjob(task));
+                                                //        //newThread.Name = task.target_id;
+                                                //        //newThread.Start();
+                                                //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                //    }
+                                                //    break;
+                                                //case "createdrpopulatejob":
+                                                //    {
+                                                //        //Thread newThread = new Thread(() => DT_DR.dt_create_dr_restorejob(task));
+                                                //        //newThread.Name = task.target_id;
+                                                //        //newThread.Start();
+                                                //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                //    }
+                                                //    break;
                                         }
                                         break;
                                     }

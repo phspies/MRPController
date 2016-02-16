@@ -1,4 +1,4 @@
-﻿using MRPService.CMDoubleTake.Types;
+﻿using MRPService.DoubleTake.Types;
 using MRPService.Portal;
 using MRPService.Portal.Types.API;
 using DoubleTake.Common.Contract;
@@ -14,11 +14,11 @@ using System.Linq;
 using System.Threading;
 using MRPService.MRPService.Types.API;
 
-namespace MRPService.CMDoubleTake
+namespace MRPService.DoubleTake
 {
-    class CMDoubleTake_HighAvailability : CMDoubleTake_Core
+    public class MRPDoubleTake_HighAvailability : MRPDoubleTake_Core
     {
-        public CMDoubleTake_HighAvailability(CMDoubleTake cmdoubletake) : base(cmdoubletake) { }
+        public MRPDoubleTake_HighAvailability(MRPDoubleTake cmdoubletake) : base(cmdoubletake) { }
 
         static CloudMRPPortal CloudMRP = null;
 

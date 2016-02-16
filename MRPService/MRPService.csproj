@@ -288,6 +288,7 @@
   <ItemGroup>
     <Compile Include="DoubleTake\CMDoubleTake_Core.cs" />
     <Compile Include="DoubleTake\CMDoubleTake_Common.cs" />
+    <Compile Include="DoubleTake\CMDoubleTake_Deploy.cs" />
     <Compile Include="DoubleTake\CMDoubleTake_DisasterRecovery.cs" />
     <Compile Include="DoubleTake\CMDoubleTake_HighAvailability.cs" />
     <Compile Include="DiscUtils\AligningStream.cs" />

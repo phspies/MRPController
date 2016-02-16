@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Threading;
 using System.Web;
 
 namespace MRPService
@@ -15,6 +16,7 @@ namespace MRPService
         /// </summary>
         /// 
 
+        public static object mcp_exec = new object();
 
         static bool _debug;
         static String _agent_id;
@@ -105,6 +107,32 @@ namespace MRPService
         /// Global static field.
         /// </summary>
         public static bool GlobalBoolean;
+
+        public class TryLock : IDisposable
+        {
+            private object locked;
+
+            public bool HasLock { get; private set; }
+
+            public TryLock(object obj)
+            {
+                if (Monitor.TryEnter(obj))
+                {
+                    HasLock = true;
+                    locked = obj;
+                }
+            }
+
+            public void Dispose()
+            {
+                if (HasLock)
+                {
+                    Monitor.Exit(locked);
+                    locked = null;
+                    HasLock = false;
+                }
+            }
+        }
     }
 
 

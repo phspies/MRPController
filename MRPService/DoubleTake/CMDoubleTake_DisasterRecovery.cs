@@ -1,4 +1,4 @@
-﻿using MRPService.CMDoubleTake.Types;
+﻿using MRPService.DoubleTake.Types;
 using MRPService.Portal;
 using MRPService.Portal.Types.API;
 using DoubleTake.Common.Contract;
@@ -22,11 +22,11 @@ using System.Threading;
 using DTJobs = DoubleTake.Jobs.Contract;
 using MRPService.MRPService.Types.API;
 
-namespace MRPService.CMDoubleTake
+namespace MRPService.DoubleTake
 {
-    class CMDoubleTake_DisasterRecovery : CMDoubleTake_Core
+    public class MRPDoubleTake_DisasterRecovery : MRPDoubleTake_Core
     {
-        public CMDoubleTake_DisasterRecovery(CMDoubleTake cmdoubletake) : base(cmdoubletake) { }
+        public MRPDoubleTake_DisasterRecovery(MRPDoubleTake cmdoubletake) : base(cmdoubletake) { }
 
         static CloudMRPPortal CloudMRP = null;
         static MRPTaskListType tasks = null;
