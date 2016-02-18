@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRPService.MRPDoubleTake.Types
+namespace MRPService.DoubleTake
 {
-    public static class DTJobTypes
+    public static class DT_JobTypes
     {
         public static string HA_FilesFolders = "FilesAndFolders";
         public static string HA_Cluster_FilesFolders = "ClusterAwareFilesAndFolders";
-        public static string HA_Full_Failover = "FullWorkloadFailover";
-        public static string HA_Linux_FullFailover = "LinuxFullWorkloadFailover";
+        public static string HA_Full_Failover = "FullServerFailover";
+        public static string HA_Linux_FullFailover = "LinuxFullServerFailover";
         public static string HA_SQL_Failover = "Sql";
         public static string HA_SQL_Cluster_Failover = "SqlClustered";
         public static string HA_Exchange_Failover = "Exchange";
@@ -21,5 +21,5 @@ namespace MRPService.MRPDoubleTake.Types
         public static string DR_Full_Protection = "FullWorkloadImageProtection";
         public static string DR_Full_Recovery = "FullWorkloadImageRecovery";
     }
-    public enum CMWorkloadType { Source, Target};
+    public enum DT_WorkloadType { Source, Target};
 }
