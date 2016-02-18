@@ -49,6 +49,27 @@ namespace MRPService.MRPService.Types.API
         public MRPTaskPlatformType platform { get; set; }
     }
 
+    public class MRPTaskRecoverypolicyType
+    {
+        public string id { get; set; }
+        public string policy { get; set; }
+        public string policytype { get; set; }
+        public string repositorypath { get; set; }
+        public object mirrortype { get; set; }
+        public object calculatesize { get; set; }
+        public object deleteorphanedfiles { get; set; }
+        public string networkroute { get; set; }
+        public bool enablesnapshots { get; set; }
+        public int snapshotincrement { get; set; }
+        public string snapshotinterval { get; set; }
+        public bool enablecompression { get; set; }
+        public int compressionlevel { get; set; }
+        public bool enablebandwidthlimit { get; set; }
+        public int bandwidthlimit { get; set; }
+        public string organization_id { get; set; }
+        public bool delete_current_jobs { get; set; }
+        public int snapshotcount { get; set; }
+    }
     public class MRPTaskWorkloadType
     {
         public string id { get; set; }
@@ -187,27 +208,6 @@ namespace MRPService.MRPService.Types.API
         public string recoverypolicy_id { get; set; }
         public string repository_workload_id { get; set; }
         public MRPTaskRecoverypolicyType recoverypolicy { get; set; }
-    }
-
-    public class MRPTaskRecoverypolicyType
-    {
-        public string id { get; set; }
-        public string policy { get; set; }
-        public string policytype { get; set; }
-        public string repositorypath { get; set; }
-        public object mirrortype { get; set; }
-        public object calculatesize { get; set; }
-        public object deleteorphanedfiles { get; set; }
-        public string networkroute { get; set; }
-        public bool enablesnapshots { get; set; }
-        public int snapshotincrement { get; set; }
-        public string snapshotinterval { get; set; }
-        public bool enablecompression { get; set; }
-        public int compressionlevel { get; set; }
-        public bool enablebandwidthlimit { get; set; }
-        public int bandwidthlimit { get; set; }
-        public string organization_id { get; set; }
-        public bool delete_current_jobs { get; set; }
     }
 
     public class MRPTaskPlatformType

@@ -286,11 +286,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DoubleTake\CMDoubleTake_Core.cs" />
-    <Compile Include="DoubleTake\CMDoubleTake_Common.cs" />
-    <Compile Include="DoubleTake\CMDoubleTake_Deploy.cs" />
-    <Compile Include="DoubleTake\CMDoubleTake_DisasterRecovery.cs" />
-    <Compile Include="DoubleTake\CMDoubleTake_HighAvailability.cs" />
+    <Compile Include="DoubleTake\Core.cs" />
+    <Compile Include="DoubleTake\Common.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Deploy.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\DisasterRecovery.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability.cs" />
     <Compile Include="DiscUtils\AligningStream.cs" />
     <Compile Include="DiscUtils\ApplePartitionMap\BlockZero.cs" />
     <Compile Include="DiscUtils\ApplePartitionMap\PartitionMap.cs" />
@@ -1069,8 +1069,9 @@
     <Compile Include="DiscUtils\Xva\VirtualMachine.cs" />
     <Compile Include="DiscUtils\Xva\VirtualMachineBuilder.cs" />
     <Compile Include="DiscUtils\ZeroStream.cs" />
-    <Compile Include="DoubleTake\CMDoubleTake_Types.cs" />
-    <Compile Include="DoubleTake\CMDoubleTake.cs" />
+    <Compile Include="DoubleTake\Types.cs" />
+    <Compile Include="DoubleTake\Doubletake.cs" />
+    <Compile Include="DoubleTake\MgtService.cs" />
     <Compile Include="Migrations\201512310441146_networflow.cs" />
     <Compile Include="Migrations\201512310441146_networflow.Designer.cs">
       <DependentUpon>201512310441146_networflow.cs</DependentUpon>
@@ -1090,6 +1091,7 @@
     <Compile Include="MRPPortal\MoveyPlatform_Methods.cs" />
     <Compile Include="MRPPortal\MoveyTask_Methods.cs" />
     <Compile Include="MRPPortal\MoveyWorker_Methods.cs" />
+    <Compile Include="MRPPortal\MoveyJob_Methods.cs" />
     <Compile Include="MRPPortal\MoveyWorkload_Methods.cs" />
     <Compile Include="MRPPortal\XSD\cloudmoveyprotal.cs">
       <DependentUpon>cloudmoveyprotal.xsd</DependentUpon>
@@ -1120,6 +1122,7 @@
     <Compile Include="MRPService\Types\API\Credentials.cs" />
     <Compile Include="MRPService\Types\API\Error.cs" />
     <Compile Include="MRPService\Types\API\Failovergroups.cs" />
+    <Compile Include="MRPService\Types\API\Jobs.cs" />
     <Compile Include="MRPService\Types\API\NetworkFlow.cs" />
     <Compile Include="MRPService\Types\API\PerformanceCategory.cs" />
     <Compile Include="MRPService\Types\API\PerformanceCounter.cs" />

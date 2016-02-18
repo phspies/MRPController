@@ -142,8 +142,8 @@ namespace MRPService.Portal.Classes
             //process logical volumes
 
             //set all volumes to be destroyed and remove destroy tag as we processes volumes
-            _workload.volumes.ForEach(x => x._destroy = true);
-            _workload.disks.ForEach(x => x._destroy = true);
+            _workload.volumes.ForEach(x => { x._destroy = true; x.platformstoragetier = null; });
+            _workload.disks.ForEach(x => { x._destroy = true; });
 
             SelectQuery wmiDiskDrives = new SelectQuery("SELECT * FROM Win32_DiskDrive");
             ManagementObjectSearcher searchDiskProcedure = new ManagementObjectSearcher(connectionScope, wmiDiskDrives);

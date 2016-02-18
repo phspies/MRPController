@@ -37,7 +37,6 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\MRPService\bin\De
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\MRPService\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\MRPService\obj\x64\Debug\MRPService.exe
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\MRPService\obj\x64\Debug\MRPService.pdb
-C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\MRPService\obj\x64\Debug\MRPService.csprojResolveAssemblyReference.cache
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\MRPService\bin\Debug\DD.CBU.Compute.Api.Client.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\MRPService\bin\Debug\DD.CBU.Compute.Api.Contracts.dll
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\MRPService\bin\Debug\System.Net.Http.Formatting.dll

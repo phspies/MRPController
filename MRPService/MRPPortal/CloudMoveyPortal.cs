@@ -55,6 +55,10 @@ namespace MRPService.Portal
         {
             return new MRPPlatformnetwork(this);
         }
+        public MRPJob job()
+        {
+            return new MRPJob(this);
+        }
         public String ApiBase
         {
             get { return _apiBase; }

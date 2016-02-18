@@ -1,8 +1,6 @@
 ﻿using MRPService.CloudMRP.Controllers;
-using MRPService.MRPDoubleTake;
 using MRPService.MRPService.Log;
 using MRPService.MRPService.Types.API;
-using MRPService.Portal.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,11 +34,22 @@ namespace MRPService.Portal.Controllers
                                         switch (task.task_type)
                                         {
                                             case "deploy_method":
-                                                    Thread newThread = new Thread(() => MRPDoubleTake_Deploy.dt_deploy(task));
+                                                {
+                                                    Thread newThread = new Thread(() => DoubleTake.Deploy.dt_deploy(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                }
                                                 break;
+                                            case "sync_ha_method":
+                                                {
+                                                    Thread newThread = new Thread(() => DoubleTake.Availability.dt_create_ha_syncjob(task));
+                                                    newThread.Name = task.target_id;
+                                                    newThread.Start();
+                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                }
+                                                break;
+
                                                 //case "getproductinformation":
                                                 //    if (task.submitpayload.dt != null)
                                                 //    {
@@ -91,6 +100,7 @@ namespace MRPService.Portal.Controllers
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
+
                                         }
                                         break;
                                     }
