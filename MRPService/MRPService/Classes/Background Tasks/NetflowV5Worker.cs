@@ -9,7 +9,7 @@ using MRPService.Utilities;
 
 namespace MRPService.MRPService.Classes.Background_Classes
 {
-    class NetflowWorker
+    class NetflowV5Worker
     {
         public void Start()
         {

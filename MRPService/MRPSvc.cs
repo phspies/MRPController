@@ -75,7 +75,7 @@ namespace MRPService
             _performance_thread = new Thread(new ThreadStart(_performance.Start));
             _performance_thread.Start();
 
-            NetflowWorker _netflow = new NetflowWorker();
+            NetflowV5Worker _netflow = new NetflowV5Worker();
             if (Global.debug) { Logger.log("Starting Netflow v5 Collection Thread", Logger.Severity.Debug); };
             _netflow_thread = new Thread(new ThreadStart(_netflow.Start));
             _netflow_thread.Start();

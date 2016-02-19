@@ -16,6 +16,7 @@ using DD.CBU.Compute.Api.Contracts.Requests;
 using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
 using DD.CBU.Compute.Api.Contracts.General;
 using MRPService.Utilities;
+using VMware.Vim;
 
 namespace MRPService.API.Classes
 {
@@ -93,6 +94,70 @@ namespace MRPService.API.Classes
                 }
                 Thread.Sleep(new TimeSpan(1, 0, 0));
             }
+        }
+        public void UpdateVMwarePlatform(Platform _platform)
+        {
+
+            Logger.log(String.Format("Started data mirroring process for {0}", (_platform.human_vendor + " : " + _platform.datacenter)), Logger.Severity.Info);
+            Stopwatch sw = Stopwatch.StartNew();
+
+            //define object lists
+            Credential _credential;
+            using (MRPDatabase db = new MRPDatabase())
+            {
+                List<Credential> _workercredentials = db.Credentials.ToList();
+                _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
+
+            }
+            MRPWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
+            MRPPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
+            MRPPlatformdomainListType _currentplatformdomains = _cloud_movey.platformdomain().listplatformdomains();
+
+            VMWare.ApiClient _api_client = new VMWare.ApiClient(_platform.url, _credential.username, _credential.password);
+
+
+            Datacenter _dc = _api_client.datacenter().GetDataCenter(_platform.moid);
+            foreach (ClusterComputeResource itmCluster in lstClusters)
+            {
+                ListItem thisCluster = new ListItem();
+                thisCluster.Text = itmCluster.Name;
+                thisCluster.Value = itmCluster.MoRef.Value;
+                cboClusters.Items.Add(thisCluster);
+            }
+
+            //
+            // Get a list of datastores
+            //
+
+            List<Datacenter> lstDatacenters = GetDcFromCluster(vimClient, lstClusters[0].Parent.Value);
+            Datacenter itmDatacenter = lstDatacenters[0];
+
+            List<Datastore> lstDatastores = GetDataStore(vimClient, itmDatacenter);
+            lstDatastores = lstDatastores.OrderByDescending(thisStore => thisStore.Info.FreeSpace).ToList();
+            foreach (Datastore itmDatastore in lstDatastores)
+            {
+                ListItem thisDatastore = new ListItem();
+                thisDatastore.Text = itmDatastore.Name;
+                thisDatastore.Value = itmDatastore.MoRef.Value;
+                cboDatastores.Items.Add(thisDatastore);
+            }
+
+            //
+            // Get a list of network portgroups
+            //
+
+            List<DistributedVirtualPortgroup> lstDVPortGroups = GetDVPortGroups(vimClient, itmDatacenter);
+            if (lstDVPortGroups != null)
+            {
+                foreach (DistributedVirtualPortgroup itmPortGroup in lstDVPortGroups)
+                {
+                    ListItem thisPortGroup = new ListItem();
+                    thisPortGroup.Text = itmPortGroup.Name;
+                    thisPortGroup.Value = itmPortGroup.MoRef.ToString();
+                    cboPortGroups.Items.Add(thisPortGroup);
+                }
+            }
+
         }
 
         public void UpdateMCPPlatform(Platform _platform)
