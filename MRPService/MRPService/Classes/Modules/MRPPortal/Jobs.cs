@@ -7,9 +7,9 @@ namespace MRPService.API
 {
     class MRPJob : Core
     {
-        public MRPJob(ApiClient _CloudMRP) : base(_CloudMRP) {
+        public MRPJob(ApiClient _MRP) : base(_MRP) {
         }
-        public ApiClient CloudMRP = new ApiClient();
+        public ApiClient MRP = new ApiClient();
 
         public MRPJobListType listjobs()
         {

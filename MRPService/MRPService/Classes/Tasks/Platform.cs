@@ -68,7 +68,7 @@ namespace MRPService.Tasks
                 db.SaveChanges();
             }
 
-            API.ApiClient CloudMRP = new API.ApiClient();
+            API.ApiClient MRP = new API.ApiClient();
             Credential _platform_credentails = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
 
 
@@ -127,7 +127,7 @@ namespace MRPService.Tasks
                     {
                         if (--_deploy_retries == 0)
                         {
-                            CloudMRP.task().failcomplete(payload, String.Format("Error submitting workload creation task:", ex.Message));
+                            MRP.task().failcomplete(payload, String.Format("Error submitting workload creation task:", ex.Message));
                             Logger.log(String.Format("Error submitting workload creation task:", ex.Message), Logger.Severity.Error);
                             return;
                         }
@@ -143,7 +143,7 @@ namespace MRPService.Tasks
                     {
                         deployedServer = CaaS.ServerManagement.Server.GetServer(Guid.Parse(serverInfo.value)).Result;
                     }
-                    CloudMRP.task().progress(payload, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), 20);
+                    MRP.task().progress(payload, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), 20);
                     ServerType _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
@@ -151,7 +151,7 @@ namespace MRPService.Tasks
                         {
                             if (_newvm.progress.step != null)
                             {
-                                CloudMRP.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.progress.step.name), 30 + _newvm.progress.step.number);
+                                MRP.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.progress.step.name), 30 + _newvm.progress.step.number);
                             }
                         }
                         _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
@@ -166,13 +166,13 @@ namespace MRPService.Tasks
                         {
                             if (_newvm.disk.ToList().Find(x => x.scsiId == _volume.diskindex).sizeGb < _volume.disksize)
                             {
-                                CloudMRP.task().progress(payload, String.Format("Extending storage: {0} : {1}GB", _volume.diskindex, _volume.disksize), 60 + count);
+                                MRP.task().progress(payload, String.Format("Extending storage: {0} : {1}GB", _volume.diskindex, _volume.disksize), 60 + count);
                                 CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _volume.diskindex.ToString(), _volume.disksize.ToString());
                             }
                         }
                         else
                         {
-                            CloudMRP.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _volume.diskindex, _volume.disksize, _volume.platformstoragetier.storagetier), 60 + count);
+                            MRP.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _volume.diskindex, _volume.disksize, _volume.platformstoragetier.storagetier), 60 + count);
                             CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _volume.disksize.ToString(), _volume.platformstoragetier.shortname);
                         }
                         _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
@@ -185,7 +185,7 @@ namespace MRPService.Tasks
                     }
 
                     //Start Workload
-                    CloudMRP.task().progress(payload, String.Format("Power on workload"), 60 + count + 1);
+                    MRP.task().progress(payload, String.Format("Power on workload"), 60 + count + 1);
                     CaaS.ServerManagement.Server.StartServer(Guid.Parse(deployedServer.id));
                     _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
@@ -194,7 +194,7 @@ namespace MRPService.Tasks
                         Thread.Sleep(5000);
                     }
 
-                    CloudMRP.task().progress(payload, String.Format("Workload powered on"), 60 + count + 2);
+                    MRP.task().progress(payload, String.Format("Workload powered on"), 60 + count + 2);
                     _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
 
 
@@ -243,7 +243,7 @@ namespace MRPService.Tasks
                     }
                     catch (Exception ex)
                     {
-                        CloudMRP.task().failcomplete(payload, String.Format("Error impersonating Administrator user: {0}", ex.Message));
+                        MRP.task().failcomplete(payload, String.Format("Error impersonating Administrator user: {0}", ex.Message));
                         Logger.log(ex.Message, Logger.Severity.Error);
                         return;
                     }
@@ -265,7 +265,7 @@ namespace MRPService.Tasks
                             if (--_copy_retries == 0)
                             {
                                 Logger.log(String.Format("Error creating disk layout file on workload {0}: {1} : {2}", _working_ip, ex.Message, workloadPath), Logger.Severity.Info);
-                                CloudMRP.task().failcomplete(payload, String.Format("Error creating disk layout file on workload: {0}", ex.Message));
+                                MRP.task().failcomplete(payload, String.Format("Error creating disk layout file on workload: {0}", ex.Message));
                                 return;
                             }
                             else Thread.Sleep(new TimeSpan(0,0,30));
@@ -274,7 +274,7 @@ namespace MRPService.Tasks
 
                     //Run Diskpart Command on Workload
                     //Create connection object to remote machine
-                    CloudMRP.task().progress(payload, String.Format("Volume setup process on {0}", _newvm.name), 80);
+                    MRP.task().progress(payload, String.Format("Volume setup process on {0}", _newvm.name), 80);
 
                     ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _stadalone_creadential.password };
                     connOptions.Impersonation = ImpersonationLevel.Impersonate;
@@ -293,7 +293,7 @@ namespace MRPService.Tasks
                             if (--_connect_retries == 0)
                             {
                                 Logger.log(String.Format("Error running diskpart on workload {0}: {1} : {2}", _working_ip, ex.Message, workloadPath), Logger.Severity.Info);
-                                CloudMRP.task().failcomplete(payload, String.Format("Error running diskpart on workload: {0}", ex.Message));
+                                MRP.task().failcomplete(payload, String.Format("Error running diskpart on workload: {0}", ex.Message));
                                 return;
                             }
                             else Thread.Sleep(5000);
@@ -330,12 +330,12 @@ namespace MRPService.Tasks
                     int _exitcode = Convert.ToInt32(returnValue.Properties["ReturnValue"].Value);
                     if (_exitcode != 0)
                     {
-                        CloudMRP.task().failcomplete(payload, String.Format("Failed diskpart process on {0} ({1})", _newvm.name, _exitcode));
+                        MRP.task().failcomplete(payload, String.Format("Failed diskpart process on {0} ({1})", _newvm.name, _exitcode));
                         return;
                     }
                     else
                     {
-                        CloudMRP.task().progress(payload, String.Format("Volume setup process exit code: {0}", _exitcode), 81);
+                        MRP.task().progress(payload, String.Format("Volume setup process exit code: {0}", _exitcode), 81);
                     }
                     //Add or update workload record in database
                     Workload _new_workload = new Workload() { id = _target.id, moid = _newvm.id, enabled = true, hostname = _target.hostname, platform_id = _platform.id, credential_id = _stadalone_creadential.id };
@@ -368,28 +368,28 @@ namespace MRPService.Tasks
                     _cloud_movey.workload().updateworkload(_update_workload);
 
                     //update Platform inventory for server
-                    CloudMRP.task().progress(payload, String.Format("Updating platform information for {0}", _target.hostname), 91);
+                    MRP.task().progress(payload, String.Format("Updating platform information for {0}", _target.hostname), 91);
                     PlatformInventoryWorker.UpdateMCPWorkload(_newvm.id, _newvm.datacenterId);
 
                     //update OS information or newly provisioned server
                     _workload = _cloud_movey.workload().getworkload(_target.id);
-                    CloudMRP.task().progress(payload, String.Format("Updating operating system information for {0}", _target.hostname), 92);
+                    MRP.task().progress(payload, String.Format("Updating operating system information for {0}", _target.hostname), 92);
                     OSInventoryWorker.UpdateWorkload(_workload); 
 
                     //log the success
                     Logger.log(String.Format("Successfully provinioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);
-                    CloudMRP.task().successcomplete(payload, JsonConvert.SerializeObject(_newvm));
+                    MRP.task().successcomplete(payload, JsonConvert.SerializeObject(_newvm));
                 }
                 else
                 {
-                    CloudMRP.task().failcomplete(payload, String.Format("Failed to create target virtual machine: {0}",_status.ToString()));
+                    MRP.task().failcomplete(payload, String.Format("Failed to create target virtual machine: {0}",_status.ToString()));
                     Logger.log(String.Format("Failed to create target virtual machine: {0}", _status.error), Logger.Severity.Error);
 
                 }
             }
             catch (Exception e)
             {
-                CloudMRP.task().failcomplete(payload, e.Message);
+                MRP.task().failcomplete(payload, e.Message);
                 Logger.log(e.ToString(), Logger.Severity.Error);
             }
         }

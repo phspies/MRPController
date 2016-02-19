@@ -76,10 +76,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AWSSDK, Version=2.3.52.0, Culture=neutral, PublicKeyToken=9f476d3089b52be3, processorArchitecture=MSIL">
-      <HintPath>..\packages\AWSSDK.2.3.52.0\lib\net45\AWSSDK.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Cassia, Version=2.0.0.60, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Cassia.2.0.0.60\lib\2.0\Cassia.dll</HintPath>
       <Private>True</Private>
@@ -144,10 +140,6 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Web.Services3, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Microsoft WSE\v3.0\Microsoft.Web.Services3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.WindowsAzure.Common.1.3.0\lib\net45\Microsoft.WindowsAzure.Common.dll</HintPath>
@@ -284,7 +276,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="VMware.Vim, Version=6.0.0.0, Culture=neutral, PublicKeyToken=10980b081e887e9f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\VMware.Vim.dll</HintPath>
+      <HintPath>lib\VMware.Vim.dll</HintPath>
     </Reference>
     <Reference Include="WebActivator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivator.1.0.0.0\lib\WebActivator.dll</HintPath>
@@ -1159,8 +1151,8 @@
     <Compile Include="MRPService\Types\TaskTarget.cs" />
     <Compile Include="MRPService\Types\Vendors.cs" />
     <Compile Include="MRPService\Types\WCF\PlatformDetails.cs" />
-    <Compile Include="MRPService\WCF\CloudMoveyService.cs" />
-    <Compile Include="MRPService\WCF\ICloudMoveyService.cs" />
+    <Compile Include="MRPService\WCF\MRPWCFService.cs" />
+    <Compile Include="MRPService\WCF\IMRPWCFService.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\NetflowCommon.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v5\Header.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v5\Packet.cs" />
@@ -1204,20 +1196,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="bin\Debug\amd64\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
-    <None Include="bin\Debug\CloudMoveyWorkerService.exe.config" />
-    <None Include="bin\Debug\CloudMoveyWorkerService.vshost.exe.config" />
-    <None Include="bin\Debug\CloudMoveyWorkerService.vshost.exe.manifest" />
-    <None Include="bin\Debug\DoubleTakeProxyService.exe.config" />
-    <None Include="bin\Debug\DoubleTakeProxyService.InstallLog" />
-    <None Include="bin\Debug\DoubleTakeProxyService.InstallState" />
-    <None Include="bin\Debug\DoubleTakeProxyService.vshost.exe.config" />
-    <None Include="bin\Debug\DoubleTakeProxyService.vshost.exe.manifest" />
-    <None Include="bin\Debug\InstallUtil.InstallLog" />
-    <None Include="bin\Debug\MRPService.exe.config" />
-    <None Include="bin\Debug\MRPService.vshost.exe.config" />
-    <None Include="bin\Debug\MRPService.vshost.exe.manifest" />
-    <None Include="bin\Debug\x86\Microsoft.VC90.CRT\Microsoft.VC90.CRT.manifest" />
     <None Include="DiscUtils\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="DiscUtils\obj\Debug\DiscUtils.csproj.GenerateResource.Cache" />
     <None Include="DiscUtils\obj\Debug\DiscUtils.csprojResolveAssemblyReference.cache" />
@@ -1260,191 +1238,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
-    <Content Include="bin\Debug\amd64\Microsoft.VC90.CRT\README_ENU.txt" />
-    <Content Include="bin\Debug\amd64\sqlceca40.dll" />
-    <Content Include="bin\Debug\amd64\sqlcecompact40.dll" />
-    <Content Include="bin\Debug\amd64\sqlceer40EN.dll" />
-    <Content Include="bin\Debug\amd64\sqlceme40.dll" />
-    <Content Include="bin\Debug\amd64\sqlceqp40.dll" />
-    <Content Include="bin\Debug\amd64\sqlcese40.dll" />
-    <Content Include="bin\Debug\AWSSDK.dll" />
-    <Content Include="bin\Debug\AWSSDK.pdb" />
-    <Content Include="bin\Debug\Cassia.dll" />
-    <Content Include="bin\Debug\Cassia.xml" />
-    <Content Include="bin\Debug\CloudMovey.Ssh.dll" />
-    <Content Include="bin\Debug\CloudMoveyWorker.sdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="bin\Debug\CloudMoveyWorkerService.exe" />
-    <Content Include="bin\Debug\CloudMoveyWorkerService.pdb" />
-    <Content Include="bin\Debug\CloudMoveyWorkerService.vshost.exe" />
-    <Content Include="bin\Debug\de\Microsoft.Expression.Interactions.resources.dll" />
-    <Content Include="bin\Debug\de\Microsoft.Expression.Prototyping.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\de\Microsoft.Expression.Prototyping.Runtime.resources.dll" />
-    <Content Include="bin\Debug\de\System.Windows.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\DoubleTakeProxyService.exe" />
-    <Content Include="bin\Debug\DoubleTakeProxyService.pdb" />
-    <Content Include="bin\Debug\DoubleTakeProxyService.vshost.exe" />
-    <Content Include="bin\Debug\EntityFramework.dll" />
-    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
-    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
-    <Content Include="bin\Debug\EntityFramework.SqlServerCompact.dll" />
-    <Content Include="bin\Debug\EntityFramework.SqlServerCompact.xml" />
-    <Content Include="bin\Debug\EntityFramework.xml" />
-    <Content Include="bin\Debug\en\Microsoft.Expression.Interactions.resources.dll" />
-    <Content Include="bin\Debug\en\Microsoft.Expression.Prototyping.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\en\Microsoft.Expression.Prototyping.Runtime.resources.dll" />
-    <Content Include="bin\Debug\en\System.Windows.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\es\Microsoft.Expression.Interactions.resources.dll" />
-    <Content Include="bin\Debug\es\Microsoft.Expression.Prototyping.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\es\Microsoft.Expression.Prototyping.Runtime.resources.dll" />
-    <Content Include="bin\Debug\es\System.Windows.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\Flurl.dll" />
-    <Content Include="bin\Debug\Flurl.Http.dll" />
-    <Content Include="bin\Debug\Flurl.Http.pdb" />
-    <Content Include="bin\Debug\Flurl.Http.xml" />
-    <Content Include="bin\Debug\Flurl.pdb" />
-    <Content Include="bin\Debug\Flurl.xml" />
-    <Content Include="bin\Debug\fr\Microsoft.Expression.Interactions.resources.dll" />
-    <Content Include="bin\Debug\fr\Microsoft.Expression.Prototyping.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\fr\Microsoft.Expression.Prototyping.Runtime.resources.dll" />
-    <Content Include="bin\Debug\fr\System.Windows.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\Hardcodet.Wpf.TaskbarNotification.dll" />
-    <Content Include="bin\Debug\Hardcodet.Wpf.TaskbarNotification.pdb" />
-    <Content Include="bin\Debug\Hardcodet.Wpf.TaskbarNotification.xml" />
-    <Content Include="bin\Debug\it\Microsoft.Expression.Interactions.resources.dll" />
-    <Content Include="bin\Debug\it\Microsoft.Expression.Prototyping.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\it\Microsoft.Expression.Prototyping.Runtime.resources.dll" />
-    <Content Include="bin\Debug\it\System.Windows.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\ja\Microsoft.Expression.Interactions.resources.dll" />
-    <Content Include="bin\Debug\ja\Microsoft.Expression.Prototyping.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\ja\Microsoft.Expression.Prototyping.Runtime.resources.dll" />
-    <Content Include="bin\Debug\ja\System.Windows.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll" />
-    <Content Include="bin\Debug\ko\Microsoft.Expression.Prototyping.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\ko\Microsoft.Expression.Prototyping.Runtime.resources.dll" />
-    <Content Include="bin\Debug\ko\System.Windows.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\lib\CloudMovey.Ssh.dll" />
-    <Content Include="bin\Debug\log4net.dll" />
-    <Content Include="bin\Debug\log4net.xml" />
-    <Content Include="bin\Debug\Marvin.JsonPatch.dll" />
-    <Content Include="bin\Debug\Microsoft.Data.Edm.dll" />
-    <Content Include="bin\Debug\Microsoft.Data.Edm.xml" />
-    <Content Include="bin\Debug\Microsoft.Data.OData.dll" />
-    <Content Include="bin\Debug\Microsoft.Data.OData.xml" />
-    <Content Include="bin\Debug\Microsoft.Data.Services.Client.dll" />
-    <Content Include="bin\Debug\Microsoft.Data.Services.Client.xml" />
-    <Content Include="bin\Debug\Microsoft.Data.Services.dll" />
-    <Content Include="bin\Debug\Microsoft.Data.Services.xml" />
-    <Content Include="bin\Debug\Microsoft.Expression.Interactions.dll" />
-    <Content Include="bin\Debug\Microsoft.Expression.Interactions.xml" />
-    <Content Include="bin\Debug\Microsoft.Expression.Prototyping.Interactivity.dll" />
-    <Content Include="bin\Debug\Microsoft.Expression.Prototyping.Runtime.dll" />
-    <Content Include="bin\Debug\Microsoft.Expression.Prototyping.SketchControls.dll" />
-    <Content Include="bin\Debug\Microsoft.Threading.Tasks.dll" />
-    <Content Include="bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll" />
-    <Content Include="bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml" />
-    <Content Include="bin\Debug\Microsoft.Threading.Tasks.Extensions.dll" />
-    <Content Include="bin\Debug\Microsoft.Threading.Tasks.Extensions.xml" />
-    <Content Include="bin\Debug\Microsoft.Threading.Tasks.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Common.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Common.NetFramework.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Common.NetFramework.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Common.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Compute.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Compute.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.MediaServices.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.MediaServices.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Monitoring.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Monitoring.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Network.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Network.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Scheduler.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Scheduler.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Sql.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Sql.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Storage.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.Storage.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.WebSites.dll" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.WebSites.xml" />
-    <Content Include="bin\Debug\Microsoft.WindowsAzure.Management.xml" />
-    <Content Include="bin\Debug\MRPService.exe" />
-    <Content Include="bin\Debug\MRPService.pdb" />
-    <Content Include="bin\Debug\MRPService.vshost.exe" />
-    <Content Include="bin\Debug\Newtonsoft.Json.dll" />
-    <Content Include="bin\Debug\Newtonsoft.Json.pdb" />
-    <Content Include="bin\Debug\Newtonsoft.Json.xml" />
-    <Content Include="bin\Debug\openstacknet.dll" />
-    <Content Include="bin\Debug\openstacknet.pdb" />
-    <Content Include="bin\Debug\openstacknet.xml" />
-    <Content Include="bin\Debug\protobuf-net.dll" />
-    <Content Include="bin\Debug\protobuf-net.pdb" />
-    <Content Include="bin\Debug\protobuf-net.xml" />
-    <Content Include="bin\Debug\Rackspace.dll" />
-    <Content Include="bin\Debug\Rackspace.xml" />
-    <Content Include="bin\Debug\RestSharp.dll" />
-    <Content Include="bin\Debug\RestSharp.xml" />
-    <Content Include="bin\Debug\ServiceStack.Client.dll" />
-    <Content Include="bin\Debug\ServiceStack.Client.xml" />
-    <Content Include="bin\Debug\ServiceStack.Common.dll" />
-    <Content Include="bin\Debug\ServiceStack.Common.xml" />
-    <Content Include="bin\Debug\ServiceStack.dll" />
-    <Content Include="bin\Debug\ServiceStack.Interfaces.dll" />
-    <Content Include="bin\Debug\ServiceStack.Text.dll" />
-    <Content Include="bin\Debug\ServiceStack.Text.xml" />
-    <Content Include="bin\Debug\ServiceStack.xml" />
-    <Content Include="bin\Debug\SimpleImpersonation.dll" />
-    <Content Include="bin\Debug\SimpleImpersonation.pdb" />
-    <Content Include="bin\Debug\SimpleImpersonation.xml" />
-    <Content Include="bin\Debug\System.Data.SqlServerCe.dll" />
-    <Content Include="bin\Debug\System.Data.SqlServerCe.Entity.dll" />
-    <Content Include="bin\Debug\System.Net.Http.Extensions.dll" />
-    <Content Include="bin\Debug\System.Net.Http.Extensions.xml" />
-    <Content Include="bin\Debug\System.Net.Http.Primitives.dll" />
-    <Content Include="bin\Debug\System.Net.Http.Primitives.xml" />
-    <Content Include="bin\Debug\System.Spatial.dll" />
-    <Content Include="bin\Debug\System.Spatial.xml" />
-    <Content Include="bin\Debug\System.Windows.Interactivity.dll" />
-    <Content Include="bin\Debug\System.Windows.Interactivity.xml" />
-    <Content Include="bin\Debug\VMware.Vim.dll" />
-    <Content Include="bin\Debug\WebActivator.dll" />
-    <Content Include="bin\Debug\WebActivator.pdb" />
-    <Content Include="bin\Debug\x86\Microsoft.VC90.CRT\msvcr90.dll" />
-    <Content Include="bin\Debug\x86\Microsoft.VC90.CRT\README_ENU.txt" />
-    <Content Include="bin\Debug\x86\sqlceca40.dll" />
-    <Content Include="bin\Debug\x86\sqlcecompact40.dll" />
-    <Content Include="bin\Debug\x86\sqlceer40EN.dll" />
-    <Content Include="bin\Debug\x86\sqlceme40.dll" />
-    <Content Include="bin\Debug\x86\sqlceqp40.dll" />
-    <Content Include="bin\Debug\x86\sqlcese40.dll" />
-    <Content Include="bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll" />
-    <Content Include="bin\Debug\zh-Hans\Microsoft.Expression.Prototyping.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\zh-Hans\Microsoft.Expression.Prototyping.Runtime.resources.dll" />
-    <Content Include="bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll" />
-    <Content Include="bin\Debug\zh-Hant\Microsoft.Expression.Prototyping.Interactivity.resources.dll" />
-    <Content Include="bin\Debug\zh-Hant\Microsoft.Expression.Prototyping.Runtime.resources.dll" />
-    <Content Include="bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll" />
-    <Content Include="DiscUtils\bin\Debug\DiscUtils.dll" />
-    <Content Include="DiscUtils\bin\Debug\DiscUtils.dll.xml" />
-    <Content Include="DiscUtils\bin\Debug\DiscUtils.pdb" />
-    <Content Include="DiscUtils\CustomDictionary.xml" />
-    <Content Include="DiscUtils\obj\Debug\DiscUtils.csproj.FileListAbsolute.txt" />
-    <Content Include="DiscUtils\obj\Debug\DiscUtils.dll" />
-    <Content Include="DiscUtils\obj\Debug\DiscUtils.pdb" />
-    <Content Include="DiscUtils\Resources\XVA_ova_base.xml" />
-    <Content Include="DiscUtils\Resources\XVA_ova_ref.xml" />
-    <Content Include="DiscUtils\Resources\XVA_ova_sr.xml" />
-    <Content Include="DiscUtils\Resources\XVA_ova_vbd.xml" />
-    <Content Include="DiscUtils\Resources\XVA_ova_vdi.xml" />
-    <Content Include="DiscUtils\Resources\XVA_ova_vm.xml" />
-    <Content Include="lib\CloudMovey.Ssh.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -4,29 +4,28 @@ using System.Drawing;
 using System.Windows;
 using MahApps.Metro.Controls;
 using System.Collections.Generic;
-using CloudMRPNotifier.CloudMRPWCF;
-using CloudMRPNotifier.Forms;
+using MRPNotifier.Forms;
 using System.Windows.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using System.Globalization;
-using CloudMRPNotifier.Models;
+using MRPNotifier.Models;
 using System.Diagnostics;
-using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Linq;
 using System.Windows.Input;
 using System.Data;
-using CloudMRPNotifier.Extensions;
+using MRPNotifier.Extensions;
 using System.Threading;
+using MRPService.MRPWCFService;
 
-namespace CloudMRPNotifier
+namespace MRPNotifier
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
-        CloudMRPServiceClient channel = new CloudMRPServiceClient();
+        MRPWCFServiceClient channel = new MRPWCFServiceClient();
 
         private BackgroundWorker platformloader = new BackgroundWorker();
         private List<Platform> _platform_list = new List<Platform>();
@@ -62,9 +61,9 @@ namespace CloudMRPNotifier
 
 
             m_notifyIcon = new System.Windows.Forms.NotifyIcon();
-            m_notifyIcon.BalloonTipText = "CloudMRP Notifier has been minimised. Click the tray icon to show.";
-            m_notifyIcon.BalloonTipTitle = "CloudMRP Notifier";
-            m_notifyIcon.Text = "CloudMRP Notifier";
+            m_notifyIcon.BalloonTipText = "MRP Notifier has been minimised. Click the tray icon to show.";
+            m_notifyIcon.BalloonTipTitle = "MRP Notifier";
+            m_notifyIcon.Text = "MRP Notifier";
             m_notifyIcon.Icon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/cloudmovey.ico")).Stream);
             m_notifyIcon.Click += new EventHandler(m_notifyIcon_Click);
 

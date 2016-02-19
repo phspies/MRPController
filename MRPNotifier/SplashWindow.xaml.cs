@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace CloudMRPNotifier
+namespace MRPNotifier
 {
     /// <summary>
     /// Interaction logic for splash.xaml

@@ -35,16 +35,16 @@
             // MRPLog1
             // 
             this.MRPLog1.Log = "Application";
-            this.MRPLog1.Source = "CloudMRP Worker Service";
+            this.MRPLog1.Source = "MRP Worker Service";
             this.MRPLog1.EntryWritten += new System.Diagnostics.EntryWrittenEventHandler(this.eventLog1_EntryWritten);
             // 
             // serviceController1
             // 
-            this.serviceController1.ServiceName = "CloudMRPSvc";
+            this.serviceController1.ServiceName = "MRPSvc";
             // 
             // MRPSvc
             // 
-            this.ServiceName = "CloudMRP Worker Service";
+            this.ServiceName = "MRP Worker Service";
             ((System.ComponentModel.ISupportInitialize)(this.MRPLog1)).EndInit();
 
         }

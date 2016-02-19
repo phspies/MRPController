@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
 
-namespace CloudMRPNotifier.Extensions
+namespace MRPNotifier.Extensions
 {
     /// <summary>
     ///   Contains helper methods for UI, so far just one for showing a waitcursor

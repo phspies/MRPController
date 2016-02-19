@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CloudMRPNotifier")]
+[assembly: AssemblyTitle("MRPNotifier")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("DDNA")]
-[assembly: AssemblyProduct("CloudMRPNotifier")]
+[assembly: AssemblyProduct("MRPNotifier")]
 [assembly: AssemblyCopyright("Copyright © DDNA 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

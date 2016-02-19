@@ -7,7 +7,7 @@ namespace MRPService.API
 {
     class MRPPlatformtemplate : Core
     {
-        public MRPPlatformtemplate(ApiClient _CloudMRP) : base(_CloudMRP) {
+        public MRPPlatformtemplate(ApiClient _MRP) : base(_MRP) {
         }
          
         public MRPPlatformtemplateListType listplatformtemplates()

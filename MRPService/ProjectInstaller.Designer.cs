@@ -34,9 +34,9 @@
             // 
             // MRPServiceInstaller1
             // 
-            this.MRPServiceInstaller1.Description = "CloudMRP client agent for task execution";
-            this.MRPServiceInstaller1.DisplayName = "CloudMRP Worker Service";
-            this.MRPServiceInstaller1.ServiceName = "CloudMRP Worker Service";
+            this.MRPServiceInstaller1.Description = "MRP client agent for task execution";
+            this.MRPServiceInstaller1.DisplayName = "MRP Worker Service";
+            this.MRPServiceInstaller1.ServiceName = "MRP Worker Service";
             this.MRPServiceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             this.MRPServiceInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.MRPServiceInstaller1_AfterInstall);
             // 
@@ -53,7 +53,7 @@
             this.eventLogInstaller1.Log = "Application";
             this.eventLogInstaller1.MessageResourceFile = null;
             this.eventLogInstaller1.ParameterResourceFile = null;
-            this.eventLogInstaller1.Source = "CloudMRP Worker Service";
+            this.eventLogInstaller1.Source = "MRP Worker Service";
             this.eventLogInstaller1.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.eventLogInstaller1_AfterInstall);
             // 
             // ProjectInstaller

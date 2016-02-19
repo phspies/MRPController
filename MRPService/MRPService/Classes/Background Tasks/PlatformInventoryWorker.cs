@@ -117,46 +117,48 @@ namespace MRPService.API.Classes
 
 
             Datacenter _dc = _api_client.datacenter().GetDataCenter(_platform.moid);
-            foreach (ClusterComputeResource itmCluster in lstClusters)
-            {
-                ListItem thisCluster = new ListItem();
-                thisCluster.Text = itmCluster.Name;
-                thisCluster.Value = itmCluster.MoRef.Value;
-                cboClusters.Items.Add(thisCluster);
-            }
 
-            //
-            // Get a list of datastores
-            //
+            
+            //foreach (ClusterComputeResource itmCluster in lstClusters)
+            //{
+            //    ListItem thisCluster = new ListItem();
+            //    thisCluster.Text = itmCluster.Name;
+            //    thisCluster.Value = itmCluster.MoRef.Value;
+            //    cboClusters.Items.Add(thisCluster);
+            //}
 
-            List<Datacenter> lstDatacenters = GetDcFromCluster(vimClient, lstClusters[0].Parent.Value);
-            Datacenter itmDatacenter = lstDatacenters[0];
+            ////
+            //// Get a list of datastores
+            ////
 
-            List<Datastore> lstDatastores = GetDataStore(vimClient, itmDatacenter);
-            lstDatastores = lstDatastores.OrderByDescending(thisStore => thisStore.Info.FreeSpace).ToList();
-            foreach (Datastore itmDatastore in lstDatastores)
-            {
-                ListItem thisDatastore = new ListItem();
-                thisDatastore.Text = itmDatastore.Name;
-                thisDatastore.Value = itmDatastore.MoRef.Value;
-                cboDatastores.Items.Add(thisDatastore);
-            }
+            //List<Datacenter> lstDatacenters = GetDcFromCluster(vimClient, lstClusters[0].Parent.Value);
+            //Datacenter itmDatacenter = lstDatacenters[0];
 
-            //
-            // Get a list of network portgroups
-            //
+            //List<Datastore> lstDatastores = GetDataStore(vimClient, itmDatacenter);
+            //lstDatastores = lstDatastores.OrderByDescending(thisStore => thisStore.Info.FreeSpace).ToList();
+            //foreach (Datastore itmDatastore in lstDatastores)
+            //{
+            //    ListItem thisDatastore = new ListItem();
+            //    thisDatastore.Text = itmDatastore.Name;
+            //    thisDatastore.Value = itmDatastore.MoRef.Value;
+            //    cboDatastores.Items.Add(thisDatastore);
+            //}
 
-            List<DistributedVirtualPortgroup> lstDVPortGroups = GetDVPortGroups(vimClient, itmDatacenter);
-            if (lstDVPortGroups != null)
-            {
-                foreach (DistributedVirtualPortgroup itmPortGroup in lstDVPortGroups)
-                {
-                    ListItem thisPortGroup = new ListItem();
-                    thisPortGroup.Text = itmPortGroup.Name;
-                    thisPortGroup.Value = itmPortGroup.MoRef.ToString();
-                    cboPortGroups.Items.Add(thisPortGroup);
-                }
-            }
+            ////
+            //// Get a list of network portgroups
+            ////
+
+            //List<DistributedVirtualPortgroup> lstDVPortGroups = GetDVPortGroups(vimClient, itmDatacenter);
+            //if (lstDVPortGroups != null)
+            //{
+            //    foreach (DistributedVirtualPortgroup itmPortGroup in lstDVPortGroups)
+            //    {
+            //        ListItem thisPortGroup = new ListItem();
+            //        thisPortGroup.Text = itmPortGroup.Name;
+            //        thisPortGroup.Value = itmPortGroup.MoRef.ToString();
+            //        cboPortGroups.Items.Add(thisPortGroup);
+            //    }
+            //}
 
         }
 

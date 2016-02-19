@@ -12,7 +12,7 @@ namespace MRPService.TaskExecutioner
     class TaskWorker
     {
         static int maxThreads = 30;
-        ApiClient CloudMRP = new ApiClient();
+        ApiClient MRP = new ApiClient();
         public void Start()
         {
             List<string> activeObjects = new List<string>();
@@ -20,7 +20,7 @@ namespace MRPService.TaskExecutioner
           
             while (true)
             {
-                MRPTaskListType tasklist = CloudMRP.task().tasks();
+                MRPTaskListType tasklist = MRP.task().tasks();
                 if (tasklist != null)
                 { 
                     foreach (MRPTaskType task in tasklist.tasks)
@@ -114,7 +114,7 @@ namespace MRPService.TaskExecutioner
                                         
                                         //    if (task.submitpayload.mcp != null)
                                         //    {
-                                        //        Thread newThread = new Thread(() => CloudMRPPlatform.mcp_getdatacenters(task));
+                                        //        Thread newThread = new Thread(() => MRPPlatform.mcp_getdatacenters(task));
                                         //        newThread.Name = task.target_id;
                                         //        newThread.Start();
                                         //        lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -125,7 +125,7 @@ namespace MRPService.TaskExecutioner
                                         //    {
                                         //        if (task.submitpayload.mcp != null)
                                         //        {
-                                        //            Thread newThread = new Thread(() => CloudMRPPlatform.mcp_gettemplates(task));
+                                        //            Thread newThread = new Thread(() => MRPPlatform.mcp_gettemplates(task));
                                         //            newThread.Name = task.target_id;
                                         //            newThread.Start();
                                         //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -137,7 +137,7 @@ namespace MRPService.TaskExecutioner
                                         //    {
                                         //        if (task.submitpayload.mcp != null)
                                         //        {
-                                        //            Thread newThread = new Thread(() => CloudMRPPlatform.mcp_retrieveworkloads(task));
+                                        //            Thread newThread = new Thread(() => MRPPlatform.mcp_retrieveworkloads(task));
                                         //            newThread.Name = task.target_id;
                                         //            newThread.Start();
                                         //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -148,7 +148,7 @@ namespace MRPService.TaskExecutioner
                                         //    {
                                         //        if (task.submitpayload.mcp != null)
                                         //        {
-                                        //            Thread newThread = new Thread(() => CloudMRPPlatform.mcp_retrievenetworks(task));
+                                        //            Thread newThread = new Thread(() => MRPPlatform.mcp_retrievenetworks(task));
                                         //            newThread.Name = task.target_id;
                                         //            newThread.Start(task);
                                         //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });

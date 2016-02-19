@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace MRPService.Tasks
 {
-    class CloudMRPWorkload
+    class MRPWorkload
     {
         //public static void workload_getinformation(MRPTaskType payload)
         //{
         //    MRPTaskSubmitpayloadType _payload = payload.submitpayload;
-        //    CloudMRPPortal CloudMRP = new CloudMRPPortal();
+        //    MRPPortal MRP = new MRPPortal();
         //    try
         //    {
                 
@@ -39,19 +39,19 @@ namespace MRPService.Tasks
         //        {
         //            try
         //            {
-        //                CloudMRP.task().progress(payload, "WMI Connect - trying " + workingip, 10);
+        //                MRP.task().progress(payload, "WMI Connect - trying " + workingip, 10);
         //                scope = new ManagementScope("\\\\" + workingip.Trim() + "\\root\\CIMV2", connection);
         //                scope.Connect();
         //            }
         //            catch (Exception e)
         //            {
         //                error = e;
-        //                CloudMRP.task().failcomplete(payload, "WMI Connect - " + workingip + " failed: " + e.Message);
+        //                MRP.task().failcomplete(payload, "WMI Connect - " + workingip + " failed: " + e.Message);
         //                return;
         //            }
         //        } else
         //        {
-        //            CloudMRP.task().failcomplete(payload, "WMI Connect: No contatable IP found");
+        //            MRP.task().failcomplete(payload, "WMI Connect: No contatable IP found");
         //            return;
         //        }
 
@@ -61,13 +61,13 @@ namespace MRPService.Tasks
         //        foreach (string wmi in wmielements)
         //        {
         //            counter += 10;
-        //            CloudMRP.task().progress(payload, "WMI " + wmi, counter);
+        //            MRP.task().progress(payload, "WMI " + wmi, counter);
         //            ManagementPath path = new ManagementPath("Win32_" + wmi);
         //            var devs = new ManagementClass(scope, path, null);
         //            inventory.Add(wmi.ToLower(),sanitizemoc(wmi, devs.GetInstances()));
         //        }
  
-        //        CloudMRP.task().progress(payload, "WMI Networking", counter+10);
+        //        MRP.task().progress(payload, "WMI Networking", counter+10);
         //        ObjectQuery query = new ObjectQuery("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = 'TRUE'");
         //        ManagementObjectSearcher moSearch = new ManagementObjectSearcher(scope, query);
         //        ManagementObjectCollection moCollection = moSearch.Get();
@@ -87,7 +87,7 @@ namespace MRPService.Tasks
         //            index += 1;
         //        }
 
-        //        CloudMRP.task().progress(payload, "WMI Storage", counter+20);
+        //        MRP.task().progress(payload, "WMI Storage", counter+20);
         //        JObject storage = new JObject();
         //        ManagementPath diskpath = new ManagementPath("Win32_Diskdrive");
         //        int indexdisk = 0;
@@ -124,7 +124,7 @@ namespace MRPService.Tasks
         //            }
         //        }
         //        //Check to see if DT is installed
-        //        CloudMRP.task().progress(payload, "WMI Software", counter + 30);
+        //        MRP.task().progress(payload, "WMI Software", counter + 30);
 
         //        int softwareindex = 0;
 
@@ -145,20 +145,20 @@ namespace MRPService.Tasks
         //        inventory.Add(new JProperty("storage", storage));
         //        inventory.Add(new JProperty("software", softwareinventory));
 
-        //        CloudMRP.task().successcomplete(payload, inventory.ToString(Formatting.None));
+        //        MRP.task().successcomplete(payload, inventory.ToString(Formatting.None));
 
         //    }
         //    catch (ManagementException err)
         //    {
-        //        CloudMRP.task().failcomplete(payload, err.ToString());
+        //        MRP.task().failcomplete(payload, err.ToString());
         //    }
         //    catch (System.UnauthorizedAccessException unauthorizedErr)
         //    {
-        //        CloudMRP.task().failcomplete(payload, "Connection error (user name or password might be incorrect): " + unauthorizedErr.Message);
+        //        MRP.task().failcomplete(payload, "Connection error (user name or password might be incorrect): " + unauthorizedErr.Message);
         //    }
         //    catch (Exception error)
         //    {
-        //        CloudMRP.task().failcomplete(payload, error.Message);
+        //        MRP.task().failcomplete(payload, error.Message);
         //    }
         //}
         static JObject sanitizemoc(string wmi, ManagementObjectCollection moc)

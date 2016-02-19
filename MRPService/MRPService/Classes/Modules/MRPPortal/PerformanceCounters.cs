@@ -7,7 +7,7 @@ namespace MRPService.API
 {
     class MRPPerformanceCounter : Core
     {
-        public MRPPerformanceCounter(ApiClient _CloudMRP) : base(_CloudMRP) {
+        public MRPPerformanceCounter(ApiClient _MRP) : base(_MRP) {
         }
          
         public void create(MRPPerformanceCounterCRUDType _performancecounter)

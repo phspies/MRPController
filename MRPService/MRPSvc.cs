@@ -49,8 +49,8 @@ namespace MRPService
                     ), Logger.Severity.Debug);
             };
 
-            Uri wcfbaseAddress = new Uri("http://localhost:8734/CloudMRPWCFService");
-            serviceHost = new ServiceHost(typeof(CloudMRPService), wcfbaseAddress);
+            Uri wcfbaseAddress = new Uri("http://localhost:8734/MRPWCFService");
+            serviceHost = new ServiceHost(typeof(MRPWCFService), wcfbaseAddress);
             ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();
             wcfsmb.HttpGetEnabled = true;
             serviceHost.Description.Behaviors.Add(wcfsmb);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace CloudMRPNotifier
+namespace MRPNotifier
 {
     /// <summary>
     /// Interaction logic for App.xaml

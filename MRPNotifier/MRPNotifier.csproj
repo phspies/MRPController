@@ -7,8 +7,8 @@
     <ProjectGuid>{E5EFD650-4308-40AB-97DF-4DED1BC16F18}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>CloudMoveyNotifier</RootNamespace>
-    <AssemblyName>CloudMoveyNotifier</AssemblyName>
+    <RootNamespace>MRPService</RootNamespace>
+    <AssemblyName>MRPService</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -16,6 +16,21 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -157,6 +172,11 @@
     <Compile Include="Forms\PlatformForm.xaml.cs">
       <DependentUpon>PlatformForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service References\MRPWCFService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="SplashWindow.xaml.cs">
       <DependentUpon>SplashWindow.xaml</DependentUpon>
     </Compile>
@@ -166,11 +186,6 @@
     <Compile Include="Models\Types.cs" />
     <Compile Include="Models\Vendors.cs" />
     <Compile Include="Models\Workload.cs" />
-    <Compile Include="Service References\CloudMoveyWCF\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Page Include="Forms\CredentialForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -232,35 +247,53 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.AccountWithPhoneNumber.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.Credential.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.Platform.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.PlatformDetails.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.workerInformation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.Workload.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPWCFService.wsdl" />
+    <None Include="Service References\MRPWCFService\MRPWCFService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPWCFService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPWCFService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPWCFService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPWCFService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPWCFService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPWCFService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPWCFService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MRPWCFService\MRPWCFService8.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <Resource Include="Resources\Entypo.ttf" />
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Credential.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Platform.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.PlatformDetails.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.workerInformation.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyNotifier.CloudMoveyWCF.Workload.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyService.wsdl" />
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Resource Include="CloudMovey.png" />
   </ItemGroup>
   <ItemGroup>
@@ -275,37 +308,40 @@
     <Resource Include="cloudmovey.ico" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\CloudMoveyWCF\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService41.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\CloudMoveyWCFService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudMoveyWCF\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CloudMoveyWCF\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\CloudMoveyWCF\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\WindowsIcons-license.txt" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\MRPWCFService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MRPWCFService\MRPWCFService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MRPWCFService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MRPWCFService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MRPWCFService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,19 +1,17 @@
-﻿using CloudMRPNotifier.CloudMRPWCF;
+﻿using MRPService.MRPWCFService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using Utils;
 
-namespace CloudMRPNotifier.Models
+namespace MRPNotifier.Models
 {
     public class Workload_ListDataModel
     {
-        CloudMRPServiceClient channel = new CloudMRPServiceClient();
+        MRPWCFServiceClient channel = new MRPWCFServiceClient();
 
         private List<Workload_ObjectDataModel> _list = new List<Workload_ObjectDataModel>();
         public List<Workload_ObjectDataModel> list
@@ -154,7 +152,7 @@ namespace CloudMRPNotifier.Models
         {
             get
             {
-                CloudMRPServiceClient channel = new CloudMRPServiceClient();
+                MRPWCFServiceClient channel = new MRPWCFServiceClient();
                 return channel.ListPlatforms().FirstOrDefault(x => x.id == platform_id).description;
             }
         }
@@ -162,7 +160,7 @@ namespace CloudMRPNotifier.Models
         {
             get
             {
-                CloudMRPServiceClient channel = new CloudMRPServiceClient();
+                MRPWCFServiceClient channel = new MRPWCFServiceClient();
                 return channel.ListPlatforms().FirstOrDefault(x => x.id == platform_id).human_vendor;
             }
         }
@@ -400,7 +398,7 @@ namespace CloudMRPNotifier.Models
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
-        CloudMRPServiceClient channel = new CloudMRPServiceClient();
+        MRPWCFServiceClient channel = new MRPWCFServiceClient();
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
@@ -410,7 +408,7 @@ namespace CloudMRPNotifier.Models
                 Workload _updateworkload = new Workload();
 
                 Objects.MapObjects(this, _updateworkload);
-                channel.UpdateWorkloadAsync(_updateworkload);
+                channel.UpdateWorkload(_updateworkload);
             }
         }
     }

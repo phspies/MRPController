@@ -1,15 +1,10 @@
-﻿using CloudMRPNotifier.CloudMRPWCF;
-using CloudMRPNotifier.Models;
+﻿using MRPNotifier.Models;
 using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
+using MRPService.MRPWCFService;
 
-namespace CloudMRPNotifier.Forms
+namespace MRPNotifier.Forms
 {
     /// <summary>
     /// Interaction logic for credentialform.xaml

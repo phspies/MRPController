@@ -3,7 +3,7 @@ using System;
 
 namespace MRPService.Utilities
 {
-    static class CloudMRPEvents
+    static class MRPEvents
     {
         public static void add(Event _event)
         {

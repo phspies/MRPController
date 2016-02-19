@@ -7,9 +7,9 @@ namespace MRPService.API
 {
     class MRPWorkload : Core
     {
-        public MRPWorkload(ApiClient _CloudMRP) : base(_CloudMRP) {
+        public MRPWorkload(ApiClient _MRP) : base(_MRP) {
         }
-        public ApiClient CloudMRP = new ApiClient();
+        public ApiClient MRP = new ApiClient();
 
         public MRPWorkloadListType listworkloads()
         {

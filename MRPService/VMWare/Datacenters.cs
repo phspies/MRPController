@@ -18,13 +18,12 @@ namespace MRPService.VMWare
             }
             return datacenters;
         }
-        public Datacenter GetDataCenter(string morefMoRef)
+        public Datacenter GetDataCenter(string _dc_moref)
         {
             List<EntityViewBase> appDatacenters = new List<EntityViewBase>();
 
-            NameValueCollection dcFilter = new NameValueCollection();
-            dcFilter.Add("moid", moid);
-            appDatacenters = _vmwarecontext.FindEntityViews(typeof(Datacenter), null, dcFilter, null);
+            ManagedObjectReference dcobj = new ManagedObjectReference() { Type = "Datacenter", Value = _dc_moref };
+            appDatacenters = _vmwarecontext.FindEntityViews(typeof(Datacenter), dcobj, null, null);
 
             return appDatacenters[0] as Datacenter;
         }

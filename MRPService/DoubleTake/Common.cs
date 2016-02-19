@@ -11,34 +11,34 @@ namespace MRPService.DoubleTake
         //        {
         //            try
         //            {
-        //                CloudMRP.task().progress(payload, "Creating ManagementService process", 9);
+        //                MRP.task().progress(payload, "Creating ManagementService process", 9);
         //                IManagementService iMgrSrc = ManagementService(CMWorkloadType.Target).CreateChannel();
 
-        //                CloudMRP.task().progress(payload, "DT Data Gathering", 50);
-        //                CloudMRP.task().successcomplete(payload, JsonConvert.SerializeObject(iMgrSrc.GetWorkloadInfo()));
+        //                MRP.task().progress(payload, "DT Data Gathering", 50);
+        //                MRP.task().successcomplete(payload, JsonConvert.SerializeObject(iMgrSrc.GetWorkloadInfo()));
         //            }
         //            catch (Exception e)
         //            {
-        //                CloudMRP.task().failcomplete(payload, e.ToString());
+        //                MRP.task().failcomplete(payload, e.ToString());
         //            }
         //        }
 
         //        public static void dt_getimages(MRPTaskType payload)
         //        {
-        //            CloudMRP.task().progress(payload, "DT Connection", 50);
+        //            MRP.task().progress(payload, "DT Connection", 50);
         //            ChannelFactory<IManagementService> MgtServiceFactory =
         //                new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService",
         //                    new EndpointAddress(BuildUrl(payload, "/DoubleTake/Common/Contract/ManagementService", 0)));
-        //            MRPTask tasks = new MRPTask(CloudMRP);
+        //            MRPTask tasks = new MRPTask(MRP);
         //            IManagementService iMgrSrc = MgtServiceFactory.CreateChannel();
         //            try
         //            {
-        //                CloudMRP.task().progress(payload, "DT Data Gathering", 50);
-        //                CloudMRP.task().successcomplete(payload, JsonConvert.SerializeObject(iMgrSrc.GetImages(null)));
+        //                MRP.task().progress(payload, "DT Data Gathering", 50);
+        //                MRP.task().successcomplete(payload, JsonConvert.SerializeObject(iMgrSrc.GetImages(null)));
         //            }
         //            catch (Exception e)
         //            {
-        //                CloudMRP.task().failcomplete(payload, e.ToString());
+        //                MRP.task().failcomplete(payload, e.ToString());
         //            }
         //        }
 
@@ -165,7 +165,7 @@ namespace MRPService.DoubleTake
         //            remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
         //            string workloadPath = Path.Combine(workload, remoteInstallFiles);
         //            workloadPath = @"\\" + workloadPath + @"\" + selection;
-        //            CloudMRP.task().progress(_payload, "Copy files to remote workload to " + workloadPath, 51);
+        //            MRP.task().progress(_payload, "Copy files to remote workload to " + workloadPath, 51);
         //            var endTime = DateTime.Now.AddMinutes(1);
         //            using (Impersonation.LogonUser(domain, username, password, LogonType.Batch))
         //            {
@@ -175,7 +175,7 @@ namespace MRPService.DoubleTake
         //                    {
         //                        if (Directory.Exists(workloadPath))
         //                        {
-        //                            CloudMRP.task().progress(_payload, "Copy files to remote workload to " + workloadPath, 52);
+        //                            MRP.task().progress(_payload, "Copy files to remote workload to " + workloadPath, 52);
         //                            break;
         //                        }
         //                        else
@@ -183,7 +183,7 @@ namespace MRPService.DoubleTake
         //                            Directory.CreateDirectory(workloadPath);
         //                            if (Directory.Exists(workloadPath))
         //                            {
-        //                                CloudMRP.task().progress(_payload, String.Format("Successfully created directories {0} to copy install file to on {1} \n", workloadPath, workload), 53);
+        //                                MRP.task().progress(_payload, String.Format("Successfully created directories {0} to copy install file to on {1} \n", workloadPath, workload), 53);
 
         //                                break;
         //                            }
@@ -192,18 +192,18 @@ namespace MRPService.DoubleTake
         //                    catch (IOException e)
         //                    {
 
-        //                        CloudMRP.task().progress(_payload, String.Format("Failed to create directory on {0}. Retrying... {1}", workload, e.ToString()), 54);
+        //                        MRP.task().progress(_payload, String.Format("Failed to create directory on {0}. Retrying... {1}", workload, e.ToString()), 54);
         //                        lastException = e;
         //                        Thread.Sleep(TimeSpan.FromSeconds(10));
         //                    }
         //                }
         //                if (endTime <= DateTime.Now)
         //                {
-        //                    CloudMRP.task().progress(_payload, String.Format("Timed out while waiting for directory to be created on {0}.", workload), 55);
+        //                    MRP.task().progress(_payload, String.Format("Timed out while waiting for directory to be created on {0}.", workload), 55);
 
         //                    if (lastException != null)
         //                    {
-        //                        CloudMRP.task().progress(_payload, String.Format("Problem creating directory on {0}. Error: {1} \n ", workload, lastException), 56);
+        //                        MRP.task().progress(_payload, String.Format("Problem creating directory on {0}. Error: {1} \n ", workload, lastException), 56);
         //                        success = false;
         //                    }
         //                }
@@ -235,10 +235,10 @@ namespace MRPService.DoubleTake
         //                    File.SetAttributes(setupFileOnWorkload, FileAttributes.Normal);
 
         //                Thread.Sleep(TimeSpan.FromSeconds(1));
-        //                CloudMRP.task().progress(_payload, String.Format("Copy installation files to {0} on {1}", workloadPath, workload), 57);
+        //                MRP.task().progress(_payload, String.Format("Copy installation files to {0} on {1}", workloadPath, workload), 57);
 
         //                File.Copy(localFilePath, setupFileOnWorkload, true);
-        //                CloudMRP.task().progress(_payload, String.Format("Setup file copied successfully {0}", workload), 58);
+        //                MRP.task().progress(_payload, String.Format("Setup file copied successfully {0}", workload), 58);
 
         //                return true;
         //            }
@@ -250,7 +250,7 @@ namespace MRPService.DoubleTake
         //                string localConfigFilePath = @"C:\Program Files\Vision Solutions\Double-Take\DTSetup.ini";
         //                if (!File.Exists(localConfigFilePath))
         //                {
-        //                    CloudMRP.task().failcomplete(_payload, String.Format("Couldn't locate required configuration file(s) {0}", localConfigFilePath));
+        //                    MRP.task().failcomplete(_payload, String.Format("Couldn't locate required configuration file(s) {0}", localConfigFilePath));
         //                    return false;
         //                }
         //                remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
@@ -263,7 +263,7 @@ namespace MRPService.DoubleTake
         //                Thread.Sleep(TimeSpan.FromSeconds(1));
         //                File.Copy(localConfigFilePath, configFileOnWorkload, true);
 
-        //                CloudMRP.task().progress(_payload, String.Format("Configuration file copied successfully {0}", configFileOnWorkload));
+        //                MRP.task().progress(_payload, String.Format("Configuration file copied successfully {0}", configFileOnWorkload));
 
         //                return true;
         //            }

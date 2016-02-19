@@ -1,15 +1,14 @@
-﻿using CloudMRPNotifier.CloudMRPWCF;
-using CloudMRPNotifier.Models;
+﻿using MRPNotifier.Models;
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using MRPService.MRPWCFService;
 
-namespace CloudMRPNotifier.Forms
+namespace MRPNotifier.Forms
 {
     /// <summary>
     /// Interaction logic for Platformform.xaml
@@ -91,21 +90,17 @@ namespace CloudMRPNotifier.Forms
 
         private void test_connection_button_Click(object sender, RoutedEventArgs e)
         {
-            CloudMRPServiceClient channel = new CloudMRPServiceClient();
-            var response = channel.Account(_record.url, _credentials.Find(x => x.id == _record.credential_id));
-            if (response.GetType() == typeof(ResponseType))
+            MRPWCFServiceClient channel = new MRPWCFServiceClient();
+            String response = channel.Login(_record.url, _credentials.Find(x => x.id == _record.credential_id), _record.vendor);
+            if (response != "Success")
             {
-                ResponseType _error = (ResponseType)response;
-                message.Text = _error.messageField;
+                message.Text = response;
                 message.Foreground = new SolidColorBrush(Colors.Red);
                 _record.passwordok = 0;
             }
             else
             {
-                var dcresponse = channel.ListDatacenters(_record.url, _credentials.Find(x => x.id == _record.credential_id));
-                DatacenterListType _datacenters = (DatacenterListType)dcresponse;
-                List<Datacenter> _viewdatacenters = new List<Datacenter>();
-                _datacenters.datacenterField.ForEach(x => _viewdatacenters.Add(new Datacenter() { datacenter = x.displayNameField, moid = x.idField }));
+                List<Platform> _viewdatacenters = channel.ListDatacenters(_record.url, _credentials.Find(x => x.id == _record.credential_id), _record.vendor);
                 platform_datacenter.ItemsSource = _viewdatacenters;
                 _record.passwordok = 1;
                 message.Foreground = new SolidColorBrush(Colors.Green);

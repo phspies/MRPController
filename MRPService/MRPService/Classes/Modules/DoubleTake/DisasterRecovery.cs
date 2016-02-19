@@ -7,13 +7,13 @@ namespace MRPService.DoubleTake
     {
         public MRPDoubleTake_DisasterRecovery(MRP_DoubleTake cmdoubletake) : base(cmdoubletake) { }
 
-        static API.ApiClient CloudMRP = null;
+        static API.ApiClient MRP = null;
         static MRPTaskListType tasks = null;
         static dynamic _payload = null;
 
         //public static void dt_create_dr_syncjob(MRPTaskType request)
         //{
-        //    CloudMRP.task().progress(request, "Creating sync process", 5);
+        //    MRP.task().progress(request, "Creating sync process", 5);
         //    try
         //    {
         //        bool _delete_current_job = (bool)request.submitpayload.dt.delete_current_dt_job;
@@ -32,7 +32,7 @@ namespace MRPService.DoubleTake
         //        {
         //            foreach (JobInfo _delete_job in _jobs.Where(x => x.JobType == jobTypeConstant && _source_ips.Any(x.SourceHostUri.Host.Contains) && _target_ips.Any(x.TargetHostUri.Host.Contains)))
         //            {
-        //                CloudMRP.task().progress(request, String.Format("Deleting existing full workload protection jobs between {0} and {1}", _source_ips[0], _target_ips[0]), 10);
+        //                MRP.task().progress(request, String.Format("Deleting existing full workload protection jobs between {0} and {1}", _source_ips[0], _target_ips[0]), 10);
 
         //                DTJobs.DeleteOptions _delete_options = new DTJobs.DeleteOptions();
         //                _delete_options.DeleteReplica = true;
@@ -128,7 +128,7 @@ namespace MRPService.DoubleTake
 
         //        if (failedSteps.Any())
         //        {
-        //            CloudMRP.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
+        //            MRP.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
         //        }
 
         //        Guid jobId = iJobMgr.Create(new CreateOptions
@@ -139,7 +139,7 @@ namespace MRPService.DoubleTake
         //        }, Guid.NewGuid());
         //        iJobMgr.Start(jobId);
 
-        //        CloudMRP.task().progress(request, "Waiting for sync process to start", 11);
+        //        MRP.task().progress(request, "Waiting for sync process to start", 11);
 
         //        JobInfo jobinfo = iJobMgr.GetJob(jobId);
         //        while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails == null)
@@ -154,7 +154,7 @@ namespace MRPService.DoubleTake
         //        }
         //        Thread.Sleep(5000);
         //        jobinfo = iJobMgr.GetJob(jobId);
-        //        CloudMRP.task().progress(request, "Sync process started", 12);
+        //        MRP.task().progress(request, "Sync process started", 12);
         //        while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorState != MirrorState.Idle)
         //        {
         //            if (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorBytesRemaining != null)
@@ -169,24 +169,24 @@ namespace MRPService.DoubleTake
         //                    {
         //                        _lastreport = percentage.ToString()[0];
         //                        String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
-        //                        CloudMRP.task().progress(request, progress, percentage);
+        //                        MRP.task().progress(request, progress, percentage);
         //                    }
         //                }
         //            }
         //            Thread.Sleep(10000);
         //            jobinfo = iJobMgr.GetJob(jobId);
         //        }
-        //        CloudMRP.task().progress(request, "Successfully synchronized workload to " + (String)request.submitpayload.dt.recoverypolicy.repositorypath, 99);
-        //        CloudMRP.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo));
+        //        MRP.task().progress(request, "Successfully synchronized workload to " + (String)request.submitpayload.dt.recoverypolicy.repositorypath, 99);
+        //        MRP.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo));
         //    }
         //    catch (Exception e)
         //    {
-        //        CloudMRP.task().failcomplete(request, String.Format("Create sync process failed: {0}", e.Message));
+        //        MRP.task().failcomplete(request, String.Format("Create sync process failed: {0}", e.Message));
         //    }
         //}
         //public static void dt_create_dr_seedjob(dynamic request)
         //{
-        //    CloudMRP.task().progress(request, "Creating seed process", 5);
+        //    MRP.task().progress(request, "Creating seed process", 5);
         //    try
         //    {
         //        bool _delete_current_job = (bool)request.payload.dt.delete_current_dt_job;
@@ -203,7 +203,7 @@ namespace MRPService.DoubleTake
         //        {
         //            foreach (JobInfo _delete_job in _jobs.Where(x => x.JobType == jobTypeConstant && _source_ips.Any(x.SourceHostUri.Host.Contains) && _target_ips.Any(x.TargetHostUri.Host.Contains)))
         //            {
-        //                CloudMRP.task().progress(request, String.Format("Deleting existing full workload protection jobs between {0} and {1}", _source_ips[0], _target_ips[0]), 10);
+        //                MRP.task().progress(request, String.Format("Deleting existing full workload protection jobs between {0} and {1}", _source_ips[0], _target_ips[0]), 10);
 
         //                DoubleTake.Jobs.Contract.DeleteOptions _delete_options = new DoubleTake.Jobs.Contract.DeleteOptions();
         //                _delete_options.DeleteReplica = true;
@@ -297,7 +297,7 @@ namespace MRPService.DoubleTake
 
         //        if (failedSteps.Any())
         //        {
-        //            CloudMRP.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
+        //            MRP.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
         //        }
 
         //        Guid jobId = iJobMgr.Create(new CreateOptions
@@ -309,7 +309,7 @@ namespace MRPService.DoubleTake
         //        iJobMgr.Start(jobId);
         //        Thread.Sleep(5000);
 
-        //        CloudMRP.task().progress(request, "Waiting for seeding process to start", 6);
+        //        MRP.task().progress(request, "Waiting for seeding process to start", 6);
 
         //        JobInfo jobinfo = iJobMgr.GetJob(jobId);
         //        while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails == null)
@@ -334,7 +334,7 @@ namespace MRPService.DoubleTake
         //                {
         //                    _lastreport = percentage.ToString()[0];
         //                    String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
-        //                    CloudMRP.task().progress(request, progress, percentage);
+        //                    MRP.task().progress(request, progress, percentage);
         //                }
         //            }
         //            Thread.Sleep(10000);
@@ -345,7 +345,7 @@ namespace MRPService.DoubleTake
         //        jobinfo = iJobMgr.GetJob(jobId);
         //        while (!jobinfo.Status.CanDelete)
         //        {
-        //            CloudMRP.task().progress(request, "Waiting for process to be deletable", 98);
+        //            MRP.task().progress(request, "Waiting for process to be deletable", 98);
         //            Thread.Sleep(5000);
         //            jobinfo = iJobMgr.GetJob(jobId);
         //        }
@@ -356,32 +356,32 @@ namespace MRPService.DoubleTake
         //        imagedeleteinfo.VhdDeleteAction = VhdDeleteActionType.KeepAll;
         //        jobdelete.ImageOptions = imagedeleteinfo;
 
-        //        CloudMRP.task().progress(request, "Destroying seeding process from DT engine", 98);
+        //        MRP.task().progress(request, "Destroying seeding process from DT engine", 98);
 
         //        iJobMgr.Delete(jobId, jobdelete);
-        //        CloudMRP.task().progress(request, "Successfully seeded workload to " + (String)request.payload.dt.recoverypolicy.repositorypath, 99);
+        //        MRP.task().progress(request, "Successfully seeded workload to " + (String)request.payload.dt.recoverypolicy.repositorypath, 99);
 
-        //        CloudMRP.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo));
+        //        MRP.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo));
         //    }
         //    catch (Exception e)
         //    {
-        //        CloudMRP.task().failcomplete(request, String.Format("Create seed process failed: {0}", e.Message));
+        //        MRP.task().failcomplete(request, String.Format("Create seed process failed: {0}", e.Message));
         //    }
         //}
         //public static void dt_create_dr_restorejob(dynamic request)
         //{
         //    try
         //    {
-        //        CloudMRP.task().progress(request, "Creating JobManager process", 5);
+        //        MRP.task().progress(request, "Creating JobManager process", 5);
         //        IJobManager iJobMgr = JobManager().CreateChannel();
 
-        //        CloudMRP.task().progress(request, "Creating WorkloadManager process", 7);
+        //        MRP.task().progress(request, "Creating WorkloadManager process", 7);
         //        IWorkloadManager workloadMgr = WorkloadManager().CreateChannel();
 
-        //        CloudMRP.task().progress(request, "Creating ManagementService process", 9);
+        //        MRP.task().progress(request, "Creating ManagementService process", 9);
         //        IManagementService iMgrSrc = ManagementService(CMWorkloadType.Source).CreateChannel();
 
-        //        CloudMRP.task().progress(request, "Creating JobConfigurationVerifier process", 11);
+        //        MRP.task().progress(request, "Creating JobConfigurationVerifier process", 11);
         //        IJobConfigurationVerifier VerifierFactory = ConfigurationVerifier().CreateChannel();
 
         //        String jobTypeConstant = @"FullWorkloadImageRecovery";
@@ -394,10 +394,10 @@ namespace MRPService.DoubleTake
         //        sourceWorkloadImageID = imageInfos.First(x => x.ImageType == ImageType.FullWorkload && x.SourceName == sourceWorkloadName).Id;
         //        if (sourceWorkloadImageID == Guid.Empty)
         //        {
-        //            CloudMRP.task().failcomplete(request, String.Format("Source Workload image not found on Repository Workload: {0}", sourceWorkloadName));
+        //            MRP.task().failcomplete(request, String.Format("Source Workload image not found on Repository Workload: {0}", sourceWorkloadName));
         //            return;
         //        }
-        //        CloudMRP.task().progress(request, String.Format("Found workload image: {0}", sourceWorkloadImageID), 13);
+        //        MRP.task().progress(request, String.Format("Found workload image: {0}", sourceWorkloadImageID), 13);
 
 
         //        // First step to creating a job is creating a Workload on the source
@@ -429,7 +429,7 @@ namespace MRPService.DoubleTake
         //        }
 
 
-        //        CloudMRP.task().progress(request, String.Format("Verifying restore job information"), 15);
+        //        MRP.task().progress(request, String.Format("Verifying restore job information"), 15);
 
         //        var jobCreds = new JobCredentials
         //        {
@@ -462,7 +462,7 @@ namespace MRPService.DoubleTake
 
         //        if (failedSteps.Any())
         //        {
-        //            CloudMRP.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
+        //            MRP.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
         //        }
 
         //        Guid jobId = iJobMgr.Create(new CreateOptions
@@ -474,7 +474,7 @@ namespace MRPService.DoubleTake
         //        iJobMgr.Start(jobId);
         //        Thread.Sleep(5000);
 
-        //        CloudMRP.task().progress(request, "Waiting for restore process to start", 17);
+        //        MRP.task().progress(request, "Waiting for restore process to start", 17);
 
         //        JobInfo jobinfo = iJobMgr.GetJob(jobId);
         //        while (jobinfo.Statistics.ImageRecoveryJobDetails.RecoveryConnectionDetails == null)
@@ -501,18 +501,18 @@ namespace MRPService.DoubleTake
         //                    {
         //                        _lastreport = percentage.ToString()[0];
         //                        String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
-        //                        CloudMRP.task().progress(request, progress, percentage);
+        //                        MRP.task().progress(request, progress, percentage);
         //                    }
         //                }
         //            }
         //            Thread.Sleep(10000);
         //            jobinfo = iJobMgr.GetJob(jobId);
         //        }
-        //        CloudMRP.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo = iJobMgr.GetJob(jobId)));
+        //        MRP.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo = iJobMgr.GetJob(jobId)));
         //    }
         //    catch (Exception e)
         //    {
-        //        CloudMRP.task().failcomplete(request, String.Format("Create restore process failed: {0}", e.Message));
+        //        MRP.task().failcomplete(request, String.Format("Create restore process failed: {0}", e.Message));
         //    }
         //}
         //public static void dt_failover_dr(dynamic request)
@@ -521,16 +521,16 @@ namespace MRPService.DoubleTake
         //    {
         //        Guid _jobId = request.payload.dt.jobId;
 
-        //        CloudMRP.task().progress(request, "Creating JobManager process", 5);
+        //        MRP.task().progress(request, "Creating JobManager process", 5);
         //        IJobManager iJobMgr = JobManager().CreateChannel();
 
-        //        CloudMRP.task().progress(request, "Creating WorkloadManager process", 7);
+        //        MRP.task().progress(request, "Creating WorkloadManager process", 7);
         //        IWorkloadManager workloadMgr = WorkloadManager().CreateChannel();
 
-        //        CloudMRP.task().progress(request, "Creating ManagementService process", 9);
+        //        MRP.task().progress(request, "Creating ManagementService process", 9);
         //        IManagementService iMgrSrc = ManagementService(CMWorkloadType.Source).CreateChannel();
 
-        //        CloudMRP.task().progress(request, "Creating JobConfigurationVerifier process", 11);
+        //        MRP.task().progress(request, "Creating JobConfigurationVerifier process", 11);
         //        IJobConfigurationVerifier VerifierFactory = ConfigurationVerifier().CreateChannel();
 
         //        JobInfo _jobInfo = iJobMgr.GetJob(_jobId);
@@ -590,7 +590,7 @@ namespace MRPService.DoubleTake
 
         //        if (failedSteps.Any())
         //        {
-        //            CloudMRP.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
+        //            MRP.task().failcomplete(request, JsonConvert.SerializeObject(failedSteps));
         //        }
 
         //        Guid jobId = iJobMgr.Create(new CreateOptions
@@ -601,7 +601,7 @@ namespace MRPService.DoubleTake
         //        }, Guid.NewGuid());
         //        iJobMgr.Start(jobId);
 
-        //        CloudMRP.task().progress(request, "Waiting for sync process to start", 11);
+        //        MRP.task().progress(request, "Waiting for sync process to start", 11);
 
         //        JobInfo jobinfo = iJobMgr.GetJob(jobId);
         //        while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails == null)
@@ -616,7 +616,7 @@ namespace MRPService.DoubleTake
         //        }
         //        Thread.Sleep(5000);
         //        jobinfo = iJobMgr.GetJob(jobId);
-        //        CloudMRP.task().progress(request, "Sync process started", 12);
+        //        MRP.task().progress(request, "Sync process started", 12);
         //        while (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorState != MirrorState.Idle)
         //        {
         //            if (jobinfo.Statistics.ImageProtectionJobDetails.ProtectionConnectionDetails.MirrorBytesRemaining != null)
@@ -631,20 +631,20 @@ namespace MRPService.DoubleTake
         //                    {
         //                        _lastreport = percentage.ToString()[0];
         //                        String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
-        //                        CloudMRP.task().progress(request, progress, percentage);
+        //                        MRP.task().progress(request, progress, percentage);
         //                    }
         //                }
         //            }
         //            Thread.Sleep(10000);
         //            jobinfo = iJobMgr.GetJob(jobId);
         //        }
-        //        CloudMRP.task().progress(request, "Successfully synchronized workload to " + (String)request.payload.dt.recoverypolicy.repositorypath, 99);
+        //        MRP.task().progress(request, "Successfully synchronized workload to " + (String)request.payload.dt.recoverypolicy.repositorypath, 99);
 
-        //        CloudMRP.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo));
+        //        MRP.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo));
         //    }
         //    catch (Exception e)
         //    {
-        //        CloudMRP.task().failcomplete(request, String.Format("Create sync process failed: {0}", e.Message));
+        //        MRP.task().failcomplete(request, String.Format("Create sync process failed: {0}", e.Message));
         //    }
         //}
 

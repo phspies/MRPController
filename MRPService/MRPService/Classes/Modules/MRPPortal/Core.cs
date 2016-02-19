@@ -12,10 +12,10 @@ namespace MRPService.API
         private String _apibase, _endpoint;
         private ApiClient _client;
 
-        public Core(ApiClient _CloudMRP)
+        public Core(ApiClient _MRP)
         {
-            _apibase = _CloudMRP.ApiBase;
-            _client = _CloudMRP;
+            _apibase = _MRP.ApiBase;
+            _client = _MRP;
         }
 
         public type post<type>(Object _object) where type : new()

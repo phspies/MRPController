@@ -18,13 +18,13 @@ namespace MRPService.Utilities
         static public void RegisterAgent()
         {
 
-            ApiClient CloudMRP = new ApiClient();
-            if (!CloudMRP.worker().confirm_worker())
+            ApiClient MRP = new ApiClient();
+            if (!MRP.worker().confirm_worker())
             {
                 Logger.log("Worker not registered, registering worker with MRP portal", Logger.Severity.Warn);
-                if (CloudMRP.worker().register_worker())
+                if (MRP.worker().register_worker())
                 {
-                    if (CloudMRP.worker().confirm_worker())
+                    if (MRP.worker().confirm_worker())
                     {
                         Logger.log("Worker Registered", Logger.Severity.Warn);
                     }
@@ -40,7 +40,7 @@ namespace MRPService.Utilities
             //Define global version number
             String _registry = @"SOFTWARE\MRP Worker Service";
             Global.version_number = "0.0.1";
-            Logger.log("Starting CloudMRP Worker Service", Logger.Severity.Info);
+            Logger.log("Starting MRP Worker Service", Logger.Severity.Info);
             RegistryKey rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
             if (rkSubKey == null)
             {
@@ -75,7 +75,7 @@ namespace MRPService.Utilities
             {
                 Global.agent_id = _agentId.ToString();
             }
-            if (Global.debug) {Logger.log("CloudMRP Worker Agent ID:" + Global.agent_id, Logger.Severity.Info);};
+            if (Global.debug) {Logger.log("MRP Worker Agent ID:" + Global.agent_id, Logger.Severity.Info);};
 
             //load portal API base url
             String _apiBase = rkSubKey.GetValue("apiBase", null) as String;
@@ -89,7 +89,7 @@ namespace MRPService.Utilities
                 Global.api_base = _apiBase.ToString();
                 if (Uri.IsWellFormedUriString(Global.api_base, UriKind.Absolute))
                 {
-                    if (Global.debug) { Logger.log("CloudMRP Portal URL:" + Global.api_base, Logger.Severity.Info); };
+                    if (Global.debug) { Logger.log("MRP Portal URL:" + Global.api_base, Logger.Severity.Info); };
                 }
                 else
                 {

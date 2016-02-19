@@ -9,9 +9,9 @@ namespace MRPService.API
 {
     class MRPTask : Core
     {
-        public MRPTask(ApiClient _CloudMRP) : base(_CloudMRP) {
+        public MRPTask(ApiClient _MRP) : base(_MRP) {
         }
-        public ApiClient CloudMRP = new ApiClient();
+        public ApiClient MRP = new ApiClient();
 
         public MRPTaskListType tasks()
         {

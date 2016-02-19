@@ -6,9 +6,9 @@ namespace MRPService.API
 {
     class PortalCredential : Core
     {
-        public PortalCredential(ApiClient _CloudMRP) : base(_CloudMRP) {
+        public PortalCredential(ApiClient _MRP) : base(_MRP) {
         }
-        public ApiClient CloudMRP = new ApiClient();
+        public ApiClient MRP = new ApiClient();
 
         public MRPCredentialListType listcredentials()
         {

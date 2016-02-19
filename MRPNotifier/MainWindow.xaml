@@ -3,18 +3,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-    xmlns:local="clr-namespace:CloudMRPNotifier"
-    xmlns:model="clr-namespace:CloudMRPNotifier.Models"
+    xmlns:local="clr-namespace:MRPNotifier"
+    xmlns:model="clr-namespace:MRPNotifier.Models"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
-    x:Class="CloudMRPNotifier.MainWindow" 
+    x:Class="MRPNotifier.MainWindow" 
     Icon="cloudmovey.ico"
     x:Name="Window" 
     ContentRendered="Window_ContentRendered"
     EnableDWMDropShadow="True"   
     Background="#F9FCF6"
     Loaded="OnWindowLoaded"
-    Title="CloudMRP Worker" Height="666.671" Width="1269.191" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
+    Title="MRP Worker" Height="666.671" Width="1269.191" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
 
     <controls:MetroWindow.Resources>
         <ResourceDictionary>

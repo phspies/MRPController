@@ -7,7 +7,7 @@ namespace MRPService.API
 {
     class MRPNetworkflow : Core
     {
-        public MRPNetworkflow(ApiClient _CloudMRP) : base(_CloudMRP) {
+        public MRPNetworkflow(ApiClient _MRP) : base(_MRP) {
         }
          
         public void createnetworkflow(MRPNetworkFlowCRUDType _networkflow)

@@ -13,7 +13,7 @@ namespace MRPService.LocalDatabase
 
         public MRPDatabase() : base(GetConnection(), true)
         {
-            Database.SetInitializer<MRPDatabase>(new CloudMRPDBInitializer());
+            Database.SetInitializer<MRPDatabase>(new MRPDBInitializer());
         }
 
         public DbSet<Credential> Credentials { get; set; }
@@ -27,6 +27,10 @@ namespace MRPService.LocalDatabase
         {
             string dblocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string dbfilename = Path.Combine(dblocation,"Database","MRP.sdf");
+            if (!Directory.Exists(Path.GetDirectoryName(dbfilename)))
+            {
+                Directory.CreateDirectory(Path.GetDirectoryName(dbfilename));
+            }
             var factory = DbProviderFactories.GetFactory("System.Data.SqlServerCe.4.0");
             var connection = factory.CreateConnection();
             string dbfullpath = Path.Combine(dblocation, dbfilename);
@@ -34,7 +38,7 @@ namespace MRPService.LocalDatabase
             return connection;
         }
 
-        public class CloudMRPDBInitializer : CreateDatabaseIfNotExists<MRPDatabase>
+        public class MRPDBInitializer : CreateDatabaseIfNotExists<MRPDatabase>
         {
             protected override void Seed(MRPDatabase context)
             {
