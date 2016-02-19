@@ -1,4 +1,4 @@
-﻿namespace MRPService.Portal.Types.API
+﻿namespace MRPService.API.Types.API
 {
     class MRPWorkerType
     {

@@ -88,11 +88,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\CloudMovey.Ssh.dll</HintPath>
     </Reference>
-    <Reference Include="DD.CBU.Compute.Api.Client">
-      <HintPath>..\..\..\..\Downloads\DimensionData.ComputeClient-master\DimensionData.ComputeClient-master\ComputeClient\Compute.Client\bin\Debug\DD.CBU.Compute.Api.Client.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.0.252.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.0.252-develop\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="DD.CBU.Compute.Api.Contracts">
-      <HintPath>..\..\..\..\Downloads\DimensionData.ComputeClient-master\DimensionData.ComputeClient-master\ComputeClient\Compute.Client\bin\Debug\DD.CBU.Compute.Api.Contracts.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.0.252.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.0.252-develop\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -254,6 +256,10 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Extensions, Version=2.2.22.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.Primitives, Version=4.2.22.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -1077,46 +1083,54 @@
       <DependentUpon>201512310441146_networflow.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="MRPPortal\CloudMoveyPortal.cs" />
-    <Compile Include="MRPPortal\Core.cs" />
-    <Compile Include="MRPPortal\JSONSerializer.cs" />
-    <Compile Include="MRPPortal\MoveyCredential_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyFailovergroup_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyNetworkflow_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyPerformanceCategory_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyPerformanceCounter_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyPlatformdomain_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyPlatformnetwork_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyPlatformtemplate_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyPlatform_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyTask_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyWorker_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyJob_Methods.cs" />
-    <Compile Include="MRPPortal\MoveyWorkload_Methods.cs" />
-    <Compile Include="MRPPortal\XSD\cloudmoveyprotal.cs">
-      <DependentUpon>cloudmoveyprotal.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="MRPService\Classes\Background Classes\NetflowV9Worker.cs" />
-    <Compile Include="MRPService\Classes\Background Classes\NetflowWorker.cs" />
-    <Compile Include="MRPService\Classes\Background Classes\OSInventoryWorker.cs" />
-    <Compile Include="MRPService\Classes\Background Classes\PerformanceWorker.cs" />
-    <Compile Include="MRPService\Classes\Background Classes\PlatformInventoryWorker.cs" />
-    <Compile Include="MRPService\Classes\Background Classes\PortalDataUploadWorker.cs" />
-    <Compile Include="MRPService\Classes\Background Classes\TaskWorker.cs" />
-    <Compile Include="MRPService\Classes\Connection.cs" />
-    <Compile Include="MRPService\Classes\Events.cs" />
-    <Compile Include="MRPService\Classes\HashExtensions.cs" />
-    <Compile Include="MRPService\Classes\Platform.cs" />
-    <Compile Include="MRPService\Classes\Settings.cs" />
-    <Compile Include="MRPService\Classes\Workload.cs" />
-    <Compile Include="MRPService\Database\MRPContext.cs" />
-    <Compile Include="MRPService\Database\SimpleEAS.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\APIClient.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Core.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\JSONSerializer.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Credentials.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Networkflows.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\PerformanceCategories.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\PerformanceCounters.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformDomains.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformNetworks.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformTemplates.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Platforms.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Tasks.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Workers.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobs.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Workloads.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetflowV9Worker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetflowWorker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\OSInventoryWorker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PerformanceWorker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventoryWorker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PortalDataUploadWorker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\TaskExecutioner.cs" />
+    <Compile Include="MRPService\Classes\Utilities\Connection.cs" />
+    <Compile Include="MRPService\Classes\Utilities\Events.cs" />
+    <Compile Include="MRPService\Classes\Utilities\HashExtensions.cs" />
+    <Compile Include="MRPService\Classes\Tasks\Platform.cs" />
+    <Compile Include="MRPService\Classes\Utilities\Settings.cs" />
+    <Compile Include="MRPService\Classes\Tasks\Workload.cs" />
+    <Compile Include="MRPService\Database\Classes\NetworkFlowSet.cs" />
+    <Compile Include="MRPService\Database\Classes\GenericDatabase.cs" />
+    <Compile Include="MRPService\Database\Classes\CredentialSet.cs" />
+    <Compile Include="MRPService\Database\Classes\PerformanceSet.cs" />
+    <Compile Include="MRPService\Database\Classes\WorkloadSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\INetworkSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IGenericDatabase.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IPerformanceSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\ICredentialSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IWorkloadSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IPlatformSet.cs" />
+    <Compile Include="MRPService\Database\Context\MRPDatabase.cs" />
+    <Compile Include="MRPService\Classes\Utilities\SimpleEAS.cs" />
     <Compile Include="MRPService\Database\Structures\Credential.cs" />
     <Compile Include="MRPService\Database\Structures\Event.cs" />
     <Compile Include="MRPService\Database\Structures\NetworkFlow.cs" />
     <Compile Include="MRPService\Database\Structures\Performance.cs" />
     <Compile Include="MRPService\Database\Structures\Platform.cs" />
     <Compile Include="MRPService\Database\Structures\Workload.cs" />
+    <Compile Include="MRPService\Database\Classes\PlatformSet.cs" />
     <Compile Include="MRPService\Logging.cs" />
     <Compile Include="MRPService\Types\API\CommandWorker.cs" />
     <Compile Include="MRPService\Types\API\Credentials.cs" />
@@ -1157,7 +1171,7 @@
     <Compile Include="NetFlow\v9\Packet.cs" />
     <Compile Include="NetFlow\v9\Template.cs" />
     <Compile Include="NetFlow\v9\Templates.cs" />
-    <Compile Include="Utils.cs" />
+    <Compile Include="MRPService\Classes\Utilities\Utils.cs" />
     <Compile Include="VirtualCenter\Core.cs" />
     <Compile Include="VirtualCenter\Workloads.cs" />
     <Compile Include="VirtualCenter\Datacenters.cs" />
@@ -1169,7 +1183,7 @@
     <Compile Include="MRPSvc.Designer.cs">
       <DependentUpon>MRPSvc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models.cs" />
+    <Compile Include="MRPService\Models.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -1205,9 +1219,6 @@
     <None Include="DiscUtils\obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <None Include="DiscUtils\obj\Debug\DiscUtils.csproj.GenerateResource.Cache" />
     <None Include="DiscUtils\obj\Debug\DiscUtils.csprojResolveAssemblyReference.cache" />
-    <None Include="MRPPortal\XSD\cloudmoveyprotal.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -1435,9 +1446,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

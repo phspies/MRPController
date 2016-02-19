@@ -1,10 +1,10 @@
-﻿using MRPService.Portal;
+﻿using MRPService.API;
 using System;
 using System.Net;
 using System.ServiceModel;
 using MRPService.LocalDatabase;
-using MRPService.CloudMRP.Classes.Static_Classes;
 using DoubleTake.Jobs.Contract;
+using MRPService.Utilities;
 
 namespace MRPService.DoubleTake
 {
@@ -60,7 +60,7 @@ namespace MRPService.DoubleTake
         }
         public JobCredentials DTJobCredentials()
         {
-            LocalDB db = new LocalDB();
+            MRPDatabase db = new MRPDatabase();
             Credential _source_credential = db.Credentials.Find(_source_workload.credential_id);
             Credential _target_credential = db.Credentials.Find(_target_workload.credential_id);
 
@@ -74,7 +74,7 @@ namespace MRPService.DoubleTake
         }
         private static UriBuilder BuildConnectionUrl(Workload workload, string method)
         {
-            LocalDB db = new LocalDB();
+            MRPDatabase db = new MRPDatabase();
             Credential _credential = db.Credentials.Find(workload.credential_id);
 
 
@@ -88,7 +88,7 @@ namespace MRPService.DoubleTake
         }
         private static NetworkCredential GetCredentials(Workload _workload)
         {
-            LocalDB db = new LocalDB();
+            MRPDatabase db = new MRPDatabase();
 
             NetworkCredential credentials = new NetworkCredential();
             Credential _credential = db.Credentials.Find(_workload.credential_id);

@@ -3,16 +3,16 @@ using System.Diagnostics;
 using System.ServiceProcess;
 using System.ServiceModel;
 using System.ServiceModel.Description;
-using MRPService.Portal;
-using MRPService.Portal.Controllers;
 using System.Threading;
 using MRPService.WCF;
-using MRPService.Portal.Classes;
-using MRPService.Portal.Classes.Static_Classes.Background_Classes;
+using MRPService.API.Classes;
+using MRPService.API.Classes.Static_Classes.Background_Classes;
 using MRPService.MRPService.Classes.Background_Classes;
 using System.Linq;
 using MRPService.LocalDatabase;
 using MRPService.MRPService.Log;
+using MRPService.TaskExecutioner;
+using MRPService.Utilities;
 
 namespace MRPService
 {
@@ -32,7 +32,7 @@ namespace MRPService
 
             Global.event_log = MRPLog1;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            LocalDB db = new LocalDB();
+            MRPDatabase db = new MRPDatabase();
 
 
             Settings.SetupAgent();

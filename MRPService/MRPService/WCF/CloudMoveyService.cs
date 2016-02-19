@@ -1,11 +1,11 @@
-﻿using MRPService.Portal.Models;
+﻿using MRPService.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
-using MRPService.Portal.Classes;
+using MRPService.API.Classes;
 using MRPService.LocalDatabase;
 using MRPService.MRPService.Log;
 using System.Net;
@@ -13,6 +13,7 @@ using DD.CBU.Compute.Api.Client;
 using DD.CBU.Compute.Api.Contracts.Requests;
 using DD.CBU.Compute.Api.Contracts.Directory;
 using DD.CBU.Compute.Api.Contracts.Network20;
+using MRPService.Utilities;
 
 namespace MRPService.WCF
 {
@@ -22,7 +23,7 @@ namespace MRPService.WCF
         #region workloads
         public List<Workload> ListWorkloads()
         {
-            using (LocalDB db = new LocalDB())
+            using (MRPDatabase db = new MRPDatabase())
             {
                 return db.Workloads.ToList();
             }
@@ -32,7 +33,7 @@ namespace MRPService.WCF
             Workload _addedworkload = new Workload();
             try
             {
-                using (LocalDB db = new LocalDB())
+                using (MRPDatabase db = new MRPDatabase())
                 {
                     _addedworkload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
                     _addedworkload = (Workload)db.Workloads.Add(_addworkload);
@@ -51,7 +52,7 @@ namespace MRPService.WCF
             Workload _update = null;
             try
             {
-                using (LocalDB db = new LocalDB())
+                using (MRPDatabase db = new MRPDatabase())
                 {
                     _update = db.Workloads.FirstOrDefault(d => d.id == _updateworkload.id);
                     IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateworkload, _update);
@@ -71,7 +72,7 @@ namespace MRPService.WCF
         }
         public bool DestroyWorkload(Workload _destroyworkload)
         {
-            using (LocalDB db = new LocalDB())
+            using (MRPDatabase db = new MRPDatabase())
             {
                 db.Workloads.Remove(_destroyworkload);
                 db.SaveChanges();
@@ -90,7 +91,7 @@ namespace MRPService.WCF
         #region Platforms
         public List<Platform> ListPlatforms()
         {
-            using (LocalDB db = new LocalDB())
+            using (MRPDatabase db = new MRPDatabase())
             {
                 return db.Platforms.ToList();
             }
@@ -101,7 +102,7 @@ namespace MRPService.WCF
             try
             {
                 _addplatform.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                using (LocalDB db = new LocalDB())
+                using (MRPDatabase db = new MRPDatabase())
                 {
                     _addedplatform = db.Platforms.Add(_addplatform);
                     db.SaveChanges();
@@ -119,7 +120,7 @@ namespace MRPService.WCF
             Platform _update = null;
             try
             {
-                using (LocalDB db = new LocalDB())
+                using (MRPDatabase db = new MRPDatabase())
                 {
                     _update = db.Platforms.FirstOrDefault(d => d.id == _updateplatform.id);
                     IEnumerable<String> _changes = Extensions.EnumeratePropertyDifferences(_updateplatform, _update);
@@ -139,7 +140,7 @@ namespace MRPService.WCF
         }
         public bool DestroyPlatform(Platform _destroyplatform)
         {
-            using (LocalDB db = new LocalDB())
+            using (MRPDatabase db = new MRPDatabase())
             {
                 db.Platforms.Remove(_destroyplatform);
                 db.SaveChanges();
@@ -162,7 +163,7 @@ namespace MRPService.WCF
         #region Credentials
         public List<Credential> ListCredentials()
         {
-            using (LocalDB db = new LocalDB())
+            using (MRPDatabase db = new MRPDatabase())
             {
                 return db.Credentials.ToList();
             }
@@ -172,7 +173,7 @@ namespace MRPService.WCF
             Credential _addedCredential = null;
             try
             {
-                using (LocalDB db = new LocalDB())
+                using (MRPDatabase db = new MRPDatabase())
                 {
                     _addCredential.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
                     _addCredential.human_type = (_addCredential.credential_type == 0 ? "Platform" : "Workload");
@@ -192,7 +193,7 @@ namespace MRPService.WCF
             Credential _update = null;
             try
             {
-                using (LocalDB db = new LocalDB())
+                using (MRPDatabase db = new MRPDatabase())
                 {
                     _update = db.Credentials.Find(_updateCredential.id);
                     _update.human_type = (_updateCredential.credential_type == 0 ? "Platform" : "Workload");
@@ -213,7 +214,7 @@ namespace MRPService.WCF
         }
         public bool DestroyCredential(Credential _destroyCredential)
         {
-            using (LocalDB db = new LocalDB())
+            using (MRPDatabase db = new MRPDatabase())
             {
                 db.Credentials.Remove(db.Credentials.Find(_destroyCredential.id));
                 db.SaveChanges();
@@ -251,7 +252,7 @@ namespace MRPService.WCF
         }
         public List<Event> Events()
         {
-            using (LocalDB db = new LocalDB())
+            using (MRPDatabase db = new MRPDatabase())
             {
                 return db.Events.ToList();
             }

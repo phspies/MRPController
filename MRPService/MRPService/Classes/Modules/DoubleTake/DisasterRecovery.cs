@@ -1,4 +1,4 @@
-﻿using MRPService.Portal;
+﻿using MRPService.API;
 using MRPService.MRPService.Types.API;
 
 namespace MRPService.DoubleTake
@@ -7,7 +7,7 @@ namespace MRPService.DoubleTake
     {
         public MRPDoubleTake_DisasterRecovery(MRP_DoubleTake cmdoubletake) : base(cmdoubletake) { }
 
-        static CloudMRPPortal CloudMRP = null;
+        static API.ApiClient CloudMRP = null;
         static MRPTaskListType tasks = null;
         static dynamic _payload = null;
 

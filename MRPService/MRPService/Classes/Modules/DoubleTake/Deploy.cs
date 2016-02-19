@@ -1,11 +1,10 @@
 ﻿using DoubleTake.Core.Contract;
 using Microsoft.Win32;
-using MRPService.CloudMRP.Classes.Static_Classes;
 using MRPService.DoubleTake;
 using MRPService.LocalDatabase;
 using MRPService.MRPService.Log;
 using MRPService.MRPService.Types.API;
-using MRPService.Portal;
+using MRPService.API;
 using SimpleImpersonation;
 using System;
 using System.Collections.Generic;
@@ -17,6 +16,7 @@ using System.Security;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MRPService.Utilities;
 
 namespace MRPService.DoubleTake
 {
@@ -24,11 +24,11 @@ namespace MRPService.DoubleTake
     {
         public static void dt_deploy(MRPTaskType payload)
         {
-            CloudMRPPortal _mrp_portal = new CloudMRPPortal();
+            API.ApiClient _mrp_portal = new API.ApiClient();
 
             try
             {
-                LocalDB _db = new LocalDB();
+                MRPDatabase _db = new MRPDatabase();
                 MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
                 MRPTaskWorkloadType _target_workload = payload.submitpayload.target;
 

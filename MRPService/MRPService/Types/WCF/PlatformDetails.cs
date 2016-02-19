@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 
-namespace MRPService.Portal.Models
+namespace MRPService.API.Models
 {
     [DataContract]
     public class PlatformDetails

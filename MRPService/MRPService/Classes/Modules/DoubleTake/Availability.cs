@@ -1,5 +1,5 @@
-﻿using MRPService.Portal;
-using MRPService.Portal.Types.API;
+﻿using MRPService.API;
+using MRPService.API.Types.API;
 using DoubleTake.Common.Contract;
 using DoubleTake.Common.Tasks;
 using DoubleTake.Core.Contract;
@@ -14,7 +14,7 @@ using System.Threading;
 using MRPService.MRPService.Types.API;
 using DoubleTake.Jobs.Contract1;
 using MRPService.MRPService.Log;
-using MRPService.CloudMRP.Classes.Static_Classes;
+using MRPService.Utilities;
 
 namespace MRPService.DoubleTake
 {
@@ -22,7 +22,7 @@ namespace MRPService.DoubleTake
     {
         public static void dt_create_ha_syncjob(MRPTaskType payload)
         {
-            CloudMRPPortal CloudMRP = new CloudMRPPortal();
+            API.ApiClient CloudMRP = new API.ApiClient();
             try
             {
                 MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
@@ -187,7 +187,7 @@ namespace MRPService.DoubleTake
                 iJobMgr.Start(jobId);
 
                 CloudMRP.task().progress(payload, "Registering job with portal", 60);
-                CloudMRPPortal _mrp = new CloudMRPPortal();
+                API.ApiClient _mrp = new API.ApiClient();
                 //create job on portal
                 _mrp.job().createjob(new MRPJobType()
                 {

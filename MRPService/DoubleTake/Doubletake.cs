@@ -9,7 +9,7 @@ namespace MRPService.DoubleTake
        
         public MRP_DoubleTake(string source_workload_id, string target_workload_id)
         {
-            LocalDB db = new LocalDB();
+            MRPDatabase db = new MRPDatabase();
 
             if (target_workload_id != null)
             {

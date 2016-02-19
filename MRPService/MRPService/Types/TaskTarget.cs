@@ -1,11 +1,11 @@
-﻿using MRPService.Portal.Types.API;
+﻿using MRPService.API.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRPService.Portal.Types
+namespace MRPService.API.Types
 {
 
     public class Target

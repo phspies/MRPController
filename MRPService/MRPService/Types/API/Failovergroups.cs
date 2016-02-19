@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRPService.Portal.Types.API
+namespace MRPService.API.Types.API
 {
     public class MRPFailovergroupsCRUDType
     {

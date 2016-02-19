@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MRPService.Portal.Types.API
+namespace MRPService.API.Types.API
 {
     public class MRPCredentialsCRUDType
     {

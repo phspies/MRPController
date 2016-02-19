@@ -1,4 +1,4 @@
-﻿using MRPService.Portal.Models;
+﻿using MRPService.API.Models;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
