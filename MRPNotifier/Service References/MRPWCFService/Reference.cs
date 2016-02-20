@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MRPService.MRPWCFService {
+namespace MRPNotifier.MRPWCFService {
     using System.Runtime.Serialization;
     using System;
     
@@ -1018,7 +1018,7 @@ namespace MRPService.MRPWCFService {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.Role> _memberOfRolesField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.Role> _memberOfRolesField;
         
         private string customDefined1FieldField;
         
@@ -1055,7 +1055,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.Role> _memberOfRoles {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.Role> _memberOfRoles {
             get {
                 return this._memberOfRolesField;
             }
@@ -1288,13 +1288,13 @@ namespace MRPService.MRPWCFService {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<MRPService.MRPWCFService.NetworkDomainType> NetworkDomainsField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.NetworkDomainType> NetworkDomainsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<MRPService.MRPWCFService.VlanType> NetworksField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.VlanType> NetworksField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<MRPService.MRPWCFService.ServerType> WorkloadsField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.ServerType> WorkloadsField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -1307,7 +1307,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.NetworkDomainType> NetworkDomains {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.NetworkDomainType> NetworkDomains {
             get {
                 return this.NetworkDomainsField;
             }
@@ -1320,7 +1320,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.VlanType> Networks {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.VlanType> Networks {
             get {
                 return this.NetworksField;
             }
@@ -1333,7 +1333,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.ServerType> Workloads {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.ServerType> Workloads {
             get {
                 return this.WorkloadsField;
             }
@@ -1374,7 +1374,7 @@ namespace MRPService.MRPWCFService {
         
         private string nameFieldField;
         
-        private MRPService.MRPWCFService.ProgressType progressFieldField;
+        private MRPNotifier.MRPWCFService.ProgressType progressFieldField;
         
         private string snatIpv4AddressFieldField;
         
@@ -1458,7 +1458,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.ProgressType progressField {
+        public MRPNotifier.MRPWCFService.ProgressType progressField {
             get {
                 return this.progressFieldField;
             }
@@ -1540,15 +1540,15 @@ namespace MRPService.MRPWCFService {
         
         private string ipv6GatewayAddressFieldField;
         
-        private MRPService.MRPWCFService.IpRangeCidrType ipv6RangeFieldField;
+        private MRPNotifier.MRPWCFService.IpRangeCidrType ipv6RangeFieldField;
         
         private string nameFieldField;
         
-        private MRPService.MRPWCFService.VlanTypeNetworkDomain networkDomainFieldField;
+        private MRPNotifier.MRPWCFService.VlanTypeNetworkDomain networkDomainFieldField;
         
-        private MRPService.MRPWCFService.IpRangeCidrType privateIpv4RangeFieldField;
+        private MRPNotifier.MRPWCFService.IpRangeCidrType privateIpv4RangeFieldField;
         
-        private MRPService.MRPWCFService.ProgressType progressFieldField;
+        private MRPNotifier.MRPWCFService.ProgressType progressFieldField;
         
         private string stateFieldField;
         
@@ -1641,7 +1641,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.IpRangeCidrType ipv6RangeField {
+        public MRPNotifier.MRPWCFService.IpRangeCidrType ipv6RangeField {
             get {
                 return this.ipv6RangeFieldField;
             }
@@ -1667,7 +1667,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.VlanTypeNetworkDomain networkDomainField {
+        public MRPNotifier.MRPWCFService.VlanTypeNetworkDomain networkDomainField {
             get {
                 return this.networkDomainFieldField;
             }
@@ -1680,7 +1680,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.IpRangeCidrType privateIpv4RangeField {
+        public MRPNotifier.MRPWCFService.IpRangeCidrType privateIpv4RangeField {
             get {
                 return this.privateIpv4RangeFieldField;
             }
@@ -1693,7 +1693,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.ProgressType progressField {
+        public MRPNotifier.MRPWCFService.ProgressType progressField {
             get {
                 return this.progressFieldField;
             }
@@ -1732,63 +1732,64 @@ namespace MRPService.MRPWCFService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ServerType", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.DatacenterType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.DatacenterType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.BackupType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.PropertyType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.ConsoleAccessType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.HypervisorType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.CpuSpeedType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.CpuSpeedType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.DiskSpeedType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.DiskSpeedType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.MonitoringType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.NetworkingType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.ResponseType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.NameValuePairType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.NameValuePairType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.NetworkDomainType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.NetworkDomainType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.ProgressType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.ProgressStepType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.VlanType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.VlanType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.IpRangeCidrType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.VlanTypeNetworkDomain))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.ServerType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.ServerTypeBackup))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.CpuType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.ServerTypeDisk>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.ServerTypeDisk))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.ServerTypeMonitoring))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.OperatingSystemType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.VirtualHardwareType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.VmwareToolsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.Workload>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.Workload))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.Platform>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.Platform))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.Credential))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.Credential>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.PlatformDetails))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.Account))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.Role>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.Role))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.AccountWithPhoneNumber))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.workerInformation))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.Status))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPService.MRPWCFService.AdditionalInformation>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPService.MRPWCFService.AdditionalInformation))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Status))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.AdditionalInformation>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.AdditionalInformation))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.DatacenterType>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.DatacenterType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.BackupType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.PropertyType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.ConsoleAccessType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.HypervisorType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.CpuSpeedType>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.CpuSpeedType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.DiskSpeedType>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.DiskSpeedType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.MonitoringType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.NetworkingType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.ResponseType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.NameValuePairType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.NetworkDomainType>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.NetworkDomainType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.ProgressType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.ProgressStepType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.VlanType>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.VlanType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.IpRangeCidrType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.VlanTypeNetworkDomain))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.ServerType>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.ServerTypeBackup))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.CpuType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.ServerTypeDisk>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.ServerTypeDisk))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.ServerTypeMonitoring))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.OperatingSystemType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.VirtualHardwareType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.VmwareToolsType))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Workload>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Workload))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Platform))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Credential))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Credential>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Account))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Role>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Role))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.AccountWithPhoneNumber))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.PlatformDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<bool, string>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.workerInformation))]
     public partial class ServerType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private MRPService.MRPWCFService.ServerTypeBackup backupFieldField;
+        private MRPNotifier.MRPWCFService.ServerTypeBackup backupFieldField;
         
-        private MRPService.MRPWCFService.CpuType cpuFieldField;
+        private MRPNotifier.MRPWCFService.CpuType cpuFieldField;
         
         private System.DateTime createTimeFieldField;
         
@@ -1798,7 +1799,7 @@ namespace MRPService.MRPWCFService {
         
         private string descriptionFieldField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.ServerTypeDisk> diskFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.ServerTypeDisk> diskFieldField;
         
         private string idFieldField;
         
@@ -1806,13 +1807,13 @@ namespace MRPService.MRPWCFService {
         
         private uint memoryGbFieldField;
         
-        private MRPService.MRPWCFService.ServerTypeMonitoring monitoringFieldField;
+        private MRPNotifier.MRPWCFService.ServerTypeMonitoring monitoringFieldField;
         
         private string nameFieldField;
         
-        private MRPService.MRPWCFService.OperatingSystemType operatingSystemFieldField;
+        private MRPNotifier.MRPWCFService.OperatingSystemType operatingSystemFieldField;
         
-        private MRPService.MRPWCFService.ProgressType progressFieldField;
+        private MRPNotifier.MRPWCFService.ProgressType progressFieldField;
         
         private System.Collections.Generic.List<string> softwareLabelFieldField;
         
@@ -1822,9 +1823,9 @@ namespace MRPService.MRPWCFService {
         
         private string stateFieldField;
         
-        private MRPService.MRPWCFService.VirtualHardwareType virtualHardwareFieldField;
+        private MRPNotifier.MRPWCFService.VirtualHardwareType virtualHardwareFieldField;
         
-        private MRPService.MRPWCFService.VmwareToolsType vmwareToolsFieldField;
+        private MRPNotifier.MRPWCFService.VmwareToolsType vmwareToolsFieldField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -1837,7 +1838,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.ServerTypeBackup backupField {
+        public MRPNotifier.MRPWCFService.ServerTypeBackup backupField {
             get {
                 return this.backupFieldField;
             }
@@ -1850,7 +1851,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.CpuType cpuField {
+        public MRPNotifier.MRPWCFService.CpuType cpuField {
             get {
                 return this.cpuFieldField;
             }
@@ -1915,7 +1916,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.ServerTypeDisk> diskField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.ServerTypeDisk> diskField {
             get {
                 return this.diskFieldField;
             }
@@ -1967,7 +1968,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.ServerTypeMonitoring monitoringField {
+        public MRPNotifier.MRPWCFService.ServerTypeMonitoring monitoringField {
             get {
                 return this.monitoringFieldField;
             }
@@ -1993,7 +1994,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.OperatingSystemType operatingSystemField {
+        public MRPNotifier.MRPWCFService.OperatingSystemType operatingSystemField {
             get {
                 return this.operatingSystemFieldField;
             }
@@ -2006,7 +2007,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.ProgressType progressField {
+        public MRPNotifier.MRPWCFService.ProgressType progressField {
             get {
                 return this.progressFieldField;
             }
@@ -2071,7 +2072,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.VirtualHardwareType virtualHardwareField {
+        public MRPNotifier.MRPWCFService.VirtualHardwareType virtualHardwareField {
             get {
                 return this.virtualHardwareFieldField;
             }
@@ -2084,7 +2085,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.VmwareToolsType vmwareToolsField {
+        public MRPNotifier.MRPWCFService.VmwareToolsType vmwareToolsField {
             get {
                 return this.vmwareToolsFieldField;
             }
@@ -2125,7 +2126,7 @@ namespace MRPService.MRPWCFService {
         
         private System.DateTime requestTimeFieldField;
         
-        private MRPService.MRPWCFService.ProgressStepType stepFieldField;
+        private MRPNotifier.MRPWCFService.ProgressStepType stepFieldField;
         
         private System.DateTime updateTimeFieldField;
         
@@ -2209,7 +2210,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.ProgressStepType stepField {
+        public MRPNotifier.MRPWCFService.ProgressStepType stepField {
             get {
                 return this.stepFieldField;
             }
@@ -2923,6 +2924,169 @@ namespace MRPService.MRPWCFService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Status", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
+    [System.SerializableAttribute()]
+    public partial class Status : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.AdditionalInformation> additionalInformationk__BackingFieldField;
+        
+        private string operationk__BackingFieldField;
+        
+        private string resultCodek__BackingFieldField;
+        
+        private string resultDetailk__BackingFieldField;
+        
+        private string resultk__BackingFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<additionalInformation>k__BackingField", IsRequired=true)]
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.AdditionalInformation> additionalInformationk__BackingField {
+            get {
+                return this.additionalInformationk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.additionalInformationk__BackingFieldField, value) != true)) {
+                    this.additionalInformationk__BackingFieldField = value;
+                    this.RaisePropertyChanged("additionalInformationk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<operation>k__BackingField", IsRequired=true)]
+        public string operationk__BackingField {
+            get {
+                return this.operationk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.operationk__BackingFieldField, value) != true)) {
+                    this.operationk__BackingFieldField = value;
+                    this.RaisePropertyChanged("operationk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultCode>k__BackingField", IsRequired=true)]
+        public string resultCodek__BackingField {
+            get {
+                return this.resultCodek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.resultCodek__BackingFieldField, value) != true)) {
+                    this.resultCodek__BackingFieldField = value;
+                    this.RaisePropertyChanged("resultCodek__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultDetail>k__BackingField", IsRequired=true)]
+        public string resultDetailk__BackingField {
+            get {
+                return this.resultDetailk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.resultDetailk__BackingFieldField, value) != true)) {
+                    this.resultDetailk__BackingFieldField = value;
+                    this.RaisePropertyChanged("resultDetailk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<result>k__BackingField", IsRequired=true)]
+        public string resultk__BackingField {
+            get {
+                return this.resultk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.resultk__BackingFieldField, value) != true)) {
+                    this.resultk__BackingFieldField = value;
+                    this.RaisePropertyChanged("resultk__BackingField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AdditionalInformation", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
+    [System.SerializableAttribute()]
+    public partial class AdditionalInformation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private string namek__BackingFieldField;
+        
+        private string valuek__BackingFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<name>k__BackingField", IsRequired=true)]
+        public string namek__BackingField {
+            get {
+                return this.namek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.namek__BackingFieldField, value) != true)) {
+                    this.namek__BackingFieldField = value;
+                    this.RaisePropertyChanged("namek__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<value>k__BackingField", IsRequired=true)]
+        public string valuek__BackingField {
+            get {
+                return this.valuek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.valuek__BackingFieldField, value) != true)) {
+                    this.valuek__BackingFieldField = value;
+                    this.RaisePropertyChanged("valuek__BackingField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DatacenterType", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20")]
     [System.SerializableAttribute()]
     public partial class DatacenterType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -2930,11 +3094,11 @@ namespace MRPService.MRPWCFService {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private MRPService.MRPWCFService.BackupType backupFieldField;
+        private MRPNotifier.MRPWCFService.BackupType backupFieldField;
         
         private string cityFieldField;
         
-        private MRPService.MRPWCFService.ConsoleAccessType consoleAccessFieldField;
+        private MRPNotifier.MRPWCFService.ConsoleAccessType consoleAccessFieldField;
         
         private string countryFieldField;
         
@@ -2942,13 +3106,13 @@ namespace MRPService.MRPWCFService {
         
         private string ftpsHostFieldField;
         
-        private MRPService.MRPWCFService.HypervisorType hypervisorFieldField;
+        private MRPNotifier.MRPWCFService.HypervisorType hypervisorFieldField;
         
         private string idFieldField;
         
-        private MRPService.MRPWCFService.MonitoringType monitoringFieldField;
+        private MRPNotifier.MRPWCFService.MonitoringType monitoringFieldField;
         
-        private MRPService.MRPWCFService.NetworkingType networkingFieldField;
+        private MRPNotifier.MRPWCFService.NetworkingType networkingFieldField;
         
         private string stateFieldField;
         
@@ -2967,7 +3131,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.BackupType backupField {
+        public MRPNotifier.MRPWCFService.BackupType backupField {
             get {
                 return this.backupFieldField;
             }
@@ -2993,7 +3157,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.ConsoleAccessType consoleAccessField {
+        public MRPNotifier.MRPWCFService.ConsoleAccessType consoleAccessField {
             get {
                 return this.consoleAccessFieldField;
             }
@@ -3045,7 +3209,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.HypervisorType hypervisorField {
+        public MRPNotifier.MRPWCFService.HypervisorType hypervisorField {
             get {
                 return this.hypervisorFieldField;
             }
@@ -3071,7 +3235,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.MonitoringType monitoringField {
+        public MRPNotifier.MRPWCFService.MonitoringType monitoringField {
             get {
                 return this.monitoringFieldField;
             }
@@ -3084,7 +3248,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public MRPService.MRPWCFService.NetworkingType networkingField {
+        public MRPNotifier.MRPWCFService.NetworkingType networkingField {
             get {
                 return this.networkingFieldField;
             }
@@ -3156,7 +3320,7 @@ namespace MRPService.MRPWCFService {
         
         private string maintenanceStatusFieldField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType> propertyFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType> propertyFieldField;
         
         private string typeFieldField;
         
@@ -3184,7 +3348,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType> propertyField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType> propertyField {
             get {
                 return this.propertyFieldField;
             }
@@ -3289,7 +3453,7 @@ namespace MRPService.MRPWCFService {
         
         private string maintenanceStatusFieldField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType> propertyFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType> propertyFieldField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -3315,7 +3479,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType> propertyField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType> propertyField {
             get {
                 return this.propertyFieldField;
             }
@@ -3346,13 +3510,13 @@ namespace MRPService.MRPWCFService {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.CpuSpeedType> cpuSpeedFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.CpuSpeedType> cpuSpeedFieldField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.DiskSpeedType> diskSpeedFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.DiskSpeedType> diskSpeedFieldField;
         
         private string maintenanceStatusFieldField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType> propertyFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType> propertyFieldField;
         
         private string typeFieldField;
         
@@ -3367,7 +3531,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.CpuSpeedType> cpuSpeedField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.CpuSpeedType> cpuSpeedField {
             get {
                 return this.cpuSpeedFieldField;
             }
@@ -3380,7 +3544,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.DiskSpeedType> diskSpeedField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.DiskSpeedType> diskSpeedField {
             get {
                 return this.diskSpeedFieldField;
             }
@@ -3406,7 +3570,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType> propertyField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType> propertyField {
             get {
                 return this.propertyFieldField;
             }
@@ -3705,7 +3869,7 @@ namespace MRPService.MRPWCFService {
         
         private string maintenanceStatusFieldField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType> propertyFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType> propertyFieldField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -3731,7 +3895,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType> propertyField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType> propertyField {
             get {
                 return this.propertyFieldField;
             }
@@ -3764,7 +3928,7 @@ namespace MRPService.MRPWCFService {
         
         private string maintenanceStatusFieldField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType> propertyFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType> propertyFieldField;
         
         private string typeFieldField;
         
@@ -3792,7 +3956,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.PropertyType> propertyField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.PropertyType> propertyField {
             get {
                 return this.propertyFieldField;
             }
@@ -3836,9 +4000,9 @@ namespace MRPService.MRPWCFService {
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.NameValuePairType> errorFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> errorFieldField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.NameValuePairType> infoFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> infoFieldField;
         
         private string messageFieldField;
         
@@ -3848,7 +4012,7 @@ namespace MRPService.MRPWCFService {
         
         private string responseCodeFieldField;
         
-        private System.Collections.Generic.List<MRPService.MRPWCFService.NameValuePairType> warningFieldField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> warningFieldField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -3861,7 +4025,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.NameValuePairType> errorField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> errorField {
             get {
                 return this.errorFieldField;
             }
@@ -3874,7 +4038,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.NameValuePairType> infoField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> infoField {
             get {
                 return this.infoFieldField;
             }
@@ -3939,7 +4103,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.NameValuePairType> warningField {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> warningField {
             get {
                 return this.warningFieldField;
             }
@@ -4155,7 +4319,7 @@ namespace MRPService.MRPWCFService {
         private string LastNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<MRPService.MRPWCFService.Role> MemberOfRolesField;
+        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.Role> MemberOfRolesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Guid OrganizationIdField;
@@ -4268,7 +4432,7 @@ namespace MRPService.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.Role> MemberOfRoles {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.Role> MemberOfRoles {
             get {
                 return this.MemberOfRolesField;
             }
@@ -4329,235 +4493,72 @@ namespace MRPService.MRPWCFService {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Status", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
-    [System.SerializableAttribute()]
-    public partial class Status : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private System.Collections.Generic.List<MRPService.MRPWCFService.AdditionalInformation> additionalInformationk__BackingFieldField;
-        
-        private string operationk__BackingFieldField;
-        
-        private string resultCodek__BackingFieldField;
-        
-        private string resultDetailk__BackingFieldField;
-        
-        private string resultk__BackingFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<additionalInformation>k__BackingField", IsRequired=true)]
-        public System.Collections.Generic.List<MRPService.MRPWCFService.AdditionalInformation> additionalInformationk__BackingField {
-            get {
-                return this.additionalInformationk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.additionalInformationk__BackingFieldField, value) != true)) {
-                    this.additionalInformationk__BackingFieldField = value;
-                    this.RaisePropertyChanged("additionalInformationk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<operation>k__BackingField", IsRequired=true)]
-        public string operationk__BackingField {
-            get {
-                return this.operationk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.operationk__BackingFieldField, value) != true)) {
-                    this.operationk__BackingFieldField = value;
-                    this.RaisePropertyChanged("operationk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultCode>k__BackingField", IsRequired=true)]
-        public string resultCodek__BackingField {
-            get {
-                return this.resultCodek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.resultCodek__BackingFieldField, value) != true)) {
-                    this.resultCodek__BackingFieldField = value;
-                    this.RaisePropertyChanged("resultCodek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultDetail>k__BackingField", IsRequired=true)]
-        public string resultDetailk__BackingField {
-            get {
-                return this.resultDetailk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.resultDetailk__BackingFieldField, value) != true)) {
-                    this.resultDetailk__BackingFieldField = value;
-                    this.RaisePropertyChanged("resultDetailk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<result>k__BackingField", IsRequired=true)]
-        public string resultk__BackingField {
-            get {
-                return this.resultk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.resultk__BackingFieldField, value) != true)) {
-                    this.resultk__BackingFieldField = value;
-                    this.RaisePropertyChanged("resultk__BackingField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AdditionalInformation", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
-    [System.SerializableAttribute()]
-    public partial class AdditionalInformation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string namek__BackingFieldField;
-        
-        private string valuek__BackingFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<name>k__BackingField", IsRequired=true)]
-        public string namek__BackingField {
-            get {
-                return this.namek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.namek__BackingFieldField, value) != true)) {
-                    this.namek__BackingFieldField = value;
-                    this.RaisePropertyChanged("namek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<value>k__BackingField", IsRequired=true)]
-        public string valuek__BackingField {
-            get {
-                return this.valuek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.valuek__BackingFieldField, value) != true)) {
-                    this.valuek__BackingFieldField = value;
-                    this.RaisePropertyChanged("valuek__BackingField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MRPWCFService.IMRPWCFService")]
     public interface IMRPWCFService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/ListWorkloads", ReplyAction="http://tempuri.org/IMRPWCFService/ListWorkloadsResponse")]
-        System.Collections.Generic.List<MRPService.MRPWCFService.Workload> ListWorkloads();
+        System.Collections.Generic.List<MRPNotifier.MRPWCFService.Workload> ListWorkloads();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/AddWorkload", ReplyAction="http://tempuri.org/IMRPWCFService/AddWorkloadResponse")]
-        MRPService.MRPWCFService.Workload AddWorkload(MRPService.MRPWCFService.Workload _addworkload);
+        MRPNotifier.MRPWCFService.Workload AddWorkload(MRPNotifier.MRPWCFService.Workload _addworkload);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/UpdateWorkload", ReplyAction="http://tempuri.org/IMRPWCFService/UpdateWorkloadResponse")]
-        MRPService.MRPWCFService.Workload UpdateWorkload(MRPService.MRPWCFService.Workload _updateworkload);
+        MRPNotifier.MRPWCFService.Workload UpdateWorkload(MRPNotifier.MRPWCFService.Workload _updateworkload);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/DestroyWorkload", ReplyAction="http://tempuri.org/IMRPWCFService/DestroyWorkloadResponse")]
-        bool DestroyWorkload(MRPService.MRPWCFService.Workload _destroyworkload);
+        bool DestroyWorkload(MRPNotifier.MRPWCFService.Workload _destroyworkload);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/ListPlatforms", ReplyAction="http://tempuri.org/IMRPWCFService/ListPlatformsResponse")]
-        System.Collections.Generic.List<MRPService.MRPWCFService.Platform> ListPlatforms();
+        System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform> ListPlatforms();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/AddPlatform", ReplyAction="http://tempuri.org/IMRPWCFService/AddPlatformResponse")]
-        MRPService.MRPWCFService.Platform AddPlatform(MRPService.MRPWCFService.Platform _addplatform);
+        MRPNotifier.MRPWCFService.Platform AddPlatform(MRPNotifier.MRPWCFService.Platform _addplatform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/Login", ReplyAction="http://tempuri.org/IMRPWCFService/LoginResponse")]
-        string Login(string _url, MRPService.MRPWCFService.Credential _credential, int _platform_type);
+        System.Tuple<bool, string> Login(string _url, MRPNotifier.MRPWCFService.Credential _credential, int _platform_type);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/UpdatePlatform", ReplyAction="http://tempuri.org/IMRPWCFService/UpdatePlatformResponse")]
-        MRPService.MRPWCFService.Platform UpdatePlatform(MRPService.MRPWCFService.Platform _updateplatform);
+        MRPNotifier.MRPWCFService.Platform UpdatePlatform(MRPNotifier.MRPWCFService.Platform _updateplatform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/DestroyPlatform", ReplyAction="http://tempuri.org/IMRPWCFService/DestroyPlatformResponse")]
-        bool DestroyPlatform(MRPService.MRPWCFService.Platform _destroyplatform);
+        bool DestroyPlatform(MRPNotifier.MRPWCFService.Platform _destroyplatform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/RefreshPlatform", ReplyAction="http://tempuri.org/IMRPWCFService/RefreshPlatformResponse")]
-        void RefreshPlatform(MRPService.MRPWCFService.Platform _platform);
+        void RefreshPlatform(MRPNotifier.MRPWCFService.Platform _platform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/ListCredentials", ReplyAction="http://tempuri.org/IMRPWCFService/ListCredentialsResponse")]
-        System.Collections.Generic.List<MRPService.MRPWCFService.Credential> ListCredentials();
+        System.Collections.Generic.List<MRPNotifier.MRPWCFService.Credential> ListCredentials();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/AddCredential", ReplyAction="http://tempuri.org/IMRPWCFService/AddCredentialResponse")]
-        MRPService.MRPWCFService.Credential AddCredential(MRPService.MRPWCFService.Credential _addCredential);
+        MRPNotifier.MRPWCFService.Credential AddCredential(MRPNotifier.MRPWCFService.Credential _addCredential);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/UpdateCredential", ReplyAction="http://tempuri.org/IMRPWCFService/UpdateCredentialResponse")]
-        MRPService.MRPWCFService.Credential UpdateCredential(MRPService.MRPWCFService.Credential _updateCredential);
+        MRPNotifier.MRPWCFService.Credential UpdateCredential(MRPNotifier.MRPWCFService.Credential _updateCredential);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/DestroyCredential", ReplyAction="http://tempuri.org/IMRPWCFService/DestroyCredentialResponse")]
-        bool DestroyCredential(MRPService.MRPWCFService.Credential _destroyCredential);
+        bool DestroyCredential(MRPNotifier.MRPWCFService.Credential _destroyCredential);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/CollectionInformation", ReplyAction="http://tempuri.org/IMRPWCFService/CollectionInformationResponse")]
-        MRPService.MRPWCFService.workerInformation CollectionInformation();
+        MRPNotifier.MRPWCFService.workerInformation CollectionInformation();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/ListDatacenters", ReplyAction="http://tempuri.org/IMRPWCFService/ListDatacentersResponse")]
-        System.Collections.Generic.List<MRPService.MRPWCFService.Platform> ListDatacenters(string url, MRPService.MRPWCFService.Credential _credential, int _platform_type);
+        System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform> ListDatacenters(string url, MRPNotifier.MRPWCFService.Credential _credential, int _platform_type);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/Account", ReplyAction="http://tempuri.org/IMRPWCFService/AccountResponse")]
-        MRPService.MRPWCFService.AccountWithPhoneNumber Account(string url, MRPService.MRPWCFService.Credential _credential);
+        MRPNotifier.MRPWCFService.AccountWithPhoneNumber Account(string url, MRPNotifier.MRPWCFService.Credential _credential);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/PlatformDetails", ReplyAction="http://tempuri.org/IMRPWCFService/PlatformDetailsResponse")]
-        MRPService.MRPWCFService.PlatformDetails PlatformDetails(string _datacenterId, string _url, MRPService.MRPWCFService.Credential _credential);
+        MRPNotifier.MRPWCFService.PlatformDetails PlatformDetails(string _datacenterId, string _url, MRPNotifier.MRPWCFService.Credential _credential);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IMRPWCFServiceChannel : MRPService.MRPWCFService.IMRPWCFService, System.ServiceModel.IClientChannel {
+    public interface IMRPWCFServiceChannel : MRPNotifier.MRPWCFService.IMRPWCFService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class MRPWCFServiceClient : System.ServiceModel.ClientBase<MRPService.MRPWCFService.IMRPWCFService>, MRPService.MRPWCFService.IMRPWCFService {
+    public partial class MRPWCFServiceClient : System.ServiceModel.ClientBase<MRPNotifier.MRPWCFService.IMRPWCFService>, MRPNotifier.MRPWCFService.IMRPWCFService {
         
         public MRPWCFServiceClient() {
         }
@@ -4578,75 +4579,75 @@ namespace MRPService.MRPWCFService {
                 base(binding, remoteAddress) {
         }
         
-        public System.Collections.Generic.List<MRPService.MRPWCFService.Workload> ListWorkloads() {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.Workload> ListWorkloads() {
             return base.Channel.ListWorkloads();
         }
         
-        public MRPService.MRPWCFService.Workload AddWorkload(MRPService.MRPWCFService.Workload _addworkload) {
+        public MRPNotifier.MRPWCFService.Workload AddWorkload(MRPNotifier.MRPWCFService.Workload _addworkload) {
             return base.Channel.AddWorkload(_addworkload);
         }
         
-        public MRPService.MRPWCFService.Workload UpdateWorkload(MRPService.MRPWCFService.Workload _updateworkload) {
+        public MRPNotifier.MRPWCFService.Workload UpdateWorkload(MRPNotifier.MRPWCFService.Workload _updateworkload) {
             return base.Channel.UpdateWorkload(_updateworkload);
         }
         
-        public bool DestroyWorkload(MRPService.MRPWCFService.Workload _destroyworkload) {
+        public bool DestroyWorkload(MRPNotifier.MRPWCFService.Workload _destroyworkload) {
             return base.Channel.DestroyWorkload(_destroyworkload);
         }
         
-        public System.Collections.Generic.List<MRPService.MRPWCFService.Platform> ListPlatforms() {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform> ListPlatforms() {
             return base.Channel.ListPlatforms();
         }
         
-        public MRPService.MRPWCFService.Platform AddPlatform(MRPService.MRPWCFService.Platform _addplatform) {
+        public MRPNotifier.MRPWCFService.Platform AddPlatform(MRPNotifier.MRPWCFService.Platform _addplatform) {
             return base.Channel.AddPlatform(_addplatform);
         }
         
-        public string Login(string _url, MRPService.MRPWCFService.Credential _credential, int _platform_type) {
+        public System.Tuple<bool, string> Login(string _url, MRPNotifier.MRPWCFService.Credential _credential, int _platform_type) {
             return base.Channel.Login(_url, _credential, _platform_type);
         }
         
-        public MRPService.MRPWCFService.Platform UpdatePlatform(MRPService.MRPWCFService.Platform _updateplatform) {
+        public MRPNotifier.MRPWCFService.Platform UpdatePlatform(MRPNotifier.MRPWCFService.Platform _updateplatform) {
             return base.Channel.UpdatePlatform(_updateplatform);
         }
         
-        public bool DestroyPlatform(MRPService.MRPWCFService.Platform _destroyplatform) {
+        public bool DestroyPlatform(MRPNotifier.MRPWCFService.Platform _destroyplatform) {
             return base.Channel.DestroyPlatform(_destroyplatform);
         }
         
-        public void RefreshPlatform(MRPService.MRPWCFService.Platform _platform) {
+        public void RefreshPlatform(MRPNotifier.MRPWCFService.Platform _platform) {
             base.Channel.RefreshPlatform(_platform);
         }
         
-        public System.Collections.Generic.List<MRPService.MRPWCFService.Credential> ListCredentials() {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.Credential> ListCredentials() {
             return base.Channel.ListCredentials();
         }
         
-        public MRPService.MRPWCFService.Credential AddCredential(MRPService.MRPWCFService.Credential _addCredential) {
+        public MRPNotifier.MRPWCFService.Credential AddCredential(MRPNotifier.MRPWCFService.Credential _addCredential) {
             return base.Channel.AddCredential(_addCredential);
         }
         
-        public MRPService.MRPWCFService.Credential UpdateCredential(MRPService.MRPWCFService.Credential _updateCredential) {
+        public MRPNotifier.MRPWCFService.Credential UpdateCredential(MRPNotifier.MRPWCFService.Credential _updateCredential) {
             return base.Channel.UpdateCredential(_updateCredential);
         }
         
-        public bool DestroyCredential(MRPService.MRPWCFService.Credential _destroyCredential) {
+        public bool DestroyCredential(MRPNotifier.MRPWCFService.Credential _destroyCredential) {
             return base.Channel.DestroyCredential(_destroyCredential);
         }
         
-        public MRPService.MRPWCFService.workerInformation CollectionInformation() {
+        public MRPNotifier.MRPWCFService.workerInformation CollectionInformation() {
             return base.Channel.CollectionInformation();
         }
         
-        public System.Collections.Generic.List<MRPService.MRPWCFService.Platform> ListDatacenters(string url, MRPService.MRPWCFService.Credential _credential, int _platform_type) {
+        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform> ListDatacenters(string url, MRPNotifier.MRPWCFService.Credential _credential, int _platform_type) {
             return base.Channel.ListDatacenters(url, _credential, _platform_type);
         }
         
-        public MRPService.MRPWCFService.AccountWithPhoneNumber Account(string url, MRPService.MRPWCFService.Credential _credential) {
+        public MRPNotifier.MRPWCFService.AccountWithPhoneNumber Account(string url, MRPNotifier.MRPWCFService.Credential _credential) {
             return base.Channel.Account(url, _credential);
         }
         
-        public MRPService.MRPWCFService.PlatformDetails PlatformDetails(string _datacenterId, string _url, MRPService.MRPWCFService.Credential _credential) {
+        public MRPNotifier.MRPWCFService.PlatformDetails PlatformDetails(string _datacenterId, string _url, MRPNotifier.MRPWCFService.Credential _credential) {
             return base.Channel.PlatformDetails(_datacenterId, _url, _credential);
         }
     }

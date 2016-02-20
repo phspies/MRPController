@@ -1,4 +1,4 @@
-﻿using MRPService.MRPWCFService;
+﻿using MRPNotifier.MRPWCFService;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

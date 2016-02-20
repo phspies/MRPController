@@ -2,7 +2,7 @@
 using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Controls;
-using MRPService.MRPWCFService;
+using MRPNotifier.MRPWCFService;
 
 namespace MRPNotifier.Forms
 {

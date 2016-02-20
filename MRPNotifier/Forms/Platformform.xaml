@@ -4,7 +4,7 @@
                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                    xmlns:MRPWCF="clr-namespace:MRPService.MRPWCFService" 
+                    xmlns:MRPWCF="clr-namespace:MRPNotifier.MRPWCFService" 
                     mc:Ignorable="d" x:Class="MRPNotifier.Forms.PlatformForm" 
                       Icon="../cloudmovey.ico"
                       EnableDWMDropShadow="True"
@@ -128,8 +128,8 @@
                         <ComboBox x:Name="platform_datacenter" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="100"
                             SelectedValuePath="moid"
                             SelectedValue="{Binding Path=moid, Mode=TwoWay}" 
-                            DisplayMemberPath="platform"/>
-                    <TextBlock x:Name="current_platform_datacenter" Text="{Binding platform}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Margin="116,8,-121,0" Width="111"/>
+                            DisplayMemberPath="datacenter"/>
+                    <TextBlock x:Name="current_platform_datacenter" Text="{Binding datacenter}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Margin="116,8,-121,0" Width="111"/>
                 </Grid>
 
             </StackPanel>

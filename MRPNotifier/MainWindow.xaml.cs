@@ -16,7 +16,7 @@ using System.Windows.Input;
 using System.Data;
 using MRPNotifier.Extensions;
 using System.Threading;
-using MRPService.MRPWCFService;
+using MRPNotifier.MRPWCFService;
 
 namespace MRPNotifier
 {

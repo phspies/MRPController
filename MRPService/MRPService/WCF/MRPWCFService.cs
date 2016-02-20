@@ -232,7 +232,8 @@ namespace MRPService.WCF
             {
                 case 0:
                     ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(url), new NetworkCredential(_credential.username, _credential.password));
-                    CaaS.Infrastructure.GetDataCenters(new PageableRequest() { PageSize = 1000 }).Result.ToList().ForEach(x => { _platforms.Add(new Platform() { datacenter = x.displayName, moid = x.id }); });
+                    CaaS.Login().Wait();
+                    CaaS.Infrastructure.GetDataCenters(new PageableRequest() { PageSize = 250 }).Result.ToList().ForEach(x => { _platforms.Add(new Platform() { datacenter = x.displayName, moid = x.id }); });
                     break;
                 case 1:
                     ApiClient VMWare = new ApiClient(url, _credential.username, _credential.password);
@@ -246,23 +247,23 @@ namespace MRPService.WCF
         {
             return new PlatformDetails( _datacenterId,  _url, _credential);
         }
-        public String Login(string _url, Credential _credential, int _platform_type)
+        public Tuple<bool, String> Login(string _url, Credential _credential, int _platform_type)
         {
-            String _login_status = "Success";
             ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_url), new NetworkCredential(_credential.username, _credential.password));
             try
             {
-                CaaS.Login();
+                CaaS.Login().Wait();
+                return Tuple.Create(true, "Success");
             }
             catch (Exception ex)
             {
-                _login_status = ex.Message;
+                return Tuple.Create(false, ex.Message);
             }
-            return _login_status;
         }
         public AccountWithPhoneNumber Account(string url, Credential _credential)
         {
             ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(url), new NetworkCredential(_credential.username, _credential.password));
+            CaaS.Login().Wait();
             return CaaS.Account.GetAdministratorAccount(_credential.username).Result;
         }
         #endregion

@@ -30,7 +30,7 @@ namespace MRPService.WCF
         [OperationContract]
         Platform AddPlatform(Platform _addplatform);
         [OperationContract]
-        String Login(string _url, Credential _credential, int _platform_type);
+        Tuple<bool, String> Login(string _url, Credential _credential, int _platform_type);
         [OperationContract]
         Platform UpdatePlatform(Platform _updateplatform);
         [OperationContract]

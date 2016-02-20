@@ -1,14 +1,9 @@
-﻿using ProtoBuf;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MRPService.LocalDatabase
 {
-    
+
     public class Platform
     {
         [Key, StringLength(50)]

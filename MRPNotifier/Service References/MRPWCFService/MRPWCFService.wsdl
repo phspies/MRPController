@@ -5,12 +5,13 @@
       <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MRPService.LocalDatabase" />
-      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/MRPService.WCF" />
-      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General" />
-      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20" />
-      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Directory" />
-      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/MRPService.API.Models" />
-      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd8" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/MRPService.WCF" />
+      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General" />
+      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20" />
+      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Directory" />
+      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/MRPService.API.Models" />
+      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IMRPWCFService_ListWorkloads_InputMessage">

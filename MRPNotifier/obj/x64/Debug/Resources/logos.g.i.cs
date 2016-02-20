@@ -50,7 +50,7 @@ public partial class resources_logos_xaml : System.Windows.ResourceDictionary, S
             return;
         }
         _contentLoaded = true;
-        System.Uri resourceLocater = new System.Uri("/MRPService;component/resources/logos.xaml", System.UriKind.Relative);
+        System.Uri resourceLocater = new System.Uri("/MRPNotifier;component/resources/logos.xaml", System.UriKind.Relative);
         
         #line 1 "..\..\..\..\Resources\logos.xaml"
         System.Windows.Application.LoadComponent(this, resourceLocater);

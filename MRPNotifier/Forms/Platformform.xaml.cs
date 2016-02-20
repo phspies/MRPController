@@ -6,7 +6,10 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using MRPService.MRPWCFService;
+using MRPNotifier.MRPWCFService;
+using MahApps.Metro.Controls.Dialogs;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MRPNotifier.Forms
 {
@@ -16,6 +19,7 @@ namespace MRPNotifier.Forms
     public partial class PlatformForm : MetroWindow
     {
         public Platform _record;
+        private int _action;
         public List<Credential> _credentials;
         public PlatformForm(Platform __record, int __action, List<Credential> __credentials)
         {
@@ -23,6 +27,7 @@ namespace MRPNotifier.Forms
             _record = __record;
             InitializeComponent();
             initialize_form();
+            _action = __action;
             switch (__action)
             {
                 case 0:
@@ -90,22 +95,57 @@ namespace MRPNotifier.Forms
 
         private void test_connection_button_Click(object sender, RoutedEventArgs e)
         {
-            MRPWCFServiceClient channel = new MRPWCFServiceClient();
-            String response = channel.Login(_record.url, _credentials.Find(x => x.id == _record.credential_id), _record.vendor);
-            if (response != "Success")
+            using (new WaitCursor())
             {
-                message.Text = response;
-                message.Foreground = new SolidColorBrush(Colors.Red);
-                _record.passwordok = 0;
+                try
+                {
+                    message.Text = "Testing Credentials";
+
+                    MRPWCFServiceClient channel = new MRPWCFServiceClient();
+                    Tuple<bool, string> _response = channel.Login(_record.url, _credentials.Find(x => x.id == _record.credential_id), _record.vendor);
+                    if (_response.Item1)
+                    {
+                        List<Platform> _viewdatacenters = channel.ListDatacenters(_record.url, _credentials.Find(x => x.id == _record.credential_id), _record.vendor);
+                        platform_datacenter.ItemsSource = _viewdatacenters;
+                        _record.passwordok = 1;
+                        message.Foreground = new SolidColorBrush(Colors.Green);
+                        message.Text = String.Format("Found {0} Datacenters", _viewdatacenters.Count);
+
+                    }
+                    else
+                    {
+                        message.Text = _response.Item2;
+                        message.Foreground = new SolidColorBrush(Colors.Red);
+                        _record.passwordok = 0;
+                    }
+
+                    //show info
+                }
+                catch (Exception ex)
+                {
+                    message.Text = ex.Message;
+                }
             }
-            else
+        }
+        public class WaitCursor : IDisposable
+        {
+            private Cursor _previousCursor;
+
+            public WaitCursor()
             {
-                List<Platform> _viewdatacenters = channel.ListDatacenters(_record.url, _credentials.Find(x => x.id == _record.credential_id), _record.vendor);
-                platform_datacenter.ItemsSource = _viewdatacenters;
-                _record.passwordok = 1;
-                message.Foreground = new SolidColorBrush(Colors.Green);
-                message.Text = String.Format("Found {0} Datacenters",_viewdatacenters.Count) ;
+                _previousCursor = Mouse.OverrideCursor;
+
+                Mouse.OverrideCursor = Cursors.Wait;
             }
+
+            #region IDisposable Members
+
+            public void Dispose()
+            {
+                Mouse.OverrideCursor = _previousCursor;
+            }
+
+            #endregion
         }
     }
 }

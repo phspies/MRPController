@@ -62,7 +62,7 @@ namespace MRPNotifier {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MRPService;component/splashwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MRPNotifier;component/splashwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\SplashWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

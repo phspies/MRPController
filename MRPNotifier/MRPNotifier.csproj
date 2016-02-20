@@ -7,8 +7,8 @@
     <ProjectGuid>{E5EFD650-4308-40AB-97DF-4DED1BC16F18}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MRPService</RootNamespace>
-    <AssemblyName>MRPService</AssemblyName>
+    <RootNamespace>MRPNotifier</RootNamespace>
+    <AssemblyName>MRPNotifier</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -247,22 +247,22 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.AccountWithPhoneNumber.datasource">
+    <None Include="Service References\MRPWCFService\MRPNotifier.MRPWCFService.AccountWithPhoneNumber.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.Credential.datasource">
+    <None Include="Service References\MRPWCFService\MRPNotifier.MRPWCFService.Credential.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.Platform.datasource">
+    <None Include="Service References\MRPWCFService\MRPNotifier.MRPWCFService.Platform.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.PlatformDetails.datasource">
+    <None Include="Service References\MRPWCFService\MRPNotifier.MRPWCFService.PlatformDetails.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.workerInformation.datasource">
+    <None Include="Service References\MRPWCFService\MRPNotifier.MRPWCFService.workerInformation.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MRPWCFService\MRPService.MRPWCFService.Workload.datasource">
+    <None Include="Service References\MRPWCFService\MRPNotifier.MRPWCFService.Workload.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\MRPWCFService\MRPWCFService.wsdl" />
@@ -338,6 +338,9 @@
     <None Include="Service References\MRPWCFService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\MRPWCFService\MRPWCFService9.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\MRPWCFService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
