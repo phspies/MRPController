@@ -52,7 +52,6 @@ namespace MRPNotifier.Forms
         }
         private void toggle_platform()
         {
-
             if (_record.vendor != null)
             {
                 if (_record.vendor == 0)

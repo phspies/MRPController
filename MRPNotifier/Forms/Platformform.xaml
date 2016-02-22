@@ -24,20 +24,21 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
-    <Grid>
+    <Grid Width="417">
 
         <WrapPanel Margin="10" Orientation="Vertical" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal">
                 <Grid x:Name="grid1" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="127.667"/>
+                        <ColumnDefinition Width="150.333"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label  Width="100" Content="Description" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                    <TextBox  x:Name="platform_description" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="220"/>
+                    <Label  Width="100" Content="Description" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <TextBox  x:Name="platform_description" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,-64,4" Grid.Row="0" Text="{Binding description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="287" Grid.ColumnSpan="2"/>
                 </Grid>
             </StackPanel>
             <StackPanel Margin="0,5,0,0" Orientation="Horizontal">
@@ -62,7 +63,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Width="100" Content="Vendor" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                    <ComboBox x:Name="platform_vendor" SelectionChanged="platform_vendor_changed" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
+                    <ComboBox x:Name="platform_vendor" SelectionChanged="platform_vendor_changed" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="3,5,-63,5" Grid.Row="0" VerticalAlignment="Center" Width="186"
                             SelectedValuePath="ID"
                             SelectedValue="{Binding Path=vendor, Mode=TwoWay}" 
                             DisplayMemberPath="Vendor"/>
@@ -79,7 +80,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Width="100" Content="Target" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                    <TextBox x:Name="platform_url" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding url, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="200"/>
+                    <TextBox x:Name="platform_url" Grid.Column="1" HorizontalAlignment="Left" Height="24" Margin="3,4,-77,4" Grid.Row="0" Text="{Binding url, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="280"/>
                     <ComboBox x:Name="platform_dimensiondata_url" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
                             SelectedValuePath="Url"
                             SelectedValue="{Binding Path=url, Mode=TwoWay}" 
@@ -119,27 +120,28 @@
                 <Grid x:Name="grid7" HorizontalAlignment="Left" VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="14"/>
+                        <ColumnDefinition Width="120"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Label Width="100" Content="Datacenter" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
-                        <ComboBox x:Name="platform_datacenter" Grid.Column="1"  HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="100"
+                    <Label Width="100" Content="Datacenter" Grid.Column="0" HorizontalAlignment="Left" Margin="3,3,0,3" Grid.Row="0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="platform_datacenter" Grid.Column="1" Height="Auto" Margin="6,5,-9,5" Grid.Row="0" VerticalAlignment="Center"
                             SelectedValuePath="moid"
                             SelectedValue="{Binding Path=moid, Mode=TwoWay}" 
-                            DisplayMemberPath="datacenter"/>
-                    <TextBlock x:Name="current_platform_datacenter" Text="{Binding datacenter}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="1" Margin="116,8,-121,0" Width="111"/>
+                            DisplayMemberPath="datacenter" Grid.ColumnSpan="2"/>
+                    <TextBlock x:Name="current_platform_datacenter" Text="{Binding datacenter}"  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Column="2" Margin="163,7,-177,0" Width="106"/>
                 </Grid>
 
             </StackPanel>
             <Separator Margin="0,10,0,10"/>
 
-            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                
-                <TextBlock x:Name="message" HorizontalAlignment="Left" Width="160" Margin="0,0,30,0"/>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Width="397">
 
-                <Button x:Name="accept_platform" IsDefault="true" Click="accept_platform_Click">
+                <TextBlock x:Name="message" HorizontalAlignment="Left" Width="229" Margin="0,0,30,0"/>
+
+                <Button x:Name="accept_platform" IsDefault="true"  Margin="0,0,0,0" Click="accept_platform_Click">
                     <StackPanel Orientation="Horizontal">
                         <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
@@ -151,12 +153,12 @@
                 </Button>
                 <Button x:Name="cancel_platform" IsCancel="True" Margin="15,0,0,0" Click="cancel_platform_Click">
                     <StackPanel Orientation="Horizontal">
-                        <Rectangle Width="15" Height="15" Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle Width="15" Height="16" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_close}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
-                        <TextBlock Margin="5,0,0,0">Cancel</TextBlock>
+                        <TextBlock Margin="5,0,0,0"><Run Text="Cancel"/></TextBlock>
                     </StackPanel>
                 </Button>
             </StackPanel>
