@@ -8,7 +8,7 @@
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
     x:Class="MRPNotifier.MainWindow" 
-    Icon="cloudmovey.ico"
+    Icon="mrp.ico"
     x:Name="Window" 
     ContentRendered="Window_ContentRendered"
     EnableDWMDropShadow="True"   

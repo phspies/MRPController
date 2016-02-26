@@ -39,7 +39,6 @@
         <SolidColorBrush Opacity="0.1" Color="#d3f1bc"/>
     </Window.Background>
     <Grid>
-        <Image x:Name="image" Stretch="None" HorizontalAlignment="Left" Source="{StaticResource cloudmovey}" Height="48" Margin="31,145,0,0" VerticalAlignment="Top" Width="279"/>
 
         <Rectangle HorizontalAlignment="Left" Height="214" Margin="335,0,0,0" VerticalAlignment="Top" Width="312">
             <Rectangle.OpacityMask>
@@ -58,7 +57,9 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Controls:ProgressRing  IsActive="True"  Foreground="{DynamicResource AccentColorBrush}" Margin="489,66,77,74"/>
+        <Image Margin="511,89,115,103" Source="mrp.ico"/>
+        <Controls:ProgressRing  IsActive="True"  Foreground="{DynamicResource AccentColorBrush}" Margin="121,66,447,71"/>
+        <Label x:Name="label" Content="Migration and Recovery Controller" FontSize="11" FontWeight="Bold" HorizontalAlignment="Center" Margin="427,111,28,0" VerticalAlignment="Top" Width="192"/>
 
     </Grid>
 </Window>

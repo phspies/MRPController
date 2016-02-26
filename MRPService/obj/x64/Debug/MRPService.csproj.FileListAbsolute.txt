@@ -359,3 +359,4 @@ C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\obj\x64\Debug\MRP
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\obj\x64\Debug\MRPService.exe
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\obj\x64\Debug\MRPService.pdb
 C:\Users\Phillip Spies\Documents\GitHubVisualStudio\MRPService\obj\x64\Debug\MRPService.csprojResolveAssemblyReference.cache
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\MRPService.exe.config
