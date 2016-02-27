@@ -46,8 +46,6 @@ namespace MRPNotifier.Models
             Workload_ObjectDataModel _listwl = _list.FirstOrDefault(x => x.id == _workload.id);
             Objects.Copy(_workload, _listwl);
         }
-
-
     }
     public class Workload_ObjectDataModel : INotifyPropertyChanged
     {
@@ -175,7 +173,6 @@ namespace MRPNotifier.Models
                     NotifyPropertyChanged();
                 }
             }
-
         }
         public int vcore
         {
@@ -201,7 +198,6 @@ namespace MRPNotifier.Models
                     NotifyPropertyChanged();
                 }
             }
-
         }
         public string osedition
         {
@@ -214,7 +210,6 @@ namespace MRPNotifier.Models
                     NotifyPropertyChanged();
                 }
             }
-
         }
         public string ostype
         {
@@ -227,7 +222,6 @@ namespace MRPNotifier.Models
                     NotifyPropertyChanged();
                 }
             }
-
         }
         public string application
         {
@@ -240,7 +234,6 @@ namespace MRPNotifier.Models
                     NotifyPropertyChanged();
                 }
             }
-
         }
 
         public string human_os

@@ -1,15 +1,17 @@
-﻿namespace MRPService.LocalDatabase
+﻿using MRPService.Utilities;
+using System;
+
+namespace MRPService.LocalDatabase
 {
     public class PerformanceSet : IPerformanceSet, System.IDisposable
     {
         private readonly MRPDatabase _context;
         private IGenericRepository<Performance> _modelRepository;
 
-        public PerformanceSet(MRPDatabase context)
+        public PerformanceSet()
         {
-            _context = context;
+            MRPDatabase _context = new MRPDatabase();
         }
-
         public IGenericRepository<Performance> ModelRepository
         {
             get { return _modelRepository ?? (_modelRepository = new GenericRepository<Performance>(_context)); }

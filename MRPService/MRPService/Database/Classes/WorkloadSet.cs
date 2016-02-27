@@ -1,15 +1,17 @@
-﻿namespace MRPService.LocalDatabase
+﻿using MRPService.Utilities;
+using System;
+
+namespace MRPService.LocalDatabase
 {
     public class WorkloadSet : IWorkloadSet, System.IDisposable
     {
         private readonly MRPDatabase _context;
         private IGenericRepository<Workload> _modelRepository;
 
-        public WorkloadSet(MRPDatabase context)
+        public WorkloadSet()
         {
-            _context = context;
+            MRPDatabase _context = new MRPDatabase();
         }
-
         public IGenericRepository<Workload> ModelRepository
         {
             get { return _modelRepository ?? (_modelRepository = new GenericRepository<Workload>(_context)); }

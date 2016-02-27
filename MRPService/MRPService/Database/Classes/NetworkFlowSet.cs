@@ -1,15 +1,17 @@
-﻿namespace MRPService.LocalDatabase
+﻿using MRPService.Utilities;
+using System;
+
+namespace MRPService.LocalDatabase
 {
     public class NetworkFlowSet : INetworkFlowSet, System.IDisposable
     {
         private readonly MRPDatabase _context;
         private IGenericRepository<NetworkFlow> _modelRepository;
 
-        public NetworkFlowSet(MRPDatabase context)
+        public NetworkFlowSet()
         {
-            _context = context;
+            MRPDatabase _context = new MRPDatabase();
         }
-
         public IGenericRepository<NetworkFlow> ModelRepository
         {
             get { return _modelRepository ?? (_modelRepository = new GenericRepository<NetworkFlow>(_context)); }

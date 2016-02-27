@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MRPService.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -16,7 +17,10 @@ namespace MRPService.LocalDatabase
         this.context = context;
         this.dbSet = context.Set<TEntity>();
     }
- 
+    public virtual List<TEntity> GetAll()
+    {
+        return dbSet.ToList();
+    }
     public virtual List<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
     {
         IQueryable<TEntity> query = dbSet;
@@ -50,16 +54,19 @@ namespace MRPService.LocalDatabase
  
     public virtual void Insert(TEntity entity)
     {
-        dbSet.Add(entity);
+            dbSet.Add(entity);
+            context.SaveChanges();
     }
  
     public virtual void Update(TEntity entity)
     {
         dbSet.Attach(entity);
         context.Entry(entity).State = EntityState.Modified;
-    }
- 
-    public virtual void Delete(object id)
+        context.SaveChanges();
+
+        }
+
+        public virtual void Delete(object id)
     {
         TEntity entityToDelete = dbSet.Find(id);
         if (context.Entry(entityToDelete).State == EntityState.Detached)
@@ -67,6 +74,8 @@ namespace MRPService.LocalDatabase
             dbSet.Attach(entityToDelete);
         }
         dbSet.Remove(entityToDelete);
+        context.SaveChanges();
+
     }
 }
 }

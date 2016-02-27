@@ -1,15 +1,17 @@
-﻿namespace MRPService.LocalDatabase
+﻿using MRPService.Utilities;
+using System;
+
+namespace MRPService.LocalDatabase
 {
     public class CredentialSet : ICredentialSet, System.IDisposable
     {
         private readonly MRPDatabase _context;
         private IGenericRepository<Credential> _modelRepository;
 
-        public CredentialSet(MRPDatabase context)
+        public CredentialSet()
         {
-            _context = context;
+            MRPDatabase _context = new MRPDatabase();
         }
-
         public IGenericRepository<Credential> ModelRepository
         {
             get { return _modelRepository ?? (_modelRepository = new GenericRepository<Credential>(_context)); }

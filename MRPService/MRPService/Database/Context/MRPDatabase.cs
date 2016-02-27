@@ -8,7 +8,7 @@ using System.Data.SqlServerCe;
 namespace MRPService.LocalDatabase
 {
     [DbConfigurationType(typeof(MyDbConfiguration))]
-    public class MRPDatabase : DbContext
+    public partial class MRPDatabase : DbContext
 	{
 
         public MRPDatabase() : base(GetConnection(), true)

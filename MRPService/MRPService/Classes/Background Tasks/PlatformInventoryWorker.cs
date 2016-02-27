@@ -493,7 +493,7 @@ namespace MRPService.API.Classes
                     if (_new_workload.enabled == true)
                     {
                         MRPWorkloadCRUDType _moveyworkload = new MRPWorkloadCRUDType();
-                        Objects.MapObjects(_new_workload, _moveyworkload);
+                        Objects.Copy(_new_workload, _moveyworkload);
 
 
                         //update workload source template id with portal template id

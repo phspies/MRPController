@@ -18,18 +18,28 @@ namespace MRPService.Utilities
         {
             return (Guid.NewGuid().ToString("N") + (new Random().NextDouble()) + DateTime.UtcNow.ToString("hh.mm.ss.ffffff")).GetHashString();
         }
-        public static void Copy(object src, object dest)
+        //public static void Copy(object src, object dest)
+        //{
+        //    if (src != null)
+        //    {
+        //        foreach (PropertyDescriptor item in TypeDescriptor.GetProperties(dest))
+        //        {
+        //            item.SetValue(dest, item.GetValue(src));
+        //        }
+        //    }
+        //}
+        public static void Copy_Exclude_ID(object a, object b)
         {
-            if (src != null)
+            foreach (PropertyInfo propA in a.GetType().GetProperties())
             {
-                foreach (PropertyDescriptor item in TypeDescriptor.GetProperties(dest))
+                if (propA.Name != "id")
                 {
-                    item.SetValue(dest, item.GetValue(src));
+                    PropertyInfo propB = b.GetType().GetProperty(propA.Name);
+                    propB.SetValue(b, propA.GetValue(a, null), null);
                 }
             }
         }
-
-        public static object MapObjects(object source, object target)
+        public static object Copy(object source, object target)
         {
             foreach (PropertyInfo sourceProp in source.GetType().GetProperties())
             {

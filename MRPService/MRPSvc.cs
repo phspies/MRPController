@@ -40,7 +40,7 @@ namespace MRPService
 
             // Start WCF Service
             if (Global.debug) {
-                Logger.log(String.Format("Starting WCF Service | Platforms: {0}, Workloads: {1}, Credentials: {2}, Performance Counters: {3}, Network Flows: {4}",
+                Logger.log(String.Format("Platforms: {0}, Workloads: {1}, Credentials: {2}, Performance Counters: {3}, Network Flows: {4}",
                     db.Platforms.ToList().Count,
                     db.Workloads.ToList().Count,
                     db.Credentials.ToList().Count,
@@ -49,6 +49,7 @@ namespace MRPService
                     ), Logger.Severity.Debug);
             };
 
+            Logger.log(String.Format("Starting WCF Service"), Logger.Severity.Debug);
             Uri wcfbaseAddress = new Uri("http://localhost:8734/MRPWCFService");
             serviceHost = new ServiceHost(typeof(MRPWCFService), wcfbaseAddress);
             ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();

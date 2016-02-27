@@ -21,7 +21,7 @@ namespace MRPService.WCF
         [OperationContract]
         Workload UpdateWorkload(Workload _updateworkload);
         [OperationContract]
-        bool DestroyWorkload(Workload _destroyworkload);
+        void DestroyWorkload(Workload _destroyworkload);
         #endregion
 
         #region Platforms
@@ -34,7 +34,7 @@ namespace MRPService.WCF
         [OperationContract]
         Platform UpdatePlatform(Platform _updateplatform);
         [OperationContract]
-        bool DestroyPlatform(Platform _destroyplatform);
+        void DestroyPlatform(Platform _destroyplatform);
         [OperationContract]
         void RefreshPlatform(Platform _platform);
         #endregion
@@ -47,7 +47,7 @@ namespace MRPService.WCF
         [OperationContract]
         Credential UpdateCredential(Credential _updateCredential);
         [OperationContract]
-        bool DestroyCredential(Credential _destroyCredential);
+        void DestroyCredential(Credential _destroyCredential);
         #endregion
 
         [OperationContract]
@@ -56,10 +56,6 @@ namespace MRPService.WCF
         [ServiceKnownType(typeof(Status))]
         [ServiceKnownType(typeof(List<DatacenterType>))]
         List<Platform> ListDatacenters(string url, Credential _credential, int _platform_type);
-        [OperationContract]
-        [ServiceKnownType(typeof(ResponseType))]
-        [ServiceKnownType(typeof(Account))]
-        AccountWithPhoneNumber Account(string url, Credential _credential);
         [OperationContract]
         PlatformDetails PlatformDetails(String _datacenterId, String _url, Credential _credential);
         List<Event> Events();

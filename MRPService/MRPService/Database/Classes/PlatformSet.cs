@@ -1,15 +1,17 @@
-﻿namespace MRPService.LocalDatabase
+﻿using MRPService.Utilities;
+using System;
+
+namespace MRPService.LocalDatabase
 {
     public class PlatformSet : IPlatformSet, System.IDisposable
     {
         private readonly MRPDatabase _context;
         private IGenericRepository<Platform> _modelRepository;
 
-        public PlatformSet(MRPDatabase context)
+        public PlatformSet()
         {
-            _context = context;
+            MRPDatabase _context = new MRPDatabase();
         }
-
         public IGenericRepository<Platform> ModelRepository
         {
             get { return _modelRepository ?? (_modelRepository = new GenericRepository<Platform>(_context)); }

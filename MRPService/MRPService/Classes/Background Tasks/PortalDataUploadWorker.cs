@@ -47,7 +47,7 @@ namespace MRPService.MRPService.Classes.Background_Classes
                     foreach (NetworkFlow _flow in _db_flows)
                     {
                         MRPNetworkFlowCRUDType _flowcrud = new MRPNetworkFlowCRUDType();
-                        Objects.MapObjects(_flow, _flowcrud);
+                        Objects.Copy(_flow, _flowcrud);
 
                         Workload _source_workload = _workloads.FirstOrDefault(x => x.iplist.Split(',').Contains(_flow.source_address));
                         if (_source_workload != null)
@@ -110,7 +110,7 @@ namespace MRPService.MRPService.Classes.Background_Classes
                     foreach (Performance _performance in _local_performance)
                     {
                         MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
-                        Objects.MapObjects(_performance, _performancecrud);
+                        Objects.Copy(_performance, _performancecrud);
 
                         //inject performance unique ID into crud object
                         _performancecrud.performancecategory_id = _categories.performancecategories.Find(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name && x.workload_id == _performance.workload_id).id;
