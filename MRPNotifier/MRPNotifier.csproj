@@ -148,6 +148,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Credentials.cs" />
     <Compile Include="Classes\Workloads.cs" />
     <Compile Include="Classes\Platforms.cs" />
     <Compile Include="Extensions\Class1.cs" />

@@ -26,8 +26,6 @@ namespace MRPNotifier
     public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
         MRPWCFServiceClient channel = new MRPWCFServiceClient();
-
-        private List<Credential> _credential_list = new List<Credential>();
         private WindowState m_storedWindowState = WindowState.Normal;
 
 

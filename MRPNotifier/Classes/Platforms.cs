@@ -19,10 +19,10 @@ namespace MRPNotifier
         {
             if (!platformloader.IsBusy)
             {
-                progress_indicator.Visibility = System.Windows.Visibility.Visible;
-                progress_message.Visibility = System.Windows.Visibility.Visible;
-                progress_indicator.IsActive = true;
-                progress_message.Content = "Refreshing platform list";
+                platforms_progress_indicator.Visibility = System.Windows.Visibility.Visible;
+                platforms_progress_message.Visibility = System.Windows.Visibility.Visible;
+                platforms_progress_indicator.IsActive = true;
+                platforms_progress_message.Content = "Refreshing platform list";
             
                 platformloader.WorkerReportsProgress = true;
                 platformloader.WorkerSupportsCancellation = true;
@@ -50,15 +50,15 @@ namespace MRPNotifier
         {
             _platform_list = (List<Platform>)e.Result;
             lvPlatforms.ItemsSource = _platform_list;
-            progress_indicator.Visibility = System.Windows.Visibility.Collapsed;
-            progress_message.Visibility = System.Windows.Visibility.Collapsed;
+            platforms_progress_indicator.Visibility = System.Windows.Visibility.Collapsed;
+            platforms_progress_message.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void load_platformlist_worker_changed(object sender, ProgressChangedEventArgs e)
         {
             WorkerState ws = e.UserState as WorkerState;
             Debug.Print(ws.message);
-            progress_message.Content = ws.message;
+            platforms_progress_message.Content = ws.message;
         }
     }
 }

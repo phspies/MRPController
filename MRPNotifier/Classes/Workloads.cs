@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MRPNotifier
 {
@@ -19,10 +16,10 @@ namespace MRPNotifier
         {
             if (!workloadloader.IsBusy)
             {
-                progress_indicator.Visibility = System.Windows.Visibility.Visible;
-                progress_message.Visibility = System.Windows.Visibility.Visible;
-                progress_indicator.IsActive = true;
-                progress_message.Content = "Refreshing workload list";
+                workloads_progress_indicator.Visibility = System.Windows.Visibility.Visible;
+                workloads_progress_message.Visibility = System.Windows.Visibility.Visible;
+                workloads_progress_indicator.IsActive = true;
+                workloads_progress_message.Content = "Refreshing workload list";
             
                 workloadloader.WorkerReportsProgress = true;
                 workloadloader.WorkerSupportsCancellation = true;
@@ -48,17 +45,17 @@ namespace MRPNotifier
         }
         private void load_workloadlist_worker_complete(object sender, RunWorkerCompletedEventArgs e)
         {
-            _workload_list = (List<Platform>)e.Result;
+            _platform_list = (List<Platform>)e.Result;
             lvPlatforms.ItemsSource = _workload_list;
-            progress_indicator.Visibility = System.Windows.Visibility.Collapsed;
-            progress_message.Visibility = System.Windows.Visibility.Collapsed;
+            workloads_progress_indicator.Visibility = System.Windows.Visibility.Collapsed;
+            workloads_progress_message.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void load_workloadlist_worker_changed(object sender, ProgressChangedEventArgs e)
         {
             WorkerState ws = e.UserState as WorkerState;
             Debug.Print(ws.message);
-            progress_message.Content = ws.message;
+            workloads_progress_message.Content = ws.message;
         }
     }
 }
