@@ -1,0 +1,355 @@
+2016/02/27 12:14:13 Info > Starting MRP Worker Service
+2016/02/27 12:14:13 Info > Debug Enabled!
+2016/02/27 12:14:13 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:14:13 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:14:14 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:14:15 Debug > Starting WCF Service
+2016/02/27 12:14:15 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:14:15 Debug > Starting Scheduler Thread
+2016/02/27 12:14:15 Debug > Starting Mirror Thread
+2016/02/27 12:14:15 Debug > Starting Performance Collection Thread
+2016/02/27 12:14:15 Info > Staring platform inventory process
+2016/02/27 12:14:15 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:14:15 Debug > Starting Data Upload Thread
+2016/02/27 12:14:15 Info > Starting workload performance collection
+2016/02/27 12:14:15 Debug > Starting OS Inventory Thread
+2016/02/27 12:14:15 Info > Staring data upload process
+2016/02/27 12:14:15 Info > Staring operating system inventory process
+2016/02/27 12:14:15 Info > Completed performance collection | Elapsed Time 00:00:00.0180000 
+2016/02/27 12:14:15 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.1860000
+2016/02/27 12:14:15 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:14:15 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.5180000
+2016/02/27 12:14:15 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:14:15 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:14:16 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:14:16 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:14:16 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:14:16 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:14:16 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:01.1410000
+2016/02/27 12:15:59 Info > Starting MRP Worker Service
+2016/02/27 12:15:59 Info > Debug Enabled!
+2016/02/27 12:15:59 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:15:59 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:16:06 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:16:06 Debug > Starting WCF Service
+2016/02/27 12:16:07 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:16:07 Debug > Starting Scheduler Thread
+2016/02/27 12:16:07 Debug > Starting Mirror Thread
+2016/02/27 12:16:07 Debug > Starting Performance Collection Thread
+2016/02/27 12:16:07 Info > Staring platform inventory process
+2016/02/27 12:16:07 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:16:07 Debug > Starting Data Upload Thread
+2016/02/27 12:16:07 Info > Starting workload performance collection
+2016/02/27 12:16:07 Debug > Starting OS Inventory Thread
+2016/02/27 12:16:07 Info > Staring data upload process
+2016/02/27 12:16:08 Info > Staring operating system inventory process
+2016/02/27 12:16:08 Info > Completed performance collection | Elapsed Time 00:00:00.0350000 
+2016/02/27 12:16:08 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.2000000
+2016/02/27 12:16:08 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:16:08 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.4930000
+2016/02/27 12:16:08 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:16:08 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:16:08 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:16:08 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:16:09 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:16:09 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:16:09 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:01.2570000
+2016/02/27 12:18:01 Info > Starting MRP Worker Service
+2016/02/27 12:18:01 Info > Debug Enabled!
+2016/02/27 12:18:01 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:18:01 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:18:08 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:18:08 Debug > Starting WCF Service
+2016/02/27 12:18:09 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:18:09 Debug > Starting Scheduler Thread
+2016/02/27 12:18:09 Debug > Starting Mirror Thread
+2016/02/27 12:18:09 Debug > Starting Performance Collection Thread
+2016/02/27 12:18:09 Info > Staring platform inventory process
+2016/02/27 12:18:09 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:18:09 Debug > Starting Data Upload Thread
+2016/02/27 12:18:09 Info > Starting workload performance collection
+2016/02/27 12:18:09 Debug > Starting OS Inventory Thread
+2016/02/27 12:18:09 Info > Staring data upload process
+2016/02/27 12:18:09 Info > Staring operating system inventory process
+2016/02/27 12:18:09 Info > Completed performance collection | Elapsed Time 00:00:00.0640000 
+2016/02/27 12:18:10 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.2410000
+2016/02/27 12:18:10 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.2350000
+2016/02/27 12:18:10 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:10 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:10 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:10 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:11 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:11 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:11 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:11 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:01.4590000
+2016/02/27 12:18:50 Info > Starting MRP Worker Service
+2016/02/27 12:18:50 Info > Debug Enabled!
+2016/02/27 12:18:50 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:18:50 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:18:56 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:18:56 Debug > Starting WCF Service
+2016/02/27 12:18:57 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:18:57 Debug > Starting Scheduler Thread
+2016/02/27 12:18:58 Debug > Starting Mirror Thread
+2016/02/27 12:18:58 Debug > Starting Performance Collection Thread
+2016/02/27 12:18:58 Info > Staring platform inventory process
+2016/02/27 12:18:58 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:18:58 Debug > Starting Data Upload Thread
+2016/02/27 12:18:58 Info > Starting workload performance collection
+2016/02/27 12:18:58 Debug > Starting OS Inventory Thread
+2016/02/27 12:18:58 Info > Staring data upload process
+2016/02/27 12:18:58 Info > Completed performance collection | Elapsed Time 00:00:00.0290000 
+2016/02/27 12:18:58 Info > Staring operating system inventory process
+2016/02/27 12:18:58 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.2210000
+2016/02/27 12:18:58 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:58 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.5070000
+2016/02/27 12:18:58 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:58 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:58 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:59 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:59 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:59 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:18:59 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:01.3840000
+2016/02/27 12:19:39 Info > Starting MRP Worker Service
+2016/02/27 12:19:39 Info > Debug Enabled!
+2016/02/27 12:19:39 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:19:39 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:19:48 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:19:48 Debug > Starting WCF Service
+2016/02/27 12:19:50 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:19:50 Debug > Starting Scheduler Thread
+2016/02/27 12:19:50 Debug > Starting Mirror Thread
+2016/02/27 12:19:50 Debug > Starting Performance Collection Thread
+2016/02/27 12:19:50 Info > Staring platform inventory process
+2016/02/27 12:19:50 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:19:50 Debug > Starting Data Upload Thread
+2016/02/27 12:19:50 Info > Starting workload performance collection
+2016/02/27 12:19:50 Debug > Starting OS Inventory Thread
+2016/02/27 12:19:50 Info > Completed performance collection | Elapsed Time 00:00:00.0800000 
+2016/02/27 12:19:50 Info > Staring operating system inventory process
+2016/02/27 12:19:50 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.3160000
+2016/02/27 12:19:51 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3100000
+2016/02/27 12:19:51 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:19:51 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:19:52 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:19:52 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:19:52 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:19:53 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:19:53 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:19:53 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:02.9990000
+2016/02/27 12:22:47 Info > Starting MRP Worker Service
+2016/02/27 12:22:47 Info > Debug Enabled!
+2016/02/27 12:22:47 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:22:47 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:22:52 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:22:52 Debug > Starting WCF Service
+2016/02/27 12:22:54 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:22:54 Debug > Starting Scheduler Thread
+2016/02/27 12:22:54 Debug > Starting Mirror Thread
+2016/02/27 12:22:54 Debug > Starting Performance Collection Thread
+2016/02/27 12:22:54 Info > Staring platform inventory process
+2016/02/27 12:22:54 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:22:54 Info > Starting workload performance collection
+2016/02/27 12:22:54 Debug > Starting Data Upload Thread
+2016/02/27 12:22:54 Debug > Starting OS Inventory Thread
+2016/02/27 12:22:54 Info > Completed performance collection | Elapsed Time 00:00:00.0390000 
+2016/02/27 12:22:54 Info > Staring data upload process
+2016/02/27 12:22:54 Info > Staring operating system inventory process
+2016/02/27 12:22:54 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.2710000
+2016/02/27 12:22:54 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:22:54 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.5210000
+2016/02/27 12:22:54 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:22:55 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:22:55 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:22:55 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:22:55 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:22:55 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:22:55 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:01.4730000
+2016/02/27 12:24:45 Info > Starting MRP Worker Service
+2016/02/27 12:24:45 Info > Debug Enabled!
+2016/02/27 12:24:45 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:24:45 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:24:52 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:24:52 Debug > Starting WCF Service
+2016/02/27 12:24:55 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:24:55 Debug > Starting Scheduler Thread
+2016/02/27 12:24:55 Debug > Starting Mirror Thread
+2016/02/27 12:24:55 Debug > Starting Performance Collection Thread
+2016/02/27 12:24:55 Info > Staring platform inventory process
+2016/02/27 12:24:55 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:24:55 Info > Starting workload performance collection
+2016/02/27 12:24:55 Debug > Starting Data Upload Thread
+2016/02/27 12:24:55 Debug > Starting OS Inventory Thread
+2016/02/27 12:24:56 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.2520000
+2016/02/27 12:24:56 Info > Staring operating system inventory process
+2016/02/27 12:24:56 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3520000
+2016/02/27 12:24:56 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:24:57 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:24:57 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:24:57 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:24:57 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:24:57 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:24:57 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:24:57 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:01.5120000
+2016/02/27 12:25:51 Info > Starting MRP Worker Service
+2016/02/27 12:25:51 Info > Debug Enabled!
+2016/02/27 12:25:51 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:25:51 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:25:58 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:25:58 Debug > Starting WCF Service
+2016/02/27 12:26:00 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:26:00 Debug > Starting Scheduler Thread
+2016/02/27 12:26:00 Debug > Starting Mirror Thread
+2016/02/27 12:26:00 Debug > Starting Performance Collection Thread
+2016/02/27 12:26:00 Info > Staring platform inventory process
+2016/02/27 12:26:00 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:26:00 Info > Starting workload performance collection
+2016/02/27 12:26:00 Debug > Starting Data Upload Thread
+2016/02/27 12:26:01 Debug > Starting OS Inventory Thread
+2016/02/27 12:26:01 Info > Staring data upload process
+2016/02/27 12:26:01 Info > Completed performance collection | Elapsed Time 00:00:00.2710000 
+2016/02/27 12:26:01 Info > Staring operating system inventory process
+2016/02/27 12:26:01 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3420000
+2016/02/27 12:26:01 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:26:02 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:26:02 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:26:02 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:26:02 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:26:02 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:26:02 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:26:02 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:01.5840000
+2016/02/27 12:33:23 Info > Starting MRP Worker Service
+2016/02/27 12:33:23 Info > Debug Enabled!
+2016/02/27 12:33:23 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:33:23 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:33:31 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:33:31 Debug > Starting WCF Service
+2016/02/27 12:33:34 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:33:34 Debug > Starting Scheduler Thread
+2016/02/27 12:33:34 Debug > Starting Mirror Thread
+2016/02/27 12:33:34 Debug > Starting Performance Collection Thread
+2016/02/27 12:33:34 Info > Staring platform inventory process
+2016/02/27 12:33:34 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:33:34 Debug > Starting Data Upload Thread
+2016/02/27 12:33:34 Debug > Starting OS Inventory Thread
+2016/02/27 12:33:34 Info > Staring data upload process
+2016/02/27 12:33:34 Info > Staring operating system inventory process
+2016/02/27 12:33:34 Info > Completed performance collection | Elapsed Time 00:00:00.2730000 
+2016/02/27 12:33:34 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.3310000
+2016/02/27 12:33:35 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.2860000
+2016/02/27 12:33:35 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:33:35 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:33:36 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:33:36 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:33:36 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:33:36 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:33:36 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:33:37 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:02.2500000
+2016/02/27 12:34:11 Info > Starting MRP Worker Service
+2016/02/27 12:34:11 Info > Debug Enabled!
+2016/02/27 12:34:11 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:34:11 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:34:22 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:34:22 Debug > Starting WCF Service
+2016/02/27 12:34:26 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:34:26 Debug > Starting Scheduler Thread
+2016/02/27 12:34:27 Debug > Starting Mirror Thread
+2016/02/27 12:34:27 Debug > Starting Performance Collection Thread
+2016/02/27 12:34:27 Info > Staring platform inventory process
+2016/02/27 12:34:27 Info > Starting workload performance collection
+2016/02/27 12:34:27 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.4650000
+2016/02/27 12:34:27 Info > Completed performance collection | Elapsed Time 00:00:00.0540000 
+2016/02/27 12:34:27 Debug > Starting Data Upload Thread
+2016/02/27 12:34:27 Debug > Starting OS Inventory Thread
+2016/02/27 12:34:27 Info > Staring data upload process
+2016/02/27 12:34:27 Info > Staring operating system inventory process
+2016/02/27 12:34:28 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.4370000
+2016/02/27 12:34:28 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:34:28 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:34:29 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:34:29 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:34:29 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:34:30 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:34:30 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:34:30 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:02.7460000
+2016/02/27 12:37:14 Info > Starting MRP Worker Service
+2016/02/27 12:37:14 Info > Debug Enabled!
+2016/02/27 12:37:14 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:37:14 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:37:24 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:37:24 Debug > Starting WCF Service
+2016/02/27 12:37:26 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:37:26 Debug > Starting Scheduler Thread
+2016/02/27 12:37:26 Debug > Starting Mirror Thread
+2016/02/27 12:37:26 Debug > Starting Performance Collection Thread
+2016/02/27 12:37:26 Info > Staring platform inventory process
+2016/02/27 12:37:26 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:37:27 Debug > Starting Data Upload Thread
+2016/02/27 12:37:27 Debug > Starting OS Inventory Thread
+2016/02/27 12:37:27 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.2780000
+2016/02/27 12:37:27 Info > Completed performance collection | Elapsed Time 00:00:00.1520000 
+2016/02/27 12:37:27 Info > Staring data upload process
+2016/02/27 12:37:27 Info > Staring operating system inventory process
+2016/02/27 12:37:27 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.2810000
+2016/02/27 12:37:27 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:37:28 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:37:28 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:37:28 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:37:28 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:37:29 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:37:29 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:37:29 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:02.2750000
+2016/02/27 12:40:33 Info > Starting MRP Worker Service
+2016/02/27 12:40:33 Info > Debug Enabled!
+2016/02/27 12:40:33 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:40:33 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:40:43 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:40:43 Debug > Starting WCF Service
+2016/02/27 12:40:46 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:40:46 Debug > Starting Scheduler Thread
+2016/02/27 12:40:46 Debug > Starting Mirror Thread
+2016/02/27 12:40:46 Debug > Starting Performance Collection Thread
+2016/02/27 12:40:46 Info > Staring platform inventory process
+2016/02/27 12:40:46 Info > Starting workload performance collection
+2016/02/27 12:40:47 Info > Completed performance collection | Elapsed Time 00:00:00.0730000 
+2016/02/27 12:40:47 Debug > Starting Data Upload Thread
+2016/02/27 12:40:47 Debug > Starting OS Inventory Thread
+2016/02/27 12:40:47 Info > Staring data upload process
+2016/02/27 12:40:47 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.2760000
+2016/02/27 12:40:47 Info > Staring operating system inventory process
+2016/02/27 12:40:47 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3410000
+2016/02/27 12:40:48 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:40:48 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:40:48 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:40:48 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:40:49 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:40:49 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:40:49 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:40:49 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:02.3850000
+2016/02/27 12:59:20 Info > Starting MRP Worker Service
+2016/02/27 12:59:20 Info > Debug Enabled!
+2016/02/27 12:59:20 Info > MRP Worker Agent ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/02/27 12:59:20 Info > MRP Portal URL:https://www.cloudmovey.com
+2016/02/27 12:59:34 Debug > Platforms: 0, Workloads: 0, Credentials: 0, Performance Counters: 0, Network Flows: 0
+2016/02/27 12:59:34 Debug > Starting WCF Service
+2016/02/27 12:59:37 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/02/27 12:59:37 Debug > Starting Scheduler Thread
+2016/02/27 12:59:37 Debug > Starting Mirror Thread
+2016/02/27 12:59:37 Debug > Starting Performance Collection Thread
+2016/02/27 12:59:37 Debug > Starting Netflow v5 Collection Thread
+2016/02/27 12:59:37 Info > Staring platform inventory process
+2016/02/27 12:59:37 Debug > Starting Data Upload Thread
+2016/02/27 12:59:37 Info > Starting workload performance collection
+2016/02/27 12:59:37 Info > Completed performance collection | Elapsed Time 00:00:00.0500000 
+2016/02/27 12:59:37 Debug > Starting OS Inventory Thread
+2016/02/27 12:59:38 Info > Completed data mirroring process.0 new platforms, 0 updated platforms = total elapsed time: 00:00:00.2780000
+2016/02/27 12:59:38 Info > Staring operating system inventory process
+2016/02/27 12:59:38 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.2950000
+2016/02/27 12:59:46 Error > Error connecting to WMI : appserver04 [Object reference not set to an instance of an object.]
+2016/02/27 12:59:46 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:59:46 Error > Error connecting to WMI : webserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:59:47 Error > Error connecting to WMI : appserver02 [Object reference not set to an instance of an object.]
+2016/02/27 12:59:47 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:59:47 Error > Error connecting to WMI : appserver03 [Object reference not set to an instance of an object.]
+2016/02/27 12:59:47 Error > Error connecting to WMI : appserver01 [Object reference not set to an instance of an object.]
+2016/02/27 12:59:47 Info > Completed operating system inventory. [updated workloads.0] = Total Execute Time: 00:00:09.7770000

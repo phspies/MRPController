@@ -5,12 +5,11 @@ namespace MRPService.LocalDatabase
 {
     public class NetworkFlowSet : INetworkFlowSet, System.IDisposable
     {
-        private readonly MRPDatabase _context;
+        private readonly MRPDatabase _context = new MRPDatabase();
         private IGenericRepository<NetworkFlow> _modelRepository;
 
         public NetworkFlowSet()
         {
-            MRPDatabase _context = new MRPDatabase();
         }
         public IGenericRepository<NetworkFlow> ModelRepository
         {

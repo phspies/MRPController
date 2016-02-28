@@ -347,7 +347,7 @@
                 <TabItem Header="Workloads" controls:ControlsHelper.HeaderFontSize="18">
 
                     <Grid x:Name="ApplicationGroupGrid">
-                        <Button Margin="1162,0,39,0" ToolTip="Refresh workload list from worker service" Height="30" VerticalAlignment="Top" Click="refresh_platforms_button_clicked">
+                        <Button Margin="1162,0,39,0" ToolTip="Refresh workload list from worker service" Height="30" VerticalAlignment="Top" Click="refresh_workloads_button_clicked">
                             <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                 <Rectangle.OpacityMask>
                                     <VisualBrush Stretch="Fill"
@@ -355,7 +355,7 @@
                                 </Rectangle.OpacityMask>
                             </Rectangle>
                         </Button>
-                        <Button ToolTip="Add platform to worker list" Click="add_workload_button_clicked" HorizontalAlignment="Right" Width="30" Height="30" VerticalAlignment="Top">
+                        <Button ToolTip="Add platform to worker list" Click="add_workload_button_clicked" Height="30" VerticalAlignment="Top" Margin="1201,0,0,0" HorizontalAlignment="Left" Width="30">
                             <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                 <Rectangle.OpacityMask>
                                     <VisualBrush Stretch="Fill"
@@ -365,7 +365,7 @@
                         </Button>
 
                         <controls:ProgressRing x:Name="workloads_progress_indicator" Height="30" Margin="5,0,0,0" IsEnabled="True" IsActive="True" HorizontalAlignment="Left" Width="30" VerticalAlignment="Top" />
-                        <Label x:Name="workloads_progress_message" Content="" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" Height="31" Width="421"/>
+                        <Label x:Name="workloads_progress_message" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" Height="31" Width="421"/>
 
                         <TextBox x:Name="workload_search" Height="23" TextWrapping="Wrap" TextChanged="workload_search_filter" Margin="0,3,110,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="299" Grid.Column="1" />
                         <ListView  x:Name="lvWorkloads" Margin="0,33,0,0" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2" Grid.ColumnSpan="2">
@@ -482,7 +482,7 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Credentials" controls:ControlsHelper.HeaderFontSize="18">
-                    <Grid Margin="5,5,5,5" x:Name="CredentialGrid">
+                    <Grid x:Name="CredentialGrid">
                         <controls:ProgressRing x:Name="credentials_progress_indicator" Height="30" Margin="5,0,0,0" IsEnabled="True" IsActive="True" HorizontalAlignment="Left" Width="30" VerticalAlignment="Top" />
                         <Label x:Name="credentials_progress_message" Content="" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" Height="31" Width="421"/>
 

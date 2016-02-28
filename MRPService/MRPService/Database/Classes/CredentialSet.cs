@@ -5,12 +5,11 @@ namespace MRPService.LocalDatabase
 {
     public class CredentialSet : ICredentialSet, System.IDisposable
     {
-        private readonly MRPDatabase _context;
+        private readonly MRPDatabase _context = new MRPDatabase();
         private IGenericRepository<Credential> _modelRepository;
 
         public CredentialSet()
         {
-            MRPDatabase _context = new MRPDatabase();
         }
         public IGenericRepository<Credential> ModelRepository
         {

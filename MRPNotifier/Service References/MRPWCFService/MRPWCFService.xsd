@@ -3,8 +3,7 @@
   <xs:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MRPService.LocalDatabase" />
   <xs:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
   <xs:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/MRPService.WCF" />
-  <xs:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Directory" />
-  <xs:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/MRPService.API.Models" />
+  <xs:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/MRPService.API.Models" />
   <xs:element name="ListWorkloads">
     <xs:complexType>
       <xs:sequence />
@@ -54,9 +53,7 @@
   </xs:element>
   <xs:element name="DestroyWorkloadResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="DestroyWorkloadResult" type="xs:boolean" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="ListPlatforms">
@@ -124,9 +121,7 @@
   </xs:element>
   <xs:element name="DestroyPlatformResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="DestroyPlatformResult" type="xs:boolean" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="RefreshPlatform">
@@ -190,9 +185,7 @@
   </xs:element>
   <xs:element name="DestroyCredentialResponse">
     <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="DestroyCredentialResult" type="xs:boolean" />
-      </xs:sequence>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="CollectionInformation">
@@ -223,34 +216,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="Account">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="url" nillable="true" type="xs:string" />
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/MRPService.LocalDatabase" minOccurs="0" name="_credential" nillable="true" type="q25:Credential" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="AccountResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Directory" minOccurs="0" name="AccountResult" nillable="true" type="q26:AccountWithPhoneNumber" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="PlatformDetails">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="_datacenterId" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="_url" nillable="true" type="xs:string" />
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/MRPService.LocalDatabase" minOccurs="0" name="_credential" nillable="true" type="q27:Credential" />
+        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/MRPService.LocalDatabase" minOccurs="0" name="_credential" nillable="true" type="q25:Credential" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PlatformDetailsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/MRPService.API.Models" minOccurs="0" name="PlatformDetailsResult" nillable="true" type="q28:PlatformDetails" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/MRPService.API.Models" minOccurs="0" name="PlatformDetailsResult" nillable="true" type="q26:PlatformDetails" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

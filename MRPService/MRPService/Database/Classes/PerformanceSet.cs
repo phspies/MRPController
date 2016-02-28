@@ -5,12 +5,11 @@ namespace MRPService.LocalDatabase
 {
     public class PerformanceSet : IPerformanceSet, System.IDisposable
     {
-        private readonly MRPDatabase _context;
+        private readonly MRPDatabase _context = new MRPDatabase();
         private IGenericRepository<Performance> _modelRepository;
 
         public PerformanceSet()
         {
-            MRPDatabase _context = new MRPDatabase();
         }
         public IGenericRepository<Performance> ModelRepository
         {

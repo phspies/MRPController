@@ -234,9 +234,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\MRPWCFService\MRPNotifier.MRPWCFService.AccountWithPhoneNumber.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
     <None Include="Service References\MRPWCFService\MRPNotifier.MRPWCFService.Credential.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -325,9 +322,6 @@
     <None Include="Service References\MRPWCFService\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\MRPWCFService\MRPWCFService9.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\MRPWCFService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

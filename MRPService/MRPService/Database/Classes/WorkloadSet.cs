@@ -5,12 +5,11 @@ namespace MRPService.LocalDatabase
 {
     public class WorkloadSet : IWorkloadSet, System.IDisposable
     {
-        private readonly MRPDatabase _context;
+        private readonly MRPDatabase _context = new MRPDatabase();
         private IGenericRepository<Workload> _modelRepository;
 
         public WorkloadSet()
         {
-            MRPDatabase _context = new MRPDatabase();
         }
         public IGenericRepository<Workload> ModelRepository
         {

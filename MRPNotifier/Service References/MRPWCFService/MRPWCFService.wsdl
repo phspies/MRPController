@@ -9,9 +9,8 @@
       <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/MRPService.WCF" />
       <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General" />
       <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20" />
-      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Directory" />
-      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/MRPService.API.Models" />
-      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/MRPService.API.Models" />
+      <xsd:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd8" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IMRPWCFService_ListWorkloads_InputMessage">
@@ -110,12 +109,6 @@
   <wsdl:message name="IMRPWCFService_ListDatacenters_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListDatacentersResponse" />
   </wsdl:message>
-  <wsdl:message name="IMRPWCFService_Account_InputMessage">
-    <wsdl:part name="parameters" element="tns:Account" />
-  </wsdl:message>
-  <wsdl:message name="IMRPWCFService_Account_OutputMessage">
-    <wsdl:part name="parameters" element="tns:AccountResponse" />
-  </wsdl:message>
   <wsdl:message name="IMRPWCFService_PlatformDetails_InputMessage">
     <wsdl:part name="parameters" element="tns:PlatformDetails" />
   </wsdl:message>
@@ -186,10 +179,6 @@
     <wsdl:operation name="ListDatacenters">
       <wsdl:input wsaw:Action="http://tempuri.org/IMRPWCFService/ListDatacenters" message="tns:IMRPWCFService_ListDatacenters_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMRPWCFService/ListDatacentersResponse" message="tns:IMRPWCFService_ListDatacenters_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="Account">
-      <wsdl:input wsaw:Action="http://tempuri.org/IMRPWCFService/Account" message="tns:IMRPWCFService_Account_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IMRPWCFService/AccountResponse" message="tns:IMRPWCFService_Account_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="PlatformDetails">
       <wsdl:input wsaw:Action="http://tempuri.org/IMRPWCFService/PlatformDetails" message="tns:IMRPWCFService_PlatformDetails_InputMessage" />
@@ -335,15 +324,6 @@
     </wsdl:operation>
     <wsdl:operation name="ListDatacenters">
       <soap:operation soapAction="http://tempuri.org/IMRPWCFService/ListDatacenters" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="Account">
-      <soap:operation soapAction="http://tempuri.org/IMRPWCFService/Account" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -5,12 +5,11 @@ namespace MRPService.LocalDatabase
 {
     public class PlatformSet : IPlatformSet, System.IDisposable
     {
-        private readonly MRPDatabase _context;
+        private readonly MRPDatabase _context = new MRPDatabase();
         private IGenericRepository<Platform> _modelRepository;
 
         public PlatformSet()
         {
-            MRPDatabase _context = new MRPDatabase();
         }
         public IGenericRepository<Platform> ModelRepository
         {

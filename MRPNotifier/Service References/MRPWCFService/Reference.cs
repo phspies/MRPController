@@ -1011,275 +1011,6 @@ namespace MRPNotifier.MRPWCFService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AccountWithPhoneNumber", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Directory")]
-    [System.SerializableAttribute()]
-    public partial class AccountWithPhoneNumber : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.Role> _memberOfRolesField;
-        
-        private string customDefined1FieldField;
-        
-        private string customDefined2FieldField;
-        
-        private string departmentFieldField;
-        
-        private string emailAddressFieldField;
-        
-        private string firstNameFieldField;
-        
-        private string fullNameFieldField;
-        
-        private string lastNameFieldField;
-        
-        private string orgIdFieldField;
-        
-        private string passwordFieldField;
-        
-        private string phoneCountryCodeFieldField;
-        
-        private string phoneNumberFieldField;
-        
-        private string userNameFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.Role> _memberOfRoles {
-            get {
-                return this._memberOfRolesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this._memberOfRolesField, value) != true)) {
-                    this._memberOfRolesField = value;
-                    this.RaisePropertyChanged("_memberOfRoles");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string customDefined1Field {
-            get {
-                return this.customDefined1FieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.customDefined1FieldField, value) != true)) {
-                    this.customDefined1FieldField = value;
-                    this.RaisePropertyChanged("customDefined1Field");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string customDefined2Field {
-            get {
-                return this.customDefined2FieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.customDefined2FieldField, value) != true)) {
-                    this.customDefined2FieldField = value;
-                    this.RaisePropertyChanged("customDefined2Field");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string departmentField {
-            get {
-                return this.departmentFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.departmentFieldField, value) != true)) {
-                    this.departmentFieldField = value;
-                    this.RaisePropertyChanged("departmentField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string emailAddressField {
-            get {
-                return this.emailAddressFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.emailAddressFieldField, value) != true)) {
-                    this.emailAddressFieldField = value;
-                    this.RaisePropertyChanged("emailAddressField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string firstNameField {
-            get {
-                return this.firstNameFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.firstNameFieldField, value) != true)) {
-                    this.firstNameFieldField = value;
-                    this.RaisePropertyChanged("firstNameField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string fullNameField {
-            get {
-                return this.fullNameFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.fullNameFieldField, value) != true)) {
-                    this.fullNameFieldField = value;
-                    this.RaisePropertyChanged("fullNameField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string lastNameField {
-            get {
-                return this.lastNameFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.lastNameFieldField, value) != true)) {
-                    this.lastNameFieldField = value;
-                    this.RaisePropertyChanged("lastNameField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string orgIdField {
-            get {
-                return this.orgIdFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.orgIdFieldField, value) != true)) {
-                    this.orgIdFieldField = value;
-                    this.RaisePropertyChanged("orgIdField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string passwordField {
-            get {
-                return this.passwordFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.passwordFieldField, value) != true)) {
-                    this.passwordFieldField = value;
-                    this.RaisePropertyChanged("passwordField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string phoneCountryCodeField {
-            get {
-                return this.phoneCountryCodeFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.phoneCountryCodeFieldField, value) != true)) {
-                    this.phoneCountryCodeFieldField = value;
-                    this.RaisePropertyChanged("phoneCountryCodeField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string phoneNumberField {
-            get {
-                return this.phoneNumberFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.phoneNumberFieldField, value) != true)) {
-                    this.phoneNumberFieldField = value;
-                    this.RaisePropertyChanged("phoneNumberField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string userNameField {
-            get {
-                return this.userNameFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.userNameFieldField, value) != true)) {
-                    this.userNameFieldField = value;
-                    this.RaisePropertyChanged("userNameField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Role", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Directory")]
-    [System.SerializableAttribute()]
-    public partial class Role : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PlatformDetails", Namespace="http://schemas.datacontract.org/2004/07/MRPService.API.Models")]
     [System.SerializableAttribute()]
     public partial class PlatformDetails : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -1732,10 +1463,17 @@ namespace MRPNotifier.MRPWCFService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ServerType", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Status))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.AdditionalInformation>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.AdditionalInformation))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Workload>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Workload))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Platform))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Credential))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Credential>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.PlatformDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.DatacenterType>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.DatacenterType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.BackupType))]
@@ -1749,9 +1487,6 @@ namespace MRPNotifier.MRPWCFService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.DiskSpeedType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.MonitoringType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.NetworkingType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.ResponseType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.NameValuePairType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.NetworkDomainType>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.NetworkDomainType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.ProgressType))]
@@ -1769,17 +1504,6 @@ namespace MRPNotifier.MRPWCFService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.OperatingSystemType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.VirtualHardwareType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.VmwareToolsType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Workload>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Workload))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Platform))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Credential))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Credential>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Account))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRPNotifier.MRPWCFService.Role>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.Role))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.AccountWithPhoneNumber))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.PlatformDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<bool, string>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRPNotifier.MRPWCFService.workerInformation))]
     public partial class ServerType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -3993,199 +3717,6 @@ namespace MRPNotifier.MRPWCFService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ResponseType", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20")]
-    [System.SerializableAttribute()]
-    public partial class ResponseType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> errorFieldField;
-        
-        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> infoFieldField;
-        
-        private string messageFieldField;
-        
-        private string operationFieldField;
-        
-        private string requestIdFieldField;
-        
-        private string responseCodeFieldField;
-        
-        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> warningFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> errorField {
-            get {
-                return this.errorFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.errorFieldField, value) != true)) {
-                    this.errorFieldField = value;
-                    this.RaisePropertyChanged("errorField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> infoField {
-            get {
-                return this.infoFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.infoFieldField, value) != true)) {
-                    this.infoFieldField = value;
-                    this.RaisePropertyChanged("infoField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string messageField {
-            get {
-                return this.messageFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.messageFieldField, value) != true)) {
-                    this.messageFieldField = value;
-                    this.RaisePropertyChanged("messageField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string operationField {
-            get {
-                return this.operationFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.operationFieldField, value) != true)) {
-                    this.operationFieldField = value;
-                    this.RaisePropertyChanged("operationField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string requestIdField {
-            get {
-                return this.requestIdFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.requestIdFieldField, value) != true)) {
-                    this.requestIdFieldField = value;
-                    this.RaisePropertyChanged("requestIdField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string responseCodeField {
-            get {
-                return this.responseCodeFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.responseCodeFieldField, value) != true)) {
-                    this.responseCodeFieldField = value;
-                    this.RaisePropertyChanged("responseCodeField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.NameValuePairType> warningField {
-            get {
-                return this.warningFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.warningFieldField, value) != true)) {
-                    this.warningFieldField = value;
-                    this.RaisePropertyChanged("warningField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="NameValuePairType", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20")]
-    [System.SerializableAttribute()]
-    public partial class NameValuePairType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string nameFieldField;
-        
-        private string valueFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string nameField {
-            get {
-                return this.nameFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.nameFieldField, value) != true)) {
-                    this.nameFieldField = value;
-                    this.RaisePropertyChanged("nameField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public string valueField {
-            get {
-                return this.valueFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.valueFieldField, value) != true)) {
-                    this.valueFieldField = value;
-                    this.RaisePropertyChanged("valueField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ServerTypeDisk", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20")]
     [System.SerializableAttribute()]
     public partial class ServerTypeDisk : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -4288,211 +3819,6 @@ namespace MRPNotifier.MRPWCFService {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Account", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Directory")]
-    [System.SerializableAttribute()]
-    public partial class Account : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CustomDefined1Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CustomDefined2Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DepartmentField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string EmailAddressField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FirstNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FullNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string LastNameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<MRPNotifier.MRPWCFService.Role> MemberOfRolesField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid OrganizationIdField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PasswordField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UserNameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CustomDefined1 {
-            get {
-                return this.CustomDefined1Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CustomDefined1Field, value) != true)) {
-                    this.CustomDefined1Field = value;
-                    this.RaisePropertyChanged("CustomDefined1");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CustomDefined2 {
-            get {
-                return this.CustomDefined2Field;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CustomDefined2Field, value) != true)) {
-                    this.CustomDefined2Field = value;
-                    this.RaisePropertyChanged("CustomDefined2");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Department {
-            get {
-                return this.DepartmentField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DepartmentField, value) != true)) {
-                    this.DepartmentField = value;
-                    this.RaisePropertyChanged("Department");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string EmailAddress {
-            get {
-                return this.EmailAddressField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.EmailAddressField, value) != true)) {
-                    this.EmailAddressField = value;
-                    this.RaisePropertyChanged("EmailAddress");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FirstName {
-            get {
-                return this.FirstNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FirstNameField, value) != true)) {
-                    this.FirstNameField = value;
-                    this.RaisePropertyChanged("FirstName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FullName {
-            get {
-                return this.FullNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FullNameField, value) != true)) {
-                    this.FullNameField = value;
-                    this.RaisePropertyChanged("FullName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string LastName {
-            get {
-                return this.LastNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.LastNameField, value) != true)) {
-                    this.LastNameField = value;
-                    this.RaisePropertyChanged("LastName");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<MRPNotifier.MRPWCFService.Role> MemberOfRoles {
-            get {
-                return this.MemberOfRolesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MemberOfRolesField, value) != true)) {
-                    this.MemberOfRolesField = value;
-                    this.RaisePropertyChanged("MemberOfRoles");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid OrganizationId {
-            get {
-                return this.OrganizationIdField;
-            }
-            set {
-                if ((this.OrganizationIdField.Equals(value) != true)) {
-                    this.OrganizationIdField = value;
-                    this.RaisePropertyChanged("OrganizationId");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Password {
-            get {
-                return this.PasswordField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
-                    this.PasswordField = value;
-                    this.RaisePropertyChanged("Password");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UserName {
-            get {
-                return this.UserNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
-                    this.UserNameField = value;
-                    this.RaisePropertyChanged("UserName");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MRPWCFService.IMRPWCFService")]
     public interface IMRPWCFService {
@@ -4507,7 +3833,7 @@ namespace MRPNotifier.MRPWCFService {
         MRPNotifier.MRPWCFService.Workload UpdateWorkload(MRPNotifier.MRPWCFService.Workload _updateworkload);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/DestroyWorkload", ReplyAction="http://tempuri.org/IMRPWCFService/DestroyWorkloadResponse")]
-        bool DestroyWorkload(MRPNotifier.MRPWCFService.Workload _destroyworkload);
+        void DestroyWorkload(MRPNotifier.MRPWCFService.Workload _destroyworkload);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/ListPlatforms", ReplyAction="http://tempuri.org/IMRPWCFService/ListPlatformsResponse")]
         System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform> ListPlatforms();
@@ -4522,7 +3848,7 @@ namespace MRPNotifier.MRPWCFService {
         MRPNotifier.MRPWCFService.Platform UpdatePlatform(MRPNotifier.MRPWCFService.Platform _updateplatform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/DestroyPlatform", ReplyAction="http://tempuri.org/IMRPWCFService/DestroyPlatformResponse")]
-        bool DestroyPlatform(MRPNotifier.MRPWCFService.Platform _destroyplatform);
+        void DestroyPlatform(MRPNotifier.MRPWCFService.Platform _destroyplatform);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/RefreshPlatform", ReplyAction="http://tempuri.org/IMRPWCFService/RefreshPlatformResponse")]
         void RefreshPlatform(MRPNotifier.MRPWCFService.Platform _platform);
@@ -4537,16 +3863,13 @@ namespace MRPNotifier.MRPWCFService {
         MRPNotifier.MRPWCFService.Credential UpdateCredential(MRPNotifier.MRPWCFService.Credential _updateCredential);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/DestroyCredential", ReplyAction="http://tempuri.org/IMRPWCFService/DestroyCredentialResponse")]
-        bool DestroyCredential(MRPNotifier.MRPWCFService.Credential _destroyCredential);
+        void DestroyCredential(MRPNotifier.MRPWCFService.Credential _destroyCredential);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/CollectionInformation", ReplyAction="http://tempuri.org/IMRPWCFService/CollectionInformationResponse")]
         MRPNotifier.MRPWCFService.workerInformation CollectionInformation();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/ListDatacenters", ReplyAction="http://tempuri.org/IMRPWCFService/ListDatacentersResponse")]
         System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform> ListDatacenters(string url, MRPNotifier.MRPWCFService.Credential _credential, int _platform_type);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/Account", ReplyAction="http://tempuri.org/IMRPWCFService/AccountResponse")]
-        MRPNotifier.MRPWCFService.AccountWithPhoneNumber Account(string url, MRPNotifier.MRPWCFService.Credential _credential);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/PlatformDetails", ReplyAction="http://tempuri.org/IMRPWCFService/PlatformDetailsResponse")]
         MRPNotifier.MRPWCFService.PlatformDetails PlatformDetails(string _datacenterId, string _url, MRPNotifier.MRPWCFService.Credential _credential);
@@ -4591,8 +3914,8 @@ namespace MRPNotifier.MRPWCFService {
             return base.Channel.UpdateWorkload(_updateworkload);
         }
         
-        public bool DestroyWorkload(MRPNotifier.MRPWCFService.Workload _destroyworkload) {
-            return base.Channel.DestroyWorkload(_destroyworkload);
+        public void DestroyWorkload(MRPNotifier.MRPWCFService.Workload _destroyworkload) {
+            base.Channel.DestroyWorkload(_destroyworkload);
         }
         
         public System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform> ListPlatforms() {
@@ -4611,8 +3934,8 @@ namespace MRPNotifier.MRPWCFService {
             return base.Channel.UpdatePlatform(_updateplatform);
         }
         
-        public bool DestroyPlatform(MRPNotifier.MRPWCFService.Platform _destroyplatform) {
-            return base.Channel.DestroyPlatform(_destroyplatform);
+        public void DestroyPlatform(MRPNotifier.MRPWCFService.Platform _destroyplatform) {
+            base.Channel.DestroyPlatform(_destroyplatform);
         }
         
         public void RefreshPlatform(MRPNotifier.MRPWCFService.Platform _platform) {
@@ -4631,8 +3954,8 @@ namespace MRPNotifier.MRPWCFService {
             return base.Channel.UpdateCredential(_updateCredential);
         }
         
-        public bool DestroyCredential(MRPNotifier.MRPWCFService.Credential _destroyCredential) {
-            return base.Channel.DestroyCredential(_destroyCredential);
+        public void DestroyCredential(MRPNotifier.MRPWCFService.Credential _destroyCredential) {
+            base.Channel.DestroyCredential(_destroyCredential);
         }
         
         public MRPNotifier.MRPWCFService.workerInformation CollectionInformation() {
@@ -4641,10 +3964,6 @@ namespace MRPNotifier.MRPWCFService {
         
         public System.Collections.Generic.List<MRPNotifier.MRPWCFService.Platform> ListDatacenters(string url, MRPNotifier.MRPWCFService.Credential _credential, int _platform_type) {
             return base.Channel.ListDatacenters(url, _credential, _platform_type);
-        }
-        
-        public MRPNotifier.MRPWCFService.AccountWithPhoneNumber Account(string url, MRPNotifier.MRPWCFService.Credential _credential) {
-            return base.Channel.Account(url, _credential);
         }
         
         public MRPNotifier.MRPWCFService.PlatformDetails PlatformDetails(string _datacenterId, string _url, MRPNotifier.MRPWCFService.Credential _credential) {

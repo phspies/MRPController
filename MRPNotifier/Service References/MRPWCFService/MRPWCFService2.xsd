@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost:8734/MRPWCFService?xsd=xsd8" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:complexType name="ArrayOfDatacenterType">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="DatacenterType" nillable="true" type="tns:DatacenterType" />
@@ -113,31 +113,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="NetworkingType" nillable="true" type="tns:NetworkingType" />
-  <xs:complexType name="ResponseType">
-    <xs:sequence>
-      <xs:element name="errorField" nillable="true" type="tns:ArrayOfNameValuePairType" />
-      <xs:element name="infoField" nillable="true" type="tns:ArrayOfNameValuePairType" />
-      <xs:element name="messageField" nillable="true" type="xs:string" />
-      <xs:element name="operationField" nillable="true" type="xs:string" />
-      <xs:element name="requestIdField" nillable="true" type="xs:string" />
-      <xs:element name="responseCodeField" nillable="true" type="xs:string" />
-      <xs:element name="warningField" nillable="true" type="tns:ArrayOfNameValuePairType" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ResponseType" nillable="true" type="tns:ResponseType" />
-  <xs:complexType name="ArrayOfNameValuePairType">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="NameValuePairType" nillable="true" type="tns:NameValuePairType" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfNameValuePairType" nillable="true" type="tns:ArrayOfNameValuePairType" />
-  <xs:complexType name="NameValuePairType">
-    <xs:sequence>
-      <xs:element name="nameField" nillable="true" type="xs:string" />
-      <xs:element name="valueField" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="NameValuePairType" nillable="true" type="tns:NameValuePairType" />
   <xs:complexType name="ArrayOfNetworkDomainType">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="NetworkDomainType" nillable="true" type="tns:NetworkDomainType" />

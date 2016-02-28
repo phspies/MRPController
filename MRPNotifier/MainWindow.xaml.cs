@@ -7,16 +7,14 @@ using System.Collections.Generic;
 using MRPNotifier.Forms;
 using System.Windows.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using System.Globalization;
 using MRPNotifier.Models;
-using System.Diagnostics;
 using System.Windows.Media;
 using System.Linq;
-using System.Windows.Input;
 using System.Data;
 using MRPNotifier.Extensions;
 using System.Threading;
 using MRPNotifier.MRPWCFService;
+using System.Windows.Input;
 
 namespace MRPNotifier
 {
@@ -32,10 +30,6 @@ namespace MRPNotifier
         private List<Workload_ObjectDataModel> _workloads = new List<Workload_ObjectDataModel>();
         workerInformation _information = null;
 
-        public List<Credential> workload_credentials()
-        {
-            return channel.ListCredentials().Where(x => x.credential_type == 1).ToList();
-        }
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string propertyName)
         {
@@ -52,24 +46,20 @@ namespace MRPNotifier
             //Assign global assignment for tree
 
             //apply item source and apply filter
-            _workloads = new Workload_ListDataModel().list;
-            lvWorkloads.ItemsSource = _workloads;
-            lvWorkloads.Items.Filter = new Predicate<object>(workloads_enabled);
-
 
             m_notifyIcon = new System.Windows.Forms.NotifyIcon();
             m_notifyIcon.BalloonTipText = "MRP Notifier has been minimised. Click the tray icon to show.";
             m_notifyIcon.BalloonTipTitle = "MRP Notifier";
             m_notifyIcon.Text = "MRP Notifier";
-            m_notifyIcon.Icon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/cloudmovey.ico")).Stream);
+            m_notifyIcon.Icon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/mrp.ico")).Stream);
             m_notifyIcon.Click += new EventHandler(m_notifyIcon_Click);
-
-
 
         }
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
-
+            load_credentiallist();
+            load_platformlist();
+            load_workloadlist();
         }
         private void lvTasks_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -168,7 +158,6 @@ namespace MRPNotifier
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             load_platformlist();
-            refesh_credential_list();
 
         }
         void OnClose(object sender, System.ComponentModel.CancelEventArgs e)
@@ -313,7 +302,10 @@ namespace MRPNotifier
             {
                 channel.UpdateCredential(_form._record);
             }
-            refesh_credential_list();
+            using (new WaitCursor())
+            {
+                load_credentiallist();
+            }
         }
         private async void delete_credential_button(object sender, RoutedEventArgs e)
         {
@@ -329,13 +321,19 @@ namespace MRPNotifier
             if (messageBoxResult == MahApps.Metro.Controls.Dialogs.MessageDialogResult.Affirmative)
             {
                 channel.DestroyCredential(_credential);
-                refesh_credential_list();
+                using (new WaitCursor())
+                {
+                    load_credentiallist();
+                }
             }
 
         }
         private void refresh_credentials_button_clicked(object sender, RoutedEventArgs e)
         {
-            refesh_credential_list();
+            using (new WaitCursor())
+            {
+                load_credentiallist();
+            }
         }
         private void add_credentials_button_clicked(object sender, RoutedEventArgs e)
         {
@@ -344,51 +342,56 @@ namespace MRPNotifier
             {
                 channel.AddCredential(_form._record);
             }
-            refesh_credential_list();
+            using (new WaitCursor())
+            {
+                load_credentiallist();
+            }
         }
-        private void refesh_credential_list()
-        {
-            _credential_list = channel.ListCredentials();
-            lvCredentials.ItemsSource = _credential_list;
-        }
- 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
         private void workload_search_filter(object sender, RoutedEventArgs e)
         {
-            UiServices.SetBusyState();
-
-            lvWorkloads.Items.Filter = new Predicate<object>(workload_search_object);
-
-        }
-        private void workload_filter_toggle(object sender, RoutedEventArgs e)
-        {
-            UiServices.SetBusyState();
-
-            if ((bool)workload_filter_toggleswitch.IsChecked)
+            using (new WaitCursor())
             {
-                lvWorkloads.Items.Filter = new Predicate<object>(workloads_disabled);
+                lvWorkloads.Items.Filter = new Predicate<object>(workload_search_object);
             }
-            else
-            {
-                lvWorkloads.Items.Filter = new Predicate<object>(workloads_enabled);
-            }
+
         }
         public bool workload_search_object(object item)
         {
-            return ((item as Workload_ObjectDataModel).hostname.IndexOf(workload_search.Text, StringComparison.OrdinalIgnoreCase) >= 0 && (item as Workload_ObjectDataModel).enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
+            using (new WaitCursor())
+            {
+                return ((item as Workload_ObjectDataModel).hostname.IndexOf(workload_search.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+            }
         }
-        public bool workloads_enabled(object de)
+        public class WaitCursor : IDisposable
         {
-            Workload_ObjectDataModel workload = de as Workload_ObjectDataModel;
-            return ((workload.enabled == true) && workload.enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
+            private Cursor _previousCursor;
+
+            public WaitCursor()
+            {
+                _previousCursor = Mouse.OverrideCursor;
+
+                Mouse.OverrideCursor = Cursors.Wait;
+            }
+
+            #region IDisposable Members
+
+            public void Dispose()
+            {
+                Mouse.OverrideCursor = _previousCursor;
+            }
+
+            #endregion
         }
-        public bool workloads_disabled(object de)
+
+        private void add_workload_button_clicked(object sender, RoutedEventArgs e)
         {
-            Workload_ObjectDataModel workload = de as Workload_ObjectDataModel;
-            return ((workload.enabled == false) && workload.enabled == ((bool)workload_filter_toggleswitch.IsChecked ? false : true));
+
+        }
+
+        private void refresh_workloads_button_clicked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 
