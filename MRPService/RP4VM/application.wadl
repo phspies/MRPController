@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<application xmlns="http://wadl.dev.java.net/2009/02">
+    <doc xmlns:jersey="http://jersey.java.net/" jersey:generatedBy="Jersey: 1.11 12/09/2011 10:27 AM"/>
+    <grammars>
+        <include href="application.wadl/xsd0.xsd">
+            <doc title="Generated" xml:lang="en"/>
+        </include>
+    </grammars>
+    <resources base="https://192.168.0.160/deployer/rest/4_3_1/">
+        <resource path="">
+            <method id="getWelcomePage" name="GET">
+                <response>
+                    <representation mediaType="text/html"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="clusters">
+            <method id="getClusters" name="GET">
+                <response>
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+            <method id="createNewCluster" name="POST">
+                <request>
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="force" style="query" type="xs:boolean" default="false"/>
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="retry" style="query" type="xs:boolean" default="false"/>
+                    <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="fullClusterInfo" mediaType="application/json"/>
+                </request>
+                <response>
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+            <resource path="{cluster_id}/links">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="getExistingLinksToOtherClustersByType" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/links/ip">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="addNewIPLink" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="newClusterIPLinkParameters" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+                <method id="getExistingIPLinksToOtherClusters" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/modifications">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="getModifiedTweaksAndSignedScripts" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="compatibility_info">
+                <method id="getCompatibilityInfo" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/iso/ftp">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="uploadIsoFromFtp" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="ftpDownloadInformation" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/iso/upload">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="uploadIso" name="POST">
+                    <request>
+                        <representation mediaType="multipart/form-data"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/gateways">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="setClusterGateways" name="PUT">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="gatewaysInformation" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/status">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="getClusterStatus" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/rpas/iscsi">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="setRpaIscsiIps" name="POST">
+                    <request>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/version">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="getClusterVersion" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+                <method id="upgradeCluster" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="versionUpgradeInfo" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="system_checks/deploy">
+                <method id="systemChecks" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="fullClusterInfo" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/system_checks/upgrade">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="upgradeSystemChecks" name="POST">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/rpas">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="getRPAsInformation" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+                <method id="addNewRPA" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="rpaAdditionParams" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/rpas/{rpa_number}/">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="rpa_number" style="template" type="xs:int"/>
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="updateRPAsNetworkInformation" name="POST">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+                <method id="getRPANetworkInformation" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/available_versions">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="getAvailableVersion" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="input_validation/deploy">
+                <method id="inputValidation" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="fullClusterInfo" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="updateCluster" name="POST">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+                <method id="getClusterInformation" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/rpas/status">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="verifyClusterRPAsAreOK" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{cluster_id}/diagnostics/upgrade">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="cluster_id" style="template" type="xs:string"/>
+                <method id="diagnoseCluster" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="transactions">
+            <method id="getAllTransactions" name="GET">
+                <response>
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+            <resource path="{transaction_id}/result">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="transaction_id" style="template" type="xs:string"/>
+                <method id="getTransactionResult" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{transaction_id}">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="transaction_id" style="template" type="xs:string"/>
+                <method id="getTransactionStatus" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="arrays">
+            <resource path="virtual_center/entities/validations/fix">
+                <method id="fixIssues" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="fixIssuesParams" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="virtual_center/entities/validations/{validationType}/fix">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="validationType" style="template" type="xs:string"/>
+                <method id="fixIssue" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="fixIssuesParams" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{arrayType}/validate_credentials">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="arrayType" style="template" type="xs:string"/>
+                <method id="validateArrayCredentials" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="arrayCredentials" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="virtual_center/entities/validations">
+                <method id="performValidations" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="performValidationsParams" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="virtual_center/validations">
+                <method id="performVcValidation" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="vcValidationParams" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{arrayType}/available_resource_pools">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="arrayType" style="template" type="xs:string"/>
+                <method id="calculateAvailableResourcePools" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="availableResourcePoolInfo" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="certificate">
+                <method id="extractVcCertificate" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="ipPort" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="certificate/x509">
+                <method id="extractVcCertificateAsX509" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="ipPort" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="certificate/base64">
+                <method id="extractVcCertificateAsBase64" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="ipPort" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="virtual_center/validateable_entities">
+                <method id="getAllValidateableEntities" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="arrayCredentials" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="virtual_center/entities/esx_clusters/{uuid}/validations">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="uuid" style="template" type="xs:string"/>
+                <method id="performEsxClusterValidation" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="esxClusterValidationParams" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="operations">
+            <resource path="deploy/procedures/change_management">
+                <method id="calculateDeployChangeManagementProcedureMessages" name="POST">
+                    <request>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="{operation}/procedures/prerequisites">
+                <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="operation" style="template" type="xs:string"/>
+                <method id="getPrerequisites" name="GET">
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="/iso/version/">
+                <method id="extractRPVersionFromIsoFilename" name="GET">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="isoFilename" style="query" type="xs:string"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="upgrade/procedures/change_management">
+                <method id="calculateUpgradeChangeManagementProcedureMessages" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="targetVersion" style="query" type="xs:string"/>
+                        <representation mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="splitters">
+            <resource path="esx_clusters/deploy">
+                <method id="deployESXClusters" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="isVscsiFilter" style="query" type="xs:boolean"/>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="esxClustersParameters" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="esx_clusters/upgrade">
+                <method id="upgradeESXClusters" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="isVscsiFilter" style="query" type="xs:boolean"/>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="esxClustersParameters" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="esx_clusters/uninstall">
+                <method id="uninstallESXClusters" name="POST">
+                    <request>
+                        <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="isVscsiFilter" style="query" type="xs:boolean"/>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="esxClustersParameters" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+            <resource path="supported/types">
+                <method id="supportedSplittersType" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="arrayCredentials" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+        <resource path="timezones">
+            <method id="getAvailableTimezones" name="GET">
+                <request>
+                    <param xmlns:xs="http://www.w3.org/2001/XMLSchema" name="timezoneOffsetHours" style="query" type="xs:double"/>
+                </request>
+                <response>
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+        </resource>
+        <resource path="user">
+            <method id="getUser" name="GET">
+                <response>
+                    <representation mediaType="application/json"/>
+                </response>
+            </method>
+            <resource path="sessions">
+                <method id="authenticate" name="POST">
+                    <request>
+                        <ns2:representation xmlns:ns2="http://wadl.dev.java.net/2009/02" xmlns="" element="emcCreds" mediaType="application/json"/>
+                    </request>
+                    <response>
+                        <representation mediaType="application/json"/>
+                    </response>
+                </method>
+            </resource>
+        </resource>
+    </resources>
+</application>

@@ -52,23 +52,16 @@ namespace MRPNotifier.Forms
         }
         private void toggle_platform()
         {
-            if (_record.vendor != null)
-            {
-                if (_record.vendor == 0)
-                {
-                    platform_dimensiondata_url.Visibility = Visibility.Visible;
-                    platform_url.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    platform_dimensiondata_url.Visibility = Visibility.Collapsed;
-                    platform_url.Visibility = Visibility.Visible;
-                }
-            }
-            else
+
+            if (_record.vendor == 0)
             {
                 platform_dimensiondata_url.Visibility = Visibility.Visible;
                 platform_url.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                platform_dimensiondata_url.Visibility = Visibility.Collapsed;
+                platform_url.Visibility = Visibility.Visible;
             }
         }
         private void initialize_form()

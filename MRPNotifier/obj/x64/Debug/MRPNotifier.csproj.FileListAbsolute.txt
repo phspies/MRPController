@@ -49,3 +49,4 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNo
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\MRPNotifier.csproj.GenerateResource.Cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\MRPNotifier.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\MRPNotifier.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\MRPNotifier.csprojResolveAssemblyReference.cache

@@ -17,6 +17,8 @@ using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
 using DD.CBU.Compute.Api.Contracts.General;
 using MRPService.Utilities;
 using VMware.Vim;
+using MRPService.VMWare;
+using System.Collections.Specialized;
 
 namespace MRPService.API.Classes
 {
@@ -109,56 +111,64 @@ namespace MRPService.API.Classes
                 _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
 
             }
+            String username = String.Concat((String.IsNullOrEmpty(_credential.domain) ? "" : (_credential.domain + @"\")), _credential.username);
+            VimApiClient _vim = new VimApiClient(_platform.url, username, _credential.password);
+
+
+            //update localdb platform information
+            Datacenter dc = _vim.datacenter().GetDataCenter(_platform.moid);
+            List<Network> networkdomain_list = _vim.networks().GetPortGroups(dc);
+            NameValueCollection filter = new NameValueCollection();
+            List<VirtualMachine> workload_list = _vim.workload().GetWorkloads(dc, filter).Where(x => x.Config.GuestId.Contains("win") && x.Runtime.PowerState == VirtualMachinePowerState.poweredOn).ToList();
+            List<Network> vlan_list = _vim.networks().GetPortGroups(dc).ToList();
+
+            int workloads, networkdomains, vlans;
+            string workloads_md5, networkdomains_md5, vlans_md5;
+            workloads = networkdomains = vlans = 0;
+
+            workloads = workload_list.Count();
+            workloads_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(workload_list));
+            vlans = vlan_list.Count();
+            vlans_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(vlan_list));
+            networkdomains = networkdomain_list.Count();
+            networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(networkdomain_list));
+
+            using (MRPDatabase db = new MRPDatabase())
+            {
+                Platform __platform = db.Platforms.Find(_platform.id);
+                __platform.vlan_count = vlans;
+                __platform.workload_count = workloads;
+                __platform.networkdomain_count = networkdomains;
+                __platform.platform_version = .type;
+
+                __platform.lastupdated = DateTime.Now;
+                __platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
+                __platform.moid = dc.MoRef.Value;
+                db.SaveChanges();
+            }
+
             MRPWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
             MRPPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
             MRPPlatformdomainListType _currentplatformdomains = _cloud_movey.platformdomain().listplatformdomains();
 
-            VMWare.ApiClient _api_client = new VMWare.ApiClient(_platform.url, _credential.username, _credential.password);
 
-
-            Datacenter _dc = _api_client.datacenter().GetDataCenter(_platform.moid);
-
-            
-            //foreach (ClusterComputeResource itmCluster in lstClusters)
-            //{
-            //    ListItem thisCluster = new ListItem();
-            //    thisCluster.Text = itmCluster.Name;
-            //    thisCluster.Value = itmCluster.MoRef.Value;
-            //    cboClusters.Items.Add(thisCluster);
-            //}
-
-            ////
-            //// Get a list of datastores
-            ////
-
-            //List<Datacenter> lstDatacenters = GetDcFromCluster(vimClient, lstClusters[0].Parent.Value);
-            //Datacenter itmDatacenter = lstDatacenters[0];
-
-            //List<Datastore> lstDatastores = GetDataStore(vimClient, itmDatacenter);
-            //lstDatastores = lstDatastores.OrderByDescending(thisStore => thisStore.Info.FreeSpace).ToList();
-            //foreach (Datastore itmDatastore in lstDatastores)
-            //{
-            //    ListItem thisDatastore = new ListItem();
-            //    thisDatastore.Text = itmDatastore.Name;
-            //    thisDatastore.Value = itmDatastore.MoRef.Value;
-            //    cboDatastores.Items.Add(thisDatastore);
-            //}
-
-            ////
-            //// Get a list of network portgroups
-            ////
-
-            //List<DistributedVirtualPortgroup> lstDVPortGroups = GetDVPortGroups(vimClient, itmDatacenter);
-            //if (lstDVPortGroups != null)
-            //{
-            //    foreach (DistributedVirtualPortgroup itmPortGroup in lstDVPortGroups)
-            //    {
-            //        ListItem thisPortGroup = new ListItem();
-            //        thisPortGroup.Text = itmPortGroup.Name;
-            //        thisPortGroup.Value = itmPortGroup.MoRef.ToString();
-            //        cboPortGroups.Items.Add(thisPortGroup);
-            //    }
-            //}
+                Console.WriteLine(String.Format("DC: {0} {1}", dc.Name, dc.MoRef.Value));
+                Console.WriteLine("\n\tDatastores -----------------\n");
+                foreach (Datastore ds in _vim.datastore().DatastoreList(dc))
+                {
+                    Console.WriteLine(String.Format("\t\tDS: {0} {1}", ds.Name, ds.MoRef.Value));
+                }
+                Console.WriteLine("\n\tVirtual Machines -----------------\n");
+                foreach (VirtualMachine vm in _vim.workload().GetWorkloads(dc))
+                {
+                    Console.WriteLine(String.Format("\t\t{0} {1}", vm.Name, vm.MoRef.Value));
+                vm.Config.GuestId
+                }
+                Console.WriteLine("\n\tNetworks -----------------\n");
+                foreach (Network net in _vim.networks().GetPortGroups(dc))
+                {
+                    Console.WriteLine(String.Format("\t\t{0} {1}", net.Name, net.MoRef.Value));
+                }
 
         }
 

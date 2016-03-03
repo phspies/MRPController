@@ -6,11 +6,12 @@ namespace MRPService.VMWare
 {
     public class Datacenters : Core
     {
-        public Datacenters(ApiClient _virtualcenter) : base(_virtualcenter) {}
+        public Datacenters(VimApiClient _virtualcenter) : base(_virtualcenter) {}
 
         public List<Datacenter> DatacenterList()
         {
             List<Datacenter> datacenters = new List<Datacenter>();
+            NameValueCollection filter = new NameValueCollection();
             foreach (EntityViewBase datacenter in _vmwarecontext.FindEntityViews(typeof(Datacenter), null, null, null))
             {
                 Datacenter dc = datacenter as Datacenter;

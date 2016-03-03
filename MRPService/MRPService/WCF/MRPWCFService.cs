@@ -213,7 +213,8 @@ namespace MRPService.WCF
                     CaaS.Infrastructure.GetDataCenters(new PageableRequest() { PageSize = 250 }).Result.ToList().ForEach(x => { _platforms.Add(new Platform() { datacenter = x.displayName, moid = x.id }); });
                     break;
                 case 1:
-                    ApiClient VMWare = new ApiClient(url, _credential.username, _credential.password);
+                    string username = String.Concat((String.IsNullOrEmpty(_credential.domain) ? "" : _credential.domain + @"\"), _credential.username);
+                    VimApiClient VMWare = new VimApiClient(url, username, _credential.password);
                     VMWare.datacenter().DatacenterList().ForEach(x => { _platforms.Add(new Platform() { datacenter = x.Name, moid = x.MoRef.Value }); });
                     break;
 
@@ -226,10 +227,21 @@ namespace MRPService.WCF
         }
         public Tuple<bool, String> Login(string _url, Credential _credential, int _platform_type)
         {
-            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_url), new NetworkCredential(_credential.username, _credential.password));
+            List<Platform> _platforms = new List<Platform>();
             try
             {
-                CaaS.Login().Wait();
+                switch (_platform_type)
+                {
+                    case 0:
+                        ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_url), new NetworkCredential(_credential.username, _credential.password));
+                        CaaS.Login().Wait();
+                        break;
+                    case 1:
+                        string username = String.Concat((String.IsNullOrEmpty(_credential.domain) ? "" : _credential.domain + @"\"), _credential.username);
+                        VimApiClient VMWare = new VimApiClient(_url, username, _credential.password);
+                        break;
+
+                }
                 return Tuple.Create(true, "Success");
             }
             catch (Exception ex)

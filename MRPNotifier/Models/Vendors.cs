@@ -17,7 +17,7 @@ namespace MRPNotifier.Models
 
     class vendordetail
     {
-        public byte ID { get; set; }
+        public int ID { get; set; }
         public string Vendor { get; set; }
     }
 }

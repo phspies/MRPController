@@ -4,24 +4,14 @@ using VMware.Vim;
 
 namespace MRPService.VMWare
 {
-    class Workloads : Core
+    public class Workloads : Core
     {
-        public Workloads(ApiClient _virtualcenter) : base(_virtualcenter) {}
+        public Workloads(VimApiClient _virtualcenter) : base(_virtualcenter) {}
 
-        protected List<VirtualMachine> GetWorkloads(Datacenter selectedDC = null, string vmName = null)
+        public List<VirtualMachine> GetWorkloads(Datacenter selectedDC, NameValueCollection vmfilter)
         {
             List<VirtualMachine> lstVirtualMachines = new List<VirtualMachine>();
-            NameValueCollection vmFilter = new NameValueCollection();
             ManagedObjectReference DcMoRef = new ManagedObjectReference();
-
-            if (vmName != null)
-            {
-                vmFilter.Add("name", vmName);
-            }
-            else
-            {
-                vmFilter = null;
-            }
 
             if (selectedDC != null)
             {
@@ -46,6 +36,10 @@ namespace MRPService.VMWare
             {
                 return null;
             }
+
+  
+
+
         }
     }
 

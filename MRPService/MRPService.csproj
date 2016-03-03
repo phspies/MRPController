@@ -1166,12 +1166,15 @@
     <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Template.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Templates.cs" />
     <Compile Include="MRPService\Classes\Utilities\Utils.cs" />
+    <Compile Include="RP4VM\xsd0.cs">
+      <DependentUpon>xsd0.xsd</DependentUpon>
+    </Compile>
     <Compile Include="VMWare\Core.cs" />
     <Compile Include="VMWare\Datastores.cs" />
     <Compile Include="VMWare\Networks.cs" />
     <Compile Include="VMWare\Workloads.cs" />
     <Compile Include="VMWare\Datacenters.cs" />
-    <Compile Include="VMWare\ApiClient.cs" />
+    <Compile Include="VMWare\VimApiClient.cs" />
     <Compile Include="DoubleTake\DoubleTake.Wsdl.Contracts.cs" />
     <Compile Include="MRPSvc.cs">
       <SubType>Component</SubType>
@@ -1205,6 +1208,10 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="RP4VM\application.wadl" />
+    <None Include="RP4VM\xsd0.xsd">
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

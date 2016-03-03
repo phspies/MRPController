@@ -8,11 +8,11 @@ using VMware.Vim;
 
 namespace MRPService.VMWare
 {
-    class Networks : Core
+    public class Networks : Core
     {
-        public Networks(ApiClient _virtualcenter) : base(_virtualcenter) { }
+        public Networks(VimApiClient _virtualcenter) : base(_virtualcenter) { }
 
-        protected VmwareDistributedVirtualSwitch GetDvSwitch(ManagedObjectReference dvportGroupSwitch)
+        public VmwareDistributedVirtualSwitch GetDvSwitch(ManagedObjectReference dvportGroupSwitch)
         {
             ViewBase appSwitch = _vmwarecontext.GetView(dvportGroupSwitch, null);
             if (appSwitch != null)
@@ -25,7 +25,7 @@ namespace MRPService.VMWare
                 return null;
             }
         }
-        protected List<DistributedVirtualPortgroup> GetDVPortGroups(Datacenter selectedDC = null, string pgName = null)
+        public List<DistributedVirtualPortgroup> GetDVPortGroups(Datacenter selectedDC = null, string pgName = null)
         {
             List<DistributedVirtualPortgroup> lstPortGroups = new List<DistributedVirtualPortgroup>();
             NameValueCollection pgFilter = new NameValueCollection();
@@ -64,7 +64,7 @@ namespace MRPService.VMWare
                 return null;
             }
         }
-        protected List<Network> GetPortGroups(Datacenter selectedDC = null, string pgName = null)
+        public List<Network> GetPortGroups(Datacenter selectedDC = null, string pgName = null)
         {
             List<Network> lstPortGroups = new List<Network>();
             NameValueCollection pgFilter = new NameValueCollection();

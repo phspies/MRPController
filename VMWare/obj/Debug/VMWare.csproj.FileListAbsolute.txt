@@ -1,0 +1,9 @@
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\VMWare\obj\Debug\VMWare.csprojResolveAssemblyReference.cache
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\VMWare\bin\Debug\VMWare.exe.config
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\VMWare\bin\Debug\VMWare.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\VMWare\bin\Debug\VMWare.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\VMWare\bin\Debug\VMware.Vim.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\VMWare\obj\Debug\VMWare.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\VMWare\obj\Debug\VMWare.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\VMWare\bin\Debug\VimService60.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\VMWare\bin\Debug\VimService60.XmlSerializers.dll

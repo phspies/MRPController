@@ -7,6 +7,7 @@
                     xmlns:MRPWCF="clr-namespace:MRPNotifier.MRPWCFService" 
                     mc:Ignorable="d" x:Class="MRPNotifier.Forms.PlatformForm" 
                       Icon="../mrp.ico"
+                        xmlns:sys="clr-namespace:System;assembly=mscorlib"
                       EnableDWMDropShadow="True"
                       WindowStartupLocation="CenterScreen"
                       Title="Platform Form"  SizeToContent="WidthAndHeight"

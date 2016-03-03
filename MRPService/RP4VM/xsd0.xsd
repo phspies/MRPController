@@ -1,0 +1,1056 @@
+<?xml version="1.0" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="arrayCredentials" type="ArrayCredentials"/>
+
+  <xs:element name="arrayIdToArrayUrl" type="ArrayIdToArrayUrl"/>
+
+  <xs:element name="arrayResourcePool" type="ArrayResourcePool"/>
+
+  <xs:element name="arrayResourcePoolUID" type="ArrayResourcePoolUID"/>
+
+  <xs:element name="arrayResourcePools" type="ArrayResourcePools"/>
+
+  <xs:element name="arrayType" type="ArrayType"/>
+
+  <xs:element name="availableResourcePoolInfo" type="AvailableResourcePoolInfo"/>
+
+  <xs:element name="availableVersion" type="AvailableVersion"/>
+
+  <xs:element name="availableVersions" type="AvailableVersions"/>
+
+  <xs:element name="base64Certificate" type="Base64Certificate"/>
+
+  <xs:element name="basicClusterInfo" type="BasicClusterInfo"/>
+
+  <xs:element name="ccaEntry" type="CCAEntry"/>
+
+  <xs:element name="certificate" type="Certificate"/>
+
+  <xs:element name="clusterDiagnosticInfo" type="ClusterDiagnosticInfo"/>
+
+  <xs:element name="clusterStatus" type="ClusterStatus"/>
+
+  <xs:element name="clusterType" type="ClusterType"/>
+
+  <xs:element name="clusters" type="Clusters"/>
+
+  <xs:element name="compatibilityInfo" type="CompatibilityInfo"/>
+
+  <xs:element name="criteria" type="Criteria"/>
+
+  <xs:element name="criterion" type="Criterion"/>
+
+  <xs:element name="deploymentType" type="DeploymentType"/>
+
+  <xs:element name="deploymentTypes" type="DeploymentTypes"/>
+
+  <xs:element name="dmVersion" type="DMVersion"/>
+
+  <xs:element name="dmVersions" type="DMVersions"/>
+
+  <xs:element name="emcCreds" type="EMCCreds"/>
+
+  <xs:element name="entityInformation" type="EntityInformation"/>
+
+  <xs:element name="entryData" type="EntryData"/>
+
+  <xs:element name="esxClusterValidationParams" type="EsxClusterValidationParams"/>
+
+  <xs:element name="esxClustersParameters" type="ESXClustersParameters"/>
+
+  <xs:element name="existingClusterFCLink" type="ExistingClusterFCLink"/>
+
+  <xs:element name="existingClusterIPLink" type="ExistingClusterIPLink"/>
+
+  <xs:element name="existingFCLinksToOtherClusters" type="ExistingFCLinksToOtherClusters"/>
+
+  <xs:element name="existingIPLinksToOtherClusters" type="ExistingIPLinksToOtherClusters"/>
+
+  <xs:element name="existingLinksToOtherClusters" type="ExistingLinksToOtherClusters"/>
+
+  <xs:element name="extendedRpaStatus" type="ExtendedRpaStatus"/>
+
+  <xs:element name="extraClusterInfo" type="ExtraClusterInfo"/>
+
+  <xs:element name="fixIssuesParams" type="FixIssuesParams"/>
+
+  <xs:element name="flowType" type="FlowType"/>
+
+  <xs:element name="ftpDownloadInformation" type="FtpDownloadInformation"/>
+
+  <xs:element name="fullClusterInfo" type="FullClusterInfo"/>
+
+  <xs:element name="gatewayDetails" type="GatewayDetails"/>
+
+  <xs:element name="gatewaysInformation" type="GatewaysInformation"/>
+
+  <xs:element name="generalProcedureMessage" type="GeneralProcedureMessage"/>
+
+  <xs:element name="ipAddress" type="IpAddress"/>
+
+  <xs:element name="ipPort" type="IpPort"/>
+
+  <xs:element name="iscsiChapInfo" type="IscsiChapInfo"/>
+
+  <xs:element name="iscsiPortDetails" type="IscsiPortDetails"/>
+
+  <xs:element name="message" type="Message"/>
+
+  <xs:element name="messageType" type="MessageType"/>
+
+  <xs:element name="modelValidationException" type="ModelValidationException"/>
+
+  <xs:element name="newClusterIPLinkParameters" type="NewClusterIPLinkParameters"/>
+
+  <xs:element name="newRPAInfo" type="NewRPAInfo"/>
+
+  <xs:element name="nicSpeedEnum" type="NicSpeedEnum"/>
+
+  <xs:element name="operationStatus" type="OperationStatus"/>
+
+  <xs:element name="performValidationsParams" type="PerformValidationsParams"/>
+
+  <xs:element name="procedureMessages" type="ProcedureMessages"/>
+
+  <xs:element name="procedureRestrictionType" type="ProcedureRestrictionType"/>
+
+  <xs:element name="product" type="Product"/>
+
+  <xs:element name="productType" type="ProductType"/>
+
+  <xs:element name="products" type="Products"/>
+
+  <xs:element name="remoteClusterConnectionDetails" type="RemoteClusterConnectionDetails"/>
+
+  <xs:element name="remoteClusterConnectionType" type="RemoteClusterConnectionType"/>
+
+  <xs:element name="restrictedProcedureMessage" type="RestrictedProcedureMessage"/>
+
+  <xs:element name="restriction" type="Restriction"/>
+
+  <xs:element name="restrictionType" type="RestrictionType"/>
+
+  <xs:element name="rpVersion" type="RPVersion"/>
+
+  <xs:element name="rpVersions" type="RPVersions"/>
+
+  <xs:element name="rpaAdditionParams" type="RpaAdditionParams"/>
+
+  <xs:element name="rpaAutoNegotiationInfo" type="RPAAutoNegotiationInfo"/>
+
+  <xs:element name="rpaCommunicationSecurityLevel" type="RPACommunicationSecurityLevel"/>
+
+  <xs:element name="rpaDiagnosticMessageInfo" type="RPADiagnosticMessageInfo"/>
+
+  <xs:element name="rpaInfo" type="RpaInfo"/>
+
+  <xs:element name="rpaIps" type="RpaIps"/>
+
+  <xs:element name="rpaNumberToVersion" type="RpaNumberToVersion"/>
+
+  <xs:element name="rpaStatus" type="RpaStatus"/>
+
+  <xs:element name="rpamtuInfo" type="RPAMTUInfo"/>
+
+  <xs:element name="rpasInfo" type="RpasInfo"/>
+
+  <xs:element name="splitterType" type="SplitterType"/>
+
+  <xs:element name="tokenTransfer" type="TokenTransfer"/>
+
+  <xs:element name="transactionID" type="TransactionID"/>
+
+  <xs:element name="transactionIdToURLMap" type="TransactionIdToURLMap"/>
+
+  <xs:element name="transactionState" type="TransactionState"/>
+
+  <xs:element name="transactionStatus" type="TransactionStatus"/>
+
+  <xs:element name="uidToURLMap" type="UidToURLMap"/>
+
+  <xs:element name="userTransfer" type="UserTransfer"/>
+
+  <xs:element name="validationResult" type="ValidationResult"/>
+
+  <xs:element name="validationResultSeverity" type="ValidationResultSeverity"/>
+
+  <xs:element name="validationType" type="ValidationType"/>
+
+  <xs:element name="vcEntityType" type="VCEntityType"/>
+
+  <xs:element name="vcEntityUuid" type="VCEntityUuid"/>
+
+  <xs:element name="vcStatus" type="VcStatus"/>
+
+  <xs:element name="vcValidationParams" type="VcValidationParams"/>
+
+  <xs:element name="versionUpgradeInfo" type="VersionUpgradeInfo"/>
+
+  <xs:element name="x509Certificate" type="X509Certificate"/>
+
+  <xs:complexType name="NewRPAInfo">
+    <xs:sequence>
+      <xs:element name="boxmgmtUser" type="xs:string"/>
+      <xs:element name="boxmgmtPwd" type="xs:string"/>
+      <xs:element name="currentLANIP" type="xs:string"/>
+      <xs:element name="newIPs" type="RpaIps"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RpaIps">
+    <xs:sequence>
+      <xs:element name="lanIPs" type="IpAddress" maxOccurs="unbounded"/>
+      <xs:element name="wanIPs" type="IpAddress" maxOccurs="unbounded"/>
+      <xs:element name="iscsiInterfaces" type="IscsiPortDetails" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IpAddress">
+    <xs:sequence>
+      <xs:element name="ip" type="xs:string"/>
+      <xs:element name="netmask" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IscsiPortDetails">
+    <xs:sequence>
+      <xs:element name="ipAddress" type="IpAddress" nillable="true"/>
+      <xs:element name="port" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Base64Certificate">
+    <xs:sequence>
+      <xs:element name="certificate" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Criteria">
+    <xs:sequence>
+      <xs:element name="criterions" type="Criterion" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Criterion">
+    <xs:sequence>
+      <xs:element name="rpVersions" type="RPVersions" nillable="true" minOccurs="0"/>
+      <xs:element name="products" type="Products" nillable="true" minOccurs="0"/>
+      <xs:element name="dmVersions" type="DMVersions" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RPVersions">
+    <xs:sequence>
+      <xs:element name="versionList" type="RPVersion" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RPVersion">
+    <xs:sequence>
+      <xs:element name="currentVersion" type="xs:string" minOccurs="0"/>
+      <xs:element name="targetVersion" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Products">
+    <xs:sequence>
+      <xs:element name="productList" type="Product" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Product">
+    <xs:sequence>
+      <xs:element name="productType" type="ProductType" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DMVersions">
+    <xs:sequence>
+      <xs:element name="versionList" type="DMVersion" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DMVersion">
+    <xs:sequence>
+      <xs:element name="version" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EMCCreds">
+    <xs:sequence>
+      <xs:element name="username" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Clusters">
+    <xs:sequence>
+      <xs:element name="clusters" type="BasicClusterInfo" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BasicClusterInfo">
+    <xs:sequence>
+      <xs:element name="rpas" type="RpaInfo" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="defaultGatewayDetails" type="GatewayDetails" maxOccurs="unbounded"/>
+      <xs:element name="additionalGatewayDetails" type="GatewayDetails" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="clusterManagementIPs" type="xs:string" maxOccurs="unbounded"/>
+      <xs:element name="primaryDns" type="xs:string"/>
+      <xs:element name="secondaryDns" type="xs:string" minOccurs="0"/>
+      <xs:element name="ntpServers" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="dnsDomain" type="xs:string" minOccurs="0"/>
+      <xs:element name="timezone" type="xs:string"/>
+      <xs:element name="clusterName" type="xs:string" minOccurs="0"/>
+      <xs:element name="clusterType" type="xs:string" minOccurs="0"/>
+      <xs:element name="advancedParameters" type="ExtraClusterInfo" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RpaInfo">
+    <xs:sequence>
+      <xs:element name="rpaNumber" type="xs:int"/>
+      <xs:element name="ips" type="RpaIps"/>
+      <xs:element name="boxWwns" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="refUrls">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:string"/>
+                  <xs:element name="value" minOccurs="0" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GatewayDetails">
+    <xs:sequence>
+      <xs:element name="gatewayIP" type="xs:string"/>
+      <xs:element name="targetNetmask" type="xs:string" minOccurs="0"/>
+      <xs:element name="targetNetwork" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExtraClusterInfo">
+    <xs:sequence>
+      <xs:element name="additionalWWNs" type="xs:int"/>
+      <xs:element name="autoNegotiation" type="RPAAutoNegotiationInfo" minOccurs="0"/>
+      <xs:element name="chap" type="IscsiChapInfo" minOccurs="0"/>
+      <xs:element name="mtuInfo" type="RPAMTUInfo" minOccurs="0"/>
+      <xs:element name="numberOfIqns" type="xs:int"/>
+      <xs:element name="securityLevel" type="RPACommunicationSecurityLevel" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RPAAutoNegotiationInfo">
+    <xs:sequence>
+      <xs:element name="enabled" type="xs:boolean"/>
+      <xs:element name="fullDuplex" type="xs:boolean"/>
+      <xs:element name="speed" type="NicSpeedEnum"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IscsiChapInfo">
+    <xs:sequence>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="username" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RPAMTUInfo">
+    <xs:sequence>
+      <xs:element name="lan" type="xs:int"/>
+      <xs:element name="wan" type="xs:int"/>
+      <xs:element name="iscsi" type="xs:int" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RpaNumberToVersion">
+    <xs:sequence>
+      <xs:element name="rpaNumberToVersion">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:int"/>
+                  <xs:element name="value" minOccurs="0" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="VcStatus">
+    <xs:sequence>
+      <xs:element name="vcConnectivity" type="xs:boolean"/>
+      <xs:element name="vcIp" type="xs:string" minOccurs="0"/>
+      <xs:element name="vcName" type="xs:string" minOccurs="0"/>
+      <xs:element name="vwcPluginVersion" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ArrayResourcePoolUID">
+    <xs:sequence>
+      <xs:element name="arraySerialNumber" type="xs:string"/>
+      <xs:element name="poolUid" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EsxClusterValidationParams">
+    <xs:sequence>
+      <xs:element name="vcCredentials" type="ArrayCredentials" minOccurs="0"/>
+      <xs:element name="validationType" type="ValidationType" nillable="true"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ArrayCredentials">
+    <xs:sequence>
+      <xs:element name="ip" type="xs:string"/>
+      <xs:element name="user" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="port" type="xs:int"/>
+      <xs:element name="certificate" type="xs:string" minOccurs="0"/>
+      <xs:element name="type" type="ArrayType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExtendedRpaStatus">
+    <xs:sequence>
+      <xs:element name="rpaIp" type="xs:string" minOccurs="0"/>
+      <xs:element name="rpaNumber" type="xs:int" minOccurs="0"/>
+      <xs:element name="rpaVersion" type="xs:string" minOccurs="0"/>
+      <xs:element name="rpaStatus" type="RpaStatus" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RpaStatus">
+    <xs:sequence>
+      <xs:element name="message" type="Message" nillable="true" minOccurs="0"/>
+      <xs:element name="attached" type="xs:boolean" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Message">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string"/>
+      <xs:element name="messageType" type="MessageType" nillable="true"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RPADiagnosticMessageInfo">
+    <xs:complexContent>
+      <xs:extension base="Message">
+        <xs:sequence>
+          <xs:element name="rpaNumber" type="xs:int"/>
+          <xs:element name="rpaSiteName" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Restriction">
+    <xs:sequence>
+      <xs:element name="restrictionType" type="RestrictionType" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AvailableResourcePoolInfo">
+    <xs:sequence>
+      <xs:element ref="arrayCredentials"/>
+      <xs:element name="rpasIps" type="xs:string" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="NewClusterIPLinkParameters">
+    <xs:sequence>
+      <xs:element name="wanIPOfNewCluster" type="xs:string"/>
+      <xs:element name="user" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="gw" type="GatewayDetails" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExistingFCLinksToOtherClusters">
+    <xs:sequence>
+      <xs:element name="links" type="ExistingClusterFCLink" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExistingClusterFCLink">
+    <xs:sequence>
+      <xs:element name="siteId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeploymentType">
+    <xs:sequence>
+      <xs:element name="flowType" type="FlowType" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OperationStatus">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="state" type="TransactionState" minOccurs="0"/>
+      <xs:element name="progress" type="xs:int"/>
+      <xs:element name="message" type="Message" nillable="true" minOccurs="0"/>
+      <xs:element name="subOperationsStatus" type="OperationStatus" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FullClusterInfo">
+    <xs:sequence>
+      <xs:element name="basicClusterInfo" type="BasicClusterInfo" nillable="true"/>
+      <xs:element name="infoAboutRPAs" type="NewRPAInfo" maxOccurs="unbounded"/>
+      <xs:element name="vcCredentials" type="ArrayCredentials" minOccurs="0"/>
+      <xs:element name="resourcePoolId" type="xs:string" minOccurs="0"/>
+      <xs:element name="repositoryGuid" type="xs:string" minOccurs="0"/>
+      <xs:element name="splitterTypesToInstall" type="SplitterType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TransactionIdToURLMap">
+    <xs:sequence>
+      <xs:element name="transactionIdToURLMap">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="TransactionID"/>
+                  <xs:element name="value" minOccurs="0" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TransactionID">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="VcValidationParams">
+    <xs:sequence>
+      <xs:element name="vcCredentials" type="ArrayCredentials" minOccurs="0"/>
+      <xs:element name="validationType" type="ValidationType" nillable="true"/>
+      <xs:element name="vcEntity" type="EntityInformation" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EntityInformation">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="uuid" type="VCEntityUuid" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="VCEntityUuid">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string"/>
+      <xs:element name="type" type="VCEntityType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ModelValidationException">
+    <xs:complexContent>
+      <xs:extension base="exception">
+        <xs:sequence>
+          <xs:element name="keyMsg" type="xs:string" minOccurs="0"/>
+          <xs:element name="objName" type="xs:string" minOccurs="0"/>
+          <xs:element name="paramName" type="xs:string" minOccurs="0"/>
+          <xs:element name="paramValue" type="xs:anyType" minOccurs="0"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="exception">
+    <xs:complexContent>
+      <xs:extension base="throwable">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="throwable">
+    <xs:sequence>
+      <xs:element name="stackTrace" type="stackTraceElement" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="stackTraceElement" final="extension restriction">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="RpasInfo">
+    <xs:sequence>
+      <xs:element name="rpas" type="RpaInfo" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AvailableVersions">
+    <xs:sequence>
+      <xs:element name="versions" type="AvailableVersion" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AvailableVersion">
+    <xs:sequence>
+      <xs:element name="verAsStr" type="xs:string"/>
+      <xs:element name="urlForDownload" type="xs:string"/>
+      <xs:element name="major" type="xs:int"/>
+      <xs:element name="minor" type="xs:int"/>
+      <xs:element name="SP" type="xs:int"/>
+      <xs:element name="patch" type="xs:int"/>
+      <xs:element name="releaseNotes" type="xs:string" minOccurs="0"/>
+      <xs:element name="autoCCA" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ArrayResourcePools">
+    <xs:sequence>
+      <xs:element name="resourcePools" type="ArrayResourcePool" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ArrayResourcePool">
+    <xs:sequence>
+      <xs:element name="uid" type="ArrayResourcePoolUID"/>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="totalCapacity" type="xs:long"/>
+      <xs:element name="freeCapacity" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EntryData">
+    <xs:sequence>
+      <xs:element name="data" type="xs:string" minOccurs="0"/>
+      <xs:element name="procedureID" type="xs:string" minOccurs="0"/>
+      <xs:element name="title" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Certificate">
+    <xs:sequence>
+      <xs:element name="asBase64" type="Base64Certificate" minOccurs="0"/>
+      <xs:element name="asX509" type="X509Certificate" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="X509Certificate">
+    <xs:sequence>
+      <xs:element name="enhancedKeyUsage" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="issuer" type="xs:string" minOccurs="0"/>
+      <xs:element name="publicKey" type="xs:string" minOccurs="0"/>
+      <xs:element name="serialNumber" type="xs:integer" minOccurs="0"/>
+      <xs:element name="signatureAlgorithm" type="xs:string" minOccurs="0"/>
+      <xs:element name="subject" type="xs:string" minOccurs="0"/>
+      <xs:element name="subjectKeyIdentifier" type="xs:boolean" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="validFrom" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="validTo" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="version" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UidToURLMap">
+    <xs:sequence>
+      <xs:element name="uidToURLMap">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:long"/>
+                  <xs:element name="value" minOccurs="0" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IpPort">
+    <xs:sequence>
+      <xs:element name="ip" type="xs:string" minOccurs="0"/>
+      <xs:element name="port" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CCAEntry">
+    <xs:sequence>
+      <xs:element name="restriction" type="Restriction" nillable="true" minOccurs="0"/>
+      <xs:element name="deploymentTypes" type="DeploymentTypes" nillable="true" minOccurs="0"/>
+      <xs:element name="data" type="EntryData" minOccurs="0"/>
+      <xs:element name="criteria" type="Criteria" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeploymentTypes">
+    <xs:sequence>
+      <xs:element name="relevantFlowsList" type="DeploymentType" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UserTransfer">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="roles">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:string"/>
+                  <xs:element name="value" minOccurs="0" type="xs:boolean"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExistingIPLinksToOtherClusters">
+    <xs:sequence>
+      <xs:element name="links" type="ExistingClusterIPLink" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExistingClusterIPLink">
+    <xs:sequence>
+      <xs:element name="wanIp" type="xs:string"/>
+      <xs:element name="siteId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RpaAdditionParams">
+    <xs:sequence>
+      <xs:element name="newRpaParams" type="NewRPAInfo" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PerformValidationsParams">
+    <xs:sequence>
+      <xs:element name="entities" type="EntityInformation" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="vcCredentials" type="ArrayCredentials" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GeneralProcedureMessage">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string"/>
+      <xs:element name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ClusterStatus">
+    <xs:sequence>
+      <xs:element name="clusterIps" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="clusterName" type="xs:string" minOccurs="0"/>
+      <xs:element name="currentCluster" type="xs:boolean"/>
+      <xs:element name="extendedRpasStatuses" type="ExtendedRpaStatus" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="vcsStatuses" type="VcStatus" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RemoteClusterConnectionDetails">
+    <xs:sequence>
+      <xs:element name="remoteClusterId" type="xs:string"/>
+      <xs:element name="connectionType" type="RemoteClusterConnectionType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FixIssuesParams">
+    <xs:sequence>
+      <xs:element name="entities" type="EntityInformation" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="vcCredentials" type="ArrayCredentials" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TokenTransfer">
+    <xs:sequence>
+      <xs:element name="token" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ESXClustersParameters">
+    <xs:sequence>
+      <xs:element name="vcCredentials" type="ArrayCredentials"/>
+      <xs:element name="targetESXClustersUuids" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ArrayIdToArrayUrl">
+    <xs:sequence>
+      <xs:element name="arrayIdToArrayUrl">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="entry" minOccurs="0" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="key" minOccurs="0" type="xs:long"/>
+                  <xs:element name="value" minOccurs="0" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CompatibilityInfo">
+    <xs:sequence>
+      <xs:element name="apiVersion" type="xs:string"/>
+      <xs:element name="version" type="xs:string"/>
+      <xs:element name="virtual" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FtpDownloadInformation">
+    <xs:sequence>
+      <xs:element name="file" type="xs:string"/>
+      <xs:element name="location" type="xs:string"/>
+      <xs:element name="password" type="xs:string"/>
+      <xs:element name="port" type="xs:int"/>
+      <xs:element name="server" type="xs:string"/>
+      <xs:element name="username" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RestrictedProcedureMessage">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string"/>
+      <xs:element name="message" type="xs:string"/>
+      <xs:element name="restrictionType" type="ProcedureRestrictionType"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TransactionStatus">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="0"/>
+      <xs:element name="state" type="TransactionState" minOccurs="0"/>
+      <xs:element name="progress" type="xs:int"/>
+      <xs:element name="message" type="Message" nillable="true" minOccurs="0"/>
+      <xs:element name="detailedStatus" type="OperationStatus" minOccurs="0"/>
+      <xs:element name="context" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ValidationResult">
+    <xs:sequence>
+      <xs:element name="title" type="xs:string" minOccurs="0"/>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+      <xs:element name="validationType" type="ValidationType" nillable="true"/>
+      <xs:element name="entity" type="EntityInformation" minOccurs="0"/>
+      <xs:element name="severity" type="ValidationResultSeverity" minOccurs="0"/>
+      <xs:element name="fixable" type="xs:boolean"/>
+      <xs:element name="fixAcknowledgeMessage" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExistingLinksToOtherClusters">
+    <xs:sequence>
+      <xs:element name="fcLinks" type="ExistingFCLinksToOtherClusters" minOccurs="0"/>
+      <xs:element name="ipLinks" type="ExistingIPLinksToOtherClusters" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProcedureMessages">
+    <xs:sequence>
+      <xs:element name="procedureName" type="xs:string"/>
+      <xs:element name="generalMessages" type="GeneralProcedureMessage" maxOccurs="unbounded"/>
+      <xs:element name="restrictedMessages" type="RestrictedProcedureMessage" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="VersionUpgradeInfo">
+    <xs:sequence>
+      <xs:element name="filenameOnRPA" type="xs:string" minOccurs="0"/>
+      <xs:element name="modifications" type="xs:string" minOccurs="0"/>
+      <xs:element name="ftpDownloadInformation" type="FtpDownloadInformation" nillable="true" minOccurs="0"/>
+      <xs:element name="ccaContent" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GatewaysInformation">
+    <xs:sequence>
+      <xs:element name="defaultGateways" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="additionalGateways" type="GatewayDetails" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ClusterDiagnosticInfo">
+    <xs:sequence>
+      <xs:element name="clusterRPAsMessageInfo" type="RPADiagnosticMessageInfo" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="ProductType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RPSE"/>
+      <xs:enumeration value="RPCL"/>
+      <xs:enumeration value="RPEX"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NicSpeedEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NIC_SPEED_10MbPS"/>
+      <xs:enumeration value="NIC_SPEED_100MbPS"/>
+      <xs:enumeration value="NIC_SPEED_1GbPS"/>
+      <xs:enumeration value="NIC_SPEED_10GbPS"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RPACommunicationSecurityLevel">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NON_SECURE"/>
+      <xs:enumeration value="AUTHENTICATE"/>
+      <xs:enumeration value="ENCRYPT"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ArrayType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VIRTUAL_CENTER"/>
+      <xs:enumeration value="UNKNOWN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ValidationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VIRTUAL_CENTER_VERSION"/>
+      <xs:enumeration value="VIRTUAL_CENTER_INVENTORY"/>
+      <xs:enumeration value="CLIENT_PLUGIN"/>
+      <xs:enumeration value="VC_CANDIDATE_REPOSITORY_DATA_STORES"/>
+      <xs:enumeration value="ESX_CLUSTER_CANDIDATE_REPOSITORY_DATA_STORES"/>
+      <xs:enumeration value="ESX_CLUSTER_ESXI_VERSIONS"/>
+      <xs:enumeration value="HOST_ESXI_VERSION"/>
+      <xs:enumeration value="ESX_CLUSTER_VC_CONNECTIVITY"/>
+      <xs:enumeration value="HOST_VC_CONNECTIVITY"/>
+      <xs:enumeration value="SPLITTER_INSTALLED"/>
+      <xs:enumeration value="PERSISTENT_SCRATCH_DISK"/>
+      <xs:enumeration value="VMKERNEL_PORTS"/>
+      <xs:enumeration value="ISCSI_SOFTWARE_ADAPTER"/>
+      <xs:enumeration value="ISCSI_PORT_BINDING"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="MessageType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INFO"/>
+      <xs:enumeration value="WARNING"/>
+      <xs:enumeration value="ERROR"/>
+      <xs:enumeration value="UNKNOWN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RestrictionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="allow"/>
+      <xs:enumeration value="block"/>
+      <xs:enumeration value="emcPersonnel"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FlowType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RPSE_INSTALLER"/>
+      <xs:enumeration value="RPSE_CONVERTER"/>
+      <xs:enumeration value="RPI"/>
+      <xs:enumeration value="DNC"/>
+      <xs:enumeration value="HWR"/>
+      <xs:enumeration value="NDU"/>
+      <xs:enumeration value="CLUSTER_MODIFICATION"/>
+      <xs:enumeration value="CONNECT_SITE"/>
+      <xs:enumeration value="UNKNOWN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TransactionState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NOT_STARTED"/>
+      <xs:enumeration value="RUNNING"/>
+      <xs:enumeration value="SUCCESS"/>
+      <xs:enumeration value="ERROR"/>
+      <xs:enumeration value="UNKNOWN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SplitterType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VSCSI"/>
+      <xs:enumeration value="IOF"/>
+      <xs:enumeration value="UNKNOWN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="VCEntityType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VIRTUAL_CENTER"/>
+      <xs:enumeration value="ESX_CLUSTER"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ValidationResultSeverity">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SUCCESS"/>
+      <xs:enumeration value="INFO"/>
+      <xs:enumeration value="WARNING"/>
+      <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RemoteClusterConnectionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FC"/>
+      <xs:enumeration value="IP"/>
+      <xs:enumeration value="NO_CONNECTION"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ProcedureRestrictionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ALLOWED"/>
+      <xs:enumeration value="BLOCKED"/>
+      <xs:enumeration value="EMC_PERSONNEL"/>
+      <xs:enumeration value="UNKNOWN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ClusterType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CLASSIC"/>
+      <xs:enumeration value="RPSE"/>
+      <xs:enumeration value="UNKNOWN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="messageType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INFO"/>
+      <xs:enumeration value="WARNING"/>
+      <xs:enumeration value="ERROR"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
