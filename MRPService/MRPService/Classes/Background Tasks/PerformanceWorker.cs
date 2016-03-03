@@ -155,11 +155,8 @@ namespace MRPService.API.Classes.Static_Classes.Background_Classes
                                 continue;
                             }
 
-
-
                             try
                             {
-
                                 PerformanceCounterCategory _pc = new PerformanceCounterCategory(pcc, workload_ip);
                                 if (_pc.CategoryType == PerformanceCounterCategoryType.SingleInstance)
                                 {
@@ -270,8 +267,6 @@ namespace MRPService.API.Classes.Static_Classes.Background_Classes
                                                 db.Performance.Add(_perf);
                                                 db.SaveChanges();
                                             }
-
-
                                         }
                                     }
                                 }
@@ -279,8 +274,6 @@ namespace MRPService.API.Classes.Static_Classes.Background_Classes
                             catch (System.InvalidOperationException error)
                             {
                                 Logger.log(error.ToString(), Logger.Severity.Error);
-
-
                             }
                             catch (Exception ex)
                             {

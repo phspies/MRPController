@@ -288,6 +288,9 @@
   <ItemGroup>
     <Compile Include="DoubleTake\Core.cs" />
     <Compile Include="DoubleTake\Common.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\Dimension Data\UpdateDimensionDataWorkload.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\VMWare\VMwarePlatformUpdate.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Deploy.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DisasterRecovery.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability.cs" />
@@ -1096,7 +1099,7 @@
     <Compile Include="MRPService\Classes\Background Tasks\NetflowV5Worker.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\OSInventoryWorker.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PerformanceWorker.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventoryWorker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\PlatformInventoryWorker.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUploadWorker.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\TaskExecutioner.cs" />
     <Compile Include="MRPService\Classes\Utilities\Connection.cs" />
