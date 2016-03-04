@@ -21,7 +21,7 @@ namespace MRPService
         static bool _debug;
         static String _agent_id;
         static String _api_base;
-        static String _worker_version;
+        static String _worker_version = "0.0.1";
         static String _organization_id;
         static int _worker_queue_count;
         static EventLog _eventLog;

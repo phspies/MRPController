@@ -76,7 +76,7 @@ namespace MRPService.Utilities
             }
             testPing.Dispose();
 
-            if (literal == true)
+            if (literal && foundip)
             {
                 //check for IPv6 address
                 IPAddress _check_ip = IPAddress.Parse(workingip);

@@ -117,7 +117,7 @@ namespace MRPService.DoubleTake
                         }
                         if (remoteFileVersion != null)
                         {
-                            int versionCompare = CompareVersions(localFileVersion.ProductVersion, remoteFileVersion.ProductVersion);
+                            int versionCompare = Versions.Compare(localFileVersion.ProductVersion, remoteFileVersion.ProductVersion);
                             if (versionCompare <= 0)
                             {
                                 _mrp_portal.task().progress(payload, String.Format("Product version being PushInstalled is same or less than the version ({0}) installed on {1}", localFileVersion.ProductVersion, _working_workload.hostname), _counter + 18);
@@ -159,7 +159,7 @@ namespace MRPService.DoubleTake
 
                         _mrp_portal.task().progress(payload, String.Format("Copy configuration file to {0} on {1} ({2})", remoteTempLocation, _working_workload.hostname, systemArchitecture), _counter + 25);
                         string configFileOnWorkload = @"\\" + _target_workload_temp_path + @"\DTSetup.ini";
-                        File.WriteAllLines(configFileOnWorkload, BuildINIFile(_working_workload.deploymentpolicy).ConvertAll(Convert.ToString));
+                        File.WriteAllLines(configFileOnWorkload, BuildINI.BuildINIFile(_working_workload.deploymentpolicy).ConvertAll(Convert.ToString));
                         _mrp_portal.task().progress(payload, String.Format("Complete configuration copy process for {0}", _working_workload.hostname), _counter + 26);
 
                         #endregion
@@ -282,47 +282,9 @@ namespace MRPService.DoubleTake
 
     
 
-        private static List<String> BuildINIFile(MRPTaskDeploymentpolicyType _deployment_policy)
-        {
-            List<String> _setup_file = new List<string>();
-            _setup_file.Add("[Config]");
-            _setup_file.Add("DTSETUPTYPE=DTSO");
-            _setup_file.Add("DTACTIVATIONCODE="+ (String.IsNullOrEmpty(_deployment_policy.activation_code) ? "123456789012345678901234" : _deployment_policy.activation_code));
-            _setup_file.Add("DOUBLETAKEFOLDER=" + '"' + _deployment_policy.dt_installpath + '"');
-            _setup_file.Add("QMEMORYBUFFERMAX=" + _deployment_policy.dt_max_memory);
-            _setup_file.Add("DISKQUEUEFOLDER=" + '"' + _deployment_policy.dt_queue_folder +'"');
-            switch(_deployment_policy.dt_queue_scheme)
-            {
-                case "no_queue":
-                    _setup_file.Add("DISKQUEUEMAXSIZE=0");
-                    break;
-                case "unlimited_queue":
-                    _setup_file.Add("DISKQUEUEMAXSIZE=UNLIMITED");
-                    break;
-                case "limit_queue":
-                    _setup_file.Add("DISKQUEUEMAXSIZE=" + _deployment_policy.dt_queue_limit_disk_size.ToString());
-                    break;
-            }
-            _setup_file.Add("DISKFREESPACEMIN=" + _deployment_policy.dt_queue_min_disk_free_size);
-            _setup_file.Add("DTSERVICESTARTUP=1");
-            _setup_file.Add("PORT=6320");
-            _setup_file.Add("WINFW_CONFIG_OPTION=NOT_INUSE_ONLY");
-            _setup_file.Add("LICENSE_ACTIVATION_OPTION=1");
-
-            return _setup_file;
-
-        }
  
-        static int CompareVersions(string sa, string sb)
-        {
-            Func<string, int?> parse = s => { int ret; return int.TryParse(s, out ret) ? (int?)ret : null; };
+ 
 
-            Func<string, IEnumerable<int>> f = s => s.Split('.').Select(t => int.Parse(t));
-
-            var diff = f(sa).Zip(f(sb), (a, b) => new { a, b }).FirstOrDefault(x => x.a != x.b);
-
-            return diff == null ? 0 : diff.a < diff.b ? -1 : 1;
-        }
 
     }
 }

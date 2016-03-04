@@ -1,8 +1,6 @@
-﻿using MRPService.API;
-using MRPService.API.Types.API;
+﻿using MRPService.API.Types.API;
 using DoubleTake.Common.Contract;
 using DoubleTake.Common.Tasks;
-using DoubleTake.Core.Contract;
 using DoubleTake.Core.Contract.Connection;
 using DoubleTake.Jobs.Contract;
 using Newtonsoft.Json;
@@ -62,24 +60,7 @@ namespace MRPService.DoubleTake
                 foreach (JobInfo _delete_job in _jobs.Where(x => x.JobType == DT_JobTypes.HA_Full_Failover && _source_ips.Any(x.SourceHostUri.Host.Contains) && _target_ips.Any(x.TargetHostUri.Host.Contains)))
                 {
                     MRP.task().progress(payload, String.Format("Deleting existing HA jobs between {0} and {1}", _source_ips[0], _target_ips[0]), _count + 15);
-                    DeleteOptions _delete_options = new DeleteOptions();
-                    _delete_options.DeleteReplica = true;
-                    _delete_options.DiscardTargetQueue = true;
-                    ImageDeleteInfo _delete_info = new ImageDeleteInfo();
-                    _delete_info.VhdDeleteAction = VhdDeleteActionType.DeleteAll;
-                    _delete_info.DeleteImage = true;
-                    _delete_options.ImageOptions = _delete_info;
-                    iJobMgr.Stop(_delete_job.Id);
-                    iJobMgr.Delete(_delete_job.Id, _delete_options);
-                    try
-                    {
-                        while (true)
-                        {
-                            iJobMgr.GetJob(_delete_job.Id);
-                            Thread.Sleep(2000);
-                        }
-                    }
-                    catch (Exception) { }
+                    DeleteJobs.Delete(iJobMgr, _delete_job);
                     _count += 1;
                 }
 
