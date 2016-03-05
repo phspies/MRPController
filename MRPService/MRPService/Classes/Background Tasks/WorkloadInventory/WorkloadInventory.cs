@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace MRPService.API.Classes
 {
-    class OSInventory
+    class WorkloadInventory
     {
         ApiClient _cloud_movey = new ApiClient();
 

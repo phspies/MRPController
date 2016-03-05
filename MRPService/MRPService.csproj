@@ -288,10 +288,10 @@
   <ItemGroup>
     <Compile Include="DoubleTake\Core.cs" />
     <Compile Include="DoubleTake\Common.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\OSInventory\OSInventory.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\Dimension Data\UpdateDimensionDataWorkload.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\VMWare\VMwarePlatformUpdate.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventory.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataWorkload.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\VMwarePlatformUpdate.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\BuildINI.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\CompareVersion.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\DeleteJobs.cs" />
@@ -1099,13 +1099,13 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Workers.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobs.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Workloads.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\NetflowV9Worker.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\NetflowV5Worker.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\OSInventory\OSInventoryThread.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetflowCollection\NetflowV9Worker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetflowCollection\NetflowV5Worker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\PlatformInventoryThread.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\PortalDataUploadWorker.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\TaskExecutioner.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryThread.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\PortalDataUploadWorker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\TaskExecutioner\TaskExecutioner.cs" />
     <Compile Include="MRPService\Classes\Utilities\Connection.cs" />
     <Compile Include="MRPService\Classes\Utilities\Events.cs" />
     <Compile Include="MRPService\Classes\Utilities\HashExtensions.cs" />

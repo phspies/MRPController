@@ -87,7 +87,7 @@ namespace MRPService
             _dataupload_thread.Start();
 
 
-            OSInventoryThread _osinventody = new OSInventoryThread();
+            WorkloadInventoryThread _osinventody = new WorkloadInventoryThread();
             if (Global.debug) { Logger.log("Starting OS Inventory Thread", Logger.Severity.Debug); };
             _osinventody_thread = new Thread(new ThreadStart(_osinventody.Start));
             _osinventody_thread.Start();

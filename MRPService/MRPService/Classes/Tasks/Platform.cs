@@ -374,7 +374,7 @@ namespace MRPService.Tasks
                     //update OS information or newly provisioned server
                     _workload = _cloud_movey.workload().getworkload(_target.id);
                     MRP.task().progress(payload, String.Format("Updating operating system information for {0}", _target.hostname), 92);
-                    OSInventory.UpdateWorkload(_workload.id); 
+                    WorkloadInventory.UpdateWorkload(_workload.id); 
 
                     //log the success
                     Logger.log(String.Format("Successfully provinioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);

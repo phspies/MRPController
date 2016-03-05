@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace MRPService.API.Classes
 {
-    class OSInventoryThread
+    class WorkloadInventoryThread
     {
         ApiClient _cloud_movey = new ApiClient();
         public void Start()
@@ -39,7 +39,7 @@ namespace MRPService.API.Classes
                             {
                                 MRPWorkloadType _mrp_workload = _cloud_movey.workload().getworkload(workload.id);
 
-                                OSInventory.UpdateWorkload(_mrp_workload.id);
+                                WorkloadInventory.UpdateWorkload(_mrp_workload.id);
                                 workload_set.UpdateStatus(workload.id, "Success", 0);
                             }
                             catch (Exception ex)
