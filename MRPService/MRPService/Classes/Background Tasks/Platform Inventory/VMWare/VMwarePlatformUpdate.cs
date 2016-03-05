@@ -13,7 +13,7 @@ using System.Collections.Specialized;
 
 namespace MRPService.API.Classes
 {
-    partial class PlatformInventoryWorker
+    partial class PlatformInventoryThread
     {
         public void UpdateVMwarePlatform(Platform _platform)
         {

@@ -9,10 +9,11 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Threading;
 using MRPService.Utilities;
+using static MRPService.Utilities.SyncronizedList;
 
 namespace MRPService.API.Classes.Static_Classes.Background_Classes
 {
-    class PerformanceWorker
+    class WorkloadPerformanceThread
     {
         public const int LOGON32_LOGON_INTERACTIVE = 2;
         public const int LOGON32_LOGON_SERVICE = 3;
@@ -51,17 +52,15 @@ namespace MRPService.API.Classes.Static_Classes.Background_Classes
             public string counter { get; set; }
 
         }
-        public static List<PerfCounter> _countertree = new List<PerfCounter>();
-        private static List<String> _categories = new List<string>();
-        private static List<CollectionCounter> _counters = new List<CollectionCounter>();
+        //create syncronized lists to work in the threaded environment
+        private static SyncronisedList<PerfCounter> _countertree = new SyncronisedList<PerfCounter>(new List<PerfCounter>());
+        private static SyncronisedList<CollectionCounter> _counters = new SyncronisedList<CollectionCounter>(new List<CollectionCounter>());
+
         private static ApiClient _cloud_movey = new ApiClient();
 
         public void Start()
         {
             MRPDatabase db = new MRPDatabase();
-
-
-            _categories.Add("");
 
             _counters.Add(new CollectionCounter() { category = "Processor", counter = "% Idle Time" });
             _counters.Add(new CollectionCounter() { category = "Processor", counter = "% User Time" });
@@ -164,15 +163,15 @@ namespace MRPService.API.Classes.Static_Classes.Background_Classes
                                     _instances.Add(new InstanceCounters() { instance = "" });
                                     foreach (var _counter in _pc.GetCounters())
                                     {
-                                        if (_counters.Find(x => x.category == pcc).counter != "*")
+                                        if (_counters.FirstOrDefault(x => x.category == pcc).counter != "*")
                                         {
-                                            if (!_counters.Exists(x => x.counter == _counter.CounterName))
+                                            if (!_counters.Any(x => x.counter == _counter.CounterName))
                                             {
                                                 continue;
                                             }
                                         }
 
-                                        if (!_countertree.Exists(x => x.category == pcc && x.counter == _counter.CounterName))
+                                        if (!_countertree.Any(x => x.category == pcc && x.counter == _counter.CounterName))
                                         {
                                             _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
                                         }
@@ -222,23 +221,23 @@ namespace MRPService.API.Classes.Static_Classes.Background_Classes
                                         {
 
                                             //only collect info for specified counters or evenrything within the category
-                                            if (_counters.Find(x => x.category == pcc).counter != "*")
+                                            if (_counters.FirstOrDefault(x => x.category == pcc).counter != "*")
                                             {
-                                                if (!_counters.Exists(x => x.counter == _counter.CounterName))
+                                                if (!_counters.Any(x => x.counter == _counter.CounterName))
                                                 {
                                                     continue;
                                                 }
                                             }
 
-                                            if (!_countertree.Exists(x => x.category == pcc && x.counter == _counter.CounterName))
+                                            if (!_countertree.Any(x => x.category == pcc && x.counter == _counter.CounterName))
                                             {
                                                 _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
                                             }
                                             else
                                             {
-                                                if (!_countertree.Find(x => x.category == pcc && x.counter == _counter.CounterName).instances.Exists(x => x.instance == _instance.instance))
+                                                if (!_countertree.FirstOrDefault(x => x.category == pcc && x.counter == _counter.CounterName).instances.Exists(x => x.instance == _instance.instance))
                                                 {
-                                                    _countertree.Find(x => x.category == pcc && x.counter == _counter.CounterName).instances.Add(_instance);
+                                                    _countertree.FirstOrDefault(x => x.category == pcc && x.counter == _counter.CounterName).instances.Add(_instance);
                                                 }
                                             }
                                             PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, _counter.InstanceName, workload_ip);

@@ -33,12 +33,7 @@ namespace MRPService.MRPService.Classes.Background_Classes
 
                 Packet packet = new Packet(bytes, _templates);
 
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine(packet.ToString());
             }
-            sock.Close();
-
-            Console.ReadKey();
         }
     }
 }

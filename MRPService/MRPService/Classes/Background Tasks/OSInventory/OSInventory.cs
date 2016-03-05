@@ -9,75 +9,45 @@ using System.Management;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using MRPService.Utilities;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace MRPService.API.Classes
 {
-    class OSInventoryWorker
+    class OSInventory
     {
         ApiClient _cloud_movey = new ApiClient();
-        public void Start()
-        {
 
-            while (true)
-            {
-                Stopwatch sw = Stopwatch.StartNew();
-                int _updated_workloads = 0;
-
-                Logger.log("Staring operating system inventory process", Logger.Severity.Info);
-
-                WorkloadSet dbworkload = new WorkloadSet();
-                MRPWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
-                foreach (MRPWorkloadType _workload in _currentplatformworkloads.workloads.Where(x => x.provisioned == true))
-                {                        
-                    try
-                    {
-                        UpdateWorkload(_workload);
-                        dbworkload.UpdateStatus(_workload.id, "Success", 0);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.log("Error connecting to WMI : " + _workload.hostname + " [" + ex.Message + "]", Logger.Severity.Error);
-
-                        dbworkload.UpdateStatus(_workload.id, ex.Message, 1);
-                    }
-                    _updated_workloads += 1;
-                }
-
-                sw.Stop();
-
-                Logger.log(String.Format("Completed operating system inventory. [updated workloads.{0}] = Total Execute Time: {1}",
-                    _updated_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)),Logger.Severity.Info);
-
-                Thread.Sleep(new TimeSpan(24, 0, 0));
-
-            }
-
-        }
-
-        public static void UpdateWorkload(MRPWorkloadType mrpworkload)
+        public static void UpdateWorkload(String workload_id)
         {
             WorkloadSet dbworkload = new WorkloadSet();
             CredentialSet dbcredential = new CredentialSet();
             ApiClient _cloud_movey = new ApiClient();
 
+            MRPWorkloadType mrpworkload = _cloud_movey.workload().getworkload(workload_id);
+            if (mrpworkload == null)
+            {
+                throw new System.ArgumentException(String.Format("Error finding workload in MRP Portal {0}", workload_id));
+            }
+
             //Check if workload exists
             Workload _workload = dbworkload.ModelRepository.GetById(mrpworkload.id);
             if (_workload == null)
             {
-                throw new ArgumentException("Error finding workload");
+                throw new ArgumentException("Error finding workload in controller database");
             }
 
             //check for credentials
             Credential _credential = dbcredential.ModelRepository.GetById(mrpworkload.credential_id);
             if (_credential == null)
             {
-                throw new ArgumentException("Credentials for found");
+                throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", workload_id, _workload.hostname));
             }
 
             string workload_ip = Connection.find_working_ip(_workload, true);
             if (workload_ip == null)
             {
-                throw new ArgumentException("Workload not contactable");
+                throw new ArgumentException(String.Format("Error finding contactable IP for workload {0} {1}", _workload.id, _workload.hostname));
             }
 
             ConnectionOptions options = ProcessConnectionOptions();

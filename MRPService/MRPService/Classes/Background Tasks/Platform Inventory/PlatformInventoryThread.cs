@@ -22,7 +22,7 @@ using System.Collections.Specialized;
 
 namespace MRPService.API.Classes
 {
-    partial class PlatformInventoryWorker
+    partial class PlatformInventoryThread
     {
         ApiClient _cloud_movey = new ApiClient();
 

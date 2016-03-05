@@ -288,6 +288,7 @@
   <ItemGroup>
     <Compile Include="DoubleTake\Core.cs" />
     <Compile Include="DoubleTake\Common.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\OSInventory\OSInventory.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\Dimension Data\UpdateDimensionDataWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\VMWare\VMwarePlatformUpdate.cs" />
@@ -1100,9 +1101,9 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Workloads.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetflowV9Worker.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetflowV5Worker.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\OSInventoryWorker.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\PerformanceWorker.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\PlatformInventoryWorker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\OSInventory\OSInventoryThread.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\Platform Inventory\PlatformInventoryThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUploadWorker.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\TaskExecutioner.cs" />
     <Compile Include="MRPService\Classes\Utilities\Connection.cs" />
@@ -1112,6 +1113,7 @@
     <Compile Include="MRPService\Classes\Utilities\MRPRegistry.cs" />
     <Compile Include="MRPService\Classes\Utilities\Settings.cs" />
     <Compile Include="MRPService\Classes\Tasks\Workload.cs" />
+    <Compile Include="MRPService\Classes\Utilities\SyncronizedList.cs" />
     <Compile Include="MRPService\Database\Classes\NetworkFlowSet.cs" />
     <Compile Include="MRPService\Database\Classes\GenericDatabase.cs" />
     <Compile Include="MRPService\Database\Classes\CredentialSet.cs" />

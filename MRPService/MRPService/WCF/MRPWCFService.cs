@@ -133,7 +133,7 @@ namespace MRPService.WCF
         public void RefreshPlatform(Platform _platform)
         {
             try {
-                PlatformInventoryWorker _inventory = new PlatformInventoryWorker();
+                PlatformInventoryThread _inventory = new PlatformInventoryThread();
                 _inventory.UpdateMCPPlatform(_platform);
 
             }

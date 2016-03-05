@@ -66,12 +66,12 @@ namespace MRPService
             scheduler_thread.Start();
 
 
-            PlatformInventoryWorker _mirror = new PlatformInventoryWorker();
+            PlatformInventoryThread _mirror = new PlatformInventoryThread();
             if (Global.debug) { Logger.log("Starting Mirror Thread", Logger.Severity.Debug); };
             mirror_thread = new Thread(new ThreadStart(_mirror.Start));
             mirror_thread.Start();
 
-            PerformanceWorker _performance = new PerformanceWorker();
+            WorkloadPerformanceThread _performance = new WorkloadPerformanceThread();
             if (Global.debug) { Logger.log("Starting Performance Collection Thread", Logger.Severity.Debug); };
             _performance_thread = new Thread(new ThreadStart(_performance.Start));
             _performance_thread.Start();
@@ -87,7 +87,7 @@ namespace MRPService
             _dataupload_thread.Start();
 
 
-            OSInventoryWorker _osinventody = new OSInventoryWorker();
+            OSInventoryThread _osinventody = new OSInventoryThread();
             if (Global.debug) { Logger.log("Starting OS Inventory Thread", Logger.Severity.Debug); };
             _osinventody_thread = new Thread(new ThreadStart(_osinventody.Start));
             _osinventody_thread.Start();

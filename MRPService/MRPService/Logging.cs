@@ -4,8 +4,6 @@ using System.Text;
 using System.IO;
 using System.Diagnostics;
 
-// Code developed by InfernoDevelopment.com
-
 namespace MRPService.MRPService.Log
 {
     public class Logger

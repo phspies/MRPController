@@ -12,7 +12,7 @@ namespace MRPService.Utilities
     {
         static public object RegAccess(String key, object value = null, object regkind = null)
         {
-            String _registry = @"SOFTWARE\MRP Worker Service";
+            String _registry = @"SOFTWARE\MRP Controller Service";
             RegistryKey rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
             if (rkSubKey == null)
             {

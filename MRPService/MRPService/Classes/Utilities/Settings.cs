@@ -1,7 +1,6 @@
 ﻿using MRPService.MRPService.Log;
 using Microsoft.Win32;
 using System;
-using System.Diagnostics;
 using MRPService.API;
 using System.Threading;
 
@@ -58,7 +57,7 @@ namespace MRPService.Utilities
                 Global.agent_id = _agentId.ToString();
             }
 
-            if (Global.debug) { Logger.log("MRP Worker Agent ID:" + Global.agent_id, Logger.Severity.Info); };
+            if (Global.debug) { Logger.log("MRP Controller ID:" + Global.agent_id, Logger.Severity.Info); };
 
         }
     }

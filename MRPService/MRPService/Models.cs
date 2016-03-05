@@ -22,6 +22,20 @@ namespace MRPService
         static String _agent_id;
         static String _api_base;
         static String _worker_version = "0.0.1";
+
+        public static int os_inventory_interval=1440;
+        public static int os_inventory_concurrency=10;
+
+        public static int platform_inventory_interval=1440;
+        public static int platform_inventory_concurrency=10;
+
+        public static int performance_inventory_interval=60;
+        public static int performance_inventory_concurrency=10;
+
+        public static int portal_upload_interval=60;
+
+        public static int scheduler_interval=1;
+
         static String _organization_id;
         static int _worker_queue_count;
         static EventLog _eventLog;

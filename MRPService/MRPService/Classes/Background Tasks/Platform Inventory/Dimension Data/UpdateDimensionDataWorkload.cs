@@ -22,7 +22,7 @@ using System.Collections.Specialized;
 
 namespace MRPService.API.Classes
 {
-    partial class PlatformInventoryWorker
+    partial class PlatformInventoryThread
     {
         public static void UpdateMCPWorkload(string _workload_moid, string _platform_moid)
         {

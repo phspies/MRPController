@@ -54,7 +54,6 @@ namespace MRPService.MRPService.Classes.Background_Classes
                     }
                 }
             }
-            sock.Close();
         }
         public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {
