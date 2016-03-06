@@ -1,66 +1,23 @@
 ﻿using MRPService.MRPService.Log;
 using MRPService.LocalDatabase;
-using MRPService.API.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Security.Principal;
 using System.Threading;
-using MRPService.Utilities;
 using static MRPService.Utilities.SyncronizedList;
+using System.Threading.Tasks;
 
-namespace MRPService.API.Classes.Static_Classes.Background_Classes
+namespace MRPService.PerformanceCollection
 {
     class WorkloadPerformanceThread
     {
-        public const int LOGON32_LOGON_INTERACTIVE = 2;
-        public const int LOGON32_LOGON_SERVICE = 3;
-        public const int LOGON32_PROVIDER_DEFAULT = 0;
-        public const int LOGON32_LOGON_NETWORK_CLEARTEXT = 8;
-        public const int LOGON32_LOGON_NEW_CREDENTIALS = 9;
-
-        [DllImport("advapi32.dll", CharSet = CharSet.Auto)]
-        public static extern bool LogonUser(
-            String lpszUserName,
-            String lpszDomain,
-            String lpszPassword,
-            int dwLogonType,
-            int dwLogonProvider,
-            ref IntPtr phToken);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        public extern static bool CloseHandle(IntPtr handle);
-        public class InstanceCounters
-        {
-            public string instance { get; set; }
-            public double value { get; set; }
-            public CounterSample s0 { get; set; }
-            public CounterSample s1 { get; set; }
-            public DateTime timestamp { get; set; }
-        }
-        public class PerfCounter
-        {
-            public string category { get; set; }
-            public string counter { get; set; }
-            public List<InstanceCounters> instances { get; set; }
-        }
-        public class CollectionCounter
-        {
-            public string category { get; set; }
-            public string counter { get; set; }
-
-        }
         //create syncronized lists to work in the threaded environment
         private static SyncronisedList<PerfCounter> _countertree = new SyncronisedList<PerfCounter>(new List<PerfCounter>());
         private static SyncronisedList<CollectionCounter> _counters = new SyncronisedList<CollectionCounter>(new List<CollectionCounter>());
 
-        private static ApiClient _cloud_movey = new ApiClient();
-
         public void Start()
         {
-            MRPDatabase db = new MRPDatabase();
 
             _counters.Add(new CollectionCounter() { category = "Processor", counter = "% Idle Time" });
             _counters.Add(new CollectionCounter() { category = "Processor", counter = "% User Time" });
@@ -110,201 +67,45 @@ namespace MRPService.API.Classes.Static_Classes.Background_Classes
             _counters.Add(new CollectionCounter() { category = "Double-Take Source", counter = "*" });
             _counters.Add(new CollectionCounter() { category = "Double-Take Target", counter = "*" });
 
-            while (true)
+
+
+            DateTime _next_run = DateTime.Now.AddMinutes(Global.os_inventory_interval);
+            Stopwatch sw = Stopwatch.StartNew();
+            int _updated_workloads = 0;
+
+            Logger.log(String.Format("Staring performance collection process with {0} threads", Global.performance_inventory_concurrency), Logger.Severity.Info);
+
+            using (WorkloadSet workload_set = new WorkloadSet())
             {
-                Stopwatch sw = Stopwatch.StartNew();
-                Logger.log("Starting workload performance collection", Logger.Severity.Info);
-                List<Workload> _workloads = db.Workloads.ToList();
-                if (_workloads != null)
-                {
-                    foreach (var _workload in _workloads.Where(x => x.enabled == true && x.iplist != null))
-                    {
-                        string workload_ip = Connection.find_working_ip(_workload);
-                        Credential _credential = db.Credentials.FirstOrDefault(x => x.id == _workload.credential_id);
-                        IntPtr userHandle = new IntPtr(0);
-                        
-                        try {
-                            LogonUser(_credential.username, (_credential.domain == null ? "." : _credential.domain), _credential.password, LOGON32_LOGON_NEW_CREDENTIALS, LOGON32_PROVIDER_DEFAULT, ref userHandle);
-                            WindowsIdentity identity = new WindowsIdentity(userHandle);
-                            WindowsImpersonationContext context = identity.Impersonate();
+                List<Workload> workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.iplist != null);
+                Parallel.ForEach(workloads,
+                    new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
+                    (workload) => {
+
+                        try
+                        {
+                            WorkloadPerformance.WorkloadPerformanceDo(_countertree, _counters, workload);
+                            workload_set.PeformanceUpdateStatus(workload.id, "Success", true);
                         }
                         catch (Exception ex)
                         {
-                            Logger.log(ex.Message, Logger.Severity.Error);
-                            //update portal with error
-                            MRPWorkloadCRUDType _error_update_workload = new MRPWorkloadCRUDType();
-                            _error_update_workload.id = _workload.id;
-                            _error_update_workload.perf_collection_status = false;
-                            _error_update_workload.perf_collection_message = ex.Message;
-                            _cloud_movey.workload().updateworkload(_error_update_workload);
+                            Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
+                            workload_set.PeformanceUpdateStatus(workload.id, ex.Message, false);
                         }
-                        foreach (string pcc in _counters.Select(x => x.category).Distinct())
-                        {
-                            try
-                            {
-                                if (!PerformanceCounterCategory.Exists(pcc, workload_ip))
-                                {
+                        _updated_workloads += 1;
 
-                                    continue;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Logger.log(String.Format("{0} returned the following error while collecting performance data for counter : {1} : {2}", workload_ip, pcc, ex.Message), Logger.Severity.Error);
-                                continue;
-                            }
-
-                            try
-                            {
-                                PerformanceCounterCategory _pc = new PerformanceCounterCategory(pcc, workload_ip);
-                                if (_pc.CategoryType == PerformanceCounterCategoryType.SingleInstance)
-                                {
-                                    List<InstanceCounters> _instances = new List<InstanceCounters>();
-                                    _instances.Add(new InstanceCounters() { instance = "" });
-                                    foreach (var _counter in _pc.GetCounters())
-                                    {
-                                        if (_counters.FirstOrDefault(x => x.category == pcc).counter != "*")
-                                        {
-                                            if (!_counters.Any(x => x.counter == _counter.CounterName))
-                                            {
-                                                continue;
-                                            }
-                                        }
-
-                                        if (!_countertree.Any(x => x.category == pcc && x.counter == _counter.CounterName))
-                                        {
-                                            _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
-                                        }
-                                        PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, string.Empty, workload_ip);
-                                        InstanceCounters _counterobject = _countertree.Where(
-                                            x => x.category == _counter.CategoryName &&
-                                            x.counter == _counter.CounterName)
-                                            .Select(x => x.instances.SingleOrDefault(y => y.instance == ""))
-                                            .FirstOrDefault();
-                                        _counterobject.s1 = _pcounter.NextSample();
-                                        if (_counterobject.s0.CounterType != _counterobject.s1.CounterType)
-                                        {
-                                            _counterobject.s0 = _counter.NextSample();
-                                        }
-                                        _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
-                                        _counterobject.s0 = _counterobject.s1;
-
-                                        using (var _db = new MRPDatabase())
-                                        {
-                                            Performance _perf = new Performance();
-                                            _perf.workload_id = _workload.id;
-                                            _perf.timestamp = RoundDown(DateTime.UtcNow, TimeSpan.FromMinutes(30)); //_counterobject.timestamp;
-                                            _perf.category_name = _pcounter.CategoryName;
-                                            _perf.counter_name = _pcounter.CounterName;
-                                            _perf.instance = _counterobject.instance;
-                                            _perf.value = _counterobject.value;
-                                            _perf.id = Objects.RamdomGuid();
-
-                                            db.Performance.Add(_perf);
-                                            db.SaveChanges();
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    List<InstanceCounters> _instances = new List<InstanceCounters>();
-                                    foreach (string _instance in _pc.GetInstanceNames())
-                                    {
-                                        if (!_instances.Exists(x => x.instance == _instance))
-                                        {
-                                            _instances.Add(new InstanceCounters() { instance = _instance });
-                                        }
-                                    }
-                                    foreach (var _instance in _instances)
-                                    {
-                                        foreach (var _counter in _pc.GetCounters(_instance.instance))
-                                        {
-
-                                            //only collect info for specified counters or evenrything within the category
-                                            if (_counters.FirstOrDefault(x => x.category == pcc).counter != "*")
-                                            {
-                                                if (!_counters.Any(x => x.counter == _counter.CounterName))
-                                                {
-                                                    continue;
-                                                }
-                                            }
-
-                                            if (!_countertree.Any(x => x.category == pcc && x.counter == _counter.CounterName))
-                                            {
-                                                _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
-                                            }
-                                            else
-                                            {
-                                                if (!_countertree.FirstOrDefault(x => x.category == pcc && x.counter == _counter.CounterName).instances.Exists(x => x.instance == _instance.instance))
-                                                {
-                                                    _countertree.FirstOrDefault(x => x.category == pcc && x.counter == _counter.CounterName).instances.Add(_instance);
-                                                }
-                                            }
-                                            PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, _counter.InstanceName, workload_ip);
-
-                                            InstanceCounters _counterobject = _countertree.Where(x => x.category == _counter.CategoryName &&
-                                                        x.counter == _counter.CounterName).Select(x => x.instances.SingleOrDefault(y => y.instance == _counter.InstanceName)).FirstOrDefault();
-
-                                            _counterobject.s1 = _pcounter.NextSample();
-                                            if (_counterobject.s0.CounterType != _counterobject.s1.CounterType)
-                                            {
-                                                _counterobject.s0 = _counter.NextSample();
-                                            }
-                                            _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
-                                            _counterobject.s0 = _counterobject.s1;
-
-                                            Performance _perf = new Performance();
-                                            _perf.workload_id = _workload.id;
-                                            _perf.timestamp = RoundDown(DateTime.UtcNow, TimeSpan.FromMinutes(30)); //_counterobject.timestamp;
-                                            _perf.category_name = _pcounter.CategoryName;
-                                            _perf.counter_name = _pcounter.CounterName;
-                                            _perf.instance = _counterobject.instance;
-                                            _perf.value = _counterobject.value;
-                                            _perf.id = Objects.RamdomGuid();
-                                            using (var _db = new MRPDatabase())
-                                            {
-                                                db.Performance.Add(_perf);
-                                                db.SaveChanges();
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                            catch (System.InvalidOperationException error)
-                            {
-                                Logger.log(error.ToString(), Logger.Severity.Error);
-                            }
-                            catch (Exception ex)
-                            {
-                                Logger.log(ex.ToString(), Logger.Severity.Error);
-
-
-                                //update portal with error
-                                MRPWorkloadCRUDType _error_update_workload = new MRPWorkloadCRUDType();
-                                _error_update_workload.id = _workload.id;
-                                _error_update_workload.os_collection_status = false;
-                                _error_update_workload.os_collection_message = ex.Message;
-                                _cloud_movey.workload().updateworkload(_error_update_workload);
-                            }
-                        }
-                        //update portal with success
-                        MRPWorkloadCRUDType _update_workload = new MRPWorkloadCRUDType();
-                        _update_workload.id = _workload.id;
-                        _update_workload.perf_collection_status = true;
-                        _update_workload.perf_collection_message = "Success";
-                        _cloud_movey.workload().updateworkload(_update_workload);
-                    }
-                    
-                }
-                sw.Stop();
-                Logger.log(String.Format("Completed performance collection | Elapsed Time {0} ", TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
-                Thread.Sleep(new TimeSpan(0, 30, 0));
+                    });
             }
-        }
+            sw.Stop();
 
-        DateTime RoundDown(DateTime dt, TimeSpan d)
-        {
-            return new DateTime((dt.Ticks / d.Ticks) * d.Ticks);
+            Logger.log(String.Format("Completed operating system inventory. [updated workloads.{0}] = Total Execute Time: {1}",
+                _updated_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
+
+            //Wait for next run
+            while (_next_run < DateTime.Now)
+            {
+                Thread.Sleep(new TimeSpan(0, 0, 5));
+            }
         }
     }
 }

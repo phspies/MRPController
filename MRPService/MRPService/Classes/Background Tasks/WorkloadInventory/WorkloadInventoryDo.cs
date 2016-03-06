@@ -1,16 +1,11 @@
-﻿using MRPService.MRPService.Log;
-using MRPService.LocalDatabase;
+﻿using MRPService.LocalDatabase;
 using MRPService.API.Types.API;
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading;
 using MRPService.Utilities;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace MRPService.API.Classes
 {
@@ -18,7 +13,7 @@ namespace MRPService.API.Classes
     {
         ApiClient _cloud_movey = new ApiClient();
 
-        public static void UpdateWorkload(String workload_id)
+        public static void WorkloadInventoryDo(String workload_id)
         {
             WorkloadSet dbworkload = new WorkloadSet();
             CredentialSet dbcredential = new CredentialSet();

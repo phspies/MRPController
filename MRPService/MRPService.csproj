@@ -288,10 +288,14 @@
   <ItemGroup>
     <Compile Include="DoubleTake\Core.cs" />
     <Compile Include="DoubleTake\Common.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventory.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\VMwarePlatformUpdate.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\CollectionCounter.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\InstanceCounters.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\PerfCounter.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceDo.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\BuildINI.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\CompareVersion.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\DeleteJobs.cs" />
@@ -1110,6 +1114,7 @@
     <Compile Include="MRPService\Classes\Utilities\Events.cs" />
     <Compile Include="MRPService\Classes\Utilities\HashExtensions.cs" />
     <Compile Include="MRPService\Classes\Tasks\Platform.cs" />
+    <Compile Include="MRPService\Classes\Utilities\Impersonate.cs" />
     <Compile Include="MRPService\Classes\Utilities\MRPRegistry.cs" />
     <Compile Include="MRPService\Classes\Utilities\Settings.cs" />
     <Compile Include="MRPService\Classes\Tasks\Workload.cs" />

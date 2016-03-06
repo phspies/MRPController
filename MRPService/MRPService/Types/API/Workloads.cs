@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MRPService.API.Types.API
 {
@@ -41,8 +42,6 @@ namespace MRPService.API.Types.API
         public string dt_unique_id { get; set; }
         public string dt_status { get; set; }
         public string dt_version { get; set; }
-        public object lasterror { get; set; }
-        public object lastcontact { get; set; }
         public string deploymentpolicy_id { get; set; }
         public string password { get; set; }
         public string ipaddress { get; set; }
@@ -53,6 +52,12 @@ namespace MRPService.API.Types.API
         public string perf_collection_message { get; set; }
         public string os_collection_message { get; set; }
         public string dt_collection_message { get; set; }
+        public DateTime os_last_contact { get; set; }
+        public DateTime perf_last_contact { get; set; }
+        public DateTime dt_last_contact { get; set; }
+        public int os_contact_error_count { get; set; }
+        public int perf_contact_error_count { get; set; }
+        public int dt_contact_error_count { get; set; }
         public string platformtemplate_id { get; set; }
         public List<MRPWorkloadDiskType> workloaddisks_attributes { get; set; }
         public List<MRPWorkloadVolumeType> workloadvolumes_attributes { get; set; }
@@ -90,8 +95,6 @@ namespace MRPService.API.Types.API
         public object dt_unique_id { get; set; }
         public object dt_status { get; set; }
         public string dt_version { get; set; }
-        public object lasterror { get; set; }
-        public object lastcontact { get; set; }
         public string deploymentpolicy_id { get; set; }
         public string password { get; set; }
         public string ipaddress { get; set; }
@@ -102,6 +105,12 @@ namespace MRPService.API.Types.API
         public string perf_collection_message { get; set; }
         public string os_collection_message { get; set; }
         public string dt_collection_message { get; set; }
+        public DateTime os_last_contact { get; set; }
+        public DateTime perf_last_contact { get; set; }
+        public DateTime dt_last_contact { get; set; }
+        public int os_contact_error_count { get; set; }
+        public int perf_contact_error_count { get; set; }
+        public int dt_contact_error_count { get; set; }
         public string platformtemplate_id { get; set; }
         public List<MRPWorkloadDiskType> disks { get; set; }
         public List<MRPWorkloadInterfaceType> interfaces { get; set; }

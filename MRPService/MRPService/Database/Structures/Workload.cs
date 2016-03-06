@@ -37,14 +37,23 @@ namespace MRPService.LocalDatabase
         public string osedition { get; set; }
         [StringLength(50)]
         public string ostype { get; set; }
-        public Nullable<System.DateTime> last_contact_attempt { get; set; }
-        public Nullable<int> last_contact_status { get; set; }
-        [StringLength(50)]
-        public string last_contact_message { get; set; }
-        public Nullable<int> failed_contact_attempts { get; set; }
-        [StringLength(255)]
+        [StringLength(1024)]
         public string iplist { get; set; }
         public Nullable<int> cpu_coresPerSocket { get; set; }
-        public bool perf_collection { get; set; }
+        public DateTime perf_last_contact { get; set;}
+        public bool perf_collection_status { get; set; }
+        public DateTime os_last_contact { get; set; }
+        public Nullable<int> os_contact_error_count { get; set; }
+        public Nullable<int> perf_contact_error_count { get; set; }
+        public Nullable<int> dt_contact_error_count { get; set; }
+        public bool os_collection_status { get; set; }
+        public DateTime dt_last_contact { get; set; }
+        public bool dt_collection_status { get; set; }
+        [StringLength(50)]
+        public string perf_collection_message { get; set; }
+        [StringLength(50)]
+        public string os_collection_message { get; set; }
+        [StringLength(50)]
+        public string dt_collection_message { get; set; }
     }
 }

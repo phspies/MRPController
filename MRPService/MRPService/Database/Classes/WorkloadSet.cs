@@ -23,25 +23,56 @@ namespace MRPService.LocalDatabase
             _context.SaveChanges();
         }
 
-        public void UpdateStatus(string workload_id, string message, int status)
+        public void InventoryUpdateStatus(string workload_id, string message, bool status)
         {
             var workload = this.ModelRepository.GetById(workload_id);
-            workload.last_contact_message = message;
-            workload.last_contact_attempt = DateTime.Now;
-            workload.last_contact_status = status;
+            if (status)
+            {
+                workload.dt_collection_status = true;
+                workload.dt_contact_error_count = 0;
+            }
+            else
+            {
+                workload.dt_collection_status = false;
+                workload.dt_contact_error_count = workload.dt_contact_error_count == null ? 1 : workload.dt_contact_error_count++;
+            }
+            workload.dt_collection_message = message;
+            workload.dt_last_contact = DateTime.Now;
             this.Save();
-
-            //update portal with error
-            ApiClient _cloud_movey = new ApiClient();
-            MRPWorkloadCRUDType _update_workload = new MRPWorkloadCRUDType();
-            _update_workload.id = workload_id;
-            _update_workload.provisioned = true;
-            _update_workload.os_collection_status = false;
-            _update_workload.os_collection_message = message;
-            _cloud_movey.workload().updateworkload(_update_workload);
-
-
-
+        }
+        public void PeformanceUpdateStatus(string workload_id, string message, bool status)
+        {
+            var workload = this.ModelRepository.GetById(workload_id);
+            if (status)
+            {
+                workload.perf_collection_status = true;
+                workload.perf_contact_error_count = 0;
+            }
+            else
+            {
+                workload.perf_collection_status = false;
+                workload.perf_contact_error_count = workload.perf_contact_error_count == null ? 1 : workload.perf_contact_error_count++;
+            }
+            workload.perf_collection_message = message;
+            workload.perf_last_contact = DateTime.Now;
+            this.Save();
+        }
+        public void DoubleTakeUpdateStatus(string workload_id, string message, bool status)
+        {
+            var workload = this.ModelRepository.GetById(workload_id);
+            if (status)
+            {
+                workload.dt_collection_status = true;
+                workload.dt_contact_error_count = 0;
+            }
+            else
+            {
+                workload.dt_collection_status = false;
+                workload.dt_contact_error_count = workload.dt_contact_error_count == null ? 1 : workload.dt_contact_error_count++;
+            }
+            workload.dt_collection_message = message;
+            workload.dt_last_contact = DateTime.Now;
+            this.Save();
         }
 
         private bool disposed = false;

@@ -3,12 +3,7 @@ using MRPService.LocalDatabase;
 using MRPService.API.Types.API;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Management;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
-using MRPService.Utilities;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
@@ -38,14 +33,13 @@ namespace MRPService.API.Classes
                             try
                             {
                                 MRPWorkloadType _mrp_workload = _cloud_movey.workload().getworkload(workload.id);
-
-                                WorkloadInventory.UpdateWorkload(_mrp_workload.id);
-                                workload_set.UpdateStatus(workload.id, "Success", 0);
+                                WorkloadInventory.WorkloadInventoryDo(_mrp_workload.id);
+                                workload_set.InventoryUpdateStatus(workload.id, "Success", true);
                             }
                             catch (Exception ex)
                             {
-                                Logger.log(String.Format("Error connecting to WMI {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
-                                workload_set.UpdateStatus(workload.id, ex.Message, 1);
+                                Logger.log(String.Format("Error collecting inventory information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
+                                workload_set.InventoryUpdateStatus(workload.id, ex.Message, false);
                             }
                             _updated_workloads += 1;
 
