@@ -19,6 +19,7 @@ namespace MRPService.PerformanceCollection
         public void Start()
         {
 
+            //Fill counters that needs to be collected from workloads
             _counters.Add(new CollectionCounter() { category = "Processor", counter = "% Idle Time" });
             _counters.Add(new CollectionCounter() { category = "Processor", counter = "% User Time" });
             _counters.Add(new CollectionCounter() { category = "Processor", counter = "% Processor Time" });
@@ -67,21 +68,19 @@ namespace MRPService.PerformanceCollection
             _counters.Add(new CollectionCounter() { category = "Double-Take Source", counter = "*" });
             _counters.Add(new CollectionCounter() { category = "Double-Take Target", counter = "*" });
 
-
-
-            DateTime _next_run = DateTime.Now.AddMinutes(Global.os_inventory_interval);
+            DateTime _next_performance_run = DateTime.Now.AddMinutes(Global.performance_inventory_interval);
             Stopwatch sw = Stopwatch.StartNew();
-            int _updated_workloads = 0;
+            int _processed_workloads = 0;
 
             Logger.log(String.Format("Staring performance collection process with {0} threads", Global.performance_inventory_concurrency), Logger.Severity.Info);
 
             using (WorkloadSet workload_set = new WorkloadSet())
             {
                 List<Workload> workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.iplist != null);
+                _processed_workloads = workloads.Count();
                 Parallel.ForEach(workloads,
                     new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
                     (workload) => {
-
                         try
                         {
                             WorkloadPerformance.WorkloadPerformanceDo(_countertree, _counters, workload);
@@ -92,17 +91,15 @@ namespace MRPService.PerformanceCollection
                             Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
                             workload_set.PeformanceUpdateStatus(workload.id, ex.Message, false);
                         }
-                        _updated_workloads += 1;
-
                     });
             }
             sw.Stop();
 
-            Logger.log(String.Format("Completed operating system inventory. [updated workloads.{0}] = Total Execute Time: {1}",
-                _updated_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
+            Logger.log(String.Format("Completed performance collection for {0} workloads in {1}",
+                _processed_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
 
             //Wait for next run
-            while (_next_run < DateTime.Now)
+            while (_next_performance_run < DateTime.Now)
             {
                 Thread.Sleep(new TimeSpan(0, 0, 5));
             }

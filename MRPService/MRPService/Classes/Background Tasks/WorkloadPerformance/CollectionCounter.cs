@@ -1,5 +1,7 @@
 ﻿namespace MRPService.PerformanceCollection
 {
+
+
     public class CollectionCounter
     {
         public string category { get; set; }
