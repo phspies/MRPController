@@ -26,7 +26,7 @@ namespace MRPService.LocalDatabase
         public static DbConnection GetConnection()
         {
             string dblocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string dbfilename = Path.Combine(dblocation,"Database","MRP.sdf");
+            string dbfilename = Path.Combine(dblocation,"Database","MRPController.sdf");
             if (!Directory.Exists(Path.GetDirectoryName(dbfilename)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(dbfilename));

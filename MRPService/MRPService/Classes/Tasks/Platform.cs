@@ -17,6 +17,7 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Threading;
 using MRPService.Utilities;
+using MRPService.PlatformInventory;
 
 namespace MRPService.Tasks
 {
@@ -369,7 +370,7 @@ namespace MRPService.Tasks
 
                     //update Platform inventory for server
                     MRP.task().progress(payload, String.Format("Updating platform information for {0}", _target.hostname), 91);
-                    PlatformInventoryThread.UpdateMCPWorkload(_newvm.id, _newvm.datacenterId);
+                    PlatformInventoryWorkloadDo.UpdateMCPWorkload(_newvm.id, _newvm.datacenterId);
 
                     //update OS information or newly provisioned server
                     _workload = _cloud_movey.workload().getworkload(_target.id);

@@ -4,6 +4,7 @@
     xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:local="clr-namespace:MRPNotifier"
+    xmlns:converters="clr-namespace:MRPNotifier.Converters"
     xmlns:model="clr-namespace:MRPNotifier.Models"
     xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
@@ -17,15 +18,23 @@
     Title="MRP Worker" Height="666.671" Width="1269.191" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
 
     <controls:MetroWindow.Resources>
+
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
                 <ResourceDictionary Source="/Resources/logos.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <ObjectDataProvider x:Key="workload_credentials_static"
+            <ObjectDataProvider x:Name="workload_credentials_data" x:Key="workload_credentials_static"
                             ObjectType="{x:Type local:MainWindow}"
                             MethodName="workload_credentials"/>
+
+            <converters:osedition_convert x:Key="osedition_convert_resource"/>
+            <converters:os_short x:Key="os_short_resource"/>
+            <converters:platform x:Key="platform_resource"/>
+            <converters:platform_description x:Key="platform_description_resource"/>
+            
 
             <DataTemplate x:Key="platform_description">
                 <StackPanel Orientation="Horizontal">
@@ -58,19 +67,19 @@
                             <ContentControl.Style>
                                 <Style TargetType="{x:Type ContentControl}">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding osshort}" Value="windows">
+                                        <DataTrigger Binding="{Binding Path=osedition, Converter={StaticResource os_short_resource}}" Value="windows">
                                             <Setter Property="Content" Value="{StaticResource windows}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding osshort}" Value="ubuntu">
+                                        <DataTrigger Binding="{Binding Path=osedition, Converter={StaticResource os_short_resource}}" Value="ubuntu">
                                             <Setter Property="Content" Value="{StaticResource ubuntu}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding osshort}" Value="centos">
+                                        <DataTrigger Binding="{Binding Path=osedition, Converter={StaticResource os_short_resource}}" Value="centos">
                                             <Setter Property="Content" Value="{StaticResource centos}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding osshort}" Value="redhat">
+                                        <DataTrigger Binding="{Binding Path=osedition, Converter={StaticResource os_short_resource}}" Value="redhat">
                                             <Setter Property="Content" Value="{StaticResource redhat}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding osshort}" Value="suse">
+                                        <DataTrigger Binding="{Binding Path=osedition, Converter={StaticResource os_short_resource}}" Value="suse">
                                             <Setter Property="Content" Value="{StaticResource suse}" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -78,7 +87,7 @@
                             </ContentControl.Style>
                         </ContentControl>
                     </Viewbox>
-                    <TextBlock Margin="0,7,0,0" Text="{Binding human_os}"/>
+                    <TextBlock Margin="0,7,0,0" Text="{Binding Path=osedition, Converter={StaticResource osedition_convert_resource}}"/>
                 </StackPanel>
             </DataTemplate>
 
@@ -89,13 +98,13 @@
                             <ContentControl.Style>
                                 <Style TargetType="{x:Type ContentControl}">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding platform}" Value="Dimension Data">
+                                        <DataTrigger Binding="{Binding Path=platform_id, Converter={StaticResource platform_resource}}" Value="Dimension Data">
                                             <Setter Property="Content" Value="{StaticResource dimensiondata}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding platform}" Value="VMWare">
+                                        <DataTrigger Binding="{Binding Path=platform_id, Converter={StaticResource platform_resource}}" Value="VMWare">
                                             <Setter Property="Content" Value="{StaticResource vmware}" />
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding platform}" Value="Hyper-V">
+                                        <DataTrigger Binding="{Binding Path=platform_id, Converter={StaticResource platform_resource}}" Value="Hyper-V">
                                             <Setter Property="Content" Value="{StaticResource hyper-v}" />
                                         </DataTrigger>
                                     </Style.Triggers>
@@ -103,7 +112,7 @@
                             </ContentControl.Style>
                         </ContentControl>
                     </Viewbox>
-                    <TextBlock Margin="0,7,0,0" Text="{Binding platform_description}"/>
+                    <TextBlock Margin="0,7,0,0" Text="{Binding Path=platform_id, Converter={StaticResource platform_description_resource}}"/>
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Shared="False" x:Key="workload_resources">
@@ -165,7 +174,7 @@
             </Style>
             <DataTemplate x:Shared="False" x:Key="workload_hostname">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <controls:ToggleSwitch OnLabel="" OffLabel="" IsChecked="{Binding enabled, Mode=TwoWay}" />
+                    <controls:ToggleSwitch OnLabel="" OffLabel="" Checked="workload_status_toggle" Unchecked="workload_status_toggle" IsChecked="{Binding enabled, Mode=TwoWay}" />
                     <TextBlock Text="{Binding hostname}" Margin="5,10,0,0"/>
                 </StackPanel>
             </DataTemplate>
@@ -175,7 +184,7 @@
                     <ComboBox ItemsSource="{Binding Source={StaticResource workload_credentials_static}}" Grid.Column="1" HorizontalAlignment="Left" Height="Auto" Margin="3" Grid.Row="0" VerticalAlignment="Center" Width="120"
             			SelectedValuePath="id"
             			SelectedValue="{Binding credential_id, Mode=TwoWay}" 
-            			DisplayMemberPath="description"/>
+            			DisplayMemberPath="description" SelectionChanged="workload_credentials_changed"/>
 
                 </StackPanel>
             </DataTemplate>
@@ -297,6 +306,7 @@
                 </Setter>
             </Style>
 
+
         </ResourceDictionary>
 
     </controls:MetroWindow.Resources>
@@ -310,8 +320,8 @@
         </Style>
     </Window.Style>
     <!-- the window button commands -->
-    <controls:MetroWindow.RightWindowCommands>
-        <controls:WindowCommands>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
             <Button ToolTip="Copy Worker GUID to Clipboard" Click="copy_guid_button_clicked">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="38" Height="20"
@@ -326,8 +336,8 @@
                    />
                 </StackPanel>
             </Button>
-        </controls:WindowCommands>
-    </controls:MetroWindow.RightWindowCommands>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
     <Grid>
         <Grid.Style>
             <Style TargetType="Grid">
@@ -347,7 +357,7 @@
                 <TabItem Header="Workloads" controls:ControlsHelper.HeaderFontSize="18">
 
                     <Grid x:Name="ApplicationGroupGrid">
-                        <Button Margin="1162,0,39,0" ToolTip="Refresh workload list from worker service" Height="30" VerticalAlignment="Top" Click="refresh_workloads_button_clicked">
+                        <Button Margin="0,0,39,0" ToolTip="Refresh workload list from worker service" Height="30" VerticalAlignment="Top" Click="refresh_workloads_button_clicked" HorizontalAlignment="Right" Width="30">
                             <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                 <Rectangle.OpacityMask>
                                     <VisualBrush Stretch="Fill"
@@ -355,7 +365,7 @@
                                 </Rectangle.OpacityMask>
                             </Rectangle>
                         </Button>
-                        <Button ToolTip="Add platform to worker list" Click="add_workload_button_clicked" Height="30" VerticalAlignment="Top" Margin="1201,0,0,0" HorizontalAlignment="Left" Width="30">
+                        <Button ToolTip="Add platform to worker list" Click="add_workload_button_clicked" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30">
                             <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                 <Rectangle.OpacityMask>
                                     <VisualBrush Stretch="Fill"
@@ -427,6 +437,9 @@
                                     <GridViewColumn  Width="100" DisplayMemberBinding="{Binding platform_version}">
                                         <GridViewColumnHeader Tag="platform" Content="Version"/>
                                     </GridViewColumn>
+                                    <GridViewColumn  Width="100" DisplayMemberBinding="{Binding lastupdated}">
+                                        <GridViewColumnHeader Tag="platform" Content="Last Updated"/>
+                                    </GridViewColumn>
                                     <GridViewColumn Header="Resources" Width="200" CellTemplate="{StaticResource platform_resources}"/>
                                     <GridViewColumn Header="Actions" Width="100">
                                         <GridViewColumn.CellTemplate>
@@ -435,21 +448,21 @@
                                                     <Button x:Name="update_platform_button" Click="update_platform_button">
                                                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                                             <Rectangle.OpacityMask>
-                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_edit_box}" />
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_social_cloudapp}" />
                                                             </Rectangle.OpacityMask>
                                                         </Rectangle>
                                                     </Button>
                                                     <Button Margin="5,0,0,0" x:Name="delete_platform_button" Click="delete_platform_button">
                                                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                                             <Rectangle.OpacityMask>
-                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_page_delete}" />
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cloud_delete}" />
                                                             </Rectangle.OpacityMask>
                                                         </Rectangle>
                                                     </Button>
                                                     <Button Margin="5,0,0,0" x:Name="refresh_platform_button" Click="refresh_platform_button">
                                                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                                             <Rectangle.OpacityMask>
-                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_inbox_in}" />
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_cloud_upload}" />
                                                             </Rectangle.OpacityMask>
                                                         </Rectangle>
                                                     </Button>

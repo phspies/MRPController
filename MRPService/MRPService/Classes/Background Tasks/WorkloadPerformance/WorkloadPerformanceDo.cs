@@ -32,22 +32,29 @@ namespace MRPService.PerformanceCollection
         public extern static bool CloseHandle(IntPtr handle);
 
 
-        public static void WorkloadPerformanceDo(SyncronisedList<PerfCounter> _countertree, SyncronisedList<CollectionCounter> _counters, Workload _workload)
+        public static void WorkloadPerformanceDo(SyncronisedList<PerfCounter> _countertree, SyncronisedList<CollectionCounter> _counters, String workload_id)
         {
+            WorkloadSet dbworkload = new WorkloadSet();
+
+            Workload mrpworkload = dbworkload.ModelRepository.GetById(workload_id);
+            if (mrpworkload == null)
+            {
+                throw new System.ArgumentException(String.Format("Error finding workload in local database {0}", workload_id));
+            }
 
             //check for credentials
             CredentialSet dbcredential = new CredentialSet();
-            Credential _credential = dbcredential.ModelRepository.GetById(_workload.credential_id);
+            Credential _credential = dbcredential.ModelRepository.GetById(mrpworkload.credential_id);
             if (_credential == null)
             {
-                throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", _workload.id, _workload.hostname));
+                throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", mrpworkload.id, mrpworkload.hostname));
             }
 
             //check for working IP
-            string workload_ip = Connection.find_working_ip(_workload, true);
+            string workload_ip = Connection.find_working_ip(mrpworkload, true);
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Error finding contactable IP for workload {0} {1}", _workload.id, _workload.hostname));
+                throw new ArgumentException(String.Format("Error finding contactable IP for workload {0} {1}", mrpworkload.id, mrpworkload.hostname));
             }
 
             //Impersonate credentials before collection of information
@@ -103,7 +110,7 @@ namespace MRPService.PerformanceCollection
                             _counterobject.s0 = _counterobject.s1;
 
                             Performance _perf = new Performance();
-                            _perf.workload_id = _workload.id;
+                            _perf.workload_id = mrpworkload.id;
                             _perf.timestamp = RoundDown(DateTime.UtcNow, TimeSpan.FromHours(1)); //_counterobject.timestamp;
                             _perf.category_name = _pcounter.CategoryName;
                             _perf.counter_name = _pcounter.CounterName;
@@ -166,7 +173,7 @@ namespace MRPService.PerformanceCollection
                                 _counterobject.s0 = _counterobject.s1;
 
                                 Performance _perf = new Performance();
-                                _perf.workload_id = _workload.id;
+                                _perf.workload_id = mrpworkload.id;
                                 _perf.timestamp = RoundDown(DateTime.UtcNow, TimeSpan.FromHours(1)); //_counterobject.timestamp;
                                 _perf.category_name = _pcounter.CategoryName;
                                 _perf.counter_name = _pcounter.CounterName;

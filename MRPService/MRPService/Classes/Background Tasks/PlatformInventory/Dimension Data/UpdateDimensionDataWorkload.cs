@@ -1,28 +1,17 @@
-﻿using MRPService.MRPService.Log;
-using MRPService.LocalDatabase;
+﻿using MRPService.LocalDatabase;
 using MRPService.API.Types.API;
-using MRPService.WCF;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using DD.CBU.Compute.Api.Client;
 using System.Net;
-using DD.CBU.Compute.Api.Contracts.Requests.Server20;
 using DD.CBU.Compute.Api.Contracts.Network20;
-using DD.CBU.Compute.Api.Contracts.Requests;
-using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
-using DD.CBU.Compute.Api.Contracts.General;
 using MRPService.Utilities;
-using VMware.Vim;
-using MRPService.VMWare;
-using System.Collections.Specialized;
+using MRPService.API;
 
-namespace MRPService.API.Classes
+namespace MRPService.PlatformInventory
 {
-    partial class PlatformInventoryThread
+    partial class PlatformInventoryWorkloadDo
     {
         public static void UpdateMCPWorkload(string _workload_moid, string _platform_moid)
         {

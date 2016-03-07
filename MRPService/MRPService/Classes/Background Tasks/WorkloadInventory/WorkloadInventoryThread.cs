@@ -50,7 +50,7 @@ namespace MRPService.API.Classes
                     _processed_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
 
                 //Wait for next run
-                while(_next_inventory_run < DateTime.Now)
+                while(_next_inventory_run > DateTime.Now)
                 {
                     Thread.Sleep(new TimeSpan(0, 0, 5));
                 }

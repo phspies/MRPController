@@ -4,13 +4,6 @@ namespace MRPService.API
 {
     class ApiClient
     {
-        private String _apiBase;
-
-        public ApiClient()
-        {
-            _apiBase = Global.api_base;
-        }
-
         public MRPTask task()
         {
             return new MRPTask(this);
@@ -58,10 +51,6 @@ namespace MRPService.API
         public MRPJob job()
         {
             return new MRPJob(this);
-        }
-        public String ApiBase
-        {
-            get { return _apiBase; }
         }
     }
 }

@@ -9,12 +9,11 @@ namespace MRPService.API
 {
     class Core
     {
-        private String _apibase, _endpoint;
+        private String _endpoint;
         private ApiClient _client;
 
         public Core(ApiClient _MRP)
         {
-            _apibase = _MRP.ApiBase;
             _client = _MRP;
         }
 
@@ -31,7 +30,7 @@ namespace MRPService.API
         {
             var client = new RestClient();
             client.FollowRedirects = false;
-            client.BaseUrl = new Uri(apibase);
+            client.BaseUrl = new Uri("https://www.mrplatform.net");
             RestRequest request = new RestRequest();
             client.FollowRedirects = false;
             request.Resource = endpoint;
@@ -81,17 +80,7 @@ namespace MRPService.API
             return responseobject;
 
         }
-        public String apibase
-        {
-            get
-            {
-                return this._apibase;
-            }
-            set
-            {
-                this._apibase = value;
-            }
-        }
+
         public String endpoint
         {
             get

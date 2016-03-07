@@ -27,6 +27,7 @@ namespace MRPService.LocalDatabase
         public string moid { get; set; }
         public Nullable<bool> enabled { get; set; }
         public Nullable<int> vcpu { get; set; }
+        public Nullable<int> vcpu_speed { get; set; }
         public Nullable<int> vcore { get; set; }
         public Nullable<int> vmemory { get; set; }
         public Nullable<long> storage_count { get; set; }
@@ -40,14 +41,14 @@ namespace MRPService.LocalDatabase
         [StringLength(1024)]
         public string iplist { get; set; }
         public Nullable<int> cpu_coresPerSocket { get; set; }
-        public DateTime perf_last_contact { get; set;}
+        public DateTime? perf_last_contact { get; set;}
         public bool perf_collection_status { get; set; }
-        public DateTime os_last_contact { get; set; }
+        public DateTime? os_last_contact { get; set; }
         public Nullable<int> os_contact_error_count { get; set; }
         public Nullable<int> perf_contact_error_count { get; set; }
         public Nullable<int> dt_contact_error_count { get; set; }
         public bool os_collection_status { get; set; }
-        public DateTime dt_last_contact { get; set; }
+        public DateTime? dt_last_contact { get; set; }
         public bool dt_collection_status { get; set; }
         [StringLength(50)]
         public string perf_collection_message { get; set; }

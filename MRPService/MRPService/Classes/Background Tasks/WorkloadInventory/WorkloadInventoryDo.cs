@@ -52,26 +52,22 @@ namespace MRPService.API.Classes
 
             ManagementScope connectionScope = ConnectionScope(workload_ip, options);
 
-            SelectQuery computerProcessQuery = new SelectQuery("SELECT NumberOfProcessors FROM Win32_ComputerSystem");
-            SelectQuery ProcessorProcessQuery = new SelectQuery("SELECT NumberOfCores FROM Win32_Processor");
-            SelectQuery MemoryProcessQuery = new SelectQuery("SELECT Capacity FROM Win32_PhysicalMemory");
-
+            SelectQuery computerProcessQuery = new SelectQuery("SELECT NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
+            SelectQuery ProcessorProcessQuery = new SelectQuery("SELECT NumberOfCores, CurrentClockSpeed FROM Win32_Processor");
 
             //Get cpu, core and memory information from server
             foreach (var item in new ManagementObjectSearcher(connectionScope, computerProcessQuery).Get())
             {
-                try { _workload.vcore = int.Parse(item["NumberOfProcessors"].ToString()); } catch (Exception) { }
+                try { _workload.vcpu = int.Parse(item["NumberOfProcessors"].ToString()); } catch (Exception) { }
+                //convert to GB as WMi reports in Bytes
+                try { _workload.vmemory = (int.Parse(item["TotalPhysicalMemory"].ToString()) / 1024 / 1024 / 1024); } catch (Exception) { }
+
             }
             foreach (var item in new ManagementObjectSearcher(connectionScope, ProcessorProcessQuery).Get())
             {
                 try { _workload.vcore = int.Parse(item["NumberOfCores"].ToString()); } catch (Exception) { }
+                try { _workload.vcpu_speed = int.Parse(item["CurrentClockSpeed"].ToString()); } catch (Exception) { }
             }
-            foreach (var item in new ManagementObjectSearcher(connectionScope, MemoryProcessQuery).Get())
-            {
-                //convert to GB as WMi reports in Bytes
-                try { _workload.vmemory = (int.Parse(item["Capacity"].ToString())/1024/1025/1024); } catch (Exception) { }
-            }
-
 
             //process running processes
             SelectQuery msProcessQuery = new SelectQuery("SELECT * FROM Win32_Process");

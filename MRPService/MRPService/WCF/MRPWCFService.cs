@@ -11,6 +11,7 @@ using DD.CBU.Compute.Api.Client;
 using DD.CBU.Compute.Api.Contracts.Requests;
 using MRPService.Utilities;
 using MRPService.VMWare;
+using MRPService.PlatformInventory;
 
 namespace MRPService.WCF
 {
@@ -65,7 +66,7 @@ namespace MRPService.WCF
             {
                 using (WorkloadSet db = new WorkloadSet())
                 {
-                    db.ModelRepository.Delete(_destroyworkload);
+                    db.ModelRepository.Delete(_destroyworkload.id);
                 }
             }
             catch (Exception e)
@@ -122,7 +123,7 @@ namespace MRPService.WCF
             {
                 using (PlatformSet db = new PlatformSet())
                 {
-                    db.ModelRepository.Delete(_destroyplatform);
+                    db.ModelRepository.Delete(_destroyplatform.id);
                 }
             }
             catch (Exception e)
@@ -133,8 +134,7 @@ namespace MRPService.WCF
         public void RefreshPlatform(Platform _platform)
         {
             try {
-                PlatformInventoryThread _inventory = new PlatformInventoryThread();
-                _inventory.UpdateMCPPlatform(_platform);
+                Inventory.PlatformInventoryDo(_platform.id, false);
 
             }
             catch (Exception ex)
@@ -191,7 +191,7 @@ namespace MRPService.WCF
             {
                 using (CredentialSet db = new CredentialSet())
                 {
-                    db.ModelRepository.Delete(_destroycredential);
+                    db.ModelRepository.Delete(_destroycredential.id);
                 }
             }
             catch (Exception e)

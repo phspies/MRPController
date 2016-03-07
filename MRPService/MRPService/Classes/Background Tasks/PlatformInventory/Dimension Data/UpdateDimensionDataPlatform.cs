@@ -1,13 +1,11 @@
 ﻿using MRPService.MRPService.Log;
 using MRPService.LocalDatabase;
 using MRPService.API.Types.API;
-using MRPService.WCF;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using DD.CBU.Compute.Api.Client;
 using System.Net;
 using DD.CBU.Compute.Api.Contracts.Requests.Server20;
@@ -16,19 +14,28 @@ using DD.CBU.Compute.Api.Contracts.Requests;
 using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
 using DD.CBU.Compute.Api.Contracts.General;
 using MRPService.Utilities;
-using VMware.Vim;
-using MRPService.VMWare;
-using System.Collections.Specialized;
+using MRPService.API;
 
-namespace MRPService.API.Classes
+namespace MRPService.PlatformInventory
 {
-    partial class PlatformInventoryThread
+    class PlatformDimensionDataMCP2InventoryDo
     {
-        public void UpdateMCPPlatform(Platform _platform)
+
+        public static void UpdateMCPPlatform(String _platform_id, bool full=true)
         {
+            ApiClient _cloud_movey = new ApiClient();
+            Platform _platform;
+            using (PlatformSet _platform_db = new PlatformSet())
+            {
+                _platform = _platform_db.ModelRepository.GetById(_platform_id);
+            }
+
+
             try
             {
-                Logger.log(String.Format("Started data mirroring process for {0}", (_platform.human_vendor + " : " + _platform.datacenter)), Logger.Severity.Info);
+
+
+                Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.human_vendor, _platform.datacenter), Logger.Severity.Info);
                 Stopwatch sw = Stopwatch.StartNew();
                 int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads, _removed_workloads;
                 _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = _removed_workloads = 0;
@@ -41,9 +48,9 @@ namespace MRPService.API.Classes
                     _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
 
                 }
-                MRPWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
-                MRPPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
-                MRPPlatformdomainListType _currentplatformdomains = _cloud_movey.platformdomain().listplatformdomains();
+                List<MRPWorkloadType> _currentplatformworkloads = _cloud_movey.workload().listworkloads().workloads.Where(x => x.platform_id == _platform_id).ToList();
+                List<MRPPlatformdomainType> _currentplatformdomains = _cloud_movey.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform_id).ToList();
+                List<MRPPlatformnetworkType> _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _currentplatformdomains.Exists(y => y.id == x.platformdomain_id)).ToList();
 
 
                 //populate platform credential object
@@ -163,9 +170,9 @@ namespace MRPService.API.Classes
                         _platformnetwork.ipv6netmask = _network.ipv6Range.prefixSize;
                         _platformnetwork.networkdomain_moid = _network.networkDomain.id;
                         _platformnetwork.provisioned = true;
-                        if (_currentplatformnetworks.platformnetworks.Exists(x => x.moid == _network.id))
+                        if (_currentplatformnetworks.Exists(x => x.moid == _network.id && x.platformdomain_id == _domain.id))
                         {
-                            _platformnetwork.id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _network.id).id;
+                            _platformnetwork.id = _currentplatformnetworks.FirstOrDefault(x => x.moid == _network.id && x.platformdomain_id == _domain.id).id;
                             _updated_platformnetworks += 1;
                         }
                         else
@@ -174,9 +181,9 @@ namespace MRPService.API.Classes
                         }
                         _platformdomain.platformnetworks_attributes.Add(_platformnetwork);
                     }
-                    if (_currentplatformdomains.platformdomains.Exists(x => x.moid == _domain.id))
+                    if (_currentplatformdomains.Exists(x => x.moid == _domain.id))
                     {
-                        _platformdomain.id = _currentplatformdomains.platformdomains.FirstOrDefault(x => x.moid == _domain.id).id;
+                        _platformdomain.id = _currentplatformdomains.FirstOrDefault(x => x.moid == _domain.id).id;
                         _cloud_movey.platformdomain().updateplatformdomain(_platformdomain);
                         _updated_platformnetworks += 1;
                     }
@@ -187,7 +194,7 @@ namespace MRPService.API.Classes
                     }
                 }
                 //refresh platform network list from portal
-                _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
+                _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _currentplatformdomains.Any(y => y.id == x.platformdomain_id)).ToList();
 
                 //process workloads
 
@@ -204,10 +211,12 @@ namespace MRPService.API.Classes
                         }
                     }
                 }
-
-                foreach (ServerType _caasworkload in workload_list.Where(x => x.datacenterId == _platform.datacenter && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                if (full)
                 {
-                    UpdateMCPWorkload(_caasworkload.id, _platform.moid);
+                    foreach (ServerType _caasworkload in workload_list.Where(x => x.datacenterId == _platform.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                    {
+                        PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform.moid);
+                    }
                 }
                 sw.Stop();
 

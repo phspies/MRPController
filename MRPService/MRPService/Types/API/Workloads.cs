@@ -24,6 +24,7 @@ namespace MRPService.API.Types.API
         public string hostname { get; set; }
         public string iplist { get; set; }
         public int? vcpu { get; set; }
+        public int? vcpu_speed { get; set; }
         public int? vcore { get; set; }
         public int? vmemory { get; set; }
         public string ostype { get; set; }
@@ -43,7 +44,6 @@ namespace MRPService.API.Types.API
         public string dt_status { get; set; }
         public string dt_version { get; set; }
         public string deploymentpolicy_id { get; set; }
-        public string password { get; set; }
         public string ipaddress { get; set; }
         public string hash_value { get; set; }
         public bool? perf_collection_status { get; set; }
@@ -77,6 +77,7 @@ namespace MRPService.API.Types.API
         public string hostname { get; set; }
         public string iplist { get; set; }
         public int vcpu { get; set; }
+        public int vcpu_speed { get; set; }
         public int vmemory { get; set; }
         public int vcore { get; set; }
         public string ostype { get; set; }
@@ -96,7 +97,6 @@ namespace MRPService.API.Types.API
         public object dt_status { get; set; }
         public string dt_version { get; set; }
         public string deploymentpolicy_id { get; set; }
-        public string password { get; set; }
         public string ipaddress { get; set; }
         public string hash_value { get; set; }
         public bool? perf_collection_status { get; set; }

@@ -288,10 +288,11 @@
   <ItemGroup>
     <Compile Include="DoubleTake\Core.cs" />
     <Compile Include="DoubleTake\Common.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataWorkload.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\VMwarePlatformUpdate.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMwarePlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\CollectionCounter.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\InstanceCounters.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\PerfCounter.cs" />
@@ -1083,11 +1084,6 @@
     <Compile Include="DoubleTake\Types.cs" />
     <Compile Include="DoubleTake\Doubletake.cs" />
     <Compile Include="DoubleTake\MgtService.cs" />
-    <Compile Include="Migrations\201512310441146_networflow.cs" />
-    <Compile Include="Migrations\201512310441146_networflow.Designer.cs">
-      <DependentUpon>201512310441146_networflow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\APIClient.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Core.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\JSONSerializer.cs" />
@@ -1196,7 +1192,7 @@
     <Compile Include="MRPSvc.Designer.cs">
       <DependentUpon>MRPSvc.cs</DependentUpon>
     </Compile>
-    <Compile Include="MRPService\Models.cs" />
+    <Compile Include="MRPService\Global.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
@@ -1233,9 +1229,6 @@
       <DependentUpon>MRPSvc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DiscUtils\obj\Debug\DiscUtils.Resources.resources" />
-    <EmbeddedResource Include="Migrations\201512310441146_networflow.resx">
-      <DependentUpon>201512310441146_networflow.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>

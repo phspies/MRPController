@@ -12,17 +12,19 @@ using System.Windows.Media;
 using System.Linq;
 using System.Data;
 using MRPNotifier.Extensions;
-using System.Threading;
 using MRPNotifier.MRPWCFService;
 using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace MRPNotifier
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : MetroWindow, INotifyPropertyChanged
     {
+
         MRPWCFServiceClient channel = new MRPWCFServiceClient();
         private WindowState m_storedWindowState = WindowState.Normal;
 
@@ -31,6 +33,11 @@ namespace MRPNotifier
         workerInformation _information = null;
 
         public event PropertyChangedEventHandler PropertyChanged;
+        public List<Credential> workload_credentials()
+        {
+            return channel.ListCredentials().Where(x => x.credential_type == 1).ToList();
+        }
+
         protected void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -44,8 +51,6 @@ namespace MRPNotifier
             InitializeComponent();
             _information = channel.CollectionInformation();
             //Assign global assignment for tree
-
-            //apply item source and apply filter
 
             m_notifyIcon = new System.Windows.Forms.NotifyIcon();
             m_notifyIcon.BalloonTipText = "MRP Notifier has been minimised. Click the tray icon to show.";
@@ -235,22 +240,7 @@ namespace MRPNotifier
         private void refresh_platform_button(object sender, RoutedEventArgs e)
         {
             Platform _platform = (Platform)((Button)sender).DataContext;
-            BackgroundWorker bgwanalysis = new BackgroundWorker();
-            bgwanalysis.DoWork += delegate
-            {
-                channel.RefreshPlatform(_platform);
-            };
-            bgwanalysis.RunWorkerAsync();
-
-            while (bgwanalysis.IsBusy)
-            {
-                Thread.Sleep(2000);
-            }
-            //reload workload list
-            _workloads = new Workload_ListDataModel().list;
-
-
-            load_platformlist();
+            refresh_platform(_platform);
         }
         private async void delete_platform_button(object sender, RoutedEventArgs e)
         {
@@ -316,17 +306,46 @@ namespace MRPNotifier
                 NegativeButtonText = "Abort",
                 ColorScheme = MetroDialogColorScheme.Theme
             };
-            MahApps.Metro.Controls.Dialogs.MessageDialogResult messageBoxResult = await this.ShowMessageAsync("Delete Platform", "Are you sure you want to delete this credential?", MessageDialogStyle.AffirmativeAndNegative, mySettings);
+            MessageDialogResult messageBoxResult = await this.ShowMessageAsync("Delete Credential", "Are you sure you want to delete this credential?", MessageDialogStyle.AffirmativeAndNegative, mySettings);
 
-            if (messageBoxResult == MahApps.Metro.Controls.Dialogs.MessageDialogResult.Affirmative)
+            if (messageBoxResult == MessageDialogResult.Affirmative)
             {
-                channel.DestroyCredential(_credential);
                 using (new WaitCursor())
                 {
+                    channel.DestroyCredential(_credential);
                     load_credentiallist();
                 }
             }
 
+        }
+
+        private void workload_status_toggle(object sender, EventArgs e)
+        {
+            Workload _workload = (sender as ToggleSwitch).DataContext as Workload;
+            ToggleSwitch _switch = sender as ToggleSwitch;
+            if (_workload.id != null)
+            {
+                _workload.enabled = (bool)_switch.IsChecked;
+                using (new WaitCursor())
+                {
+                    channel.UpdateWorkload(_workload);
+                }
+            }
+
+        }
+        private void workload_credentials_changed(object sender, System.EventArgs e)
+        {
+            Workload _workload = (sender as ComboBox).DataContext as Workload;
+            Credential _credential = (sender as ComboBox).SelectedItem as Credential;
+
+            if (_workload != null && _credential != null)
+            {
+                _workload.credential_id = _credential.id;
+                using (new WaitCursor())
+                {
+                    channel.UpdateWorkload(_workload);
+                }
+            }
         }
         private void refresh_credentials_button_clicked(object sender, RoutedEventArgs e)
         {
@@ -360,7 +379,7 @@ namespace MRPNotifier
         {
             using (new WaitCursor())
             {
-                return ((item as Workload_ObjectDataModel).hostname.IndexOf(workload_search.Text, StringComparison.OrdinalIgnoreCase) >= 0);
+                return ((item as Workload).hostname.IndexOf(workload_search.Text, StringComparison.OrdinalIgnoreCase) >= 0);
             }
         }
         public class WaitCursor : IDisposable
@@ -391,7 +410,10 @@ namespace MRPNotifier
 
         private void refresh_workloads_button_clicked(object sender, RoutedEventArgs e)
         {
-
+            using (new WaitCursor())
+            {
+                load_workloadlist();
+            }
         }
     }
 

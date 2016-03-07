@@ -13,6 +13,7 @@ using MRPService.MRPService.Log;
 using MRPService.TaskExecutioner;
 using MRPService.Utilities;
 using MRPService.PerformanceCollection;
+using MRPService.PlatformInventory;
 
 namespace MRPService
 {

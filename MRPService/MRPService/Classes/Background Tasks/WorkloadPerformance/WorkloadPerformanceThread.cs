@@ -68,40 +68,44 @@ namespace MRPService.PerformanceCollection
             _counters.Add(new CollectionCounter() { category = "Double-Take Source", counter = "*" });
             _counters.Add(new CollectionCounter() { category = "Double-Take Target", counter = "*" });
 
-            DateTime _next_performance_run = DateTime.Now.AddMinutes(Global.performance_inventory_interval);
-            Stopwatch sw = Stopwatch.StartNew();
-            int _processed_workloads = 0;
-
-            Logger.log(String.Format("Staring performance collection process with {0} threads", Global.performance_inventory_concurrency), Logger.Severity.Info);
-
-            using (WorkloadSet workload_set = new WorkloadSet())
+            while (true)
             {
-                List<Workload> workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.iplist != null);
-                _processed_workloads = workloads.Count();
-                Parallel.ForEach(workloads,
-                    new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
-                    (workload) => {
-                        try
-                        {
-                            WorkloadPerformance.WorkloadPerformanceDo(_countertree, _counters, workload);
-                            workload_set.PeformanceUpdateStatus(workload.id, "Success", true);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
-                            workload_set.PeformanceUpdateStatus(workload.id, ex.Message, false);
-                        }
-                    });
-            }
-            sw.Stop();
+                DateTime _next_performance_run = DateTime.Now.AddHours(1);
+                Stopwatch sw = Stopwatch.StartNew();
+                int _processed_workloads = 0;
 
-            Logger.log(String.Format("Completed performance collection for {0} workloads in {1}",
-                _processed_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
+                Logger.log(String.Format("Staring performance collection process with {0} threads", Global.performance_inventory_concurrency), Logger.Severity.Info);
 
-            //Wait for next run
-            while (_next_performance_run < DateTime.Now)
-            {
-                Thread.Sleep(new TimeSpan(0, 0, 5));
+                using (WorkloadSet workload_set = new WorkloadSet())
+                {
+                    List<Workload> workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.iplist != null);
+                    _processed_workloads = workloads.Count();
+                    Parallel.ForEach(workloads,
+                        new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
+                        (workload) =>
+                        {
+                            try
+                            {
+                                WorkloadPerformance.WorkloadPerformanceDo(_countertree, _counters, workload.id);
+                                workload_set.PeformanceUpdateStatus(workload.id, "Success", true);
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
+                                workload_set.PeformanceUpdateStatus(workload.id, ex.Message, false);
+                            }
+                        });
+                }
+                sw.Stop();
+
+                Logger.log(String.Format("Completed performance collection for {0} workloads in {1}",
+                    _processed_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
+
+                //Wait for next run
+                while (_next_performance_run > DateTime.Now)
+                {
+                    Thread.Sleep(new TimeSpan(0, 0, 5));
+                }
             }
         }
     }

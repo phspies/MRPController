@@ -1,0 +1,315 @@
+2016/03/07 12:04:28 Info > Debug Enabled!
+2016/03/07 12:04:28 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 12:04:30 Debug > Platforms: 1, Workloads: 8, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 12:04:30 Debug > Starting WCF Service
+2016/03/07 12:04:30 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 12:04:30 Debug > Starting Scheduler Thread
+2016/03/07 12:04:30 Debug > Starting Mirror Thread
+2016/03/07 12:04:30 Debug > Starting Performance Collection Thread
+2016/03/07 12:04:30 Info > Staring platform inventory process
+2016/03/07 12:04:30 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 12:04:30 Debug > Starting Data Upload Thread
+2016/03/07 12:04:30 Info > Staring performance collection process with 10 threads
+2016/03/07 12:04:30 Info > Staring data upload process
+2016/03/07 12:04:30 Debug > Starting OS Inventory Thread
+2016/03/07 12:04:30 Info > Staring operating system inventory process with 10 threads
+2016/03/07 12:04:30 Error > An exception occurred during a Ping request.
+2016/03/07 12:04:30 Error > An exception occurred during a Ping request.
+2016/03/07 12:04:30 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:04:31 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:04:31 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:04:31 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.5650000
+2016/03/07 12:04:31 Info > Started inventory process for Dimension Data : 
+2016/03/07 12:04:31 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:04:31 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:04:32 Error > An exception occurred during a Ping request.
+2016/03/07 12:04:33 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:04:33 Error > An exception occurred during a Ping request.
+2016/03/07 12:04:34 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:04:34 Error > An exception occurred during a Ping request.
+2016/03/07 12:04:35 Error > An exception occurred during a Ping request.
+2016/03/07 12:04:36 Error > An exception occurred during a Ping request.
+2016/03/07 12:04:43 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/create.json with error ()
+2016/03/07 12:05:00 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:00 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:01 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:01 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:01 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:01 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:02 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:02 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:03 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:03 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:04 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:04 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:05 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:06 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:13 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/create.json with error ()
+2016/03/07 12:05:30 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:30 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:31 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:31 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:31 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:31 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:32 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:32 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:33 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:33 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:34 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:34 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:05:35 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:36 Error > An exception occurred during a Ping request.
+2016/03/07 12:05:45 Error > Newtonsoft.Json.JsonReaderException: Could not convert string to DateTime: 0001-01-01 00:00:00 UTC. Path 'workloads[0].perf_last_contact', line 1, position 1135.
+   at Newtonsoft.Json.JsonReader.ReadAsDateTimeInternal()
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ReadForType(JsonReader reader, JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at MRPService.API.Core.perform[type](Method _method, Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 52
+2016/03/07 12:05:45 Error > {"worker_id":"00952c3447ca49cebc5ae1e4b47f60b2","worker_hostname":"FSPIES-T420S"}
+2016/03/07 12:05:45 Error > {"workloads":[{"id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","platform_id":"9097489617b05f57c0aceedf283d0790dc7ec7b1","failovergroup_id":null,"hostname":"appserver01","vcpu":2,"vcpu_speed":0,"vcore":1,"vmemory":4,"iplist":"2607:f480:111:1359:492b:1740:ea0a:5f9c,10.0.0.8","ostype":"windows","platform_ostype":null,"osedition":"WIN2012R2S/64","failedover":null,"enabled":true,"active":false,"moid":"f4ae3c3c-2830-44f7-8cd4-be84b89db6ea","credential_id":"46ad334704e701372767efc4af83763868755310","workloadtype":"source","configuration":null,"provisioned":true,"dt_installed":false,"dt_machine_name":null,"dt_unique_id":null,"dt_status":null,"dt_version":null,"lasterror":null,"lastcontact":null,"deploymentpolicy_id":null,"perf_collection_status":false,"os_collection_status":false,"dt_collection_status":false,"hash_value":null,"servicestack_id":null,"platformtemplate_id":"0bbfab3ef182383ece05a1d01a576f2d9462854b","perf_collection_message":null,"os_collection_message":null,"dt_collection_message":null,"perf_contact_error_count":0,"os_contact_error_count":0,"dt_contact_error_count":0,"perf_last_contact":"0001-01-01 00:00:00 UTC","os_last_contact":"0001-01-01 00:00:00 UTC","dt_last_contact":"0001-01-01 00:00:00 UTC","interfaces":[{"id":"332760a5985333e0ce58da067d4930c1f7e0765f","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","vnic":0,"ipaddress":"10.0.0.8","ipv6address":"2607:f480:111:1359:492b:1740:ea0a:5f9c","netmask":null,"ipv6netmask":null,"platformnetwork_id":null,"ipassignment":"manual_ip","moid":"376142ab-9c3e-4b5e-9a79-a299741656c2","connection_index":0,"connection_id":null,"created_at":"2016-03-07 05:06:26 UTC","updated_at":"2016-03-07 05:06:26 UTC","macaddress":null}],"disks":[{"id":"052ae4bea1d932d08d51ca5902f17c0bbab5227c","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","diskindex":0,"disksize":50,"platformstoragetier_id":null,"moid":"35782237-31ed-4577-b823-69bac7526c36","position":1,"provisioned":true,"deviceid":null}],"processes":[],"softwares":[],"volumes":[]}]}
+2016/03/07 12:05:46 Error > Error in data mirroring process for Dimension Data : : System.NullReferenceException: Object reference not set to an instance of an object.
+   at MRPService.PlatformInventory.PlatformInventoryWorkloadDo.UpdateMCPWorkload(String _workload_moid, String _platform_moid) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataWorkload.cs:line 59
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 218
+2016/03/07 12:05:46 Info > Completed platform inventory for NA9 in 00:01:15.0220000
+2016/03/07 12:05:46 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:01:15.7120000
+2016/03/07 12:06:00 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:00 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:01 Error > Newtonsoft.Json.JsonReaderException: Could not convert string to DateTime: 0001-01-01 00:00:00 UTC. Path 'perf_last_contact', line 1, position 1121.
+   at Newtonsoft.Json.JsonReader.ReadAsDateTimeInternal()
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ReadForType(JsonReader reader, JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at MRPService.API.Core.perform[type](Method _method, Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 52
+2016/03/07 12:06:01 Error > {"worker_id":"00952c3447ca49cebc5ae1e4b47f60b2","worker_hostname":"FSPIES-T420S","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7"}
+2016/03/07 12:06:01 Error > {"id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","platform_id":"9097489617b05f57c0aceedf283d0790dc7ec7b1","failovergroup_id":null,"hostname":"appserver01","vcpu":2,"vcpu_speed":0,"vcore":1,"vmemory":4,"iplist":"2607:f480:111:1359:492b:1740:ea0a:5f9c,10.0.0.8","ostype":"windows","platform_ostype":null,"osedition":"WIN2012R2S/64","failedover":null,"enabled":true,"active":false,"moid":"f4ae3c3c-2830-44f7-8cd4-be84b89db6ea","credential_id":"46ad334704e701372767efc4af83763868755310","workloadtype":"source","configuration":null,"provisioned":true,"dt_installed":false,"dt_machine_name":null,"dt_unique_id":null,"dt_status":null,"dt_version":null,"lasterror":null,"lastcontact":null,"deploymentpolicy_id":null,"perf_collection_status":false,"os_collection_status":false,"dt_collection_status":false,"hash_value":null,"servicestack_id":null,"platformtemplate_id":"0bbfab3ef182383ece05a1d01a576f2d9462854b","perf_collection_message":null,"os_collection_message":null,"dt_collection_message":null,"perf_contact_error_count":0,"os_contact_error_count":0,"dt_contact_error_count":0,"perf_last_contact":"0001-01-01 00:00:00 UTC","os_last_contact":"0001-01-01 00:00:00 UTC","dt_last_contact":"0001-01-01 00:00:00 UTC","interfaces":[{"id":"332760a5985333e0ce58da067d4930c1f7e0765f","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","vnic":0,"ipaddress":"10.0.0.8","ipv6address":"2607:f480:111:1359:492b:1740:ea0a:5f9c","netmask":null,"ipv6netmask":null,"platformnetwork_id":null,"ipassignment":"manual_ip","moid":"376142ab-9c3e-4b5e-9a79-a299741656c2","connection_index":0,"connection_id":null,"created_at":"2016-03-07 05:06:26 UTC","updated_at":"2016-03-07 05:06:26 UTC","macaddress":null}],"disks":[{"id":"052ae4bea1d932d08d51ca5902f17c0bbab5227c","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","diskindex":0,"disksize":50,"platformstoragetier_id":null,"moid":"35782237-31ed-4577-b823-69bac7526c36","position":1,"provisioned":true,"deviceid":null}],"processes":[],"softwares":[],"volumes":[]}
+2016/03/07 12:06:01 Error > Error collecting inventory information from appserver01 with error Object reference not set to an instance of an object.
+2016/03/07 12:06:01 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:01 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:02 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:02 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:02 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:03 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:04 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:04 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:05 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:05 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:06 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:30 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:30 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:32 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:32 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:32 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:32 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:32 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:33 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:34 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:34 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:35 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:06:35 Error > An exception occurred during a Ping request.
+2016/03/07 12:06:36 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:00 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:00 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:02 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:02 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:07:02 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:07:02 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:07:03 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:07:03 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:04 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:07:04 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:05 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:07:05 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:06 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:28 Info > Debug Enabled!
+2016/03/07 12:07:28 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 12:07:30 Debug > Platforms: 1, Workloads: 8, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 12:07:30 Debug > Starting WCF Service
+2016/03/07 12:07:30 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 12:07:30 Debug > Starting Scheduler Thread
+2016/03/07 12:07:30 Debug > Starting Mirror Thread
+2016/03/07 12:07:30 Debug > Starting Performance Collection Thread
+2016/03/07 12:07:30 Info > Staring platform inventory process
+2016/03/07 12:07:30 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 12:07:30 Info > Staring performance collection process with 10 threads
+2016/03/07 12:07:30 Debug > Starting Data Upload Thread
+2016/03/07 12:07:30 Debug > Starting OS Inventory Thread
+2016/03/07 12:07:30 Info > Staring operating system inventory process with 10 threads
+2016/03/07 12:07:30 Info > Staring data upload process
+2016/03/07 12:07:30 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:30 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:30 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:30 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:30 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.2740000
+2016/03/07 12:07:30 Error > Newtonsoft.Json.JsonReaderException: Could not convert string to DateTime: 0001-01-01 00:00:00 UTC. Path 'perf_last_contact', line 1, position 1121.
+   at Newtonsoft.Json.JsonReader.ReadAsDateTimeInternal()
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ReadForType(JsonReader reader, JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at MRPService.API.Core.perform[type](Method _method, Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 52
+2016/03/07 12:07:30 Error > {"worker_id":"00952c3447ca49cebc5ae1e4b47f60b2","worker_hostname":"FSPIES-T420S","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7"}
+2016/03/07 12:07:30 Error > {"id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","platform_id":"9097489617b05f57c0aceedf283d0790dc7ec7b1","failovergroup_id":null,"hostname":"appserver01","vcpu":2,"vcpu_speed":0,"vcore":1,"vmemory":4,"iplist":"2607:f480:111:1359:492b:1740:ea0a:5f9c,10.0.0.8","ostype":"windows","platform_ostype":null,"osedition":"WIN2012R2S/64","failedover":null,"enabled":true,"active":false,"moid":"f4ae3c3c-2830-44f7-8cd4-be84b89db6ea","credential_id":"46ad334704e701372767efc4af83763868755310","workloadtype":"source","configuration":null,"provisioned":true,"dt_installed":false,"dt_machine_name":null,"dt_unique_id":null,"dt_status":null,"dt_version":null,"lasterror":null,"lastcontact":null,"deploymentpolicy_id":null,"perf_collection_status":false,"os_collection_status":false,"dt_collection_status":false,"hash_value":null,"servicestack_id":null,"platformtemplate_id":"0bbfab3ef182383ece05a1d01a576f2d9462854b","perf_collection_message":null,"os_collection_message":null,"dt_collection_message":null,"perf_contact_error_count":0,"os_contact_error_count":0,"dt_contact_error_count":0,"perf_last_contact":"0001-01-01 00:00:00 UTC","os_last_contact":"0001-01-01 00:00:00 UTC","dt_last_contact":"0001-01-01 00:00:00 UTC","interfaces":[{"id":"332760a5985333e0ce58da067d4930c1f7e0765f","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","vnic":0,"ipaddress":"10.0.0.8","ipv6address":"2607:f480:111:1359:492b:1740:ea0a:5f9c","netmask":null,"ipv6netmask":null,"platformnetwork_id":null,"ipassignment":"manual_ip","moid":"376142ab-9c3e-4b5e-9a79-a299741656c2","connection_index":0,"connection_id":null,"created_at":"2016-03-07 05:06:26 UTC","updated_at":"2016-03-07 05:06:26 UTC","macaddress":null}],"disks":[{"id":"052ae4bea1d932d08d51ca5902f17c0bbab5227c","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","diskindex":0,"disksize":50,"platformstoragetier_id":null,"moid":"35782237-31ed-4577-b823-69bac7526c36","position":1,"provisioned":true,"deviceid":null}],"processes":[],"softwares":[],"volumes":[]}
+2016/03/07 12:07:30 Error > Error collecting inventory information from appserver01 with error Object reference not set to an instance of an object.
+2016/03/07 12:07:30 Error > System.AggregateException: One or more errors occurred. ---> System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at MRPService.LocalDatabase.WorkloadSet.Save() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Database\Classes\WorkloadSet.cs:line 23
+   at MRPService.LocalDatabase.WorkloadSet.InventoryUpdateStatus(String workload_id, String message, Boolean status) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Database\Classes\WorkloadSet.cs:line 41
+   at MRPService.API.Classes.WorkloadInventoryThread.<>c__DisplayClass1_0.<Start>b__0(Workload workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 43
+   at System.Threading.Tasks.Parallel.<>c__DisplayClass17_0`1.<ForWorker>b__1()
+   at System.Threading.Tasks.Task.InnerInvokeWithArg(Task childTask)
+   at System.Threading.Tasks.Task.<>c__DisplayClass176_0.<ExecuteSelfReplicating>b__0(Object )
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Parallel.ForWorker[TLocal](Int32 fromInclusive, Int32 toExclusive, ParallelOptions parallelOptions, Action`1 body, Action`2 bodyWithState, Func`4 bodyWithLocal, Func`1 localInit, Action`1 localFinally)
+   at System.Threading.Tasks.Parallel.ForEachWorker[TSource,TLocal](IEnumerable`1 source, ParallelOptions parallelOptions, Action`1 body, Action`2 bodyWithState, Action`3 bodyWithStateAndIndex, Func`4 bodyWithStateAndLocal, Func`5 bodyWithEverything, Func`1 localInit, Action`1 localFinally)
+   at System.Threading.Tasks.Parallel.ForEach[TSource](IEnumerable`1 source, ParallelOptions parallelOptions, Action`1 body)
+   at MRPService.API.Classes.WorkloadInventoryThread.Start() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 30
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadHelper.ThreadStart()
+---> (Inner Exception #0) System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   at System.Data.Entity.Internal.InternalContext.SaveChanges()
+   at MRPService.LocalDatabase.WorkloadSet.Save() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Database\Classes\WorkloadSet.cs:line 23
+   at MRPService.LocalDatabase.WorkloadSet.InventoryUpdateStatus(String workload_id, String message, Boolean status) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Database\Classes\WorkloadSet.cs:line 41
+   at MRPService.API.Classes.WorkloadInventoryThread.<>c__DisplayClass1_0.<Start>b__0(Workload workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 43
+   at System.Threading.Tasks.Parallel.<>c__DisplayClass17_0`1.<ForWorker>b__1()
+   at System.Threading.Tasks.Task.InnerInvokeWithArg(Task childTask)
+   at System.Threading.Tasks.Task.<>c__DisplayClass176_0.<ExecuteSelfReplicating>b__0(Object )<---
+
+2016/03/07 12:07:30 Info > Started inventory process for Dimension Data : 
+2016/03/07 12:07:30 Error > Newtonsoft.Json.JsonReaderException: Could not convert string to DateTime: 0001-01-01 00:00:00 UTC. Path 'workloads[0].perf_last_contact', line 1, position 1135.
+   at Newtonsoft.Json.JsonReader.ReadAsDateTimeInternal()
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ReadForType(JsonReader reader, JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at MRPService.API.Core.perform[type](Method _method, Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 52
+2016/03/07 12:07:30 Error > {"worker_id":"00952c3447ca49cebc5ae1e4b47f60b2","worker_hostname":"FSPIES-T420S"}
+2016/03/07 12:07:30 Error > {"workloads":[{"id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","platform_id":"9097489617b05f57c0aceedf283d0790dc7ec7b1","failovergroup_id":null,"hostname":"appserver01","vcpu":2,"vcpu_speed":0,"vcore":1,"vmemory":4,"iplist":"2607:f480:111:1359:492b:1740:ea0a:5f9c,10.0.0.8","ostype":"windows","platform_ostype":null,"osedition":"WIN2012R2S/64","failedover":null,"enabled":true,"active":false,"moid":"f4ae3c3c-2830-44f7-8cd4-be84b89db6ea","credential_id":"46ad334704e701372767efc4af83763868755310","workloadtype":"source","configuration":null,"provisioned":true,"dt_installed":false,"dt_machine_name":null,"dt_unique_id":null,"dt_status":null,"dt_version":null,"lasterror":null,"lastcontact":null,"deploymentpolicy_id":null,"perf_collection_status":false,"os_collection_status":false,"dt_collection_status":false,"hash_value":null,"servicestack_id":null,"platformtemplate_id":"0bbfab3ef182383ece05a1d01a576f2d9462854b","perf_collection_message":null,"os_collection_message":null,"dt_collection_message":null,"perf_contact_error_count":0,"os_contact_error_count":0,"dt_contact_error_count":0,"perf_last_contact":"0001-01-01 00:00:00 UTC","os_last_contact":"0001-01-01 00:00:00 UTC","dt_last_contact":"0001-01-01 00:00:00 UTC","interfaces":[{"id":"332760a5985333e0ce58da067d4930c1f7e0765f","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","vnic":0,"ipaddress":"10.0.0.8","ipv6address":"2607:f480:111:1359:492b:1740:ea0a:5f9c","netmask":null,"ipv6netmask":null,"platformnetwork_id":null,"ipassignment":"manual_ip","moid":"376142ab-9c3e-4b5e-9a79-a299741656c2","connection_index":0,"connection_id":null,"created_at":"2016-03-07 05:06:26 UTC","updated_at":"2016-03-07 05:06:26 UTC","macaddress":null}],"disks":[{"id":"052ae4bea1d932d08d51ca5902f17c0bbab5227c","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","diskindex":0,"disksize":50,"platformstoragetier_id":null,"moid":"35782237-31ed-4577-b823-69bac7526c36","position":1,"provisioned":true,"deviceid":null}],"processes":[],"softwares":[],"volumes":[]}]}
+2016/03/07 12:07:30 Error > Error in data mirroring process for Dimension Data : : System.NullReferenceException: Object reference not set to an instance of an object.
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 51
+2016/03/07 12:07:30 Info > Completed platform inventory for NA9 in 00:00:00.2730000
+2016/03/07 12:07:30 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:00.7230000
+2016/03/07 12:07:31 Error > An exception occurred during a Ping request.
+2016/03/07 12:07:31 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:06 Info > Debug Enabled!
+2016/03/07 12:08:06 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 12:08:08 Debug > Platforms: 1, Workloads: 8, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 12:08:08 Debug > Starting WCF Service
+2016/03/07 12:08:08 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 12:08:08 Debug > Starting Scheduler Thread
+2016/03/07 12:08:08 Debug > Starting Mirror Thread
+2016/03/07 12:08:08 Debug > Starting Performance Collection Thread
+2016/03/07 12:08:08 Info > Staring platform inventory process
+2016/03/07 12:08:08 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 12:08:08 Info > Staring performance collection process with 10 threads
+2016/03/07 12:08:08 Debug > Starting Data Upload Thread
+2016/03/07 12:08:08 Debug > Starting OS Inventory Thread
+2016/03/07 12:08:08 Info > Staring data upload process
+2016/03/07 12:08:08 Info > Staring operating system inventory process with 10 threads
+2016/03/07 12:08:08 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:08 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.2430000
+2016/03/07 12:08:08 Error > Newtonsoft.Json.JsonReaderException: Could not convert string to DateTime: 0001-01-01 00:00:00 UTC. Path 'perf_last_contact', line 1, position 1121.
+   at Newtonsoft.Json.JsonReader.ReadAsDateTimeInternal()
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ReadForType(JsonReader reader, JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at MRPService.API.Core.perform[type](Method _method, Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 52
+2016/03/07 12:08:08 Error > {"worker_id":"00952c3447ca49cebc5ae1e4b47f60b2","worker_hostname":"FSPIES-T420S","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7"}
+2016/03/07 12:08:08 Error > {"id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","platform_id":"9097489617b05f57c0aceedf283d0790dc7ec7b1","failovergroup_id":null,"hostname":"appserver01","vcpu":2,"vcpu_speed":0,"vcore":1,"vmemory":4,"iplist":"2607:f480:111:1359:492b:1740:ea0a:5f9c,10.0.0.8","ostype":"windows","platform_ostype":null,"osedition":"WIN2012R2S/64","failedover":null,"enabled":true,"active":false,"moid":"f4ae3c3c-2830-44f7-8cd4-be84b89db6ea","credential_id":"46ad334704e701372767efc4af83763868755310","workloadtype":"source","configuration":null,"provisioned":true,"dt_installed":false,"dt_machine_name":null,"dt_unique_id":null,"dt_status":null,"dt_version":null,"lasterror":null,"lastcontact":null,"deploymentpolicy_id":null,"perf_collection_status":false,"os_collection_status":false,"dt_collection_status":false,"hash_value":null,"servicestack_id":null,"platformtemplate_id":"0bbfab3ef182383ece05a1d01a576f2d9462854b","perf_collection_message":null,"os_collection_message":null,"dt_collection_message":null,"perf_contact_error_count":0,"os_contact_error_count":0,"dt_contact_error_count":0,"perf_last_contact":"0001-01-01 00:00:00 UTC","os_last_contact":"0001-01-01 00:00:00 UTC","dt_last_contact":"0001-01-01 00:00:00 UTC","interfaces":[{"id":"332760a5985333e0ce58da067d4930c1f7e0765f","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","vnic":0,"ipaddress":"10.0.0.8","ipv6address":"2607:f480:111:1359:492b:1740:ea0a:5f9c","netmask":null,"ipv6netmask":null,"platformnetwork_id":null,"ipassignment":"manual_ip","moid":"376142ab-9c3e-4b5e-9a79-a299741656c2","connection_index":0,"connection_id":null,"created_at":"2016-03-07 05:06:26 UTC","updated_at":"2016-03-07 05:06:26 UTC","macaddress":null}],"disks":[{"id":"052ae4bea1d932d08d51ca5902f17c0bbab5227c","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","diskindex":0,"disksize":50,"platformstoragetier_id":null,"moid":"35782237-31ed-4577-b823-69bac7526c36","position":1,"provisioned":true,"deviceid":null}],"processes":[],"softwares":[],"volumes":[]}
+2016/03/07 12:08:08 Error > Error collecting inventory information from appserver01 with error Object reference not set to an instance of an object.
+2016/03/07 12:08:08 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:08:09 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:08:09 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:08:09 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:08:09 Info > Started inventory process for Dimension Data : 
+2016/03/07 12:08:09 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:09 Error > Newtonsoft.Json.JsonReaderException: Could not convert string to DateTime: 0001-01-01 00:00:00 UTC. Path 'workloads[0].perf_last_contact', line 1, position 1135.
+   at Newtonsoft.Json.JsonReader.ReadAsDateTimeInternal()
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.ReadForType(JsonReader reader, JsonContract contract, Boolean hasConverter)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at MRPService.API.Core.perform[type](Method _method, Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 52
+2016/03/07 12:08:09 Error > {"worker_id":"00952c3447ca49cebc5ae1e4b47f60b2","worker_hostname":"FSPIES-T420S"}
+2016/03/07 12:08:09 Error > {"workloads":[{"id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","platform_id":"9097489617b05f57c0aceedf283d0790dc7ec7b1","failovergroup_id":null,"hostname":"appserver01","vcpu":2,"vcpu_speed":0,"vcore":1,"vmemory":4,"iplist":"2607:f480:111:1359:492b:1740:ea0a:5f9c,10.0.0.8","ostype":"windows","platform_ostype":null,"osedition":"WIN2012R2S/64","failedover":null,"enabled":true,"active":false,"moid":"f4ae3c3c-2830-44f7-8cd4-be84b89db6ea","credential_id":"46ad334704e701372767efc4af83763868755310","workloadtype":"source","configuration":null,"provisioned":true,"dt_installed":false,"dt_machine_name":null,"dt_unique_id":null,"dt_status":null,"dt_version":null,"lasterror":null,"lastcontact":null,"deploymentpolicy_id":null,"perf_collection_status":false,"os_collection_status":false,"dt_collection_status":false,"hash_value":null,"servicestack_id":null,"platformtemplate_id":"0bbfab3ef182383ece05a1d01a576f2d9462854b","perf_collection_message":null,"os_collection_message":null,"dt_collection_message":null,"perf_contact_error_count":0,"os_contact_error_count":0,"dt_contact_error_count":0,"perf_last_contact":"0001-01-01 00:00:00 UTC","os_last_contact":"0001-01-01 00:00:00 UTC","dt_last_contact":"0001-01-01 00:00:00 UTC","interfaces":[{"id":"332760a5985333e0ce58da067d4930c1f7e0765f","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","vnic":0,"ipaddress":"10.0.0.8","ipv6address":"2607:f480:111:1359:492b:1740:ea0a:5f9c","netmask":null,"ipv6netmask":null,"platformnetwork_id":null,"ipassignment":"manual_ip","moid":"376142ab-9c3e-4b5e-9a79-a299741656c2","connection_index":0,"connection_id":null,"created_at":"2016-03-07 05:06:26 UTC","updated_at":"2016-03-07 05:06:26 UTC","macaddress":null}],"disks":[{"id":"052ae4bea1d932d08d51ca5902f17c0bbab5227c","workload_id":"becd9ef50c523d4748eaf7c06236ede8a7923ad7","diskindex":0,"disksize":50,"platformstoragetier_id":null,"moid":"35782237-31ed-4577-b823-69bac7526c36","position":1,"provisioned":true,"deviceid":null}],"processes":[],"softwares":[],"volumes":[]}]}
+2016/03/07 12:08:09 Error > Error in data mirroring process for Dimension Data : : System.NullReferenceException: Object reference not set to an instance of an object.
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 51
+2016/03/07 12:08:09 Info > Completed platform inventory for NA9 in 00:00:00.2230000
+2016/03/07 12:08:09 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:01.1740000
+2016/03/07 12:08:10 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:10 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:11 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:11 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:12 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:38 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:39 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:08:39 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:39 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:08:39 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:08:39 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:08:40 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:40 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:41 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:41 Error > An exception occurred during a Ping request.
+2016/03/07 12:08:42 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:08 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:09 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:09 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:09:09 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:09:09 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:09:10 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:10 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:09:10 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:11 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:11 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:12 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:38 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:39 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:39 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:09:40 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:40 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:09:40 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:09:40 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 12:09:40 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:41 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:41 Error > An exception occurred during a Ping request.
+2016/03/07 12:09:42 Error > An exception occurred during a Ping request.

@@ -507,7 +507,6 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPSe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\obj\x64\Debug\MRPService.csproj.App.config
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\obj\x64\Debug\MRPService.MRPSvc.resources
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\obj\x64\Debug\MRPService.Migrations.networflow.resources
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\obj\x64\Debug\MRPService.ProjectInstaller.resources
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\obj\x64\Debug\MRPService.csproj.GenerateResource.Cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\obj\x64\Debug\MRPService.exe

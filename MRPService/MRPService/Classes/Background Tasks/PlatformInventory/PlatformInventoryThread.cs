@@ -19,8 +19,9 @@ using MRPService.Utilities;
 using VMware.Vim;
 using MRPService.VMWare;
 using System.Collections.Specialized;
+using MRPService.API;
 
-namespace MRPService.API.Classes
+namespace MRPService.PlatformInventory
 {
     partial class PlatformInventoryThread
     {
@@ -79,14 +80,9 @@ namespace MRPService.API.Classes
                     }
 
                     //process dimension data networks
-                    foreach (var _platform in _workerplatforms.Where(x => x.vendor == 0 && x.platform_version == "MCP 2.0"))
+                    foreach (var _platform in _workerplatforms)
                     {
-                        UpdateMCPPlatform(_platform);
-                    }
-                    //process dimension data networks
-                    foreach (var _platform in _workerplatforms.Where(x => x.vendor == 1))
-                    {
-                        UpdateVMwarePlatform(_platform);
+                        Inventory.PlatformInventoryDo(_platform.id);
                     }
                     sw.Stop();
 
