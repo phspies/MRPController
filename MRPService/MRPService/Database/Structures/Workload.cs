@@ -50,11 +50,11 @@ namespace MRPService.LocalDatabase
         public bool os_collection_status { get; set; }
         public DateTime? dt_last_contact { get; set; }
         public bool dt_collection_status { get; set; }
-        [StringLength(50)]
+        [StringLength(255)]
         public string perf_collection_message { get; set; }
-        [StringLength(50)]
+        [StringLength(255)]
         public string os_collection_message { get; set; }
-        [StringLength(50)]
+        [StringLength(255)]
         public string dt_collection_message { get; set; }
     }
 }

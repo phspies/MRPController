@@ -76,26 +76,28 @@ namespace MRPService.PerformanceCollection
 
                 Logger.log(String.Format("Staring performance collection process with {0} threads", Global.performance_inventory_concurrency), Logger.Severity.Info);
 
+                List<Workload> workloads;
                 using (WorkloadSet workload_set = new WorkloadSet())
                 {
-                    List<Workload> workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.iplist != null);
-                    _processed_workloads = workloads.Count();
-                    Parallel.ForEach(workloads,
-                        new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
-                        (workload) =>
-                        {
-                            try
-                            {
-                                WorkloadPerformance.WorkloadPerformanceDo(_countertree, _counters, workload.id);
-                                workload_set.PeformanceUpdateStatus(workload.id, "Success", true);
-                            }
-                            catch (Exception ex)
-                            {
-                                Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
-                                workload_set.PeformanceUpdateStatus(workload.id, ex.Message, false);
-                            }
-                        });
+                    workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.iplist != null);
                 }
+                _processed_workloads = workloads.Count();
+                Parallel.ForEach(workloads,
+                    new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
+                    (workload) =>
+                    {
+                        try
+                        {
+                            WorkloadPerformance.WorkloadPerformanceDo(_countertree, _counters, workload.id);
+                            Workloads_Update.PeformanceUpdateStatus(workload.id, "Success", true);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
+                            Workloads_Update.PeformanceUpdateStatus(workload.id, ex.Message, false);
+                        }
+                    });
+
                 sw.Stop();
 
                 Logger.log(String.Format("Completed performance collection for {0} workloads in {1}",

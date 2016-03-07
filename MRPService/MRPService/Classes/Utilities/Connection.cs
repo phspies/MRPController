@@ -17,10 +17,14 @@ namespace MRPService.Utilities
             foreach (string ip in ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
             {
                 PingReply reply = null;
-                try {
+                try
+                {
                     reply = testPing.Send(ip, 1000);
                 }
-                catch (Exception ex) { }
+                catch (System.ComponentModel.Win32Exception ex)
+                {
+                    throw new System.ArgumentException(ex.Message);
+                }
                 if (reply != null)
                 {
                     workingip = ip;
@@ -44,7 +48,7 @@ namespace MRPService.Utilities
             }
             return workingip;
         }
-        public static string find_working_ip(Workload _workload, bool literal=false)
+        public static string find_working_ip(Workload _workload, bool literal = false)
         {
             String ipaddresslist = _workload.iplist;
             String workingip = null;
@@ -54,19 +58,20 @@ namespace MRPService.Utilities
             {
                 while (true)
                 {
-                    try {
-                        PingReply reply = testPing.Send(ip, 1000);
-                        if (reply != null)
-                        {
-                            workingip = ip;
-                            foundip = true;
-                            break;
-                        }
-                    }
-                    catch (Exception ex)
+                    PingReply reply = null;
+                    try
                     {
-                        Logger.log(ex.Message, Logger.Severity.Error);
-                        Thread.Sleep(new TimeSpan(0, 0, 30));
+                        reply = testPing.Send(ip, 1000);
+                    }
+                    catch (System.ComponentModel.Win32Exception ex)
+                    {
+                        throw new System.ArgumentException(ex.Message);
+                    }
+                    if (reply != null)
+                    {
+                        workingip = ip;
+                        foundip = true;
+                        break;
                     }
                 }
                 if (foundip == true)

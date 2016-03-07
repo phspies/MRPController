@@ -52,9 +52,9 @@ namespace MRPService.API.Types.API
         public string perf_collection_message { get; set; }
         public string os_collection_message { get; set; }
         public string dt_collection_message { get; set; }
-        public DateTime os_last_contact { get; set; }
-        public DateTime perf_last_contact { get; set; }
-        public DateTime dt_last_contact { get; set; }
+        public DateTime? os_last_contact { get; set; }
+        public DateTime? perf_last_contact { get; set; }
+        public DateTime? dt_last_contact { get; set; }
         public int os_contact_error_count { get; set; }
         public int perf_contact_error_count { get; set; }
         public int dt_contact_error_count { get; set; }
@@ -105,9 +105,9 @@ namespace MRPService.API.Types.API
         public string perf_collection_message { get; set; }
         public string os_collection_message { get; set; }
         public string dt_collection_message { get; set; }
-        public DateTime os_last_contact { get; set; }
-        public DateTime perf_last_contact { get; set; }
-        public DateTime dt_last_contact { get; set; }
+        public DateTime? os_last_contact { get; set; }
+        public DateTime? perf_last_contact { get; set; }
+        public DateTime? dt_last_contact { get; set; }
         public int os_contact_error_count { get; set; }
         public int perf_contact_error_count { get; set; }
         public int dt_contact_error_count { get; set; }

@@ -35,12 +35,12 @@ namespace MRPService.API.Classes
                             {
                                 MRPWorkloadType _mrp_workload = _cloud_movey.workload().getworkload(workload.id);
                                 WorkloadInventory.WorkloadInventoryDo(_mrp_workload.id);
-                                workload_set.InventoryUpdateStatus(workload.id, "Success", true);
+                                Workloads_Update.InventoryUpdateStatus(workload.id, "Success", true);
                             }
                             catch (Exception ex)
                             {
                                 Logger.log(String.Format("Error collecting inventory information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
-                                workload_set.InventoryUpdateStatus(workload.id, ex.Message, false);
+                                Workloads_Update.InventoryUpdateStatus(workload.id, ex.Message, false);
                             }
                         });
                 }
