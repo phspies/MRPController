@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading;
 using Newtonsoft.Json;
 using MRPService.MRPService.Log;
+using MRPService.API.Types.API;
 
 namespace MRPService.API
 {
@@ -70,6 +71,10 @@ namespace MRPService.API
                 {
                     Logger.log(String.Format("Unexpected error connecting to {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), Logger.Severity.Error);
                     Thread.Sleep(new TimeSpan(0, 0, 30));
+                }
+                else if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    throw new System.ArgumentException("Record not found");
                 }
                 else
                 {

@@ -1451,3 +1451,447 @@
 2016/03/07 01:20:55 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
 2016/03/07 01:20:56 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
 2016/03/07 01:20:57 Error > Unexpected API error on https://www.mrplatform.net/api/v1/workloads/get.json with error ()
+2016/03/07 09:53:25 Info > Debug Enabled!
+2016/03/07 09:53:25 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 09:53:30 Debug > Platforms: 1, Workloads: 8, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 09:53:30 Debug > Starting WCF Service
+2016/03/07 09:53:32 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 09:53:32 Debug > Starting Scheduler Thread
+2016/03/07 09:53:32 Debug > Starting Mirror Thread
+2016/03/07 09:53:32 Debug > Starting Performance Collection Thread
+2016/03/07 09:53:32 Info > Staring platform inventory process
+2016/03/07 09:53:32 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 09:53:32 Info > Staring performance collection process with 10 threads
+2016/03/07 09:53:32 Debug > Starting Data Upload Thread
+2016/03/07 09:53:32 Debug > Starting OS Inventory Thread
+2016/03/07 09:53:32 Info > Staring data upload process
+2016/03/07 09:53:32 Info > Staring operating system inventory process with 10 threads
+2016/03/07 09:53:32 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 09:53:32 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/07 09:53:33 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/07 09:53:33 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.4180000
+2016/03/07 09:53:33 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 09:53:33 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/07 09:53:33 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:53:33 Error > Error collecting performance information from webserver01 with error An exception occurred during a Ping request.
+2016/03/07 09:53:33 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:53:33 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/07 09:53:33 Info > Started inventory process for Dimension Data : 
+2016/03/07 09:53:33 Info > Completed performance collection for 7 workloads in 00:00:01.3180000
+2016/03/07 09:53:34 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:53:34 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:53:34 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:53:35 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:53:52 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:00:19.1470000
+2016/03/07 09:53:52 Info > Completed platform inventory for NA9 in 00:00:19.6000000
+2016/03/07 09:53:52 Info > Completed data mirroring process.1 new platforms, 0 updated platforms = total elapsed time: 00:00:20.4180000
+2016/03/07 09:54:03 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:04 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:04 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:04 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:04 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:05 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:05 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:34 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:34 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:34 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:34 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:35 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:35 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:54:36 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:04 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:04 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:04 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:05 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:05 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:05 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:06 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:34 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:35 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:35 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:35 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:35 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:36 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:55:36 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:56:05 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:56:05 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:56:05 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:56:05 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:56:06 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:56:06 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 09:56:07 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:18:23 Info > Debug Enabled!
+2016/03/07 10:18:23 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 10:18:29 Debug > Platforms: 1, Workloads: 8, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 10:18:29 Debug > Starting WCF Service
+2016/03/07 10:18:31 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 10:18:31 Debug > Starting Scheduler Thread
+2016/03/07 10:18:31 Debug > Starting Mirror Thread
+2016/03/07 10:18:31 Debug > Starting Performance Collection Thread
+2016/03/07 10:18:31 Info > Staring platform inventory process
+2016/03/07 10:18:31 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 10:18:31 Debug > Starting Data Upload Thread
+2016/03/07 10:18:31 Info > Staring performance collection process with 10 threads
+2016/03/07 10:18:31 Debug > Starting OS Inventory Thread
+2016/03/07 10:18:31 Info > Staring data upload process
+2016/03/07 10:18:31 Info > Staring operating system inventory process with 10 threads
+2016/03/07 10:18:35 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:18:35 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.4690000
+2016/03/07 10:18:35 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/07 10:18:35 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 10:18:35 Error > Error collecting performance information from webserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:18:35 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:18:36 Info > Started inventory process for Dimension Data : 
+2016/03/07 10:19:48 Info > Completed performance collection for 7 workloads in 00:01:17.0080000
+2016/03/07 10:19:48 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:19:48 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:19:48 Error > Error collecting inventory information from appserver01 with error Record not found
+2016/03/07 10:19:48 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:19:49 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:19:49 Error > Error collecting inventory information from appserver03 with error Record not found
+2016/03/07 10:19:49 Error > Error collecting inventory information from appserver04 with error Record not found
+2016/03/07 10:19:49 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:19:49 Error > Error collecting inventory information from webserver01 with error Record not found
+2016/03/07 10:19:49 Error > Error collecting inventory information from appserver03 with error Record not found
+2016/03/07 10:19:49 Error > Error collecting inventory information from appserver01 with error Record not found
+2016/03/07 10:19:49 Info > Completed operating system inventory for 7 workloads in 00:01:18.2320000
+2016/03/07 10:20:16 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:01:40.2040000
+2016/03/07 10:20:16 Info > Completed platform inventory for NA9 in 00:01:40.8160000
+2016/03/07 10:20:16 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:01:44.8640000
+2016/03/07 10:24:25 Info > Debug Enabled!
+2016/03/07 10:24:25 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 10:24:27 Debug > Platforms: 1, Workloads: 8, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 10:24:27 Debug > Starting WCF Service
+2016/03/07 10:24:27 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 10:24:27 Debug > Starting Scheduler Thread
+2016/03/07 10:24:27 Debug > Starting Mirror Thread
+2016/03/07 10:24:27 Debug > Starting Performance Collection Thread
+2016/03/07 10:24:27 Info > Staring platform inventory process
+2016/03/07 10:24:27 Info > Staring performance collection process with 10 threads
+2016/03/07 10:24:27 Debug > Starting Data Upload Thread
+2016/03/07 10:24:27 Debug > Starting OS Inventory Thread
+2016/03/07 10:24:27 Info > Staring data upload process
+2016/03/07 10:24:27 Error > Error collecting performance information from webserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:24:27 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/07 10:24:27 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 10:24:27 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/07 10:24:27 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:24:27 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:24:27 Error > Error collecting inventory information from appserver02 with error Record not found
+2016/03/07 10:24:27 Info > Completed performance collection for 7 workloads in 00:00:00.3200000
+2016/03/07 10:24:27 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:24:27 Error > Error collecting inventory information from appserver03 with error Record not found
+2016/03/07 10:24:27 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:24:27 Error > Error collecting inventory information from appserver04 with error Record not found
+2016/03/07 10:24:27 Error > Error collecting inventory information from appserver01 with error Record not found
+2016/03/07 10:24:27 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:24:27 Error > Error collecting inventory information from webserver01 with error Record not found
+2016/03/07 10:24:27 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:24:27 Error > Error collecting inventory information from appserver03 with error Record not found
+2016/03/07 10:24:27 Error > Error retrieving record from https://www.mrplatform.net/api/v1/workloads/get.json with error 
+2016/03/07 10:24:27 Error > Error collecting inventory information from appserver01 with error Record not found
+2016/03/07 10:24:27 Info > Started inventory process for Dimension Data : 
+2016/03/07 10:24:27 Info > Completed operating system inventory for 7 workloads in 00:00:00.6770000
+2016/03/07 10:24:48 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:00:20.2820000
+2016/03/07 10:24:48 Info > Completed platform inventory for NA9 in 00:00:20.4990000
+2016/03/07 10:24:48 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:20.9600000
+2016/03/07 10:27:15 Info > Debug Enabled!
+2016/03/07 10:27:15 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 10:27:20 Debug > Platforms: 1, Workloads: 8, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 10:27:20 Debug > Starting WCF Service
+2016/03/07 10:27:21 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 10:27:21 Debug > Starting Scheduler Thread
+2016/03/07 10:27:21 Debug > Starting Mirror Thread
+2016/03/07 10:27:22 Debug > Starting Performance Collection Thread
+2016/03/07 10:27:22 Info > Staring platform inventory process
+2016/03/07 10:27:22 Info > Staring performance collection process with 10 threads
+2016/03/07 10:27:22 Debug > Starting Data Upload Thread
+2016/03/07 10:27:22 Debug > Starting OS Inventory Thread
+2016/03/07 10:27:22 Info > Staring data upload process
+2016/03/07 10:27:22 Info > Staring operating system inventory process with 10 threads
+2016/03/07 10:27:27 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:05.5410000
+2016/03/07 10:27:28 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/07 10:27:28 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/07 10:27:28 Error > Error collecting inventory information from appserver01 with error Record not found
+2016/03/07 10:27:28 Info > Started inventory process for Dimension Data : 
+2016/03/07 10:27:28 Error > Error collecting inventory information from appserver02 with error Record not found
+2016/03/07 10:27:29 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:27:29 Error > Error collecting performance information from webserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:27:29 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 10:27:29 Error > Error collecting inventory information from appserver03 with error Record not found
+2016/03/07 10:27:29 Info > Completed performance collection for 7 workloads in 00:00:07.1140000
+2016/03/07 10:27:29 Error > Error collecting inventory information from webserver01 with error Record not found
+2016/03/07 10:27:29 Error > Error collecting inventory information from appserver03 with error Record not found
+2016/03/07 10:27:29 Error > Error collecting inventory information from appserver04 with error Record not found
+2016/03/07 10:27:29 Error > Error collecting inventory information from appserver01 with error Record not found
+2016/03/07 10:27:29 Info > Completed operating system inventory for 7 workloads in 00:00:07.4100000
+2016/03/07 10:27:50 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:00:21.4670000
+2016/03/07 10:27:50 Info > Completed platform inventory for NA9 in 00:00:21.7810000
+2016/03/07 10:27:50 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:28.1320000
+2016/03/07 10:28:51 Info > Debug Enabled!
+2016/03/07 10:28:51 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 10:28:56 Debug > Platforms: 1, Workloads: 8, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 10:28:56 Debug > Starting WCF Service
+2016/03/07 10:28:57 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 10:28:57 Debug > Starting Scheduler Thread
+2016/03/07 10:28:57 Debug > Starting Mirror Thread
+2016/03/07 10:28:57 Debug > Starting Performance Collection Thread
+2016/03/07 10:28:57 Info > Staring platform inventory process
+2016/03/07 10:28:57 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 10:28:57 Debug > Starting Data Upload Thread
+2016/03/07 10:28:57 Info > Staring performance collection process with 10 threads
+2016/03/07 10:28:57 Debug > Starting OS Inventory Thread
+2016/03/07 10:28:57 Info > Staring data upload process
+2016/03/07 10:28:57 Info > Staring operating system inventory process with 10 threads
+2016/03/07 10:28:58 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/07 10:28:58 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 10:28:58 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:28:58 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/07 10:28:58 Error > Error collecting performance information from webserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:28:58 Info > Started inventory process for Dimension Data : 
+2016/03/07 10:28:59 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 10:28:59 Info > Completed performance collection for 7 workloads in 00:00:01.4630000
+2016/03/07 10:28:59 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/07 10:28:59 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/07 10:28:59 Error > Error collecting inventory information from webserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:28:59 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 10:28:59 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/07 10:28:59 Info > Completed operating system inventory for 7 workloads in 00:00:02.0390000
+2016/03/07 10:29:17 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:00:18.9360000
+2016/03/07 10:29:17 Info > Completed platform inventory for NA9 in 00:00:19.2180000
+2016/03/07 10:29:17 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:19.9140000
+2016/03/07 10:32:50 Info > Debug Enabled!
+2016/03/07 10:32:51 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 10:32:57 Debug > Platforms: 1, Workloads: 8, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 10:32:57 Debug > Starting WCF Service
+2016/03/07 10:32:58 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 10:32:58 Debug > Starting Scheduler Thread
+2016/03/07 10:32:59 Debug > Starting Mirror Thread
+2016/03/07 10:32:59 Debug > Starting Performance Collection Thread
+2016/03/07 10:32:59 Info > Staring platform inventory process
+2016/03/07 10:32:59 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 10:32:59 Debug > Starting Data Upload Thread
+2016/03/07 10:32:59 Info > Staring performance collection process with 10 threads
+2016/03/07 10:32:59 Debug > Starting OS Inventory Thread
+2016/03/07 10:32:59 Info > Staring data upload process
+2016/03/07 10:32:59 Info > Staring operating system inventory process with 10 threads
+2016/03/07 10:32:59 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3480000
+2016/03/07 10:32:59 Info > Started inventory process for Dimension Data : 
+2016/03/07 10:33:00 Error > Error collecting inventory information from appserver01 with error Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))
+2016/03/07 10:33:00 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:00 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:00 Error > Error collecting inventory information from appserver03 with error Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))
+2016/03/07 10:33:00 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:00 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:00 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:01 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:01 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:01 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:01 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:02 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:02 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:02 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:02 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:03 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:03 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:03 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:03 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:04 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:04 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:04 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:04 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:04 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:05 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:05 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:05 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:05 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:05 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:06 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:06 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:06 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:06 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:06 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:06 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:07 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:08 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/03/07 10:33:14 Error > Error collecting inventory information from webserver01 with error The RPC server is unavailable. (Exception from HRESULT: 0x800706BA)
+2016/03/07 10:33:15 Error > Error collecting inventory information from appserver03 with error The RPC server is unavailable. (Exception from HRESULT: 0x800706BA)
+2016/03/07 10:33:16 Error > Error collecting inventory information from appserver01 with error The RPC server is unavailable. (Exception from HRESULT: 0x800706BA)
+2016/03/07 10:33:16 Error > System.AggregateException: One or more errors occurred. ---> System.NullReferenceException: Object reference not set to an instance of an object.
+   at MRPService.LocalDatabase.Workloads_Update.InventoryUpdateStatus(String workload_id, String message, Boolean status) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Database\CustomMethods\Workloads.cs:line 23
+   at MRPService.API.Classes.WorkloadInventoryThread.<Start>b__1_0(Workload workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 46
+   at System.Threading.Tasks.Parallel.<>c__DisplayClass17_0`1.<ForWorker>b__1()
+   at System.Threading.Tasks.Task.InnerInvokeWithArg(Task childTask)
+   at System.Threading.Tasks.Task.<>c__DisplayClass176_0.<ExecuteSelfReplicating>b__0(Object )
+   --- End of inner exception stack trace ---
+   at System.Threading.Tasks.Task.ThrowIfExceptional(Boolean includeTaskCanceledExceptions)
+   at System.Threading.Tasks.Task.Wait(Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   at System.Threading.Tasks.Parallel.ForWorker[TLocal](Int32 fromInclusive, Int32 toExclusive, ParallelOptions parallelOptions, Action`1 body, Action`2 bodyWithState, Func`4 bodyWithLocal, Func`1 localInit, Action`1 localFinally)
+   at System.Threading.Tasks.Parallel.ForEachWorker[TSource,TLocal](IEnumerable`1 source, ParallelOptions parallelOptions, Action`1 body, Action`2 bodyWithState, Action`3 bodyWithStateAndIndex, Func`4 bodyWithStateAndLocal, Func`5 bodyWithEverything, Func`1 localInit, Action`1 localFinally)
+   at System.Threading.Tasks.Parallel.ForEach[TSource](IEnumerable`1 source, ParallelOptions parallelOptions, Action`1 body)
+   at MRPService.API.Classes.WorkloadInventoryThread.Start() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 32
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadHelper.ThreadStart()
+---> (Inner Exception #0) System.NullReferenceException: Object reference not set to an instance of an object.
+   at MRPService.LocalDatabase.Workloads_Update.InventoryUpdateStatus(String workload_id, String message, Boolean status) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Database\CustomMethods\Workloads.cs:line 23
+   at MRPService.API.Classes.WorkloadInventoryThread.<Start>b__1_0(Workload workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 46
+   at System.Threading.Tasks.Parallel.<>c__DisplayClass17_0`1.<ForWorker>b__1()
+   at System.Threading.Tasks.Task.InnerInvokeWithArg(Task childTask)
+   at System.Threading.Tasks.Task.<>c__DisplayClass176_0.<ExecuteSelfReplicating>b__0(Object )<---
+
+---> (Inner Exception #1) System.NullReferenceException: Object reference not set to an instance of an object.
+   at MRPService.LocalDatabase.Workloads_Update.InventoryUpdateStatus(String workload_id, String message, Boolean status) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Database\CustomMethods\Workloads.cs:line 23
+   at MRPService.API.Classes.WorkloadInventoryThread.<Start>b__1_0(Workload workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 46
+   at System.Threading.Tasks.Parallel.<>c__DisplayClass17_0`1.<ForWorker>b__1()
+   at System.Threading.Tasks.Task.InnerInvokeWithArg(Task childTask)
+   at System.Threading.Tasks.Task.<>c__DisplayClass176_0.<ExecuteSelfReplicating>b__0(Object )<---
+
+---> (Inner Exception #2) System.NullReferenceException: Object reference not set to an instance of an object.
+   at MRPService.LocalDatabase.Workloads_Update.InventoryUpdateStatus(String workload_id, String message, Boolean status) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Database\CustomMethods\Workloads.cs:line 23
+   at MRPService.API.Classes.WorkloadInventoryThread.<Start>b__1_0(Workload workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 46
+   at System.Threading.Tasks.Parallel.<>c__DisplayClass17_0`1.<ForWorker>b__1()
+   at System.Threading.Tasks.Task.InnerInvokeWithArg(Task childTask)
+   at System.Threading.Tasks.Task.<>c__DisplayClass176_0.<ExecuteSelfReplicating>b__0(Object )<---
+
+2016/03/07 10:35:09 Info > Debug Enabled!
+2016/03/07 10:35:09 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 10:35:15 Debug > Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 10:35:15 Debug > Starting WCF Service
+2016/03/07 10:35:17 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 10:35:17 Debug > Starting Scheduler Thread
+2016/03/07 10:35:17 Debug > Starting Mirror Thread
+2016/03/07 10:35:17 Debug > Starting Performance Collection Thread
+2016/03/07 10:35:17 Info > Staring platform inventory process
+2016/03/07 10:35:17 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 10:35:17 Info > Staring performance collection process with 10 threads
+2016/03/07 10:35:17 Debug > Starting Data Upload Thread
+2016/03/07 10:35:17 Debug > Starting OS Inventory Thread
+2016/03/07 10:35:17 Info > Staring data upload process
+2016/03/07 10:35:17 Info > Staring operating system inventory process with 10 threads
+2016/03/07 10:35:18 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3760000
+2016/03/07 10:35:18 Info > Started inventory process for Dimension Data : 
+2016/03/07 10:35:18 Error > Error collecting inventory information from appserver01 with error Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))
+2016/03/07 10:35:18 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:18 Error > Error collecting inventory information from appserver02 with error Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))
+2016/03/07 10:35:18 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:19 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:19 Error > Error collecting inventory information from appserver04 with error Access is denied. (Exception from HRESULT: 0x80070005 (E_ACCESSDENIED))
+2016/03/07 10:35:19 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Processor : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:19 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:19 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:19 Info > Completed operating system inventory for 4 workloads in 00:00:02.3420000
+2016/03/07 10:35:20 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:20 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Memory : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:20 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:20 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:21 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : LogicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:21 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:21 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:21 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:21 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : PhysicalDisk : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:22 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:22 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:22 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:22 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Network Interface : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:22 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:23 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:23 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:23 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Connection : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:23 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:23 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:23 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:24 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Kernel : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:24 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:24 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:24 Error > 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:24 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Source : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:24 Error > 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:25 Error > 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:25 Error > 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net returned the following error while collecting performance data for counter : Double-Take Target : Attempted to perform an unauthorized operation.
+2016/03/07 10:35:25 Info > Completed performance collection for 4 workloads in 00:00:08.0250000
+2016/03/07 10:35:34 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:00:16.3610000
+2016/03/07 10:35:34 Info > Completed platform inventory for NA9 in 00:00:16.5790000
+2016/03/07 10:35:34 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:17.1360000
+2016/03/07 10:38:20 Info > Debug Enabled!
+2016/03/07 10:38:20 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 10:38:25 Debug > Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 10:38:25 Debug > Starting WCF Service
+2016/03/07 10:38:27 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 10:38:27 Debug > Starting Scheduler Thread
+2016/03/07 10:38:27 Debug > Starting Mirror Thread
+2016/03/07 10:38:27 Debug > Starting Performance Collection Thread
+2016/03/07 10:38:27 Info > Staring platform inventory process
+2016/03/07 10:38:27 Info > Staring performance collection process with 10 threads
+2016/03/07 10:38:27 Debug > Starting Data Upload Thread
+2016/03/07 10:38:27 Debug > Starting OS Inventory Thread
+2016/03/07 10:38:27 Info > Staring operating system inventory process with 10 threads
+2016/03/07 10:38:27 Info > Staring data upload process
+2016/03/07 10:38:27 Info > Started inventory process for Dimension Data : 
+2016/03/07 10:38:27 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3620000
+2016/03/07 10:38:34 Error > Error collecting performance information from appserver02 with error Mismatched counter types.
+2016/03/07 10:38:35 Error > Error collecting performance information from appserver01 with error Collection was modified; enumeration operation may not execute.
+2016/03/07 10:38:43 Info > Completed operating system inventory for 4 workloads in 00:00:16.5870000
+2016/03/07 10:38:47 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:00:19.4240000
+2016/03/07 10:38:47 Info > Completed platform inventory for NA9 in 00:00:19.5010000
+2016/03/07 10:38:47 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:19.9350000
+2016/03/07 10:39:21 Info > Completed performance collection for 4 workloads in 00:00:54.2300000
+2016/03/07 11:38:27 Info > Staring data upload process
+2016/03/07 11:38:31 Info > Staring performance collection process with 10 threads
+2016/03/07 11:38:47 Info > Staring platform inventory process
+2016/03/07 11:38:47 Info > Started inventory process for Dimension Data : 
+2016/03/07 11:39:00 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:00:12.7670000
+2016/03/07 11:39:00 Info > Completed platform inventory for NA9 in 00:00:12.8040000
+2016/03/07 11:39:00 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:13.0410000
+2016/03/07 11:39:03 Info > Completed data upload process.0 netflows.217 performancecounters. = Total Elapsed Time: 00:00:35.4840000
+2016/03/07 11:39:04 Error > Error collecting performance information from appserver03 with error Mismatched counter types.
+2016/03/07 11:39:14 Info > Completed performance collection for 4 workloads in 00:00:43.0150000
+2016/03/07 12:27:36 Info > Debug Enabled!
+2016/03/07 12:27:36 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 12:27:44 Debug > Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 364, Network Flows: 0
+2016/03/07 12:27:44 Debug > Starting WCF Service
+2016/03/07 12:27:47 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 12:27:47 Debug > Starting Scheduler Thread
+2016/03/07 12:27:47 Debug > Starting Mirror Thread
+2016/03/07 12:27:47 Debug > Starting Performance Collection Thread
+2016/03/07 12:27:47 Info > Staring platform inventory process
+2016/03/07 12:27:47 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 12:27:47 Debug > Starting Data Upload Thread
+2016/03/07 12:27:47 Debug > Starting OS Inventory Thread
+2016/03/07 12:27:47 Info > Staring performance collection process with 10 threads
+2016/03/07 12:27:47 Info > Staring data upload process
+2016/03/07 12:27:47 Info > Staring operating system inventory process with 10 threads
+2016/03/07 12:27:48 Info > Started inventory process for Dimension Data : 
+2016/03/07 12:27:56 Error > Error collecting performance information from appserver02 with error Collection was modified; enumeration operation may not execute.
+2016/03/07 12:28:00 Error > Error collecting performance information from appserver03 with error Mismatched counter types.
+2016/03/07 12:28:05 Info > Completed operating system inventory for 4 workloads in 00:00:17.7750000
+2016/03/07 12:28:08 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:00:19.8510000
+2016/03/07 12:28:08 Info > Completed platform inventory for NA9 in 00:00:19.9910000
+2016/03/07 12:28:08 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:20.6060000
+2016/03/07 12:28:09 Error > Error collecting performance information from appserver04 with error Mismatched counter types.
+2016/03/07 12:28:43 Info > Completed performance collection for 4 workloads in 00:00:55.3450000
+2016/03/07 12:28:48 Info > Completed data upload process.0 netflows.364 performancecounters. = Total Elapsed Time: 00:01:00.5220000
+2016/03/07 12:32:24 Info > Debug Enabled!
+2016/03/07 12:32:24 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 12:32:31 Debug > Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 168, Network Flows: 0
+2016/03/07 12:32:31 Debug > Starting WCF Service
+2016/03/07 12:32:32 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 12:32:32 Debug > Starting Scheduler Thread
+2016/03/07 12:32:32 Debug > Starting Mirror Thread
+2016/03/07 12:32:32 Debug > Starting Performance Collection Thread
+2016/03/07 12:32:32 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 12:32:32 Info > Staring platform inventory process
+2016/03/07 12:32:32 Debug > Starting Data Upload Thread
+2016/03/07 12:32:32 Debug > Starting OS Inventory Thread
+2016/03/07 12:32:33 Info > Staring data upload process
+2016/03/07 12:32:33 Info > Staring operating system inventory process with 10 threads
+2016/03/07 12:32:33 Info > Started inventory process for Dimension Data : 
+2016/03/07 12:32:41 Error > Error collecting performance information from appserver02 with error Collection was modified; enumeration operation may not execute.
+2016/03/07 12:32:41 Error > Error collecting performance information from appserver04 with error Mismatched counter types.
+2016/03/07 12:32:48 Info > Completed operating system inventory for 4 workloads in 00:00:15.8610000
+2016/03/07 12:32:51 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:00:18.0480000
+2016/03/07 12:32:51 Info > Completed platform inventory for NA9 in 00:00:18.1380000
+2016/03/07 12:32:51 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:18.6540000
+2016/03/07 12:32:57 Info > Completed data upload process.0 netflows.168 performancecounters. = Total Elapsed Time: 00:00:24.8110000
+2016/03/07 12:33:28 Info > Completed performance collection for 4 workloads in 00:00:55.1610000

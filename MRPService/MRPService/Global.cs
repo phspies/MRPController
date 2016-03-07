@@ -29,7 +29,7 @@ namespace MRPService
         public static int platform_inventory_interval=1440;
         public static int platform_inventory_concurrency=10;
 
-        public static int performance_inventory_concurrency=10;
+        public static int performance_concurrency=10;
 
         public static int portal_upload_interval=60;
 

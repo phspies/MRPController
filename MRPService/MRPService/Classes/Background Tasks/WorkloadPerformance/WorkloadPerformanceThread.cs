@@ -74,12 +74,13 @@ namespace MRPService.PerformanceCollection
                 Stopwatch sw = Stopwatch.StartNew();
                 int _processed_workloads = 0;
 
-                Logger.log(String.Format("Staring performance collection process with {0} threads", Global.performance_inventory_concurrency), Logger.Severity.Info);
+                Logger.log(String.Format("Staring performance collection process with {0} threads", Global.performance_concurrency), Logger.Severity.Info);
 
                 List<Workload> workloads;
                 using (WorkloadSet workload_set = new WorkloadSet())
                 {
-                    workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.iplist != null);
+                    workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.credential_id != null && x.iplist != null);
+
                 }
                 _processed_workloads = workloads.Count();
                 Parallel.ForEach(workloads,
@@ -100,8 +101,8 @@ namespace MRPService.PerformanceCollection
 
                 sw.Stop();
 
-                Logger.log(String.Format("Completed performance collection for {0} workloads in {1}",
-                    _processed_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
+                Logger.log(String.Format("Completed performance collection for {0} workloads in {1} [next run at {2}]",
+                    _processed_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_performance_run), Logger.Severity.Info);
 
                 //Wait for next run
                 while (_next_performance_run > DateTime.Now)

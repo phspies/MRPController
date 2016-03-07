@@ -9,6 +9,7 @@ namespace MRPService.API.Types.API
 
     public class MRPError
     {
+        public string id { get; set; }
         public string error { get; set; }
     }
 }

@@ -68,6 +68,15 @@ namespace MRPService.API.Classes
                 try { _workload.vcore = int.Parse(item["NumberOfCores"].ToString()); } catch (Exception) { }
                 try { _workload.vcpu_speed = int.Parse(item["CurrentClockSpeed"].ToString()); } catch (Exception) { }
             }
+            //save workload to database
+            dbworkload.Save();
+
+            //update mrpworkload object
+            mrpworkload.vcore = (int)_workload.vcore;
+            mrpworkload.vcpu = (int)_workload.vcpu;
+            mrpworkload.vcpu_speed = (int)_workload.vcpu_speed;
+            mrpworkload.vmemory = (int)_workload.vmemory;
+
 
             //process running processes
             SelectQuery msProcessQuery = new SelectQuery("SELECT * FROM Win32_Process");
