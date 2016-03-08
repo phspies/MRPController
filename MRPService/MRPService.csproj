@@ -290,6 +290,7 @@
     <Compile Include="DoubleTake\Core.cs" />
     <Compile Include="DoubleTake\Common.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs" />

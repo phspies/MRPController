@@ -13,7 +13,7 @@ namespace MRPService.PlatformInventory
 {
     partial class PlatformInventoryWorkloadDo
     {
-        public static void UpdateMCPWorkload(string _workload_moid, string _platform_moid)
+        public static void UpdateMCPWorkload(string _workload_moid, string _platform_id)
         {
 
             ApiClient _cloud_movey = new ApiClient();
@@ -24,7 +24,7 @@ namespace MRPService.PlatformInventory
 
             using (MRPDatabase db = new MRPDatabase())
             {
-                _platform = db.Platforms.FirstOrDefault(x => x.moid == _platform_moid);
+                _platform = db.Platforms.FirstOrDefault(x => x.id == _platform_id);
                 _platform_credential = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
 
             }
@@ -43,66 +43,10 @@ namespace MRPService.PlatformInventory
             }
 
             //Retrieve portal objects
-            MRPWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();
-            MRPPlatformnetworkListType _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks();
-            MRPPlatformdomainListType _currentplatformdomains = _cloud_movey.platformdomain().listplatformdomains();
-            MRPPlatformtemplateListType _platformtemplates = _cloud_movey.platformtemplate().listplatformtemplates();
-
-
-
-            //Pupulate logical volumes for workload
-            List<MRPWorkloadDiskType> workloaddisks_parameters = new List<MRPWorkloadDiskType>();
-            foreach (ServerTypeDisk _workloaddisk in _caasworkload.disk)
-            {
-                MRPWorkloadDiskType _virtual_disk = new MRPWorkloadDiskType()
-                {
-                    moid = _workloaddisk.id,
-                    diskindex = _workloaddisk.scsiId,
-                    provisioned = true,
-                    disksize = _workloaddisk.sizeGb,
-                    _destroy = false
-                };
-                if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id && x.disks.Exists(y => y.moid == _workloaddisk.id)))
-                {
-                    _virtual_disk.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).disks.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
-                }
-                workloaddisks_parameters.Add(_virtual_disk);
-            }
-
-            //populate network interfaces for workload
-            List<MRPWorkloadInterfaceType> workloadinterfaces_parameters = new List<MRPWorkloadInterfaceType>();
-            MRPWorkloadInterfaceType _primary_logical_interface = new MRPWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", ipv6address = _caasworkload.networkInfo.primaryNic.ipv6, ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4, moid = _caasworkload.networkInfo.primaryNic.id };
-            if (_currentplatformworkloads.workloads.Exists(x => x.interfaces.Exists(y => x.moid == _caasworkload.id && y.moid == _caasworkload.networkInfo.primaryNic.id)))
-            {
-                _primary_logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkload.networkInfo.primaryNic.id).id;
-            }
-            workloadinterfaces_parameters.Add(_primary_logical_interface);
-            int nic_index = 1;
-            if (_caasworkload.networkInfo.additionalNic != null)
-            {
-                foreach (NicType _caasworkloadinterface in _caasworkload.networkInfo.additionalNic)
-                {
-                    MRPWorkloadInterfaceType _logical_interface = new MRPWorkloadInterfaceType()
-                    {
-                        vnic = nic_index,
-                        ipassignment = "manual_ip",
-                        ipv6address = _caasworkloadinterface.ipv6,
-                        ipaddress = _caasworkloadinterface.privateIpv4,
-                        moid = _caasworkloadinterface.id,
-                        _destroy = false,
-                        platformnetwork_id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id
-                    };
-                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
-                    {
-                        if (_currentplatformworkloads.workloads.Exists((x => x.interfaces.Exists(y => y.moid == _caasworkloadinterface.id))))
-                        {
-                            _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
-                        }
-                    }
-                    workloadinterfaces_parameters.Add(_logical_interface);
-                    nic_index += 1;
-                }
-            }
+            List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().listworkloads().workloads.Where(x => x.platform_id == _platform_id).ToList();
+            List<MRPPlatformdomainType> _mrp_domains = _cloud_movey.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform_id).ToList();
+            List<MRPPlatformnetworkType> _mrp_networks = _cloud_movey.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
+            MRPPlatformtemplateListType _mrp_templates = _cloud_movey.platformtemplate().listplatformtemplates();
 
             //if workload is local, updated the local db record
             //User might use these servers later...
@@ -118,9 +62,9 @@ namespace MRPService.PlatformInventory
                 else
                 {
                     //if server already exists in portal, retain GUID for the server to keep other table depedencies intact
-                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                    if (_mrp_workloads.Exists(x => x.moid == _caasworkload.id))
                     {
-                        _new_workload.id = _currentplatformworkloads.workloads.Find(x => x.moid == _caasworkload.id).id;
+                        _new_workload.id = _mrp_workloads.Find(x => x.moid == _caasworkload.id).id;
                     }
                     else
                     {
@@ -149,28 +93,76 @@ namespace MRPService.PlatformInventory
                     db.SaveChanges();
                     if (_new_workload.enabled == true)
                     {
-                        MRPWorkloadCRUDType _moveyworkload = new MRPWorkloadCRUDType();
-                        Objects.Copy(_new_workload, _moveyworkload);
-
+                        MRPWorkloadCRUDType _mrp_workload = new MRPWorkloadCRUDType();
+                        Objects.Copy(_new_workload, _mrp_workload);
 
                         //update workload source template id with portal template id
-                        _moveyworkload.platformtemplate_id = _platformtemplates.platformtemplates.Find(x => x.image_moid == _caasworkload.sourceImageId).id;
+                        _mrp_workload.platformtemplate_id = _mrp_templates.platformtemplates.Find(x => x.image_moid == _caasworkload.sourceImageId).id;
 
-                        _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
-                        _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
+                        //Pupulate logical volumes for workload
+                        List<MRPWorkloadDiskType> workloaddisks_parameters = new List<MRPWorkloadDiskType>();
+                        foreach (ServerTypeDisk _workloaddisk in _caasworkload.disk)
+                        {
+                            MRPWorkloadDiskType _virtual_disk = new MRPWorkloadDiskType()
+                            {
+                                moid = _workloaddisk.id,
+                                diskindex = _workloaddisk.scsiId,
+                                provisioned = true,
+                                disksize = _workloaddisk.sizeGb,
+                                _destroy = false
+                            };
+                            if (_mrp_workloads.Exists(x => x.moid == _caasworkload.id && x.disks.Exists(y => y.moid == _workloaddisk.id)))
+                            {
+                                _virtual_disk.id = _mrp_workloads.FirstOrDefault(x => x.moid == _caasworkload.id).disks.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
+                            }
+                            _mrp_workload.workloaddisks_attributes.Add(_virtual_disk);
+                        }
 
-                        _moveyworkload.provisioned = true;
+                        //populate network interfaces for workload
+                        MRPWorkloadInterfaceType _primary_logical_interface = new MRPWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", ipv6address = _caasworkload.networkInfo.primaryNic.ipv6, ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4, moid = _caasworkload.networkInfo.primaryNic.id };
+                        if (_mrp_workloads.Exists(x => x.interfaces.Exists(y => x.moid == _caasworkload.id && y.moid == _caasworkload.networkInfo.primaryNic.id)))
+                        {
+                            _primary_logical_interface.id = _mrp_workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkload.networkInfo.primaryNic.id).id;
+                        }
+                        _mrp_workload.workloadinterfaces_attributes.Add(_primary_logical_interface);
+                        int nic_index = 1;
+                        if (_caasworkload.networkInfo.additionalNic != null)
+                        {
+                            foreach (NicType _caasworkloadinterface in _caasworkload.networkInfo.additionalNic)
+                            {
+                                MRPWorkloadInterfaceType _logical_interface = new MRPWorkloadInterfaceType()
+                                {
+                                    vnic = nic_index,
+                                    ipassignment = "manual_ip",
+                                    ipv6address = _caasworkloadinterface.ipv6,
+                                    ipaddress = _caasworkloadinterface.privateIpv4,
+                                    moid = _caasworkloadinterface.id,
+                                    _destroy = false,
+                                    platformnetwork_id = _mrp_networks.FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id
+                                };
+                                if (_mrp_workloads.Exists(x => x.moid == _caasworkload.id))
+                                {
+                                    if (_mrp_workloads.Exists((x => x.interfaces.Exists(y => y.moid == _caasworkloadinterface.id))))
+                                    {
+                                        _logical_interface.id = _mrp_workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
+                                    }
+                                }
+                                _mrp_workload.workloadinterfaces_attributes.Add(_logical_interface);
+                                nic_index += 1;
+                            }
+                        }
 
+                        _mrp_workload.provisioned = true;
 
                         //Update if the portal has this workload and create if it's new to the portal....
-                        if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                        if (_mrp_workloads.Exists(x => x.moid == _caasworkload.id))
                         {
-                            _moveyworkload.id = _new_workload.id;
-                            _cloud_movey.workload().updateworkload(_moveyworkload);
+                            _mrp_workload.id = _new_workload.id;
+                            _cloud_movey.workload().updateworkload(_mrp_workload);
                         }
                         else
                         {
-                            _cloud_movey.workload().createworkload(_moveyworkload);
+                            _cloud_movey.workload().createworkload(_mrp_workload);
                         }
                     }
                 }

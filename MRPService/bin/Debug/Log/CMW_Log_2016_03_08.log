@@ -1,0 +1,577 @@
+2016/03/08 12:49:00 Info > Debug Enabled!
+2016/03/08 12:49:01 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 12:49:07 Debug > Platforms: 1, Workloads: 4, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/08 12:49:07 Debug > Starting WCF Service
+2016/03/08 12:49:10 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 12:49:10 Debug > Starting Scheduler Thread
+2016/03/08 12:49:10 Debug > Starting Mirror Thread
+2016/03/08 12:49:10 Debug > Starting Performance Collection Thread
+2016/03/08 12:49:10 Info > Staring platform inventory process
+2016/03/08 12:49:10 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 12:49:10 Info > Staring performance collection process with 10 threads
+2016/03/08 12:49:10 Debug > Starting Data Upload Thread
+2016/03/08 12:49:10 Debug > Starting OS Inventory Thread
+2016/03/08 12:49:10 Info > Staring data upload process
+2016/03/08 12:49:10 Info > Staring operating system inventory process with 10 threads
+2016/03/08 12:49:11 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.2340000
+2016/03/08 12:49:11 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 12:49:11 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 12:49:11 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 12:49:12 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 12:49:12 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 12:49:12 Info > Completed performance collection for 4 workloads in 00:00:02.2680000 [next run at 3/8/2016 1:49:10 PM]
+2016/03/08 12:49:12 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 12:49:12 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 12:49:12 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 12:49:12 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 12:49:13 Info > Completed operating system inventory for 4 workloads in 00:00:02.1010000 [next run at 3/9/2016 12:49:10 PM]
+2016/03/08 12:49:41 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 12:49:41 Info > Completed platform inventory for NA9 in 00:00:30.0490000
+2016/03/08 12:49:41 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:31.1150000
+2016/03/08 12:54:44 Info > Started inventory process for  : 
+2016/03/08 12:57:16 Info > Debug Enabled!
+2016/03/08 12:57:16 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 12:57:22 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 12:57:22 Debug > Starting WCF Service
+2016/03/08 12:57:23 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 12:57:23 Debug > Starting Scheduler Thread
+2016/03/08 12:57:23 Debug > Starting Mirror Thread
+2016/03/08 12:57:23 Debug > Starting Performance Collection Thread
+2016/03/08 12:57:23 Info > Staring platform inventory process
+2016/03/08 12:57:23 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 12:57:23 Debug > Starting Data Upload Thread
+2016/03/08 12:57:23 Info > Staring performance collection process with 10 threads
+2016/03/08 12:57:23 Debug > Starting OS Inventory Thread
+2016/03/08 12:57:23 Info > Staring data upload process
+2016/03/08 12:57:23 Info > Staring operating system inventory process with 10 threads
+2016/03/08 12:57:23 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 12:57:23 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 12:57:23 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.2860000
+2016/03/08 12:57:24 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 12:57:24 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 12:57:24 Info > Completed performance collection for 4 workloads in 00:00:00.5950000 [next run at 3/8/2016 1:57:23 PM]
+2016/03/08 12:57:24 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 12:57:24 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 12:57:24 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 12:57:24 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 12:57:24 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 12:57:24 Info > Completed operating system inventory for 4 workloads in 00:00:01.0930000 [next run at 3/9/2016 12:57:23 PM]
+2016/03/08 12:57:52 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 12:57:52 Info > Completed platform inventory for NA9 in 00:00:28.1780000
+2016/03/08 12:57:56 Info > Started inventory process for  : 
+2016/03/08 01:00:17 Info > Debug Enabled!
+2016/03/08 01:00:17 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 01:00:23 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 01:00:23 Debug > Starting WCF Service
+2016/03/08 01:00:25 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 01:00:25 Debug > Starting Scheduler Thread
+2016/03/08 01:00:25 Debug > Starting Mirror Thread
+2016/03/08 01:00:25 Debug > Starting Performance Collection Thread
+2016/03/08 01:00:25 Info > Staring platform inventory process
+2016/03/08 01:00:25 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 01:00:25 Debug > Starting Data Upload Thread
+2016/03/08 01:00:25 Info > Staring performance collection process with 10 threads
+2016/03/08 01:00:25 Debug > Starting OS Inventory Thread
+2016/03/08 01:00:25 Info > Staring data upload process
+2016/03/08 01:00:25 Info > Staring operating system inventory process with 10 threads
+2016/03/08 01:00:25 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:00:26 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:00:26 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3610000
+2016/03/08 01:00:26 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:00:26 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:00:26 Info > Completed performance collection for 4 workloads in 00:00:00.8150000 [next run at 3/8/2016 2:00:25 PM]
+2016/03/08 01:00:26 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:00:26 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 01:00:26 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:00:26 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:00:26 Info > Completed operating system inventory for 4 workloads in 00:00:01.0920000 [next run at 3/9/2016 1:00:25 PM]
+2016/03/08 01:00:50 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 01:00:50 Info > Completed platform inventory for NA9 in 00:00:24.2370000
+2016/03/08 01:00:50 Info > Started inventory process for  : 
+2016/03/08 01:08:48 Info > Debug Enabled!
+2016/03/08 01:08:48 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 01:08:57 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 01:08:57 Debug > Starting WCF Service
+2016/03/08 01:08:59 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 01:08:59 Debug > Starting Scheduler Thread
+2016/03/08 01:08:59 Debug > Starting Mirror Thread
+2016/03/08 01:09:00 Debug > Starting Performance Collection Thread
+2016/03/08 01:09:00 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 01:09:00 Info > Staring platform inventory process
+2016/03/08 01:09:00 Info > Staring performance collection process with 10 threads
+2016/03/08 01:09:00 Debug > Starting OS Inventory Thread
+2016/03/08 01:09:00 Info > Staring data upload process
+2016/03/08 01:09:00 Info > Staring operating system inventory process with 10 threads
+2016/03/08 01:09:00 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3600000
+2016/03/08 01:09:01 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:09:02 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:09:02 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:09:02 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:09:02 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:09:02 Info > Completed performance collection for 4 workloads in 00:00:02.7500000 [next run at 3/8/2016 2:09:00 PM]
+2016/03/08 01:09:03 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:09:03 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:09:03 Info > Completed operating system inventory for 4 workloads in 00:00:02.9000000 [next run at 3/9/2016 1:09:00 PM]
+2016/03/08 01:09:28 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 01:09:28 Info > Completed platform inventory for NA9 in 00:00:27.9210000
+2016/03/08 01:09:29 Info > Started inventory process for VMWare : 
+2016/03/08 01:18:04 Info > Debug Enabled!
+2016/03/08 01:18:04 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 01:18:11 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 01:18:11 Debug > Starting WCF Service
+2016/03/08 01:18:13 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 01:18:13 Debug > Starting Scheduler Thread
+2016/03/08 01:18:13 Debug > Starting Mirror Thread
+2016/03/08 01:18:13 Debug > Starting Performance Collection Thread
+2016/03/08 01:18:13 Info > Staring platform inventory process
+2016/03/08 01:18:13 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 01:18:13 Info > Staring performance collection process with 10 threads
+2016/03/08 01:18:13 Debug > Starting Data Upload Thread
+2016/03/08 01:18:13 Debug > Starting OS Inventory Thread
+2016/03/08 01:18:13 Info > Staring data upload process
+2016/03/08 01:18:13 Info > Staring operating system inventory process with 10 threads
+2016/03/08 01:18:14 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:18:14 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.4500000
+2016/03/08 01:18:14 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:18:14 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:18:15 Info > Completed performance collection for 4 workloads in 00:00:01.2370000 [next run at 3/8/2016 2:18:13 PM]
+2016/03/08 01:18:15 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:18:15 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:18:15 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:18:15 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 01:18:15 Info > Completed operating system inventory for 4 workloads in 00:00:01.5580000 [next run at 3/9/2016 1:18:13 PM]
+2016/03/08 01:18:40 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 01:18:40 Info > Completed platform inventory for NA9 in 00:00:25.2500000
+2016/03/08 01:18:40 Info > Started inventory process for VMWare : 
+2016/03/08 01:29:03 Info > Debug Enabled!
+2016/03/08 01:29:03 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 01:29:09 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 01:29:09 Debug > Starting WCF Service
+2016/03/08 01:29:11 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 01:29:11 Debug > Starting Scheduler Thread
+2016/03/08 01:29:11 Debug > Starting Mirror Thread
+2016/03/08 01:29:11 Debug > Starting Performance Collection Thread
+2016/03/08 01:29:11 Info > Staring platform inventory process
+2016/03/08 01:29:11 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 01:29:11 Debug > Starting Data Upload Thread
+2016/03/08 01:29:11 Debug > Starting OS Inventory Thread
+2016/03/08 01:29:11 Info > Staring performance collection process with 10 threads
+2016/03/08 01:29:11 Info > Staring data upload process
+2016/03/08 01:29:11 Info > Staring operating system inventory process with 10 threads
+2016/03/08 01:29:11 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:29:11 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:29:11 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:29:12 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 01:29:12 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:29:12 Info > Completed performance collection for 4 workloads in 00:00:00.9590000 [next run at 3/8/2016 2:29:11 PM]
+2016/03/08 01:29:12 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:29:12 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:29:12 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:29:12 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:29:12 Info > Completed operating system inventory for 4 workloads in 00:00:01.1990000 [next run at 3/9/2016 1:29:11 PM]
+2016/03/08 01:29:38 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 01:29:38 Info > Completed platform inventory for NA9 in 00:00:26.7040000
+2016/03/08 01:29:38 Info > Started inventory process for VMWare : 
+2016/03/08 01:49:36 Info > Debug Enabled!
+2016/03/08 01:49:37 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 01:49:44 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 01:49:44 Debug > Starting WCF Service
+2016/03/08 01:49:46 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 01:49:46 Debug > Starting Scheduler Thread
+2016/03/08 01:49:46 Debug > Starting Mirror Thread
+2016/03/08 01:49:46 Debug > Starting Performance Collection Thread
+2016/03/08 01:49:46 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 01:49:46 Info > Staring platform inventory process
+2016/03/08 01:49:46 Debug > Starting Data Upload Thread
+2016/03/08 01:49:47 Info > Staring performance collection process with 10 threads
+2016/03/08 01:49:47 Debug > Starting OS Inventory Thread
+2016/03/08 01:49:47 Info > Staring data upload process
+2016/03/08 01:49:47 Info > Staring operating system inventory process with 10 threads
+2016/03/08 01:49:47 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.5550000
+2016/03/08 01:49:47 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:49:47 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:49:48 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:49:48 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 01:49:48 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:49:48 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:49:48 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:49:48 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:49:48 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:49:48 Info > Completed performance collection for 4 workloads in 00:00:01.9040000 [next run at 3/8/2016 2:49:47 PM]
+2016/03/08 01:49:48 Info > Completed operating system inventory for 4 workloads in 00:00:01.8130000 [next run at 3/9/2016 1:49:47 PM]
+2016/03/08 01:50:11 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 01:50:11 Info > Completed platform inventory for NA9 in 00:00:23.8690000
+2016/03/08 01:50:11 Info > Started inventory process for VMWare : 
+2016/03/08 01:51:26 Info > Debug Enabled!
+2016/03/08 01:51:26 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 01:51:32 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 01:51:32 Debug > Starting WCF Service
+2016/03/08 01:51:34 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 01:51:34 Debug > Starting Scheduler Thread
+2016/03/08 01:51:34 Debug > Starting Mirror Thread
+2016/03/08 01:51:34 Debug > Starting Performance Collection Thread
+2016/03/08 01:51:34 Info > Staring platform inventory process
+2016/03/08 01:51:34 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 01:51:34 Debug > Starting Data Upload Thread
+2016/03/08 01:51:34 Info > Staring performance collection process with 10 threads
+2016/03/08 01:51:34 Debug > Starting OS Inventory Thread
+2016/03/08 01:51:34 Info > Staring data upload process
+2016/03/08 01:51:34 Info > Staring operating system inventory process with 10 threads
+2016/03/08 01:51:34 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:51:34 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:51:34 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.4120000
+2016/03/08 01:51:34 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:51:34 Info > Completed performance collection for 4 workloads in 00:00:00.6700000 [next run at 3/8/2016 2:51:34 PM]
+2016/03/08 01:51:34 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 01:51:34 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:51:35 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:51:35 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:51:35 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:51:35 Info > Completed operating system inventory for 4 workloads in 00:00:01.0780000 [next run at 3/9/2016 1:51:34 PM]
+2016/03/08 01:52:00 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 01:52:00 Info > Completed platform inventory for NA9 in 00:00:25.9460000
+2016/03/08 01:52:00 Info > Started inventory process for VMWare : 
+2016/03/08 01:52:48 Info > Debug Enabled!
+2016/03/08 01:52:48 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 01:52:53 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 01:52:53 Debug > Starting WCF Service
+2016/03/08 01:52:54 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 01:52:54 Debug > Starting Scheduler Thread
+2016/03/08 01:52:54 Debug > Starting Mirror Thread
+2016/03/08 01:52:54 Debug > Starting Performance Collection Thread
+2016/03/08 01:52:54 Info > Staring platform inventory process
+2016/03/08 01:52:54 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 01:52:54 Debug > Starting Data Upload Thread
+2016/03/08 01:52:54 Debug > Starting OS Inventory Thread
+2016/03/08 01:52:54 Info > Staring performance collection process with 10 threads
+2016/03/08 01:52:54 Info > Staring operating system inventory process with 10 threads
+2016/03/08 01:52:54 Info > Staring data upload process
+2016/03/08 01:52:54 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:52:55 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:52:55 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.4610000
+2016/03/08 01:52:55 Info > Completed performance collection for 4 workloads in 00:00:00.5930000 [next run at 3/8/2016 2:52:54 PM]
+2016/03/08 01:52:55 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 01:52:55 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:52:55 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:52:55 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:52:55 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:52:55 Info > Completed operating system inventory for 4 workloads in 00:00:01.1630000 [next run at 3/9/2016 1:52:54 PM]
+2016/03/08 01:53:16 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 01:53:16 Info > Completed platform inventory for NA9 in 00:00:21.5230000
+2016/03/08 01:53:16 Info > Started inventory process for VMWare : 
+2016/03/08 01:57:52 Info > Debug Enabled!
+2016/03/08 01:57:52 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 01:57:57 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 01:57:57 Debug > Starting WCF Service
+2016/03/08 01:57:59 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 01:57:59 Debug > Starting Scheduler Thread
+2016/03/08 01:57:59 Debug > Starting Mirror Thread
+2016/03/08 01:57:59 Debug > Starting Performance Collection Thread
+2016/03/08 01:57:59 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 01:57:59 Info > Staring platform inventory process
+2016/03/08 01:57:59 Info > Staring performance collection process with 10 threads
+2016/03/08 01:57:59 Debug > Starting OS Inventory Thread
+2016/03/08 01:57:59 Info > Staring data upload process
+2016/03/08 01:57:59 Info > Staring operating system inventory process with 10 threads
+2016/03/08 01:57:59 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:57:59 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:57:59 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3580000
+2016/03/08 01:57:59 Info > Completed performance collection for 4 workloads in 00:00:00.6250000 [next run at 3/8/2016 2:57:59 PM]
+2016/03/08 01:58:00 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 01:58:00 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 01:58:00 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 01:58:00 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 01:58:00 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 01:58:00 Info > Completed operating system inventory for 4 workloads in 00:00:01.1350000 [next run at 3/9/2016 1:57:59 PM]
+2016/03/08 01:58:22 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 01:58:22 Info > Completed platform inventory for NA9 in 00:00:22.9870000
+2016/03/08 01:58:23 Info > Started inventory process for VMWare : 
+2016/03/08 02:02:32 Info > Debug Enabled!
+2016/03/08 02:02:32 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 02:02:37 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 02:02:37 Debug > Starting WCF Service
+2016/03/08 02:02:39 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 02:02:39 Debug > Starting Scheduler Thread
+2016/03/08 02:02:39 Debug > Starting Mirror Thread
+2016/03/08 02:02:39 Debug > Starting Performance Collection Thread
+2016/03/08 02:02:39 Info > Staring platform inventory process
+2016/03/08 02:02:39 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 02:02:39 Info > Staring performance collection process with 10 threads
+2016/03/08 02:02:39 Debug > Starting Data Upload Thread
+2016/03/08 02:02:39 Debug > Starting OS Inventory Thread
+2016/03/08 02:02:39 Info > Staring data upload process
+2016/03/08 02:02:39 Info > Staring operating system inventory process with 10 threads
+2016/03/08 02:02:39 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:02:39 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:02:39 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:02:39 Info > Completed performance collection for 4 workloads in 00:00:00.7070000 [next run at 3/8/2016 3:02:39 PM]
+2016/03/08 02:02:39 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 02:02:40 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:02:40 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:02:40 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:02:40 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:02:40 Info > Completed operating system inventory for 4 workloads in 00:00:01.1650000 [next run at 3/9/2016 2:02:39 PM]
+2016/03/08 02:03:02 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 02:03:02 Info > Completed platform inventory for NA9 in 00:00:22.7450000
+2016/03/08 02:03:02 Info > Started inventory process for VMWare : 
+2016/03/08 02:07:56 Info > Debug Enabled!
+2016/03/08 02:07:56 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 02:08:04 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 02:08:04 Debug > Starting WCF Service
+2016/03/08 02:08:07 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 02:08:07 Debug > Starting Scheduler Thread
+2016/03/08 02:08:07 Debug > Starting Mirror Thread
+2016/03/08 02:08:07 Debug > Starting Performance Collection Thread
+2016/03/08 02:08:07 Info > Staring platform inventory process
+2016/03/08 02:08:07 Info > Staring performance collection process with 10 threads
+2016/03/08 02:08:07 Debug > Starting Data Upload Thread
+2016/03/08 02:08:07 Debug > Starting OS Inventory Thread
+2016/03/08 02:08:07 Info > Staring operating system inventory process with 10 threads
+2016/03/08 02:08:08 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:08:08 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:08:08 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:08:08 Info > Completed performance collection for 4 workloads in 00:00:01.2980000 [next run at 3/8/2016 3:08:07 PM]
+2016/03/08 02:08:08 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3800000
+2016/03/08 02:08:09 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:08:09 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 02:08:09 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:08:09 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:08:09 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:08:09 Info > Completed operating system inventory for 4 workloads in 00:00:01.7920000 [next run at 3/9/2016 2:08:07 PM]
+2016/03/08 02:08:31 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 02:08:31 Info > Completed platform inventory for NA9 in 00:00:23.4180000
+2016/03/08 02:08:32 Info > Started inventory process for VMWare : 
+2016/03/08 02:12:35 Info > Debug Enabled!
+2016/03/08 02:12:35 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 02:12:41 Debug > Platforms: 2, Workloads: 4, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 02:12:41 Debug > Starting WCF Service
+2016/03/08 02:12:42 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 02:12:42 Debug > Starting Scheduler Thread
+2016/03/08 02:12:42 Debug > Starting Mirror Thread
+2016/03/08 02:12:42 Debug > Starting Performance Collection Thread
+2016/03/08 02:12:42 Info > Staring platform inventory process
+2016/03/08 02:12:42 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 02:12:42 Info > Staring performance collection process with 10 threads
+2016/03/08 02:12:42 Debug > Starting Data Upload Thread
+2016/03/08 02:12:42 Debug > Starting OS Inventory Thread
+2016/03/08 02:12:42 Info > Staring data upload process
+2016/03/08 02:12:42 Info > Staring operating system inventory process with 10 threads
+2016/03/08 02:12:42 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:12:42 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3400000
+2016/03/08 02:12:43 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:12:43 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 02:12:43 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:12:43 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:12:43 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:12:43 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:12:43 Info > Completed operating system inventory for 4 workloads in 00:00:01.1350000 [next run at 3/9/2016 2:12:42 PM]
+2016/03/08 02:13:02 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 02:13:02 Info > Completed platform inventory for NA9 in 00:00:19.7730000
+2016/03/08 02:13:03 Info > Started inventory process for VMWare : 
+2016/03/08 02:14:18 Info > Completed platform inventory for datacenter-2 in 00:01:15.2080000
+2016/03/08 02:14:18 Info > Completed data mirroring process.0 new platforms, 2 updated platforms = total elapsed time: 00:01:35.5750000
+2016/03/08 02:36:30 Info > Debug Enabled!
+2016/03/08 02:36:30 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 02:36:38 Debug > Platforms: 2, Workloads: 5, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 02:36:38 Debug > Starting WCF Service
+2016/03/08 02:36:40 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 02:36:40 Debug > Starting Scheduler Thread
+2016/03/08 02:36:40 Debug > Starting Mirror Thread
+2016/03/08 02:36:40 Debug > Starting Performance Collection Thread
+2016/03/08 02:36:40 Info > Staring platform inventory process
+2016/03/08 02:36:40 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 02:36:40 Debug > Starting Data Upload Thread
+2016/03/08 02:36:40 Info > Staring performance collection process with 10 threads
+2016/03/08 02:36:40 Debug > Starting OS Inventory Thread
+2016/03/08 02:36:40 Info > Staring data upload process
+2016/03/08 02:36:41 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:36:41 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:36:41 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:36:41 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:36:41 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 02:36:41 Info > Completed performance collection for 4 workloads in 00:00:00.9170000 [next run at 3/8/2016 3:36:40 PM]
+2016/03/08 02:36:42 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:36:42 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:36:42 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:36:42 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:36:42 Info > Completed operating system inventory for 4 workloads in 00:00:01.8000000 [next run at 3/9/2016 2:36:40 PM]
+2016/03/08 02:37:12 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 02:37:12 Info > Completed platform inventory for NA9 in 00:00:31.5970000
+2016/03/08 02:37:13 Info > Started inventory process for VMWare : 
+2016/03/08 02:38:35 Info > Debug Enabled!
+2016/03/08 02:38:35 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 02:38:42 Debug > Platforms: 2, Workloads: 5, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 02:38:42 Debug > Starting WCF Service
+2016/03/08 02:38:44 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 02:38:44 Debug > Starting Scheduler Thread
+2016/03/08 02:38:44 Debug > Starting Mirror Thread
+2016/03/08 02:38:44 Debug > Starting Performance Collection Thread
+2016/03/08 02:38:44 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 02:38:44 Info > Staring platform inventory process
+2016/03/08 02:38:44 Info > Staring performance collection process with 10 threads
+2016/03/08 02:38:44 Info > Staring data upload process
+2016/03/08 02:38:44 Debug > Starting OS Inventory Thread
+2016/03/08 02:38:44 Info > Staring operating system inventory process with 10 threads
+2016/03/08 02:38:44 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:38:44 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.5060000
+2016/03/08 02:38:45 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:38:45 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:38:45 Info > Completed performance collection for 4 workloads in 00:00:01.2210000 [next run at 3/8/2016 3:38:44 PM]
+2016/03/08 02:38:45 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 02:38:45 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:38:45 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:38:45 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:38:46 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:38:46 Info > Completed operating system inventory for 4 workloads in 00:00:01.5310000 [next run at 3/9/2016 2:38:44 PM]
+2016/03/08 02:39:14 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 02:39:14 Info > Completed platform inventory for NA9 in 00:00:29.7330000
+2016/03/08 02:39:15 Info > Started inventory process for VMWare : 
+2016/03/08 02:40:55 Info > Completed platform inventory for datacenter-2 in 00:01:40.3020000
+2016/03/08 02:40:55 Info > Completed data mirroring process.0 new platforms, 2 updated platforms = total elapsed time: 00:02:11.1540000
+2016/03/08 02:42:13 Info > Debug Enabled!
+2016/03/08 02:42:13 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 02:42:20 Debug > Platforms: 2, Workloads: 5, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 02:42:20 Debug > Starting WCF Service
+2016/03/08 02:42:22 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 02:42:22 Debug > Starting Scheduler Thread
+2016/03/08 02:42:22 Debug > Starting Mirror Thread
+2016/03/08 02:42:22 Debug > Starting Performance Collection Thread
+2016/03/08 02:42:23 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 02:42:23 Info > Staring platform inventory process
+2016/03/08 02:42:23 Debug > Starting Data Upload Thread
+2016/03/08 02:42:23 Info > Staring performance collection process with 10 threads
+2016/03/08 02:42:23 Debug > Starting OS Inventory Thread
+2016/03/08 02:42:23 Info > Staring data upload process
+2016/03/08 02:42:23 Info > Staring operating system inventory process with 10 threads
+2016/03/08 02:42:23 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:42:24 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.7440000
+2016/03/08 02:42:24 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:42:24 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:42:24 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:42:24 Info > Completed performance collection for 4 workloads in 00:00:01.2750000 [next run at 3/8/2016 3:42:23 PM]
+2016/03/08 02:42:24 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 02:42:24 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:42:24 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:42:24 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:42:24 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:42:25 Info > Completed operating system inventory for 4 workloads in 00:00:01.8120000 [next run at 3/9/2016 2:42:23 PM]
+2016/03/08 02:42:53 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 02:42:53 Info > Completed platform inventory for NA9 in 00:00:29.0770000
+2016/03/08 02:42:53 Info > Started inventory process for VMWare : 
+2016/03/08 02:48:55 Info > Completed platform inventory for datacenter-2 in 00:06:01.8770000
+2016/03/08 02:48:55 Info > Completed data mirroring process.0 new platforms, 2 updated platforms = total elapsed time: 00:06:32.0990000
+2016/03/08 02:53:53 Info > Debug Enabled!
+2016/03/08 02:53:53 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 02:53:58 Debug > Platforms: 2, Workloads: 5, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 02:53:58 Debug > Starting WCF Service
+2016/03/08 02:53:59 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 02:53:59 Debug > Starting Scheduler Thread
+2016/03/08 02:53:59 Debug > Starting Mirror Thread
+2016/03/08 02:53:59 Debug > Starting Performance Collection Thread
+2016/03/08 02:53:59 Info > Staring platform inventory process
+2016/03/08 02:53:59 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 02:53:59 Info > Staring performance collection process with 10 threads
+2016/03/08 02:53:59 Debug > Starting Data Upload Thread
+2016/03/08 02:53:59 Debug > Starting OS Inventory Thread
+2016/03/08 02:53:59 Info > Staring operating system inventory process with 10 threads
+2016/03/08 02:53:59 Info > Staring data upload process
+2016/03/08 02:54:00 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:54:00 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:54:00 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.3060000
+2016/03/08 02:54:00 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:54:00 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:54:00 Info > Completed performance collection for 4 workloads in 00:00:00.6040000 [next run at 3/8/2016 3:53:59 PM]
+2016/03/08 02:54:00 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:54:00 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:54:00 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:54:00 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:54:00 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 02:54:00 Info > Completed operating system inventory for 4 workloads in 00:00:00.9670000 [next run at 3/9/2016 2:53:59 PM]
+2016/03/08 02:54:21 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 02:54:21 Info > Completed platform inventory for NA9 in 00:00:21.1920000
+2016/03/08 02:54:21 Info > Started inventory process for VMWare : 
+2016/03/08 02:58:16 Info > Debug Enabled!
+2016/03/08 02:58:16 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 02:58:22 Debug > Platforms: 2, Workloads: 5, Credentials: 3, Performance Counters: 0, Network Flows: 0
+2016/03/08 02:58:22 Debug > Starting WCF Service
+2016/03/08 02:58:23 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/08 02:58:23 Debug > Starting Scheduler Thread
+2016/03/08 02:58:23 Debug > Starting Mirror Thread
+2016/03/08 02:58:23 Debug > Starting Performance Collection Thread
+2016/03/08 02:58:23 Info > Staring platform inventory process
+2016/03/08 02:58:23 Debug > Starting Netflow v5 Collection Thread
+2016/03/08 02:58:23 Debug > Starting Data Upload Thread
+2016/03/08 02:58:23 Debug > Starting OS Inventory Thread
+2016/03/08 02:58:23 Info > Staring data upload process
+2016/03/08 02:58:23 Info > Staring operating system inventory process with 10 threads
+2016/03/08 02:58:24 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:58:24 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:58:24 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:58:24 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.4780000
+2016/03/08 02:58:24 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:58:24 Info > Completed performance collection for 4 workloads in 00:00:00.6780000 [next run at 3/8/2016 3:58:23 PM]
+2016/03/08 02:58:24 Info > Started inventory process for Dimension Data : NA9
+2016/03/08 02:58:24 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/08 02:58:24 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/08 02:58:24 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/08 02:58:24 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/08 02:58:25 Info > Completed operating system inventory for 4 workloads in 00:00:01.1270000 [next run at 3/9/2016 2:58:23 PM]
+2016/03/08 02:58:39 Error > Error in inventory process for Dimension Data : NA9 System.ArgumentNullException: Value cannot be null.
+Parameter name: source
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/03/08 02:58:39 Info > Completed platform inventory for NA9 in 00:00:15.3480000
+2016/03/08 02:58:39 Info > Started inventory process for VMWare : 
+2016/03/08 02:58:56 Info > Completed platform inventory for datacenter-2 in 00:00:16.7830000
+2016/03/08 02:58:56 Info > Completed data mirroring process.0 new platforms, 2 updated platforms = total elapsed time: 00:00:32.7730000

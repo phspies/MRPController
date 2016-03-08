@@ -43,7 +43,7 @@ namespace MRPService.PlatformInventory
 
             //update localdb platform information
             Datacenter dc = _vim.datacenter().GetDataCenter(_platform.moid);
-            List<Network> networkdomain_list = _vim.networks().GetPortGroups(dc);
+            List<DistributedVirtualSwitch> networkdomain_list = _vim.networks().GetDVSwitches(dc);
             NameValueCollection filter = new NameValueCollection();
             List<VirtualMachine> _vmware_workload_list = _vim.workload().GetWorkloads(dc, filter).Where(x => x.Config.GuestId.Contains("win") && x.Runtime.PowerState == VirtualMachinePowerState.poweredOn).ToList();
             List<Network> _vmeare_vlan_list = _vim.networks().GetPortGroups(dc).ToList();
@@ -77,6 +77,44 @@ namespace MRPService.PlatformInventory
             List<MRPPlatformdomainType> _mrp_domains = _cloud_movey.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform_id).ToList();
             List<MRPPlatformnetworkType> _mrp_networks = _cloud_movey.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
 
+            //Process standard port groups aka "VM Networks"
+            MRPPlatformdomainCRUDType _std_platformdomain = new MRPPlatformdomainCRUDType();
+            _std_platformdomain.platformnetworks_attributes = new List<MRPPlatformnetworkCRUDType>();
+            _std_platformdomain.moid = "std_pg";
+            _std_platformdomain.domain = "Network";
+            _std_platformdomain.platform_id = _platform.id;
+
+            foreach (Network _vmware_network in _vim.networks().GetStandardPgs(dc))
+            {
+                MRPPlatformnetworkCRUDType _platformnetwork = new MRPPlatformnetworkCRUDType();
+                _platformnetwork.moid = _vmware_network.MoRef.Value;
+                _platformnetwork.network = _vmware_network.Name;
+                _platformnetwork.networkdomain_moid = "std_pg";
+                _platformnetwork.provisioned = true;
+                if (_mrp_networks.Exists(x => x.moid == _vmware_network.MoRef.Value))
+                {
+                    _platformnetwork.id = _mrp_networks.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value).id;
+                    //_updated_platformnetworks += 1;
+                }
+                else
+                {
+                    //_new_platformnetworks += 1;
+                }
+                _std_platformdomain.platformnetworks_attributes.Add(_platformnetwork);
+            }
+            if (_mrp_domains.Exists(x => x.moid == "std_pg"))
+            {
+                _std_platformdomain.id = _mrp_domains.FirstOrDefault(x => x.moid == "std_pg").id;
+                _cloud_movey.platformdomain().updateplatformdomain(_std_platformdomain);
+                //_updated_platformnetworks += 1;
+            }
+            else
+            {
+                _cloud_movey.platformdomain().createplatformdomain(_std_platformdomain);
+                //_new_platformnetworks += 1;
+            }
+
+            //Process distributes switches
             foreach (DistributedVirtualSwitch _vmware_domain in _vim.networks().GetDVSwitches(dc))
             {
                 MRPPlatformdomainCRUDType _platformdomain = new MRPPlatformdomainCRUDType();
@@ -134,7 +172,7 @@ namespace MRPService.PlatformInventory
             {
                 foreach (VirtualMachine _vmware_workload in _vmware_workload_list)
                 {
-                    PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _platform_id);
+                    PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _platform.id);
                 }
             }
             sw.Stop();
