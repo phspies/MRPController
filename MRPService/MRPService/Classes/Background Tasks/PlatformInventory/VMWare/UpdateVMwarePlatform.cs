@@ -134,7 +134,7 @@ namespace MRPService.PlatformInventory
             {
                 foreach (VirtualMachine _vmware_workload in _vmware_workload_list)
                 {
-                    PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _platform.moid);
+                    PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _platform_id);
                 }
             }
             sw.Stop();

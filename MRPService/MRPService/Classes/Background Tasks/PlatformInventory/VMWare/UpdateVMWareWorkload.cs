@@ -15,7 +15,7 @@ namespace MRPService.PlatformInventory
 {
     partial class PlatformInventoryWorkloadDo
     {
-        public static void UpdateVMWareWorkload(string _workload_moid, string _platform_moid)
+        public static void UpdateVMWareWorkload(string _workload_moid, string _platform_id)
         {
             ApiClient _cloud_movey = new ApiClient();
 
@@ -24,7 +24,7 @@ namespace MRPService.PlatformInventory
 
             using (MRPDatabase db = new MRPDatabase())
             {
-                _platform = db.Platforms.FirstOrDefault(x => x.moid == _platform_moid);
+                _platform = db.Platforms.FirstOrDefault(x => x.id == _platform_id);
                 _platform_credential = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
 
             }
@@ -83,13 +83,13 @@ namespace MRPService.PlatformInventory
                     vnic = (int)_workloadnic.UnitNumber,
                     ipassignment = "manual_ip",
                     _destroy = false,
-                    platformnetwork_id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _workloadnic.).id
+                    platformnetwork_id = _currentplatformnetworks.platformnetworks.FirstOrDefault(x => x.moid == _workloadnic.UnitNumber.ToString()).id
                 };
                 if (_currentplatformworkloads.workloads.Exists(x => x.moid == _nic_backing.Network.Value))
                 {
                     if (_currentplatformworkloads.workloads.Exists((x => x.interfaces.Exists(y => y.vnic == _workloadnic.UnitNumber))))
                     {
-                        _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.moid == _caasworkload.id).interfaces.FirstOrDefault(y => y.vnic == _workloadnic.UnitNumber).id;
+                        _logical_interface.id = _currentplatformworkloads.workloads.FirstOrDefault(x => x.platform_id == _platform_id).interfaces.FirstOrDefault(y => y.vnic == _workloadnic.UnitNumber).id;
                     }
                 }
                 workloadinterfaces_parameters.Add(_logical_interface);
@@ -101,17 +101,17 @@ namespace MRPService.PlatformInventory
             using (MRPDatabase db = new MRPDatabase())
             {
                 Workload _new_workload = new Workload();
-                if (db.Workloads.ToList().Exists(x => x.moid == _caasworkload.id))
+                if (db.Workloads.ToList().Exists(x => x.moid == _workload_moid && x.platform_id == _platform.id))
                 {
                     _new_workload_flag = false;
-                    _new_workload = db.Workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
+                    _new_workload = db.Workloads.FirstOrDefault(x => x.moid == _workload_moid && x.platform_id == _platform.id);
                 }
                 else
                 {
                     //if server already exists in portal, retain GUID for the server to keep other table depedencies intact
-                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                    if (_currentplatformworkloads.workloads.Exists(x => x.moid == _workload_moid && x.platform_id == _platform.id))
                     {
-                        _new_workload.id = _currentplatformworkloads.workloads.Find(x => x.moid == _caasworkload.id).id;
+                        _new_workload.id = _currentplatformworkloads.workloads.Find(x => x.moid == _workload_moid && x.platform_id == _platform.id).id;
                     }
                     else
                     {
@@ -119,16 +119,16 @@ namespace MRPService.PlatformInventory
                     }
                 }
 
-                _new_workload.vcpu = Convert.ToUInt16(_caasworkload.cpu.count);
-                _new_workload.vcore = Convert.ToUInt16(_caasworkload.cpu.coresPerSocket);
-                _new_workload.vmemory = Convert.ToUInt16(_caasworkload.memoryGb);
-                _new_workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.ipv6, _caasworkload.networkInfo.primaryNic.privateIpv4);
-                _new_workload.storage_count = _caasworkload.disk.Sum(x => x.sizeGb);
-                _new_workload.hostname = _caasworkload.name;
-                _new_workload.moid = _caasworkload.id;
+                _new_workload.vcpu = _vmware_workload.Config.Hardware.NumCPU;
+                _new_workload.vcore = _vmware_workload.Config.Hardware.NumCoresPerSocket;
+                _new_workload.vmemory = _vmware_workload.Config.Hardware.MemoryMB/1024;
+                _new_workload.iplist = _vmware_workload.Guest.IpAddress;
+                _new_workload.storage_count = _vmware_workload.Storage.PerDatastoreUsage.Sum(x => x.Committed)/1024/1024/1024;
+                _new_workload.hostname = _vmware_workload.Guest.HostName;
+                _new_workload.moid = _vmware_workload.MoRef.Value;
                 _new_workload.platform_id = _platform.id;
-                _new_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-                _new_workload.osedition = _caasworkload.operatingSystem.displayName;
+                _new_workload.ostype = _vmware_workload.Config.GuestFullName.Contains("Win") ? "WINDOWS" : "OTHER";
+                _new_workload.osedition = _vmware_workload.Config.AlternateGuestName;
                 if (_new_workload_flag)
                 {
                     _new_workload.id = Objects.RamdomGuid();
@@ -143,10 +143,6 @@ namespace MRPService.PlatformInventory
                         MRPWorkloadCRUDType _moveyworkload = new MRPWorkloadCRUDType();
                         Objects.Copy(_new_workload, _moveyworkload);
 
-
-                        //update workload source template id with portal template id
-                        _moveyworkload.platformtemplate_id = _platformtemplates.platformtemplates.Find(x => x.image_moid == _caasworkload.sourceImageId).id;
-
                         _moveyworkload.workloaddisks_attributes = workloaddisks_parameters;
                         _moveyworkload.workloadinterfaces_attributes = workloadinterfaces_parameters;
 
@@ -154,7 +150,7 @@ namespace MRPService.PlatformInventory
 
 
                         //Update if the portal has this workload and create if it's new to the portal....
-                        if (_currentplatformworkloads.workloads.Exists(x => x.moid == _caasworkload.id))
+                        if (_currentplatformworkloads.workloads.Exists(x => x.moid == _workload_moid && x.platform_id == _platform_id))
                         {
                             _moveyworkload.id = _new_workload.id;
                             _cloud_movey.workload().updateworkload(_moveyworkload);

@@ -40,7 +40,6 @@ namespace MRPService.VMWare
         }
         public VirtualMachine GetWorkload(String moid)
         {
-            List<VirtualMachine> lstVirtualMachines = new List<VirtualMachine>();
             ManagedObjectReference VMMoRef = new ManagedObjectReference();
             VMMoRef.Type = "VirtualMachine";
             VMMoRef.Value = moid;
