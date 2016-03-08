@@ -30,11 +30,17 @@ namespace MRPService.PlatformInventory
             }
 
             //create dimension data mcp object
-            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credential.username, _platform_credential.password));
-            CaaS.Login().Wait();
+            ServerType _caasworkload;
+            try {
+                ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credential.username, _platform_credential.password));
+                CaaS.Login().Wait();
+                _caasworkload = CaaS.ServerManagement.Server.GetServer(Guid.Parse(_workload_moid)).Result;
 
-            //get workload object from MCP
-            ServerType _caasworkload = CaaS.ServerManagement.Server.GetServer(Guid.Parse(_workload_moid)).Result;
+            }
+            catch (Exception ex)
+            {
+                throw new System.ArgumentException(String.Format("Error connecting to Dimension Data MCP {1}", ex.Message));
+            }
 
             //Retrieve portal objects
             MRPWorkloadListType _currentplatformworkloads = _cloud_movey.workload().listworkloads();

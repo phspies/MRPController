@@ -276,6 +276,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
+    <Reference Include="VimService60, Version=6.0.0.0, Culture=neutral, PublicKeyToken=10980b081e887e9f, processorArchitecture=MSIL" />
     <Reference Include="VMware.Vim, Version=6.0.0.0, Culture=neutral, PublicKeyToken=10980b081e887e9f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\VMware.Vim.dll</HintPath>
@@ -289,6 +290,7 @@
     <Compile Include="DoubleTake\Core.cs" />
     <Compile Include="DoubleTake\Common.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataWorkload.cs" />

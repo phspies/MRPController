@@ -29,13 +29,9 @@ namespace MRPService.PlatformInventory
             {
                 _platform = _platform_db.ModelRepository.GetById(_platform_id);
             }
-
-
             try
             {
-
-
-                Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.human_vendor, _platform.datacenter), Logger.Severity.Info);
+                Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.human_vendor, _platform.moid), Logger.Severity.Info);
                 Stopwatch sw = Stopwatch.StartNew();
                 int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads, _removed_workloads;
                 _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = _removed_workloads = 0;
@@ -48,9 +44,9 @@ namespace MRPService.PlatformInventory
                     _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
 
                 }
-                List<MRPWorkloadType> _currentplatformworkloads = _cloud_movey.workload().listworkloads().workloads.Where(x => x.platform_id == _platform_id).ToList();
-                List<MRPPlatformdomainType> _currentplatformdomains = _cloud_movey.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform_id).ToList();
-                List<MRPPlatformnetworkType> _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _currentplatformdomains.Exists(y => y.id == x.platformdomain_id)).ToList();
+                List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().listworkloads().workloads.Where(x => x.platform_id == _platform_id).ToList();
+                List<MRPPlatformdomainType> _mrp_domains = _cloud_movey.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform_id).ToList();
+                List<MRPPlatformnetworkType> _mrp_networks = _cloud_movey.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
 
 
                 //populate platform credential object
@@ -119,60 +115,60 @@ namespace MRPService.PlatformInventory
                 _platformtemplates = _cloud_movey.platformtemplate().listplatformtemplates();
 
                 //update localdb platform information
-                List<NetworkDomainType> networkdomain_list = CaaS.Networking.NetworkDomain.GetNetworkDomains(new DD.CBU.Compute.Api.Contracts.Requests.Network20.NetworkDomainListOptions() { DatacenterId = _platform.moid }).Result.ToList();
-                List<ServerType> workload_list = CaaS.ServerManagement.Server.GetServers(new DD.CBU.Compute.Api.Contracts.Requests.Server20.ServerListOptions() { DatacenterId = _platform.moid, State = "NORMAL" }).Result.ToList();
-                List<VlanType> vlan_list = CaaS.Networking.Vlan.GetVlans(new DD.CBU.Compute.Api.Contracts.Requests.Network20.VlanListOptions() { DatacenterId = _platform.moid }).Result.ToList();
-                DatacenterType _dc = CaaS.Infrastructure.GetDataCenters(new PageableRequest() { PageSize = 250 }, new DataCenterListOptions() { Id = _platform.moid }).Result.ToList().FirstOrDefault();
+                List<NetworkDomainType> _caas_networkdomain_list = CaaS.Networking.NetworkDomain.GetNetworkDomains(new DD.CBU.Compute.Api.Contracts.Requests.Network20.NetworkDomainListOptions() { DatacenterId = _platform.moid }).Result.ToList();
+                List<ServerType> _caas_workload_list = CaaS.ServerManagement.Server.GetServers(new DD.CBU.Compute.Api.Contracts.Requests.Server20.ServerListOptions() { DatacenterId = _platform.moid, State = "NORMAL" }).Result.ToList();
+                List<VlanType> _caas_vlan_list = CaaS.Networking.Vlan.GetVlans(new DD.CBU.Compute.Api.Contracts.Requests.Network20.VlanListOptions() { DatacenterId = _platform.moid }).Result.ToList();
+                DatacenterType _caas_dc = CaaS.Infrastructure.GetDataCenters(new PageableRequest() { PageSize = 250 }, new DataCenterListOptions() { Id = _platform.moid }).Result.ToList().FirstOrDefault();
 
                 int workloads, networkdomains, vlans;
                 string workloads_md5, networkdomains_md5, vlans_md5;
                 workloads = networkdomains = vlans = 0;
 
-                workloads = workload_list.Count();
-                workloads_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(workload_list));
-                vlans = vlan_list.Count();
-                vlans_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(vlan_list));
-                networkdomains = networkdomain_list.Count();
-                networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(networkdomain_list));
+                workloads = _caas_workload_list.Count();
+                workloads_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(_caas_workload_list));
+                vlans = _caas_vlan_list.Count();
+                vlans_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(_caas_vlan_list));
+                networkdomains = _caas_networkdomain_list.Count();
+                networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(_caas_networkdomain_list));
 
-                using (MRPDatabase db = new MRPDatabase())
+                using (PlatformSet _platform_dbset = new PlatformSet())
                 {
-                    Platform __platform = db.Platforms.Find(_platform.id);
-                    __platform.vlan_count = vlans;
-                    __platform.workload_count = workloads;
-                    __platform.networkdomain_count = networkdomains;
-                    __platform.platform_version = _dc.type;
+                     Platform _db_platform = _platform_dbset.ModelRepository.GetById(_platform.id);
+                    _db_platform.vlan_count = vlans;
+                    _db_platform.workload_count = workloads;
+                    _db_platform.networkdomain_count = networkdomains;
+                    _db_platform.platform_version = _caas_dc.type;
 
-                    __platform.lastupdated = DateTime.Now;
-                    __platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
-                    __platform.moid = _dc.id;
-                    db.SaveChanges();
+                    _db_platform.lastupdated = DateTime.Now;
+                    _db_platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
+                    _db_platform.moid = _caas_dc.id;
+                    _platform_dbset.Save();
                 }
 
-                foreach (NetworkDomainType _domain in networkdomain_list)
+                foreach (NetworkDomainType _caas_domain in _caas_networkdomain_list)
                 {
                     MRPPlatformdomainCRUDType _platformdomain = new MRPPlatformdomainCRUDType();
                     _platformdomain.platformnetworks_attributes = new List<MRPPlatformnetworkCRUDType>();
-                    _platformdomain.moid = _domain.id;
-                    _platformdomain.domain = _domain.name;
+                    _platformdomain.moid = _caas_domain.id;
+                    _platformdomain.domain = _caas_domain.name;
                     _platformdomain.platform_id = _platform.id;
 
-                    foreach (VlanType _network in CaaS.Networking.Vlan.GetVlans(new DD.CBU.Compute.Api.Contracts.Requests.Network20.VlanListOptions() { NetworkDomainId = Guid.Parse(_domain.id) }).Result.ToList())
+                    foreach (VlanType _caas_network in CaaS.Networking.Vlan.GetVlans(new DD.CBU.Compute.Api.Contracts.Requests.Network20.VlanListOptions() { NetworkDomainId = Guid.Parse(_caas_domain.id) }).Result.ToList())
                     {
                         MRPPlatformnetworkCRUDType _platformnetwork = new MRPPlatformnetworkCRUDType();
-                        _platformnetwork.moid = _network.id;
-                        _platformnetwork.network = _network.name;
-                        _platformnetwork.description = _network.description;
+                        _platformnetwork.moid = _caas_network.id;
+                        _platformnetwork.network = _caas_network.name;
+                        _platformnetwork.description = _caas_network.description;
                         _platformnetwork.platformdomain_id = _platformdomain.id;
-                        _platformnetwork.ipv4subnet = _network.privateIpv4Range.address;
-                        _platformnetwork.ipv4netmask = _network.privateIpv4Range.prefixSize;
-                        _platformnetwork.ipv6subnet = _network.ipv6Range.address;
-                        _platformnetwork.ipv6netmask = _network.ipv6Range.prefixSize;
-                        _platformnetwork.networkdomain_moid = _network.networkDomain.id;
+                        _platformnetwork.ipv4subnet = _caas_network.privateIpv4Range.address;
+                        _platformnetwork.ipv4netmask = _caas_network.privateIpv4Range.prefixSize;
+                        _platformnetwork.ipv6subnet = _caas_network.ipv6Range.address;
+                        _platformnetwork.ipv6netmask = _caas_network.ipv6Range.prefixSize;
+                        _platformnetwork.networkdomain_moid = _caas_network.networkDomain.id;
                         _platformnetwork.provisioned = true;
-                        if (_currentplatformnetworks.Exists(x => x.moid == _network.id && x.platformdomain_id == _domain.id))
+                        if (_mrp_networks.Exists(x => x.moid == _caas_network.id))
                         {
-                            _platformnetwork.id = _currentplatformnetworks.FirstOrDefault(x => x.moid == _network.id && x.platformdomain_id == _domain.id).id;
+                            _platformnetwork.id = _mrp_networks.FirstOrDefault(x => x.moid == _caas_network.id).id;
                             _updated_platformnetworks += 1;
                         }
                         else
@@ -181,9 +177,9 @@ namespace MRPService.PlatformInventory
                         }
                         _platformdomain.platformnetworks_attributes.Add(_platformnetwork);
                     }
-                    if (_currentplatformdomains.Exists(x => x.moid == _domain.id))
+                    if (_mrp_domains.Exists(x => x.moid == _caas_domain.id))
                     {
-                        _platformdomain.id = _currentplatformdomains.FirstOrDefault(x => x.moid == _domain.id).id;
+                        _platformdomain.id = _mrp_domains.FirstOrDefault(x => x.moid == _caas_domain.id).id;
                         _cloud_movey.platformdomain().updateplatformdomain(_platformdomain);
                         _updated_platformnetworks += 1;
                     }
@@ -194,7 +190,7 @@ namespace MRPService.PlatformInventory
                     }
                 }
                 //refresh platform network list from portal
-                _currentplatformnetworks = _cloud_movey.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _currentplatformdomains.Any(y => y.id == x.platformdomain_id)).ToList();
+                _mrp_networks = _cloud_movey.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Any(y => y.id == x.platformdomain_id)).ToList();
 
                 //process workloads
 
@@ -203,7 +199,7 @@ namespace MRPService.PlatformInventory
                 {
                     foreach (var _workload in db.Workloads.Where(x => x.platform_id == _platform.id))
                     {
-                        if (!workload_list.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                        if (!_caas_workload_list.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
                         {
                             db.Workloads.Remove(db.Workloads.Find(_workload.id));
                             db.SaveChanges();
@@ -213,7 +209,7 @@ namespace MRPService.PlatformInventory
                 }
                 if (full)
                 {
-                    foreach (ServerType _caasworkload in workload_list.Where(x => x.datacenterId == _platform.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                    foreach (ServerType _caasworkload in _caas_workload_list.Where(x => x.datacenterId == _platform.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
                     {
                         PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform.moid);
                     }
@@ -221,14 +217,14 @@ namespace MRPService.PlatformInventory
                 sw.Stop();
 
                 Logger.log(
-                    String.Format("Completed data mirroring process for {5}.{0} new workloads.{1} updated platform networks.{2} updated workloads.{3} removed workloads. = Total Execute Time: {4}",
+                    String.Format("Started inventory process for {5} - {0} new workloads - {1} updated platform networks - {2} updated workloads - {3} removed workloads = Total Execute Time: {4}",
                     _new_workloads, _updated_platforms, _updated_workloads, _removed_workloads,
-                     TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), (_platform.human_vendor + " : " + _platform.datacenter)
+                     TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), (_platform.human_vendor + " : " + _platform.moid)
                     ), Logger.Severity.Info);
             }
             catch (Exception ex)
             {
-                Logger.log(String.Format("Error in data mirroring process for {0}: {1}", (_platform.human_vendor + " : " + _platform.datacenter), ex.ToString()), Logger.Severity.Error);
+                Logger.log(String.Format("Error in inventory process for {0} {1}", (_platform.human_vendor + " : " + _platform.moid), ex.ToString()), Logger.Severity.Error);
             }
         }
 

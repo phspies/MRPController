@@ -25,6 +25,84 @@ namespace MRPService.VMWare
                 return null;
             }
         }
+        public List<DistributedVirtualSwitch> GetDVSwitches(Datacenter selectedDC = null, string dvName = null)
+        {
+            List<DistributedVirtualSwitch> lstDVSwitchs = new List<DistributedVirtualSwitch>();
+            NameValueCollection dvFilter = new NameValueCollection();
+            ManagedObjectReference DcMoRef = new ManagedObjectReference();
+
+            if (dvName != null)
+            {
+                dvFilter.Add("name", dvName);
+            }
+            else
+            {
+                dvFilter = null;
+            }
+
+            if (selectedDC != null)
+            {
+                DcMoRef = selectedDC.MoRef;
+            }
+            else
+            {
+                DcMoRef = null;
+            }
+
+            List<EntityViewBase> DVs = _vmwarecontext.FindEntityViews(typeof(DistributedVirtualSwitch), DcMoRef, dvFilter, null);
+            if (DVs != null)
+            {
+                foreach (EntityViewBase DVSwitch in DVs)
+                {
+                    DistributedVirtualSwitch thisDVSwitch = (DistributedVirtualSwitch)DVSwitch;
+                    lstDVSwitchs.Add(thisDVSwitch);
+                }
+                return lstDVSwitchs;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public List<DistributedVirtualPortgroup> GetDVPortGroups(DistributedVirtualSwitch selectedSwitch = null, string switchName = null)
+        {
+            List<DistributedVirtualPortgroup> lstPortGroups = new List<DistributedVirtualPortgroup>();
+            NameValueCollection pgFilter = new NameValueCollection();
+            ManagedObjectReference DvcMoRef = new ManagedObjectReference();
+
+            if (switchName != null)
+            {
+                pgFilter.Add("name", switchName);
+            }
+            else
+            {
+                pgFilter = null;
+            }
+
+            if (selectedSwitch != null)
+            {
+               DvcMoRef = selectedSwitch.MoRef;
+            }
+            else
+            {
+                DvcMoRef = null;
+            }
+
+            List<EntityViewBase> appPortGroups = _vmwarecontext.FindEntityViews(typeof(DistributedVirtualPortgroup), DvcMoRef, pgFilter, null);
+            if (appPortGroups != null)
+            {
+                foreach (EntityViewBase appPortGroup in appPortGroups)
+                {
+                    DistributedVirtualPortgroup thisPortGroup = (DistributedVirtualPortgroup)appPortGroup;
+                    lstPortGroups.Add(thisPortGroup);
+                }
+                return lstPortGroups;
+            }
+            else
+            {
+                return null;
+            }
+        }
         public List<DistributedVirtualPortgroup> GetDVPortGroups(Datacenter selectedDC = null, string pgName = null)
         {
             List<DistributedVirtualPortgroup> lstPortGroups = new List<DistributedVirtualPortgroup>();

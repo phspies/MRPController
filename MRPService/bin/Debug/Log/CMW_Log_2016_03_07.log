@@ -1895,3 +1895,58 @@
 2016/03/07 12:32:51 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:18.6540000
 2016/03/07 12:32:57 Info > Completed data upload process.0 netflows.168 performancecounters. = Total Elapsed Time: 00:00:24.8110000
 2016/03/07 12:33:28 Info > Completed performance collection for 4 workloads in 00:00:55.1610000
+2016/03/07 03:35:24 Info > Debug Enabled!
+2016/03/07 03:35:24 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 03:35:29 Debug > Platforms: 1, Workloads: 5, Credentials: 2, Performance Counters: 259, Network Flows: 0
+2016/03/07 03:35:29 Debug > Starting WCF Service
+2016/03/07 03:35:30 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 03:35:30 Debug > Starting Scheduler Thread
+2016/03/07 03:35:31 Debug > Starting Mirror Thread
+2016/03/07 03:35:31 Debug > Starting Performance Collection Thread
+2016/03/07 03:35:31 Info > Staring platform inventory process
+2016/03/07 03:35:31 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 03:35:31 Info > Staring performance collection process with 10 threads
+2016/03/07 03:35:31 Debug > Starting Data Upload Thread
+2016/03/07 03:35:31 Debug > Starting OS Inventory Thread
+2016/03/07 03:35:31 Info > Staring data upload process
+2016/03/07 03:35:31 Info > Staring operating system inventory process with 10 threads
+2016/03/07 03:35:31 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 03:35:31 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/07 03:35:31 Info > Completed performance collection for 4 workloads in 00:00:00.8100000 [next run at 3/7/2016 4:35:31 PM]
+2016/03/07 03:35:31 Info > Started inventory process for Dimension Data : NA9
+2016/03/07 03:35:32 Error > Error collecting inventory information from appserver01 with error An exception occurred during a Ping request.
+2016/03/07 03:35:32 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/07 03:35:32 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 03:35:32 Info > Completed operating system inventory for 4 workloads in 00:00:01.4360000 [next run at 3/8/2016 3:35:31 PM]
+2016/03/07 03:35:48 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.1 removed workloads. = Total Execute Time: 00:00:16.4240000
+2016/03/07 03:35:48 Info > Completed platform inventory for NA9 in 00:00:16.5220000
+2016/03/07 03:35:48 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:00:17.3460000
+2016/03/07 03:36:22 Info > Completed data upload process.0 netflows.259 performancecounters. = Total Elapsed Time: 00:00:51.4590000
+2016/03/07 03:37:30 Info > Debug Enabled!
+2016/03/07 03:37:30 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/07 03:37:35 Debug > Platforms: 1, Workloads: 4, Credentials: 2, Performance Counters: 0, Network Flows: 0
+2016/03/07 03:37:35 Debug > Starting WCF Service
+2016/03/07 03:37:36 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/03/07 03:37:36 Debug > Starting Scheduler Thread
+2016/03/07 03:37:37 Debug > Starting Mirror Thread
+2016/03/07 03:37:37 Debug > Starting Performance Collection Thread
+2016/03/07 03:37:37 Info > Staring platform inventory process
+2016/03/07 03:37:37 Debug > Starting Netflow v5 Collection Thread
+2016/03/07 03:37:37 Debug > Starting Data Upload Thread
+2016/03/07 03:37:37 Debug > Starting OS Inventory Thread
+2016/03/07 03:37:37 Info > Staring data upload process
+2016/03/07 03:37:37 Info > Staring operating system inventory process with 10 threads
+2016/03/07 03:37:37 Error > Error collecting performance information from appserver01 with error An exception occurred during a Ping request.
+2016/03/07 03:37:37 Info > Completed data upload process.0 netflows.0 performancecounters. = Total Elapsed Time: 00:00:00.2890000
+2016/03/07 03:37:37 Error > Error collecting performance information from appserver02 with error An exception occurred during a Ping request.
+2016/03/07 03:37:37 Error > Error collecting performance information from appserver04 with error An exception occurred during a Ping request.
+2016/03/07 03:37:37 Error > Error collecting performance information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 03:37:37 Info > Started inventory process for Dimension Data : NA9
+2016/03/07 03:37:37 Info > Completed performance collection for 4 workloads in 00:00:00.6460000 [next run at 3/7/2016 4:37:37 PM]
+2016/03/07 03:37:38 Error > Error collecting inventory information from appserver02 with error An exception occurred during a Ping request.
+2016/03/07 03:37:38 Error > Error collecting inventory information from appserver04 with error An exception occurred during a Ping request.
+2016/03/07 03:37:38 Error > Error collecting inventory information from appserver03 with error An exception occurred during a Ping request.
+2016/03/07 03:37:38 Info > Completed operating system inventory for 4 workloads in 00:00:01.2740000 [next run at 3/8/2016 3:37:37 PM]
+2016/03/07 03:44:39 Info > Completed data mirroring process for Dimension Data : .0 new workloads.0 updated platform networks.0 updated workloads.0 removed workloads. = Total Execute Time: 00:06:59.8320000
+2016/03/07 03:44:39 Info > Completed platform inventory for NA9 in 00:07:01.7620000
+2016/03/07 03:44:39 Info > Completed data mirroring process.0 new platforms, 1 updated platforms = total elapsed time: 00:07:02.3780000
