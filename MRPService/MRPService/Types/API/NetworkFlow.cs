@@ -15,7 +15,6 @@ namespace MRPService.API.Types.API
     }
     public class MRPNetworkFlowCRUDType
     {
-        public string id { get; set; }
         public string source_address { get; set; }
         public string target_address { get; set; }
         public int source_port { get; set; }
@@ -28,7 +27,6 @@ namespace MRPService.API.Types.API
         public int kbyte { get; set; }
         public string source_workload_id { get; set; }
         public string target_workload_id { get; set; }
-        
     }
 
 }

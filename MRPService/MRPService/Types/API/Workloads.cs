@@ -20,7 +20,6 @@ namespace MRPService.API.Types.API
     {
         public string id { get; set; }
         public string platform_id { get; set; }
-        public string failovergroup_id { get; set; }
         public string hostname { get; set; }
         public string iplist { get; set; }
         public int? vcpu { get; set; }
@@ -73,7 +72,6 @@ namespace MRPService.API.Types.API
     {
         public string id { get; set; }
         public string platform_id { get; set; }
-        public string failovergroup_id { get; set; }
         public string hostname { get; set; }
         public string iplist { get; set; }
         public int vcpu { get; set; }

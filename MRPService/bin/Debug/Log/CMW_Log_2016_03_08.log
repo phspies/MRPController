@@ -575,3 +575,75 @@ Parameter name: source
 2016/03/08 02:58:39 Info > Started inventory process for VMWare : 
 2016/03/08 02:58:56 Info > Completed platform inventory for datacenter-2 in 00:00:16.7830000
 2016/03/08 02:58:56 Info > Completed data mirroring process.0 new platforms, 2 updated platforms = total elapsed time: 00:00:32.7730000
+2016/03/08 10:51:41 Info > Debug Enabled!
+2016/03/08 10:51:41 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 10:51:43 Error > System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentException: Record not found
+   at MRPService.API.Core.perform[type](Method _method, Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 80
+   at MRPService.API.Core.post[type](Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 23
+   at MRPService.API.MRPWorker.confirm_worker() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Workers.cs:line 25
+   at MRPService.Utilities.Settings.RegisterAgent() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Utilities\Settings.cs:line 14
+   at MRPService.MRPSvc.OnStart(String[] args) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPSvc.cs:line 40
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at MRPService.Program.RunInteractive(ServiceBase[] servicesToRun) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\Program.cs:line 40
+   at MRPService.Program.Main() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\Program.cs:line 23
+   at System.AppDomain._nExecuteAssembly(RuntimeAssembly assembly, String[] args)
+   at System.AppDomain.ExecuteAssembly(String assemblyFile, Evidence assemblySecurity, String[] args)
+   at Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadHelper.ThreadStart()
+2016/03/08 10:54:09 Info > Debug Enabled!
+2016/03/08 10:54:09 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 10:54:11 Error > System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.ArgumentException: Record not found
+   at MRPService.API.Core.perform[type](Method _method, Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 80
+   at MRPService.API.Core.post[type](Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 23
+   at MRPService.API.MRPWorker.confirm_worker() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Modules\MRPPortal\Workers.cs:line 25
+   at MRPService.Utilities.Settings.RegisterAgent() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPService\Classes\Utilities\Settings.cs:line 14
+   at MRPService.MRPSvc.OnStart(String[] args) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPSvc.cs:line 40
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at MRPService.Program.RunInteractive(ServiceBase[] servicesToRun) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\Program.cs:line 40
+   at MRPService.Program.Main() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\Program.cs:line 23
+   at System.AppDomain._nExecuteAssembly(RuntimeAssembly assembly, String[] args)
+   at System.AppDomain.ExecuteAssembly(String assemblyFile, Evidence assemblySecurity, String[] args)
+   at Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadHelper.ThreadStart()
+2016/03/08 10:54:52 Info > Debug Enabled!
+2016/03/08 10:54:52 Info > MRP Controller ID:00952c3447ca49cebc5ae1e4b47f60b2
+2016/03/08 10:54:57 Error > System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation. ---> System.InvalidOperationException: The model backing the 'MRPDatabase' context has changed since the database was created. Consider using Code First Migrations to update the database (http://go.microsoft.com/fwlink/?LinkId=238269).
+   at System.Data.Entity.CreateDatabaseIfNotExists`1.InitializeDatabase(TContext context)
+   at System.Data.Entity.Internal.InternalContext.PerformInitializationAction(Action action)
+   at System.Data.Entity.Internal.InternalContext.PerformDatabaseInitialization()
+   at System.Data.Entity.Internal.RetryAction`1.PerformAction(TInput input)
+   at System.Data.Entity.Internal.LazyInternalContext.InitializeDatabaseAction(Action`1 action)
+   at System.Data.Entity.Internal.InternalContext.GetEntitySetAndBaseTypeForType(Type entityType)
+   at System.Data.Entity.Internal.Linq.InternalSet`1.Initialize()
+   at System.Data.Entity.Internal.Linq.InternalSet`1.GetEnumerator()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at MRPService.MRPSvc.OnStart(String[] args) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\MRPSvc.cs:line 44
+   --- End of inner exception stack trace ---
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Object[] arguments, Signature sig, Boolean constructor)
+   at System.Reflection.RuntimeMethodInfo.UnsafeInvokeInternal(Object obj, Object[] parameters, Object[] arguments)
+   at System.Reflection.RuntimeMethodInfo.Invoke(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.MethodBase.Invoke(Object obj, Object[] parameters)
+   at MRPService.Program.RunInteractive(ServiceBase[] servicesToRun) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\Program.cs:line 40
+   at MRPService.Program.Main() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\Program.cs:line 23
+   at System.AppDomain._nExecuteAssembly(RuntimeAssembly assembly, String[] args)
+   at System.AppDomain.ExecuteAssembly(String assemblyFile, Evidence assemblySecurity, String[] args)
+   at Microsoft.VisualStudio.HostingProcess.HostProc.RunUsersAssembly()
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state, Boolean preserveSyncCtx)
+   at System.Threading.ExecutionContext.Run(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.ThreadHelper.ThreadStart()

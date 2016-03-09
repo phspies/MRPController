@@ -30,81 +30,79 @@ namespace MRPService
         protected override void OnStart(string[] args)
         {
 
-
-            Global.event_log = MRPLog1;
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            MRPDatabase db = new MRPDatabase();
-
-
-            Settings.SetupAgent();
-            Settings.RegisterAgent();
-
-            // Start WCF Service
-            if (Global.debug) {
-                Logger.log(String.Format("Platforms: {0}, Workloads: {1}, Credentials: {2}, Performance Counters: {3}, Network Flows: {4}",
-                    db.Platforms.ToList().Count,
-                    db.Workloads.ToList().Count,
-                    db.Credentials.ToList().Count,
-                    db.Performance.ToList().Count,
-                    db.NetworkFlows.ToList().Count
-                    ), Logger.Severity.Debug);
-            };
-
-            Logger.log(String.Format("Starting WCF Service"), Logger.Severity.Debug);
-            Uri wcfbaseAddress = new Uri("http://localhost:8734/MRPWCFService");
-            serviceHost = new ServiceHost(typeof(MRPWCFService), wcfbaseAddress);
-            ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();
-            wcfsmb.HttpGetEnabled = true;
-            serviceHost.Description.Behaviors.Add(wcfsmb);
-            serviceHost.Open();
+            try
+            {
+                Global.event_log = MRPLog1;
+                MRPDatabase db = new MRPDatabase();
 
 
-            Logger.log(String.Format("organization id: {0}", Global.organization_id), Logger.Severity.Debug);
+                Settings.SetupAgent();
+                Settings.RegisterAgent();
 
-            TaskWorker _scheduler = new TaskWorker();
-            if (Global.debug) { Logger.log("Starting Scheduler Thread", Logger.Severity.Debug); };
-            scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));
-            scheduler_thread.Start();
+                // Start WCF Service
+                if (Global.debug)
+                {
+                    Logger.log(String.Format("Platforms: {0}, Workloads: {1}, Credentials: {2}, Performance Counters: {3}, Network Flows: {4}",
+                        db.Platforms.ToList().Count,
+                        db.Workloads.ToList().Count,
+                        db.Credentials.ToList().Count,
+                        db.Performance.ToList().Count,
+                        db.NetworkFlows.ToList().Count
+                        ), Logger.Severity.Debug);
+                };
 
-
-            PlatformInventoryThread _mirror = new PlatformInventoryThread();
-            if (Global.debug) { Logger.log("Starting Mirror Thread", Logger.Severity.Debug); };
-            mirror_thread = new Thread(new ThreadStart(_mirror.Start));
-            mirror_thread.Start();
-
-            WorkloadPerformanceThread _performance = new WorkloadPerformanceThread();
-            if (Global.debug) { Logger.log("Starting Performance Collection Thread", Logger.Severity.Debug); };
-            _performance_thread = new Thread(new ThreadStart(_performance.Start));
-            _performance_thread.Start();
-
-            NetflowV5Worker _netflow = new NetflowV5Worker();
-            if (Global.debug) { Logger.log("Starting Netflow v5 Collection Thread", Logger.Severity.Debug); };
-            _netflow_thread = new Thread(new ThreadStart(_netflow.Start));
-            _netflow_thread.Start();
-
-            PortalDataUploadWorker _dataupload = new PortalDataUploadWorker();
-            if (Global.debug) { Logger.log("Starting Data Upload Thread", Logger.Severity.Debug); };
-            _dataupload_thread = new Thread(new ThreadStart(_dataupload.Start));
-            _dataupload_thread.Start();
+                Logger.log(String.Format("Starting WCF Service"), Logger.Severity.Debug);
+                Uri wcfbaseAddress = new Uri("http://localhost:8734/MRPWCFService");
+                serviceHost = new ServiceHost(typeof(MRPWCFService), wcfbaseAddress);
+                ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();
+                wcfsmb.HttpGetEnabled = true;
+                serviceHost.Description.Behaviors.Add(wcfsmb);
+                serviceHost.Open();
 
 
-            WorkloadInventoryThread _osinventody = new WorkloadInventoryThread();
-            if (Global.debug) { Logger.log("Starting OS Inventory Thread", Logger.Severity.Debug); };
-            _osinventody_thread = new Thread(new ThreadStart(_osinventody.Start));
-            _osinventody_thread.Start();
+                Logger.log(String.Format("organization id: {0}", Global.organization_id), Logger.Severity.Debug);
 
-            Thread.Yield();
-            //Thread.Sleep(20000);
-        }
+                TaskWorker _scheduler = new TaskWorker();
+                if (Global.debug) { Logger.log("Starting Scheduler Thread", Logger.Severity.Debug); };
+                scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));
+                scheduler_thread.Start();
 
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            HandleException((Exception)e.ExceptionObject);
-        }
 
-        static void HandleException(Exception e)
-        {
-            Logger.log(e.ToString(), Logger.Severity.Error);
+                PlatformInventoryThread _mirror = new PlatformInventoryThread();
+                if (Global.debug) { Logger.log("Starting Mirror Thread", Logger.Severity.Debug); };
+                mirror_thread = new Thread(new ThreadStart(_mirror.Start));
+                mirror_thread.Start();
+
+                WorkloadPerformanceThread _performance = new WorkloadPerformanceThread();
+                if (Global.debug) { Logger.log("Starting Performance Collection Thread", Logger.Severity.Debug); };
+                _performance_thread = new Thread(new ThreadStart(_performance.Start));
+                _performance_thread.Start();
+
+                NetflowV5Worker _netflow = new NetflowV5Worker();
+                if (Global.debug) { Logger.log("Starting Netflow v5 Collection Thread", Logger.Severity.Debug); };
+                _netflow_thread = new Thread(new ThreadStart(_netflow.Start));
+                _netflow_thread.Start();
+
+                PortalDataUploadWorker _dataupload = new PortalDataUploadWorker();
+                if (Global.debug) { Logger.log("Starting Data Upload Thread", Logger.Severity.Debug); };
+                _dataupload_thread = new Thread(new ThreadStart(_dataupload.Start));
+                _dataupload_thread.Start();
+
+
+                WorkloadInventoryThread _osinventody = new WorkloadInventoryThread();
+                if (Global.debug) { Logger.log("Starting OS Inventory Thread", Logger.Severity.Debug); };
+                _osinventody_thread = new Thread(new ThreadStart(_osinventody.Start));
+                _osinventody_thread.Start();
+
+                Thread.Yield();
+                //Thread.Sleep(20000);
+            }
+            catch (Exception ex)
+            {
+                //something went wrong while starting up
+                Logger.log(String.Format("Failed to start the MRP Controller Service {0}", ex.Message), Logger.Severity.Error);
+                System.Environment.Exit(1);
+            }
         }
         protected override void OnStop()
         {

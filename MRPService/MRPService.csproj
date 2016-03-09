@@ -1143,7 +1143,6 @@
     <Compile Include="MRPService\Types\API\CommandWorker.cs" />
     <Compile Include="MRPService\Types\API\Credentials.cs" />
     <Compile Include="MRPService\Types\API\Error.cs" />
-    <Compile Include="MRPService\Types\API\Failovergroups.cs" />
     <Compile Include="MRPService\Types\API\Jobs.cs" />
     <Compile Include="MRPService\Types\API\NetworkFlow.cs" />
     <Compile Include="MRPService\Types\API\PerformanceCategory.cs" />

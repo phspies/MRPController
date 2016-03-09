@@ -22,8 +22,6 @@ namespace MRPService.LocalDatabase
         [StringLength(50)]
         public string hash_value { get; set; }
         [StringLength(50)]
-        public string failovergroup_id { get; set; }
-        [StringLength(50)]
         public string moid { get; set; }
         public Nullable<bool> enabled { get; set; }
         public Nullable<int> vcpu { get; set; }

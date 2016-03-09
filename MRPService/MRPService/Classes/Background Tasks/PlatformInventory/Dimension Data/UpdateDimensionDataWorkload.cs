@@ -15,9 +15,7 @@ namespace MRPService.PlatformInventory
     {
         public static void UpdateMCPWorkload(string _workload_moid, string _platform_id)
         {
-
             ApiClient _cloud_movey = new ApiClient();
-
 
             Platform _platform;
             Credential _platform_credential;

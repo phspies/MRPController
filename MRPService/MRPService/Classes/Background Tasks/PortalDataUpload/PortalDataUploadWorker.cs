@@ -1,5 +1,4 @@
-﻿using MRPService.API;
-using MRPService.API.Types.API;
+﻿using MRPService.API.Types.API;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -44,28 +43,28 @@ namespace MRPService.MRPService.Classes.Background_Classes
                         _workloads = db.Workloads.ToList();
                     }
 
-                    foreach (NetworkFlow _flow in _db_flows)
+                    foreach (NetworkFlow _db_flow in _db_flows)
                     {
-                        MRPNetworkFlowCRUDType _flowcrud = new MRPNetworkFlowCRUDType();
-                        Objects.Copy(_flow, _flowcrud);
+                        MRPNetworkFlowCRUDType _mrp_crud = new MRPNetworkFlowCRUDType();
+                        Objects.Copy(_db_flow, _mrp_crud);
 
-                        Workload _source_workload = _workloads.FirstOrDefault(x => x.iplist.Split(',').Contains(_flow.source_address));
+                        Workload _source_workload = _workloads.FirstOrDefault(x => x.iplist.Split(',').Contains(_db_flow.source_address));
                         if (_source_workload != null)
                         {
-                            _flowcrud.source_workload_id = _source_workload.id;
+                            _mrp_crud.source_workload_id = _source_workload.id;
                         }
-                        Workload _target_workload = _workloads.FirstOrDefault(x => x.iplist.Split(',').Contains(_flow.target_address));
+                        Workload _target_workload = _workloads.FirstOrDefault(x => x.iplist.Split(',').Contains(_db_flow.target_address));
                         if (_target_workload != null)
                         {
-                            _flowcrud.target_workload_id = _target_workload.id;
+                            _mrp_crud.target_workload_id = _target_workload.id;
                         }
                         
-                        _cloud_movey.netflow().createnetworkflow(_flowcrud);
+                        _cloud_movey.netflow().createnetworkflow(_mrp_crud);
 
                         //remove from local database
                         using (MRPDatabase db = new MRPDatabase())
                         {
-                            var _remove = db.NetworkFlows.Find(_flow.id);
+                            var _remove = db.NetworkFlows.Find(_db_flow.id);
                             db.NetworkFlows.Remove(_remove);
                             db.SaveChanges();
                         }
