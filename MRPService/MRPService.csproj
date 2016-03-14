@@ -289,9 +289,12 @@
   <ItemGroup>
     <Compile Include="DoubleTake\Core.cs" />
     <Compile Include="DoubleTake\Common.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\ProcessInfo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataWorkload.cs" />
@@ -1114,16 +1117,20 @@
     <Compile Include="MRPService\Classes\Utilities\HashExtensions.cs" />
     <Compile Include="MRPService\Classes\Tasks\Platform.cs" />
     <Compile Include="MRPService\Classes\Utilities\Impersonate.cs" />
+    <Compile Include="MRPService\Classes\Utilities\IPSplit.cs" />
     <Compile Include="MRPService\Classes\Utilities\MRPRegistry.cs" />
     <Compile Include="MRPService\Classes\Utilities\Settings.cs" />
     <Compile Include="MRPService\Classes\Tasks\Workload.cs" />
     <Compile Include="MRPService\Classes\Utilities\SyncronizedList.cs" />
+    <Compile Include="MRPService\Classes\Utilities\WMIHelper.cs" />
+    <Compile Include="MRPService\Database\Classes\NetstatSet.cs" />
     <Compile Include="MRPService\Database\Classes\NetworkFlowSet.cs" />
     <Compile Include="MRPService\Database\Classes\GenericDatabase.cs" />
     <Compile Include="MRPService\Database\Classes\CredentialSet.cs" />
     <Compile Include="MRPService\Database\Classes\PerformanceSet.cs" />
     <Compile Include="MRPService\Database\Classes\WorkloadSet.cs" />
     <Compile Include="MRPService\Database\CustomMethods\Workloads.cs" />
+    <Compile Include="MRPService\Database\Interfaces\INetstat.cs" />
     <Compile Include="MRPService\Database\Interfaces\INetworkSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\IGenericDatabase.cs" />
     <Compile Include="MRPService\Database\Interfaces\IPerformanceSet.cs" />
@@ -1134,6 +1141,7 @@
     <Compile Include="MRPService\Classes\Utilities\SimpleEAS.cs" />
     <Compile Include="MRPService\Database\Structures\Credential.cs" />
     <Compile Include="MRPService\Database\Structures\Event.cs" />
+    <Compile Include="MRPService\Database\Structures\Netstat.cs" />
     <Compile Include="MRPService\Database\Structures\NetworkFlow.cs" />
     <Compile Include="MRPService\Database\Structures\Performance.cs" />
     <Compile Include="MRPService\Database\Structures\Platform.cs" />

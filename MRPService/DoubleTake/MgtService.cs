@@ -12,7 +12,7 @@ namespace MRPService.DoubleTake
             IManagementService _source_iMgtSrvFactory = ManagementService(DT_WorkloadType.Source);
             IManagementService _target_iMgtSrvFactory = ManagementService(DT_WorkloadType.Target);
 
-            bool _status_ok = true;
+            bool _status_status = true;
             foreach (IManagementService _mgt_service in new List<IManagementService>() { _source_iMgtSrvFactory, _target_iMgtSrvFactory })
             {
                 ActivationStatus _status = _mgt_service.GetProductInfo().ActivationStatus;
@@ -21,11 +21,11 @@ namespace MRPService.DoubleTake
                     case true:
                         break;
                     case false:
-                        _status_ok = false;
+                        _status_status = false;
                         break;
                 }
             }
-            return _status_ok;
+            return _status_status;
         }
     }
 }

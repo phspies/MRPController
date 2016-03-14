@@ -1,0 +1,6 @@
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\Netstat\bin\Debug\Netstat.exe.config
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\Netstat\bin\Debug\Netstat.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\Netstat\bin\Debug\Netstat.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\Netstat\obj\Debug\Netstat.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\Netstat\obj\Debug\Netstat.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\Netstat\obj\Debug\Netstat.csprojResolveAssemblyReference.cache

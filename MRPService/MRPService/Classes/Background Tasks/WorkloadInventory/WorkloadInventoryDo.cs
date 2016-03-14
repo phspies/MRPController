@@ -45,12 +45,12 @@ namespace MRPService.API.Classes
                 throw new ArgumentException(String.Format("Error finding contactable IP for workload {0} {1}", _workload.id, _workload.hostname));
             }
 
-            ConnectionOptions options = ProcessConnectionOptions();
+            ConnectionOptions options = WMIHelper.ProcessConnectionOptions();
 
             options.Username = (String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain) + "\\" + _credential.username;
             options.Password = _credential.password;
 
-            ManagementScope connectionScope = ConnectionScope(workload_ip, options);
+            ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
 
             SelectQuery computerProcessQuery = new SelectQuery("SELECT NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
             SelectQuery ProcessorProcessQuery = new SelectQuery("SELECT NumberOfCores, CurrentClockSpeed FROM Win32_Processor");
@@ -266,31 +266,6 @@ namespace MRPService.API.Classes
             int calc = Convert.ToInt32(workingSet);
             calc = calc / 1024;
             return calc.ToString();
-        }
-        private static ConnectionOptions ProcessConnectionOptions()
-        {
-            ConnectionOptions options = new ConnectionOptions();
-            options.Impersonation = ImpersonationLevel.Impersonate;
-            options.Authentication = AuthenticationLevel.Default;
-            options.EnablePrivileges = true;
-            return options;
-        }
-
-        private static ManagementScope ConnectionScope(string machineName, ConnectionOptions options)
-        {
-            ManagementScope connectScope = new ManagementScope();
-            connectScope.Path = new ManagementPath(@"\\" + machineName + @"\root\CIMV2");
-            connectScope.Options = options;
-
-            try
-            {
-                connectScope.Connect();
-            }
-            catch (ManagementException e)
-            {
-                Console.WriteLine("An Error Occurred: " + e.Message.ToString());
-            }
-            return connectScope;
         }
 
         private String GetPartName(String inp)

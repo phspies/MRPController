@@ -29,12 +29,10 @@ namespace MRPService
 
         protected override void OnStart(string[] args)
         {
-
             try
             {
                 Global.event_log = MRPLog1;
                 MRPDatabase db = new MRPDatabase();
-
 
                 Settings.SetupAgent();
                 Settings.RegisterAgent();
@@ -59,14 +57,12 @@ namespace MRPService
                 serviceHost.Description.Behaviors.Add(wcfsmb);
                 serviceHost.Open();
 
-
                 Logger.log(String.Format("organization id: {0}", Global.organization_id), Logger.Severity.Debug);
 
                 TaskWorker _scheduler = new TaskWorker();
                 if (Global.debug) { Logger.log("Starting Scheduler Thread", Logger.Severity.Debug); };
                 scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));
                 scheduler_thread.Start();
-
 
                 PlatformInventoryThread _mirror = new PlatformInventoryThread();
                 if (Global.debug) { Logger.log("Starting Mirror Thread", Logger.Severity.Debug); };
@@ -87,7 +83,6 @@ namespace MRPService
                 if (Global.debug) { Logger.log("Starting Data Upload Thread", Logger.Severity.Debug); };
                 _dataupload_thread = new Thread(new ThreadStart(_dataupload.Start));
                 _dataupload_thread.Start();
-
 
                 WorkloadInventoryThread _osinventody = new WorkloadInventoryThread();
                 if (Global.debug) { Logger.log("Starting OS Inventory Thread", Logger.Severity.Debug); };

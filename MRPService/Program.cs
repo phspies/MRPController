@@ -11,8 +11,7 @@ namespace MRPService
         /// The main entry point for the application.
         /// </summary>
         static void Main()
-        {
-           
+        {          
             ServiceBase[] servicesToRun;
             servicesToRun = new ServiceBase[]
             {
@@ -61,6 +60,5 @@ namespace MRPService
             // Keep the console alive for a second to allow the user to see the message.
             Thread.Sleep(1000);
         }
-
     }
 }

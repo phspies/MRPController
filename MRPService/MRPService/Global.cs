@@ -26,6 +26,9 @@ namespace MRPService
         public static int os_inventory_interval=1440;
         public static int os_inventory_concurrency=10;
 
+        public static int os_netstat_interval = 1440;
+        public static int os_netstat_concurrency = 10;
+
         public static int platform_inventory_interval=1440;
         public static int platform_inventory_concurrency=10;
 
