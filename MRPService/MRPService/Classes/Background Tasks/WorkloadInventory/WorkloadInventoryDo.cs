@@ -45,11 +45,7 @@ namespace MRPService.API.Classes
                 throw new ArgumentException(String.Format("Error finding contactable IP for workload {0} {1}", _workload.id, _workload.hostname));
             }
 
-            ConnectionOptions options = WMIHelper.ProcessConnectionOptions();
-
-            options.Username = (String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain) + "\\" + _credential.username;
-            options.Password = _credential.password;
-
+            ConnectionOptions options = WMIHelper.ProcessConnectionOptions((String.IsNullOrWhiteSpace(_credential.domain) ? "." : (_credential.domain + @"\" + _credential.username)), _credential.password);
             ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
 
             SelectQuery computerProcessQuery = new SelectQuery("SELECT NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
@@ -103,8 +99,8 @@ namespace MRPService.API.Classes
                 try { _process.writetransfercount = Int64.Parse(item["WriteTransferCount"].ToString()); } catch (Exception) { }
                 try { _process.readoperationcount = Int64.Parse(item["ReadOperationCount"].ToString()); } catch (Exception) { }
                 try { _process.readtransfercount = Int64.Parse(item["ReadTransferCount"].ToString()); } catch (Exception) { }
-                try { _process.threadcount = Int16.Parse(item["ThreadCount"].ToString()); } catch (Exception) { }
-                try { _process.virtualsize = Int16.Parse(item["ThreadCount"].ToString()); } catch (Exception) { }
+                try { _process.threadcount = Int32.Parse(item["ThreadCount"].ToString()); } catch (Exception) { }
+                try { _process.virtualsize = Int64.Parse(item["VirtualSize"].ToString()); } catch (Exception) { }
             }
 
             //process installed software

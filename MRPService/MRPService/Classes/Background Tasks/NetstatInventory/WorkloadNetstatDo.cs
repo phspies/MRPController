@@ -50,11 +50,7 @@ namespace MRPService.API.Classes
 
             using (new Impersonator(_credential.username, (String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain), _credential.password))
             {
-                ConnectionOptions options = WMIHelper.ProcessConnectionOptions();
-
-                options.Username = (String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain) + "\\" + _credential.username;
-                options.Password = _credential.password;
-
+                ConnectionOptions options = WMIHelper.ProcessConnectionOptions(((String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain) + "\\" + _credential.username), _credential.password);
                 ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
 
                 string remoteFile = @"\\" + workload_ip + @"\c$\netstat.out";
