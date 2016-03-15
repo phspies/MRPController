@@ -14,13 +14,13 @@ namespace MRPService.API.Classes
 {
     class WorkloadNetstat
     {
-        ApiClient _cloud_movey = new ApiClient();
+        MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
         public static void WorkloadNetstatDo(String workload_id)
         {
             WorkloadSet dbworkload = new WorkloadSet();
             CredentialSet dbcredential = new CredentialSet();
-            ApiClient _cloud_movey = new ApiClient();
+            MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
             MRPWorkloadType mrpworkload = _cloud_movey.workload().getworkload(workload_id);
             if (mrpworkload == null)

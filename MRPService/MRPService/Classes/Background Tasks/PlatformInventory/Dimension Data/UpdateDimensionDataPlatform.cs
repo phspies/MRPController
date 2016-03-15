@@ -23,7 +23,7 @@ namespace MRPService.PlatformInventory
 
         public static void UpdateMCPPlatform(String _platform_id, bool full=true)
         {
-            ApiClient _cloud_movey = new ApiClient();
+            MRP_ApiClient _cloud_movey = new MRP_ApiClient();
             Platform _platform;
             using (PlatformSet _platform_db = new PlatformSet())
             {

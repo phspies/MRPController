@@ -20,7 +20,7 @@ namespace MRPService.MRPService.Classes.Background_Classes
         }
         public void Start()
         {
-            API.ApiClient _cloud_movey = new API.ApiClient();
+            API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient();
             while (true)
             {
                 try
@@ -34,8 +34,8 @@ namespace MRPService.MRPService.Classes.Background_Classes
                     }
 
                     Stopwatch sw = Stopwatch.StartNew();
-                    int _new_networkflows, _new_performancecounters;
-                    _new_networkflows = _new_performancecounters = 0;
+                    int _new_networkflows, _new_performancecounters, _new_netstat;
+                    _new_networkflows = _new_performancecounters = _new_netstat = 0;
 
                     List<Workload> _workloads;
                     using (MRPDatabase db = new MRPDatabase())
@@ -43,6 +43,7 @@ namespace MRPService.MRPService.Classes.Background_Classes
                         _workloads = db.Workloads.ToList();
                     }
 
+                    //process netflows information
                     foreach (NetworkFlow _db_flow in _db_flows)
                     {
                         MRPNetworkFlowCRUDType _mrp_crud = new MRPNetworkFlowCRUDType();
@@ -103,8 +104,6 @@ namespace MRPService.MRPService.Classes.Background_Classes
                         _categories = _cloud_movey.performancecategory().list();
                     }
 
-
-
                     //process performancecounters
                     foreach (Performance _performance in _local_performance)
                     {
@@ -126,13 +125,29 @@ namespace MRPService.MRPService.Classes.Background_Classes
                         }
                         _new_performancecounters += 1;
                     }
+                    //process netstat 
+                    using (NetstatSet _db_netstat = new NetstatSet())
+                    {
+                        foreach (Netstat _db_netstat_record in _db_netstat.ModelRepository.Get())
+                        {
+                            MRPNetworkStatCRUDType _netstatcrud = new MRPNetworkStatCRUDType();
+                            Objects.Copy(_db_netstat_record, _netstatcrud);
 
+                            //add record to portal
+                            _cloud_movey.netstat().create(_netstatcrud);
+
+                            //remove from local database
+                            _db_netstat.ModelRepository.Delete(_db_netstat_record.id);
+                            _new_netstat += 1;
+                        }
+
+                    }
 
                     sw.Stop();
 
                     Logger.log(
-                        String.Format("Completed data upload process.{0} netflows.{1} performancecounters. = Total Elapsed Time: {2}",
-                        _new_networkflows, _new_performancecounters, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
+                        String.Format("Completed data upload process.{0} netflows.{1} performancecounters. {2} netstats. = Total Elapsed Time: {3}",
+                        _new_networkflows, _new_performancecounters, _new_netstat, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
                         ), Logger.Severity.Info);
                 }
                 catch (Exception ex)

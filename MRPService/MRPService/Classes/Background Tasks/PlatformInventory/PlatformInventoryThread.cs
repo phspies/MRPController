@@ -12,7 +12,7 @@ namespace MRPService.PlatformInventory
 {
     partial class PlatformInventoryThread
     {
-        ApiClient _cloud_movey = new ApiClient();
+        MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
         //Order or sync process
         // 1. update worker information from portal - perf_collection

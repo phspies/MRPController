@@ -10,7 +10,7 @@ namespace MRPService.Utilities
     {
         static public void RegisterAgent()
         {
-            ApiClient MRP = new ApiClient();
+            MRP_ApiClient MRP = new MRP_ApiClient();
             if (!MRP.worker().confirm_worker())
             {
                 while (true)

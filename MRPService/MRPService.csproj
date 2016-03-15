@@ -1094,6 +1094,7 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Core.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\JSONSerializer.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Credentials.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Networkstats.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Networkflows.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PerformanceCategories.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PerformanceCounters.cs" />
@@ -1152,6 +1153,7 @@
     <Compile Include="MRPService\Types\API\Credentials.cs" />
     <Compile Include="MRPService\Types\API\Error.cs" />
     <Compile Include="MRPService\Types\API\Jobs.cs" />
+    <Compile Include="MRPService\Types\API\NetworkStat.cs" />
     <Compile Include="MRPService\Types\API\NetworkFlow.cs" />
     <Compile Include="MRPService\Types\API\PerformanceCategory.cs" />
     <Compile Include="MRPService\Types\API\PerformanceCounter.cs" />

@@ -7,7 +7,7 @@ namespace MRPService.API
 {
     class MRPPerformanceCategory : Core
     {
-        public MRPPerformanceCategory(ApiClient _MRP) : base(_MRP) {
+        public MRPPerformanceCategory(MRP_ApiClient _MRP) : base(_MRP) {
         }
          
         public void create(MRPPerformanceCategoryCRUDType _performancecategory)

@@ -11,9 +11,9 @@ namespace MRPService.API
     class Core
     {
         private String _endpoint;
-        private ApiClient _client;
+        private MRP_ApiClient _client;
 
-        public Core(ApiClient _MRP)
+        public Core(MRP_ApiClient _MRP)
         {
             _client = _MRP;
         }

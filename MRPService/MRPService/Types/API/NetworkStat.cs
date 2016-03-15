@@ -1,31 +1,30 @@
 ﻿using ProtoBuf;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRPService.LocalDatabase
+namespace MRPService.API.Types.API
 {
-    
-    public class Netstat
+    public class MRPNetworkStatsCRUDType
     {
-        [Key, StringLength(50)]
-        public string id { get; set; }
-        [StringLength(50)]
+        public string worker_id { get; set; }
+        public string worker_hostname { get; set; }
+        public MRPNetworkStatCRUDType networkstat { get; set; }
+    }
+    public class MRPNetworkStatCRUDType
+    {
+        public string workload_id { get; set; }
         public string proto { get; set; }
-        [StringLength(50)]
         public string source_ip { get; set; }
-        [StringLength(50)]
-        public string target_ip { get; set; }
         public int source_port { get; set; }
+        public string target_ip { get; set; }
         public int target_port { get; set; }
-        [StringLength(20)]
         public string state { get; set; }
         public int pid { get; set; }
-        [StringLength(255)]
         public string process { get; set; }
+
     }
 
 }

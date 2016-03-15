@@ -6,7 +6,7 @@ namespace MRPService.API
 {
     class MRPPlatformDomain : Core
     {
-        public MRPPlatformDomain(ApiClient _MRP) : base(_MRP) {
+        public MRPPlatformDomain(MRP_ApiClient _MRP) : base(_MRP) {
         }
          
         public MRPPlatformdomainListType listplatformdomains()

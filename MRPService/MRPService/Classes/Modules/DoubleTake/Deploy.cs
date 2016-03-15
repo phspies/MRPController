@@ -24,7 +24,7 @@ namespace MRPService.DoubleTake
     {
         public static void dt_deploy(MRPTaskType payload)
         {
-            API.ApiClient _mrp_portal = new API.ApiClient();
+            API.MRP_ApiClient _mrp_portal = new API.MRP_ApiClient();
 
             try
             {

@@ -2,7 +2,7 @@
 
 namespace MRPService.API
 {
-    class ApiClient
+    class MRP_ApiClient
     {
         public MRPTask task()
         {
@@ -31,6 +31,10 @@ namespace MRPService.API
         public MRPPerformanceCounter performancecounter()
         {
             return new MRPPerformanceCounter(this);
+        }
+        public MRPNetworkstat netstat()
+        {
+            return new MRPNetworkstat(this);
         }
         public MRPPerformanceCategory performancecategory()
         {

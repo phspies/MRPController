@@ -20,7 +20,7 @@ namespace MRPService.DoubleTake
     {
         public static void dt_create_ha_syncjob(MRPTaskType payload)
         {
-            API.ApiClient MRP = new API.ApiClient();
+            API.MRP_ApiClient MRP = new API.MRP_ApiClient();
             try
             {
                 MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
@@ -168,7 +168,7 @@ namespace MRPService.DoubleTake
                 iJobMgr.Start(jobId);
 
                 MRP.task().progress(payload, "Registering job with portal", 60);
-                API.ApiClient _mrp = new API.ApiClient();
+                API.MRP_ApiClient _mrp = new API.MRP_ApiClient();
                 //create job on portal
                 _mrp.job().createjob(new MRPJobType()
                 {

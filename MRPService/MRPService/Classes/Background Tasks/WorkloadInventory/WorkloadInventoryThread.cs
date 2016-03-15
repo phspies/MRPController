@@ -11,7 +11,7 @@ namespace MRPService.API.Classes
 {
     class WorkloadInventoryThread
     {
-        ApiClient _cloud_movey = new ApiClient();
+        MRP_ApiClient _cloud_movey = new MRP_ApiClient();
         public void Start()
         {
 

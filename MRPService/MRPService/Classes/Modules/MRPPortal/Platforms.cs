@@ -7,7 +7,7 @@ namespace MRPService.API
 {
     class PortalPlatform : Core
     {
-        public PortalPlatform(ApiClient _MRP) : base(_MRP) {
+        public PortalPlatform(MRP_ApiClient _MRP) : base(_MRP) {
         }
          
         public MRPPlatformListType listplatforms()

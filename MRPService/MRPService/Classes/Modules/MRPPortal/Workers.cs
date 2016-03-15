@@ -12,7 +12,7 @@ namespace MRPService.API
     class MRPWorker : Core
     {
         MRPWorkerType worker = new MRPWorkerType();
-        public MRPWorker(ApiClient _MRP) : base(_MRP)
+        public MRPWorker(MRP_ApiClient _MRP) : base(_MRP)
         {
             worker.worker_hostname = Environment.MachineName;
             worker.worker_version = Global.version_number;

@@ -44,7 +44,7 @@ namespace MRPService.Tasks
         public static void mcp_provisionvm(MRPTaskType payload)
         {
             //Get workload object from portal to perform updates once provisioned
-            API.ApiClient _cloud_movey = new API.ApiClient();
+            API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient();
 
             MRPTaskSubmitpayloadType _payload = payload.submitpayload;
             MRPDatabase db = new MRPDatabase();
@@ -69,7 +69,7 @@ namespace MRPService.Tasks
                 db.SaveChanges();
             }
 
-            API.ApiClient MRP = new API.ApiClient();
+            API.MRP_ApiClient MRP = new API.MRP_ApiClient();
             Credential _platform_credentails = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
 
 

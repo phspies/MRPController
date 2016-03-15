@@ -6,7 +6,7 @@ namespace MRPService.API
 {
     class MRPPlatformNetwork : Core
     {
-        public MRPPlatformNetwork(ApiClient _MRP) : base(_MRP) {
+        public MRPPlatformNetwork(MRP_ApiClient _MRP) : base(_MRP) {
         }
          
         public MRPPlatformnetworkListType listplatformnetworks()

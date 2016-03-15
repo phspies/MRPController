@@ -7,7 +7,7 @@ namespace MRPService.DoubleTake
     {
         public MRPDoubleTake_DisasterRecovery(MRP_DoubleTake cmdoubletake) : base(cmdoubletake) { }
 
-        static API.ApiClient MRP = null;
+        static API.MRP_ApiClient MRP = null;
         static MRPTaskListType tasks = null;
         static dynamic _payload = null;
 

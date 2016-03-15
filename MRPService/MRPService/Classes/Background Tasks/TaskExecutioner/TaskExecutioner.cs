@@ -12,7 +12,7 @@ namespace MRPService.TaskExecutioner
     class TaskWorker
     {
         static int maxThreads = 30;
-        ApiClient MRP = new ApiClient();
+        MRP_ApiClient MRP = new MRP_ApiClient();
         public void Start()
         {
             List<string> activeObjects = new List<string>();
