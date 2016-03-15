@@ -131,7 +131,7 @@ namespace MRPService.DoubleTake
                 //    _bandwidth.Specifications
                 //    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.Schedule.Bandwidth
                 //}
-                jobInfo.JobOptions.CoreConnectionOptions.TargetAddress = Connection.find_working_ip(_target_workload.iplist, true);
+                jobInfo.JobOptions.CoreConnectionOptions.TargetAddress = Connection.FindConnection(_target_workload.iplist, true);
                 
 
                 MRP.task().progress(payload, "Deteling current jobs associated to the source and target workloads", 55);

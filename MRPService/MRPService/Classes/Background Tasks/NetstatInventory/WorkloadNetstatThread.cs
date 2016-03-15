@@ -11,10 +11,8 @@ namespace MRPService.API.Classes
 {
     class WorkloadNetstatThread
     {
-        ApiClient _cloud_movey = new ApiClient();
         public void Start()
         {
-
             while (true)
             {
                 DateTime _next_netstat_run = DateTime.Now.AddMinutes(Global.os_netstat_interval);
@@ -33,17 +31,13 @@ namespace MRPService.API.Classes
                     new ParallelOptions { MaxDegreeOfParallelism = Global.os_netstat_concurrency },
                     (workload) =>
                     {
-
                         try
                         {
-                            MRPWorkloadType _mrp_workload = _cloud_movey.workload().getworkload(workload.id);
-                            WorkloadNetstat.WorkloadNetstatDo(_mrp_workload.id);
-                            Workloads_Update.InventoryUpdateStatus(workload.id, "Success", true);
+                            WorkloadNetstat.WorkloadNetstatDo(workload.id);
                         }
                         catch (Exception ex)
                         {
                             Logger.log(String.Format("Error collecting netstat information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
-                            Workloads_Update.InventoryUpdateStatus(workload.id, ex.Message, false);
                         }
                     });
 

@@ -230,7 +230,7 @@ namespace MRPService.Tasks
                     Thread.Sleep(new TimeSpan(0, 0, 30));
 
                     string _ip_list = String.Join(",", _newvm.networkInfo.primaryNic.ipv6,_newvm.networkInfo.primaryNic.privateIpv4);
-                    string _working_ip = Connection.find_working_ip(_ip_list, true);
+                    string _working_ip = Connection.FindConnection(_ip_list, true);
 
                     Logger.log(String.Format("Found working ip: {0}", _working_ip), Logger.Severity.Info);
 

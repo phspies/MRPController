@@ -54,7 +54,7 @@ namespace MRPService.DoubleTake
                         _mrp_portal.task().progress(payload, String.Format("Cannot determine credentials for {0}", _working_workload.hostname), _counter + 16);
                         continue;
                     }
-                    string _contactable_ip = Connection.find_working_ip(_working_workload.iplist, true);
+                    string _contactable_ip = Connection.FindConnection(_working_workload.iplist, true);
                     if (_contactable_ip == null)
                     {
                         _mrp_portal.task().failcomplete(payload, String.Format("Cannot contant workload {0}", _working_workload.hostname));
@@ -65,7 +65,7 @@ namespace MRPService.DoubleTake
                     string systemArchitecture = null;
                     //Determine if the setup to be installed is 32 bit or 64 bit
                     string keyString = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
-                    using (Impersonation.LogonUser((String.IsNullOrWhiteSpace(_workload_credentials.domain) ? "." : _workload_credentials.domain), _workload_credentials.username, _workload_credentials.password, LogonType.NewCredentials))
+                    using (new Impersonator(_workload_credentials.username, (String.IsNullOrWhiteSpace(_workload_credentials.domain) ? "." : _workload_credentials.domain),  _workload_credentials.password))
                     {
                         #region Detect Target Architecture
                         RegistryKey rk = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, _contactable_ip);

@@ -28,6 +28,7 @@ namespace MRPService.LocalDatabase
                 _workload_db.Save();
             }
         }
+
         static public void PeformanceUpdateStatus(string workload_id, string message, bool status)
         {
             using (WorkloadSet _workload_db = new WorkloadSet())

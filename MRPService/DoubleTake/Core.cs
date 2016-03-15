@@ -66,8 +66,8 @@ namespace MRPService.DoubleTake
 
             JobCredentials _creds = new JobCredentials()
             {
-                SourceHostUri = new Uri("http://" + _source_credential.username + ":" + _source_credential.password + "@" + Connection.find_working_ip(_source_workload.iplist, true) + ":" + "6325"),
-                TargetHostUri = new Uri("http://" + _target_credential.username + ":" + _target_credential.password + "@" + Connection.find_working_ip(_target_workload.iplist, true) + ":" + "6325")
+                SourceHostUri = new Uri("http://" + _source_credential.username + ":" + _source_credential.password + "@" + Connection.FindConnection(_source_workload.iplist, true) + ":" + "6325"),
+                TargetHostUri = new Uri("http://" + _target_credential.username + ":" + _target_credential.password + "@" + Connection.FindConnection(_target_workload.iplist, true) + ":" + "6325")
             };
             return _creds;
 
@@ -81,7 +81,7 @@ namespace MRPService.DoubleTake
             UriBuilder _uri = new UriBuilder();
             int portNumber = 6325;
             string bindingScheme = "http://";
-            _uri = new UriBuilder(bindingScheme, Connection.find_working_ip(workload.iplist, true), portNumber, method);
+            _uri = new UriBuilder(bindingScheme, Connection.FindConnection(workload.iplist, true), portNumber, method);
             _uri.UserName = Uri.EscapeDataString(_credential.username);
             _uri.Password = Uri.EscapeDataString(_credential.password);
             return _uri;
