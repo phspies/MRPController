@@ -14,7 +14,7 @@ namespace MRPService.API
         public MRPJobListType listjobs()
         {
             endpoint = "/api/v1/jobs/list.json";
-            MRPCommandWorkerType worker = new MRPCommandWorkerType() { worker_id = Global.agent_id, worker_hostname = Environment.MachineName };
+            MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPJobListType)post<MRPJobListType>(worker);
         }
 
@@ -23,8 +23,6 @@ namespace MRPService.API
             endpoint = "/api/v1/jobs/get_id.json";
             MRPJobIDGETType job = new MRPJobIDGETType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 job_id = _job_id
                 
             };
@@ -35,8 +33,6 @@ namespace MRPService.API
             endpoint = "/api/v1/jobs/get_id.json";
             MRPJobDTIDGETType job = new MRPJobDTIDGETType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 dt_job_id = _dt_job_id
 
             };
@@ -47,8 +43,6 @@ namespace MRPService.API
         {
             MRPJobsCRUDType job = new MRPJobsCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 job = _job
             };
 
@@ -59,8 +53,6 @@ namespace MRPService.API
         {
             MRPJobsCRUDType job = new MRPJobsCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 job = _job
             };
 

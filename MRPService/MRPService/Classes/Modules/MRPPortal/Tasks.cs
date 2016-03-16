@@ -16,7 +16,7 @@ namespace MRPService.API
         public MRPTaskListType tasks()
         {
             endpoint = "/api/v1/tasks/list.json";
-            MRPCommandWorkerType worker = new MRPCommandWorkerType() { worker_id = Global.agent_id, worker_hostname = Environment.MachineName };
+            MRPCommandControllerType worker = new MRPCommandControllerType();
             return post<MRPTaskListType>(worker);
         }
 
@@ -26,8 +26,6 @@ namespace MRPService.API
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 task_id = payload.id,
                 attributes = new MRPCompleteTaskUpdateAttributesType()
                 {
@@ -56,8 +54,6 @@ namespace MRPService.API
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 task_id = payload.id,
                 attributes = new MRPCompleteTaskUpdateAttributesType()
                 {
@@ -83,8 +79,6 @@ namespace MRPService.API
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 task_id = payload.id,
                 attributes = new MRPCompleteTaskUpdateAttributesType()
                 {
@@ -110,8 +104,6 @@ namespace MRPService.API
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 task_id = payload.id,
                 attributes = new MRPProgressTaskUpdateAttributesType()
                 {
@@ -136,8 +128,6 @@ namespace MRPService.API
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 task_id = payload.id,
                 attributes = new MRPProgressTaskUpdateAttributesType()
                 {

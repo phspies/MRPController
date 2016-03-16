@@ -13,7 +13,7 @@ namespace MRPService.API
         public MRPCredentialListType listcredentials()
         {
             endpoint = "/api/v1/credentials/list.json";
-            MRPCommandWorkerType worker = new MRPCommandWorkerType() { worker_id = Global.agent_id, worker_hostname = Environment.MachineName };
+            MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPCredentialListType)post<MRPCredentialListType>(worker);
         }
 
@@ -21,8 +21,6 @@ namespace MRPService.API
         {
             MRPCredentialsCRUDType platform = new MRPCredentialsCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 credential = _credential
             };
             endpoint = "/api/v1/credentials/create.json";
@@ -32,8 +30,6 @@ namespace MRPService.API
         {
             MRPCredentialsCRUDType credential = new MRPCredentialsCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 credential = _credential
             };
             endpoint = "/api/v1/credentials/update.json";

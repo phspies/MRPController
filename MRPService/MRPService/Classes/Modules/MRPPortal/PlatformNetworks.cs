@@ -12,7 +12,7 @@ namespace MRPService.API
         public MRPPlatformnetworkListType listplatformnetworks()
         {
             endpoint = "/api/v1/platformnetworks/list.json";
-            MRPCommandWorkerType worker = new MRPCommandWorkerType() { worker_id = Global.agent_id, worker_hostname = Environment.MachineName };
+            MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPPlatformnetworkListType)post<MRPPlatformnetworkListType>(worker);
         }
 
@@ -20,8 +20,6 @@ namespace MRPService.API
         {
             MRPPlatformnetworksCRUDType platformnetwork = new MRPPlatformnetworksCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 platformnetwork = _platformnetwork
             };
 
@@ -32,8 +30,6 @@ namespace MRPService.API
         {
             MRPPlatformnetworksCRUDType platformnetwork = new MRPPlatformnetworksCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 platformnetwork = _platformnetwork
             };
 

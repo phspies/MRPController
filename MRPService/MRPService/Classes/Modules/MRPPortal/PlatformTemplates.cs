@@ -13,7 +13,7 @@ namespace MRPService.API
         public MRPPlatformtemplateListType listplatformtemplates()
         {
             endpoint = "/api/v1/platformtemplates/list.json";
-            MRPCommandWorkerType worker = new MRPCommandWorkerType() { worker_id = Global.agent_id, worker_hostname = Environment.MachineName };
+            MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPPlatformtemplateListType)post<MRPPlatformtemplateListType>(worker);
         }
 
@@ -21,8 +21,6 @@ namespace MRPService.API
         {
             MRPPlatformtemplatesCRUDType platformtemplate = new MRPPlatformtemplatesCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 platformtemplate = _platformtemplate
             };
 
@@ -33,8 +31,6 @@ namespace MRPService.API
         {
             MRPPlatformtemplatesCRUDType platformtemplate = new MRPPlatformtemplatesCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 platformtemplate = _platformtemplate
             };
 

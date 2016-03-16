@@ -14,8 +14,6 @@ namespace MRPService.API
         {
             MRPNetworkFlowsCRUDType networkflow = new MRPNetworkFlowsCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 networkflow = _networkflow
             };
             endpoint = "/api/v1/networkflows/create.json";

@@ -248,8 +248,13 @@ namespace MRPService.MRPService.Types.API
 
     public class MRPProgressTaskUpdateType
     {
-        public string worker_id { get; set; }
-        public string worker_hostname { get; set; }
+        public string controller_id
+        {
+            get
+            {
+                return Global.agent_id;
+            }
+        }
         public string task_id { get; set; }
         public MRPProgressTaskUpdateAttributesType attributes { get; set; }
     }
@@ -260,8 +265,13 @@ namespace MRPService.MRPService.Types.API
     }
     public class MRPCompleteTaskUpdateType
     {
-        public string worker_id { get; set; }
-        public string worker_hostname { get; set; }
+        public string controller_id
+        {
+            get
+            {
+                return Global.agent_id;
+            }
+        }
         public string task_id { get; set; }
         public MRPCompleteTaskUpdateAttributesType attributes { get; set; }
     }

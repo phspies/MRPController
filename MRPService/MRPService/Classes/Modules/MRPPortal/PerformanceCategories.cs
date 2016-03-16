@@ -14,8 +14,6 @@ namespace MRPService.API
         {
             MRPPerformanceCategoriesCRUDType performance = new MRPPerformanceCategoriesCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 performancecategory = _performancecategory
             };
             endpoint = "/api/v1/performancecategories/create.json";
@@ -25,7 +23,7 @@ namespace MRPService.API
         public MRPPerformanceCategoryListType list()
         {
             endpoint = "/api/v1/performancecategories/list.json";
-            MRPCommandWorkerType worker = new MRPCommandWorkerType() { worker_id = Global.agent_id, worker_hostname = Environment.MachineName };
+            MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPPerformanceCategoryListType)post<MRPPerformanceCategoryListType>(worker);
 
         }

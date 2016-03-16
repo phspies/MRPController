@@ -1103,7 +1103,7 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformTemplates.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Platforms.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Tasks.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\Workers.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Controllers.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobs.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Workloads.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetflowCollection\NetflowV9Worker.cs" />
@@ -1149,7 +1149,7 @@
     <Compile Include="MRPService\Database\Structures\Workload.cs" />
     <Compile Include="MRPService\Database\Classes\PlatformSet.cs" />
     <Compile Include="MRPService\Logging.cs" />
-    <Compile Include="MRPService\Types\API\CommandWorker.cs" />
+    <Compile Include="MRPService\Types\API\CommandController.cs" />
     <Compile Include="MRPService\Types\API\Credentials.cs" />
     <Compile Include="MRPService\Types\API\Error.cs" />
     <Compile Include="MRPService\Types\API\Jobs.cs" />
@@ -1166,7 +1166,7 @@
     <Compile Include="MRPService\Types\API\RecoveryPolicy.cs" />
     <Compile Include="MRPService\Types\API\Task.cs" />
     <Compile Include="MRPService\Types\API\Windows.cs" />
-    <Compile Include="MRPService\Types\API\Worker.cs" />
+    <Compile Include="MRPService\Types\API\Controller.cs" />
     <Compile Include="MRPService\Types\API\Workloaddisks.cs" />
     <Compile Include="MRPService\Types\API\WorkloadInterfaces.cs" />
     <Compile Include="MRPService\Types\API\WorkloadProcesses.cs" />

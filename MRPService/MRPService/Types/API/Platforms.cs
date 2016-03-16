@@ -8,14 +8,24 @@ namespace MRPService.API.Types.API
 {
     public class MRPPlatformGETType
     {
-        public string worker_id { get; set; }
-        public string worker_hostname { get; set; }
+        public string controller_id
+        {
+            get
+            {
+                return Global.agent_id;
+            }
+        }
         public string platform_id { get; set; }
     }
     public class MRPPlatformsCRUDType
     {
-        public string worker_id { get; set; }
-        public string worker_hostname { get; set; }
+        public string controller_id
+        {
+            get
+            {
+                return Global.agent_id;
+            }
+        }
         public MRPPlatformCRUDType platform { get; set; }
     }
     public class MRPPlatformCRUDType

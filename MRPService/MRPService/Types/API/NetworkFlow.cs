@@ -9,8 +9,13 @@ namespace MRPService.API.Types.API
 {
     public class MRPNetworkFlowsCRUDType
     {
-        public string worker_id { get; set; }
-        public string worker_hostname { get; set; }
+        public string controller_id
+        {
+            get
+            {
+                return Global.agent_id;
+            }
+        }
         public MRPNetworkFlowCRUDType networkflow { get; set; }
     }
     public class MRPNetworkFlowCRUDType

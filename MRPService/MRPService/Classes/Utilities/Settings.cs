@@ -8,32 +8,13 @@ namespace MRPService.Utilities
 {
     class Settings
     {
-        static public void RegisterAgent()
+        static public void ConfirmController()
         {
             MRP_ApiClient MRP = new MRP_ApiClient();
-            if (!MRP.worker().confirm_worker())
-            {
-                while (true)
-                {
-                    Logger.log("Worker not registered, registering worker with MRP portal", Logger.Severity.Warn);
-                    if (MRP.worker().register_worker())
-                    {
-                        if (MRP.worker().confirm_worker())
-                        {
-                            Logger.log("Worker Registered", Logger.Severity.Warn);
-                            break;
-                        }
-                        else
-                        {
-                            Logger.log("Registration Failed", Logger.Severity.Error);
-                        }
-                    }
-                    Thread.Sleep(new TimeSpan(0, 0, 30));
-                }
-            }
+            MRP.worker().confirm_controller();
         }
 
-        static public void SetupAgent()
+        static public void SetupController()
         {
             Global.debug = Convert.ToBoolean(MRPRegistry.RegAccess("debug"));
             if (Global.debug)

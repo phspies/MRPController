@@ -13,8 +13,13 @@ namespace MRPService.API.Types.API
     }
     public class MRPJobsCRUDType
     {
-        public string worker_id { get; set; }
-        public string worker_hostname { get; set; }
+        public string controller_id
+        {
+            get
+            {
+                return Global.agent_id;
+            }
+        }
         public MRPJobType job { get; set; }
     }
     public class MRPJobType
@@ -39,13 +44,25 @@ namespace MRPService.API.Types.API
     }
     public class MRPJobIDGETType
     {
-        public string worker_id { get; set; }
+        public string controller_id
+        {
+            get
+            {
+                return Global.agent_id;
+            }
+        }
         public string worker_hostname { get; set; }
         public string job_id { get; set; }
     }
     public class MRPJobDTIDGETType
     {
-        public string worker_id { get; set; }
+        public string controller_id
+        {
+            get
+            {
+                return Global.agent_id;
+            }
+        }
         public string worker_hostname { get; set; }
         public string dt_job_id { get; set; }
     }

@@ -8,8 +8,13 @@ namespace MRPService.API.Types.API
 {
     public class MRPPlatformtemplatesCRUDType
     {
-        public string worker_id { get; set; }
-        public string worker_hostname { get; set; }
+        public string controller_id
+        {
+            get
+            {
+                return Global.agent_id;
+            }
+        }
         public MRPPlatformtemplateCRUDType platformtemplate { get; set; }
     }
     public class MRPPlatformtemplateCRUDType

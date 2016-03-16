@@ -34,8 +34,8 @@ namespace MRPService
                 Global.event_log = MRPLog1;
                 MRPDatabase db = new MRPDatabase();
 
-                Settings.SetupAgent();
-                Settings.RegisterAgent();
+                Settings.SetupController();
+                Settings.ConfirmController();
 
                 // Start WCF Service
                 if (Global.debug)
