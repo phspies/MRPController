@@ -21,7 +21,7 @@ namespace MRPService.API.Types.API
         public int credential_type { get; set; }
         public bool standalone { get; set; }
         public string hash_value { get; set; }
-
+        public bool deleted { get; set; }
     }
     public class MRPCredentialListType
     {
@@ -41,5 +41,6 @@ namespace MRPService.API.Types.API
         public bool standalone { get; set; }
         public string organization_id { get; set; }
         public string hash_value { get; set; }
+        public bool deleted { get; set; }
     }
 }

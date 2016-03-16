@@ -16,13 +16,13 @@ namespace MRPService.API
             {
                 performancecategory = _performancecategory
             };
-            endpoint = "/api/v1/performancecategories/create.json";
+            endpoint = "/performancecategories/create.json";
             post<MRPPerformanceCategoryType>(performance);
 
         }
         public MRPPerformanceCategoryListType list()
         {
-            endpoint = "/api/v1/performancecategories/list.json";
+            endpoint = "/performancecategories/list.json";
             MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPPerformanceCategoryListType)post<MRPPerformanceCategoryListType>(worker);
 

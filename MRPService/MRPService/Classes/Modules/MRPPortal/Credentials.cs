@@ -12,7 +12,7 @@ namespace MRPService.API
 
         public MRPCredentialListType listcredentials()
         {
-            endpoint = "/api/v1/credentials/list.json";
+            endpoint = "/credentials/list.json";
             MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPCredentialListType)post<MRPCredentialListType>(worker);
         }
@@ -23,7 +23,7 @@ namespace MRPService.API
             {
                 credential = _credential
             };
-            endpoint = "/api/v1/credentials/create.json";
+            endpoint = "/credentials/create.json";
             return (MRPCredentialType)post<MRPCredentialType>(platform);
         }
         public MRPCredentialType updatecredential(MRPCredentialCRUDType _credential)
@@ -32,7 +32,7 @@ namespace MRPService.API
             {
                 credential = _credential
             };
-            endpoint = "/api/v1/credentials/update.json";
+            endpoint = "/credentials/update.json";
             return (MRPCredentialType)put<MRPCredentialType>(credential);
         }
 

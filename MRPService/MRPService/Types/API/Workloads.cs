@@ -73,6 +73,8 @@ namespace MRPService.API.Types.API
         public List<MRPWorkloadInterfaceType> workloadinterfaces_attributes { get; set; }
         public List<MRPWorkloadProcessType> workloadprocesses_attributes { get; set; }
         public List<MRPWorkloadSoftwareType> workloadsoftwares_attributes { get; set; }
+        public bool deleted { get; set; }
+
     }
     public class MRPWorkloadListType
     {
@@ -125,5 +127,7 @@ namespace MRPService.API.Types.API
         public List<MRPWorkloadProcessType> processes { get; set; }
         public List<MRPWorkloadSoftwareType> softwares { get; set; }
         public List<MRPWorkloadVolumeType> volumes { get; set; }
+        public bool deleted { get; set; }
+
     }
 }

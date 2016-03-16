@@ -23,7 +23,7 @@ namespace MRPService.WCF
         {
             using (WorkloadSet db = new WorkloadSet())
             {
-                return db.ModelRepository.Get();
+                return db.ModelRepository.Get(x => x.deleted == false);
             }
         }
         public Workload AddWorkload(Workload _addworkload)
@@ -33,7 +33,8 @@ namespace MRPService.WCF
                 using (WorkloadSet db = new WorkloadSet())
                 {
                     _addworkload.id = Objects.RamdomGuid();
-                    db.ModelRepository.Insert(_addworkload);                  
+                    _addworkload.deleted = false;
+                    db.ModelRepository.Insert(_addworkload);
                 }
             }
             catch (System.Data.Entity.Validation.DbEntityValidationException e)
@@ -66,7 +67,9 @@ namespace MRPService.WCF
             {
                 using (WorkloadSet db = new WorkloadSet())
                 {
-                    db.ModelRepository.Delete(_destroyworkload.id);
+                    Workload _update = db.ModelRepository.GetById(_destroyworkload.id);
+                    _update.deleted = true;
+                    db.ModelRepository.Update(_update);
                 }
             }
             catch (Exception e)
@@ -80,7 +83,7 @@ namespace MRPService.WCF
         {
             using (PlatformSet db = new PlatformSet())
             {
-                return db.ModelRepository.Get();
+                return db.ModelRepository.Get(x => x.deleted == false);
             }
         }
         public Platform AddPlatform(Platform _addplatform)
@@ -90,6 +93,7 @@ namespace MRPService.WCF
                 using (PlatformSet db = new PlatformSet())
                 {
                     _addplatform.id = Objects.RamdomGuid();
+                    _addplatform.deleted = false;
                     db.ModelRepository.Insert(_addplatform);
                 }
             }
@@ -123,7 +127,9 @@ namespace MRPService.WCF
             {
                 using (PlatformSet db = new PlatformSet())
                 {
-                    db.ModelRepository.Delete(_destroyplatform.id);
+                    Platform _update = db.ModelRepository.GetById(_destroyplatform.id);
+                    _update.deleted = true;
+                    db.ModelRepository.Update(_update);
                 }
             }
             catch (Exception e)
@@ -133,7 +139,8 @@ namespace MRPService.WCF
         }
         public void RefreshPlatform(Platform _platform)
         {
-            try {
+            try
+            {
                 Inventory.PlatformInventoryDo(_platform.id, false);
 
             }
@@ -148,7 +155,7 @@ namespace MRPService.WCF
         {
             using (CredentialSet db = new CredentialSet())
             {
-                return db.ModelRepository.Get();
+                return db.ModelRepository.Get(x => x.deleted == false);
             }
         }
         public Credential AddCredential(Credential _addcredential)
@@ -158,6 +165,7 @@ namespace MRPService.WCF
                 using (CredentialSet db = new CredentialSet())
                 {
                     _addcredential.id = Objects.RamdomGuid();
+                    _addcredential.deleted = false;
                     db.ModelRepository.Insert(_addcredential);
                 }
             }
@@ -191,7 +199,9 @@ namespace MRPService.WCF
             {
                 using (CredentialSet db = new CredentialSet())
                 {
-                    db.ModelRepository.Delete(_destroycredential.id);
+                    Credential _update = db.ModelRepository.GetById(_destroycredential.id);
+                    _update.deleted = true;
+                    db.ModelRepository.Update(_update);
                 }
             }
             catch (Exception e)
@@ -223,7 +233,7 @@ namespace MRPService.WCF
         }
         public PlatformDetails PlatformDetails(String _datacenterId, String _url, Credential _credential)
         {
-            return new PlatformDetails( _datacenterId,  _url, _credential);
+            return new PlatformDetails(_datacenterId, _url, _credential);
         }
         public Tuple<bool, String> Login(string _url, Credential _credential, int _platform_type)
         {

@@ -14,11 +14,9 @@ namespace MRPService.API
         {
             MRPNetworkStatsCRUDType networkflow = new MRPNetworkStatsCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 networkstat = _networkstat
             };
-            endpoint = "/api/v1/networkstats/create.json";
+            endpoint = "/networkstats/create.json";
             post<MRPNetworkStatCRUDType>(networkflow);
         }
     }

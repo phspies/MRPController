@@ -12,6 +12,7 @@ namespace MRPService.API
     {
         private String _endpoint;
         private MRP_ApiClient _client;
+        static string api_prefix = "/api/v1";
 
         public Core(MRP_ApiClient _MRP)
         {
@@ -47,7 +48,7 @@ namespace MRPService.API
             while (true)
             {
                 var response = client.Execute(request);
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest)
+                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest || response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     try {
                         responseobject = JsonConvert.DeserializeObject<type>(response.Content);
@@ -90,7 +91,7 @@ namespace MRPService.API
         {
             get
             {
-                return this._endpoint;
+                return api_prefix + this._endpoint;
             }
             set
             {

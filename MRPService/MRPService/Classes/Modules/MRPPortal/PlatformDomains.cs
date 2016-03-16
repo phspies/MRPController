@@ -11,7 +11,7 @@ namespace MRPService.API
          
         public MRPPlatformdomainListType listplatformdomains()
         {
-            endpoint = "/api/v1/platformdomains/list.json";
+            endpoint = "/platformdomains/list.json";
             MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPPlatformdomainListType)post<MRPPlatformdomainListType>(worker);
         }
@@ -23,7 +23,7 @@ namespace MRPService.API
                 platformdomain = _platformdomain
             };
 
-            endpoint = "/api/v1/platformdomains/create.json";
+            endpoint = "/platformdomains/create.json";
             return (MRPPlatformdomainType)post<MRPPlatformdomainType>(platformdomain);
         }
         public MRPPlatformdomainType updateplatformdomain(MRPPlatformdomainCRUDType _platformdomain)
@@ -33,7 +33,7 @@ namespace MRPService.API
                 platformdomain = _platformdomain
             };
 
-            endpoint = "/api/v1/platformdomains/update.json";
+            endpoint = "/platformdomains/update.json";
             return (MRPPlatformdomainType)put<MRPPlatformdomainType>(platformdomain);
         }
     }

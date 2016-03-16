@@ -12,7 +12,7 @@ namespace MRPService.API
          
         public MRPPlatformtemplateListType listplatformtemplates()
         {
-            endpoint = "/api/v1/platformtemplates/list.json";
+            endpoint = "/platformtemplates/list.json";
             MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPPlatformtemplateListType)post<MRPPlatformtemplateListType>(worker);
         }
@@ -24,7 +24,7 @@ namespace MRPService.API
                 platformtemplate = _platformtemplate
             };
 
-            endpoint = "/api/v1/platformtemplates/create.json";
+            endpoint = "/platformtemplates/create.json";
             return (MRPPlatformtemplateType)post<MRPPlatformtemplateType>(platformtemplate);
         }
         public MRPPlatformtemplateType updateplatformtemplate(MRPPlatformtemplateCRUDType _platformtemplate)
@@ -34,7 +34,7 @@ namespace MRPService.API
                 platformtemplate = _platformtemplate
             };
 
-            endpoint = "/api/v1/platformtemplates/update.json";
+            endpoint = "/platformtemplates/update.json";
             return (MRPPlatformtemplateType)put<MRPPlatformtemplateType>(platformtemplate);
         }
     }

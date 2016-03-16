@@ -14,11 +14,9 @@ namespace MRPService.API
         {
             MRPPerformanceCountersCRUDType performance = new MRPPerformanceCountersCRUDType()
             {
-                worker_id = Global.agent_id,
-                worker_hostname = Environment.MachineName,
                 performancecounter = _performancecounter
             };
-            endpoint = "/api/v1/performancecounters/create.json";
+            endpoint = "/performancecounters/create.json";
             post<MRPPerformanceCounterCRUDType>(performance);
 
         }

@@ -12,14 +12,14 @@ namespace MRPService.API
          
         public MRPPlatformListType listplatforms()
         {
-            endpoint = "/api/v1/platforms/list.json";
+            endpoint = "/platforms/list.json";
             MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPPlatformListType)post<MRPPlatformListType>(worker);
         }
 
         public MRPPlatformType getplatform(string _platform_id)
         {
-            endpoint = "/api/v1/platforms/get_byid.json";
+            endpoint = "/platforms/get_byid.json";
             MRPPlatformGETType worker = new MRPPlatformGETType()
             {
                 platform_id = _platform_id
@@ -34,7 +34,7 @@ namespace MRPService.API
                 platform = _platform
             };
 
-            endpoint = "/api/v1/platforms/create.json";
+            endpoint = "/platforms/create.json";
             return (MRPPlatformType)post<MRPPlatformType>(platform);
         }
         public MRPPlatformType updateplatform(MRPPlatformCRUDType _platform)
@@ -44,7 +44,7 @@ namespace MRPService.API
                 platform = _platform
             };
 
-            endpoint = "/api/v1/platforms/update.json";
+            endpoint = "/platforms/update.json";
             return (MRPPlatformType)put<MRPPlatformType>(platform);
         }
     }

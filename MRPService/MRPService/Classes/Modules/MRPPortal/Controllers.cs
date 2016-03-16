@@ -20,7 +20,7 @@ namespace MRPService.API
         }
         public bool confirm_controller()
         {
-            endpoint = ("/api/v1/controllers/confirm.json");
+            endpoint = ("/controllers/confirm.json");
             MRPControllerConfirmType returnval = post<MRPControllerConfirmType>(worker);
 
             while (String.IsNullOrEmpty(((MRPControllerConfirmType)returnval).worker.organization_id))

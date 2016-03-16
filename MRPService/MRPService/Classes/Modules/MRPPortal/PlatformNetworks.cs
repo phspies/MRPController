@@ -11,7 +11,7 @@ namespace MRPService.API
          
         public MRPPlatformnetworkListType listplatformnetworks()
         {
-            endpoint = "/api/v1/platformnetworks/list.json";
+            endpoint = "/platformnetworks/list.json";
             MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPPlatformnetworkListType)post<MRPPlatformnetworkListType>(worker);
         }
@@ -23,7 +23,7 @@ namespace MRPService.API
                 platformnetwork = _platformnetwork
             };
 
-            endpoint = "/api/v1/platformnetworks/create.json";
+            endpoint = "/platformnetworks/create.json";
             return (MRPPlatformnetworkType)post<MRPPlatformnetworkType>(platformnetwork);
         }
         public MRPPlatformnetworkType updateplatformnetwork(MRPPlatformnetworkCRUDType _platformnetwork)
@@ -33,7 +33,7 @@ namespace MRPService.API
                 platformnetwork = _platformnetwork
             };
 
-            endpoint = "/api/v1/platformnetworks/update.json";
+            endpoint = "/platformnetworks/update.json";
             return (MRPPlatformnetworkType)put<MRPPlatformnetworkType>(platformnetwork);
         }
     }

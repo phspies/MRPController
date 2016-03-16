@@ -13,14 +13,14 @@ namespace MRPService.API
 
         public MRPWorkloadListType listworkloads()
         {
-            endpoint = "/api/v1/workloads/list.json";
+            endpoint = "/workloads/list.json";
             MRPCommandControllerType worker = new MRPCommandControllerType();
             return (MRPWorkloadListType)post<MRPWorkloadListType>(worker);
         }
 
         public MRPWorkloadType getworkload(string _workload_id)
         {
-            endpoint = "/api/v1/workloads/get.json";
+            endpoint = "/workloads/get.json";
             MRPWorkloadGETType worker = new MRPWorkloadGETType()
             {
                 workload_id = _workload_id
@@ -35,7 +35,7 @@ namespace MRPService.API
                 workload = _workload
             };
 
-            endpoint = "/api/v1/workloads/create.json";
+            endpoint = "/workloads/create.json";
             return post<MRPWorkloadType>(platform);
         }
         public MRPWorkloadType updateworkload(MRPWorkloadCRUDType _workload)
@@ -45,7 +45,7 @@ namespace MRPService.API
                 workload = _workload
             };
 
-            endpoint = "/api/v1/workloads/update.json";
+            endpoint = "/workloads/update.json";
             return (MRPWorkloadType)put<MRPWorkloadType>(workload);
         }
 

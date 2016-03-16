@@ -26,5 +26,6 @@ namespace MRPService.LocalDatabase
         public string human_type { get; set; }
         [StringLength(50)]
         public string hash_value { get; set; }
+        public bool deleted { get; set; }
     }
 }

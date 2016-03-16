@@ -54,5 +54,7 @@ namespace MRPService.LocalDatabase
         public string os_collection_message { get; set; }
         [StringLength(255)]
         public string dt_collection_message { get; set; }
+        public bool deleted { get; set; }
+
     }
 }

@@ -42,5 +42,7 @@ namespace MRPService.LocalDatabase
         public string networkdomain_sha1 { get; set; }
         [StringLength(50)]
         public string hash_value { get; set; }
+        public bool deleted { get; set; }
+
     }
 }

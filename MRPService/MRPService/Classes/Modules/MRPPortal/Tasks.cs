@@ -15,7 +15,7 @@ namespace MRPService.API
 
         public MRPTaskListType tasks()
         {
-            endpoint = "/api/v1/tasks/list.json";
+            endpoint = "/tasks/list.json";
             MRPCommandControllerType worker = new MRPCommandControllerType();
             return post<MRPTaskListType>(worker);
         }
@@ -36,7 +36,7 @@ namespace MRPService.API
                 }
             };
 
-            endpoint = "/api/v1/tasks/update.json";
+            endpoint = "/tasks/update.json";
             object returnval = put<MRPTaskType>(task);
             if (returnval is MRPError)
             {
@@ -63,7 +63,7 @@ namespace MRPService.API
                 }
             };
 
-            endpoint = "/api/v1/tasks/update.json";
+            endpoint = "/tasks/update.json";
             object returnval = put<MRPTaskType>(task);
             if (returnval is MRPError)
             {
@@ -88,7 +88,7 @@ namespace MRPService.API
                 }
             };
 
-            endpoint = "/api/v1/tasks/update.json";
+            endpoint = "/tasks/update.json";
             object returnval = put<MRPTaskType>(task);
             if (returnval is MRPError)
             {
@@ -112,7 +112,7 @@ namespace MRPService.API
                 }
             };
 
-            endpoint = "/api/v1/tasks/update.json";
+            endpoint = "/tasks/update.json";
             object returnval = put<MRPTaskType>(task);
             if (returnval is MRPError)
             {
@@ -135,7 +135,7 @@ namespace MRPService.API
                 }
             };
 
-            endpoint = "/api/v1/tasks/update.json";
+            endpoint = "/tasks/update.json";
             object returnval = put<MRPTaskType>(task);
             if (returnval is MRPError)
             {
@@ -149,7 +149,7 @@ namespace MRPService.API
         }
         public bool update(MRPTaskType _object) 
         {
-            endpoint = "/api/v1/tasks/update.json";
+            endpoint = "/tasks/update.json";
             object returnval = put<MRPTaskType>(_object);
             if (returnval is MRPError)
             {

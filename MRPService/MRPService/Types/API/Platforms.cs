@@ -40,6 +40,7 @@ namespace MRPService.API.Types.API
         public string moid { get; set; }
         public string platform_version { get; set; }
         public string hash_value { get; set; }
+        public bool deleted { get; set; }
 
     }
     public class MRPPlatformListType
@@ -69,6 +70,8 @@ namespace MRPService.API.Types.API
         public string mcpendpoint_id { get; set; }
         public string organization_id { get; set; }
         public string hash_value { get; set; }
+        public bool deleted { get; set; }
+
 
     }
 

@@ -16,7 +16,7 @@ namespace MRPService.API
             {
                 networkflow = _networkflow
             };
-            endpoint = "/api/v1/networkflows/create.json";
+            endpoint = "/networkflows/create.json";
             post<MRPNetworkFlowCRUDType>(networkflow);
 
         }
