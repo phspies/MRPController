@@ -9,7 +9,6 @@ namespace MRPService.DoubleTake
 
         static API.MRP_ApiClient MRP = null;
         static MRPTaskListType tasks = null;
-        static dynamic _payload = null;
 
         //public static void dt_create_dr_syncjob(MRPTaskType request)
         //{

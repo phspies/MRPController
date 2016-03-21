@@ -2,8 +2,8 @@
 
 namespace MRPService.API
 {
-    class MRP_ApiClient
-    {
+    class MRP_ApiClient : IDisposable
+{
         public MRPTask task()
         {
             return new MRPTask(this);
@@ -55,6 +55,26 @@ namespace MRPService.API
         public MRPJob job()
         {
             return new MRPJob(this);
+        }
+
+
+        private bool disposed = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
         }
     }
 }

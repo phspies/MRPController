@@ -306,6 +306,8 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\BuildINI.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\CompareVersion.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\DeleteJobs.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\JobOptions.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\VerifyJobOptions.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Deploy.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DisasterRecovery.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability.cs" />

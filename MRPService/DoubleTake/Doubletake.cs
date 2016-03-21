@@ -11,10 +11,12 @@ namespace MRPService.DoubleTake
         {
             MRPDatabase db = new MRPDatabase();
 
-            if (target_workload_id != null)
+            if (target_workload_id == null)
             {
-                _target_workload = db.Workloads.FirstOrDefault(x => x.id == target_workload_id);
+                throw new System.ArgumentException("Target workload ID cannot be null");
             }
+            _target_workload = db.Workloads.FirstOrDefault(x => x.id == target_workload_id);
+
 
             //source could be empty in certian instances
             if (source_workload_id != null)
