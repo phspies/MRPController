@@ -14,7 +14,7 @@ namespace MRPService.DoubleTake
 {
     public class Availability
     {
-        public static void dt_create_ha_syncjob(MRPTaskType payload)
+        public static async void dt_create_ha_syncjob(MRPTaskType payload)
         {
             using (MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
             {
@@ -33,7 +33,7 @@ namespace MRPService.DoubleTake
                             return;
                         }
 
-                        List<JobInfoModel> _jobs = _dt.job().GetJobs().Result;
+                        List<JobInfoModel> _jobs = await _dt.job().GetJobs();
                         String[] _source_ips = _source_workload.iplist.Split(',');
                         String[] _target_ips = _target_workload.iplist.Split(',');
 
@@ -49,18 +49,18 @@ namespace MRPService.DoubleTake
                         var workloadId = Guid.Empty;
                         WorkloadModel wkld = (WorkloadModel)null;
 
-                        workloadId = _dt.workload().CreateWorkload(DT_JobTypes.HA_Full_Failover).Result.Id;
-                        wkld = _dt.workload().GetWorkload(workloadId).Result;
+                        workloadId = (await _dt.workload().CreateWorkload(DT_JobTypes.HA_Full_Failover)).Id;
+                        wkld = await _dt.workload().GetWorkload(workloadId);
 
 
                         JobCredentialsModel jobCreds = _dt.job().CreateJobCredentials();
 
                         _mrp_api.task().progress(payload, "Fetching recommended job options", 20);
 
-                        CreateOptionsModel jobInfo = _dt.job().GetJobOptions(
+                        CreateOptionsModel jobInfo = await _dt.job().GetJobOptions(
                             wkld,
                             jobCreds,
-                            DT_JobTypes.HA_Full_Failover).Result;
+                            DT_JobTypes.HA_Full_Failover);
 
                         jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
                         //jobInfo.JobOptions.Name = payload.target_id;
@@ -70,18 +70,18 @@ namespace MRPService.DoubleTake
 
                         _mrp_api.task().progress(payload, "Verifying job options and settings", 55);
 
-                        JobOptionsModel _job_model = _dt.job().VerifyAndFixJobOptions(jobCreds,jobInfo.JobOptions,DT_JobTypes.HA_Full_Failover).Result;
-  
+                        JobOptionsModel _job_model = await _dt.job().VerifyAndFixJobOptions(jobCreds, jobInfo.JobOptions, DT_JobTypes.HA_Full_Failover);
+
                         _mrp_api.task().progress(payload, "Creating new job", 56);
-                        Guid jobId = _dt.job().CreateJob((new CreateOptionsModel
+                        Guid jobId = await _dt.job().CreateJob((new CreateOptionsModel
                         {
                             JobOptions = jobInfo.JobOptions,
                             JobCredentials = jobCreds,
                             JobType = DT_JobTypes.HA_Full_Failover
-                        })).Result;
+                        }));
 
                         _mrp_api.task().progress(payload, String.Format("Job created successfully. Starting job id ?", jobId), 57);
-                        _dt.job().StartJob(jobId).Wait();
+                        await _dt.job().StartJob(jobId);
 
                         _mrp_api.task().progress(payload, "Registering job with portal", 60);
                         _mrp_api.job().createjob(new MRPJobType()
@@ -96,14 +96,14 @@ namespace MRPService.DoubleTake
 
                         _mrp_api.task().progress(payload, "Waiting for sync process to start", 65);
 
-                        JobInfoModel jobinfo = _dt.job().GetJob(jobId).Result;
+                        JobInfoModel jobinfo = await _dt.job().GetJob(jobId);
                         while (jobinfo.Statistics.CoreConnectionDetails.TargetState == TargetStates.Unknown)
                         {
                             Thread.Sleep(5000);
-                            jobinfo = _dt.job().GetJob(jobId).Result;
+                            jobinfo = await _dt.job().GetJob(jobId);
                         }
                         Thread.Sleep(5000);
-                        jobinfo = _dt.job().GetJob(jobId).Result;
+                        jobinfo = await _dt.job().GetJob(jobId);
 
                         _mrp_api.task().progress(payload, "Sync process started", 70);
                         while (jobinfo.Statistics.CoreConnectionDetails.MirrorState != MirrorState.Idle)
@@ -125,13 +125,12 @@ namespace MRPService.DoubleTake
                                 }
                             }
                             Thread.Sleep(TimeSpan.FromMinutes(5));
-                            jobinfo = _dt.job().GetJob(jobId).Result;
+                            jobinfo = await _dt.job().GetJob(jobId);
                         }
                         _mrp_api.task().progress(payload, String.Format("Successfully synchronized {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
 
                         _mrp_api.task().successcomplete(payload, JsonConvert.SerializeObject(jobinfo));
                     }
-
                 }
                 catch (Exception e)
                 {

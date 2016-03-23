@@ -1,6 +1,7 @@
 ﻿using DoubleTake.Web.Client;
 using DoubleTake.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -19,8 +20,13 @@ namespace MRPService.DoubleTake
                 if (_address != null)
                 {
                     ManagementConnection connection = ManagementService.GetConnectionAsync(_address).Result;
+                    WorkloadsApi _workload = new WorkloadsApi(connection);
+
+                    List<WorkloadTypeModel> _workloadtypes = _workload.GetWorkloadTypesAsync().Result.Content.ToList();   
+                         
                     ActivationStatusApi status = new ActivationStatusApi(connection);
                     ActivationStatusModel _information = status.GetActivationStatusAsync().Result.Content;
+                    //_information.Codes.Any(x => x.Attributes.Any(y => y.Name == "Error"));
                     license_status = _information.IsValid;
                     if (!license_status) { return false; }
                 }

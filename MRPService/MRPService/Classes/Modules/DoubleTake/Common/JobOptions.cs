@@ -64,6 +64,10 @@ namespace MRPService.DoubleTake
             //}
             jobInfo.JobOptions.CoreConnectionOptions.TargetAddress = Connection.FindConnection(_target_workload.iplist, true);
 
+            //set dns credentials with model to the DnsOptions
+            DnsDomainDetailsModel _dns = new DnsDomainDetailsModel() { };
+            jobInfo.JobOptions.DnsOptions.Domains[0] = _dns;
+
 
             return jobInfo;
 

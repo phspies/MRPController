@@ -520,3 +520,12 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPSe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\ru\System.Spatial.resources.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\zh-Hans\System.Spatial.resources.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\zh-Hant\System.Spatial.resources.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\DoubleTake.Core.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\DoubleTake.Web.Client.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\DoubleTake.Web.Client.Management.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\DoubleTake.Web.Core.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\DoubleTake.Core.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\DoubleTake.Web.Client.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\DoubleTake.Web.Client.Management.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\bin\Debug\DoubleTake.Web.Core.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPService\obj\x64\Debug\MRPService.csprojResolveAssemblyReference.cache
