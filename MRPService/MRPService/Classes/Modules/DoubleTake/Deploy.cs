@@ -1,11 +1,7 @@
-﻿using DoubleTake.Core.Contract;
-using Microsoft.Win32;
-using MRPService.DoubleTake;
+﻿using Microsoft.Win32;
 using MRPService.LocalDatabase;
 using MRPService.MRPService.Log;
 using MRPService.MRPService.Types.API;
-using MRPService.API;
-using SimpleImpersonation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,10 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Security;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using MRPService.Utilities;
+using DoubleTake.Web.Models;
 
 namespace MRPService.DoubleTake
 {
@@ -253,13 +248,15 @@ namespace MRPService.DoubleTake
 
                         //Verify if the management service of Double-Take is running
                         // to determine that the software is installed properly
-                        MRP_DoubleTake _dt = new MRP_DoubleTake(null, _working_workload.id);
-                        ProductVersion _dt_version = _dt.Common().ManagementService(DT_WorkloadType.Target).GetProductInfo().ManagementServiceVersion;
-
-                        if (_dt_version == null)
+                        ProductVersionModel _dt_version;
+                        using (Doubletake _dt = new Doubletake(null, _working_workload.id))
                         {
-                            _mrp_portal.task().failcomplete(payload, "Cannot determine installed version of Double-Take");
-                            continue;
+                            _dt_version = _dt.management().GetProductInfo().ManagementServiceVersion;
+                            if (_dt_version == null)
+                            {
+                                _mrp_portal.task().failcomplete(payload, "Cannot determine installed version of Double-Take");
+                                continue;
+                            }
                         }
                         _mrp_portal.task().progress(payload, String.Format("Double-Take version {0}.{1}.{2} has successfully installed on workload {3} ", _dt_version.Major, _dt_version.Minor, _dt_version.Build, _working_workload.hostname), _counter + 45);
 

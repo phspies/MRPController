@@ -3,9 +3,9 @@ using MRPService.MRPService.Types.API;
 
 namespace MRPService.DoubleTake
 {
-    public class MRPDoubleTake_DisasterRecovery : Core
+    class DisasterRecovery : Core
     {
-        public MRPDoubleTake_DisasterRecovery(MRP_DoubleTake cmdoubletake) : base(cmdoubletake) { }
+        public DisasterRecovery(Doubletake doubletake) : base(doubletake) { }
 
         static API.MRP_ApiClient MRP = null;
         static MRPTaskListType tasks = null;

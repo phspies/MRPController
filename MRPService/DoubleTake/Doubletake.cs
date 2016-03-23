@@ -1,38 +1,31 @@
-﻿using MRPService.LocalDatabase;
-using System.Linq;
+﻿using System;
 
 namespace MRPService.DoubleTake
 {
-    public class MRP_DoubleTake
+    class Doubletake : IDisposable
     {
-        public Workload _source_workload, _target_workload;
-       
-        public MRP_DoubleTake(string source_workload_id, string target_workload_id)
+        public string _source_workload_id, _target_workload_id;
+        public Doubletake(string source_workload_id, string target_workload_id)
         {
-            MRPDatabase db = new MRPDatabase();
-
-            if (target_workload_id == null)
-            {
-                throw new System.ArgumentException("Target workload ID cannot be null");
-            }
-            _target_workload = db.Workloads.FirstOrDefault(x => x.id == target_workload_id);
-
-
-            //source could be empty in certian instances
-            if (source_workload_id != null)
-            {
-                _source_workload = db.Workloads.FirstOrDefault(x => x.id == source_workload_id);
-            }
+            _source_workload_id = source_workload_id;
+            _target_workload_id = target_workload_id;
         }
 
-        public Core Common()
+        public Job job()
         {
-            return new Core(this);
+            return new Job(this);
         }
-        public ManagementService ManagementService()
+        public Workload workload()
         {
-            return new ManagementService(this);
+            return new Workload(this);
         }
-
+        public Management management()
+        {
+            return new Management(this);
+        }
+        public void Dispose()
+        {
+            System.GC.SuppressFinalize(this);
+        }
     }
 }

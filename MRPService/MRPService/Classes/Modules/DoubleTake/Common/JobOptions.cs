@@ -1,5 +1,4 @@
-﻿using DoubleTake.Core.Contract.Connection;
-using DoubleTake.Jobs.Contract;
+﻿using DoubleTake.Web.Models;
 using MRPService.MRPService.Types.API;
 using MRPService.Utilities;
 using System;
@@ -12,7 +11,7 @@ namespace MRPService.DoubleTake
 {
     public class SetOptions
     {
-        public static RecommendedJobOptions set_job_options(MRPTaskType payload, RecommendedJobOptions jobInfo)
+        public static CreateOptionsModel set_job_options(MRPTaskType payload, CreateOptionsModel jobInfo)
         {
             MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
             MRPTaskWorkloadType _target_workload = payload.submitpayload.target;
@@ -45,7 +44,7 @@ namespace MRPService.DoubleTake
                         break;
 
                 }
-                SnapshotSchedule _snapshot = new SnapshotSchedule();
+                SnapshotScheduleModel _snapshot = new SnapshotScheduleModel();
                 _snapshot.Interval = _snapshot_timespan;
                 _snapshot.IsEnabled = true;
                 _snapshot.MaxNumberOfSnapshots = _recovery_policy.snapshotcount;

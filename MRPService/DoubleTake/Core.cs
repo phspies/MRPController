@@ -1,101 +1,81 @@
-﻿using MRPService.API;
-using System;
-using System.Net;
-using System.ServiceModel;
+﻿using DoubleTake.Web.Client;
 using MRPService.LocalDatabase;
-using DoubleTake.Jobs.Contract;
 using MRPService.Utilities;
 
 namespace MRPService.DoubleTake
 {
-    public class Core
+    class Core
     {
-        public static Workload _source_workload, _target_workload;
-        public Core(MRP_DoubleTake _doubletake)
-        {
-            _source_workload = _doubletake._source_workload;
-            _target_workload = _doubletake._target_workload;
-        }
+        public JobsApi jobApi = null;
+        public WorkloadsApi workloadApi = null;
+        public static LocalDatabase.Workload _source_workload, _target_workload;
+        public string _source_address, _target_address;
+        public Credential _source_credentials, _target_credentials;
 
-        public IJobManager JobManager()
+        public Core(Doubletake _doubletake)
         {
-            Workload _current_workload = _target_workload;
-            Uri joburl = BuildConnectionUrl(_current_workload, "/DoubleTake/Jobs/JobManager").Uri;           
-            var jobMgrFactory = new ChannelFactory<IJobManager>("DefaultBinding_IJobManager_IJobManager", new EndpointAddress(joburl));
-            jobMgrFactory.Credentials.Windows.ClientCredential = GetCredentials(_current_workload);
-            jobMgrFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-            IJobManager jobMgr = jobMgrFactory.CreateChannel();
-            return jobMgr;
-        }
-        public IWorkloadManager WorkloadManager(DT_WorkloadType type)
-        {
-            Workload _current_workload = (type == DT_WorkloadType.Source ? _source_workload : _target_workload);
-            Uri workloadurl = BuildConnectionUrl(_current_workload, "/DoubleTake/Common/WorkloadManager").Uri;
-            var workloadFactory = new ChannelFactory<IWorkloadManager>("DefaultBinding_IWorkloadManager_IWorkloadManager", new EndpointAddress(workloadurl));
-            workloadFactory.Credentials.Windows.ClientCredential = GetCredentials(_current_workload);
-            workloadFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-            IWorkloadManager workloadMgr = workloadFactory.CreateChannel();
-            return workloadMgr;
-        }
-        public IManagementService ManagementService(DT_WorkloadType type)
-        {
-            Workload _current_workload = (type == DT_WorkloadType.Source ? _source_workload : _target_workload);
-            Uri url = BuildConnectionUrl(_current_workload, "/DoubleTake/Common/Contract/ManagementService").Uri;
-            ChannelFactory<IManagementService> MgtServiceFactory = new ChannelFactory<IManagementService>("DefaultBinding_IManagementService_IManagementService", new EndpointAddress(url));
-            MgtServiceFactory.Credentials.Windows.ClientCredential = GetCredentials(_current_workload);
-            MgtServiceFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-            IManagementService mgmtServiceMgr = MgtServiceFactory.CreateChannel();
-            return mgmtServiceMgr;
-        }
-
-        public IJobConfigurationVerifier ConfigurationVerifier()
-        {
-            Workload _current_workload = _target_workload;
-            Uri configurl = BuildConnectionUrl(_current_workload, "/DoubleTake/Jobs/JobConfigurationVerifier").Uri;
-            ChannelFactory<IJobConfigurationVerifier> configurationVerifierFactory = new ChannelFactory<IJobConfigurationVerifier>("DefaultBinding_IJobConfigurationVerifier_IJobConfigurationVerifier", new EndpointAddress(configurl));
-            configurationVerifierFactory.Credentials.Windows.ClientCredential = GetCredentials(_current_workload);
-            configurationVerifierFactory.Credentials.Windows.AllowedImpersonationLevel = System.Security.Principal.TokenImpersonationLevel.Impersonation;
-            IJobConfigurationVerifier configurationVrf = configurationVerifierFactory.CreateChannel();
-            return configurationVrf;
-        }
-        public JobCredentials DTJobCredentials()
-        {
-            MRPDatabase db = new MRPDatabase();
-            Credential _source_credential = db.Credentials.Find(_source_workload.credential_id);
-            Credential _target_credential = db.Credentials.Find(_target_workload.credential_id);
-
-            JobCredentials _creds = new JobCredentials()
+            if (_doubletake._target_workload_id == null)
             {
-                SourceHostUri = new Uri("http://" + _source_credential.username + ":" + _source_credential.password + "@" + Connection.FindConnection(_source_workload.iplist, true) + ":" + "6325"),
-                TargetHostUri = new Uri("http://" + _target_credential.username + ":" + _target_credential.password + "@" + Connection.FindConnection(_target_workload.iplist, true) + ":" + "6325")
-            };
-            return _creds;
+                throw new System.ArgumentException("Target workload ID cannot be null");
+            }
+            using (WorkloadSet _db_workload = new WorkloadSet())
+            {
+                _target_workload = _db_workload.ModelRepository.GetById(_doubletake._target_workload_id);
+            }
+            if (_target_workload == null)
+            {
+                throw new System.ArgumentException("Cannot find target workload in database");
+            }
+            
+            //Find working IP
+            _target_address = Connection.find_working_ip(_target_workload);
+            if (_target_address == null)
+            {
+                throw new System.ArgumentException(string.Format("Cannot contact workload {0}", _target_workload.hostname));
+            }
 
+            using (CredentialSet _db_credential = new CredentialSet())
+            {
+                _target_credentials = _db_credential.ModelRepository.GetById(_target_workload.credential_id);
+                var connection = ManagementService.GetConnectionAsync(_target_address).Result;
+                AccessLevelApi api = new AccessLevelApi(connection);
+                if (!connection.CheckAuthorizationAsync().Result)
+                {
+                    connection.AuthorizeAsync(_target_credentials.username, _target_credentials.password).Wait();
+                }
+            }
+            //source could be empty in certian instances
+            if (_doubletake._source_workload_id != null)
+            {
+                using (WorkloadSet _db_workload = new WorkloadSet())
+                {
+                    _source_workload = _db_workload.ModelRepository.GetById(_doubletake._source_workload_id);
+                }
+                if (_source_workload == null)
+                {
+                    throw new System.ArgumentException("Cannot find source workload in database");
+                }
+
+                //Find working IP
+                _source_address = Connection.find_working_ip(_source_workload);
+                if (_source_address == null)
+                {
+                    throw new System.ArgumentException(string.Format("Cannot contact workload {0}", _source_workload.hostname));
+                }
+
+                using (CredentialSet _db_credential = new CredentialSet())
+                {
+                    _source_credentials = _db_credential.ModelRepository.GetById(_source_workload.credential_id);
+                    var connection = ManagementService.GetConnectionAsync(_source_address).Result;
+                    AccessLevelApi api = new AccessLevelApi(connection);
+                    if (!connection.CheckAuthorizationAsync().Result)
+                    {
+                        connection.AuthorizeAsync(_source_credentials.username, _source_credentials.password).Wait();
+                    }
+                }
+            }
         }
-        private static UriBuilder BuildConnectionUrl(Workload workload, string method)
-        {
-            MRPDatabase db = new MRPDatabase();
-            Credential _credential = db.Credentials.Find(workload.credential_id);
 
 
-            UriBuilder _uri = new UriBuilder();
-            int portNumber = 6325;
-            string bindingScheme = "http://";
-            _uri = new UriBuilder(bindingScheme, Connection.FindConnection(workload.iplist, true), portNumber, method);
-            _uri.UserName = Uri.EscapeDataString(_credential.username);
-            _uri.Password = Uri.EscapeDataString(_credential.password);
-            return _uri;
-        }
-        private static NetworkCredential GetCredentials(Workload _workload)
-        {
-            MRPDatabase db = new MRPDatabase();
-
-            NetworkCredential credentials = new NetworkCredential();
-            Credential _credential = db.Credentials.Find(_workload.credential_id);
-            credentials.UserName = Uri.EscapeDataString(_credential.username);
-            credentials.Password = Uri.EscapeDataString(_credential.password);
-            credentials.Domain = Uri.EscapeDataString(String.IsNullOrEmpty(_credential.domain) ? "." : _credential.domain);
-            return credentials;
-        }
     }
 }

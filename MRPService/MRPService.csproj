@@ -92,6 +92,18 @@
       <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.0.252-develop\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DoubleTake.Core">
+      <HintPath>lib\DoubleTake.Core.0.1.44\lib\net451\DoubleTake.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DoubleTake.Web.Client">
+      <HintPath>lib\DoubleTake.Web.Client.0.1.80\lib\net451\DoubleTake.Web.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="DoubleTake.Web.Client.Management">
+      <HintPath>lib\DoubleTake.Web.Client.Management.0.1.80\lib\net451\DoubleTake.Web.Client.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="DoubleTake.Web.Core">
+      <HintPath>lib\DoubleTake.Web.Core.0.1.80\lib\net451\DoubleTake.Web.Core.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -287,8 +299,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoubleTake\Management.cs" />
+    <Compile Include="DoubleTake\Job.cs" />
     <Compile Include="DoubleTake\Core.cs" />
-    <Compile Include="DoubleTake\Common.cs" />
+    <Compile Include="DoubleTake\DoubleTake.cs" />
+    <Compile Include="DoubleTake\Workload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\ProcessInfo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\OSEditionSimplyfier.cs" />
@@ -305,9 +320,7 @@
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceDo.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\BuildINI.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\CompareVersion.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\DeleteJobs.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\JobOptions.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\VerifyJobOptions.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Deploy.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DisasterRecovery.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability.cs" />
@@ -1090,8 +1103,6 @@
     <Compile Include="DiscUtils\Xva\VirtualMachineBuilder.cs" />
     <Compile Include="DiscUtils\ZeroStream.cs" />
     <Compile Include="DoubleTake\Types.cs" />
-    <Compile Include="DoubleTake\Doubletake.cs" />
-    <Compile Include="DoubleTake\MgtService.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\APIClient.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Core.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\JSONSerializer.cs" />
@@ -1200,7 +1211,6 @@
     <Compile Include="VMWare\Workloads.cs" />
     <Compile Include="VMWare\Datacenters.cs" />
     <Compile Include="VMWare\VimApiClient.cs" />
-    <Compile Include="DoubleTake\DoubleTake.Wsdl.Contracts.cs" />
     <Compile Include="MRPSvc.cs">
       <SubType>Component</SubType>
     </Compile>
