@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading;
 using MRPService.API;
 using MRPService.Tasks;
+using MRPService.Tasks.DoubleTake;
+using MRPService.Tasks.MCP;
 
 namespace MRPService.TaskExecutioner
 {
@@ -36,7 +38,7 @@ namespace MRPService.TaskExecutioner
                                         {
                                             case "deploy_method":
                                                 {
-                                                    Thread newThread = new Thread(() => DoubleTake.Deploy.dt_deploy(task));
+                                                    Thread newThread = new Thread(() => Deploy.dt_deploy(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -44,7 +46,7 @@ namespace MRPService.TaskExecutioner
                                                 break;
                                             case "sync_ha_method":
                                                 {
-                                                    Thread newThread = new Thread(() => DoubleTake.Availability.dt_create_ha_syncjob(task));
+                                                    Thread newThread = new Thread(() => Availability.dt_create_ha_syncjob(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -95,7 +97,7 @@ namespace MRPService.TaskExecutioner
                                                 if (task.submitpayload.platform != null)
                                                 {
                                                     Logger.log(String.Format("Found workload creation job in tasks: {0}", task.submitpayload.target.hostname), Logger.Severity.Info);
-                                                    Thread newThread = new Thread(() => Platform.mcp_provisionvm(task));
+                                                    Thread newThread = new Thread(() => MCP_Platform.ProvisionVM(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });

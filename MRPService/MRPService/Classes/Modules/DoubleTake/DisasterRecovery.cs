@@ -1,14 +1,14 @@
 ﻿using MRPService.API;
 using MRPService.MRPService.Types.API;
 
-namespace MRPService.DoubleTake
+namespace MRPService.Tasks.DoubleTake
 {
-    class DisasterRecovery : Core
-    {
-        public DisasterRecovery(Doubletake doubletake) : base(doubletake) { }
+    //class DisasterRecovery : Core
+    //{
+        //public DisasterRecovery(Doubletake doubletake) : base(doubletake) { }
 
-        static API.MRP_ApiClient MRP = null;
-        static MRPTaskListType tasks = null;
+        //static API.MRP_ApiClient MRP = null;
+        //static MRPTaskListType tasks = null;
 
         //public static void dt_create_dr_syncjob(MRPTaskType request)
         //{
@@ -647,5 +647,5 @@ namespace MRPService.DoubleTake
         //    }
         //}
 
-    }
+    //}
 }

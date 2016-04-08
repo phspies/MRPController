@@ -12,12 +12,13 @@ using System.Security;
 using System.Threading;
 using MRPService.Utilities;
 using DoubleTake.Web.Models;
+using MRPService.DoubleTake;
 
-namespace MRPService.DoubleTake
+namespace MRPService.Tasks.DoubleTake
 {
     class Deploy
     {
-        public static void dt_deploy(MRPTaskType payload)
+        public static async void dt_deploy(MRPTaskType payload)
         {
             API.MRP_ApiClient _mrp_portal = new API.MRP_ApiClient();
 
@@ -27,10 +28,10 @@ namespace MRPService.DoubleTake
                 MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
                 MRPTaskWorkloadType _target_workload = payload.submitpayload.target;
 
-                int _counter=0;
+                int _counter = 0;
                 foreach (MRPTaskWorkloadType _working_workload in (new List<MRPTaskWorkloadType> { _source_workload, _target_workload }))
                 {
-                    switch(_counter)
+                    switch (_counter)
                     {
                         case 0:
                             _counter = 1;
@@ -60,7 +61,7 @@ namespace MRPService.DoubleTake
                     string systemArchitecture = null;
                     //Determine if the setup to be installed is 32 bit or 64 bit
                     string keyString = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
-                    using (new Impersonator(_workload_credentials.username, (String.IsNullOrWhiteSpace(_workload_credentials.domain) ? "." : _workload_credentials.domain),  _workload_credentials.password))
+                    using (new Impersonator(_workload_credentials.username, (String.IsNullOrWhiteSpace(_workload_credentials.domain) ? "." : _workload_credentials.domain), _workload_credentials.password))
                     {
                         #region Detect Target Architecture
                         RegistryKey rk = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, _contactable_ip);
@@ -251,7 +252,7 @@ namespace MRPService.DoubleTake
                         ProductVersionModel _dt_version;
                         using (Doubletake _dt = new Doubletake(null, _working_workload.id))
                         {
-                            _dt_version = _dt.management().GetProductInfo().ManagementServiceVersion;
+                            _dt_version = (await _dt.management().GetProductInfo()).ManagementServiceVersion;
                             if (_dt_version == null)
                             {
                                 _mrp_portal.task().failcomplete(payload, "Cannot determine installed version of Double-Take");
@@ -277,10 +278,10 @@ namespace MRPService.DoubleTake
         }
 
 
-    
 
- 
- 
+
+
+
 
 
     }

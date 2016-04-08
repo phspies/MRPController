@@ -9,8 +9,9 @@ using MRPService.MRPService.Types.API;
 using MRPService.MRPService.Log;
 using MRPService.API;
 using DoubleTake.Web.Models;
+using MRPService.DoubleTake;
 
-namespace MRPService.DoubleTake
+namespace MRPService.Tasks.DoubleTake
 {
     public class Availability
     {
@@ -131,6 +132,7 @@ namespace MRPService.DoubleTake
 
                         _mrp_api.task().successcomplete(payload, JsonConvert.SerializeObject(jobinfo));
                     }
+
                 }
                 catch (Exception e)
                 {

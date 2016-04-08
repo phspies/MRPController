@@ -19,9 +19,9 @@ using System.Threading;
 using MRPService.Utilities;
 using MRPService.PlatformInventory;
 
-namespace MRPService.Tasks
+namespace MRPService.Tasks.MCP
 {
-    class Platform
+    class MCP_Platform
     {
         public const int LOGON32_LOGON_INTERACTIVE = 2;
         public const int LOGON32_LOGON_SERVICE = 3;
@@ -41,40 +41,58 @@ namespace MRPService.Tasks
         [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
         public extern static bool CloseHandle(IntPtr handle);
 
-        public static void mcp_provisionvm(MRPTaskType payload)
+        public static async void ProvisionVM(MRPTaskType payload)
         {
             //Get workload object from portal to perform updates once provisioned
             API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient();
 
             MRPTaskSubmitpayloadType _payload = payload.submitpayload;
             MRPDatabase db = new MRPDatabase();
-            List<LocalDatabase.Platform> _list = db.Platforms.ToList();
-            LocalDatabase.Platform _platform = db.Platforms.FirstOrDefault(x => x.id == _payload.platform.id);
+            Platform _platform;
+            using (PlatformSet _platform_db = new PlatformSet())
+            {
+                _platform = _platform_db.ModelRepository.GetById(_payload.platform.id);
+            }
+            if (_platform == null)
+            {
+                throw new System.ArgumentException(String.Format("Cannot find platform {0} in local database", _payload.platform.platform));
+            }
+
 
             //Retrieve or create new standalone credentials
-            Credential _stadalone_creadential;
-            if (db.Credentials.Any(x => x.description == "Internal Windows Credentials"))
+            Credential _stadalone_credential;
+            Credential _platform_credentail;
+            using (CredentialSet _credential_db = new CredentialSet())
             {
-                _stadalone_creadential = db.Credentials.FirstOrDefault(x => x.description == "Internal Windows Credentials");
+                //get credential for platform
+                _platform_credentail = _credential_db.ModelRepository.GetById(_platform.credential_id);
+
+                //get or create credentials for standalone workload
+                if (_credential_db.ModelRepository.Get(x => x.description == "Internal Windows Credentials").Count > 0)
+                {
+                    _stadalone_credential = _credential_db.ModelRepository.Get(x => x.description == "Internal Windows Credentials").FirstOrDefault();
+                }
+                else
+                {
+                    _stadalone_credential = new Credential();
+                    _stadalone_credential.credential_type = 1;
+                    _stadalone_credential.description = "Internal Windows Credentials";
+                    _stadalone_credential.username = "Administrator";
+                    _stadalone_credential.password = new Random().GetSHA1Hash().Substring(0, 12);
+                    _stadalone_credential.id = Objects.RamdomGuid();
+                    _credential_db.ModelRepository.Insert(_stadalone_credential);
+                }
             }
-            else
+            if (_stadalone_credential == null)
             {
-                _stadalone_creadential = new Credential();
-                _stadalone_creadential.credential_type = 1;
-                _stadalone_creadential.description = "Internal Windows Credentials";
-                _stadalone_creadential.username = "Administrator";
-                _stadalone_creadential.password = new Random().GetSHA1Hash().Substring(0,12);
-                _stadalone_creadential.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                db.Credentials.Add(_stadalone_creadential);
-                db.SaveChanges();
+                throw new System.ArgumentException("Cannot find standalone credential for workload deployment");
             }
 
-            API.MRP_ApiClient MRP = new API.MRP_ApiClient();
-            Credential _platform_credentails = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
 
 
-            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentails.username, _platform_credentails.password));
-            CaaS.Login().Wait();    
+
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentail.username, _platform_credentail.password));
+            CaaS.Login().Wait();
 
             try
             {
@@ -113,7 +131,7 @@ namespace MRPService.Tasks
                 _vm.memoryGb = Convert.ToUInt16(_target.vmemory);
                 _vm.start = false;
                 _vm.disk = _disks.ToArray();
-                _vm.administratorPassword =  _stadalone_creadential.password;
+                _vm.administratorPassword = _stadalone_credential.password;
 
                 //create virtual server
                 ResponseType _status = new ResponseType();
@@ -124,13 +142,17 @@ namespace MRPService.Tasks
                     {
                         _status = CaaS.ServerManagement.Server.DeployServer(_vm).Result;
                         break;
-                    } catch (Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         if (--_deploy_retries == 0)
                         {
-                            MRP.task().failcomplete(payload, String.Format("Error submitting workload creation task:", ex.Message));
-                            Logger.log(String.Format("Error submitting workload creation task:", ex.Message), Logger.Severity.Error);
-                            return;
+                            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                            {
+                                _mrp_api.task().failcomplete(payload, String.Format("Error submitting workload creation task:", ex.Message));
+                                Logger.log(String.Format("Error submitting workload creation task:", ex.Message), Logger.Severity.Error);
+                                return;
+                            }
                         }
                         else Thread.Sleep(5000);
                     }
@@ -142,17 +164,23 @@ namespace MRPService.Tasks
                     var serverInfo = _status.info.Single(info => info.name == "serverId");
                     ServerType deployedServer = null;
                     {
-                        deployedServer = CaaS.ServerManagement.Server.GetServer(Guid.Parse(serverInfo.value)).Result;
+                        deployedServer = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(serverInfo.value));
                     }
-                    MRP.task().progress(payload, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), 20);
-                    ServerType _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _mrp_api.task().progress(payload, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), 20);
+                    }
+                    ServerType _newvm = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id));
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
                         if (_newvm.progress != null)
                         {
                             if (_newvm.progress.step != null)
                             {
-                                MRP.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.progress.step.name), 30 + _newvm.progress.step.number);
+                                using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                                {
+                                    _mrp_api.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.progress.step.name), 30 + _newvm.progress.step.number);
+                                }
                             }
                         }
                         _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
@@ -167,14 +195,20 @@ namespace MRPService.Tasks
                         {
                             if (_newvm.disk.ToList().Find(x => x.scsiId == _volume.diskindex).sizeGb < _volume.disksize)
                             {
-                                MRP.task().progress(payload, String.Format("Extending storage: {0} : {1}GB", _volume.diskindex, _volume.disksize), 60 + count);
-                                CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _volume.diskindex.ToString(), _volume.disksize.ToString());
+                                using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                                {
+                                    _mrp_api.task().progress(payload, String.Format("Extending storage: {0} : {1}GB", _volume.diskindex, _volume.disksize), 60 + count);
+                                }
+                                await CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _volume.diskindex.ToString(), _volume.disksize.ToString());
                             }
                         }
                         else
                         {
-                            MRP.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _volume.diskindex, _volume.disksize, _volume.platformstoragetier.storagetier), 60 + count);
-                            CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _volume.disksize.ToString(), _volume.platformstoragetier.shortname);
+                            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                            {
+                                _mrp_api.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _volume.diskindex, _volume.disksize, _volume.platformstoragetier.storagetier), 60 + count);
+                            }
+                            await CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _volume.disksize.ToString(), _volume.platformstoragetier.shortname);
                         }
                         _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                         while (_newvm.state != "NORMAL" && _newvm.started == false)
@@ -186,24 +220,29 @@ namespace MRPService.Tasks
                     }
 
                     //Start Workload
-                    MRP.task().progress(payload, String.Format("Power on workload"), 60 + count + 1);
-                    CaaS.ServerManagement.Server.StartServer(Guid.Parse(deployedServer.id));
-                    _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _mrp_api.task().progress(payload, String.Format("Power on workload"), 70);
+                    }
+                    await CaaS.ServerManagement.Server.StartServer(Guid.Parse(deployedServer.id));
+                    _newvm = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id));
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
-                        _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+                        _newvm = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id));
                         Thread.Sleep(5000);
                     }
-
-                    MRP.task().progress(payload, String.Format("Workload powered on"), 60 + count + 2);
-                    _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _mrp_api.task().progress(payload, String.Format("Workload powered on"), 71);
+                    }
+                    _newvm = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id));
 
 
                     //create diskpart file for virtual machine and copy it to the remote workload
                     List<String> _driveletters = new List<String>();
                     List<String> _systemdriveletters = new List<String>();
                     _systemdriveletters.AddRange("DEFGHIJKLMNOPQRSTUVWXYZ".Select(d => d.ToString()));
-                    List <String> _diskpart_struct = new List<string>();
+                    List<String> _diskpart_struct = new List<string>();
                     _diskpart_struct.Add("select volume c");
                     _diskpart_struct.Add("extend noerr");
                     _diskpart_struct.Add("");
@@ -229,7 +268,7 @@ namespace MRPService.Tasks
 
                     Thread.Sleep(new TimeSpan(0, 0, 30));
 
-                    string _ip_list = String.Join(",", _newvm.networkInfo.primaryNic.ipv6,_newvm.networkInfo.primaryNic.privateIpv4);
+                    string _ip_list = String.Join(",", _newvm.networkInfo.primaryNic.ipv6, _newvm.networkInfo.primaryNic.privateIpv4);
                     string _working_ip = Connection.FindConnection(_ip_list, true);
 
                     Logger.log(String.Format("Found working ip: {0}", _working_ip), Logger.Severity.Info);
@@ -238,13 +277,16 @@ namespace MRPService.Tasks
 
                     try
                     {
-                        LogonUser("Administrator", ".", _stadalone_creadential.password, LOGON32_LOGON_NEW_CREDENTIALS, LOGON32_PROVIDER_DEFAULT, ref userHandle);
+                        LogonUser("Administrator", ".", _stadalone_credential.password, LOGON32_LOGON_NEW_CREDENTIALS, LOGON32_PROVIDER_DEFAULT, ref userHandle);
                         WindowsIdentity identity = new WindowsIdentity(userHandle);
                         WindowsImpersonationContext context = identity.Impersonate();
                     }
                     catch (Exception ex)
                     {
-                        MRP.task().failcomplete(payload, String.Format("Error impersonating Administrator user: {0}", ex.Message));
+                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                        {
+                            _mrp_api.task().failcomplete(payload, String.Format("Error impersonating Administrator user: {0}", ex.Message));
+                        }
                         Logger.log(ex.Message, Logger.Severity.Error);
                         return;
                     }
@@ -266,18 +308,23 @@ namespace MRPService.Tasks
                             if (--_copy_retries == 0)
                             {
                                 Logger.log(String.Format("Error creating disk layout file on workload {0}: {1} : {2}", _working_ip, ex.Message, workloadPath), Logger.Severity.Info);
-                                MRP.task().failcomplete(payload, String.Format("Error creating disk layout file on workload: {0}", ex.Message));
+                                using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                                {
+                                    _mrp_api.task().failcomplete(payload, String.Format("Error creating disk layout file on workload: {0}", ex.Message));
+                                }
                                 return;
                             }
-                            else Thread.Sleep(new TimeSpan(0,0,30));
+                            else Thread.Sleep(new TimeSpan(0, 0, 30));
                         }
                     }
 
                     //Run Diskpart Command on Workload
                     //Create connection object to remote machine
-                    MRP.task().progress(payload, String.Format("Volume setup process on {0}", _newvm.name), 80);
-
-                    ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _stadalone_creadential.password };
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _mrp_api.task().progress(payload, String.Format("Volume setup process on {0}", _newvm.name), 80);
+                    }
+                    ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _stadalone_credential.password };
                     connOptions.Impersonation = ImpersonationLevel.Impersonate;
                     connOptions.Authentication = AuthenticationLevel.Default;
                     ManagementScope scope = new ManagementScope(@"\\" + _working_ip + @"\root\CIMV2", connOptions);
@@ -294,7 +341,10 @@ namespace MRPService.Tasks
                             if (--_connect_retries == 0)
                             {
                                 Logger.log(String.Format("Error running diskpart on workload {0}: {1} : {2}", _working_ip, ex.Message, workloadPath), Logger.Severity.Info);
-                                MRP.task().failcomplete(payload, String.Format("Error running diskpart on workload: {0}", ex.Message));
+                                using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                                {
+                                    _mrp_api.task().failcomplete(payload, String.Format("Error running diskpart on workload: {0}", ex.Message));
+                                }
                                 return;
                             }
                             else Thread.Sleep(5000);
@@ -331,15 +381,21 @@ namespace MRPService.Tasks
                     int _exitcode = Convert.ToInt32(returnValue.Properties["ReturnValue"].Value);
                     if (_exitcode != 0)
                     {
-                        MRP.task().failcomplete(payload, String.Format("Failed diskpart process on {0} ({1})", _newvm.name, _exitcode));
+                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                        {
+                            _mrp_api.task().failcomplete(payload, String.Format("Failed diskpart process on {0} ({1})", _newvm.name, _exitcode));
+                        }
                         return;
                     }
                     else
                     {
-                        MRP.task().progress(payload, String.Format("Volume setup process exit code: {0}", _exitcode), 81);
+                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                        {
+                            _mrp_api.task().progress(payload, String.Format("Volume setup process exit code: {0}", _exitcode), 81);
+                        }
                     }
                     //Add or update workload record in database
-                    Workload _new_workload = new Workload() { id = _target.id, moid = _newvm.id, enabled = true, hostname = _target.hostname, platform_id = _platform.id, credential_id = _stadalone_creadential.id };
+                    Workload _new_workload = new Workload() { id = _target.id, moid = _newvm.id, enabled = true, hostname = _target.hostname, platform_id = _platform.id, credential_id = _stadalone_credential.id };
                     if (db.Workloads.Any(x => x.id == _target.id))
                     {
                         Workload _current_workload = db.Workloads.FirstOrDefault(x => x.id == _target.id);
@@ -351,15 +407,13 @@ namespace MRPService.Tasks
                     }
                     db.SaveChanges();
 
-                    
-
                     //Get updated workload object from portal and update the moid,credential_id,provisioned on the portal
                     MRPWorkloadType _workload = _cloud_movey.workload().getworkload(_target.id);
                     MRPWorkloadCRUDType _update_workload = new MRPWorkloadCRUDType();
                     _update_workload.id = _target.id;
                     _update_workload.moid = _newvm.id;
                     _update_workload.workloadtype = _workload.workloadtype;
-                    _update_workload.credential_id = _stadalone_creadential.id;
+                    _update_workload.credential_id = _stadalone_credential.id;
                     _update_workload.provisioned = true;
 
                     //clear all disks, volumes and interfaces and force new discovery
@@ -369,28 +423,43 @@ namespace MRPService.Tasks
                     _cloud_movey.workload().updateworkload(_update_workload);
 
                     //update Platform inventory for server
-                    MRP.task().progress(payload, String.Format("Updating platform information for {0}", _target.hostname), 91);
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _mrp_api.task().progress(payload, String.Format("Updating platform information for {0}", _target.hostname), 91);
+                    }
                     PlatformInventoryWorkloadDo.UpdateMCPWorkload(_newvm.id, _newvm.datacenterId);
 
                     //update OS information or newly provisioned server
                     _workload = _cloud_movey.workload().getworkload(_target.id);
-                    MRP.task().progress(payload, String.Format("Updating operating system information for {0}", _target.hostname), 92);
-                    WorkloadInventory.WorkloadInventoryDo(_workload.id); 
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _mrp_api.task().progress(payload, String.Format("Updating operating system information for {0}", _target.hostname), 92);
+                    }
+                    WorkloadInventory.WorkloadInventoryDo(_workload.id);
 
                     //log the success
                     Logger.log(String.Format("Successfully provinioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);
-                    MRP.task().successcomplete(payload, JsonConvert.SerializeObject(_newvm));
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _mrp_api.task().successcomplete(payload, JsonConvert.SerializeObject(_newvm));
+                    }
                 }
                 else
                 {
-                    MRP.task().failcomplete(payload, String.Format("Failed to create target virtual machine: {0}",_status.ToString()));
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _mrp_api.task().failcomplete(payload, String.Format("Failed to create target virtual machine: {0}", _status.ToString()));
+                    }
                     Logger.log(String.Format("Failed to create target virtual machine: {0}", _status.error), Logger.Severity.Error);
 
                 }
             }
             catch (Exception e)
             {
-                MRP.task().failcomplete(payload, e.Message);
+                using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                {
+                    _mrp_api.task().failcomplete(payload, e.Message);
+                }
                 Logger.log(e.ToString(), Logger.Severity.Error);
             }
         }

@@ -318,9 +318,9 @@
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\InstanceCounters.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\PerfCounter.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceDo.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\BuildINI.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\CompareVersion.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\JobOptions.cs" />
+    <Compile Include="DoubleTake\BuildINI.cs" />
+    <Compile Include="DoubleTake\CompareVersion.cs" />
+    <Compile Include="DoubleTake\JobOptions.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Deploy.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DisasterRecovery.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability.cs" />
@@ -1129,7 +1129,7 @@
     <Compile Include="MRPService\Classes\Utilities\Connection.cs" />
     <Compile Include="MRPService\Classes\Utilities\Events.cs" />
     <Compile Include="MRPService\Classes\Utilities\HashExtensions.cs" />
-    <Compile Include="MRPService\Classes\Tasks\Platform.cs" />
+    <Compile Include="MRPService\Classes\Modules\MCP\ProvisionVM.cs" />
     <Compile Include="MRPService\Classes\Utilities\Impersonate.cs" />
     <Compile Include="MRPService\Classes\Utilities\IPSplit.cs" />
     <Compile Include="MRPService\Classes\Utilities\MRPRegistry.cs" />
