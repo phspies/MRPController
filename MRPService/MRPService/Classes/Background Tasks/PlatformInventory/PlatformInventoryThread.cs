@@ -47,7 +47,7 @@ namespace MRPService.PlatformInventory
                     {
                         MRPPlatformCRUDType _crudplatform = new MRPPlatformCRUDType();
                         _crudplatform.id = _platform.id;
-                        _crudplatform.worker_id = Global.agent_id;
+                        _crudplatform.worker_id = Global.manager_id;
                         _crudplatform.credential_id = _platform.credential_id;
                         _crudplatform.platform_version = _platform.platform_version;
                         _crudplatform.platformtype = (new Vendors()).VendorList.FirstOrDefault(x => x.ID == _platform.vendor).Vendor.Replace(" ", "_").ToLower();

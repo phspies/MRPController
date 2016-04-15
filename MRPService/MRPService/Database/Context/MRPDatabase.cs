@@ -21,6 +21,7 @@ namespace MRPService.LocalDatabase
         public DbSet<Event> Events { get; set; }
         public DbSet<Workload> Workloads { get; set; }
         public DbSet<NetworkFlow> NetworkFlows { get; set; }
+        public DbSet<Netstat> Netstat { get; set; }
         public DbSet<Performance> Performance { get; set; }
 
         public static DbConnection GetConnection()

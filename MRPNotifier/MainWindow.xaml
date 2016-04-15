@@ -20,7 +20,7 @@
     <controls:MetroWindow.Resources>
 
         <ResourceDictionary>
-            
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
                 <ResourceDictionary Source="/Resources/logos.xaml" />
@@ -34,7 +34,7 @@
             <converters:os_short x:Key="os_short_resource"/>
             <converters:platform x:Key="platform_resource"/>
             <converters:platform_description x:Key="platform_description_resource"/>
-            
+
 
             <DataTemplate x:Key="platform_description">
                 <StackPanel Orientation="Horizontal">
@@ -357,7 +357,7 @@
                 <TabItem Header="Workloads" controls:ControlsHelper.HeaderFontSize="18">
 
                     <Grid x:Name="ApplicationGroupGrid">
-                        <Button Margin="0,0,39,0" ToolTip="Refresh workload list from worker service" Height="30" VerticalAlignment="Top" Click="refresh_workloads_button_clicked" HorizontalAlignment="Right" Width="30">
+                        <Button Margin="0,0,78,0" ToolTip="Refresh workload list from worker service" Height="30" VerticalAlignment="Top" Click="refresh_workloads_button_clicked" HorizontalAlignment="Right" Width="30">
                             <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                 <Rectangle.OpacityMask>
                                     <VisualBrush Stretch="Fill"
@@ -365,7 +365,7 @@
                                 </Rectangle.OpacityMask>
                             </Rectangle>
                         </Button>
-                        <Button ToolTip="Add platform to worker list" Click="add_workload_button_clicked" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30">
+                        <Button ToolTip="Add Workload to Controller" Click="add_workload_button_clicked" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30" Margin="0,0,39,0">
                             <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                 <Rectangle.OpacityMask>
                                     <VisualBrush Stretch="Fill"
@@ -373,11 +373,19 @@
                                 </Rectangle.OpacityMask>
                             </Rectangle>
                         </Button>
+                        <Button ToolTip="Import Workloads into Controller" Click="import_workloads_button_clicked" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="30">
+                            <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill"
+									Visual="{DynamicResource appbar_add_multiple}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
 
                         <controls:ProgressRing x:Name="workloads_progress_indicator" Height="30" Margin="5,0,0,0" IsEnabled="True" IsActive="True" HorizontalAlignment="Left" Width="30" VerticalAlignment="Top" />
                         <Label x:Name="workloads_progress_message" HorizontalAlignment="Left" Margin="40,0,0,0" VerticalAlignment="Top" Height="31" Width="421"/>
 
-                        <TextBox x:Name="workload_search" Height="23" TextWrapping="Wrap" TextChanged="workload_search_filter" Margin="0,3,110,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="299" Grid.Column="1" />
+                        <TextBox x:Name="workload_search" Height="23" TextWrapping="Wrap" TextChanged="workload_search_filter" Margin="0,3,131,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="299" />
                         <ListView  x:Name="lvWorkloads" Margin="0,33,0,0" SizeChanged="lvWorkloads_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2" Grid.ColumnSpan="2">
                             <ListView.View>
                                 <GridView>
@@ -420,7 +428,7 @@
                                 </GridView>
                             </ListView.View>
                         </ListView>
-                        <Label x:Name="label" Content="Search" Margin="0,0,410,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="45" Grid.Column="1"/>
+                        <Label x:Name="label" Content="Search" Margin="0,0,431,0" VerticalAlignment="Top" Height="23" HorizontalAlignment="Right" Width="45"/>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Platforms" controls:ControlsHelper.HeaderFontSize="18">

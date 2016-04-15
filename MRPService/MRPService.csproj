@@ -1116,7 +1116,7 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformTemplates.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Platforms.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Tasks.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\Controllers.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Managers.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobs.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Workloads.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetflowCollection\NetflowV9Worker.cs" />

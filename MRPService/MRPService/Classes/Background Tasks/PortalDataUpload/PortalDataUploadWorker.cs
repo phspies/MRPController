@@ -140,9 +140,7 @@ namespace MRPService.MRPService.Classes.Background_Classes
                             _db_netstat.ModelRepository.Delete(_db_netstat_record.id);
                             _new_netstat += 1;
                         }
-
                     }
-
                     sw.Stop();
 
                     Logger.log(

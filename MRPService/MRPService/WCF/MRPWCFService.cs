@@ -271,8 +271,8 @@ namespace MRPService.WCF
         public workerInformation CollectionInformation()
         {
             workerInformation _notifier = new workerInformation();
-            _notifier.agentId = Global.agent_id;
-            _notifier.versionNumber = Global.version_number;
+            _notifier.agentId = Global.manager_id;
+            _notifier.versionNumber = Global.manager_version;
             _notifier.currentJobs = Global.worker_queue_count;
             return _notifier;
         }

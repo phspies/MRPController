@@ -12,7 +12,7 @@ namespace MRPService.API.Types.API
         {
             get
             {
-                return Global.agent_id;
+                return Global.manager_id;
             }
         }
         public string platform_id { get; set; }
@@ -23,7 +23,7 @@ namespace MRPService.API.Types.API
         {
             get
             {
-                return Global.agent_id;
+                return Global.manager_id;
             }
         }
         public MRPPlatformCRUDType platform { get; set; }

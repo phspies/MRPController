@@ -10,7 +10,7 @@ namespace MRPService.API.Types.API
         {
             get
             {
-                return Global.agent_id;
+                return Global.manager_id;
             }
         }
         public string workload_id { get; set; }
@@ -21,7 +21,7 @@ namespace MRPService.API.Types.API
         {
             get
             {
-                return Global.agent_id;
+                return Global.manager_id;
             }
         }
         public MRPWorkloadCRUDType workload { get; set; }

@@ -17,7 +17,7 @@ namespace MRPService.API.Types.API
         {
             get
             {
-                return Global.agent_id;
+                return Global.manager_id;
             }
         }
         public MRPJobType job { get; set; }
@@ -48,7 +48,7 @@ namespace MRPService.API.Types.API
         {
             get
             {
-                return Global.agent_id;
+                return Global.manager_id;
             }
         }
         public string worker_hostname { get; set; }
@@ -60,7 +60,7 @@ namespace MRPService.API.Types.API
         {
             get
             {
-                return Global.agent_id;
+                return Global.manager_id;
             }
         }
         public string worker_hostname { get; set; }

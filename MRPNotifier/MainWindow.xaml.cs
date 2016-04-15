@@ -403,10 +403,7 @@ namespace MRPNotifier
             #endregion
         }
 
-        private void add_workload_button_clicked(object sender, RoutedEventArgs e)
-        {
 
-        }
 
         private void refresh_workloads_button_clicked(object sender, RoutedEventArgs e)
         {
@@ -414,6 +411,15 @@ namespace MRPNotifier
             {
                 load_workloadlist();
             }
+        }
+
+        private void import_workloads_button_clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void add_workload_button_clicked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

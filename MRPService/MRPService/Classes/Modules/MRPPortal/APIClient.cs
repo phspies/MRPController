@@ -16,9 +16,9 @@ namespace MRPService.API
         {
             return new PortalCredential(this);
         }
-        public MRPWorker worker()
+        public MRPManager manager()
         {
-            return new MRPWorker(this);
+            return new MRPManager(this);
         }
         public MRPWorkload workload()
         {

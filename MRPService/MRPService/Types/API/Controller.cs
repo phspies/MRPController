@@ -1,28 +1,29 @@
 ﻿namespace MRPService.API.Types.API
 {
-    class MRPControllerType
+    class MRPManagerType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {
-                return Global.agent_id;
+                return Global.manager_id;
             }
         }
-        public string controller_hostname { get; set; }
-        public string controller_version { get; set; }
-        public string controller_ipaddress { get; set; }
+        public string hostname { get; set; }
+        public string version { get; set; }
+        public string ipaddress { get; set; }
     }
 
-    public class MRPControllerConfirmType
+    public class MRPManagerConfirmType
     {
-        public Controller worker { get; set; }
+        public Manager manager { get; set; }
     }
 
-    public class Controller
+    public class Manager
     {
         public string organization_id { get; set; }
         public string message { get; set; }
+        public bool status { get; set; }
     }
 
 

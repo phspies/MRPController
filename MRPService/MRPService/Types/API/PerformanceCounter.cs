@@ -13,7 +13,7 @@ namespace MRPService.API.Types.API
         {
             get
             {
-                return Global.agent_id;
+                return Global.manager_id;
             }
         }
         public MRPPerformanceCounterCRUDType performancecounter { get; set; }

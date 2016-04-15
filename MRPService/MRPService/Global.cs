@@ -19,9 +19,9 @@ namespace MRPService
         public static object mcp_exec = new object();
 
         static bool _debug;
-        static String _agent_id;
+        static String _manager_id;
         static String _api_base;
-        static String _worker_version = "0.0.1";
+        static String _manager_version = "0.0.1";
 
         public static int os_inventory_interval=1440;
         public static int os_inventory_concurrency=10;
@@ -60,15 +60,15 @@ namespace MRPService
                 _eventLog = value;
             }
         }
-        public static String version_number
+        public static String manager_version
         {
             get
             {
-                return _worker_version;
+                return _manager_version;
             }
             set
             {
-                _worker_version = value;
+                _manager_version = value;
             }
         }
         public static String api_base
@@ -82,15 +82,15 @@ namespace MRPService
                 _api_base = value;
             }
         }
-        public static String agent_id
+        public static String manager_id
         {
             get
             {
-                return _agent_id;
+                return _manager_id;
             }
             set
             {
-                _agent_id = value;
+                _manager_id = value;
             }
         }
 
