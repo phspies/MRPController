@@ -12,24 +12,32 @@
       <xs:element minOccurs="0" name="cpu_coresPerSocket" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="credential_id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="credential_ok" type="xs:boolean" />
+      <xs:element minOccurs="0" name="deleted" type="xs:boolean" />
+      <xs:element minOccurs="0" name="dt_collection_message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dt_collection_status" type="xs:boolean" />
+      <xs:element minOccurs="0" name="dt_contact_error_count" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="dt_last_contact" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="enabled" nillable="true" type="xs:boolean" />
-      <xs:element minOccurs="0" name="failed_contact_attempts" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="failovergroup_id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="hash_value" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="hostname" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="iplist" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="last_contact_attempt" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="last_contact_message" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="last_contact_status" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="moid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="os_collection_message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="os_collection_status" type="xs:boolean" />
+      <xs:element minOccurs="0" name="os_contact_error_count" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="os_last_contact" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="osedition" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ostype" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="perf_collection" type="xs:boolean" />
+      <xs:element minOccurs="0" name="perf_collection_message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="perf_collection_status" type="xs:boolean" />
+      <xs:element minOccurs="0" name="perf_contact_error_count" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="perf_last_contact" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="platform_id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="storage_count" nillable="true" type="xs:long" />
       <xs:element minOccurs="0" name="vcore" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="vcpu" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="vcpu_speed" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="vmemory" nillable="true" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
@@ -44,6 +52,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="credential_id" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="datacenter" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="deleted" type="xs:boolean" />
       <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="hash_value" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="human_vendor" nillable="true" type="xs:string" />
@@ -56,6 +65,7 @@
       <xs:element minOccurs="0" name="passwordok" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="platform_details" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="platform_version" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="standalone" type="xs:boolean" />
       <xs:element minOccurs="0" name="url" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="vendor" type="xs:int" />
@@ -69,6 +79,7 @@
   <xs:complexType name="Credential">
     <xs:sequence>
       <xs:element minOccurs="0" name="credential_type" type="xs:int" />
+      <xs:element minOccurs="0" name="deleted" type="xs:boolean" />
       <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="domain" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="hash_value" nillable="true" type="xs:string" />

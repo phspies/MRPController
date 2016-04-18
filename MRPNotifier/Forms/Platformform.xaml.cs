@@ -42,17 +42,14 @@ namespace MRPNotifier.Forms
         }
         private void platform_credential_changed(object sender, SelectionChangedEventArgs e)
         {
-            Debug.WriteLine(_record.credential_id);
             toggle_platform();
         }
         private void platform_vendor_changed(object sender, SelectionChangedEventArgs e)
         {
-            Debug.WriteLine(platform_vendor.SelectedValue);
             toggle_platform();
         }
         private void toggle_platform()
         {
-
             if (_record.vendor == 0)
             {
                 platform_dimensiondata_url.Visibility = Visibility.Visible;

@@ -50,4 +50,8 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNo
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\MRPNotifier.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\MRPNotifier.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\bin\x64\Debug\MahApps.Metro.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\Forms\WorkloadForm.g.cs
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\Forms\WorkloadForm.baml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\Forms\ImportWorkloadsForm.g.cs
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\Forms\ImportWorkloadsForm.baml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\obj\x64\Debug\MRPNotifier.csprojResolveAssemblyReference.cache

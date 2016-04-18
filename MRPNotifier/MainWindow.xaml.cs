@@ -95,7 +95,7 @@ namespace MRPNotifier
             if (e.WidthChanged)
             {
                 GridView view = this.lvPlatforms.View as GridView;
-                Decorator border = VisualTreeHelper.GetChild(this.lvPlatforms, 0) as Decorator;
+                Decorator border = VisualTreeHelper.GetChild(this.lvTasks, 0) as Decorator;
                 if (border != null)
                 {
                     ScrollViewer scroller = border.Child as ScrollViewer;
@@ -107,7 +107,7 @@ namespace MRPNotifier
                             view.Columns[0].Width = presenter.ActualWidth;
                             for (int i = 1; i < view.Columns.Count; i++)
                             {
-                                view.Columns[0].Width -= view.Columns[i].ActualWidth;
+                                view.Columns[0].Width -= view.Columns[i].ActualWidth + 10;
                             }
                         }
                     }
@@ -119,7 +119,7 @@ namespace MRPNotifier
             if (e.WidthChanged)
             {
                 GridView view = this.lvCredentials.View as GridView;
-                Decorator border = VisualTreeHelper.GetChild(this.lvCredentials, 0) as Decorator;
+                Decorator border = VisualTreeHelper.GetChild(this.lvTasks, 0) as Decorator;
                 if (border != null)
                 {
                     ScrollViewer scroller = border.Child as ScrollViewer;
@@ -131,7 +131,7 @@ namespace MRPNotifier
                             view.Columns[0].Width = presenter.ActualWidth;
                             for (int i = 1; i < view.Columns.Count; i++)
                             {
-                                view.Columns[0].Width -= view.Columns[i].ActualWidth;
+                                view.Columns[0].Width -= view.Columns[i].ActualWidth + 10;
                             }
                         }
                     }
@@ -140,22 +140,24 @@ namespace MRPNotifier
         }
         private void lvWorkloads_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-
             if (e.WidthChanged)
             {
-                double remainingSpace = lvWorkloads.ActualWidth;
-
-                if (remainingSpace > 0)
+                GridView view = this.lvWorkloads.View as GridView;
+                Decorator border = VisualTreeHelper.GetChild(this.lvTasks, 0) as Decorator;
+                if (border != null)
                 {
-                    for (int i = 0; i < (lvWorkloads.View as GridView).Columns.Count; i++)
-                        if (i != 2)
-                            remainingSpace -= (lvWorkloads.View as GridView).Columns[i].ActualWidth;
-
-                    //Leave 15 px free for scrollbar
-                    remainingSpace -= 15;
-                    if (remainingSpace > 0)
+                    ScrollViewer scroller = border.Child as ScrollViewer;
+                    if (scroller != null)
                     {
-                        (lvWorkloads.View as GridView).Columns.Last().Width = remainingSpace;
+                        ItemsPresenter presenter = scroller.Content as ItemsPresenter;
+                        if (presenter != null)
+                        {
+                            view.Columns[0].Width = presenter.ActualWidth;
+                            for (int i = 1; i < view.Columns.Count; i++)
+                            {
+                                view.Columns[0].Width -= view.Columns[i].ActualWidth+10;
+                            }
+                        }
                     }
                 }
             }
@@ -163,7 +165,6 @@ namespace MRPNotifier
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             load_platformlist();
-
         }
         void OnClose(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -201,8 +202,6 @@ namespace MRPNotifier
             if (m_notifyIcon != null)
                 m_notifyIcon.Visible = show;
         }
-
-
 
         private void copy_guid_button_clicked(object sender, RoutedEventArgs e)
         {
@@ -251,9 +250,9 @@ namespace MRPNotifier
                 NegativeButtonText = "Abort",
                 ColorScheme = MetroDialogColorScheme.Theme
             };
-            MahApps.Metro.Controls.Dialogs.MessageDialogResult messageBoxResult = await this.ShowMessageAsync("Delete Platform", "Are you sure you want to delete this platform?", MessageDialogStyle.AffirmativeAndNegative, mySettings);
+            MessageDialogResult messageBoxResult = await this.ShowMessageAsync("Delete Platform", "Are you sure you want to delete this platform?", MessageDialogStyle.AffirmativeAndNegative, mySettings);
 
-            if (messageBoxResult == MahApps.Metro.Controls.Dialogs.MessageDialogResult.Affirmative)
+            if (messageBoxResult == MessageDialogResult.Affirmative)
             {
                 channel.DestroyPlatform(_platform);
                 load_platformlist();
@@ -262,25 +261,25 @@ namespace MRPNotifier
         }
         private void refresh_workload_button(object sender, RoutedEventArgs e)
         {
-            Workload_ObjectDataModel _workload = (Workload_ObjectDataModel)((Button)sender).DataContext;
+            Workload _workload = (Workload)((Button)sender).DataContext;
             //channel.RefreshPlatform(_platform);
             //refesh_platform_list();
         }
         private async void delete_workload_button(object sender, RoutedEventArgs e)
         {
-            Platform _platform = (Platform)((Button)sender).DataContext;
+            Workload _workload = (Workload)((Button)sender).DataContext;
             var mySettings = new MetroDialogSettings()
             {
                 AffirmativeButtonText = "Delete",
                 NegativeButtonText = "Abort",
                 ColorScheme = MetroDialogColorScheme.Theme
             };
-            MahApps.Metro.Controls.Dialogs.MessageDialogResult messageBoxResult = await this.ShowMessageAsync("Delete Platform", "Are you sure you want to delete this platform?", MessageDialogStyle.AffirmativeAndNegative, mySettings);
+            MessageDialogResult messageBoxResult = await this.ShowMessageAsync("Delete Workload", "Are you sure you want to delete this workload?", MessageDialogStyle.AffirmativeAndNegative, mySettings);
 
-            if (messageBoxResult == MahApps.Metro.Controls.Dialogs.MessageDialogResult.Affirmative)
+            if (messageBoxResult == MessageDialogResult.Affirmative)
             {
-                channel.DestroyPlatform(_platform);
-                load_platformlist();
+                channel.DestroyWorkload(_workload);
+                load_workloadlist();
             }
 
         }
@@ -415,11 +414,56 @@ namespace MRPNotifier
 
         private void import_workloads_button_clicked(object sender, RoutedEventArgs e)
         {
-
+            ImportWorkloadsForm _form = new ImportWorkloadsForm();
+            if (_form.ShowDialog() == true)
+            {
+                if (_form.DialogResult == true)
+                {
+                    if (_form._imported_workloads.Count > 0)
+                    {
+                        foreach (Workload _workload in _form._imported_workloads)
+                        {
+                            _workload.osedition = "Windows";
+                            _workload.vcore = 0;
+                            _workload.vcpu = 0;
+                            _workload.vmemory = 0;
+                            _workload.cpu_coresPerSocket = 0;
+                            _workload.enabled = false;
+                            _workload.storage_count = 0;
+                            _workload.credential_ok = false;
+                            channel.AddWorkload(_workload);
+                        }
+                        load_workloadlist();
+                    }
+                }
+            }
         }
         private void add_workload_button_clicked(object sender, RoutedEventArgs e)
         {
-
+            WorkloadForm _form = new WorkloadForm(new Workload(), 0, _credential_list);
+            if (_form.ShowDialog() == true)
+            {
+                _form._record.osedition = "windows";
+                _form._record.vcore = 0;
+                _form._record.vcpu = 0;
+                _form._record.vmemory = 0;
+                _form._record.cpu_coresPerSocket = 0;
+                _form._record.enabled = false;
+                _form._record.storage_count = 0;
+                _form._record.credential_ok = false;
+                channel.AddWorkload(_form._record);
+            }
+            load_workloadlist();
+        }
+        private void update_workload_button(object sender, RoutedEventArgs e)
+        {
+            Workload _workload = (Workload)((Button)sender).DataContext;
+            WorkloadForm _form = new WorkloadForm(_workload, 1, _credential_list);
+            if (_form.ShowDialog() == true)
+            {
+                channel.UpdateWorkload(_form._record);
+            }
+            load_workloadlist();
         }
     }
 

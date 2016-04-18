@@ -35,7 +35,7 @@ namespace MRPService.API.Types.API
         public string mapping { get; set; }
         public bool? enabled { get; set; }
         public string credential_id { get; set; }
-        public string worker_id { get;  set;}
+        public string manager_id { get;  set;}
         public string platformtype { get; set; }
         public string moid { get; set; }
         public string platform_version { get; set; }
@@ -58,7 +58,7 @@ namespace MRPService.API.Types.API
         public int? maxcpu { get; set; }
         public int? maxmemory { get; set; }
         public string url { get; set; }
-        public string worker_id { get; set; }
+        public string manager_id { get; set; }
         public string moid { get; set; }
         public string platform_version { get; set; }
         public List<MRPPlatformnetworkType> platformnetworks { get; set; }

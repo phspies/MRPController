@@ -11,28 +11,35 @@ namespace MRPNotifier.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            string osedition = value.ToString();
-            if (osedition.Contains("WIN"))
+            if (value != null)
+            {
+                string osedition = value.ToString();
+                if (osedition.ToUpper().Contains("WIN"))
+                {
+                    return "windows";
+                }
+                else if (osedition.ToUpper().Contains("CENTOS"))
+                {
+                    return "centos";
+                }
+                else if (osedition.ToUpper().Contains("REDHAT"))
+                {
+                    return "redhat";
+                }
+                else if (osedition.ToUpper().Contains("UBUNTU"))
+                {
+                    return "ubuntu";
+                }
+                else if (osedition.ToUpper().Contains("SUSE"))
+                {
+                    return "suse";
+                }
+                return "windows";
+            }
+            else
             {
                 return "windows";
             }
-            else if (osedition.Contains("CENTOS"))
-            {
-                return "centos";
-            }
-            else if (osedition.Contains("REDHAT"))
-            {
-                return "redhat";
-            }
-            else if (osedition.Contains("UBUNTU"))
-            {
-                return "ubuntu";
-            }
-            else if (osedition.Contains("SUSE"))
-            {
-                return "suse";
-            }
-            return "";
         }
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {

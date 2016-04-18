@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRPController\MRPNotifier\App.xaml
-7-1567461477
+9-1217857270
 
-291646333951
+31352110384
 301238757603
-Forms\CredentialForm.xaml;Forms\PlatformForm.xaml;SplashWindow.xaml;MainWindow.xaml;Resources\DimensionData.xaml;Resources\Icons.xaml;Resources\logos.xaml;
+Forms\CredentialForm.xaml;Forms\ImportWorkloadsForm.xaml;Forms\WorkloadForm.xaml;Forms\PlatformForm.xaml;SplashWindow.xaml;MainWindow.xaml;Resources\DimensionData.xaml;Resources\Icons.xaml;Resources\logos.xaml;
 
 False
 

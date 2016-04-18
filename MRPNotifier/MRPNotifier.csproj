@@ -161,6 +161,12 @@
     <Compile Include="Forms\CredentialForm.xaml.cs">
       <DependentUpon>CredentialForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ImportWorkloadsForm.xaml.cs">
+      <DependentUpon>ImportWorkloadsForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\WorkloadForm.xaml.cs">
+      <DependentUpon>WorkloadForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\PlatformForm.xaml.cs">
       <DependentUpon>PlatformForm.xaml</DependentUpon>
     </Compile>
@@ -179,6 +185,14 @@
     <Compile Include="Models\Vendors.cs" />
     <Compile Include="Models\Workload.cs" />
     <Page Include="Forms\CredentialForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\ImportWorkloadsForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Forms\WorkloadForm.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

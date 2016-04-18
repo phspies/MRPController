@@ -43,6 +43,7 @@ namespace MRPService.LocalDatabase
         [StringLength(50)]
         public string hash_value { get; set; }
         public bool deleted { get; set; }
+        public bool standalone { get; set; }
 
     }
 }

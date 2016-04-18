@@ -61,6 +61,7 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
@@ -305,6 +306,8 @@
     <Compile Include="DoubleTake\DoubleTake.cs" />
     <Compile Include="DoubleTake\Workload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\ProcessInfo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Physical\UpdatePhysicalPlatform.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Physical\UpdatePhysicalWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />

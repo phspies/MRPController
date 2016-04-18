@@ -35,13 +35,22 @@ namespace MRPNotifier.MRPWCFService {
         private bool credential_okField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool deletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string dt_collection_messageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool dt_collection_statusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> dt_contact_error_countField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> dt_last_contactField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<bool> enabledField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> failed_contact_attemptsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string failovergroup_idField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string hash_valueField;
@@ -56,16 +65,19 @@ namespace MRPNotifier.MRPWCFService {
         private string iplistField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<System.DateTime> last_contact_attemptField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string last_contact_messageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> last_contact_statusField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string moidField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string os_collection_messageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool os_collection_statusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> os_contact_error_countField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> os_last_contactField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string oseditionField;
@@ -74,7 +86,16 @@ namespace MRPNotifier.MRPWCFService {
         private string ostypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool perf_collectionField;
+        private string perf_collection_messageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool perf_collection_statusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> perf_contact_error_countField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> perf_last_contactField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string platform_idField;
@@ -87,6 +108,9 @@ namespace MRPNotifier.MRPWCFService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> vcpuField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> vcpu_speedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> vmemoryField;
@@ -154,6 +178,71 @@ namespace MRPNotifier.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool deleted {
+            get {
+                return this.deletedField;
+            }
+            set {
+                if ((this.deletedField.Equals(value) != true)) {
+                    this.deletedField = value;
+                    this.RaisePropertyChanged("deleted");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string dt_collection_message {
+            get {
+                return this.dt_collection_messageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.dt_collection_messageField, value) != true)) {
+                    this.dt_collection_messageField = value;
+                    this.RaisePropertyChanged("dt_collection_message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool dt_collection_status {
+            get {
+                return this.dt_collection_statusField;
+            }
+            set {
+                if ((this.dt_collection_statusField.Equals(value) != true)) {
+                    this.dt_collection_statusField = value;
+                    this.RaisePropertyChanged("dt_collection_status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> dt_contact_error_count {
+            get {
+                return this.dt_contact_error_countField;
+            }
+            set {
+                if ((this.dt_contact_error_countField.Equals(value) != true)) {
+                    this.dt_contact_error_countField = value;
+                    this.RaisePropertyChanged("dt_contact_error_count");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> dt_last_contact {
+            get {
+                return this.dt_last_contactField;
+            }
+            set {
+                if ((this.dt_last_contactField.Equals(value) != true)) {
+                    this.dt_last_contactField = value;
+                    this.RaisePropertyChanged("dt_last_contact");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<bool> enabled {
             get {
                 return this.enabledField;
@@ -162,32 +251,6 @@ namespace MRPNotifier.MRPWCFService {
                 if ((this.enabledField.Equals(value) != true)) {
                     this.enabledField = value;
                     this.RaisePropertyChanged("enabled");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> failed_contact_attempts {
-            get {
-                return this.failed_contact_attemptsField;
-            }
-            set {
-                if ((this.failed_contact_attemptsField.Equals(value) != true)) {
-                    this.failed_contact_attemptsField = value;
-                    this.RaisePropertyChanged("failed_contact_attempts");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string failovergroup_id {
-            get {
-                return this.failovergroup_idField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.failovergroup_idField, value) != true)) {
-                    this.failovergroup_idField = value;
-                    this.RaisePropertyChanged("failovergroup_id");
                 }
             }
         }
@@ -245,45 +308,6 @@ namespace MRPNotifier.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<System.DateTime> last_contact_attempt {
-            get {
-                return this.last_contact_attemptField;
-            }
-            set {
-                if ((this.last_contact_attemptField.Equals(value) != true)) {
-                    this.last_contact_attemptField = value;
-                    this.RaisePropertyChanged("last_contact_attempt");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string last_contact_message {
-            get {
-                return this.last_contact_messageField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.last_contact_messageField, value) != true)) {
-                    this.last_contact_messageField = value;
-                    this.RaisePropertyChanged("last_contact_message");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> last_contact_status {
-            get {
-                return this.last_contact_statusField;
-            }
-            set {
-                if ((this.last_contact_statusField.Equals(value) != true)) {
-                    this.last_contact_statusField = value;
-                    this.RaisePropertyChanged("last_contact_status");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string moid {
             get {
                 return this.moidField;
@@ -292,6 +316,58 @@ namespace MRPNotifier.MRPWCFService {
                 if ((object.ReferenceEquals(this.moidField, value) != true)) {
                     this.moidField = value;
                     this.RaisePropertyChanged("moid");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string os_collection_message {
+            get {
+                return this.os_collection_messageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.os_collection_messageField, value) != true)) {
+                    this.os_collection_messageField = value;
+                    this.RaisePropertyChanged("os_collection_message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool os_collection_status {
+            get {
+                return this.os_collection_statusField;
+            }
+            set {
+                if ((this.os_collection_statusField.Equals(value) != true)) {
+                    this.os_collection_statusField = value;
+                    this.RaisePropertyChanged("os_collection_status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> os_contact_error_count {
+            get {
+                return this.os_contact_error_countField;
+            }
+            set {
+                if ((this.os_contact_error_countField.Equals(value) != true)) {
+                    this.os_contact_error_countField = value;
+                    this.RaisePropertyChanged("os_contact_error_count");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> os_last_contact {
+            get {
+                return this.os_last_contactField;
+            }
+            set {
+                if ((this.os_last_contactField.Equals(value) != true)) {
+                    this.os_last_contactField = value;
+                    this.RaisePropertyChanged("os_last_contact");
                 }
             }
         }
@@ -323,14 +399,53 @@ namespace MRPNotifier.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool perf_collection {
+        public string perf_collection_message {
             get {
-                return this.perf_collectionField;
+                return this.perf_collection_messageField;
             }
             set {
-                if ((this.perf_collectionField.Equals(value) != true)) {
-                    this.perf_collectionField = value;
-                    this.RaisePropertyChanged("perf_collection");
+                if ((object.ReferenceEquals(this.perf_collection_messageField, value) != true)) {
+                    this.perf_collection_messageField = value;
+                    this.RaisePropertyChanged("perf_collection_message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool perf_collection_status {
+            get {
+                return this.perf_collection_statusField;
+            }
+            set {
+                if ((this.perf_collection_statusField.Equals(value) != true)) {
+                    this.perf_collection_statusField = value;
+                    this.RaisePropertyChanged("perf_collection_status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> perf_contact_error_count {
+            get {
+                return this.perf_contact_error_countField;
+            }
+            set {
+                if ((this.perf_contact_error_countField.Equals(value) != true)) {
+                    this.perf_contact_error_countField = value;
+                    this.RaisePropertyChanged("perf_contact_error_count");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> perf_last_contact {
+            get {
+                return this.perf_last_contactField;
+            }
+            set {
+                if ((this.perf_last_contactField.Equals(value) != true)) {
+                    this.perf_last_contactField = value;
+                    this.RaisePropertyChanged("perf_last_contact");
                 }
             }
         }
@@ -388,6 +503,19 @@ namespace MRPNotifier.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> vcpu_speed {
+            get {
+                return this.vcpu_speedField;
+            }
+            set {
+                if ((this.vcpu_speedField.Equals(value) != true)) {
+                    this.vcpu_speedField = value;
+                    this.RaisePropertyChanged("vcpu_speed");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<int> vmemory {
             get {
                 return this.vmemoryField;
@@ -426,6 +554,9 @@ namespace MRPNotifier.MRPWCFService {
         private string datacenterField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool deletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string descriptionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -460,6 +591,9 @@ namespace MRPNotifier.MRPWCFService {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string platform_versionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool standaloneField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string urlField;
@@ -514,6 +648,19 @@ namespace MRPNotifier.MRPWCFService {
                 if ((object.ReferenceEquals(this.datacenterField, value) != true)) {
                     this.datacenterField = value;
                     this.RaisePropertyChanged("datacenter");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool deleted {
+            get {
+                return this.deletedField;
+            }
+            set {
+                if ((this.deletedField.Equals(value) != true)) {
+                    this.deletedField = value;
+                    this.RaisePropertyChanged("deleted");
                 }
             }
         }
@@ -675,6 +822,19 @@ namespace MRPNotifier.MRPWCFService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool standalone {
+            get {
+                return this.standaloneField;
+            }
+            set {
+                if ((this.standaloneField.Equals(value) != true)) {
+                    this.standaloneField = value;
+                    this.RaisePropertyChanged("standalone");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string url {
             get {
                 return this.urlField;
@@ -788,6 +948,9 @@ namespace MRPNotifier.MRPWCFService {
         private int credential_typeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool deletedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string descriptionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -827,6 +990,19 @@ namespace MRPNotifier.MRPWCFService {
                 if ((this.credential_typeField.Equals(value) != true)) {
                     this.credential_typeField = value;
                     this.RaisePropertyChanged("credential_type");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool deleted {
+            get {
+                return this.deletedField;
+            }
+            set {
+                if ((this.deletedField.Equals(value) != true)) {
+                    this.deletedField = value;
+                    this.RaisePropertyChanged("deleted");
                 }
             }
         }

@@ -10,12 +10,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
     x:Class="MRPNotifier.MainWindow" 
     Icon="mrp.ico"
-    x:Name="Window" 
     ContentRendered="Window_ContentRendered"
     EnableDWMDropShadow="True"   
     Background="#F9FCF6"
     Loaded="OnWindowLoaded"
-    Title="MRP Worker" Height="666.671" Width="1269.191" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
+    Title="MRMP Manager" Height="509.671" Width="933.191" Closing="OnClose" StateChanged="OnStateChanged" IsVisibleChanged="OnIsVisibleChanged">
 
     <controls:MetroWindow.Resources>
 
@@ -51,6 +50,9 @@
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding human_vendor}" Value="Hyper-V">
                                             <Setter Property="Content" Value="{StaticResource hyper-v}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding human_vendor}" Value="Physical">
+                                            <Setter Property="Content" Value="{StaticResource appbar_workload}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -106,6 +108,9 @@
                                         </DataTrigger>
                                         <DataTrigger Binding="{Binding Path=platform_id, Converter={StaticResource platform_resource}}" Value="Hyper-V">
                                             <Setter Property="Content" Value="{StaticResource hyper-v}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=platform_id, Converter={StaticResource platform_resource}}" Value="Physical">
+                                            <Setter Property="Content" Value="{StaticResource appbar_workload}" />
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
@@ -352,7 +357,7 @@
             </Style>
         </Grid.Style>
         <Grid>
-            <TabControl Grid.Row="0" DockPanel.Dock="Top"  controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10,10,10,176" Background="#E8F2DC">
+            <TabControl Grid.Row="0" DockPanel.Dock="Top"  controls:TabControlHelper.IsUnderlined="True" x:Name="tabControl" Margin="10,10,10,94" Background="#E8F2DC">
 
                 <TabItem Header="Workloads" controls:ControlsHelper.HeaderFontSize="18">
 
@@ -411,6 +416,13 @@
                                                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                                                             <Rectangle.OpacityMask>
                                                                 <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_page_delete}" />
+                                                            </Rectangle.OpacityMask>
+                                                        </Rectangle>
+                                                    </Button>
+                                                    <Button x:Name="update_workload_button" Click="update_workload_button">
+                                                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                                            <Rectangle.OpacityMask>
+                                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_social_cloudapp}" />
                                                             </Rectangle.OpacityMask>
                                                         </Rectangle>
                                                     </Button>
@@ -564,7 +576,7 @@
                 </TabItem>
 
             </TabControl>
-            <ListView x:Name="lvTasks" Margin="10,0,10,10" SizeChanged="lvTasks_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2" Height="161" VerticalAlignment="Bottom">
+            <ListView x:Name="lvTasks" Margin="10,0,10,10" SizeChanged="lvTasks_SizeChanged"  Background="#FDFEFB" ItemContainerStyle="{StaticResource alternatingStyle}" AlternationCount="2" Height="79" VerticalAlignment="Bottom">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="150" DisplayMemberBinding="{Binding name}">

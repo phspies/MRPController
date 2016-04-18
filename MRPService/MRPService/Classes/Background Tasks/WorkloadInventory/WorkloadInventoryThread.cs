@@ -33,7 +33,6 @@ namespace MRPService.API.Classes
                     new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
                     (workload) =>
                     {
-
                         try
                         {
                             MRPWorkloadType _mrp_workload = _cloud_movey.workload().getworkload(workload.id);

@@ -22,16 +22,15 @@ namespace MRPService.PlatformInventory
             switch (_platform.vendor)
             {
                 case 0:
-                    //switch (_platform.platform_version)
-                    //{
-                    //    case "MCP 2.0":
-                            PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(platform_id, full);
-                            break;
-                    //}
-                    //break;
+                    PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(platform_id, full);
+                    break;
                 case 1:
                     PlatformVMwareInventoryDo.UpdateVMwarePlatform(platform_id, full);
                     break;
+                case 3:
+                    PlatformVMwareInventoryDo.UpdateVMwarePlatform(platform_id, full);
+                    break;
+
             }
             sw.Stop();
 

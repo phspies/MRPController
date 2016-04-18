@@ -34,6 +34,22 @@ namespace MRPService.WCF
                 {
                     _addworkload.id = Objects.RamdomGuid();
                     _addworkload.deleted = false;
+                    //Get standalone platform
+                    using (PlatformSet _platform_db = new PlatformSet())
+                    {
+                        List<Platform> _standalone_platform = _platform_db.ModelRepository.Get(x => x.standalone == true);
+                        if (_standalone_platform.Count > 0)
+                        {
+                            _addworkload.platform_id = _standalone_platform[0].id;
+                        }
+                        else
+                        {
+                            //insert standalone platform
+                            Platform _new_platform = new Platform() { description = "Standalone Platform", standalone = true, deleted = false, id = Objects.RamdomGuid(), vendor = 3, human_vendor = "Physical" };
+                            _platform_db.ModelRepository.Insert(_new_platform);
+                            _addworkload.platform_id = _new_platform.id;
+                        }
+                    }
                     db.ModelRepository.Insert(_addworkload);
                 }
             }
