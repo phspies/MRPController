@@ -1,0 +1,20 @@
+﻿MRMPConfigurator
+
+
+winexe
+C#
+.cs
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Debug\
+MRMPConfigurator
+none
+false
+DEBUG;TRACE
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\App.xaml
+9-1217857270
+
+31-615039721
+30394246449
+Forms\CredentialForm.xaml;Forms\ImportWorkloadsForm.xaml;Forms\WorkloadForm.xaml;Forms\PlatformForm.xaml;SplashWindow.xaml;MainWindow.xaml;Resources\DimensionData.xaml;Resources\Icons.xaml;Resources\logos.xaml;
+
+True
+

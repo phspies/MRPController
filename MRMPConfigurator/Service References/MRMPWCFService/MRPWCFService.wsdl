@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="MRMPWCFService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8734/MRMPWCFService?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8734/MRMPWCFService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8734/MRMPWCFService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MRMPService.LocalDatabase" />
+      <xsd:import schemaLocation="http://localhost:8734/MRMPWCFService?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:8734/MRMPWCFService?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/MRMPService.WCF" />
+      <xsd:import schemaLocation="http://localhost:8734/MRMPWCFService?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General" />
+      <xsd:import schemaLocation="http://localhost:8734/MRMPWCFService?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20" />
+      <xsd:import schemaLocation="http://localhost:8734/MRMPWCFService?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/MRMPService.API.Models" />
+      <xsd:import schemaLocation="http://localhost:8734/MRMPWCFService?xsd=xsd8" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IMRMPWCFService_ListWorkloads_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListWorkloads" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_ListWorkloads_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListWorkloadsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_AddWorkload_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddWorkload" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_AddWorkload_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddWorkloadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_UpdateWorkload_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWorkload" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_UpdateWorkload_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWorkloadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_DestroyWorkload_InputMessage">
+    <wsdl:part name="parameters" element="tns:DestroyWorkload" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_DestroyWorkload_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DestroyWorkloadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_ListPlatforms_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListPlatforms" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_ListPlatforms_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListPlatformsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_AddPlatform_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddPlatform" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_AddPlatform_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddPlatformResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_Login_InputMessage">
+    <wsdl:part name="parameters" element="tns:Login" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_Login_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_UpdatePlatform_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatform" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_UpdatePlatform_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePlatformResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_DestroyPlatform_InputMessage">
+    <wsdl:part name="parameters" element="tns:DestroyPlatform" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_DestroyPlatform_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DestroyPlatformResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_RefreshPlatform_InputMessage">
+    <wsdl:part name="parameters" element="tns:RefreshPlatform" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_RefreshPlatform_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RefreshPlatformResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_ListCredentials_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListCredentials" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_ListCredentials_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListCredentialsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_AddCredential_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddCredential" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_AddCredential_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddCredentialResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_UpdateCredential_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCredential" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_UpdateCredential_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateCredentialResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_DestroyCredential_InputMessage">
+    <wsdl:part name="parameters" element="tns:DestroyCredential" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_DestroyCredential_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DestroyCredentialResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_CollectionInformation_InputMessage">
+    <wsdl:part name="parameters" element="tns:CollectionInformation" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_CollectionInformation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CollectionInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_ListDatacenters_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListDatacenters" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_ListDatacenters_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListDatacentersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_PlatformDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:PlatformDetails" />
+  </wsdl:message>
+  <wsdl:message name="IMRMPWCFService_PlatformDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PlatformDetailsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IMRMPWCFService">
+    <wsdl:operation name="ListWorkloads">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/ListWorkloads" message="tns:IMRMPWCFService_ListWorkloads_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/ListWorkloadsResponse" message="tns:IMRMPWCFService_ListWorkloads_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddWorkload">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/AddWorkload" message="tns:IMRMPWCFService_AddWorkload_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/AddWorkloadResponse" message="tns:IMRMPWCFService_AddWorkload_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkload">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/UpdateWorkload" message="tns:IMRMPWCFService_UpdateWorkload_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/UpdateWorkloadResponse" message="tns:IMRMPWCFService_UpdateWorkload_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DestroyWorkload">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/DestroyWorkload" message="tns:IMRMPWCFService_DestroyWorkload_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/DestroyWorkloadResponse" message="tns:IMRMPWCFService_DestroyWorkload_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListPlatforms">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/ListPlatforms" message="tns:IMRMPWCFService_ListPlatforms_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/ListPlatformsResponse" message="tns:IMRMPWCFService_ListPlatforms_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPlatform">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/AddPlatform" message="tns:IMRMPWCFService_AddPlatform_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/AddPlatformResponse" message="tns:IMRMPWCFService_AddPlatform_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/Login" message="tns:IMRMPWCFService_Login_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/LoginResponse" message="tns:IMRMPWCFService_Login_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatform">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/UpdatePlatform" message="tns:IMRMPWCFService_UpdatePlatform_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/UpdatePlatformResponse" message="tns:IMRMPWCFService_UpdatePlatform_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DestroyPlatform">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/DestroyPlatform" message="tns:IMRMPWCFService_DestroyPlatform_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/DestroyPlatformResponse" message="tns:IMRMPWCFService_DestroyPlatform_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RefreshPlatform">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/RefreshPlatform" message="tns:IMRMPWCFService_RefreshPlatform_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/RefreshPlatformResponse" message="tns:IMRMPWCFService_RefreshPlatform_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListCredentials">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/ListCredentials" message="tns:IMRMPWCFService_ListCredentials_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/ListCredentialsResponse" message="tns:IMRMPWCFService_ListCredentials_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCredential">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/AddCredential" message="tns:IMRMPWCFService_AddCredential_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/AddCredentialResponse" message="tns:IMRMPWCFService_AddCredential_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCredential">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/UpdateCredential" message="tns:IMRMPWCFService_UpdateCredential_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/UpdateCredentialResponse" message="tns:IMRMPWCFService_UpdateCredential_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DestroyCredential">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/DestroyCredential" message="tns:IMRMPWCFService_DestroyCredential_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/DestroyCredentialResponse" message="tns:IMRMPWCFService_DestroyCredential_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CollectionInformation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/CollectionInformation" message="tns:IMRMPWCFService_CollectionInformation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/CollectionInformationResponse" message="tns:IMRMPWCFService_CollectionInformation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListDatacenters">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/ListDatacenters" message="tns:IMRMPWCFService_ListDatacenters_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/ListDatacentersResponse" message="tns:IMRMPWCFService_ListDatacenters_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PlatformDetails">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMRMPWCFService/PlatformDetails" message="tns:IMRMPWCFService_PlatformDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMRMPWCFService/PlatformDetailsResponse" message="tns:IMRMPWCFService_PlatformDetails_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IMRMPWCFService" type="tns:IMRMPWCFService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListWorkloads">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/ListWorkloads" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddWorkload">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/AddWorkload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWorkload">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/UpdateWorkload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DestroyWorkload">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/DestroyWorkload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListPlatforms">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/ListPlatforms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPlatform">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/AddPlatform" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Login">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePlatform">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/UpdatePlatform" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DestroyPlatform">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/DestroyPlatform" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefreshPlatform">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/RefreshPlatform" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListCredentials">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/ListCredentials" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddCredential">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/AddCredential" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCredential">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/UpdateCredential" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DestroyCredential">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/DestroyCredential" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CollectionInformation">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/CollectionInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListDatacenters">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/ListDatacenters" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PlatformDetails">
+      <soap:operation soapAction="http://tempuri.org/IMRMPWCFService/PlatformDetails" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MRMPWCFService">
+    <wsdl:port name="BasicHttpBinding_IMRMPWCFService" binding="tns:BasicHttpBinding_IMRMPWCFService">
+      <soap:address location="http://localhost:8734/MRMPWCFService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
