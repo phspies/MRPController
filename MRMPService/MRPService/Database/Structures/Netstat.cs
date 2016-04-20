@@ -8,6 +8,8 @@ namespace MRMPService.LocalDatabase
         [Key, StringLength(50)]
         public string id { get; set; }
         [StringLength(50)]
+        public string workload_id { get; set; }
+        [StringLength(50)]
         public string proto { get; set; }
         [StringLength(50)]
         public string source_ip { get; set; }

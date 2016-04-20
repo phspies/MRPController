@@ -62,7 +62,10 @@ namespace MRMPService.DoubleTake
             //    _bandwidth.Specifications
             //    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.Schedule.Bandwidth
             //}
-            jobInfo.JobOptions.CoreConnectionOptions.TargetAddress = Connection.FindConnection(_target_workload.iplist, true);
+            using (Connection _connection = new Connection())
+            {
+                jobInfo.JobOptions.CoreConnectionOptions.TargetAddress = _connection.FindConnection(_target_workload.iplist, false);
+            }
 
             //set dns credentials with model to the DnsOptions
             DnsDomainDetailsModel _dns = new DnsDomainDetailsModel() { };

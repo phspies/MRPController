@@ -1639,17 +1639,14 @@ namespace MRMPConfigurator.MRMPWCFService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ServerType", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.Status))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.AdditionalInformation))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.workerInformation))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.Workload>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.Workload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.Platform>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.Platform))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.Credential))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.Credential>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.PlatformDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<bool, string>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.DatacenterType>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.DatacenterType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.BackupType))]
@@ -1680,8 +1677,11 @@ namespace MRMPConfigurator.MRMPWCFService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.OperatingSystemType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.VirtualHardwareType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.VmwareToolsType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<bool, string>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.workerInformation))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.PlatformDetails))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.Status))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.AdditionalInformation))]
     public partial class ServerType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -2824,169 +2824,6 @@ namespace MRMPConfigurator.MRMPWCFService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Status", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
-    [System.SerializableAttribute()]
-    public partial class Status : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation> additionalInformationk__BackingFieldField;
-        
-        private string operationk__BackingFieldField;
-        
-        private string resultCodek__BackingFieldField;
-        
-        private string resultDetailk__BackingFieldField;
-        
-        private string resultk__BackingFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<additionalInformation>k__BackingField", IsRequired=true)]
-        public System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation> additionalInformationk__BackingField {
-            get {
-                return this.additionalInformationk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.additionalInformationk__BackingFieldField, value) != true)) {
-                    this.additionalInformationk__BackingFieldField = value;
-                    this.RaisePropertyChanged("additionalInformationk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<operation>k__BackingField", IsRequired=true)]
-        public string operationk__BackingField {
-            get {
-                return this.operationk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.operationk__BackingFieldField, value) != true)) {
-                    this.operationk__BackingFieldField = value;
-                    this.RaisePropertyChanged("operationk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultCode>k__BackingField", IsRequired=true)]
-        public string resultCodek__BackingField {
-            get {
-                return this.resultCodek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.resultCodek__BackingFieldField, value) != true)) {
-                    this.resultCodek__BackingFieldField = value;
-                    this.RaisePropertyChanged("resultCodek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultDetail>k__BackingField", IsRequired=true)]
-        public string resultDetailk__BackingField {
-            get {
-                return this.resultDetailk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.resultDetailk__BackingFieldField, value) != true)) {
-                    this.resultDetailk__BackingFieldField = value;
-                    this.RaisePropertyChanged("resultDetailk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<result>k__BackingField", IsRequired=true)]
-        public string resultk__BackingField {
-            get {
-                return this.resultk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.resultk__BackingFieldField, value) != true)) {
-                    this.resultk__BackingFieldField = value;
-                    this.RaisePropertyChanged("resultk__BackingField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AdditionalInformation", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
-    [System.SerializableAttribute()]
-    public partial class AdditionalInformation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string namek__BackingFieldField;
-        
-        private string valuek__BackingFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<name>k__BackingField", IsRequired=true)]
-        public string namek__BackingField {
-            get {
-                return this.namek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.namek__BackingFieldField, value) != true)) {
-                    this.namek__BackingFieldField = value;
-                    this.RaisePropertyChanged("namek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<value>k__BackingField", IsRequired=true)]
-        public string valuek__BackingField {
-            get {
-                return this.valuek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.valuek__BackingFieldField, value) != true)) {
-                    this.valuek__BackingFieldField = value;
-                    this.RaisePropertyChanged("valuek__BackingField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DatacenterType", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20")]
     [System.SerializableAttribute()]
     public partial class DatacenterType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -3995,86 +3832,249 @@ namespace MRMPConfigurator.MRMPWCFService {
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MRMPWCFService.IMRMPWCFService")]
-    public interface IMRMPWCFService {
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Status", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
+    [System.SerializableAttribute()]
+    public partial class Status : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/ListWorkloads", ReplyAction="http://tempuri.org/IMRMPWCFService/ListWorkloadsResponse")]
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation> additionalInformationk__BackingFieldField;
+        
+        private string operationk__BackingFieldField;
+        
+        private string resultCodek__BackingFieldField;
+        
+        private string resultDetailk__BackingFieldField;
+        
+        private string resultk__BackingFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<additionalInformation>k__BackingField", IsRequired=true)]
+        public System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation> additionalInformationk__BackingField {
+            get {
+                return this.additionalInformationk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.additionalInformationk__BackingFieldField, value) != true)) {
+                    this.additionalInformationk__BackingFieldField = value;
+                    this.RaisePropertyChanged("additionalInformationk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<operation>k__BackingField", IsRequired=true)]
+        public string operationk__BackingField {
+            get {
+                return this.operationk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.operationk__BackingFieldField, value) != true)) {
+                    this.operationk__BackingFieldField = value;
+                    this.RaisePropertyChanged("operationk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultCode>k__BackingField", IsRequired=true)]
+        public string resultCodek__BackingField {
+            get {
+                return this.resultCodek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.resultCodek__BackingFieldField, value) != true)) {
+                    this.resultCodek__BackingFieldField = value;
+                    this.RaisePropertyChanged("resultCodek__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultDetail>k__BackingField", IsRequired=true)]
+        public string resultDetailk__BackingField {
+            get {
+                return this.resultDetailk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.resultDetailk__BackingFieldField, value) != true)) {
+                    this.resultDetailk__BackingFieldField = value;
+                    this.RaisePropertyChanged("resultDetailk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<result>k__BackingField", IsRequired=true)]
+        public string resultk__BackingField {
+            get {
+                return this.resultk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.resultk__BackingFieldField, value) != true)) {
+                    this.resultk__BackingFieldField = value;
+                    this.RaisePropertyChanged("resultk__BackingField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AdditionalInformation", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
+    [System.SerializableAttribute()]
+    public partial class AdditionalInformation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private string namek__BackingFieldField;
+        
+        private string valuek__BackingFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<name>k__BackingField", IsRequired=true)]
+        public string namek__BackingField {
+            get {
+                return this.namek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.namek__BackingFieldField, value) != true)) {
+                    this.namek__BackingFieldField = value;
+                    this.RaisePropertyChanged("namek__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<value>k__BackingField", IsRequired=true)]
+        public string valuek__BackingField {
+            get {
+                return this.valuek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.valuek__BackingFieldField, value) != true)) {
+                    this.valuek__BackingFieldField = value;
+                    this.RaisePropertyChanged("valuek__BackingField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MRMPWCFService.IMRPWCFService")]
+    public interface IMRPWCFService {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/ListWorkloads", ReplyAction="http://tempuri.org/IMRPWCFService/ListWorkloadsResponse")]
         System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.Workload> ListWorkloads();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/AddWorkload", ReplyAction="http://tempuri.org/IMRMPWCFService/AddWorkloadResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/AddWorkload", ReplyAction="http://tempuri.org/IMRPWCFService/AddWorkloadResponse")]
         MRMPConfigurator.MRMPWCFService.Workload AddWorkload(MRMPConfigurator.MRMPWCFService.Workload _addworkload);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/UpdateWorkload", ReplyAction="http://tempuri.org/IMRMPWCFService/UpdateWorkloadResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/UpdateWorkload", ReplyAction="http://tempuri.org/IMRPWCFService/UpdateWorkloadResponse")]
         MRMPConfigurator.MRMPWCFService.Workload UpdateWorkload(MRMPConfigurator.MRMPWCFService.Workload _updateworkload);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/DestroyWorkload", ReplyAction="http://tempuri.org/IMRMPWCFService/DestroyWorkloadResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/DestroyWorkload", ReplyAction="http://tempuri.org/IMRPWCFService/DestroyWorkloadResponse")]
         void DestroyWorkload(MRMPConfigurator.MRMPWCFService.Workload _destroyworkload);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/ListPlatforms", ReplyAction="http://tempuri.org/IMRMPWCFService/ListPlatformsResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/ListPlatforms", ReplyAction="http://tempuri.org/IMRPWCFService/ListPlatformsResponse")]
         System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.Platform> ListPlatforms();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/AddPlatform", ReplyAction="http://tempuri.org/IMRMPWCFService/AddPlatformResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/AddPlatform", ReplyAction="http://tempuri.org/IMRPWCFService/AddPlatformResponse")]
         MRMPConfigurator.MRMPWCFService.Platform AddPlatform(MRMPConfigurator.MRMPWCFService.Platform _addplatform);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/Login", ReplyAction="http://tempuri.org/IMRMPWCFService/LoginResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/Login", ReplyAction="http://tempuri.org/IMRPWCFService/LoginResponse")]
         System.Tuple<bool, string> Login(string _url, MRMPConfigurator.MRMPWCFService.Credential _credential, int _platform_type);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/UpdatePlatform", ReplyAction="http://tempuri.org/IMRMPWCFService/UpdatePlatformResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/UpdatePlatform", ReplyAction="http://tempuri.org/IMRPWCFService/UpdatePlatformResponse")]
         MRMPConfigurator.MRMPWCFService.Platform UpdatePlatform(MRMPConfigurator.MRMPWCFService.Platform _updateplatform);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/DestroyPlatform", ReplyAction="http://tempuri.org/IMRMPWCFService/DestroyPlatformResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/DestroyPlatform", ReplyAction="http://tempuri.org/IMRPWCFService/DestroyPlatformResponse")]
         void DestroyPlatform(MRMPConfigurator.MRMPWCFService.Platform _destroyplatform);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/RefreshPlatform", ReplyAction="http://tempuri.org/IMRMPWCFService/RefreshPlatformResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/RefreshPlatform", ReplyAction="http://tempuri.org/IMRPWCFService/RefreshPlatformResponse")]
         void RefreshPlatform(MRMPConfigurator.MRMPWCFService.Platform _platform);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/ListCredentials", ReplyAction="http://tempuri.org/IMRMPWCFService/ListCredentialsResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/ListCredentials", ReplyAction="http://tempuri.org/IMRPWCFService/ListCredentialsResponse")]
         System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.Credential> ListCredentials();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/AddCredential", ReplyAction="http://tempuri.org/IMRMPWCFService/AddCredentialResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/AddCredential", ReplyAction="http://tempuri.org/IMRPWCFService/AddCredentialResponse")]
         MRMPConfigurator.MRMPWCFService.Credential AddCredential(MRMPConfigurator.MRMPWCFService.Credential _addCredential);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/UpdateCredential", ReplyAction="http://tempuri.org/IMRMPWCFService/UpdateCredentialResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/UpdateCredential", ReplyAction="http://tempuri.org/IMRPWCFService/UpdateCredentialResponse")]
         MRMPConfigurator.MRMPWCFService.Credential UpdateCredential(MRMPConfigurator.MRMPWCFService.Credential _updateCredential);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/DestroyCredential", ReplyAction="http://tempuri.org/IMRMPWCFService/DestroyCredentialResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/DestroyCredential", ReplyAction="http://tempuri.org/IMRPWCFService/DestroyCredentialResponse")]
         void DestroyCredential(MRMPConfigurator.MRMPWCFService.Credential _destroyCredential);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/CollectionInformation", ReplyAction="http://tempuri.org/IMRMPWCFService/CollectionInformationResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/CollectionInformation", ReplyAction="http://tempuri.org/IMRPWCFService/CollectionInformationResponse")]
         MRMPConfigurator.MRMPWCFService.workerInformation CollectionInformation();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/ListDatacenters", ReplyAction="http://tempuri.org/IMRMPWCFService/ListDatacentersResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/ListDatacenters", ReplyAction="http://tempuri.org/IMRPWCFService/ListDatacentersResponse")]
         System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.Platform> ListDatacenters(string url, MRMPConfigurator.MRMPWCFService.Credential _credential, int _platform_type);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRMPWCFService/PlatformDetails", ReplyAction="http://tempuri.org/IMRMPWCFService/PlatformDetailsResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMRPWCFService/PlatformDetails", ReplyAction="http://tempuri.org/IMRPWCFService/PlatformDetailsResponse")]
         MRMPConfigurator.MRMPWCFService.PlatformDetails PlatformDetails(string _datacenterId, string _url, MRMPConfigurator.MRMPWCFService.Credential _credential);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IMRMPWCFServiceChannel : MRMPConfigurator.MRMPWCFService.IMRMPWCFService, System.ServiceModel.IClientChannel {
+    public interface IMRPWCFServiceChannel : MRMPConfigurator.MRMPWCFService.IMRPWCFService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class MRMPWCFServiceClient : System.ServiceModel.ClientBase<MRMPConfigurator.MRMPWCFService.IMRMPWCFService>, MRMPConfigurator.MRMPWCFService.IMRMPWCFService {
+    public partial class MRPWCFServiceClient : System.ServiceModel.ClientBase<MRMPConfigurator.MRMPWCFService.IMRPWCFService>, MRMPConfigurator.MRMPWCFService.IMRPWCFService {
         
-        public MRMPWCFServiceClient() {
+        public MRPWCFServiceClient() {
         }
         
-        public MRMPWCFServiceClient(string endpointConfigurationName) : 
+        public MRPWCFServiceClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public MRMPWCFServiceClient(string endpointConfigurationName, string remoteAddress) : 
+        public MRPWCFServiceClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public MRMPWCFServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public MRPWCFServiceClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public MRMPWCFServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public MRPWCFServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         

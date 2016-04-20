@@ -14,7 +14,7 @@ namespace MRMPService.API
         public MRPJobListType listjobs()
         {
             endpoint = "/jobs/list.json";
-            MRPCommandControllerType worker = new MRPCommandControllerType();
+            MRPCommandManagerType worker = new MRPCommandManagerType();
             return (MRPJobListType)post<MRPJobListType>(worker);
         }
 

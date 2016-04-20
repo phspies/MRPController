@@ -23,7 +23,7 @@ namespace MRMPConfigurator.Forms
         public List<Credential> _credentials;
         public PlatformForm(Platform __record, int __action, List<Credential> __credentials)
         {
-            _credentials = __credentials;
+            _credentials = __credentials.FindAll(x => x.credential_type == 0);
             _record = __record;
             InitializeComponent();
             initialize_form();
@@ -90,7 +90,7 @@ namespace MRMPConfigurator.Forms
                 {
                     message.Text = "Testing Credentials";
 
-                    MRMPWCFServiceClient channel = new MRMPWCFServiceClient();
+                    MRPWCFServiceClient channel = new MRPWCFServiceClient();
                     Tuple<bool, string> _response = channel.Login(_record.url, _credentials.Find(x => x.id == _record.credential_id), _record.vendor);
                     if (_response.Item1)
                     {

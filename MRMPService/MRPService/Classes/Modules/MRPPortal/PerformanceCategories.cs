@@ -23,7 +23,7 @@ namespace MRMPService.API
         public MRPPerformanceCategoryListType list()
         {
             endpoint = "/performancecategories/list.json";
-            MRPCommandControllerType worker = new MRPCommandControllerType();
+            MRPCommandManagerType worker = new MRPCommandManagerType();
             return (MRPPerformanceCategoryListType)post<MRPPerformanceCategoryListType>(worker);
 
         }

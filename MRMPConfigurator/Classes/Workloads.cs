@@ -7,7 +7,7 @@ using System.Diagnostics;
 
 namespace MRMPConfigurator
 {
-    public partial class MainWindow : MetroWindow, INotifyPropertyChanged
+    public partial class MainWindow : MetroWindow
     {
         private List<Workload> _workload_list = new List<Workload>();
         BackgroundWorker workloadbgworker = new BackgroundWorker();

@@ -12,7 +12,7 @@ namespace MRMPConfigurator.Converters
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            MRMPWCFServiceClient channel = new MRMPWCFServiceClient();
+            MRPWCFServiceClient channel = new MRPWCFServiceClient();
             return channel.ListPlatforms().FirstOrDefault(x => x.id == (String)value).description;
         }
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

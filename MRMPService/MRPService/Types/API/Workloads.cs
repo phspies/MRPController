@@ -6,7 +6,7 @@ namespace MRMPService.API.Types.API
 
     public class MRPWorkloadGETType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {
@@ -17,7 +17,7 @@ namespace MRMPService.API.Types.API
     }
     public class MRPWorkloadsCRUDType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {

@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MRMPService.API.Types.API
 {
     public class MRPNetworkFlowsCRUDType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {
                 return Global.manager_id;
             }
         }
-        public MRPNetworkFlowCRUDType networkflow { get; set; }
+        public List<MRPNetworkFlowCRUDType> networkflows { get; set; }
     }
     public class MRPNetworkFlowCRUDType
     {

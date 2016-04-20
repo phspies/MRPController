@@ -9,6 +9,7 @@ using MRMPService.Utilities;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
+using MRMPService.MRMPService.Log;
 
 namespace MRMPService.API.Classes
 {
@@ -20,33 +21,32 @@ namespace MRMPService.API.Classes
         {
             WorkloadSet dbworkload = new WorkloadSet();
             CredentialSet dbcredential = new CredentialSet();
-            MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
-            MRPWorkloadType mrpworkload = _cloud_movey.workload().getworkload(workload_id);
-            if (mrpworkload == null)
-            {
-                throw new System.ArgumentException(String.Format("Error finding workload in MRP Portal {0}", workload_id));
-            }
-
-            //Check if workload exists
-            Workload _workload = dbworkload.ModelRepository.GetById(mrpworkload.id);
+            //Check if workload exists in local database
+            Workload _workload = dbworkload.ModelRepository.GetById(workload_id);
             if (_workload == null)
             {
-                throw new ArgumentException("Error finding workload in controller database");
+                throw new ArgumentException("Inventory: Error finding workload in manager database");
             }
 
             //check for credentials
-            Credential _credential = dbcredential.ModelRepository.GetById(mrpworkload.credential_id);
+            Credential _credential = dbcredential.ModelRepository.GetById(_workload.credential_id);
             if (_credential == null)
             {
                 throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", workload_id, _workload.hostname));
             }
 
-            string workload_ip = Connection.find_working_ip(_workload, true);
+            string workload_ip = null;
+            using (Connection _connection = new Connection())
+            {
+                workload_ip = _connection.FindConnection(_workload.iplist, true);
+            }
             if (workload_ip == null)
             {
                 throw new ArgumentException(String.Format("Error finding contactable IP for workload {0} {1}", _workload.id, _workload.hostname));
             }
+            Logger.log(String.Format("Netstat: Started netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+
 
             using (new Impersonator(_credential.username, (String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain), _credential.password))
             {
@@ -110,7 +110,15 @@ namespace MRMPService.API.Classes
                 {
                     try
                     {
-                        _processes.Add(new ProcessInfo() { name = queryObj["Name"].ToString(), command = queryObj["CommandLine"].ToString(), pid = Int16.Parse(queryObj["ProcessId"].ToString()) });
+                        string name = queryObj["Name"].ToString();
+                        string command = "";
+                        if (queryObj["CommandLine"] != null)
+                        {
+                            command = queryObj["CommandLine"].ToString();
+                        }
+
+                        int pid = Int16.Parse(queryObj["ProcessId"].ToString());
+                        _processes.Add(new ProcessInfo() { name = name, command = command, pid = pid });
                     }
                     catch (Exception ex) { }
                 }
@@ -135,6 +143,8 @@ namespace MRMPService.API.Classes
                                 {
                                     _netstat_db.ModelRepository.Insert(new Netstat()
                                     {
+                                        id = Objects.RamdomGuid(),
+                                        workload_id = workload_id,
                                         proto = tokens[0],
                                         pid = _pid,
                                         process = _processes.FirstOrDefault(x => x.pid == _pid).name,
@@ -149,6 +159,8 @@ namespace MRMPService.API.Classes
                         }
                     }
                 }
+                Logger.log(String.Format("Inventory: Completed netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+
             }
         }
     }

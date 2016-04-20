@@ -1,17 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MRMPService.API.Types.API
 {
     public class MRPPerformanceCountersCRUDType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {
                 return Global.manager_id;
             }
         }
-        public MRPPerformanceCounterCRUDType performancecounter { get; set; }
+        public List<MRPPerformanceCounterCRUDType> performancecounters { get; set; }
     }
     public class MRPPerformanceCounterCRUDType
     {

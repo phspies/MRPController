@@ -2,7 +2,7 @@
 {
     public class MRPNetworkStatsCRUDType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {

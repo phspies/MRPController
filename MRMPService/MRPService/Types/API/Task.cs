@@ -31,7 +31,7 @@ namespace MRMPService.MRMPService.Types.API
         public string step { get; set; }
         public object source { get; set; }
         public object name { get; set; }
-        public string worker_id { get; set; }
+        public string manager_id { get; set; }
         public string task_type { get; set; }
         public bool hidden { get; set; }
         public bool locked { get; set; }
@@ -229,7 +229,7 @@ namespace MRMPService.MRMPService.Types.API
         public string password { get; set; }
         public string moid { get; set; }
         public object mcpendpoint_id { get; set; }
-        public string worker_id { get; set; }
+        public string manager_id { get; set; }
         public string platform_version { get; set; }
     }
     public class MRPTaskUpdateType
@@ -248,7 +248,7 @@ namespace MRMPService.MRMPService.Types.API
 
     public class MRPProgressTaskUpdateType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {
@@ -265,7 +265,7 @@ namespace MRMPService.MRMPService.Types.API
     }
     public class MRPCompleteTaskUpdateType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {

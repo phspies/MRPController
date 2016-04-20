@@ -16,11 +16,11 @@ namespace MRMPService.API
         public MRPTaskListType tasks()
         {
             endpoint = "/tasks/list.json";
-            MRPCommandControllerType worker = new MRPCommandControllerType();
+            MRPCommandManagerType worker = new MRPCommandManagerType();
             return post<MRPTaskListType>(worker);
         }
 
-        public bool successcomplete(MRPTaskType payload, string returnpayload)
+        public ResultType successcomplete(MRPTaskType payload, string returnpayload)
         {
             int _status = (bool)payload.internal_complete == true ? 3 : 0;
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
@@ -35,20 +35,10 @@ namespace MRMPService.API
                     step = "Complete"
                 }
             };
-
             endpoint = "/tasks/update.json";
-            object returnval = put<MRPTaskType>(task);
-            if (returnval is MRPError)
-            {
-                Logger.log((returnval as MRPError).error, Logger.Severity.Error);
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return put<ResultType>(task);
         }
-        public bool successcomplete(MRPTaskType payload)
+        public ResultType successcomplete(MRPTaskType payload)
         {
             int _status = (bool)payload.internal_complete == true ? 3 : 0;
             int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
@@ -64,18 +54,9 @@ namespace MRMPService.API
             };
 
             endpoint = "/tasks/update.json";
-            object returnval = put<MRPTaskType>(task);
-            if (returnval is MRPError)
-            {
-                Logger.log((returnval as MRPError).error, Logger.Severity.Error);
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return put<ResultType>(task);
         }
-        public bool failcomplete(MRPTaskType payload, string returnpayload)
+        public ResultType failcomplete(MRPTaskType payload, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -89,18 +70,9 @@ namespace MRMPService.API
             };
 
             endpoint = "/tasks/update.json";
-            object returnval = put<MRPTaskType>(task);
-            if (returnval is MRPError)
-            {
-                Logger.log((returnval as MRPError).error, Logger.Severity.Error);
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return put<ResultType>(task);
         }
-        public bool progress(MRPTaskType payload, string _step, double _progress)
+        public ResultType progress(MRPTaskType payload, string _step, double _progress)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -113,18 +85,9 @@ namespace MRMPService.API
             };
 
             endpoint = "/tasks/update.json";
-            object returnval = put<MRPTaskType>(task);
-            if (returnval is MRPError)
-            {
-                Logger.log((returnval as MRPError).error, Logger.Severity.Error);
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return put<ResultType>(task);
         }
-        public bool progress(MRPTaskType payload, string _step)
+        public ResultType progress(MRPTaskType payload, string _step)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -136,31 +99,12 @@ namespace MRMPService.API
             };
 
             endpoint = "/tasks/update.json";
-            object returnval = put<MRPTaskType>(task);
-            if (returnval is MRPError)
-            {
-                Logger.log((returnval as MRPError).error, Logger.Severity.Error);
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return put<ResultType>(task);
         }
-        public bool update(MRPTaskType _object) 
+        public ResultType update(MRPTaskType _object) 
         {
             endpoint = "/tasks/update.json";
-            object returnval = put<MRPTaskType>(_object);
-            if (returnval is MRPError)
-            {
-                Logger.log((returnval as MRPError).error, Logger.Severity.Error);
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        
+            return put<ResultType>(_object);
         }
 
     }

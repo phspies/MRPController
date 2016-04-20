@@ -172,7 +172,7 @@ namespace MRMPService.TaskExecutioner
                 lstThreads.RemoveAll(x => x.task.ThreadState == ThreadState.Stopped);
                 Global.worker_queue_count = lstThreads.Count();
 
-                Thread.Sleep(5000);
+                Thread.Sleep(new TimeSpan(0, 0, Global.scheduler_interval));
             }
         }
     }

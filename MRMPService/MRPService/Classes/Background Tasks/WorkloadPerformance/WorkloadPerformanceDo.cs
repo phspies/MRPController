@@ -51,11 +51,19 @@ namespace MRMPService.PerformanceCollection
             }
 
             //check for working IP
-            string workload_ip = Connection.find_working_ip(mrpworkload, true);
+            string workload_ip = null;
+            using (Connection _connection = new Connection())
+            {
+                workload_ip = _connection.FindConnection(mrpworkload.iplist, false);
+            }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Error finding contactable IP for workload {0} {1}", mrpworkload.id, mrpworkload.hostname));
+                throw new ArgumentException(String.Format("Performance: Error finding contactable IP for workload {0} {1}", mrpworkload.id, mrpworkload.hostname));
             }
+
+
+            Logger.log(String.Format("Performance: Start performance collection for {0} using {1}", mrpworkload.hostname, workload_ip), Logger.Severity.Info);
+
 
             //Impersonate credentials before collection of information
             using (new Impersonator(_credential.username, (String.IsNullOrEmpty(_credential.domain) ? "." : _credential.domain), _credential.password))
@@ -79,7 +87,7 @@ namespace MRMPService.PerformanceCollection
                     PerformanceCounterCategory _pc = new PerformanceCounterCategory(pcc, workload_ip);
                     if (_pc.CategoryType == PerformanceCounterCategoryType.SingleInstance)
                     {
-                        List<InstanceCounters> _instances = new List<InstanceCounters>();
+                        SyncronisedList<InstanceCounters> _instances = new SyncronisedList<InstanceCounters>();
                         _instances.Add(new InstanceCounters() { instance = "" });
                         foreach (var _counter in _pc.GetCounters())
                         {
@@ -93,7 +101,7 @@ namespace MRMPService.PerformanceCollection
 
                             if (!_countertree.Any(x => x.category == pcc && x.counter == _counter.CounterName))
                             {
-                                _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
+                                _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances.ToList() });
                             }
                             PerformanceCounter _pcounter = new PerformanceCounter(_counter.CategoryName, _counter.CounterName, string.Empty, workload_ip);
                             InstanceCounters _counterobject = _countertree.Where(
@@ -126,10 +134,10 @@ namespace MRMPService.PerformanceCollection
                     }
                     else
                     {
-                        List<InstanceCounters> _instances = new List<InstanceCounters>();
+                        SyncronisedList<InstanceCounters> _instances = new SyncronisedList<InstanceCounters>();
                         foreach (string _instance in _pc.GetInstanceNames())
                         {
-                            if (!_instances.Exists(x => x.instance == _instance))
+                            if (!_instances.Any(x => x.instance == _instance))
                             {
                                 _instances.Add(new InstanceCounters() { instance = _instance });
                             }
@@ -150,7 +158,7 @@ namespace MRMPService.PerformanceCollection
 
                                 if (!_countertree.Any(x => x.category == pcc && x.counter == _counter.CounterName))
                                 {
-                                    _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances });
+                                    _countertree.Add(new PerfCounter() { category = pcc, counter = _counter.CounterName, instances = _instances.ToList() });
                                 }
                                 else
                                 {
@@ -168,6 +176,7 @@ namespace MRMPService.PerformanceCollection
                                 if (_counterobject.s0.CounterType != _counterobject.s1.CounterType)
                                 {
                                     _counterobject.s0 = _counter.NextSample();
+                                    _counterobject.s1 = _counter.NextSample();
                                 }
                                 _counterobject.value = CounterSampleCalculator.ComputeCounterValue(_counterobject.s0, _counterobject.s1);
                                 _counterobject.s0 = _counterobject.s1;
@@ -189,6 +198,8 @@ namespace MRMPService.PerformanceCollection
                     }
                 }
             }
+            Logger.log(String.Format("Performance: Completed performance collection for {0} using {1}", mrpworkload.hostname, workload_ip), Logger.Severity.Info);
+
         }
 
         static DateTime RoundDown(DateTime dt, TimeSpan d)

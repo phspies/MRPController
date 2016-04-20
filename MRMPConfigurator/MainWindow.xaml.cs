@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows;
 using MahApps.Metro.Controls;
@@ -14,7 +13,6 @@ using System.Data;
 using MRMPConfigurator.Extensions;
 using MRMPConfigurator.MRMPWCFService;
 using System.Windows.Input;
-using System.Threading.Tasks;
 
 namespace MRMPConfigurator
 {
@@ -22,29 +20,21 @@ namespace MRMPConfigurator
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow, INotifyPropertyChanged
+    public partial class MainWindow : MetroWindow
     {
 
-        MRMPWCFServiceClient channel = new MRMPWCFServiceClient();
+        MRPWCFServiceClient channel = new MRPWCFServiceClient();
         private WindowState m_storedWindowState = WindowState.Normal;
 
 
         private List<Workload_ObjectDataModel> _workloads = new List<Workload_ObjectDataModel>();
         workerInformation _information = null;
 
-        public event PropertyChangedEventHandler PropertyChanged;
         public List<Credential> workload_credentials()
         {
             return channel.ListCredentials().Where(x => x.credential_type == 1).ToList();
         }
 
-        protected void OnPropertyChanged(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
         private System.Windows.Forms.NotifyIcon m_notifyIcon;
         public MainWindow()
         {
@@ -414,7 +404,7 @@ namespace MRMPConfigurator
 
         private void import_workloads_button_clicked(object sender, RoutedEventArgs e)
         {
-            ImportWorkloadsForm _form = new ImportWorkloadsForm();
+            ImportWorkloadsForm _form = new ImportWorkloadsForm(_credential_list);
             if (_form.ShowDialog() == true)
             {
                 if (_form.DialogResult == true)
@@ -428,7 +418,6 @@ namespace MRMPConfigurator
                             _workload.vcpu = 0;
                             _workload.vmemory = 0;
                             _workload.cpu_coresPerSocket = 0;
-                            _workload.enabled = false;
                             _workload.storage_count = 0;
                             _workload.credential_ok = false;
                             channel.AddWorkload(_workload);

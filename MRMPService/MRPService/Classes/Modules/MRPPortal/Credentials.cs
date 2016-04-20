@@ -13,7 +13,7 @@ namespace MRMPService.API
         public MRPCredentialListType listcredentials()
         {
             endpoint = "/credentials/list.json";
-            MRPCommandControllerType worker = new MRPCommandControllerType();
+            MRPCommandManagerType worker = new MRPCommandManagerType();
             return (MRPCredentialListType)post<MRPCredentialListType>(worker);
         }
 

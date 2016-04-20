@@ -23,9 +23,9 @@ namespace MRMPService.API
         {
             return (type)perform<type>(Method.POST, _object);
         }
-        public Object put<type>(Object _object) where type : new()
+        public type put<type>(Object _object) where type : new()
         {
-            return perform<type>(Method.PUT, _object);
+            return (type)perform<type>(Method.PUT, _object);
         }
 
         public object perform<type>(Method _method, Object _object) where type : new()
@@ -48,11 +48,10 @@ namespace MRMPService.API
             while (true)
             {
                 var response = client.Execute(request);
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.BadRequest || response.StatusCode == HttpStatusCode.Unauthorized)
+                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     try {
-                        responseobject = JsonConvert.DeserializeObject<type>(response.Content);
-                        
+                        responseobject = JsonConvert.DeserializeObject<type>(response.Content);    
                     }
                     catch (Exception ex)
                     {
@@ -62,6 +61,20 @@ namespace MRMPService.API
                         break;
                     }
                     break;
+                }
+                else if (response.StatusCode == HttpStatusCode.BadRequest)
+                {
+                    try
+                    {
+                        responseobject = JsonConvert.DeserializeObject<ResultType>(response.Content);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.log(ex.ToString(), Logger.Severity.Error);
+                        Logger.log(JsonConvert.SerializeObject(_object), Logger.Severity.Error);
+                        Logger.log(response.Content, Logger.Severity.Error);
+                        break;
+                    }
                 }
                 else if (response.StatusCode == HttpStatusCode.RequestTimeout)
                 {
@@ -75,12 +88,23 @@ namespace MRMPService.API
                 }
                 else if (response.StatusCode == HttpStatusCode.NotFound)
                 {
-                    throw new System.ArgumentException("Record not found");
+                    try
+                    {
+                        responseobject = JsonConvert.DeserializeObject<ResultType>(response.Content);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.log(ex.ToString(), Logger.Severity.Error);
+                        Logger.log(JsonConvert.SerializeObject(_object), Logger.Severity.Error);
+                        Logger.log(response.Content, Logger.Severity.Error);
+                        break;
+                    }
+                    throw new System.ArgumentException(((ResultType)responseobject).result.message);
                 }
                 else
                 {
                     Logger.log(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), Logger.Severity.Error);
-                    Thread.Sleep(new TimeSpan(0, 0, 30));
+                    throw new System.ArgumentException(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage));
                 }
             }
             return responseobject;

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using MRMPService.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -23,20 +25,20 @@ namespace MRMPService
         static String _api_base;
         static String _manager_version = "0.0.1";
 
-        public static int os_inventory_interval=1440;
-        public static int os_inventory_concurrency=10;
+        public static int os_inventory_interval = (int)MRPRegistry.RegAccess("os_inventory_interval",1440, RegistryValueKind.DWord); //minutes
+        public static int os_inventory_concurrency = (int)MRPRegistry.RegAccess("os_inventory_concurrency", 10, RegistryValueKind.DWord);
 
-        public static int os_netstat_interval = 1440;
-        public static int os_netstat_concurrency = 10;
+        public static int os_netstat_interval = (int)MRPRegistry.RegAccess("os_netstat_interval", 30, RegistryValueKind.DWord);  //minutes
+        public static int os_netstat_concurrency = (int)MRPRegistry.RegAccess("os_netstat_concurrency", 10, RegistryValueKind.DWord);
 
-        public static int platform_inventory_interval=1440;
-        public static int platform_inventory_concurrency=10;
+        public static int platform_inventory_interval = (int)MRPRegistry.RegAccess("platform_inventory_interval", 1440, RegistryValueKind.DWord); //minutes
+        public static int platform_inventory_concurrency = (int)MRPRegistry.RegAccess("platform_inventory_concurrency", 10, RegistryValueKind.DWord);
 
-        public static int performance_concurrency=10;
+        public static int os_performance_concurrency = (int)MRPRegistry.RegAccess("os_performance_concurrency", 10, RegistryValueKind.DWord);
 
-        public static int portal_upload_interval=60;
+        public static int portal_upload_interval = (int)MRPRegistry.RegAccess("portal_upload_interval", 5, RegistryValueKind.DWord);
 
-        public static int scheduler_interval=1;
+        public static int scheduler_interval = (int)MRPRegistry.RegAccess("scheduler_interval", 5, RegistryValueKind.DWord); //seconds
 
         static String _organization_id;
         static int _worker_queue_count;

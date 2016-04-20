@@ -12,7 +12,7 @@ namespace MRMPService.API
         public MRPPlatformdomainListType listplatformdomains()
         {
             endpoint = "/platformdomains/list.json";
-            MRPCommandControllerType worker = new MRPCommandControllerType();
+            MRPCommandManagerType worker = new MRPCommandManagerType();
             return (MRPPlatformdomainListType)post<MRPPlatformdomainListType>(worker);
         }
 

@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace MRMPConfigurator
 {
-    public partial class MainWindow : MetroWindow, INotifyPropertyChanged
+    public partial class MainWindow : MetroWindow
     {
         private List<Credential> _credential_list = new List<Credential>();
         BackgroundWorker credentialbgworker = new BackgroundWorker();

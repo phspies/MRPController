@@ -19,7 +19,7 @@ namespace MRMPService.API.Classes
                 Stopwatch sw = Stopwatch.StartNew();
                 int _processed_workloads = 0;
 
-                Logger.log(String.Format("Staring operating system netstat process with {0} threads", Global.os_netstat_concurrency), Logger.Severity.Info);
+                Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", Global.os_netstat_concurrency), Logger.Severity.Info);
 
                 List<Workload> workloads;
                 using (WorkloadSet workload_set = new WorkloadSet())
@@ -37,13 +37,13 @@ namespace MRMPService.API.Classes
                         }
                         catch (Exception ex)
                         {
-                            Logger.log(String.Format("Error collecting netstat information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
+                            Logger.log(String.Format("Netstat: Error collecting netstat information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
                         }
                     });
 
                 sw.Stop();
 
-                Logger.log(String.Format("Completed operating system netstat for {0} workloads in {1} [next run at {2}]",
+                Logger.log(String.Format("Netstat: Completed netstat collection for {0} workloads in {1} [next run at {2}]",
                     _processed_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_netstat_run), Logger.Severity.Info);
 
                 //Wait for next run

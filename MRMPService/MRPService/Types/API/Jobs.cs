@@ -13,7 +13,7 @@ namespace MRMPService.API.Types.API
     }
     public class MRPJobsCRUDType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {
@@ -44,7 +44,7 @@ namespace MRMPService.API.Types.API
     }
     public class MRPJobIDGETType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {
@@ -56,7 +56,7 @@ namespace MRMPService.API.Types.API
     }
     public class MRPJobDTIDGETType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {

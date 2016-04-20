@@ -26,9 +26,12 @@ namespace MRMPService.DoubleTake
             {
                 throw new System.ArgumentException("Cannot find target workload in database");
             }
-            
+
             //Find working IP
-            _target_address = Connection.find_working_ip(_target_workload);
+            using (Connection _connection = new Connection())
+            {
+                _target_address = _connection.FindConnection(_target_workload.iplist, false);
+            }
             if (_target_address == null)
             {
                 throw new System.ArgumentException(string.Format("Cannot contact workload {0}", _target_workload.hostname));
@@ -57,7 +60,10 @@ namespace MRMPService.DoubleTake
                 }
 
                 //Find working IP
-                _source_address = Connection.find_working_ip(_source_workload);
+                using (Connection _connection = new Connection())
+                {
+                    _source_address = _connection.FindConnection(_source_workload.iplist, false);
+                }
                 if (_source_address == null)
                 {
                     throw new System.ArgumentException(string.Format("Cannot contact workload {0}", _source_workload.hostname));

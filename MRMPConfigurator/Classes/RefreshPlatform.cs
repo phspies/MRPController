@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace MRMPConfigurator
 {
-    public partial class MainWindow : MetroWindow, INotifyPropertyChanged
+    public partial class MainWindow : MetroWindow
     {
         BackgroundWorker platformrefreshbgworker = new BackgroundWorker();
 

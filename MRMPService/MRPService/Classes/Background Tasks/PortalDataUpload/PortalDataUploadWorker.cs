@@ -23,6 +23,8 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient();
             while (true)
             {
+                DateTime _next_upload_run = DateTime.Now.AddMinutes(Global.portal_upload_interval);
+
                 try
                 {
                     Logger.log("Staring data upload process", Logger.Severity.Info);
@@ -44,23 +46,23 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     }
 
                     //process netflows information
+                    int _networkflow_records = 0;
+                    List<MRPNetworkFlowCRUDType> _networkflow_list = new List<MRPNetworkFlowCRUDType>();
                     foreach (NetworkFlow _db_flow in _db_flows)
                     {
                         MRPNetworkFlowCRUDType _mrp_crud = new MRPNetworkFlowCRUDType();
                         Objects.Copy(_db_flow, _mrp_crud);
 
-                        Workload _source_workload = _workloads.FirstOrDefault(x => x.iplist.Split(',').Contains(_db_flow.source_address));
-                        if (_source_workload != null)
+                        //add record to list
+                        _networkflow_list.Add(_mrp_crud);
+
+                        //process batch
+                        if (_networkflow_records > 50)
                         {
-                            _mrp_crud.source_workload_id = _source_workload.id;
+                            _cloud_movey.netflow().createnetworkflow(_networkflow_list);
+                            _networkflow_records = 0;
+                            _networkflow_list = new List<MRPNetworkFlowCRUDType>();
                         }
-                        Workload _target_workload = _workloads.FirstOrDefault(x => x.iplist.Split(',').Contains(_db_flow.target_address));
-                        if (_target_workload != null)
-                        {
-                            _mrp_crud.target_workload_id = _target_workload.id;
-                        }
-                        
-                        _cloud_movey.netflow().createnetworkflow(_mrp_crud);
 
                         //remove from local database
                         using (MRPDatabase db = new MRPDatabase())
@@ -71,7 +73,11 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         }
                         _new_networkflows += 1;
                     }
-
+                    //process any remaining records
+                    if (_networkflow_records > 0)
+                    {
+                        _cloud_movey.netflow().createnetworkflow(_networkflow_list);
+                    }
 
                     List<Performance> _local_performance;
                     using (MRPDatabase db = new MRPDatabase())
@@ -105,16 +111,29 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     }
 
                     //process performancecounters
+                    int _performancecounter_records = 0;
+                    List<MRPPerformanceCounterCRUDType> _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
+
                     foreach (Performance _performance in _local_performance)
                     {
+                        _performancecounter_records++;
                         MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
+
                         Objects.Copy(_performance, _performancecrud);
 
                         //inject performance unique ID into crud object
                         _performancecrud.performancecategory_id = _categories.performancecategories.Find(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name && x.workload_id == _performance.workload_id).id;
 
-                        //add record to portal
-                        _cloud_movey.performancecounter().create(_performancecrud);
+                        //add record to list
+                        _performancecounters_list.Add(_performancecrud);
+
+                        //process batch
+                        if (_performancecounter_records > 50)
+                        {
+                            _cloud_movey.performancecounter().create(_performancecounters_list);
+                            _performancecounter_records = 0;
+                            _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
+                        }
 
                         //remove from local database
                         using (MRPDatabase db = new MRPDatabase())
@@ -125,6 +144,12 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         }
                         _new_performancecounters += 1;
                     }
+                    //upload last remaining records
+                    if (_performancecounters_list.Count > 0)
+                    {
+                        _cloud_movey.performancecounter().create(_performancecounters_list);
+                    }
+
                     //process netstat 
                     using (NetstatSet _db_netstat = new NetstatSet())
                     {
@@ -152,7 +177,11 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                 {
                     Logger.log(String.Format("Error in data upload task: {0}", ex.ToString()), Logger.Severity.Error);
                 }
-                Thread.Sleep(new TimeSpan(1, 0, 0));
+                //Wait for next run
+                while (_next_upload_run > DateTime.Now)
+                {
+                    Thread.Sleep(new TimeSpan(0, 0, 5));
+                }
             }
         }
     }

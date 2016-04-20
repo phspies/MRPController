@@ -4,7 +4,7 @@ namespace MRMPService.API.Types.API
 {
     public class MRPCredentialsCRUDType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {

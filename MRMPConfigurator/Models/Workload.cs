@@ -11,7 +11,7 @@ namespace MRMPConfigurator.Models
 {
     public class Workload_ListDataModel
     {
-        MRMPWCFServiceClient channel = new MRMPWCFServiceClient();
+        MRPWCFServiceClient channel = new MRPWCFServiceClient();
 
         private List<Workload_ObjectDataModel> _list = new List<Workload_ObjectDataModel>();
         public List<Workload_ObjectDataModel> list
@@ -150,7 +150,7 @@ namespace MRMPConfigurator.Models
         {
             get
             {
-                MRMPWCFServiceClient channel = new MRMPWCFServiceClient();
+                MRPWCFServiceClient channel = new MRPWCFServiceClient();
                 return channel.ListPlatforms().FirstOrDefault(x => x.id == platform_id).description;
             }
         }
@@ -158,7 +158,7 @@ namespace MRMPConfigurator.Models
         {
             get
             {
-                MRMPWCFServiceClient channel = new MRMPWCFServiceClient();
+                MRPWCFServiceClient channel = new MRPWCFServiceClient();
                 return channel.ListPlatforms().FirstOrDefault(x => x.id == platform_id).human_vendor;
             }
         }
@@ -391,7 +391,7 @@ namespace MRMPConfigurator.Models
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
-        MRMPWCFServiceClient channel = new MRMPWCFServiceClient();
+        MRPWCFServiceClient channel = new MRPWCFServiceClient();
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {

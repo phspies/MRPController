@@ -50,7 +50,11 @@ namespace MRMPService.Tasks.DoubleTake
                         _mrp_portal.task().progress(payload, String.Format("Cannot determine credentials for {0}", _working_workload.hostname), _counter + 16);
                         continue;
                     }
-                    string _contactable_ip = Connection.FindConnection(_working_workload.iplist, true);
+                    string _contactable_ip = null;
+                    using (Connection _connection = new Connection())
+                    {
+                        _contactable_ip = _connection.FindConnection(_working_workload.iplist, false);
+                    }
                     if (_contactable_ip == null)
                     {
                         _mrp_portal.task().failcomplete(payload, String.Format("Cannot contant workload {0}", _working_workload.hostname));

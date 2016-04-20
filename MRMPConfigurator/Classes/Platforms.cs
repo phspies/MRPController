@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace MRMPConfigurator
 {
-    public partial class MainWindow : MetroWindow, INotifyPropertyChanged
+    public partial class MainWindow : MetroWindow
     {
         private List<Platform> _platform_list = new List<Platform>();
         BackgroundWorker platformbgworker = new BackgroundWorker();

@@ -15,7 +15,7 @@ namespace MRMPService.Utilities
 
         static public void SetupController()
         {
-            Global.debug = Convert.ToBoolean(MRPRegistry.RegAccess("debug"));
+            Global.debug = Convert.ToBoolean((int)MRPRegistry.RegAccess("debug", 1, RegistryValueKind.DWord));
             if (Global.debug)
             {
                 Logger.log("Debug Enabled!", Logger.Severity.Info);

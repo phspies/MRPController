@@ -10,26 +10,36 @@ namespace MRMPService.Utilities
 {
     class MRPRegistry
     {
-        static public object RegAccess(String key, object value = null, object regkind = null)
+        static public object RegAccess(String key, object defaultvalue = null, object regkind = null)
         {
-            String _registry = @"SOFTWARE\MRP Controller Service";
-            RegistryKey rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
-            if (rkSubKey == null)
-            {
-                Logger.log("Creating Registry Hive", Logger.Severity.Info);
-                RegistryKey regkey = Registry.LocalMachine.CreateSubKey(_registry);
-                Global.debug = false;
-                regkey.Close();
-                rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
-            }
             object return_value = new object();
-            if (value == null)
+            try
             {
+                String _registry = @"SOFTWARE\MRMP Manager Service";
+                RegistryKey rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
+                if (rkSubKey == null)
+                {
+                    Logger.log("Creating Registry Hive", Logger.Severity.Info);
+                    RegistryKey regkey = Registry.LocalMachine.CreateSubKey(_registry);
+                    Global.debug = false;
+                    regkey.Close();
+                    rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
+                }
+
+                //if default value is set but it does not exist in registry
+                if (rkSubKey.GetValue(key) == null)
+                {
+                    rkSubKey.SetValue(key, defaultvalue, (RegistryValueKind)regkind);
+                }
+
+
+                //get value from registry
                 return_value = rkSubKey.GetValue(key);
+
             }
-            else
+            catch (Exception ex)
             {
-                rkSubKey.SetValue(key, value, (RegistryValueKind)regkind);
+
             }
             return return_value;
         }

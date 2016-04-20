@@ -17,7 +17,7 @@ namespace MRMPConfigurator.Forms
         public List<Credential> _credentials;
         public WorkloadForm(Workload __record, int __action, List<Credential> __credentials)
         {
-            _credentials = __credentials;
+            _credentials = __credentials.FindAll(x => x.credential_type == 1);
             _record = __record;
             InitializeComponent();
             initialize_form();
@@ -34,7 +34,7 @@ namespace MRMPConfigurator.Forms
         }
         private void initialize_form()
         {
-            workload_credential.ItemsSource = _credentials.FindAll(x => x.credential_type == 1);
+            workload_credential.ItemsSource = _credentials;
             this.DataContext = _record;
         }
 

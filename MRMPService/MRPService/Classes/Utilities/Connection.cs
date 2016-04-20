@@ -7,35 +7,34 @@ using System.Threading;
 
 namespace MRMPService.Utilities
 {
-    class Connection
+    class Connection :  IDisposable
     {
-        public static string find_working_ip(Workload _workload, bool literal = false)
-        {
-            return FindConnection(_workload.iplist, literal);
-        }
-        public static string FindConnection(string iplist, bool literal = false)
+        Ping testPing = new Ping();
+        public string FindConnection(string iplist, bool literal = false)
         {
             String ipaddresslist = iplist;
             String workingip = null;
-            Ping testPing = new Ping();
+            
             foreach (string ip in ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
             {
                 PingReply reply = null;
                 try
                 {
-                    reply = testPing.Send(ip, 1000);
+                    reply = testPing.Send(ip);
                 }
                 catch (System.ComponentModel.Win32Exception ex)
                 {
-                    throw new System.ArgumentException(ex.Message);
+                    throw new ArgumentException(ex.Message);
                 }
                 if (reply != null)
                 {
-                    workingip = ip;
-                    break;
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        workingip = ip;
+                        break;
+                    }
                 }
             }
-            testPing.Dispose();
 
             if (literal == true)
             {
@@ -52,6 +51,24 @@ namespace MRMPService.Utilities
             }
             return workingip;
         }
+        private bool disposed = false;
 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    testPing.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
+        }
     }
 }

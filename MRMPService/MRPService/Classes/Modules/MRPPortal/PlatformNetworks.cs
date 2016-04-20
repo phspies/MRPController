@@ -12,7 +12,7 @@ namespace MRMPService.API
         public MRPPlatformnetworkListType listplatformnetworks()
         {
             endpoint = "/platformnetworks/list.json";
-            MRPCommandControllerType worker = new MRPCommandControllerType();
+            MRPCommandManagerType worker = new MRPCommandManagerType();
             return (MRPPlatformnetworkListType)post<MRPPlatformnetworkListType>(worker);
         }
 

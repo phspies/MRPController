@@ -8,7 +8,7 @@ namespace MRMPService.API.Types.API
 {
     public class MRPPlatformtemplatesCRUDType
     {
-        public string controller_id
+        public string manager_id
         {
             get
             {

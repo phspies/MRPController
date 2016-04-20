@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MRMPService.API.Types.API
 {
 
-    public class MRPError
+    public class oldMRPError
     {
         public string id { get; set; }
         public string error { get; set; }

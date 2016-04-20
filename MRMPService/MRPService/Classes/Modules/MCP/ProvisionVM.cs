@@ -269,7 +269,12 @@ namespace MRMPService.Tasks.MCP
                     Thread.Sleep(new TimeSpan(0, 0, 30));
 
                     string _ip_list = String.Join(",", _newvm.networkInfo.primaryNic.ipv6, _newvm.networkInfo.primaryNic.privateIpv4);
-                    string _working_ip = Connection.FindConnection(_ip_list, true);
+                    string _working_ip = null;
+
+                    using (Connection _connection = new Connection())
+                    {
+                        _working_ip = _connection.FindConnection(_ip_list, false);
+                    }
 
                     Logger.log(String.Format("Found working ip: {0}", _working_ip), Logger.Severity.Info);
 
@@ -408,7 +413,7 @@ namespace MRMPService.Tasks.MCP
                     db.SaveChanges();
 
                     //Get updated workload object from portal and update the moid,credential_id,provisioned on the portal
-                    MRPWorkloadType _workload = _cloud_movey.workload().getworkload(_target.id);
+                    MRPWorkloadType _workload = (MRPWorkloadType)_cloud_movey.workload().getworkload(_target.id);
                     MRPWorkloadCRUDType _update_workload = new MRPWorkloadCRUDType();
                     _update_workload.id = _target.id;
                     _update_workload.moid = _newvm.id;
@@ -430,7 +435,7 @@ namespace MRMPService.Tasks.MCP
                     PlatformInventoryWorkloadDo.UpdateMCPWorkload(_newvm.id, _newvm.datacenterId);
 
                     //update OS information or newly provisioned server
-                    _workload = _cloud_movey.workload().getworkload(_target.id);
+                    _workload = (MRPWorkloadType)_cloud_movey.workload().getworkload(_target.id);
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Updating operating system information for {0}", _target.hostname), 92);

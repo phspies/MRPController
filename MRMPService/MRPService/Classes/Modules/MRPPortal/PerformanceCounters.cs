@@ -10,11 +10,11 @@ namespace MRMPService.API
         public MRPPerformanceCounter(MRP_ApiClient _MRP) : base(_MRP) {
         }
          
-        public void create(MRPPerformanceCounterCRUDType _performancecounter)
+        public void create(List<MRPPerformanceCounterCRUDType> _performancecounters)
         {
             MRPPerformanceCountersCRUDType performance = new MRPPerformanceCountersCRUDType()
             {
-                performancecounter = _performancecounter
+                performancecounters = _performancecounters
             };
             endpoint = "/performancecounters/create.json";
             post<MRPPerformanceCounterCRUDType>(performance);

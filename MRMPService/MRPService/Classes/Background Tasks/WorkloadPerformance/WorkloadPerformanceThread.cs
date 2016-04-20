@@ -74,7 +74,7 @@ namespace MRMPService.PerformanceCollection
                 Stopwatch sw = Stopwatch.StartNew();
                 int _processed_workloads = 0;
 
-                Logger.log(String.Format("Staring performance collection process with {0} threads", Global.performance_concurrency), Logger.Severity.Info);
+                Logger.log(String.Format("Staring performance collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
 
                 List<Workload> workloads;
                 using (WorkloadSet workload_set = new WorkloadSet())
@@ -94,7 +94,7 @@ namespace MRMPService.PerformanceCollection
                         }
                         catch (Exception ex)
                         {
-                            Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.Message), Logger.Severity.Error);
+                            Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
                             Workloads_Update.PeformanceUpdateStatus(workload.id, ex.Message, false);
                         }
                     });

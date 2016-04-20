@@ -10,11 +10,11 @@ namespace MRMPService.API
         public MRPNetworkflow(MRP_ApiClient _MRP) : base(_MRP) {
         }
          
-        public void createnetworkflow(MRPNetworkFlowCRUDType _networkflow)
+        public void createnetworkflow(List<MRPNetworkFlowCRUDType> _networkflows)
         {
             MRPNetworkFlowsCRUDType networkflow = new MRPNetworkFlowsCRUDType()
             {
-                networkflow = _networkflow
+                networkflows = _networkflows
             };
             endpoint = "/networkflows/create.json";
             post<MRPNetworkFlowCRUDType>(networkflow);

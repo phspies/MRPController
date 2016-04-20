@@ -3,6 +3,7 @@ using MRMPService.API.Types.API;
 using System.Collections.Generic;
 using System.Linq;
 using MRMPService.API;
+using MRMPService.Utilities;
 
 namespace MRMPService.PlatformInventory
 {
@@ -19,10 +20,10 @@ namespace MRMPService.PlatformInventory
             using (WorkloadSet _workload_db = new WorkloadSet())
             {
                 Workload _workload = _workload_db.ModelRepository.GetById(_workload_id);
-                _mrp_workload.id = _workload_id;
-                _mrp_workload.credential_id = _workload.credential_id;
-                _mrp_workload.enabled = _workload.enabled;
-                _mrp_workload.deleted = _workload.deleted;
+                Objects.Copy(_workload, _mrp_workload);
+
+                //mark workload and provisioned
+                _mrp_workload.provisioned = true;
             }
             //Update if the portal has this workload and create if it's new to the portal....
             if (_mrp_workloads.Exists(x => x.id == _workload_id))

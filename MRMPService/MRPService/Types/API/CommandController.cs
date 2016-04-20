@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MRMPService.API.Types.API
 {
-    class MRPCommandControllerType
+    class MRPCommandManagerType
     { 
-        public string controller_id
+        public string manager_id
         {
             get
             {

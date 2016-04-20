@@ -6,6 +6,7 @@ using System.Linq;
 using System.Management;
 using System.Runtime.Serialization.Formatters.Binary;
 using MRMPService.Utilities;
+using MRMPService.MRMPService.Log;
 
 namespace MRMPService.API.Classes
 {
@@ -19,60 +20,103 @@ namespace MRMPService.API.Classes
             CredentialSet dbcredential = new CredentialSet();
             MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
-            MRPWorkloadType mrpworkload = _cloud_movey.workload().getworkload(workload_id);
-            if (mrpworkload == null)
+            var _mrmp_test_workload = _cloud_movey.workload().getworkload(workload_id);
+            if (_mrmp_test_workload is ResultType)
             {
-                throw new System.ArgumentException(String.Format("Error finding workload in MRP Portal {0}", workload_id));
+                throw new ArgumentException(String.Format("Inventory: Error finding workload in MRP Portal {0} : {1}", workload_id, ((ResultType)_mrmp_test_workload).result.message));
+            }
+            if (_mrmp_test_workload == null )
+            {
+                throw new ArgumentException(String.Format("Inventory: Error finding workload in MRP Portal {0}", workload_id));
             }
 
-            //Check if workload exists
-            Workload _workload = dbworkload.ModelRepository.GetById(mrpworkload.id);
+            //Check if workload exists in local database
+            Workload _workload = dbworkload.ModelRepository.GetById(workload_id);
             if (_workload == null)
             {
-                throw new ArgumentException("Error finding workload in controller database");
+                throw new ArgumentException("Inventory: Error finding workload in manager database");
             }
+            MRPWorkloadType _mrmp_workload = (MRPWorkloadType)_mrmp_test_workload;
 
             //check for credentials
-            Credential _credential = dbcredential.ModelRepository.GetById(mrpworkload.credential_id);
+            Credential _credential = dbcredential.ModelRepository.GetById(_workload.credential_id);
             if (_credential == null)
             {
-                throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", workload_id, _workload.hostname));
+                throw new ArgumentException(String.Format("Inventory: Error finding credentials for workload {0} {1}", workload_id, _workload.hostname));
             }
 
-            string workload_ip = Connection.find_working_ip(_workload, true);
+            string workload_ip = null;
+            using (Connection _connection = new Connection())
+            {
+                workload_ip = _connection.FindConnection(_workload.iplist, true);
+            }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Error finding contactable IP for workload {0} {1}", _workload.id, _workload.hostname));
+                throw new ArgumentException(String.Format("Inventory: Error finding contactable IP for workload {0} {1}", _workload.id, _workload.hostname));
             }
 
-            ConnectionOptions options = WMIHelper.ProcessConnectionOptions((String.IsNullOrWhiteSpace(_credential.domain) ? "." : (_credential.domain + @"\" + _credential.username)), _credential.password);
+            Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+
+            ConnectionOptions options = WMIHelper.ProcessConnectionOptions((String.IsNullOrWhiteSpace(_credential.domain) ? (@".\" + _credential.username) : (_credential.domain + @"\" + _credential.username)), _credential.password);
             ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
 
-            SelectQuery computerProcessQuery = new SelectQuery("SELECT NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
-            SelectQuery ProcessorProcessQuery = new SelectQuery("SELECT NumberOfCores, CurrentClockSpeed FROM Win32_Processor");
+            SelectQuery ComputerSystemQuery = new SelectQuery("SELECT Name, NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
+            SelectQuery OperatingSystemQuery = new SelectQuery("SELECT Caption, OSArchitecture FROM Win32_OperatingSystem");
+            SelectQuery ProcessorQuery = new SelectQuery("SELECT NumberOfCores, CurrentClockSpeed FROM Win32_Processor");
+
+            //Get operating system type
+            foreach (var item in new ManagementObjectSearcher(connectionScope, OperatingSystemQuery).Get())
+            {
+                try {
+                    String _caption = item["Caption"].ToString();
+                    string _arch = item["OSArchitecture"].ToString();
+                    _workload.osedition = OSEditionSimplyfier.Simplyfier(String.Format("{0} {1}", _caption, _arch));
+                }
+                catch (Exception ex)
+                {
+                    Logger.log(String.Format("Error collecting Caption (OS Type) from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                }
+            }
+
 
             //Get cpu, core and memory information from server
-            foreach (var item in new ManagementObjectSearcher(connectionScope, computerProcessQuery).Get())
+            foreach (var item in new ManagementObjectSearcher(connectionScope, ComputerSystemQuery).Get())
             {
-                try { _workload.vcpu = int.Parse(item["NumberOfProcessors"].ToString()); } catch (Exception) { }
+                try { _workload.hostname = item["Name"].ToString(); }
+                catch (Exception ex)
+                {
+                    Logger.log(String.Format("Error collecting Name (Hostname) from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                }
+                try { _workload.vcpu = int.Parse(item["NumberOfProcessors"].ToString()); }
+                catch (Exception ex)
+                {
+                    Logger.log(String.Format("Error collecting NumberOfProcessors from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                }
                 //convert to GB as WMi reports in Bytes
-                try { _workload.vmemory = (int.Parse(item["TotalPhysicalMemory"].ToString()) / 1024 / 1024 / 1024); } catch (Exception) { }
 
+                try
+                {
+                    Decimal _long = Int64.Parse(item["TotalPhysicalMemory"].ToString());
+                    Decimal _decimal = (_long / 1024 / 1024 / 1024);
+                    _workload.vmemory = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
+                }
+                catch (Exception ex)
+                {
+                    Logger.log(String.Format("Error collecting TotalPhysicalMemory from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                }
             }
-            foreach (var item in new ManagementObjectSearcher(connectionScope, ProcessorProcessQuery).Get())
+            foreach (var item in new ManagementObjectSearcher(connectionScope, ProcessorQuery).Get())
             {
-                try { _workload.vcore = int.Parse(item["NumberOfCores"].ToString()); } catch (Exception) { }
+                try { _workload.vcore = int.Parse(item["NumberOfCores"].ToString()); }
+                catch (Exception ex)
+                {
+                    Logger.log(String.Format("Error collecting NumberOfCores from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                }
                 try { _workload.vcpu_speed = int.Parse(item["CurrentClockSpeed"].ToString()); } catch (Exception) { }
             }
+
             //save workload to database
             dbworkload.Save();
-
-            //update mrpworkload object
-            mrpworkload.vcore = (int)_workload.vcore;
-            mrpworkload.vcpu = (int)_workload.vcpu;
-            mrpworkload.vcpu_speed = (int)_workload.vcpu_speed;
-            mrpworkload.vmemory = (int)_workload.vmemory;
-
 
             //process running processes
             SelectQuery msProcessQuery = new SelectQuery("SELECT * FROM Win32_Process");
@@ -81,14 +125,14 @@ namespace MRMPService.API.Classes
                 MRPWorkloadProcessType _process;
 
                 //if procces already exists in portal, just update it   
-                if (mrpworkload.processes.Exists(x => x.caption == item["Caption"].ToString()))
+                if (_mrmp_workload.processes.Exists(x => x.caption == item["Caption"].ToString()))
                 {
-                    _process = mrpworkload.processes.FirstOrDefault(x => x.caption == item["Caption"].ToString());
+                    _process = _mrmp_workload.processes.FirstOrDefault(x => x.caption == item["Caption"].ToString());
                 }
                 else
                 {
                     _process = new MRPWorkloadProcessType();
-                    mrpworkload.processes.Add(_process);
+                    _mrmp_workload.processes.Add(_process);
                 }
 
                 try { _process.caption = item["Caption"].ToString(); } catch (Exception) { }
@@ -110,14 +154,14 @@ namespace MRMPService.API.Classes
                 MRPWorkloadSoftwareType _software;
 
                 //if procces already exists in portal, just update it   
-                if (mrpworkload.softwares.Exists(x => x.name == item["Name"].ToString()))
+                if (_mrmp_workload.softwares.Exists(x => x.name == item["Name"].ToString()))
                 {
-                    _software = mrpworkload.softwares.FirstOrDefault(x => x.name == item["Name"].ToString());
+                    _software = _mrmp_workload.softwares.FirstOrDefault(x => x.name == item["Name"].ToString());
                 }
                 else
                 {
                     _software = new MRPWorkloadSoftwareType();
-                    mrpworkload.softwares.Add(_software);
+                    _mrmp_workload.softwares.Add(_software);
                 }
                 try { _software.name = item["Name"].ToString(); } catch (Exception) { }
                 try { _software.caption = item["Caption"].ToString(); } catch (Exception) { }
@@ -131,8 +175,8 @@ namespace MRMPService.API.Classes
             //process logical volumes
 
             //set all volumes to be destroyed and remove destroy tag as we processes volumes
-            mrpworkload.volumes.ForEach(x => { x._destroy = true; x.platformstoragetier = null; });
-            mrpworkload.disks.ForEach(x => { x._destroy = true; });
+            _mrmp_workload.volumes.ForEach(x => { x._destroy = true; x.platformstoragetier = null; });
+            _mrmp_workload.disks.ForEach(x => { x._destroy = true; });
 
             SelectQuery wmiDiskDrives = new SelectQuery("SELECT * FROM Win32_DiskDrive");
             foreach (ManagementObject wmiDiskDrive in new ManagementObjectSearcher(connectionScope, wmiDiskDrives).Get())
@@ -141,22 +185,24 @@ namespace MRMPService.API.Classes
                 MRPWorkloadDiskType _disk;
 
                 //if volume already exists in portal, just update it   
-                if (mrpworkload.disks.Exists(x => x.diskindex == Int16.Parse(wmiDiskDrive["Index"].ToString())))
+                if (_mrmp_workload.disks.Exists(x => x.diskindex == Int16.Parse(wmiDiskDrive["Index"].ToString())))
                 {
-                    _disk = mrpworkload.disks.FirstOrDefault(x => x.diskindex == Int16.Parse(wmiDiskDrive["Index"].ToString()));
+                    _disk = _mrmp_workload.disks.FirstOrDefault(x => x.diskindex == Int16.Parse(wmiDiskDrive["Index"].ToString()));
                     _disk._destroy = false;
                 }
                 else
                 {
                     _disk = new MRPWorkloadDiskType();
-                    mrpworkload.disks.Add(_disk);
+                    _mrmp_workload.disks.Add(_disk);
                 }
 
-                try { _disk.disksize = Int64.Parse(wmiDiskDrive["Size"].ToString()); } catch (Exception) { }
+                Decimal _disk_size = 0;
+                try { _disk_size = Int64.Parse(wmiDiskDrive["Size"].ToString()); } catch (Exception) { }
                 try { _disk.deviceid = wmiDiskDrive["DeviceID"].ToString(); } catch (Exception) { }
-                if (_disk.disksize != 0)
+                if (_disk_size != 0)
                 {
-                    _disk.disksize = (_disk.disksize / 1024 / 1024 / 1024);
+                    Decimal _decimal = (_disk_size / 1024 / 1024 / 1024);
+                    _disk.disksize = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
                 }
 
                 foreach (ManagementObject wmiPartitionDrive in wmiDiskDrive.GetRelated("Win32_DiskPartition"))
@@ -171,9 +217,9 @@ namespace MRMPService.API.Classes
                             MRPWorkloadVolumeType _volume;
 
                             //if volume already exists in portal, just update it   
-                            if (mrpworkload.volumes.Exists(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()))
+                            if (_mrmp_workload.volumes.Exists(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()))
                             {
-                                _volume = mrpworkload.volumes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString());
+                                _volume = _mrmp_workload.volumes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString());
                                 _volume._destroy = false;
                             }
                             else
@@ -182,8 +228,13 @@ namespace MRMPService.API.Classes
                                 _volume._destroy = false;
 
                                 //Add new volume object to mrpworkload
-                                mrpworkload.volumes.Add(_volume);
+                                _mrmp_workload.volumes.Add(_volume);
+
                             }
+                            Decimal _freespace = 0;
+                            Decimal _size = 0;
+                            Decimal _decimal;
+
                             _volume.diskindex = _disk.diskindex;
                             try { _volume.diskindex = Int16.Parse(wmiDiskDrive["Index"].ToString()); } catch (Exception) { }
                             try { _volume.driveletter = wmiVolume["DriveLetter"].ToString(); } catch (Exception) { }
@@ -191,16 +242,18 @@ namespace MRMPService.API.Classes
                             try { _volume.blocksize = Int16.Parse(wmiVolume["BlockSize"].ToString()); } catch (Exception) { }
                             try { _volume.volumename = wmiVolume["Label"].ToString(); } catch (Exception) { }
                             try { _volume.deviceid = wmiVolume["DeviceID"].ToString(); } catch (Exception) { }
-                            try { _volume.volumefreespace = Int64.Parse(wmiVolume["FreeSpace"].ToString()); } catch (Exception) { }
-                            try { _volume.volumesize = Int64.Parse(wmiVolume["Capacity"].ToString()); } catch (Exception) { }
+                            try { _freespace = Int64.Parse(wmiVolume["FreeSpace"].ToString()); } catch (Exception) { }
+                            try { _size = Int64.Parse(wmiVolume["Capacity"].ToString()); } catch (Exception) { }
                             try { _volume.provisioned = true; } catch (Exception) { }
-                            if (_volume.volumefreespace > 0)
+                            if (_freespace > 0)
                             {
-                                _volume.volumefreespace = (_volume.volumefreespace / 1024 / 1024 / 1024);
+                                _decimal = (_freespace / 1024 / 1024 / 1024);
+                                _volume.volumefreespace = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
                             }
-                            if (_volume.volumesize > 0)
+                            if (_size > 0)
                             {
-                                _volume.volumesize = (_volume.volumesize / 1024 / 1024 / 1024);
+                                _decimal = (_size / 1024 / 1024 / 1024);
+                                _volume.volumesize = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
                             }
                         }
                     }
@@ -220,16 +273,16 @@ namespace MRMPService.API.Classes
                     String[] netmask = (String[])searchNetInterfaceConfig["IPSubnet"];
 
                     //if interface already exists in portal, just update it   
-                    if (mrpworkload.interfaces.Exists(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.'))))
+                    if (_mrmp_workload.interfaces.Exists(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.'))))
                     {
-                        _interface = mrpworkload.interfaces.FirstOrDefault(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')));
+                        _interface = _mrmp_workload.interfaces.FirstOrDefault(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')));
                     }
                     else
                     {
                         _interface = new MRPWorkloadInterfaceType();
-                        
+
                         //add new interface for mrpworkload
-                        mrpworkload.interfaces.Add(_interface);
+                        _mrmp_workload.interfaces.Add(_interface);
                     }
                     _interface.ipaddress = addresses.FirstOrDefault(s => s.Contains('.'));
                     _interface.ipv6address = addresses.FirstOrDefault(s => s.Contains(':'));
@@ -240,21 +293,29 @@ namespace MRMPService.API.Classes
                     try { _interface.macaddress = searchNetInterface["MACAddress"].ToString(); } catch (Exception) { }
 
                 }
-
             }
+            Workloads_Update.InventoryUpdateStatus(_workload.id, "Success", true);
+
+            //refresh workload object from DB
+            _workload = dbworkload.ModelRepository.GetById(workload_id);
+
             //Update workload in the portal
-            MRPWorkloadCRUDType _update_workload = new MRPWorkloadCRUDType();
-            _update_workload.id = _workload.id;
-            _update_workload.os_collection_status = true;
-            _update_workload.os_collection_message = "Success";
+            MRPWorkloadCRUDType _mrmp_crud_workload = new MRPWorkloadCRUDType();
+            Objects.Copy(_workload, _mrmp_crud_workload);
 
-            _update_workload.workloaddisks_attributes = mrpworkload.disks;
-            _update_workload.workloadvolumes_attributes = mrpworkload.volumes;
-            _update_workload.workloadinterfaces_attributes = mrpworkload.interfaces;
-            _update_workload.workloadprocesses_attributes = mrpworkload.processes;
-            _update_workload.workloadsoftwares_attributes = mrpworkload.softwares;
+            //set more aatributes
+            _mrmp_crud_workload.ostype = "windows";
 
-            _cloud_movey.workload().updateworkload(_update_workload);
+            _mrmp_crud_workload.workloaddisks_attributes = _mrmp_workload.disks;
+            _mrmp_crud_workload.workloadvolumes_attributes = _mrmp_workload.volumes;
+            _mrmp_crud_workload.workloadinterfaces_attributes = _mrmp_workload.interfaces;
+            _mrmp_crud_workload.workloadprocesses_attributes = _mrmp_workload.processes;
+            _mrmp_crud_workload.workloadsoftwares_attributes = _mrmp_workload.softwares;
+
+            _cloud_movey.workload().updateworkload(_mrmp_crud_workload);
+
+            Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+
         }
 
         private static string TranslateMemoryUsage(string workingSet)

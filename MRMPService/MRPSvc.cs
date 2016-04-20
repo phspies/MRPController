@@ -20,7 +20,7 @@ namespace MRMPService
 
     public partial class MRPSvc : ServiceBase
     {
-        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread, _osinventody_thread;
+        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread, _osinventody_thread, _osnetstat_thread;
         ServiceHost serviceHost;
         public MRPSvc()
         {
@@ -34,28 +34,33 @@ namespace MRMPService
                 Global.event_log = MRPLog1;
                 MRPDatabase db = new MRPDatabase();
 
-                Settings.SetupController();
-                Settings.ConfirmController();
+
 
                 // Start WCF Service
                 if (Global.debug)
                 {
-                    Logger.log(String.Format("Platforms: {0}, Workloads: {1}, Credentials: {2}, Performance Counters: {3}, Network Flows: {4}",
+                    Logger.log(String.Format("Platforms: {0}, Workloads: {1}, Credentials: {2}, Performance Counters: {3}, Network Flows: {4}, Netstat Flows: {5}",
                         db.Platforms.ToList().Count,
                         db.Workloads.ToList().Count,
                         db.Credentials.ToList().Count,
                         db.Performance.ToList().Count,
-                        db.NetworkFlows.ToList().Count
+                        db.NetworkFlows.ToList().Count,
+                        db.Netstat.ToList().Count
                         ), Logger.Severity.Debug);
                 };
 
                 Logger.log(String.Format("Starting WCF Service"), Logger.Severity.Debug);
-                Uri wcfbaseAddress = new Uri("http://localhost:8734/MRPWCFService");
+                Uri wcfbaseAddress = new Uri("http://localhost:8734/MRMPWCFService");
                 serviceHost = new ServiceHost(typeof(MRPWCFService), wcfbaseAddress);
                 ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();
                 wcfsmb.HttpGetEnabled = true;
                 serviceHost.Description.Behaviors.Add(wcfsmb);
                 serviceHost.Open();
+
+                Settings.SetupController();
+                Settings.ConfirmController();
+
+
 
                 Logger.log(String.Format("organization id: {0}", Global.organization_id), Logger.Severity.Debug);
 
@@ -89,13 +94,18 @@ namespace MRMPService
                 _osinventody_thread = new Thread(new ThreadStart(_osinventody.Start));
                 _osinventody_thread.Start();
 
+                WorkloadNetstatThread _osnetstat = new WorkloadNetstatThread();
+                if (Global.debug) { Logger.log("Starting OS Netstat Thread", Logger.Severity.Debug); };
+                _osnetstat_thread = new Thread(new ThreadStart(_osnetstat.Start));
+                _osnetstat_thread.Start();
+
                 Thread.Yield();
                 //Thread.Sleep(20000);
             }
             catch (Exception ex)
             {
                 //something went wrong while starting up
-                Logger.log(String.Format("Failed to start the MRP Controller Service {0}", ex.Message), Logger.Severity.Error);
+                Logger.log(String.Format("Failed to start the MRP Controller Service {0}", ex.ToString()), Logger.Severity.Error);
                 System.Environment.Exit(1);
             }
         }
