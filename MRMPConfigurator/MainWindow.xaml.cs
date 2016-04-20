@@ -24,23 +24,14 @@ namespace MRMPConfigurator
     {
 
         MRPWCFServiceClient channel = new MRPWCFServiceClient();
+        
         private WindowState m_storedWindowState = WindowState.Normal;
-
-
-        private List<Workload_ObjectDataModel> _workloads = new List<Workload_ObjectDataModel>();
         workerInformation _information = null;
-
-        public List<Credential> workload_credentials()
-        {
-            return channel.ListCredentials().Where(x => x.credential_type == 1).ToList();
-        }
 
         private System.Windows.Forms.NotifyIcon m_notifyIcon;
         public MainWindow()
         {
             InitializeComponent();
-            _information = channel.CollectionInformation();
-            //Assign global assignment for tree
 
             m_notifyIcon = new System.Windows.Forms.NotifyIcon();
             m_notifyIcon.BalloonTipText = "MRP Notifier has been minimised. Click the tray icon to show.";
@@ -52,9 +43,25 @@ namespace MRMPConfigurator
         }
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
+            //pupolate window elements frem service
             load_credentiallist();
+            load_information();
             load_platformlist();
             load_workloadlist();
+        }
+
+        //pupulate credential combo wiht data
+        public List<Credential> workload_credentials()
+        {
+            List<Credential> _private_credentials = new List<Credential>();
+            try
+            {
+                _private_credentials = channel.ListCredentials();
+            }
+            catch (Exception ex)
+            {
+                            }
+            return _private_credentials;
         }
         private void lvTasks_SizeChanged(object sender, SizeChangedEventArgs e)
         {

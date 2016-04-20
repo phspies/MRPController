@@ -1,8 +1,5 @@
-﻿using Newtonsoft.Json;
-
-namespace MRMPService.API.Types.API
+﻿namespace MRMPService.API.Types.API
 {
-    [JsonObject(Description = "result")]
     public class ResultType
     {
         public ResultDetailType result { get; set; }

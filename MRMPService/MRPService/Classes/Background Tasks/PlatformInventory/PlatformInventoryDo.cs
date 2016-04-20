@@ -8,18 +8,11 @@ using MRMPService.LocalDatabase;
 
 namespace MRMPService.PlatformInventory
 {
-    class Inventory
+    public class PlatformDoInventory : IDisposable
     {
-        static public void PlatformInventoryDo(string platform_id, bool full = true)
+        public void PlatformInventoryDo(string platform_id, int _platform_vendor_id, bool full = true)
         {
-            Stopwatch sw = Stopwatch.StartNew();
-
-            Platform _platform;
-            using (PlatformSet _platform_db = new PlatformSet())
-            {
-                _platform = _platform_db.ModelRepository.GetById(platform_id);
-            }
-            switch (_platform.vendor)
+            switch (_platform_vendor_id)
             {
                 case 0:
                     PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(platform_id, full);
@@ -30,15 +23,25 @@ namespace MRMPService.PlatformInventory
                 case 3:
                     PlatformPhysicalInventoryDo.UpdatePhysicalPlatform(platform_id);
                     break;
-
             }
-            sw.Stop();
+        }
+        private bool disposed = false;
 
-            Logger.log(
-                String.Format("Completed platform inventory for {0} in {1}",
-                _platform.moid, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
-                ), Logger.Severity.Info);
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                }
+            }
+            this.disposed = true;
+        }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            System.GC.SuppressFinalize(this);
         }
     }
 }

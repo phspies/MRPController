@@ -1,4 +1,6 @@
-﻿namespace MRMPService.API.Types.API
+﻿using System.Collections.Generic;
+
+namespace MRMPService.API.Types.API
 {
     public class MRPNetworkStatsCRUDType
     {
@@ -10,6 +12,17 @@
             }
         }
         public MRPNetworkStatCRUDType networkstat { get; set; }
+    }
+    public class MRPNetworkStatsBulkCRUDType
+    {
+        public string manager_id
+        {
+            get
+            {
+                return Global.manager_id;
+            }
+        }
+        public List<MRPNetworkStatCRUDType> networkstats { get; set; }
     }
     public class MRPNetworkStatCRUDType
     {

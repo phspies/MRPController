@@ -50,17 +50,27 @@ namespace MRMPService
                 };
 
                 Logger.log(String.Format("Starting WCF Service"), Logger.Severity.Debug);
+
+                BasicHttpBinding basicHttpBinding = new BasicHttpBinding();
+                basicHttpBinding.MaxBufferPoolSize = int.MaxValue;
+                basicHttpBinding.MaxBufferSize = int.MaxValue;
+                basicHttpBinding.MaxReceivedMessageSize = int.MaxValue;
+                basicHttpBinding.ReaderQuotas.MaxStringContentLength = int.MaxValue;
+                basicHttpBinding.ReaderQuotas.MaxArrayLength = int.MaxValue;
+                basicHttpBinding.ReaderQuotas.MaxDepth = int.MaxValue;
+                basicHttpBinding.ReaderQuotas.MaxBytesPerRead = int.MaxValue;
                 Uri wcfbaseAddress = new Uri("http://localhost:8734/MRMPWCFService");
-                serviceHost = new ServiceHost(typeof(MRPWCFService), wcfbaseAddress);
+
+                var serviceHost = new ServiceHost(typeof(MRPWCFService));
                 ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();
                 wcfsmb.HttpGetEnabled = true;
+                wcfsmb.HttpGetUrl = wcfbaseAddress;
                 serviceHost.Description.Behaviors.Add(wcfsmb);
+                serviceHost.AddServiceEndpoint(typeof(IMRPWCFService), basicHttpBinding, wcfbaseAddress);
                 serviceHost.Open();
 
                 Settings.SetupController();
                 Settings.ConfirmController();
-
-
 
                 Logger.log(String.Format("organization id: {0}", Global.organization_id), Logger.Severity.Debug);
 

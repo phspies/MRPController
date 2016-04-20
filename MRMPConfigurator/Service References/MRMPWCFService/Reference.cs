@@ -1639,7 +1639,6 @@ namespace MRMPConfigurator.MRMPWCFService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ServerType", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.workerInformation))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.Workload>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.Workload))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.Platform>))]
@@ -1647,6 +1646,10 @@ namespace MRMPConfigurator.MRMPWCFService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.Credential))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.Credential>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Tuple<bool, string>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.workerInformation))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.Status))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.AdditionalInformation))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.DatacenterType>))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.DatacenterType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.BackupType))]
@@ -1679,9 +1682,6 @@ namespace MRMPConfigurator.MRMPWCFService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.VmwareToolsType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.PlatformDetails))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.Status))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(MRMPConfigurator.MRMPWCFService.AdditionalInformation))]
     public partial class ServerType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -2824,6 +2824,169 @@ namespace MRMPConfigurator.MRMPWCFService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Status", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
+    [System.SerializableAttribute()]
+    public partial class Status : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation> additionalInformationk__BackingFieldField;
+        
+        private string operationk__BackingFieldField;
+        
+        private string resultCodek__BackingFieldField;
+        
+        private string resultDetailk__BackingFieldField;
+        
+        private string resultk__BackingFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<additionalInformation>k__BackingField", IsRequired=true)]
+        public System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation> additionalInformationk__BackingField {
+            get {
+                return this.additionalInformationk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.additionalInformationk__BackingFieldField, value) != true)) {
+                    this.additionalInformationk__BackingFieldField = value;
+                    this.RaisePropertyChanged("additionalInformationk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<operation>k__BackingField", IsRequired=true)]
+        public string operationk__BackingField {
+            get {
+                return this.operationk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.operationk__BackingFieldField, value) != true)) {
+                    this.operationk__BackingFieldField = value;
+                    this.RaisePropertyChanged("operationk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultCode>k__BackingField", IsRequired=true)]
+        public string resultCodek__BackingField {
+            get {
+                return this.resultCodek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.resultCodek__BackingFieldField, value) != true)) {
+                    this.resultCodek__BackingFieldField = value;
+                    this.RaisePropertyChanged("resultCodek__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultDetail>k__BackingField", IsRequired=true)]
+        public string resultDetailk__BackingField {
+            get {
+                return this.resultDetailk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.resultDetailk__BackingFieldField, value) != true)) {
+                    this.resultDetailk__BackingFieldField = value;
+                    this.RaisePropertyChanged("resultDetailk__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<result>k__BackingField", IsRequired=true)]
+        public string resultk__BackingField {
+            get {
+                return this.resultk__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.resultk__BackingFieldField, value) != true)) {
+                    this.resultk__BackingFieldField = value;
+                    this.RaisePropertyChanged("resultk__BackingField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AdditionalInformation", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
+    [System.SerializableAttribute()]
+    public partial class AdditionalInformation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        private string namek__BackingFieldField;
+        
+        private string valuek__BackingFieldField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<name>k__BackingField", IsRequired=true)]
+        public string namek__BackingField {
+            get {
+                return this.namek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.namek__BackingFieldField, value) != true)) {
+                    this.namek__BackingFieldField = value;
+                    this.RaisePropertyChanged("namek__BackingField");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Name="<value>k__BackingField", IsRequired=true)]
+        public string valuek__BackingField {
+            get {
+                return this.valuek__BackingFieldField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.valuek__BackingFieldField, value) != true)) {
+                    this.valuek__BackingFieldField = value;
+                    this.RaisePropertyChanged("valuek__BackingField");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DatacenterType", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.Network20")]
     [System.SerializableAttribute()]
     public partial class DatacenterType : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -3818,169 +3981,6 @@ namespace MRMPConfigurator.MRMPWCFService {
                 if ((object.ReferenceEquals(this.stateFieldField, value) != true)) {
                     this.stateFieldField = value;
                     this.RaisePropertyChanged("stateField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Status", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
-    [System.SerializableAttribute()]
-    public partial class Status : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation> additionalInformationk__BackingFieldField;
-        
-        private string operationk__BackingFieldField;
-        
-        private string resultCodek__BackingFieldField;
-        
-        private string resultDetailk__BackingFieldField;
-        
-        private string resultk__BackingFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<additionalInformation>k__BackingField", IsRequired=true)]
-        public System.Collections.Generic.List<MRMPConfigurator.MRMPWCFService.AdditionalInformation> additionalInformationk__BackingField {
-            get {
-                return this.additionalInformationk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.additionalInformationk__BackingFieldField, value) != true)) {
-                    this.additionalInformationk__BackingFieldField = value;
-                    this.RaisePropertyChanged("additionalInformationk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<operation>k__BackingField", IsRequired=true)]
-        public string operationk__BackingField {
-            get {
-                return this.operationk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.operationk__BackingFieldField, value) != true)) {
-                    this.operationk__BackingFieldField = value;
-                    this.RaisePropertyChanged("operationk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultCode>k__BackingField", IsRequired=true)]
-        public string resultCodek__BackingField {
-            get {
-                return this.resultCodek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.resultCodek__BackingFieldField, value) != true)) {
-                    this.resultCodek__BackingFieldField = value;
-                    this.RaisePropertyChanged("resultCodek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<resultDetail>k__BackingField", IsRequired=true)]
-        public string resultDetailk__BackingField {
-            get {
-                return this.resultDetailk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.resultDetailk__BackingFieldField, value) != true)) {
-                    this.resultDetailk__BackingFieldField = value;
-                    this.RaisePropertyChanged("resultDetailk__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<result>k__BackingField", IsRequired=true)]
-        public string resultk__BackingField {
-            get {
-                return this.resultk__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.resultk__BackingFieldField, value) != true)) {
-                    this.resultk__BackingFieldField = value;
-                    this.RaisePropertyChanged("resultk__BackingField");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AdditionalInformation", Namespace="http://schemas.datacontract.org/2004/07/DD.CBU.Compute.Api.Contracts.General")]
-    [System.SerializableAttribute()]
-    public partial class AdditionalInformation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string namek__BackingFieldField;
-        
-        private string valuek__BackingFieldField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<name>k__BackingField", IsRequired=true)]
-        public string namek__BackingField {
-            get {
-                return this.namek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.namek__BackingFieldField, value) != true)) {
-                    this.namek__BackingFieldField = value;
-                    this.RaisePropertyChanged("namek__BackingField");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Name="<value>k__BackingField", IsRequired=true)]
-        public string valuek__BackingField {
-            get {
-                return this.valuek__BackingFieldField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.valuek__BackingFieldField, value) != true)) {
-                    this.valuek__BackingFieldField = value;
-                    this.RaisePropertyChanged("valuek__BackingField");
                 }
             }
         }

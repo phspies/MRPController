@@ -1,7 +1,12 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
+using MRMPConfigurator.Classes;
+using MRMPConfigurator.Classes.Common;
 using MRMPConfigurator.MRMPWCFService;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ServiceModel;
 
 namespace MRMPConfigurator
 {
@@ -27,11 +32,53 @@ namespace MRMPConfigurator
         }
         public void refresh_platform_worker(object sender, DoWorkEventArgs e)
         {
-            Platform _platform = e.Argument as Platform;
-            channel.RefreshPlatform(_platform);
+            
+            WCFResultType _result = new WCFResultType();
+            try
+            {
+                Platform _platform = e.Argument as Platform;
+                channel.RefreshPlatform(_platform);
+                _result.status = true;
+            }
+            catch (TimeoutException ex)
+            {
+                _result.status = false;
+                _result.message = String.Format("Service has timed out : {0}", ex.Message);
+            }
+            catch (FaultException<UnexpectedServiceFault> ex)
+            {
+                _result.message = String.Format("Service error occurred: {0} {1}", ex.Message, System.Environment.NewLine);
+                _result.message = String.Format("service message: {0} {1}", ex.Detail.ErrorMessage, System.Environment.NewLine);
+                _result.message = String.Format("source: {0} {1}", ex.Detail.Source, System.Environment.NewLine);
+                _result.message = String.Format("target: {0} {1}", ex.Detail.Target, System.Environment.NewLine);
+                _result.message = String.Format("stack trace: {0} {1}", ex.Detail.StackTrace, System.Environment.NewLine);
+                _result.status = false;
+            }
+            catch (FaultException ex)
+            {
+                _result.status = false;
+                _result.message = String.Format("Service error occurred: {0}", ex.Message);
+            }
+
+            catch (CommunicationException ex)
+            {
+                _result.status = false;
+                _result.message = String.Format("Communications error occurred: {0}", ex.Message);
+            }
+            catch (Exception ex)
+            {
+                _result.status = false;
+                _result.message = String.Format("Error occurred: {0}", ex.Message);
+            }
+            e.Result = _result;
         }
-        private void refresh_platform_worker_complete(object sender, RunWorkerCompletedEventArgs e)
+        private async void refresh_platform_worker_complete(object sender, RunWorkerCompletedEventArgs e)
         {
+            WCFResultType _result = (WCFResultType)e.Result;
+            if (!_result.status)
+            {
+                await this.ShowMessageAsync("Error while contacting MRMP Service", _result.message);
+            }
             platforms_progress_indicator.Visibility = System.Windows.Visibility.Collapsed;
             platforms_progress_message.Visibility = System.Windows.Visibility.Collapsed;
 

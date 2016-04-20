@@ -17,7 +17,16 @@ namespace MRMPService.API
                 networkstat = _networkstat
             };
             endpoint = "/networkstats/create.json";
-            post<MRPNetworkStatCRUDType>(networkflow);
+            post<ResultType>(networkflow);
+        }
+        public void create_bulk(List<MRPNetworkStatCRUDType> _networkstats)
+        {
+            MRPNetworkStatsBulkCRUDType networkflow = new MRPNetworkStatsBulkCRUDType()
+            {
+                networkstats = _networkstats
+            };
+            endpoint = "/networkstats/create_bulk.json";
+            post<ResultType>(networkflow);
         }
     }
 }

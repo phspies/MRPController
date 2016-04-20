@@ -46,7 +46,6 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     }
 
                     //process netflows information
-                    int _networkflow_records = 0;
                     List<MRPNetworkFlowCRUDType> _networkflow_list = new List<MRPNetworkFlowCRUDType>();
                     foreach (NetworkFlow _db_flow in _db_flows)
                     {
@@ -57,11 +56,10 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         _networkflow_list.Add(_mrp_crud);
 
                         //process batch
-                        if (_networkflow_records > 50)
+                        if (_networkflow_list.Count() > Global.portal_upload_netflow_page_size)
                         {
                             _cloud_movey.netflow().createnetworkflow(_networkflow_list);
-                            _networkflow_records = 0;
-                            _networkflow_list = new List<MRPNetworkFlowCRUDType>();
+                            _networkflow_list.Clear();
                         }
 
                         //remove from local database
@@ -74,7 +72,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         _new_networkflows += 1;
                     }
                     //process any remaining records
-                    if (_networkflow_records > 0)
+                    if (_networkflow_list.Count() > 0)
                     {
                         _cloud_movey.netflow().createnetworkflow(_networkflow_list);
                     }
@@ -111,12 +109,10 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     }
 
                     //process performancecounters
-                    int _performancecounter_records = 0;
                     List<MRPPerformanceCounterCRUDType> _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
 
                     foreach (Performance _performance in _local_performance)
                     {
-                        _performancecounter_records++;
                         MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
 
                         Objects.Copy(_performance, _performancecrud);
@@ -128,11 +124,10 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         _performancecounters_list.Add(_performancecrud);
 
                         //process batch
-                        if (_performancecounter_records > 50)
+                        if (_performancecounters_list.Count > Global.portal_upload_performanceounter_page_size)
                         {
                             _cloud_movey.performancecounter().create(_performancecounters_list);
-                            _performancecounter_records = 0;
-                            _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
+                            _performancecounters_list.Clear();
                         }
 
                         //remove from local database
@@ -153,17 +148,34 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     //process netstat 
                     using (NetstatSet _db_netstat = new NetstatSet())
                     {
+                        List<MRPNetworkStatCRUDType> _netstat_list = new List<MRPNetworkStatCRUDType>();
+
                         foreach (Netstat _db_netstat_record in _db_netstat.ModelRepository.Get())
                         {
                             MRPNetworkStatCRUDType _netstatcrud = new MRPNetworkStatCRUDType();
                             Objects.Copy(_db_netstat_record, _netstatcrud);
 
-                            //add record to portal
-                            _cloud_movey.netstat().create(_netstatcrud);
+                            //add record to list
+                            _netstat_list.Add(_netstatcrud);
+
+                            //process batch
+                            if (_netstat_list.Count > Global.portal_upload_netstat_page_size)
+                            {
+                                //add record to portal
+                                _cloud_movey.netstat().create_bulk(_netstat_list);
+
+                                //reset list 
+                                _netstat_list.Clear();
+                            }
 
                             //remove from local database
                             _db_netstat.ModelRepository.Delete(_db_netstat_record.id);
                             _new_netstat += 1;
+                        }
+                        //process last remaining netstat entries
+                        if (_netstat_list.Count > 0)
+                        {
+                            _cloud_movey.netstat().create_bulk(_netstat_list);
                         }
                     }
                     sw.Stop();

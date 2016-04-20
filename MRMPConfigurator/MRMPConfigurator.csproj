@@ -122,8 +122,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Information.cs" />
     <Compile Include="Classes\Credentials.cs" />
     <Compile Include="Classes\RefreshPlatform.cs" />
+    <Compile Include="Classes\WCFResultType.cs" />
     <Compile Include="Classes\Workloads.cs" />
     <Compile Include="Classes\Platforms.cs" />
     <Compile Include="Converters\osedition.cs" />
@@ -243,7 +245,6 @@
     <None Include="Service References\MRMPWCFService\MRMPConfigurator.MRMPWCFService.Workload.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\MRMPWCFService\MRMPWCFService.wsdl" />
     <None Include="Service References\MRMPWCFService\MRMPWCFService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -275,6 +276,7 @@
     <None Include="Service References\MRMPWCFService\MRPWCFService.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\MRMPWCFService\MRPWCFService1.wsdl" />
     <None Include="Service References\MRMPWCFService\MRPWCFService1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -341,9 +343,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\MRMPWCFService\MRMPWCFService.disco" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\WindowsIcons-license.txt" />

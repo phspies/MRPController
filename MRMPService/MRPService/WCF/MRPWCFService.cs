@@ -157,8 +157,10 @@ namespace MRMPService.WCF
         {
             try
             {
-                Inventory.PlatformInventoryDo(_platform.id, false);
-
+                using (PlatformDoInventory _inventoryclass = new PlatformDoInventory())
+                {
+                    _inventoryclass.PlatformInventoryDo(_platform.id, _platform.vendor, false);
+                }
             }
             catch (Exception ex)
             {
