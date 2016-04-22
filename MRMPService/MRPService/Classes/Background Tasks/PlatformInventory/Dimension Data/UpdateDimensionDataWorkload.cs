@@ -24,7 +24,6 @@ namespace MRMPService.PlatformInventory
             {
                 _platform = db.Platforms.FirstOrDefault(x => x.id == _platform_id);
                 _platform_credential = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
-
             }
 
             //create dimension data mcp object
@@ -33,7 +32,6 @@ namespace MRMPService.PlatformInventory
                 ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credential.username, _platform_credential.password));
                 CaaS.Login().Wait();
                 _caasworkload = CaaS.ServerManagement.Server.GetServer(Guid.Parse(_workload_moid)).Result;
-
             }
             catch (Exception ex)
             {
@@ -92,6 +90,9 @@ namespace MRMPService.PlatformInventory
                     if (_new_workload.enabled == true)
                     {
                         MRPWorkloadCRUDType _mrp_workload = new MRPWorkloadCRUDType();
+                        _mrp_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
+                        _mrp_workload.workloaddisks_attributes = new List<MRPWorkloadDiskType>();
+
                         Objects.Copy(_new_workload, _mrp_workload);
 
                         //update workload source template id with portal template id
@@ -156,6 +157,10 @@ namespace MRMPService.PlatformInventory
                         if (_mrp_workloads.Exists(x => x.moid == _caasworkload.id))
                         {
                             _mrp_workload.id = _new_workload.id;
+                            
+                            //remove hostname attribute from the object on updates. We dont want to override the OS collection hostname
+                            _mrp_workload.hostname = null;
+
                             _cloud_movey.workload().updateworkload(_mrp_workload);
                         }
                         else

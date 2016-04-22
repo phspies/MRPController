@@ -82,3 +82,4 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\Release\MRMPService.csproj.GenerateResource.Cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\Release\MRMPService.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\Release\MRMPService.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\Release\MRMPService.csprojResolveAssemblyReference.cache

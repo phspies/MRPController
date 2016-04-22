@@ -15,16 +15,16 @@ namespace MRMPService.LocalDatabase
                 var workload = _workload_db.ModelRepository.GetById(workload_id);
                 if (status)
                 {
-                    workload.dt_collection_status = true;
-                    workload.dt_contact_error_count = 0;
+                    workload.os_collection_status = true;
+                    workload.os_contact_error_count = 0;
                 }
                 else
                 {
-                    workload.dt_collection_status = false;
-                    workload.dt_contact_error_count = workload.dt_contact_error_count == null ? 1 : workload.dt_contact_error_count++;
+                    workload.os_collection_status = false;
+                    workload.os_contact_error_count = workload.os_contact_error_count == null ? 1 : workload.os_contact_error_count++;
                 }
-                workload.dt_collection_message = message;
-                workload.dt_last_contact = DateTime.Now;
+                workload.os_collection_message = message;
+                workload.os_last_contact = DateTime.Now;
                 _workload_db.Save();
             }
         }

@@ -1,0 +1,79 @@
+﻿using DoubleTake.Web.Client;
+using DoubleTake.Web.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RESTExamples
+{
+    //class SQLJobBase : JobBase, IExample
+    //{
+    //    public SQLJobBase(string jobType) : base(jobType) { }
+
+    //    public virtual async Task Execute(string[] args)
+    //    {
+    //        if (CommandLineHelper.Parser.ParseArguments(args, Options))
+    //        {
+    //            SimpleLog.Log("Creating SQL job.");
+
+    //            // note: The job must be created on the TARGET machine
+    //            var connection = await ManagementService.GetConnectionAsync(Options.Target);
+    //            jobApi = new JobsApi(connection);
+
+    //            // Create the workload. Workloads are created on the SOURCE
+    //            WorkloadModel workload = await CreateWorkload();
+
+    //            // Create the job's credentials
+    //            JobCredentialsModel jobCredentials = CreateJobCredentials();
+
+    //            // Create the job options
+    //            CreateOptionsModel createOptions = await GetJobOptions(workload, jobCredentials);
+
+    //            // Verify the options are good and update the CreateOptions with the possibly fixed values
+    //            createOptions.JobOptions = await VerifyAndFixJobOptions(jobCredentials, createOptions.JobOptions);
+
+    //            // Create the job
+    //            Guid jobId = await CreateJob(createOptions, Options.JobName);
+
+    //            // Delete the no-longer needed workload
+    //            // note: workloads can be re-used for jobs created using the same source
+    //            await DeleteWorkload(workload);
+
+    //            if (Options.StartJob)
+    //            {
+    //                await StartJob(jobId);
+
+    //                if (Options.FailoverJob)
+    //                {
+    //                    var recommendedFailoverOptions = await GetFailoverOptions(jobId);
+
+    //                    await jobApi.FailoverJobAsync(jobId, recommendedFailoverOptions.FailoverOptions);
+    //                }
+    //            }
+
+    //            if (!Options.DoNotDeleteJob)
+    //            {
+    //                await DeleteJob(jobId);
+    //            }
+    //        }
+    //    }
+
+    //    protected override async Task<WorkloadModel> CreateWorkload()
+    //    {
+    //        SimpleLog.Log("Creating a SQL workload.");
+
+    //        WorkloadModel workload = await base.CreateWorkload();
+
+    //        ApiResponse<IEnumerable<LogicalItemModel>> workloadResponse = await workloadApi.GetLogicalItemsAsync(workload.Id);
+    //        workloadResponse.EnsureSuccessStatusCode();
+
+    //        SimpleLog.Log("Selecting and adding SQL repset: '{0}'", workloadResponse.Content.First().Path);
+    //        await workloadApi.SelectLogicalItemAsync(workload.Id, workloadResponse.Content.First().Path);
+
+    //        SimpleLog.Log("SQL workload created and sent to server.");
+    //        return await GetWorkload(workload.Id);
+    //    }
+    //}
+}

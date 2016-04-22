@@ -64,7 +64,7 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -188,6 +188,25 @@
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Physical\UpdatePhysicalPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Physical\UpdatePhysicalWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FilesAndFoldersJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FullServerFailoverJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\LinuxFullServerFailoverJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Cluster\ClusterAwareFilesAndFoldersJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Cluster\ClusterAwareSqlJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DataOnlyImageProtectionJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DataOnlyImageRecoveryJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DRRecoveryBase.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\FullServerImageProtectionJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\FullServerImageRecoveryJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FullServerBase.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\EVRAMoveJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\HVRAMoveJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\MoveDataOnlyMigrationJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\MoveServerMigrationJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Application\SQLJobBase.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\EVRAJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\HVRAJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\LVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatDo.cs" />

@@ -15,13 +15,14 @@ using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
 using DD.CBU.Compute.Api.Contracts.General;
 using MRMPService.Utilities;
 using MRMPService.API;
+using DD.CBU.Compute.Api.Contracts.Requests.Network20;
 
 namespace MRMPService.PlatformInventory
 {
     class PlatformDimensionDataMCP2InventoryDo
     {
 
-        public static void UpdateMCPPlatform(String _platform_id, bool full=true)
+        public static async void UpdateMCPPlatform(String _platform_id, bool full = true)
         {
             MRP_ApiClient _mrp_api_endpoint = new MRP_ApiClient();
             Platform _platform;
@@ -115,9 +116,9 @@ namespace MRMPService.PlatformInventory
                 _platformtemplates = _mrp_api_endpoint.platformtemplate().listplatformtemplates();
 
                 //update localdb platform information
-                List<NetworkDomainType> _caas_networkdomain_list = CaaS.Networking.NetworkDomain.GetNetworkDomains(new DD.CBU.Compute.Api.Contracts.Requests.Network20.NetworkDomainListOptions() { DatacenterId = _platform.moid }).Result.ToList();
-                List<ServerType> _caas_workload_list = CaaS.ServerManagement.Server.GetServers(new DD.CBU.Compute.Api.Contracts.Requests.Server20.ServerListOptions() { DatacenterId = _platform.moid, State = "NORMAL" }).Result.ToList();
-                List<VlanType> _caas_vlan_list = CaaS.Networking.Vlan.GetVlans(new DD.CBU.Compute.Api.Contracts.Requests.Network20.VlanListOptions() { DatacenterId = _platform.moid }).Result.ToList();
+                List<NetworkDomainType> _caas_networkdomain_list = CaaS.Networking.NetworkDomain.GetNetworkDomains(new NetworkDomainListOptions() { DatacenterId = _platform.moid }).Result.ToList();
+                List<ServerType> _caas_workload_list = CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.moid, State = "NORMAL" }).Result.ToList();
+                List<VlanType> _caas_vlan_list = CaaS.Networking.Vlan.GetVlans(new VlanListOptions() { DatacenterId = _platform.moid }).Result.ToList();
                 DatacenterType _caas_dc = CaaS.Infrastructure.GetDataCenters(new PageableRequest() { PageSize = 250 }, new DataCenterListOptions() { Id = _platform.moid }).Result.ToList().FirstOrDefault();
 
                 int workloads, networkdomains, vlans;
@@ -133,7 +134,7 @@ namespace MRMPService.PlatformInventory
 
                 using (PlatformSet _platform_dbset = new PlatformSet())
                 {
-                     Platform _db_platform = _platform_dbset.ModelRepository.GetById(_platform.id);
+                    Platform _db_platform = _platform_dbset.ModelRepository.GetById(_platform.id);
                     _db_platform.vlan_count = vlans;
                     _db_platform.workload_count = workloads;
                     _db_platform.networkdomain_count = networkdomains;
@@ -153,7 +154,9 @@ namespace MRMPService.PlatformInventory
                     _mrp_mdomain.domain = _caas_domain.name;
                     _mrp_mdomain.platform_id = _platform.id;
 
-                    foreach (VlanType _caas_network in CaaS.Networking.Vlan.GetVlans(new DD.CBU.Compute.Api.Contracts.Requests.Network20.VlanListOptions() { NetworkDomainId = Guid.Parse(_caas_domain.id) }).Result.ToList())
+                    VlanListOptions _vlan_options = new VlanListOptions() { DatacenterId = _caas_dc.id };
+                    IEnumerable<VlanType> _vlans = CaaS.Networking.Vlan.GetVlans(_vlan_options).Result;
+                    foreach (VlanType _caas_network in _vlans.Where(x => x.networkDomain.id == _caas_domain.id))
                     {
                         MRPPlatformnetworkCRUDType _mrp_network = new MRPPlatformnetworkCRUDType();
                         _mrp_network.moid = _caas_network.id;
@@ -176,6 +179,12 @@ namespace MRMPService.PlatformInventory
                             _new_platformnetworks += 1;
                         }
                         _mrp_mdomain.platformnetworks_attributes.Add(_mrp_network);
+                    }
+                    //Workaround
+                    //if no networks were found, set platformnetworks_aatributes to null
+                    if (_mrp_mdomain.platformnetworks_attributes.Count == 0)
+                    {
+                        _mrp_mdomain.platformnetworks_attributes = null;
                     }
                     if (_mrp_domains.Exists(x => x.moid == _caas_domain.id))
                     {
@@ -211,7 +220,7 @@ namespace MRMPService.PlatformInventory
                 {
                     foreach (ServerType _caasworkload in _caas_workload_list.Where(x => x.datacenterId == _platform.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
                     {
-                        PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform.moid);
+                        PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform.id);
                     }
                 }
                 sw.Stop();

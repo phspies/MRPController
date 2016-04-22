@@ -1,0 +1,89 @@
+2016/04/21 01:53:30 Debug > Starting WCF Service
+2016/04/21 01:53:30 Info > Debug Enabled!
+2016/04/21 01:53:31 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/04/21 01:53:32 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/04/21 01:53:32 Debug > Starting Scheduler Thread
+2016/04/21 01:53:32 Debug > Starting Mirror Thread
+2016/04/21 01:53:32 Debug > Starting Performance Collection Thread
+2016/04/21 01:53:32 Info > Staring platform inventory process with 10 threads
+2016/04/21 01:53:32 Debug > Starting Netflow v5 Collection Thread
+2016/04/21 01:53:32 Info > Staring performance collection process with 10 threads
+2016/04/21 01:53:32 Debug > Starting Data Upload Thread
+2016/04/21 01:53:32 Debug > Starting OS Inventory Thread
+2016/04/21 01:53:32 Info > Staring operating system inventory process with 10 threads
+2016/04/21 01:53:32 Info > Staring data upload process
+2016/04/21 01:53:32 Debug > Starting OS Netstat Thread
+2016/04/21 01:53:32 Info > Netstat: Staring netstat collection process with 10 threads
+2016/04/21 01:53:33 Info > Started inventory process for Standalone Platform
+2016/04/21 01:53:33 Info > Netstat: Started netstat collection for 10-0-0-8 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/21 01:53:33 Info > Netstat: Started netstat collection for 10-0-0-9 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/21 01:53:33 Info > Performance: Start performance collection for 10-0-0-9 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/04/21 01:53:33 Info > Completed data upload process.0 netflows.0 performancecounters. 0 netstats. = Total Elapsed Time: 00:00:00.2990000
+2016/04/21 01:53:33 Info > Performance: Start performance collection for 10-0-0-8 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/04/21 01:53:33 Info > Inventory: Started inventory collection for 10-0-0-8 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/21 01:53:33 Info > Inventory: Started inventory collection for 10-0-0-9 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/21 01:53:35 Info > Netstat: Started netstat collection for 10-0-0-10 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/21 01:53:35 Info > Performance: Start performance collection for 10-0-0-10 using 2607:f480:111:1359:14a4:ac63:1ae:a393
+2016/04/21 01:53:36 Info > Netstat: Started netstat collection for 10-0-0-11 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/21 01:53:36 Info > Performance: Start performance collection for 10-0-0-11 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/04/21 01:53:38 Error > Error collecting inventory information from 10-0-0-10 with error System.ArgumentNullException: Value cannot be null.Parameter name: ipString   at System.Net.IPAddress.InternalParse(String ipString, Boolean tryParse)   at MRMPService.Utilities.Connection.FindConnection(String iplist, Boolean literal) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities\Connection.cs:line 39   at MRMPService.API.Classes.WorkloadInventory.WorkloadInventoryDo(String workload_id) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryDo.cs:line 49   at MRMPService.API.Classes.WorkloadInventoryThread.<>c.<Start>b__1_0(Workload workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 38
+2016/04/21 01:53:39 Error > Error collecting inventory information from 10-0-0-11 with error System.ArgumentNullException: Value cannot be null.Parameter name: ipString   at System.Net.IPAddress.InternalParse(String ipString, Boolean tryParse)   at MRMPService.Utilities.Connection.FindConnection(String iplist, Boolean literal) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities\Connection.cs:line 39   at MRMPService.API.Classes.WorkloadInventory.WorkloadInventoryDo(String workload_id) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryDo.cs:line 49   at MRMPService.API.Classes.WorkloadInventoryThread.<>c.<Start>b__1_0(Workload workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 38
+2016/04/21 01:53:40 Info > Inventory: Completed netstat collection for 10-0-0-9 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/21 01:53:40 Info > Inventory: Completed netstat collection for 10-0-0-8 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/21 01:53:41 Info > Inventory: Completed netstat collection for 10-0-0-10 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/21 01:53:42 Info > Inventory: Completed netstat collection for 10-0-0-11 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/21 01:53:42 Info > Netstat: Completed netstat collection for 4 workloads in 00:00:10.0150000 [next run at 4/21/2016 2:23:32 PM]
+2016/04/21 01:53:43 Info > Inventory: Completed inventory collection for 10-0-0-9 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/21 01:53:43 Info > Completed inventory process for Standalone Platform = Total Execute Time: 00:00:09.7300000
+2016/04/21 01:53:43 Info > Completed platform inventory for 1 platforms in 00:00:11.0440000 [next run at 4/22/2016 1:53:32 PM]
+2016/04/21 01:53:43 Info > Inventory: Completed inventory collection for 10-0-0-8 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/21 01:53:43 Info > Completed operating system inventory for 4 workloads in 00:00:11.5550000 [next run at 4/22/2016 1:53:32 PM]
+2016/04/21 01:53:52 Error > Error collecting performance information from 10-0-0-10 with error System.InvalidOperationException: Mismatched counter types.   at System.Diagnostics.CounterSampleCalculator.ComputeCounterValue(CounterSample oldSample, CounterSample newSample)   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceDo(SyncronisedList`1 _countertree, SyncronisedList`1 _counters, String workload_id) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceDo.cs:line 179   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_0(Workload workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs:line 92
+2016/04/21 01:53:59 Info > Performance: Completed performance collection for 10-0-0-9 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/04/21 01:54:04 Info > Performance: Completed performance collection for 10-0-0-11 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/04/21 01:54:11 Info > Performance: Completed performance collection for 10-0-0-8 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/04/21 01:54:11 Info > Completed performance collection for 4 workloads in 00:00:39.6910000 [next run at 4/21/2016 2:53:32 PM]
+2016/04/21 01:55:53 Info > Started inventory process for  : NA9
+2016/04/21 01:56:00 Error > Error in inventory process for  : NA9 System.ArgumentNullException: Value cannot be null.Parameter name: source   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)   at MRMPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 156
+2016/04/21 01:58:32 Debug > Starting WCF Service
+2016/04/21 01:58:34 Info > Debug Enabled!
+2016/04/21 01:58:34 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/04/21 01:58:34 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/04/21 01:58:34 Debug > Starting Scheduler Thread
+2016/04/21 01:58:34 Debug > Starting Mirror Thread
+2016/04/21 01:58:34 Debug > Starting Performance Collection Thread
+2016/04/21 01:58:34 Info > Staring platform inventory process with 10 threads
+2016/04/21 01:58:34 Debug > Starting Netflow v5 Collection Thread
+2016/04/21 01:58:34 Debug > Starting Data Upload Thread
+2016/04/21 01:58:34 Info > Staring performance collection process with 10 threads
+2016/04/21 01:58:34 Debug > Starting OS Inventory Thread
+2016/04/21 01:58:34 Info > Staring data upload process
+2016/04/21 01:58:34 Debug > Starting OS Netstat Thread
+2016/04/21 01:58:34 Info > Staring operating system inventory process with 10 threads
+2016/04/21 01:58:34 Info > Netstat: Staring netstat collection process with 10 threads
+2016/04/21 01:58:35 Info > Started inventory process for Standalone Platform
+2016/04/21 01:58:35 Info > Performance: Start performance collection for 10-0-0-8 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/04/21 01:58:35 Info > Netstat: Started netstat collection for 10-0-0-9 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/21 01:58:35 Info > Performance: Start performance collection for 10-0-0-9 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/04/21 01:58:36 Info > Inventory: Started inventory collection for 10-0-0-9 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/21 01:58:35 Info > Netstat: Started netstat collection for 10-0-0-8 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/21 01:58:36 Info > Inventory: Started inventory collection for 10-0-0-8 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/21 01:58:36 Info > Started inventory process for Dimension Data : NA9
+2016/04/21 01:58:37 Info > Performance: Start performance collection for 10-0-0-10 using 2607:f480:111:1359:14a4:ac63:1ae:a393
+2016/04/21 01:58:39 Info > Netstat: Started netstat collection for 10-0-0-10 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/21 01:58:40 Info > Inventory: Started inventory collection for 10-0-0-11 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/21 01:58:41 Info > Inventory: Completed netstat collection for 10-0-0-9 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/21 01:58:41 Error > Error collecting inventory information from 10-0-0-10 with error System.ArgumentNullException: Value cannot be null.Parameter name: ipString   at System.Net.IPAddress.InternalParse(String ipString, Boolean tryParse)   at MRMPService.Utilities.Connection.FindConnection(String iplist, Boolean literal) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities\Connection.cs:line 39   at MRMPService.API.Classes.WorkloadInventory.WorkloadInventoryDo(String workload_id) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryDo.cs:line 49   at MRMPService.API.Classes.WorkloadInventoryThread.<>c.<Start>b__1_0(Workload workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 38
+2016/04/21 01:58:41 Info > Netstat: Started netstat collection for 10-0-0-11 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/21 01:58:41 Info > Performance: Start performance collection for 10-0-0-11 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/04/21 01:58:41 Info > Inventory: Completed netstat collection for 10-0-0-8 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/21 01:58:43 Info > Inventory: Completed netstat collection for 10-0-0-10 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/21 01:58:44 Info > Inventory: Completed inventory collection for 10-0-0-9 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/21 01:58:44 Info > Inventory: Completed inventory collection for 10-0-0-8 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/21 01:58:44 Info > Inventory: Completed netstat collection for 10-0-0-11 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/21 01:58:44 Info > Netstat: Completed netstat collection for 4 workloads in 00:00:10.0260000 [next run at 4/21/2016 2:28:34 PM]
+2016/04/21 01:58:45 Error > Error in inventory process for Dimension Data : NA9 System.NullReferenceException: Object reference not set to an instance of an object.   at MRMPService.API.Core.perform[type](Method _method, Object _object) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Modules\MRPPortal\Core.cs:line 102   at MRMPService.API.MRPPlatformtemplate.updateplatformtemplate(MRPPlatformtemplateCRUDType _platformtemplate) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Modules\MRPPortal\PlatformTemplates.cs:line 38   at MRMPService.PlatformInventory.PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(String _platform_id, Boolean full) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs:line 75
+2016/04/21 01:58:45 Info > Completed inventory process for Standalone Platform = Total Execute Time: 00:00:09.4960000
+2016/04/21 01:58:45 Info > Completed platform inventory for 2 platforms in 00:00:10.5320000 [next run at 4/22/2016 1:58:34 PM]
+2016/04/21 01:58:48 Info > Inventory: Completed inventory collection for 10-0-0-11 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/21 01:58:48 Info > Completed operating system inventory for 4 workloads in 00:00:13.4600000 [next run at 4/22/2016 1:58:34 PM]
