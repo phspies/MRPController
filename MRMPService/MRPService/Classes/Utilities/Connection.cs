@@ -36,7 +36,7 @@ namespace MRMPService.Utilities
                 }
             }
 
-            if (literal == true)
+            if (literal == true && workingip != null)
             {
                 //check for IPv6 address
                 IPAddress _check_ip = IPAddress.Parse(workingip);
