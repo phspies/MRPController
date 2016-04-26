@@ -18,33 +18,19 @@ using System.Security.Principal;
 using System.Threading;
 using MRMPService.Utilities;
 using MRMPService.PlatformInventory;
+using DD.CBU.Compute.Api.Contracts.General;
 
 namespace MRMPService.Tasks.MCP
 {
     class MCP_Platform
     {
-        public const int LOGON32_LOGON_INTERACTIVE = 2;
-        public const int LOGON32_LOGON_SERVICE = 3;
-        public const int LOGON32_PROVIDER_DEFAULT = 0;
-        public const int LOGON32_LOGON_NETWORK_CLEARTEXT = 8;
-        public const int LOGON32_LOGON_NEW_CREDENTIALS = 9;
-
-        [DllImport("advapi32.dll", CharSet = CharSet.Auto)]
-        public static extern bool LogonUser(
-            String lpszUserName,
-            String lpszDomain,
-            String lpszPassword,
-            int dwLogonType,
-            int dwLogonProvider,
-            ref IntPtr phToken);
-
-        [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
-        public extern static bool CloseHandle(IntPtr handle);
-
         public static async void ProvisionVM(MRPTaskType payload)
         {
             //Get workload object from portal to perform updates once provisioned
-            API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient();
+            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+            {
+                _mrp_api.task().progress(payload, String.Format("Starting provisioning process"));
+            }
 
             MRPTaskSubmitpayloadType _payload = payload.submitpayload;
             MRPDatabase db = new MRPDatabase();
@@ -68,15 +54,15 @@ namespace MRMPService.Tasks.MCP
                 _platform_credentail = _credential_db.ModelRepository.GetById(_platform.credential_id);
 
                 //get or create credentials for standalone workload
-                if (_credential_db.ModelRepository.Get(x => x.description == "Internal Windows Credentials").Count > 0)
+                if (_credential_db.ModelRepository.Get(x => x.description == "Standalone Windows Credentials").Count > 0)
                 {
-                    _stadalone_credential = _credential_db.ModelRepository.Get(x => x.description == "Internal Windows Credentials").FirstOrDefault();
+                    _stadalone_credential = _credential_db.ModelRepository.Get(x => x.description == "Standalone Windows Credentials").FirstOrDefault();
                 }
                 else
                 {
                     _stadalone_credential = new Credential();
                     _stadalone_credential.credential_type = 1;
-                    _stadalone_credential.description = "Internal Windows Credentials";
+                    _stadalone_credential.description = "Standalone Windows Credentials";
                     _stadalone_credential.username = "Administrator";
                     _stadalone_credential.password = new Random().GetSHA1Hash().Substring(0, 12);
                     _stadalone_credential.id = Objects.RamdomGuid();
@@ -87,9 +73,6 @@ namespace MRMPService.Tasks.MCP
             {
                 throw new System.ArgumentException("Cannot find standalone credential for workload deployment");
             }
-
-
-
 
             ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentail.username, _platform_credentail.password));
             CaaS.Login().Wait();
@@ -108,7 +91,7 @@ namespace MRMPService.Tasks.MCP
                 List<DeployServerTypeDisk> _disks = new List<DeployServerTypeDisk>();
 
                 //Set Tier for first disk being deployed
-                MRPTaskDiskType _first_disk = _target.disks.FirstOrDefault(x => x.diskindex == 0);
+                MRPTaskVolumeType _first_disk = _target.volumes.FirstOrDefault(x => x.diskindex == 0);
                 _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier.shortname });
 
                 _vm.name = _target.hostname;
@@ -164,13 +147,13 @@ namespace MRMPService.Tasks.MCP
                     var serverInfo = _status.info.Single(info => info.name == "serverId");
                     ServerType deployedServer = null;
                     {
-                        deployedServer = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(serverInfo.value));
+                        deployedServer = CaaS.ServerManagement.Server.GetServer(Guid.Parse(serverInfo.value)).Result;
                     }
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), 20);
                     }
-                    ServerType _newvm = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id));
+                    ServerType _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
                         if (_newvm.progress != null)
@@ -189,26 +172,31 @@ namespace MRMPService.Tasks.MCP
 
                     //Expand C: drive and Add additional disks if required
                     int count = 0;
-                    foreach (MRPTaskDiskType _volume in _target.disks)
+                    foreach (int _disk_index in _target.volumes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
                     {
-                        if (_newvm.disk.ToList().Exists(x => x.scsiId == _volume.diskindex))
+                        //increase disk by 5GB
+                        long _disk_size = _target.volumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
+
+                        MRPTaskPlatformstoragetierType _disk_tier = _target.volumes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier;
+                        if (_newvm.disk.ToList().Exists(x => x.scsiId == _disk_index))
                         {
-                            if (_newvm.disk.ToList().Find(x => x.scsiId == _volume.diskindex).sizeGb < _volume.disksize)
+                            if (_newvm.disk.ToList().Find(x => x.scsiId == _disk_index).sizeGb < _disk_size)
                             {
+                                String _disk_guid = _newvm.disk.ToList().Find(x => x.scsiId == _disk_index).id;
                                 using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                                 {
-                                    _mrp_api.task().progress(payload, String.Format("Extending storage: {0} : {1}GB", _volume.diskindex, _volume.disksize), 60 + count);
+                                    _mrp_api.task().progress(payload, String.Format("Extending storage: {0} : {1}GB", _disk_index, _disk_size), 60 + count);
                                 }
-                                await CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _volume.diskindex.ToString(), _volume.disksize.ToString());
+                                Status _create_status = CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _disk_guid, _disk_size.ToString()).Result;
                             }
                         }
                         else
                         {
                             using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                             {
-                                _mrp_api.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _volume.diskindex, _volume.disksize, _volume.platformstoragetier.storagetier), 60 + count);
+                                _mrp_api.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _disk_index, _disk_size, _disk_tier.storagetier), 60 + count);
                             }
-                            await CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _volume.disksize.ToString(), _volume.platformstoragetier.shortname);
+                            Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk_size.ToString(), _disk_tier.shortname).Result;
                         }
                         _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                         while (_newvm.state != "NORMAL" && _newvm.started == false)
@@ -224,67 +212,187 @@ namespace MRMPService.Tasks.MCP
                     {
                         _mrp_api.task().progress(payload, String.Format("Power on workload"), 70);
                     }
-                    await CaaS.ServerManagement.Server.StartServer(Guid.Parse(deployedServer.id));
-                    _newvm = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id));
+                    ResponseType _start_server = CaaS.ServerManagement.Server.StartServer(Guid.Parse(deployedServer.id)).Result;
+                    _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
-                        _newvm = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id));
+                        _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                         Thread.Sleep(5000);
                     }
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Workload powered on"), 71);
                     }
-                    _newvm = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id));
+                    _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+
+                    //gibe workload some time to become available
+                    Thread.Sleep(new TimeSpan(0, 0, 30));
+
+                    //find working ip of server
+                    string new_workload_ip = null;
+                    int ip_find_try = 0;
+                    using (Connection _connection = new Connection())
+                    {
+                        while (ip_find_try < 3)
+                        {
+                            new_workload_ip = _connection.FindConnection(String.Join(",", _newvm.networkInfo.primaryNic.ipv6, _newvm.networkInfo.primaryNic.privateIpv4), true);
+                            if (new_workload_ip != null)
+                            {
+                                break;
+                            }
+                            ip_find_try++;
+                            Thread.Sleep(new TimeSpan(0, 0, 30));
+                        }
+                    }
+                    if (new_workload_ip == null)
+                    {
+                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                        {
+                            _mrp_api.task().failcomplete(payload, String.Format("Error contacting workwork {0} after 3 tries", _newvm.name));
+                        }
+                        return;
+                    }
+
+                    long _c_volume_actual_size = 0;
+                    long _c_volume_actual_free = 0;
+                    string _cdrom_drive_letter = "";
+                    ConnectionOptions options = WMIHelper.ProcessConnectionOptions((String.IsNullOrWhiteSpace(_stadalone_credential.domain) ? (@".\" + _stadalone_credential.username) : (_stadalone_credential.domain + @"\" + _stadalone_credential.username)), _stadalone_credential.password);
+                    ManagementScope connectionScope = WMIHelper.ConnectionScope(new_workload_ip, options);
+                    SelectQuery VolumeQuery = new SelectQuery("SELECT Size, FreeSpace FROM Win32_LogicalDisk WHERE DeviceID = 'C:'");
+                    SelectQuery CdromQuery = new SelectQuery("SELECT Drive FROM Win32_CDROMDrive");
+                    foreach (var item in new ManagementObjectSearcher(connectionScope, CdromQuery).Get())
+                    {
+                        try
+                        {
+                            _cdrom_drive_letter = item["Drive"].ToString();
+                        }
+                        catch (Exception ex)
+                        {
+                            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                            {
+                            }
+                        }
+                    }
+                    foreach (var item in new ManagementObjectSearcher(connectionScope, VolumeQuery).Get())
+                    {
+                        try
+                        {
+                            _c_volume_actual_size = Convert.ToInt64(item["Size"].ToString());
+                            _c_volume_actual_free = Convert.ToInt64(item["FreeSpace"].ToString());
+                        }
+                        catch (Exception ex)
+                        {
+                            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                            {
+                                _mrp_api.task().failcomplete(payload, String.Format("Error collecting C: volume space information for {0}", _newvm.name));
+                            }
+                            return;
+                        }
+                    }
+                    MRPTaskVolumeType _c_volume_object = _target.volumes.FirstOrDefault(x => x.driveletter == "C:");
+                    long _c_volume_to_add = 0;
+                    if (_c_volume_object != null)
+                    {
+                        _c_volume_to_add = (_c_volume_object.volumesize * 1024 * 1024 * 1024) - _c_volume_actual_size;
+                    }
+                    else
+                    {
+                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                        {
+                            _mrp_api.task().failcomplete(payload, "Cannot find C: drive in volume list for partition mapping");
+                        }
+                        return;
+                    }
 
 
-                    //create diskpart file for virtual machine and copy it to the remote workload
-                    List<String> _driveletters = new List<String>();
+                    List<String> _used_drive_letters = _target.volumes.Select(x => x.driveletter.Substring(0, 1)).ToList();
                     List<String> _systemdriveletters = new List<String>();
                     _systemdriveletters.AddRange("DEFGHIJKLMNOPQRSTUVWXYZ".Select(d => d.ToString()));
+                    List<String> _availabledriveletters = _systemdriveletters.Except(_used_drive_letters).ToList<String>();
+
                     List<String> _diskpart_struct = new List<string>();
-                    _diskpart_struct.Add("select volume c");
-                    _diskpart_struct.Add("extend noerr");
-                    _diskpart_struct.Add("");
-                    List<String> _availabledriveletters = _systemdriveletters.Except(_driveletters).ToList<String>();
-                    _diskpart_struct.Add("select volume d");
-                    _diskpart_struct.Add(String.Format("assign letter={0} noerr", _availabledriveletters.Last()));
-                    _diskpart_struct.Add("");
-                    foreach (ServerTypeDisk _disk in _newvm.disk.ToList().FindAll(x => x.scsiId != 0).OrderBy(x => x.scsiId))
+                    //convert number MB from bytes
+                    _c_volume_to_add = _c_volume_to_add / 1024 / 1024;
+
+                    if (_c_volume_to_add > 0)
                     {
-                        string _driveletter = _target.volumes.Find(x => x.diskindex == _disk.scsiId).driveletter.Substring(0, 1);
-                        _driveletters.Add(_driveletter.ToString());
-                        _diskpart_struct.Add(String.Format("select disk {0}", _disk.scsiId));
-                        _diskpart_struct.Add("ATTRIBUTES DISK CLEAR READONLY");
-                        _diskpart_struct.Add("ONLINE DISK");
-                        _diskpart_struct.Add("clean");
-                        _diskpart_struct.Add("create partition primary");
-                        _diskpart_struct.Add("select partition 1");
-                        _diskpart_struct.Add("format fs=ntfs quick");
-                        _diskpart_struct.Add(String.Format("assign letter={0} noerr", _driveletter));
-                        _diskpart_struct.Add("active");
+                        _diskpart_struct.Add("select volume c");
+                        _diskpart_struct.Add(String.Format("extend size={0} disk=0 noerr", _c_volume_to_add));
                         _diskpart_struct.Add("");
                     }
 
-                    Thread.Sleep(new TimeSpan(0, 0, 30));
-
-                    string _ip_list = String.Join(",", _newvm.networkInfo.primaryNic.ipv6, _newvm.networkInfo.primaryNic.privateIpv4);
-                    string _working_ip = null;
-
-                    using (Connection _connection = new Connection())
+                    //change cdrom drive letter
+                    if (_cdrom_drive_letter != "")
                     {
-                        _working_ip = _connection.FindConnection(_ip_list, false);
+                        _diskpart_struct.Add(String.Format("select volume {0}", _cdrom_drive_letter.Substring(0, 1)));
+                        _diskpart_struct.Add(String.Format("assign letter={0} noerr", _availabledriveletters.Last()));
+                        _diskpart_struct.Add("");
                     }
-
-                    Logger.log(String.Format("Found working ip: {0}", _working_ip), Logger.Severity.Info);
-
-                    IntPtr userHandle = new IntPtr(0);
+                    foreach (int _disk_index in _target.volumes.Select(x => x.diskindex).Distinct())
+                    {
+                        _diskpart_struct.Add(String.Format("select disk {0}", _disk_index));
+                        _diskpart_struct.Add("ATTRIBUTES DISK CLEAR READONLY noerr");
+                        _diskpart_struct.Add("ONLINE DISK noerr");
+                        int _vol_index = 0;
+                        if (_disk_index == 0)
+                        {
+                            _vol_index = 2;
+                        }
+                        else
+                        {
+                            _vol_index = 1;
+                        }
+                        foreach (MRPTaskVolumeType _volume in _target.volumes.ToList().Where(x => x.diskindex == _disk_index).OrderBy(x => x.driveletter))
+                        {
+                            if (_volume.driveletter != "C:")
+                            {
+                                string _driveletter = _volume.driveletter.Substring(0, 1);
+                                _diskpart_struct.Add("clean noerr");
+                                _diskpart_struct.Add(String.Format("create partition primary size = {0}", _volume.volumesize * 1024));
+                                _diskpart_struct.Add(String.Format("select partition {0}", _vol_index));
+                                _diskpart_struct.Add("format fs=ntfs quick");
+                                _diskpart_struct.Add(String.Format("assign letter={0} noerr", _driveletter));
+                                _diskpart_struct.Add("active");
+                                _diskpart_struct.Add("");
+                            }
+                            _vol_index++;
+                        }
+                    }
+                    WorkloadSet dbworkload = new WorkloadSet();
+                    CredentialSet dbcredential = new CredentialSet();
+                    string workloadPath = null;
 
                     try
                     {
-                        LogonUser("Administrator", ".", _stadalone_credential.password, LOGON32_LOGON_NEW_CREDENTIALS, LOGON32_PROVIDER_DEFAULT, ref userHandle);
-                        WindowsIdentity identity = new WindowsIdentity(userHandle);
-                        WindowsImpersonationContext context = identity.Impersonate();
+                        using (new Impersonator(_stadalone_credential.username, (String.IsNullOrWhiteSpace(_stadalone_credential.domain) ? "." : _stadalone_credential.domain), _stadalone_credential.password))
+                        {
+                            string remoteInstallFiles = @"C:\";
+                            remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
+                            workloadPath = @"\\" + Path.Combine(new_workload_ip, remoteInstallFiles, "diskpart.txt");
+                            int _copy_retries = 30;
+                            while (true)
+                            {
+                                try
+                                {
+                                    File.WriteAllLines(workloadPath, _diskpart_struct.ConvertAll(Convert.ToString));
+                                    Logger.log(String.Format("Successfully copied diskpart disk after {0} retries", _copy_retries), Logger.Severity.Info);
+                                    break;
+                                }
+                                catch (Exception ex)
+                                {
+                                    if (--_copy_retries == 0)
+                                    {
+                                        Logger.log(String.Format("Error creating disk layout file on workload {0}: {1} : {2}", new_workload_ip, ex.Message, workloadPath), Logger.Severity.Info);
+                                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                                        {
+                                            _mrp_api.task().failcomplete(payload, String.Format("Error creating disk layout file on workload: {0}", ex.Message));
+                                        }
+                                        return;
+                                    }
+                                    else Thread.Sleep(new TimeSpan(0, 0, 30));
+                                }
+                            }
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -295,34 +403,6 @@ namespace MRMPService.Tasks.MCP
                         Logger.log(ex.Message, Logger.Severity.Error);
                         return;
                     }
-                    string workloadPath = null;
-                    string remoteInstallFiles = @"C:\";
-                    remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
-                    workloadPath = @"\\" + Path.Combine(_working_ip, remoteInstallFiles, "diskpart.txt");
-                    int _copy_retries = 30;
-                    while (true)
-                    {
-                        try
-                        {
-                            File.WriteAllLines(workloadPath, _diskpart_struct.ConvertAll(Convert.ToString));
-                            Logger.log(String.Format("Successfully copied diskpart disk after {0} retries", _copy_retries), Logger.Severity.Info);
-                            break;
-                        }
-                        catch (Exception ex)
-                        {
-                            if (--_copy_retries == 0)
-                            {
-                                Logger.log(String.Format("Error creating disk layout file on workload {0}: {1} : {2}", _working_ip, ex.Message, workloadPath), Logger.Severity.Info);
-                                using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
-                                {
-                                    _mrp_api.task().failcomplete(payload, String.Format("Error creating disk layout file on workload: {0}", ex.Message));
-                                }
-                                return;
-                            }
-                            else Thread.Sleep(new TimeSpan(0, 0, 30));
-                        }
-                    }
-
                     //Run Diskpart Command on Workload
                     //Create connection object to remote machine
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
@@ -332,7 +412,7 @@ namespace MRMPService.Tasks.MCP
                     ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _stadalone_credential.password };
                     connOptions.Impersonation = ImpersonationLevel.Impersonate;
                     connOptions.Authentication = AuthenticationLevel.Default;
-                    ManagementScope scope = new ManagementScope(@"\\" + _working_ip + @"\root\CIMV2", connOptions);
+                    ManagementScope scope = new ManagementScope(@"\\" + new_workload_ip + @"\root\CIMV2", connOptions);
                     int _connect_retries = 3;
                     while (true)
                     {
@@ -345,7 +425,7 @@ namespace MRMPService.Tasks.MCP
                         {
                             if (--_connect_retries == 0)
                             {
-                                Logger.log(String.Format("Error running diskpart on workload {0}: {1} : {2}", _working_ip, ex.Message, workloadPath), Logger.Severity.Info);
+                                Logger.log(String.Format("Error running diskpart on workload {0}: {1} : {2}", new_workload_ip, ex.Message, workloadPath), Logger.Severity.Info);
                                 using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                                 {
                                     _mrp_api.task().failcomplete(payload, String.Format("Error running diskpart on workload: {0}", ex.Message));
@@ -413,7 +493,11 @@ namespace MRMPService.Tasks.MCP
                     db.SaveChanges();
 
                     //Get updated workload object from portal and update the moid,credential_id,provisioned on the portal
-                    MRPWorkloadType _workload = (MRPWorkloadType)_cloud_movey.workload().getworkload(_target.id);
+                    MRPWorkloadType _workload;
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _workload = (MRPWorkloadType)_mrp_api.workload().getworkload(_target.id);
+                    }
                     MRPWorkloadCRUDType _update_workload = new MRPWorkloadCRUDType();
                     _update_workload.id = _target.id;
                     _update_workload.moid = _newvm.id;
@@ -425,7 +509,11 @@ namespace MRMPService.Tasks.MCP
                     _update_workload.workloaddisks_attributes = _workload.disks.Select(x => new MRPWorkloadDiskType() { id = x.id, _destroy = true }).ToList();
                     _update_workload.workloadvolumes_attributes = _workload.volumes.Select(x => new MRPWorkloadVolumeType() { id = x.id, _destroy = true }).ToList();
                     _update_workload.workloadinterfaces_attributes = _workload.interfaces.Select(x => new MRPWorkloadInterfaceType() { id = x.id, _destroy = true }).ToList();
-                    _cloud_movey.workload().updateworkload(_update_workload);
+
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _mrp_api.workload().updateworkload(_update_workload);
+                    }
 
                     //update Platform inventory for server
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
@@ -435,7 +523,10 @@ namespace MRMPService.Tasks.MCP
                     PlatformInventoryWorkloadDo.UpdateMCPWorkload(_newvm.id, _newvm.datacenterId);
 
                     //update OS information or newly provisioned server
-                    _workload = (MRPWorkloadType)_cloud_movey.workload().getworkload(_target.id);
+                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    {
+                        _workload = (MRPWorkloadType)_mrp_api.workload().getworkload(_target.id);
+                    }
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Updating operating system information for {0}", _target.hostname), 92);

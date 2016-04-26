@@ -102,24 +102,6 @@ namespace MRMPService.PlatformInventory
                         //copy db object into mrp portal object
                         Objects.Copy(_db_workload, _mrp_workload);
 
-                        //evaluate all virtual disks for workload
-                        foreach (VirtualDevice _virtualdevice in _vmware_workload.Config.Hardware.Device.Where(x => x.GetType() == typeof(VirtualDisk)))
-                        {
-                            VirtualDisk _workloaddisk = (VirtualDisk)_virtualdevice;
-                            MRPWorkloadDiskType _virtual_disk = new MRPWorkloadDiskType()
-                            {
-                                diskindex = (int)_workloaddisk.UnitNumber,
-                                provisioned = true,
-                                disksize = _workloaddisk.CapacityInKB / 1024 / 1024,
-                                _destroy = false
-                            };
-                            if (_mrp_workloads.Exists(x => x.moid == _vmware_workload.MoRef.Value && x.disks.Exists(y => y.diskindex == _workloaddisk.UnitNumber)))
-                            {
-                                _virtual_disk.id = _mrp_workloads.FirstOrDefault(x => x.moid == _vmware_workload.MoRef.Value).disks.FirstOrDefault(y => y.diskindex == _workloaddisk.UnitNumber).id;
-                            }
-                            _mrp_workload.workloaddisks_attributes.Add(_virtual_disk);
-                        }
-
                         //evaluate all virtual network interfaces for workload
                         List<Type> _vmware_nic_types = new List<Type>() { typeof(VirtualE1000), typeof(VirtualE1000e), typeof(VirtualPCNet32), typeof(VirtualSriovEthernetCard), typeof(VirtualVmxnet) };
                         int _index = 1;

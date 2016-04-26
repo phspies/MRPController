@@ -80,7 +80,6 @@ namespace MRMPService.MRMPService.Types.API
         public int vcore { get; set; }
         public int vmemory { get; set; }
         public MRPTaskDeploymentpolicyType deploymentpolicy { get; set; }
-        public List<MRPTaskDiskType> disks { get; set; }
         public List<MRPTaskVolumeType> volumes { get; set; }
         public List<MRPTaskInterfaceType> interfaces { get; set; }
         public MRPTaskTemplateType platform_template { get; set; }
@@ -121,19 +120,6 @@ namespace MRMPService.MRMPService.Types.API
         public string updated_at { get; set; }
     }
 
-    public class MRPTaskDiskType
-    {
-        public string id { get; set; }
-        public string workload_id { get; set; }
-        public int diskindex { get; set; }
-        public int disksize { get; set; }
-        public MRPTaskPlatformstoragetierType platformstoragetier { get; set; }
-        public string moid { get; set; }
-        public int position { get; set; }
-        public bool provisioned { get; set; }
-        public string deviceid { get; set; }
-    }
-
     public class MRPTaskPlatformstoragetierType
     {
         public string id { get; set; }
@@ -157,6 +143,8 @@ namespace MRMPService.MRMPService.Types.API
         public string volumename { get; set; }
         public DateTime created_at { get; set; }
         public DateTime updated_at { get; set; }
+        public MRPTaskPlatformstoragetierType platformstoragetier { get; set; }
+
     }
 
     public class MRPTaskInterfaceType

@@ -91,31 +91,11 @@ namespace MRMPService.PlatformInventory
                     {
                         MRPWorkloadCRUDType _mrp_workload = new MRPWorkloadCRUDType();
                         _mrp_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
-                        _mrp_workload.workloaddisks_attributes = new List<MRPWorkloadDiskType>();
 
                         Objects.Copy(_new_workload, _mrp_workload);
 
                         //update workload source template id with portal template id
                         _mrp_workload.platformtemplate_id = _mrp_templates.platformtemplates.Find(x => x.image_moid == _caasworkload.sourceImageId).id;
-
-                        //Pupulate logical volumes for workload
-                        List<MRPWorkloadDiskType> workloaddisks_parameters = new List<MRPWorkloadDiskType>();
-                        foreach (ServerTypeDisk _workloaddisk in _caasworkload.disk)
-                        {
-                            MRPWorkloadDiskType _virtual_disk = new MRPWorkloadDiskType()
-                            {
-                                moid = _workloaddisk.id,
-                                diskindex = _workloaddisk.scsiId,
-                                provisioned = true,
-                                disksize = _workloaddisk.sizeGb,
-                                _destroy = false
-                            };
-                            if (_mrp_workloads.Exists(x => x.moid == _caasworkload.id && x.disks.Exists(y => y.moid == _workloaddisk.id)))
-                            {
-                                _virtual_disk.id = _mrp_workloads.FirstOrDefault(x => x.moid == _caasworkload.id).disks.FirstOrDefault(y => y.moid == _workloaddisk.id).id;
-                            }
-                            _mrp_workload.workloaddisks_attributes.Add(_virtual_disk);
-                        }
 
                         //populate network interfaces for workload
                         MRPWorkloadInterfaceType _primary_logical_interface = new MRPWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", ipv6address = _caasworkload.networkInfo.primaryNic.ipv6, ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4, moid = _caasworkload.networkInfo.primaryNic.id };

@@ -80,6 +80,7 @@ namespace MRMPService.API
                 attributes = new MRPProgressTaskUpdateAttributesType()
                 {
                     percentage = _progress,
+                    
                     step = _step
                 }
             };

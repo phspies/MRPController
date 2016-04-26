@@ -160,9 +160,26 @@ namespace MRMPService.PerformanceCollection
                             
                             if (_current_performance_counter.CategoryName == "Memory" && _current_performance_counter.CounterName == "Available Bytes")
                             {
-                                //memory: % used
                                 long _workload_total_memory = (Convert.ToInt64(workload.vmemory) * 1024 * 1024 * 1024);
-                                Double _percentage_memory_used = 100 - ((Convert.ToDouble(_counterobject.value) / Convert.ToDouble(_workload_total_memory))*100);
+
+                                //memory: Used Bytes
+                                Double _memory_used_bytes = _workload_total_memory - _counterobject.value;
+                                String _memory_used_counter_name = "Used Bytes";
+
+                                _perf = new Performance();
+                                _perf.workload_id = workload.id;
+                                _perf.timestamp = TimeCalculations.RoundDown(DateTime.UtcNow, TimeSpan.FromHours(1)); //_counterobject.timestamp;
+                                _perf.category_name = _current_performance_counter.CategoryName;
+                                _perf.counter_name = _memory_used_counter_name;
+                                _perf.instance = _current_instance;
+                                _perf.value = _memory_used_bytes;
+                                _perf.id = Objects.RamdomGuid();
+                                using (PerformanceSet performance_db_set = new PerformanceSet())
+                                {
+                                    performance_db_set.ModelRepository.Insert(_perf);
+                                }
+                                //memory: % used
+                                Double _percentage_memory_used = ((Convert.ToDouble(_memory_used_bytes) / Convert.ToDouble(_workload_total_memory))*100);
                                 String _memory_counter_name = "% Used";
 
                                 _perf = new Performance();
@@ -178,22 +195,7 @@ namespace MRMPService.PerformanceCollection
                                     performance_db_set.ModelRepository.Insert(_perf);
                                 }
 
-                                //memory: Used Bytes
-                                Double _memory_used_bytes = 100 - _workload_total_memory - _counterobject.value;
-                                String _memory_used_counter_name = "Used Bytes";
 
-                                _perf = new Performance();
-                                _perf.workload_id = workload.id;
-                                _perf.timestamp = TimeCalculations.RoundDown(DateTime.UtcNow, TimeSpan.FromHours(1)); //_counterobject.timestamp;
-                                _perf.category_name = _current_performance_counter.CategoryName;
-                                _perf.counter_name = _memory_used_counter_name;
-                                _perf.instance = _current_instance;
-                                _perf.value = _memory_used_bytes;
-                                _perf.id = Objects.RamdomGuid();
-                                using (PerformanceSet performance_db_set = new PerformanceSet())
-                                {
-                                    performance_db_set.ModelRepository.Insert(_perf);
-                                }
 
                             }
                         }

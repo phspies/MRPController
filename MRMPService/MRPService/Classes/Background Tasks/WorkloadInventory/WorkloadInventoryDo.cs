@@ -175,39 +175,13 @@ namespace MRMPService.API.Classes
             //process logical volumes
 
             //set all volumes to be destroyed and remove destroy tag as we processes volumes
-            _mrmp_workload.volumes.ForEach(x => { x._destroy = true; x.platformstoragetier = null; });
-            _mrmp_workload.disks.ForEach(x => { x._destroy = true; });
+            _mrmp_workload.volumes.ForEach(x => { x._destroy = true; });
 
             SelectQuery wmiDiskDrives = new SelectQuery("SELECT * FROM Win32_DiskDrive");
             foreach (ManagementObject wmiDiskDrive in new ManagementObjectSearcher(connectionScope, wmiDiskDrives).Get())
             {
-
-                MRPWorkloadDiskType _disk;
-
-                //if volume already exists in portal, just update it   
-                if (_mrmp_workload.disks.Exists(x => x.diskindex == Int16.Parse(wmiDiskDrive["Index"].ToString())))
-                {
-                    _disk = _mrmp_workload.disks.FirstOrDefault(x => x.diskindex == Int16.Parse(wmiDiskDrive["Index"].ToString()));
-                    _disk._destroy = false;
-                }
-                else
-                {
-                    _disk = new MRPWorkloadDiskType();
-                    _mrmp_workload.disks.Add(_disk);
-                }
-
-                Decimal _disk_size = 0;
-                try { _disk_size = Int64.Parse(wmiDiskDrive["Size"].ToString()); } catch (Exception) { }
-                try { _disk.deviceid = wmiDiskDrive["DeviceID"].ToString(); } catch (Exception) { }
-                if (_disk_size != 0)
-                {
-                    Decimal _decimal = (_disk_size / 1024 / 1024 / 1024);
-                    _disk.disksize = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
-                }
-
                 foreach (ManagementObject wmiPartitionDrive in wmiDiskDrive.GetRelated("Win32_DiskPartition"))
                 {
-
                     foreach (ManagementObject wmiLogicalDrive in wmiPartitionDrive.GetRelated("Win32_LogicalDisk"))
                     {
                         SelectQuery wmiVolumes = new SelectQuery("SELECT * FROM Win32_Volume where DriveLetter='" + wmiLogicalDrive["DeviceId"] + "'");
@@ -229,13 +203,11 @@ namespace MRMPService.API.Classes
 
                                 //Add new volume object to mrpworkload
                                 _mrmp_workload.volumes.Add(_volume);
-
                             }
                             Decimal _freespace = 0;
                             Decimal _size = 0;
                             Decimal _decimal;
 
-                            _volume.diskindex = _disk.diskindex;
                             try { _volume.diskindex = Int16.Parse(wmiDiskDrive["Index"].ToString()); } catch (Exception) { }
                             try { _volume.driveletter = wmiVolume["DriveLetter"].ToString(); } catch (Exception) { }
                             try { _volume.serialnumber = wmiVolume["SerialNumber"].ToString(); } catch (Exception) { }

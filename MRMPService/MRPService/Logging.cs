@@ -1,11 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 
 namespace MRMPService.MRMPService.Log
 {
     public class Logger
     {
         public enum Severity { Info, Debug, Error, Warn };
+        private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
+
         public static void log(String message, Severity _severity)
         {
             message = message.Replace("\n", String.Empty);
@@ -22,16 +25,25 @@ namespace MRMPService.MRMPService.Log
             }
             while (true)
             {
+                _readWriteLock.EnterWriteLock();
                 try
                 {
-                    StreamWriter sw = File.AppendText(logfilename);
-                    sw.WriteLine(datet.ToString("yyyy/MM/dd hh:mm:ss") + " " + _severity + " > " + message);
-                    sw.Flush();
-                    sw.Close();
+                    // Append text to the file
+                    using (StreamWriter sw = File.AppendText(logfilename))
+                    {
+                        sw.WriteLine(datet.ToString("yyyy/MM/dd hh:mm:ss") + " " + _severity + " > " + message);
+                        sw.Close();
+
+                    }
                     break;
                 }
                 catch (Exception ex)
                 {
+                }
+                finally
+                {
+                    // Release lock
+                    _readWriteLock.ExitWriteLock();
                 }
             }
         }
