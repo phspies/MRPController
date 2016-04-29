@@ -38,7 +38,7 @@ namespace MRMPService.TaskExecutioner
                                         {
                                             case "deploy_method":
                                                 {
-                                                    Thread newThread = new Thread(() => Deploy.dt_deploy(task));
+                                                    Thread newThread = new Thread(() => Deploy.DeployDoubleTake(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
@@ -46,7 +46,23 @@ namespace MRMPService.TaskExecutioner
                                                 break;
                                             case "sync_ha_method":
                                                 {
-                                                    Thread newThread = new Thread(() => Availability.dt_create_ha_syncjob(task));
+                                                    Thread newThread = new Thread(() => Availability.CreateJob(task));
+                                                    newThread.Name = task.target_id;
+                                                    newThread.Start();
+                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                }
+                                                break;
+                                            case "move_setup_method":
+                                                {
+                                                    Thread newThread = new Thread(() => Migration.CreateServerMigrationJob(task));
+                                                    newThread.Name = task.target_id;
+                                                    newThread.Start();
+                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                }
+                                                break;
+                                            case "move_failover_method":
+                                                {
+                                                    Thread newThread = new Thread(() => Migration.FailoverServerMigration(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });

@@ -25,7 +25,7 @@ namespace MRMPService.API.Types.API
     public class MRPJobType
     {
         public string id { get; set; }
-        public string workload_id { get; set; }
+        public string target_workload_id { get; set; }
         public string source_workload_id { get; set; }
         public string job_type { get; set; }
         public string dt_job_id { get; set; }
@@ -33,10 +33,8 @@ namespace MRMPService.API.Types.API
         public Int64 dt_disk_replication_queue { get; set; }
         public Int64 dt_disk_queue_size { get; set; }
         public Int64 dt_memory_queue_size { get; set; }
-        public DateTime dt_queue_datetime_activation { get; set; }
+        public DateTime? dt_queue_datetime_activation { get; set; }
         public string organization_id { get; set; }
-        public DateTime created_at { get; set; }
-        public DateTime updated_at { get; set; }
         public Int64 dt_total_size { get; set; }
         public Int64 dt_remaining_size { get; set; }
         public string state { get; set; }

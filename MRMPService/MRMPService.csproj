@@ -188,6 +188,7 @@
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Physical\UpdatePhysicalPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Physical\UpdatePhysicalWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\StartupThread\Startup.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\TimeCalculations.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadCounters.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FilesAndFoldersJobEx.cs" />
@@ -201,14 +202,16 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\FullServerImageProtectionJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\FullServerImageRecoveryJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FullServerBase.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\FailoverServerMigration.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\EVRAMoveJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\HVRAMoveJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\MoveDataOnlyMigrationJobEx.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\MoveServerMigrationJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\CreateServerMigrationJob.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Application\SQLJobBase.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\EVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\HVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\LVRAJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\MCP\TimeZones.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatDo.cs" />
@@ -224,9 +227,9 @@
     <Compile Include="DoubleTake\BuildINI.cs" />
     <Compile Include="DoubleTake\CompareVersion.cs" />
     <Compile Include="DoubleTake\JobOptions.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\Deploy.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\Deploy.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DisasterRecovery.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\CreateJob.cs" />
     <Compile Include="DiscUtils\AligningStream.cs" />
     <Compile Include="DiscUtils\ApplePartitionMap\BlockZero.cs" />
     <Compile Include="DiscUtils\ApplePartitionMap\PartitionMap.cs" />

@@ -2,10 +2,6 @@
 using MRMPService.MRMPService.Types.API;
 using MRMPService.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MRMPService.DoubleTake
 {
@@ -18,6 +14,30 @@ namespace MRMPService.DoubleTake
             MRPTaskRecoverypolicyType _recovery_policy = payload.submitpayload.servicestack.recoverypolicy;
             MRPTaskServicestackType _service_stack = payload.submitpayload.servicestack;
 
+            //disable backup network connection
+            jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
+
+            String _job_type = null;
+            if (payload.task_type.Contains("ha"))
+            {
+                _job_type = "Availability";
+                jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = _recovery_policy.shutdown_source;
+            }
+            else if (payload.task_type.Contains("move"))
+            {
+                _job_type = "Move";
+                jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = _recovery_policy.shutdown_source;
+            }
+            else if (payload.task_type.Contains("dr"))
+            {
+                _job_type = "Disaster Recovery";
+                jobInfo.JobOptions.ImageRecoveryOptions.ShutdownSourceServer = _recovery_policy.shutdown_source;
+            }
+
+            jobInfo.JobOptions.Name = String.Format("MRMP [{0}] {1} to {1}", _job_type, payload.submitpayload.source.hostname, payload.submitpayload.target.hostname);
+
+            jobInfo.JobOptions.SystemStateOptions.IsWanFailover = _recovery_policy.retain_network_configuration;
+            jobInfo.JobOptions.SystemStateOptions.ApplyPorts = _recovery_policy.change_target_ports;
 
             //DNSOptions _dnsOptions = new DNSOptions();
             //DnsDomainDetails _dnsDomainDetails = new DnsDomainDetails();

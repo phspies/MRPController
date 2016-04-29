@@ -1,6 +1,7 @@
 ﻿using DoubleTake.Web.Client;
 using MRMPService.LocalDatabase;
 using MRMPService.Utilities;
+using System;
 
 namespace MRMPService.DoubleTake
 {
@@ -11,6 +12,7 @@ namespace MRMPService.DoubleTake
         public static LocalDatabase.Workload _source_workload, _target_workload;
         public string _source_address, _target_address;
         public Credential _source_credentials, _target_credentials;
+        public ManagementConnection _source_connection, _target_connection;
 
         public Core(Doubletake _doubletake)
         {
@@ -26,11 +28,10 @@ namespace MRMPService.DoubleTake
             {
                 throw new System.ArgumentException("Cannot find target workload in database");
             }
-
             //Find working IP
             using (Connection _connection = new Connection())
             {
-                _target_address = _connection.FindConnection(_target_workload.iplist, false);
+                _target_address = _connection.FindConnection(_target_workload.iplist, true);
             }
             if (_target_address == null)
             {
@@ -40,13 +41,14 @@ namespace MRMPService.DoubleTake
             using (CredentialSet _db_credential = new CredentialSet())
             {
                 _target_credentials = _db_credential.ModelRepository.GetById(_target_workload.credential_id);
-                var connection = ManagementService.GetConnectionAsync(_target_address).Result;
-                AccessLevelApi api = new AccessLevelApi(connection);
-                if (!connection.CheckAuthorizationAsync().Result)
+                _target_connection = ManagementService.GetConnectionAsync(_target_address).Result;
+                AccessLevelApi api = new AccessLevelApi(_target_connection);
+                if (!_target_connection.CheckAuthorizationAsync().Result)
                 {
-                    connection.AuthorizeAsync(_target_credentials.username, _target_credentials.password).Wait();
+                    _target_connection.AuthorizeAsync(_target_credentials.username, _target_credentials.password).Wait();
                 }
             }
+
             //source could be empty in certian instances
             if (_doubletake._source_workload_id != null)
             {
@@ -62,7 +64,7 @@ namespace MRMPService.DoubleTake
                 //Find working IP
                 using (Connection _connection = new Connection())
                 {
-                    _source_address = _connection.FindConnection(_source_workload.iplist, false);
+                    _source_address = _connection.FindConnection(_source_workload.iplist, true);
                 }
                 if (_source_address == null)
                 {
@@ -72,16 +74,14 @@ namespace MRMPService.DoubleTake
                 using (CredentialSet _db_credential = new CredentialSet())
                 {
                     _source_credentials = _db_credential.ModelRepository.GetById(_source_workload.credential_id);
-                    var connection = ManagementService.GetConnectionAsync(_source_address).Result;
-                    AccessLevelApi api = new AccessLevelApi(connection);
-                    if (!connection.CheckAuthorizationAsync().Result)
+                    _source_connection = ManagementService.GetConnectionAsync(_source_address).Result;
+                    AccessLevelApi api = new AccessLevelApi(_source_connection);
+                    if (!_source_connection.CheckAuthorizationAsync().Result)
                     {
-                        connection.AuthorizeAsync(_source_credentials.username, _source_credentials.password).Wait();
+                        _source_connection.AuthorizeAsync(_source_credentials.username, _source_credentials.password).Wait();
                     }
                 }
             }
         }
-
-
     }
 }

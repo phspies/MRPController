@@ -10,13 +10,14 @@ namespace MRMPService.DoubleTake
 {
     class Workload : Core
     {
-        public Workload(Doubletake doubletake) : base(doubletake) { }
+        WorkloadsApi workloadApi;
+        public Workload(Doubletake doubletake) : base(doubletake)
+        {
+            workloadApi = new WorkloadsApi(_source_connection);
+        }
 
         async public Task<WorkloadModel> CreateWorkload(String _job_type)
         {
-            var connection = await ManagementService.GetConnectionAsync(_source_address);
-            workloadApi = new WorkloadsApi(connection);
-
             var workloadResult = await workloadApi.CreateWorkloadAsync(_job_type);
             workloadResult.EnsureSuccessStatusCode();
 

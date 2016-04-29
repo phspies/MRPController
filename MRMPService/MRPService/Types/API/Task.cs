@@ -47,8 +47,28 @@ namespace MRMPService.MRMPService.Types.API
         public MRPTaskWorkloadType target { get; set; }
         public MRPTaskServicestackType servicestack { get; set; }
         public MRPTaskPlatformType platform { get; set; }
+        public MRPTaskJobType job { get; set; }
     }
-
+    public class MRPTaskJobType
+    {
+        public string id { get; set; }
+        public string target_workload_id { get; set; }
+        public string source_workload_id { get; set; }
+        public string job_type { get; set; }
+        public string dt_job_id { get; set; }
+        public Int64 dt_memory_replication_queue { get; set; }
+        public Int64 dt_disk_replication_queue { get; set; }
+        public Int64 dt_disk_queue_size { get; set; }
+        public Int64 dt_memory_queue_size { get; set; }
+        public DateTime? dt_queue_datetime_activation { get; set; }
+        public string organization_id { get; set; }
+        public DateTime? created_at { get; set; }
+        public DateTime? updated_at { get; set; }
+        public Int64 dt_total_size { get; set; }
+        public Int64 dt_remaining_size { get; set; }
+        public string state { get; set; }
+        public string servicestack_id { get; set; }
+    }
     public class MRPTaskRecoverypolicyType
     {
         public string id { get; set; }
@@ -69,6 +89,9 @@ namespace MRMPService.MRMPService.Types.API
         public string organization_id { get; set; }
         public bool delete_current_jobs { get; set; }
         public int snapshotcount { get; set; }
+        public bool shutdown_source { get; set; }
+        public bool change_target_ports { get; set;}
+        public bool retain_network_configuration { get; set; }
     }
     public class MRPTaskWorkloadType
     {
@@ -79,6 +102,9 @@ namespace MRMPService.MRMPService.Types.API
         public int vcpu { get; set; }
         public int vcore { get; set; }
         public int vmemory { get; set; }
+        public string primary_dns { get; set; }
+        public string secondary_dns { get; set; }
+        public string timezone { get; set; }
         public MRPTaskDeploymentpolicyType deploymentpolicy { get; set; }
         public List<MRPTaskVolumeType> volumes { get; set; }
         public List<MRPTaskInterfaceType> interfaces { get; set; }
@@ -99,7 +125,9 @@ namespace MRMPService.MRMPService.Types.API
         public int dt_queue_limit_disk_size { get; set; }
         public int dt_queue_min_disk_free_size { get; set; }
         public string dt_queue_scheme { get; set; }
-        public string activation_code { get; set; }
+        public string source_activation_code { get; set; }
+        public string target_activation_code { get; set; }
+
     }
 
     public class MRPTaskTemplateType

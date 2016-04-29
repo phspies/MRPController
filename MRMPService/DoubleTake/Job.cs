@@ -10,7 +10,10 @@ namespace MRMPService.DoubleTake
 {
     class Job : Core
     {
-        public Job(Doubletake doubletake) : base(doubletake) { }
+        public Job(Doubletake doubletake) : base(doubletake)
+        {
+            jobApi = new JobsApi(_target_connection);
+        }
 
         public JobCredentialsModel CreateJobCredentials()
         {
@@ -58,47 +61,44 @@ namespace MRMPService.DoubleTake
 
         // TODO: Verification steps currently contain IDs meant for translation. As things are today, this data is difficult to 
         // present in a meaningful way.  Until this is resolved, just return the jobOptions
-        async public Task<JobOptionsModel> VerifyAndFixJobOptions(JobCredentialsModel jobCredentials, JobOptionsModel jobOptions, String _job_type)
+        public Tuple<bool, JobOptionsModel, List<VerificationStepModel>> VerifyAndFixJobOptions(JobCredentialsModel jobCredentials, JobOptionsModel jobOptions, String _job_type)
         {
-            bool wasFixed = false;
+            bool _job_errorfree = false;
+            List<VerificationStepModel> _errors = null;
             while (true)
             {
-                var result = await jobApi.VerifyJobOptionsAsync(_job_type, jobCredentials, jobOptions,
-                   new Progress<VerificationStatusModel>());
+                var result = jobApi.VerifyJobOptionsAsync(_job_type, jobCredentials, jobOptions, new Progress<VerificationStatusModel>()).Result;
 
                 result.EnsureSuccessStatusCode();
 
-                if (wasFixed)
+                if (_job_errorfree)
                 {
                     if (result.Content.Steps.Any(s => s.Status == VerificationStatus.Error))
                     {
-                        foreach (var step in result.Content.Steps.Where(s => s.Status == VerificationStatus.Error))
-                        {
-                        }
-
-                        throw new Exception("Unable to create job.");
+                        _errors = result.Content.Steps.Where(s => s.Status == VerificationStatus.Error).ToList();
                     }
 
                     break;
                 }
 
-                var stepsToFix = result.Content.Steps.Where(s => s.Status == VerificationStatus.Error);
+                var stepsToFix = result.Content.Steps.Where(s => s.Status == VerificationStatus.Error).ToList();
 
                 if (stepsToFix.Any())
                 {
-                    var fixResponse = await jobApi.FixRecommendedJobOptionsAsync(_job_type, jobCredentials, jobOptions, stepsToFix);
+                    var fixResponse = jobApi.FixRecommendedJobOptionsAsync(_job_type, jobCredentials, jobOptions, stepsToFix).Result;
 
                     fixResponse.EnsureSuccessStatusCode();
-
                     jobOptions = fixResponse.Content.JobOptions;
-                    wasFixed = true;
+                    _job_errorfree = true;
                 }
                 else
                 {
+                    _job_errorfree = true;
                     break;
                 }
             }
-            return jobOptions;
+
+            return new Tuple<bool, JobOptionsModel, List<VerificationStepModel>>(_job_errorfree, jobOptions, _errors);
         }
 
         async public Task<List<JobInfoModel>> GetJobs()
@@ -128,14 +128,15 @@ namespace MRMPService.DoubleTake
         }
         async public Task DeleteJob_DeleteFiles(Guid jobId)
         {
-            var result = await jobApi.DeleteJobAsync(jobId,true,true,true,new Guid(),VhdDeleteActionType.DeleteAll);
+            var result = await jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll);
             result.EnsureSuccessStatusCode();
         }
 
-        async public Task FailoverJob(Guid jobId, FailoverOptionsModel options)
+        public ActivityStatusModel FailoverJob(Guid jobId, FailoverOptionsModel options)
         {
-            var result = await jobApi.FailoverJobAsync(jobId, options, new Progress<ActivityStatusModel>());
+            var result = jobApi.FailoverJobAsync(jobId, options, new Progress<ActivityStatusModel>()).Result;
             result.EnsureSuccessStatusCode();
+            return result.Content;
         }
 
         async public Task ReverseJob(Guid jobId)

@@ -24,7 +24,7 @@ namespace MRMPService.Tasks.MCP
 {
     class MCP_Platform
     {
-        public static async void ProvisionVM(MRPTaskType payload)
+        public static void ProvisionVM(MRPTaskType payload)
         {
             //Get workload object from portal to perform updates once provisioned
             using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
@@ -33,7 +33,6 @@ namespace MRMPService.Tasks.MCP
             }
 
             MRPTaskSubmitpayloadType _payload = payload.submitpayload;
-            MRPDatabase db = new MRPDatabase();
             Platform _platform;
             using (PlatformSet _platform_db = new PlatformSet())
             {
@@ -84,37 +83,40 @@ namespace MRMPService.Tasks.MCP
                 DatacenterType _dc = CaaS.Infrastructure.GetDataCenters(null, _dc_options).Result.FirstOrDefault();
 
 
-                MRPTaskWorkloadType _target = _payload.target;
+                MRPTaskWorkloadType _target_workload = _payload.target;
 
                 DeployServerType _vm = new DeployServerType();
 
                 List<DeployServerTypeDisk> _disks = new List<DeployServerTypeDisk>();
 
                 //Set Tier for first disk being deployed
-                MRPTaskVolumeType _first_disk = _target.volumes.FirstOrDefault(x => x.diskindex == 0);
+                MRPTaskVolumeType _first_disk = _target_workload.volumes.FirstOrDefault(x => x.diskindex == 0);
                 _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier.shortname });
 
-                _vm.name = _target.hostname;
-                _vm.description = String.Format("Workload Created by Dimension Data MRP [{0}]", DateTime.Now);
+                _vm.name = _target_workload.hostname;
+                _vm.description = String.Format("Workload Created by Dimension Data MRMP [{0}]", DateTime.Now);
                 DeployServerTypeNetwork _network = new DeployServerTypeNetwork();
-                _network.Item = _target.interfaces[0].platformnetwork.moid;
+                _network.Item = _target_workload.interfaces[0].platformnetwork.moid;
                 _network.ItemElementName = NetworkIdOrPrivateIpv4ChoiceType.networkId;
-                _network.networkId = _target.interfaces[0].platformnetwork.moid;
+                _network.networkId = _target_workload.interfaces[0].platformnetwork.moid;
                 DeployServerTypeNetworkInfo _networkInfo = new DeployServerTypeNetworkInfo();
-                _networkInfo.networkDomainId = _target.interfaces[0].platformnetwork.networkdomain_moid;
+                _networkInfo.networkDomainId = _target_workload.interfaces[0].platformnetwork.networkdomain_moid;
                 _networkInfo.primaryNic = new VlanIdOrPrivateIpType()
                 {
-                    vlanId = _target.interfaces[0].platformnetwork.moid != null ? _target.interfaces[0].platformnetwork.moid : null,
-                    privateIpv4 = _target.interfaces[0].ipassignment != "auto_ip" ? _target.interfaces[0].ipaddress : null
+                    vlanId = _target_workload.interfaces[0].platformnetwork.moid != null ? _target_workload.interfaces[0].platformnetwork.moid : null,
+                    privateIpv4 = _target_workload.interfaces[0].ipassignment != "auto_ip" ? _target_workload.interfaces[0].ipaddress : null
                 };
                 _vm.network = _network;
                 _vm.networkInfo = _networkInfo;
-                _vm.imageId = _target.platform_template.image_moid;
-                _vm.cpu = new DeployServerTypeCpu() { count = Convert.ToUInt16(_target.vcpu), countSpecified = true, coresPerSocket = Convert.ToUInt16(_target.vcore), coresPerSocketSpecified = true };
-                _vm.memoryGb = Convert.ToUInt16(_target.vmemory);
+                _vm.imageId = _target_workload.platform_template.image_moid;
+                _vm.cpu = new DeployServerTypeCpu() { count = Convert.ToUInt16(_target_workload.vcpu), countSpecified = true, coresPerSocket = Convert.ToUInt16(_target_workload.vcore), coresPerSocketSpecified = true };
+                _vm.memoryGb = Convert.ToUInt16(_target_workload.vmemory);
                 _vm.start = false;
                 _vm.disk = _disks.ToArray();
                 _vm.administratorPassword = _stadalone_credential.password;
+                _vm.primaryDns = _target_workload.primary_dns;
+                _vm.secondaryDns = _target_workload.secondary_dns;
+                _vm.microsoftTimeZone = _target_workload.timezone;
 
                 //create virtual server
                 ResponseType _status = new ResponseType();
@@ -140,20 +142,38 @@ namespace MRMPService.Tasks.MCP
                         else Thread.Sleep(5000);
                     }
                 }
+                //create newly created server in local database
+                var serverInfo = _status.info.Single(info => info.name == "serverId");
+                Guid _newvm_platform_guid = Guid.Parse(serverInfo.value);
+                using (WorkloadSet _workload_db = new WorkloadSet())
+                {
+                    //Add or update workload record in database
+                    Workload _new_workload = new Workload() { id = _target_workload.id, moid = _newvm_platform_guid.ToString(), enabled = true, hostname = _target_workload.hostname, platform_id = _platform.id, credential_id = _stadalone_credential.id };
+                    if (_workload_db.ModelRepository.GetById(_new_workload.id) != null)
+                    {
+                        Workload _current_workload = _workload_db.ModelRepository.GetById(_new_workload.id);
+                        Objects.Copy(_new_workload, _current_workload);
+                        _workload_db.ModelRepository.Update(_current_workload);
+                    }
+                    else
+                    {
+                        _workload_db.ModelRepository.Insert(_new_workload);
+                    }
+                }
 
+                //track progress of server creation and report updates
 
                 if (_status.responseCode == "IN_PROGRESS")
                 {
-                    var serverInfo = _status.info.Single(info => info.name == "serverId");
                     ServerType deployedServer = null;
                     {
-                        deployedServer = CaaS.ServerManagement.Server.GetServer(Guid.Parse(serverInfo.value)).Result;
+                        deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                     }
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), 20);
                     }
-                    ServerType _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+                    ServerType _newvm = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
                         if (_newvm.progress != null)
@@ -166,18 +186,18 @@ namespace MRMPService.Tasks.MCP
                                 }
                             }
                         }
-                        _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+                        _newvm = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                         Thread.Sleep(5000);
                     }
 
                     //Expand C: drive and Add additional disks if required
                     int count = 0;
-                    foreach (int _disk_index in _target.volumes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
+                    foreach (int _disk_index in _target_workload.volumes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
                     {
                         //increase disk by 5GB
-                        long _disk_size = _target.volumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
+                        long _disk_size = _target_workload.volumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
 
-                        MRPTaskPlatformstoragetierType _disk_tier = _target.volumes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier;
+                        MRPTaskPlatformstoragetierType _disk_tier = _target_workload.volumes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier;
                         if (_newvm.disk.ToList().Exists(x => x.scsiId == _disk_index))
                         {
                             if (_newvm.disk.ToList().Find(x => x.scsiId == _disk_index).sizeGb < _disk_size)
@@ -198,10 +218,10 @@ namespace MRMPService.Tasks.MCP
                             }
                             Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk_size.ToString(), _disk_tier.shortname).Result;
                         }
-                        _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+                        _newvm = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                         while (_newvm.state != "NORMAL" && _newvm.started == false)
                         {
-                            _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+                            _newvm = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                             Thread.Sleep(5000);
                         }
                         count += 1;
@@ -212,18 +232,18 @@ namespace MRMPService.Tasks.MCP
                     {
                         _mrp_api.task().progress(payload, String.Format("Power on workload"), 70);
                     }
-                    ResponseType _start_server = CaaS.ServerManagement.Server.StartServer(Guid.Parse(deployedServer.id)).Result;
+                    ResponseType _start_server = CaaS.ServerManagement.Server.StartServer(_newvm_platform_guid).Result;
                     _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
                     {
-                        _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+                        _newvm = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                         Thread.Sleep(5000);
                     }
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Workload powered on"), 71);
                     }
-                    _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
+                    _newvm = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
 
                     //gibe workload some time to become available
                     Thread.Sleep(new TimeSpan(0, 0, 30));
@@ -289,7 +309,7 @@ namespace MRMPService.Tasks.MCP
                             return;
                         }
                     }
-                    MRPTaskVolumeType _c_volume_object = _target.volumes.FirstOrDefault(x => x.driveletter == "C:");
+                    MRPTaskVolumeType _c_volume_object = _target_workload.volumes.FirstOrDefault(x => x.driveletter == "C:");
                     long _c_volume_to_add = 0;
                     if (_c_volume_object != null)
                     {
@@ -305,7 +325,7 @@ namespace MRMPService.Tasks.MCP
                     }
 
 
-                    List<String> _used_drive_letters = _target.volumes.Select(x => x.driveletter.Substring(0, 1)).ToList();
+                    List<String> _used_drive_letters = _target_workload.volumes.Select(x => x.driveletter.Substring(0, 1)).ToList();
                     List<String> _systemdriveletters = new List<String>();
                     _systemdriveletters.AddRange("DEFGHIJKLMNOPQRSTUVWXYZ".Select(d => d.ToString()));
                     List<String> _availabledriveletters = _systemdriveletters.Except(_used_drive_letters).ToList<String>();
@@ -328,7 +348,7 @@ namespace MRMPService.Tasks.MCP
                         _diskpart_struct.Add(String.Format("assign letter={0} noerr", _availabledriveletters.Last()));
                         _diskpart_struct.Add("");
                     }
-                    foreach (int _disk_index in _target.volumes.Select(x => x.diskindex).Distinct())
+                    foreach (int _disk_index in _target_workload.volumes.Select(x => x.diskindex).Distinct())
                     {
                         _diskpart_struct.Add(String.Format("select disk {0}", _disk_index));
                         _diskpart_struct.Add("ATTRIBUTES DISK CLEAR READONLY noerr");
@@ -342,13 +362,13 @@ namespace MRMPService.Tasks.MCP
                         {
                             _vol_index = 1;
                         }
-                        foreach (MRPTaskVolumeType _volume in _target.volumes.ToList().Where(x => x.diskindex == _disk_index).OrderBy(x => x.driveletter))
+                        foreach (MRPTaskVolumeType _volume in _target_workload.volumes.ToList().Where(x => x.diskindex == _disk_index).OrderBy(x => x.driveletter))
                         {
                             if (_volume.driveletter != "C:")
                             {
                                 string _driveletter = _volume.driveletter.Substring(0, 1);
                                 _diskpart_struct.Add("clean noerr");
-                                _diskpart_struct.Add(String.Format("create partition primary size = {0}", _volume.volumesize * 1024));
+                                _diskpart_struct.Add(String.Format("create partition primary size = {0} noerr", _volume.volumesize * 1024));
                                 _diskpart_struct.Add(String.Format("select partition {0}", _vol_index));
                                 _diskpart_struct.Add("format fs=ntfs quick");
                                 _diskpart_struct.Add(String.Format("assign letter={0} noerr", _driveletter));
@@ -436,7 +456,7 @@ namespace MRMPService.Tasks.MCP
                         }
                     }
 
-                    string diskpartCmd = @"diskpart /s C:\diskpart.txt";
+                    string diskpartCmd = @"diskpart /s C:\diskpart.txt > diskpart.log";
                     Dictionary<string, string> installCmdParams = new Dictionary<string, string>();
                     installCmdParams["CommandLine"] = diskpartCmd;
                     installCmdParams["CurrentDirectory"] = @"C:\Windows";
@@ -479,36 +499,20 @@ namespace MRMPService.Tasks.MCP
                             _mrp_api.task().progress(payload, String.Format("Volume setup process exit code: {0}", _exitcode), 81);
                         }
                     }
-                    //Add or update workload record in database
-                    Workload _new_workload = new Workload() { id = _target.id, moid = _newvm.id, enabled = true, hostname = _target.hostname, platform_id = _platform.id, credential_id = _stadalone_credential.id };
-                    if (db.Workloads.Any(x => x.id == _target.id))
-                    {
-                        Workload _current_workload = db.Workloads.FirstOrDefault(x => x.id == _target.id);
-                        Objects.Copy(_new_workload, _current_workload);
-                    }
-                    else
-                    {
-                        db.Workloads.Add(_new_workload);
-                    }
-                    db.SaveChanges();
+
 
                     //Get updated workload object from portal and update the moid,credential_id,provisioned on the portal
                     MRPWorkloadType _workload;
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
-                        _workload = (MRPWorkloadType)_mrp_api.workload().getworkload(_target.id);
+                        _workload = (MRPWorkloadType)_mrp_api.workload().getworkload(_target_workload.id);
                     }
                     MRPWorkloadCRUDType _update_workload = new MRPWorkloadCRUDType();
-                    _update_workload.id = _target.id;
+                    _update_workload.id = _target_workload.id;
                     _update_workload.moid = _newvm.id;
                     _update_workload.workloadtype = _workload.workloadtype;
                     _update_workload.credential_id = _stadalone_credential.id;
                     _update_workload.provisioned = true;
-
-                    //clear all disks, volumes and interfaces and force new discovery
-                    _update_workload.workloaddisks_attributes = _workload.disks.Select(x => new MRPWorkloadDiskType() { id = x.id, _destroy = true }).ToList();
-                    _update_workload.workloadvolumes_attributes = _workload.volumes.Select(x => new MRPWorkloadVolumeType() { id = x.id, _destroy = true }).ToList();
-                    _update_workload.workloadinterfaces_attributes = _workload.interfaces.Select(x => new MRPWorkloadInterfaceType() { id = x.id, _destroy = true }).ToList();
 
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
@@ -518,23 +522,19 @@ namespace MRMPService.Tasks.MCP
                     //update Platform inventory for server
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
-                        _mrp_api.task().progress(payload, String.Format("Updating platform information for {0}", _target.hostname), 91);
+                        _mrp_api.task().progress(payload, String.Format("Updating platform information for {0}", _target_workload.hostname), 91);
                     }
-                    PlatformInventoryWorkloadDo.UpdateMCPWorkload(_newvm.id, _newvm.datacenterId);
+                    PlatformInventoryWorkloadDo.UpdateMCPWorkload(_newvm_platform_guid.ToString(), _payload.platform.id);
 
                     //update OS information or newly provisioned server
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
-                        _workload = (MRPWorkloadType)_mrp_api.workload().getworkload(_target.id);
+                        _mrp_api.task().progress(payload, String.Format("Updating operating system information for {0}", _target_workload.hostname), 92);
                     }
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
-                    {
-                        _mrp_api.task().progress(payload, String.Format("Updating operating system information for {0}", _target.hostname), 92);
-                    }
-                    WorkloadInventory.WorkloadInventoryDo(_workload.id);
+                    WorkloadInventory.WorkloadInventoryDo(_target_workload.id);
 
                     //log the success
-                    Logger.log(String.Format("Successfully provinioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);
+                    Logger.log(String.Format("Successfully provisioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
                         _mrp_api.task().successcomplete(payload, JsonConvert.SerializeObject(_newvm));

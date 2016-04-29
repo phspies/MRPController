@@ -84,8 +84,9 @@ namespace MRMPService.WCF
                 using (WorkloadSet db = new WorkloadSet())
                 {
                     Workload _update = db.ModelRepository.GetById(_destroyworkload.id);
-                    _update.deleted = true;
-                    db.ModelRepository.Update(_update);
+                    db.ModelRepository.Delete(_update);
+                    //_update.deleted = true;
+                    //db.ModelRepository.Update(_update);
                 }
             }
             catch (Exception e)

@@ -278,7 +278,6 @@ namespace MRMPService.API.Classes
             //set more aatributes
             _mrmp_crud_workload.ostype = "windows";
 
-            _mrmp_crud_workload.workloaddisks_attributes = _mrmp_workload.disks;
             _mrmp_crud_workload.workloadvolumes_attributes = _mrmp_workload.volumes;
             _mrmp_crud_workload.workloadinterfaces_attributes = _mrmp_workload.interfaces;
             _mrmp_crud_workload.workloadprocesses_attributes = _mrmp_workload.processes;

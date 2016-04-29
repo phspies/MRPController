@@ -13,12 +13,12 @@ namespace MRMPService.PlatformInventory
 {
     partial class PlatformInventoryWorkloadDo
     {
+        static Platform _platform;
+        static Credential _platform_credential;
+
         public static void UpdateMCPWorkload(string _workload_moid, string _platform_id)
         {
             MRP_ApiClient _cloud_movey = new MRP_ApiClient();
-
-            Platform _platform;
-            Credential _platform_credential;
 
             using (MRPDatabase db = new MRPDatabase())
             {
@@ -35,7 +35,7 @@ namespace MRMPService.PlatformInventory
             }
             catch (Exception ex)
             {
-                throw new System.ArgumentException(String.Format("Error connecting to Dimension Data MCP {1}", ex.Message));
+                throw new System.ArgumentException(String.Format("Error connecting to Dimension Data MCP {0}", ex.Message));
             }
 
             //Retrieve portal objects

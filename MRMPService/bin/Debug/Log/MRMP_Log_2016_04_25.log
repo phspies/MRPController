@@ -940,3 +940,55 @@
 2016/04/25 11:31:25 Info > Staring data upload process
 2016/04/25 11:31:34 Info > Completed data upload process.0 netflows.0 performancecounters. 0 netstats. = Total Elapsed Time: 00:00:06.7110000
 2016/04/25 11:31:39 Info > Successfully copied diskpart disk after 30 retries
+2016/04/25 11:50:37 Debug > Starting WCF Service
+2016/04/25 11:50:39 Info > Debug Enabled!
+2016/04/25 11:50:39 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/04/25 11:50:41 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/04/25 11:50:41 Debug > Starting Scheduler Thread
+2016/04/25 11:50:41 Debug > Starting Mirror Thread
+2016/04/25 11:50:41 Debug > Starting Performance Collection Thread
+2016/04/25 11:50:41 Info > Staring platform inventory process with 10 threads
+2016/04/25 11:50:41 Debug > Starting Netflow v5 Collection Thread
+2016/04/25 11:50:41 Debug > Starting Data Upload Thread
+2016/04/25 11:50:41 Info > Staring performance collection process with 10 threads
+2016/04/25 11:50:41 Debug > Starting OS Inventory Thread
+2016/04/25 11:50:41 Info > Staring data upload process
+2016/04/25 11:50:41 Info > Staring operating system inventory process with 10 threads
+2016/04/25 11:50:41 Debug > Starting OS Netstat Thread
+2016/04/25 11:50:41 Info > Netstat: Staring netstat collection process with 10 threads
+2016/04/25 11:50:41 Info > Found workload creation job in tasks: 10-0-0-10
+2016/04/25 11:50:42 Info > Performance: Start performance collection for appserver01 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/04/25 11:50:42 Info > Started inventory process for Dimension Data : NA9
+2016/04/25 11:50:42 Info > Performance: Start performance collection for appserver02 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/04/25 11:50:42 Info > Netstat: Started netstat collection for appserver01 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/25 11:50:42 Info > Inventory: Started inventory collection for appserver02 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/25 11:50:42 Info > Started inventory process for Standalone Platform
+2016/04/25 11:50:42 Info > Inventory: Started inventory collection for appserver01 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/25 11:50:42 Info > Completed data upload process.0 netflows.0 performancecounters. 0 netstats. = Total Elapsed Time: 00:00:00.6750000
+2016/04/25 11:50:42 Info > Netstat: Started netstat collection for appserver02 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/25 11:50:44 Info > Performance: Start performance collection for appserver03 using 2607:f480:111:1359:14a4:ac63:1ae:a393
+2016/04/25 11:50:45 Info > Inventory: Started inventory collection for appserver03 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/25 11:50:45 Info > Netstat: Started netstat collection for appserver03 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/25 11:50:46 Info > Netstat: Started netstat collection for appserver04 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/25 11:50:47 Info > Inventory: Started inventory collection for appserver04 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/25 11:50:48 Info > Performance: Start performance collection for appserver04 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/04/25 11:50:49 Info > Inventory: Completed netstat collection for appserver02 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/25 11:50:51 Info > Inventory: Completed netstat collection for appserver01 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/25 11:50:53 Info > Inventory: Completed netstat collection for appserver03 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/25 11:50:54 Info > Inventory: Completed netstat collection for appserver04 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/25 11:50:54 Info > Netstat: Completed netstat collection for 4 workloads in 00:00:12.7440000 [next run at 4/26/2016 12:20:41 AM]
+2016/04/25 11:50:55 Info > Inventory: Completed inventory collection for 10-0-0-9 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/25 11:50:55 Info > Inventory: Completed inventory collection for 10-0-0-8 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/25 11:50:58 Info > Inventory: Completed inventory collection for 10-0-0-11 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/25 11:50:58 Info > Inventory: Completed inventory collection for 10-0-0-10 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/25 11:50:58 Info > Completed operating system inventory for 4 workloads in 00:00:16.9880000 [next run at 4/26/2016 11:50:41 PM]
+2016/04/25 11:51:04 Info > Completed inventory process for Standalone Platform = Total Execute Time: 00:00:22.0560000
+2016/04/25 11:51:08 Info > Completed inventory process for Dimension Data : NA9 - 0 new workloads - 0 updated platform networks - 0 updated workloads - 0 removed workloads = Total Execute Time: 00:00:25.2800000
+2016/04/25 11:51:08 Info > Completed platform inventory for 2 platforms in 00:00:26.9010000 [next run at 4/26/2016 11:50:41 PM]
+2016/04/25 11:51:16 Info > Performance: Completed performance collection for appserver02 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/04/25 11:51:23 Info > Performance: Completed performance collection for appserver04 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/04/25 11:51:32 Info > Performance: Completed performance collection for appserver01 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/04/25 11:51:36 Info > Performance: Completed performance collection for appserver03 using 2607:f480:111:1359:14a4:ac63:1ae:a393
+2016/04/25 11:51:36 Info > Completed performance collection for 4 workloads in 00:00:55.1820000 [next run at 4/26/2016 12:50:41 AM]
+2016/04/25 11:55:43 Info > Staring data upload process
+2016/04/25 11:56:29 Info > Completed data upload process.0 netflows.416 performancecounters. 38 netstats. = Total Elapsed Time: 00:00:46.3820000

@@ -30,6 +30,7 @@ namespace MRMPService.API
 
         public object perform<type>(Method _method, Object _object) where type : new()
         {
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true;
             var client = new RestClient();
             client.FollowRedirects = false;
             client.BaseUrl = new Uri("https://www.mrplatform.net");

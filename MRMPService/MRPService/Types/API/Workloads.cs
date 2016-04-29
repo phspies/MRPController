@@ -68,7 +68,6 @@ namespace MRMPService.API.Types.API
         public int perf_contact_error_count { get; set; }
         public int dt_contact_error_count { get; set; }
         public string platformtemplate_id { get; set; }
-        public List<MRPWorkloadDiskType> workloaddisks_attributes { get; set; }
         public List<MRPWorkloadVolumeType> workloadvolumes_attributes { get; set; }
         public List<MRPWorkloadInterfaceType> workloadinterfaces_attributes { get; set; }
         public List<MRPWorkloadProcessType> workloadprocesses_attributes { get; set; }

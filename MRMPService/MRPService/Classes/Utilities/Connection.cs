@@ -14,25 +14,34 @@ namespace MRMPService.Utilities
         {
             String ipaddresslist = iplist;
             String workingip = null;
-            
+
             foreach (string ip in ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
             {
+                int retry = 3;
                 PingReply reply = null;
-                try
+                while (retry > 0)
                 {
-                    reply = testPing.Send(ip);
-                }
-                catch (System.ComponentModel.Win32Exception ex)
-                {
-                    throw new ArgumentException(ex.Message);
-                }
-                if (reply != null)
-                {
-                    if (reply.Status == IPStatus.Success)
+                    retry--;
+                    try
                     {
-                        workingip = ip;
-                        break;
+                        reply = testPing.Send(ip);
                     }
+                    catch (System.ComponentModel.Win32Exception ex)
+                    {
+                        throw new ArgumentException(ex.Message);
+                    }
+                    if (reply != null)
+                    {
+                        if (reply.Status == IPStatus.Success)
+                        {
+                            workingip = ip;
+                            break;
+                        }
+                    }
+                }
+                if (reply.Status == IPStatus.Success)
+                {
+                    break;
                 }
             }
 

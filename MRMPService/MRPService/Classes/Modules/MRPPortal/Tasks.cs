@@ -7,9 +7,19 @@ using System.Net;
 
 namespace MRMPService.API
 {
+    public static class TaskStatus
+    {
+        public const int Success = 0;
+        public const int Queue = 1;
+        public const int Processing = 2;
+        public const int Failed = 3;
+        public const int InternalComplete = 4;
+        }
     class MRPTask : Core
     {
-        public MRPTask(MRP_ApiClient _MRP) : base(_MRP) {
+
+        public MRPTask(MRP_ApiClient _MRP) : base(_MRP)
+        {
         }
         public MRP_ApiClient MRP = new MRP_ApiClient();
 
@@ -22,16 +32,14 @@ namespace MRMPService.API
 
         public ResultType successcomplete(MRPTaskType payload, string returnpayload)
         {
-            int _status = (bool)payload.internal_complete == true ? 3 : 0;
-            int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
                 task_id = payload.id,
                 attributes = new MRPCompleteTaskUpdateAttributesType()
                 {
-                    percentage = _percentage,
+                    percentage = 100,
                     returnpayload = returnpayload,
-                    status = _status,
+                    status = TaskStatus.Success,
                     step = "Complete"
                 }
             };
@@ -40,15 +48,13 @@ namespace MRMPService.API
         }
         public ResultType successcomplete(MRPTaskType payload)
         {
-            int _status = (bool)payload.internal_complete == true ? 3 : 0;
-            int _percentage = (bool)payload.internal_complete == true ? 99 : 100;
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
                 task_id = payload.id,
                 attributes = new MRPCompleteTaskUpdateAttributesType()
                 {
-                    percentage = _percentage,
-                    status = _status,
+                    percentage = 100,
+                    status = TaskStatus.Success,
                     step = "Complete"
                 }
             };
@@ -65,7 +71,7 @@ namespace MRMPService.API
                 {
                     percentage = 100,
                     returnpayload = returnpayload,
-                    status = 2,
+                    status = TaskStatus.Failed,
                 }
             };
 
@@ -80,8 +86,7 @@ namespace MRMPService.API
                 attributes = new MRPProgressTaskUpdateAttributesType()
                 {
                     percentage = _progress,
-                    
-                    step = _step
+                    step = _step,
                 }
             };
 
@@ -102,7 +107,7 @@ namespace MRMPService.API
             endpoint = "/tasks/update.json";
             return put<ResultType>(task);
         }
-        public ResultType update(MRPTaskType _object) 
+        public ResultType update(MRPTaskType _object)
         {
             endpoint = "/tasks/update.json";
             return put<ResultType>(_object);

@@ -83,10 +83,31 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         _local_performance = db.Performance.ToList();
                     }
 
+                    //check if workload exists for performancecounter and remove if required
+                    using (WorkloadSet _db_workload = new WorkloadSet())
+                    {
+                        var _workload_grouped = _local_performance.Select(x => x.workload_id).ToList().Distinct();
+                        foreach (var _workload in _workload_grouped)
+                        {
+                            if (_db_workload.ModelRepository.GetById(_workload) == null)
+                            {
+                                MRPDatabase _db = new MRPDatabase();
+                                _db.Performance.RemoveRange(_db.Performance.Where(x => x.workload_id == _workload));
+                                _db.SaveChanges();
+                            }
+                        }
+                    }
+                    //get an updated list form database
+                    using (MRPDatabase db = new MRPDatabase())
+                    {
+                        _local_performance = db.Performance.ToList();
+                    }
+
+
                     //first ensure we have a list of the portal performance categories and add what is missing
                     MRPPerformanceCategoryListType _categories = _cloud_movey.performancecategory().list();
-                    var _local_counterscategories = _local_performance.GroupBy(x => new { x.category_name, x.counter_name, x.workload_id }).Select(group => new countercategory() {  category = group.Key.category_name, counter = group.Key.counter_name, workload_id = group.Key.workload_id }).ToList();
-                    
+                    var _local_counterscategories = _local_performance.GroupBy(x => new { x.category_name, x.counter_name, x.workload_id }).Select(group => new countercategory() { category = group.Key.category_name, counter = group.Key.counter_name, workload_id = group.Key.workload_id }).ToList();
+
 
                     bool counters_changed = false;
                     foreach (countercategory _cat in _local_counterscategories)
@@ -107,42 +128,45 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     {
                         _categories = _cloud_movey.performancecategory().list();
                     }
-
-                    //process performancecounters
-                    List<MRPPerformanceCounterCRUDType> _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
-
-                    foreach (Performance _performance in _local_performance)
+                    if (_categories.performancecategories.Count > 0)
                     {
-                        MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
+                        //process performancecounters
+                        List<MRPPerformanceCounterCRUDType> _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
 
-                        Objects.Copy(_performance, _performancecrud);
+                        foreach (Performance _performance in _local_performance)
+                        {
 
-                        //inject performance unique ID into crud object
-                        _performancecrud.performancecategory_id = _categories.performancecategories.Find(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name && x.workload_id == _performance.workload_id).id;
+                            MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
 
-                        //add record to list
-                        _performancecounters_list.Add(_performancecrud);
+                            Objects.Copy(_performance, _performancecrud);
 
-                        //process batch
-                        if (_performancecounters_list.Count > Global.portal_upload_performanceounter_page_size)
+                            //inject performance unique ID into crud object
+                            _performancecrud.performancecategory_id = _categories.performancecategories.Find(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name && x.workload_id == _performance.workload_id).id;
+
+                            //add record to list
+                            _performancecounters_list.Add(_performancecrud);
+
+                            //process batch
+                            if (_performancecounters_list.Count > Global.portal_upload_performanceounter_page_size)
+                            {
+                                _cloud_movey.performancecounter().create(_performancecounters_list);
+                                _performancecounters_list.Clear();
+                            }
+
+                            //remove from local database
+                            using (MRPDatabase db = new MRPDatabase())
+                            {
+                                var _remove = db.Performance.Find(_performance.id);
+                                db.Performance.Remove(_remove);
+                                db.SaveChanges();
+                            }
+                            _new_performancecounters += 1;
+                        }
+                        //upload last remaining records
+                        if (_performancecounters_list.Count > 0)
                         {
                             _cloud_movey.performancecounter().create(_performancecounters_list);
-                            _performancecounters_list.Clear();
                         }
-
-                        //remove from local database
-                        using (MRPDatabase db = new MRPDatabase())
-                        {
-                            var _remove = db.Performance.Find(_performance.id);
-                            db.Performance.Remove(_remove);
-                            db.SaveChanges();
-                        }
-                        _new_performancecounters += 1;
-                    }
-                    //upload last remaining records
-                    if (_performancecounters_list.Count > 0)
-                    {
-                        _cloud_movey.performancecounter().create(_performancecounters_list);
                     }
 
                     //process netstat 
