@@ -24,15 +24,16 @@ namespace MRMPService.Tasks.DoubleTake
                     MRPTaskWorkloadType _target_workload = payload.submitpayload.target;
                     MRPTaskRecoverypolicyType _recovery_policy = payload.submitpayload.servicestack.recoverypolicy;
                     MRPTaskServicestackType _service_stack = payload.submitpayload.servicestack;
+                    MRPStacktreeType _stacktree = payload.submitpayload.stacktree;
                     using (Doubletake _dt = new Doubletake(_source_workload.id, _target_workload.id))
                     {
                         _mrp_api.task().progress(payload, "Verifying license status on both source and target workloads", 2);
-                        if (!_dt.management().CheckLicense())
+                        if (!_dt.management().CheckLicense(DT_JobTypes.Move_Server_Migration))
                         {
                             _mrp_api.task().progress(payload, String.Format("Invalid license detected on workloads."), 3);
                             _mrp_api.task().progress(payload, String.Format("Attempting to configure license in deployment policy."), 4);
                             _dt.management().InstallLicense(_target_workload.deploymentpolicy.source_activation_code, _source_workload.deploymentpolicy.target_activation_code);
-                            if (!_dt.management().CheckLicense())
+                            if (!_dt.management().CheckLicense(DT_JobTypes.Move_Server_Migration))
                             {
                                 _mrp_api.task().progress(payload, String.Format("Invalid license detected on workloads after trying to fix license"), 5);
                             }
@@ -43,14 +44,13 @@ namespace MRMPService.Tasks.DoubleTake
                         }
 
                         List<JobInfoModel> _jobs = _dt.job().GetJobs().Result;
-                        String[] _source_ips = _source_workload.iplist.Split(',');
-                        String[] _target_ips = _target_workload.iplist.Split(',');
 
-                        _mrp_api.task().progress(payload, "Deleting current jobs associated to the source and target workloads", 11);
+                        _mrp_api.task().progress(payload, "Looking for migration jobs on target workload", 11);
                         int _count = 1;
-                        foreach (JobInfoModel _delete_job in _jobs.Where(x => _source_ips.Any(x.SourceServer.Host.Contains) && _target_ips.Any(x.TargetServer.Host.Contains)))
+                        //This is a migration server migration job, so we need to remove all jobs from target server
+                        foreach (JobInfoModel _delete_job in _jobs.Where(x => x.JobType == "MoveServerMigration"))
                         {
-                            _mrp_api.task().progress(payload, String.Format("Deleting existing Move jobs between {0} and {1}", _source_ips[0], _target_ips[0]), _count + 15);
+                            _mrp_api.task().progress(payload, String.Format("{0} - Deleting existing migration job between {1} and {2}", _count, _source_workload.hostname, _target_workload.hostname), _count + 15);
                             _dt.job().DeleteJob(_delete_job.Id).Wait();
                             _count += 1;
                         }
@@ -77,7 +77,7 @@ namespace MRMPService.Tasks.DoubleTake
                         _mrp_api.task().progress(payload, "Verifying job options and settings", 55);
 
                         JobOptionsModel _job_model;
-                        var _fix_result = _dt.job().VerifyAndFixJobOptions(jobCreds, jobInfo.JobOptions, DT_JobTypes.HA_Full_Failover);
+                        var _fix_result = _dt.job().VerifyAndFixJobOptions(jobCreds, jobInfo.JobOptions, DT_JobTypes.Move_Server_Migration);
                         if (_fix_result.Item1)
                         {
                             _job_model = _fix_result.Item2;
@@ -113,6 +113,12 @@ namespace MRMPService.Tasks.DoubleTake
                             source_workload_id = _source_workload.id,
                             servicestack_id = _service_stack.id
                         });
+                        _mrp_api.task().progress(payload, String.Format("Updating stacktree stacktree"), 61);
+                        _mrp_api.stacktree().update(new MRPStacktreeType()
+                        {
+                            id = _stacktree.id,
+                            dt_job_id = jobId.ToString()
+                        });
 
                         _mrp_api.task().progress(payload, "Waiting for sync process to start", 65);
 
@@ -140,7 +146,8 @@ namespace MRMPService.Tasks.DoubleTake
                                     _mrp_api.task().progress(payload, progress, percentage + 72);
                                 }
                             }
-
+                            Thread.Sleep(new TimeSpan(0, 0, 10));
+                            jobinfo = _dt.job().GetJob(jobId).Result;
                         }
                         _mrp_api.task().progress(payload, String.Format("Successfully synchronized {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
                         _mrp_api.task().successcomplete(payload, JsonConvert.SerializeObject(jobinfo));

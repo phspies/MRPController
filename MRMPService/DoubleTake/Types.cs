@@ -8,7 +8,7 @@ namespace MRMPService.DoubleTake
 {
     enum dt_server_type { source, target }
 
-    public static class DT_JobTypes
+    public class DT_JobTypes
     {
         public static string HA_FilesFolders = "FilesAndFolders";
         public static string HA_Cluster_FilesFolders = "ClusterAwareFilesAndFolders";

@@ -188,6 +188,9 @@
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Physical\UpdatePhysicalPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Physical\UpdatePhysicalWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\NetflowUpload.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\PerformanceUpload.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\NetstatUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\StartupThread\Startup.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\TimeCalculations.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadCounters.cs" />
@@ -212,6 +215,7 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\HVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\LVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\TimeZones.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Stacktrees.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatDo.cs" />
@@ -1084,6 +1088,7 @@
     <Compile Include="MRPService\Types\API\RecoveryJobTypes.cs" />
     <Compile Include="MRPService\Types\API\RecoveryPolicy.cs" />
     <Compile Include="MRPService\Types\API\ResultStatus.cs" />
+    <Compile Include="MRPService\Types\API\Stacktrees.cs" />
     <Compile Include="MRPService\Types\API\Task.cs" />
     <Compile Include="MRPService\Types\API\Windows.cs" />
     <Compile Include="MRPService\Types\API\Manager.cs" />

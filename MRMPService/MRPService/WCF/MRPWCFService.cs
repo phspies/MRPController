@@ -83,8 +83,7 @@ namespace MRMPService.WCF
             {
                 using (WorkloadSet db = new WorkloadSet())
                 {
-                    Workload _update = db.ModelRepository.GetById(_destroyworkload.id);
-                    db.ModelRepository.Delete(_update);
+                    db.ModelRepository.Delete(_destroyworkload.id);
                     //_update.deleted = true;
                     //db.ModelRepository.Update(_update);
                 }
@@ -128,7 +127,7 @@ namespace MRMPService.WCF
                 using (PlatformSet db = new PlatformSet())
                 {
                     _update = db.ModelRepository.GetById(_updateplatform.id);
-                    Objects.Copy_Exclude_ID(_updateplatform, _update);
+                    Objects.Copy(_updateplatform, _update);
                     db.ModelRepository.Update(_update);
                 }
             }
@@ -144,9 +143,7 @@ namespace MRMPService.WCF
             {
                 using (PlatformSet db = new PlatformSet())
                 {
-                    Platform _update = db.ModelRepository.GetById(_destroyplatform.id);
-                    _update.deleted = true;
-                    db.ModelRepository.Update(_update);
+                    db.ModelRepository.Delete(_destroyplatform.id);
                 }
             }
             catch (Exception e)
@@ -202,7 +199,7 @@ namespace MRMPService.WCF
                 using (CredentialSet db = new CredentialSet())
                 {
                     _update = db.ModelRepository.GetById(_updatecredential.id);
-                    Objects.Copy_Exclude_ID(_updatecredential, _update);
+                    Objects.Copy(_updatecredential, _update);
                     db.ModelRepository.Update(_update);
                 }
             }
@@ -218,9 +215,7 @@ namespace MRMPService.WCF
             {
                 using (CredentialSet db = new CredentialSet())
                 {
-                    Credential _update = db.ModelRepository.GetById(_destroycredential.id);
-                    _update.deleted = true;
-                    db.ModelRepository.Update(_update);
+                    db.ModelRepository.Delete(_destroycredential.id);
                 }
             }
             catch (Exception e)

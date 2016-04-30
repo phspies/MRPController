@@ -280,13 +280,20 @@ namespace MRMPConfigurator
             }
 
         }
-        private void update_credential_button(object sender, RoutedEventArgs e)
+        private async void update_credential_button(object sender, RoutedEventArgs e)
         {
             Credential _credential = (Credential)((Button)sender).DataContext;
             CredentialForm _form = new CredentialForm(_credential, 1);
             if (_form.ShowDialog() == true)
             {
-                channel.UpdateCredential(_form._record);
+                try
+                {
+                    channel.UpdateCredential(_form._record);
+                }
+                catch (Exception ex)
+                {
+                    await this.ShowMessageAsync("Error while contacting MRMP Service", ex.Message);
+                }
             }
             using (new WaitCursor())
             {
@@ -306,10 +313,18 @@ namespace MRMPConfigurator
 
             if (messageBoxResult == MessageDialogResult.Affirmative)
             {
-                using (new WaitCursor())
+
+                try
                 {
-                    channel.DestroyCredential(_credential);
-                    load_credentiallist();
+                    using (new WaitCursor())
+                    {
+                        channel.DestroyCredential(_credential);
+                        load_credentiallist();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    await this.ShowMessageAsync("Error while contacting MRMP Service", ex.Message);
                 }
             }
 

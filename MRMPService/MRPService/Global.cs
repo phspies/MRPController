@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Web;
+using System.Reflection;
 
 namespace MRMPService
 {
@@ -23,7 +24,12 @@ namespace MRMPService
         static bool _debug;
         static String _manager_id;
         static String _api_base;
-        static String _manager_version = "0.0.1";
+
+        static System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+        static FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+        static string version = fvi.FileVersion;
+
+        static String _manager_version = version;
 
         public static int os_inventory_interval = (int)MRPRegistry.RegAccess("os_inventory_interval",1440, RegistryValueKind.DWord); //minutes
         public static int os_inventory_concurrency = (int)MRPRegistry.RegAccess("os_inventory_concurrency", 10, RegistryValueKind.DWord);
@@ -124,6 +130,7 @@ namespace MRMPService
                 _organization_id = value;
             }
         }
+
         /// <summary>
         /// Global static field.
         /// </summary>

@@ -56,6 +56,10 @@ namespace MRMPService.API
         {
             return new MRPJob(this);
         }
+        public MRPStacktree stacktree()
+        {
+            return new MRPStacktree(this);
+        }
 
 
         private bool disposed = false;

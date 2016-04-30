@@ -3,6 +3,7 @@ using DoubleTake.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MRMPService.DoubleTake
@@ -11,27 +12,27 @@ namespace MRMPService.DoubleTake
     {
         public Management(Doubletake doubletake) : base(doubletake) { }
 
-        public bool CheckLicense()
+        public bool CheckLicense(string _job_type)
         {
             bool license_status = false;
-            foreach (ManagementConnection _server_connection in new[] { _source_connection, _target_connection })
+
+
+            switch (_job_type)
             {
-                if (_server_connection != null)
-                {
-                    ActivationStatusApi status = new ActivationStatusApi(_server_connection);
-                    ActivationStatusModel _information = status.GetActivationStatusAsync().Result.Content;
-                    if (_information.IsNodeLocked)
-                    {
-                        license_status = true;
-                    }
-                    else
-                    {
-                        license_status = _information.IsValid;
-                    }
-                    if (!license_status) { return false; }
-                }
+                case "MoveServerMigration":
+                    if (GetLicenses(_source_connection).Any(x => x.ProductName.Contains("Source")))
+                    { license_status = true; }
+                    if (GetLicenses(_target_connection).Any(x => x.ProductName.Contains("Target")))
+                    { license_status = true; }
+                    break;
             }
             return license_status;
+        }
+        static private List<ActivationCodeModel> GetLicenses(ManagementConnection _connection)
+        {
+            ActivationStatusApi status = new ActivationStatusApi(_connection);
+            List<ActivationCodeModel> _information = status.GetActivationStatusAsync().Result.Content.Codes.ToList();
+            return _information;
         }
         public void InstallLicense(string _target_license_key, string _source_license_key = null)
         {
@@ -43,11 +44,11 @@ namespace MRMPService.DoubleTake
                 ActivationStatusModel _activation_status = (_source_activation.SetActivationParametersAsync(new ActivationParametersModel() { ActivationCodes = new String[] { _source_license_key } }).Result).Content;
                 foreach (ActivationCodeModel _type in _activation_status.Codes)
                 {
-                    
+
                 }
             }
 
-            ActivationParametersApi _target_activation = new ActivationParametersApi(_target_connection);          
+            ActivationParametersApi _target_activation = new ActivationParametersApi(_target_connection);
             _target_activation.SetActivationParametersAsync(new ActivationParametersModel() { ActivationCodes = new String[] { _target_license_key } });
             _target_activation.ApplyActivationParametersAsync(new ActivationParametersModel() { ActivationCodes = new String[] { _target_license_key } });
         }

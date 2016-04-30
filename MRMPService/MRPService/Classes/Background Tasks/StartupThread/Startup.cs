@@ -8,6 +8,7 @@ using MRMPService.Utilities;
 using MRMPService.WCF;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlServerCe;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Description;
@@ -20,25 +21,39 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
     class Startup
     {
         Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread, _osinventody_thread, _osnetstat_thread;
-        ServiceHost serviceHost;
 
         public void Start()
         {
-            MRPDatabase db = new MRPDatabase();
+            Logger.log(String.Format("Compacting database"), Logger.Severity.Info);
+            String _connection_string = MRPDatabase.GetConnection().ConnectionString;
+            SqlCeEngine _engine = new SqlCeEngine(_connection_string);
+            
+            try
+            {
+                _engine.Compact(_connection_string);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error compacting database: {0}", ex.Message), Logger.Severity.Info);
+            }
+
+
+            using (MRPDatabase db = new MRPDatabase())
+            {
+                if (Global.debug)
+                {
+                    Logger.log(String.Format("Platforms: {0}, Workloads: {1}, Credentials: {2}, Performance Counters: {3}, Network Flows: {4}, Netstat Flows: {5}",
+                        db.Platforms.ToList().Count,
+                        db.Workloads.ToList().Count,
+                        db.Credentials.ToList().Count,
+                        db.Performance.ToList().Count,
+                        db.NetworkFlows.ToList().Count,
+                        db.Netstat.ToList().Count
+                        ), Logger.Severity.Debug);
+                };
+            }
 
             // Start WCF Service
-            if (Global.debug)
-            {
-                Logger.log(String.Format("Platforms: {0}, Workloads: {1}, Credentials: {2}, Performance Counters: {3}, Network Flows: {4}, Netstat Flows: {5}",
-                    db.Platforms.ToList().Count,
-                    db.Workloads.ToList().Count,
-                    db.Credentials.ToList().Count,
-                    db.Performance.ToList().Count,
-                    db.NetworkFlows.ToList().Count,
-                    db.Netstat.ToList().Count
-                    ), Logger.Severity.Debug);
-            };
-
             Logger.log(String.Format("Starting WCF Service"), Logger.Severity.Debug);
 
             BasicHttpBinding basicHttpBinding = new BasicHttpBinding();
@@ -51,7 +66,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             basicHttpBinding.ReaderQuotas.MaxBytesPerRead = int.MaxValue;
             Uri wcfbaseAddress = new Uri("http://localhost:8734/MRMPWCFService");
 
-            var serviceHost = new ServiceHost(typeof(MRPWCFService));
+            ServiceHost serviceHost = new ServiceHost(typeof(MRPWCFService));
             ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();
             wcfsmb.HttpGetEnabled = true;
             wcfsmb.HttpGetUrl = wcfbaseAddress;

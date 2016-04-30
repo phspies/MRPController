@@ -48,6 +48,7 @@ namespace MRMPService.MRMPService.Types.API
         public MRPTaskServicestackType servicestack { get; set; }
         public MRPTaskPlatformType platform { get; set; }
         public MRPTaskJobType job { get; set; }
+        public MRPStacktreeType stacktree { get; set; }
     }
     public class MRPTaskJobType
     {

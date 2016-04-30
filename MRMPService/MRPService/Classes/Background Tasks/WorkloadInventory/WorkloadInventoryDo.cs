@@ -16,8 +16,6 @@ namespace MRMPService.API.Classes
 
         public static void WorkloadInventoryDo(String workload_id)
         {
-            WorkloadSet dbworkload = new WorkloadSet();
-            CredentialSet dbcredential = new CredentialSet();
             MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
             var _mrmp_test_workload = _cloud_movey.workload().getworkload(workload_id);
@@ -25,13 +23,18 @@ namespace MRMPService.API.Classes
             {
                 throw new ArgumentException(String.Format("Inventory: Error finding workload in MRP Portal {0} : {1}", workload_id, ((ResultType)_mrmp_test_workload).result.message));
             }
-            if (_mrmp_test_workload == null )
+            if (_mrmp_test_workload == null)
             {
                 throw new ArgumentException(String.Format("Inventory: Error finding workload in MRP Portal {0}", workload_id));
             }
 
             //Check if workload exists in local database
-            Workload _workload = dbworkload.ModelRepository.GetById(workload_id);
+            Workload _workload;
+            using (WorkloadSet dbworkload = new WorkloadSet())
+            {
+                _workload = dbworkload.ModelRepository.GetById(workload_id);
+            }
+
             if (_workload == null)
             {
                 throw new ArgumentException("Inventory: Error finding workload in manager database");
@@ -39,7 +42,11 @@ namespace MRMPService.API.Classes
             MRPWorkloadType _mrmp_workload = (MRPWorkloadType)_mrmp_test_workload;
 
             //check for credentials
-            Credential _credential = dbcredential.ModelRepository.GetById(_workload.credential_id);
+            Credential _credential;
+            using (CredentialSet dbcredential = new CredentialSet())
+            {
+                _credential = dbcredential.ModelRepository.GetById(_workload.credential_id);
+            }
             if (_credential == null)
             {
                 throw new ArgumentException(String.Format("Inventory: Error finding credentials for workload {0} {1}", workload_id, _workload.hostname));
@@ -67,7 +74,8 @@ namespace MRMPService.API.Classes
             //Get operating system type
             foreach (var item in new ManagementObjectSearcher(connectionScope, OperatingSystemQuery).Get())
             {
-                try {
+                try
+                {
                     String _caption = item["Caption"].ToString();
                     string _arch = item["OSArchitecture"].ToString();
                     _workload.osedition = OSEditionSimplyfier.Simplyfier(String.Format("{0} {1}", _caption, _arch));
@@ -116,7 +124,10 @@ namespace MRMPService.API.Classes
             }
 
             //save workload to database
-            dbworkload.Save();
+            using (WorkloadSet dbworkload = new WorkloadSet())
+            {
+                dbworkload.ModelRepository.Update(_workload);
+            }
 
             //process running processes
             SelectQuery msProcessQuery = new SelectQuery("SELECT * FROM Win32_Process");
@@ -269,8 +280,10 @@ namespace MRMPService.API.Classes
             Workloads_Update.InventoryUpdateStatus(_workload.id, "Success", true);
 
             //refresh workload object from DB
-            _workload = dbworkload.ModelRepository.GetById(workload_id);
-
+            using (WorkloadSet dbworkload = new WorkloadSet())
+            {
+                _workload = dbworkload.ModelRepository.GetById(workload_id);
+            }
             //Update workload in the portal
             MRPWorkloadCRUDType _mrmp_crud_workload = new MRPWorkloadCRUDType();
             Objects.Copy(_workload, _mrmp_crud_workload);

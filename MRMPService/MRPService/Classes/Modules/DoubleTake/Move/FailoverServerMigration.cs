@@ -29,12 +29,12 @@ namespace MRMPService.Tasks.DoubleTake
                     using (Doubletake _dt = new Doubletake(_source_workload.id, _target_workload.id))
                     {
                         _mrp_api.task().progress(payload, "Verifying license status on both source and target workloads", 2);
-                        if (!_dt.management().CheckLicense())
+                        if (!_dt.management().CheckLicense(DT_JobTypes.Move_Server_Migration))
                         {
                             _mrp_api.task().progress(payload, String.Format("Invalid license detected on workloads."), 3);
                             _mrp_api.task().progress(payload, String.Format("Attempting to configure license in deployment policy."), 4);
                             _dt.management().InstallLicense(_target_workload.deploymentpolicy.source_activation_code, _source_workload.deploymentpolicy.target_activation_code);
-                            if (!_dt.management().CheckLicense())
+                            if (!_dt.management().CheckLicense(DT_JobTypes.Move_Server_Migration))
                             {
                                 _mrp_api.task().progress(payload, String.Format("Invalid license detected on workloads after trying to fix license"), 5);
                             }
@@ -82,9 +82,9 @@ namespace MRMPService.Tasks.DoubleTake
                             int percentcomplete = jobinfo.Statistics.FullServerJobDetails.CutoverDetails.PercentComplete;
 
                             String progress = String.Format("{0}% complete", percentcomplete);
-                            _mrp_api.task().progress(payload, progress, ((percentcomplete / 100) * 60) + 30);
+                            _mrp_api.task().progress(payload, progress, (((double)percentcomplete / 100) * 60) + 30);
 
-                            Thread.Sleep(TimeSpan.FromSeconds(30));
+                            Thread.Sleep(TimeSpan.FromSeconds(10));
                             DateTime timeoutTime = DateTime.Now.AddMinutes(15);
                             while (true)
                             {

@@ -28,7 +28,7 @@ namespace MRMPService.Tasks.DoubleTake
                     using (Doubletake _dt = new Doubletake(_source_workload.id, _target_workload.id))
                     {
                         _mrp_api.task().progress(payload, "Verifying license status on both source and target workloads", 2);
-                        if (!_dt.management().CheckLicense())
+                        if (!_dt.management().CheckLicense(DT_JobTypes.HA_Full_Failover))
                         {
                             _mrp_api.task().failcomplete(payload, String.Format("Invalid license detected on workloads."));
                             return;
