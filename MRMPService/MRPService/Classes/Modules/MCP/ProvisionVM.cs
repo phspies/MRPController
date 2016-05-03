@@ -94,7 +94,7 @@ namespace MRMPService.Tasks.MCP
                 _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier.shortname });
 
                 _vm.name = _target_workload.hostname;
-                _vm.description = String.Format("{0} MRMP : {1}", DateTime.Now, payload.submitpayload.servicestack.service);
+                _vm.description = String.Format("{0} MRMP : {1}", DateTime.UtcNow, payload.submitpayload.servicestack.service);
                 DeployServerTypeNetwork _network = new DeployServerTypeNetwork();
                 _network.Item = _target_workload.interfaces[0].platformnetwork.moid;
                 _network.ItemElementName = NetworkIdOrPrivateIpv4ChoiceType.networkId;
@@ -134,8 +134,8 @@ namespace MRMPService.Tasks.MCP
                         {
                             using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                             {
-                                _mrp_api.task().failcomplete(payload, String.Format("Error submitting workload creation task:", ex.Message));
-                                Logger.log(String.Format("Error submitting workload creation task:", ex.Message), Logger.Severity.Error);
+                                _mrp_api.task().failcomplete(payload, String.Format("Error submitting workload creation task: {0} : {1}", ex.Message, _status.error));
+                                Logger.log(String.Format("Error submitting workload creation task: {0} : {1}", ex.Message, _status.error), Logger.Severity.Error);
                                 return;
                             }
                         }

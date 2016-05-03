@@ -67,7 +67,7 @@ namespace MRMPService.PlatformInventory
                 __platform.networkdomain_count = networkdomains;
                 __platform.platform_version = "na";
 
-                __platform.lastupdated = DateTime.Now;
+                __platform.lastupdated = DateTime.UtcNow;
                 __platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
                 __platform.moid = dc.MoRef.Value;
                 db.SaveChanges();

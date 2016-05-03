@@ -56,6 +56,10 @@ namespace MRMPService.API
         {
             return new MRPJob(this);
         }
+        public MRPJobstat jobstat()
+        {
+            return new MRPJobstat(this);
+        }
         public MRPStacktree stacktree()
         {
             return new MRPStacktree(this);

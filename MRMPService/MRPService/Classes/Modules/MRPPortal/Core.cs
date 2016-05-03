@@ -105,7 +105,7 @@ namespace MRMPService.API
                 else
                 {
                     Logger.log(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), Logger.Severity.Error);
-                    throw new System.ArgumentException(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage));
+                    Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
             }
             return responseobject;

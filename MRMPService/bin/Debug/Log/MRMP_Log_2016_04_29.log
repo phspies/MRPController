@@ -1595,3 +1595,95 @@
 2016/04/29 11:06:07 Debug > Starting Netstat Upload Thread
 2016/04/29 11:06:07 Debug > Starting NetFlow Upload Thread
 2016/04/29 11:06:07 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3420000
+2016/04/29 11:11:07 Info > Staring data upload process
+2016/04/29 11:11:07 Debug > Starting Performance Upload Thread
+2016/04/29 11:11:07 Debug > Starting Netstat Upload Thread
+2016/04/29 11:11:07 Debug > Starting NetFlow Upload Thread
+2016/04/29 11:11:07 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2960000
+2016/04/29 11:16:07 Info > Staring data upload process
+2016/04/29 11:16:07 Debug > Starting Performance Upload Thread
+2016/04/29 11:16:07 Debug > Starting Netstat Upload Thread
+2016/04/29 11:16:08 Debug > Starting NetFlow Upload Thread
+2016/04/29 11:16:08 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3160000
+2016/04/29 11:21:08 Info > Staring data upload process
+2016/04/29 11:21:08 Debug > Starting Performance Upload Thread
+2016/04/29 11:21:08 Debug > Starting Netstat Upload Thread
+2016/04/29 11:21:08 Debug > Starting NetFlow Upload Thread
+2016/04/29 11:21:08 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3780000
+2016/04/29 11:25:27 Info > Netstat: Staring netstat collection process with 10 threads
+2016/04/29 11:25:27 Info > Netstat: Started netstat collection for 10-0-1-8 : 2607-f480-111-1445-34a6-b717-b685-8171.ipv6-literal.net
+2016/04/29 11:25:27 Info > Netstat: Started netstat collection for appserver04 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/29 11:25:27 Info > Netstat: Started netstat collection for appserver03 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/29 11:25:27 Info > Netstat: Started netstat collection for appserver01 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/29 11:25:27 Info > Netstat: Started netstat collection for appserver02 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/29 11:25:28 Info > Netstat: Started netstat collection for 10-0-1-9 : 2607-f480-111-1445-7ea5-7cf7-1e2d-9df5.ipv6-literal.net
+2016/04/29 11:25:32 Info > Inventory: Completed netstat collection for appserver01 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/29 11:25:32 Info > Inventory: Completed netstat collection for appserver02 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/29 11:25:32 Info > Inventory: Completed netstat collection for appserver03 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/29 11:25:33 Info > Inventory: Completed netstat collection for appserver04 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/29 11:25:33 Info > Inventory: Completed netstat collection for 10-0-1-8 : 2607-f480-111-1445-34a6-b717-b685-8171.ipv6-literal.net
+2016/04/29 11:25:34 Info > Inventory: Completed netstat collection for 10-0-1-9 : 2607-f480-111-1445-7ea5-7cf7-1e2d-9df5.ipv6-literal.net
+2016/04/29 11:25:34 Info > Netstat: Completed netstat collection for 6 workloads in 00:00:07.3640000 [next run at 4/29/2016 11:55:27 PM]
+2016/04/29 11:26:08 Info > Staring data upload process
+2016/04/29 11:26:08 Debug > Starting Performance Upload Thread
+2016/04/29 11:26:08 Debug > Starting Netstat Upload Thread
+2016/04/29 11:26:08 Debug > Starting NetFlow Upload Thread
+2016/04/29 11:26:13 Info > Completed data upload process. Total Elapsed Time: 00:00:04.3450000
+2016/04/29 11:31:13 Info > Staring data upload process
+2016/04/29 11:31:13 Debug > Starting Performance Upload Thread
+2016/04/29 11:31:13 Debug > Starting Netstat Upload Thread
+2016/04/29 11:31:13 Debug > Starting NetFlow Upload Thread
+2016/04/29 11:31:13 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3070000
+2016/04/29 11:36:13 Info > Staring data upload process
+2016/04/29 11:36:13 Debug > Starting Performance Upload Thread
+2016/04/29 11:36:13 Debug > Starting Netstat Upload Thread
+2016/04/29 11:36:13 Debug > Starting NetFlow Upload Thread
+2016/04/29 11:36:13 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3070000
+2016/04/29 11:37:52 Info > Staring performance collection process with 10 threads
+2016/04/29 11:37:52 Info > Performance: Start performance collection for appserver02 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/04/29 11:37:52 Info > Performance: Start performance collection for appserver01 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/04/29 11:37:52 Info > Performance: Start performance collection for appserver03 using 2607:f480:111:1359:14a4:ac63:1ae:a393
+2016/04/29 11:37:52 Info > Performance: Start performance collection for appserver04 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/04/29 11:37:52 Info > Performance: Start performance collection for 10-0-1-8 using 2607:f480:111:1445:34a6:b717:b685:8171
+2016/04/29 11:37:53 Info > Performance: Start performance collection for 10-0-1-9 using 2607:f480:111:1445:7ea5:7cf7:1e2d:9df5
+2016/04/29 11:38:20 Info > Performance: Completed performance collection for appserver02 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/04/29 11:38:20 Info > Performance: Completed performance collection for appserver01 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/04/29 11:38:22 Info > Performance: Completed performance collection for appserver03 using 2607:f480:111:1359:14a4:ac63:1ae:a393
+2016/04/29 11:38:30 Info > Performance: Completed performance collection for 10-0-1-8 using 2607:f480:111:1445:34a6:b717:b685:8171
+2016/04/29 11:38:47 Info > Performance: Completed performance collection for 10-0-1-9 using 2607:f480:111:1445:7ea5:7cf7:1e2d:9df5
+2016/04/29 11:38:50 Info > Performance: Completed performance collection for appserver04 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/04/29 11:38:50 Info > Completed performance collection for 6 workloads in 00:00:57.9650000 [next run at 4/30/2016 12:37:52 AM]
+2016/04/29 11:41:13 Info > Staring data upload process
+2016/04/29 11:41:13 Debug > Starting Performance Upload Thread
+2016/04/29 11:41:13 Debug > Starting Netstat Upload Thread
+2016/04/29 11:41:13 Debug > Starting NetFlow Upload Thread
+2016/04/29 11:43:03 Info > Completed data upload process. Total Elapsed Time: 00:01:50.1100000
+2016/04/29 11:46:13 Info > Staring data upload process
+2016/04/29 11:46:13 Debug > Starting Performance Upload Thread
+2016/04/29 11:46:13 Debug > Starting Netstat Upload Thread
+2016/04/29 11:46:13 Debug > Starting NetFlow Upload Thread
+2016/04/29 11:46:14 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3280000
+2016/04/29 11:51:14 Info > Staring data upload process
+2016/04/29 11:51:14 Debug > Starting Performance Upload Thread
+2016/04/29 11:51:14 Debug > Starting Netstat Upload Thread
+2016/04/29 11:51:14 Debug > Starting NetFlow Upload Thread
+2016/04/29 11:51:14 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3420000
+2016/04/29 11:55:29 Info > Netstat: Staring netstat collection process with 10 threads
+2016/04/29 11:55:29 Info > Netstat: Started netstat collection for appserver03 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/29 11:55:30 Info > Netstat: Started netstat collection for appserver02 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/29 11:55:29 Info > Netstat: Started netstat collection for appserver04 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/29 11:55:29 Info > Netstat: Started netstat collection for 10-0-1-8 : 2607-f480-111-1445-34a6-b717-b685-8171.ipv6-literal.net
+2016/04/29 11:55:30 Info > Netstat: Started netstat collection for appserver01 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/29 11:55:30 Info > Netstat: Started netstat collection for 10-0-1-9 : 2607-f480-111-1445-7ea5-7cf7-1e2d-9df5.ipv6-literal.net
+2016/04/29 11:55:35 Info > Inventory: Completed netstat collection for appserver02 : 2607-f480-111-1359-7f7e-61a5-36c2-345b.ipv6-literal.net
+2016/04/29 11:55:35 Info > Inventory: Completed netstat collection for 10-0-1-9 : 2607-f480-111-1445-7ea5-7cf7-1e2d-9df5.ipv6-literal.net
+2016/04/29 11:55:35 Info > Inventory: Completed netstat collection for appserver04 : 2607-f480-111-1359-dda-e8fe-c7f2-9e7e.ipv6-literal.net
+2016/04/29 11:55:35 Info > Inventory: Completed netstat collection for appserver01 : 2607-f480-111-1359-492b-1740-ea0a-5f9c.ipv6-literal.net
+2016/04/29 11:55:36 Info > Inventory: Completed netstat collection for appserver03 : 2607-f480-111-1359-14a4-ac63-1ae-a393.ipv6-literal.net
+2016/04/29 11:55:36 Info > Inventory: Completed netstat collection for 10-0-1-8 : 2607-f480-111-1445-34a6-b717-b685-8171.ipv6-literal.net
+2016/04/29 11:55:36 Info > Netstat: Completed netstat collection for 6 workloads in 00:00:06.5520000 [next run at 4/30/2016 12:25:29 AM]
+2016/04/29 11:56:14 Info > Staring data upload process
+2016/04/29 11:56:14 Debug > Starting Performance Upload Thread
+2016/04/29 11:56:14 Debug > Starting Netstat Upload Thread
+2016/04/29 11:56:14 Debug > Starting NetFlow Upload Thread
+2016/04/29 11:56:20 Info > Completed data upload process. Total Elapsed Time: 00:00:05.8630000

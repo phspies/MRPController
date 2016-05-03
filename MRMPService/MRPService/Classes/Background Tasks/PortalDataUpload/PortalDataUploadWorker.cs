@@ -16,30 +16,27 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
 
         public void Start()
         {
-            API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient();
             while (true)
-            {
-                DateTime _next_upload_run = DateTime.Now.AddMinutes(Global.portal_upload_interval);
-
+            {                                                                                   
+                DateTime _next_upload_run = DateTime.UtcNow.AddMinutes(Global.portal_upload_interval);
                 try
                 {
                     Logger.log("Staring data upload process", Logger.Severity.Info);
-
                     Stopwatch sw = Stopwatch.StartNew();
 
                     PerformanceUpload _performance = new PerformanceUpload();
-                    Logger.log("Starting Performance Upload Thread", Logger.Severity.Debug);
                     Thread performance_thread = new Thread(new ThreadStart(_performance.Start));
+                    performance_thread.Name = "Performance Upload Thread";
                     performance_thread.Start();
 
                     NetstatUpload _netstat = new NetstatUpload();
-                    Logger.log("Starting Netstat Upload Thread", Logger.Severity.Debug);
                     Thread netstat_thread = new Thread(new ThreadStart(_netstat.Start));
+                    netstat_thread.Name = "Netstat Upload Thread";
                     netstat_thread.Start();
 
                     NetflowUpload _netflow = new NetflowUpload();
-                    Logger.log("Starting NetFlow Upload Thread", Logger.Severity.Debug);
                     Thread netflow_thread = new Thread(new ThreadStart(_netflow.Start));
+                    netflow_thread.Name = "Netflow Upload Thread";
                     netflow_thread.Start();
 
                     performance_thread.Join();
@@ -58,7 +55,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     Logger.log(String.Format("Error in data upload task: {0}", ex.ToString()), Logger.Severity.Error);
                 }
                 //Wait for next run
-                while (_next_upload_run > DateTime.Now)
+                while (_next_upload_run > DateTime.UtcNow)
                 {
                     Thread.Sleep(new TimeSpan(0, 0, 5));
                 }

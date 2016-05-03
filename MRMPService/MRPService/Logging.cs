@@ -13,7 +13,7 @@ namespace MRMPService.MRMPService.Log
         {
             message = message.Replace("\n", String.Empty);
             message = message.Replace("\r", String.Empty);
-            DateTime datet = DateTime.Now;
+            DateTime datet = DateTime.UtcNow;
             string loglocation = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             String filePath = "MRMP_Log_" + datet.ToString("yyyy_MM_dd") + ".log";
             string logfilename = Path.Combine(loglocation, "Log", filePath);

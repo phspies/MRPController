@@ -1,4 +1,5 @@
 ﻿using MRMPService.API.Classes;
+using MRMPService.DTPollerCollection;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
 using MRMPService.PerformanceCollection;
@@ -12,6 +13,7 @@ using System.Data.SqlServerCe;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Description;
+using System.ServiceProcess;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,23 +22,59 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
 {
     class Startup
     {
-        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread, _osinventody_thread, _osnetstat_thread;
+        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread, _osinventody_thread, _osnetstat_thread, _dt_thread;
 
         public void Start()
         {
-            Logger.log(String.Format("Compacting database"), Logger.Severity.Info);
             String _connection_string = MRPDatabase.GetConnection().ConnectionString;
             SqlCeEngine _engine = new SqlCeEngine(_connection_string);
-            
             try
             {
-                _engine.Compact(_connection_string);
+                Logger.log(String.Format("Verifying database"), Logger.Severity.Info);
+                if (false == _engine.Verify())
+                {
+                    int corrupt = 3;
+                    while (corrupt > 0)
+                    {
+                        Logger.log(String.Format("Database seems to contain corruption, trying to repair"), Logger.Severity.Error);
+                        try
+                        {
+                            _engine.Repair(null, RepairOption.RecoverAllPossibleRows);
+                            Logger.log(String.Format("Database repair success, trying verify"), Logger.Severity.Error);
+                            _engine.Verify();
+                            Logger.log(String.Format("Database verify success"), Logger.Severity.Error);
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.log(String.Format("Database repair failed, trying again: {1}", ex.Message), Logger.Severity.Error);
+                        }
+                        corrupt--;
+                    }
+                    if (corrupt == 0)
+                    {
+                        Logger.log(String.Format("Could not repair database, exiting!"), Logger.Severity.Error);
+                        return;
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        Logger.log(String.Format("Compacting database"), Logger.Severity.Info);
+                        _engine.Compact(_connection_string);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.log(String.Format("Error compacting database: {0}", ex.Message), Logger.Severity.Error);
+                        return;
+                    }
+                }
             }
             catch (Exception ex)
             {
-                Logger.log(String.Format("Error compacting database: {0}", ex.Message), Logger.Severity.Info);
+                Logger.log(String.Format("Error verifying database: {0}", ex.Message), Logger.Severity.Error);
             }
-
 
             using (MRPDatabase db = new MRPDatabase())
             {
@@ -50,7 +88,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         db.NetworkFlows.ToList().Count,
                         db.Netstat.ToList().Count
                         ), Logger.Severity.Debug);
-                };
+                }
             }
 
             // Start WCF Service
@@ -114,6 +152,13 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             if (Global.debug) { Logger.log("Starting OS Netstat Thread", Logger.Severity.Debug); };
             _osnetstat_thread = new Thread(new ThreadStart(_osnetstat.Start));
             _osnetstat_thread.Start();
+
+            DTPollerThread _dt_polling = new DTPollerThread();
+            if (Global.debug) { Logger.log("Starting DT Polling Thread", Logger.Severity.Debug); };
+            _dt_thread = new Thread(new ThreadStart(_dt_polling.Start));
+            _dt_thread.Start();
+
         }
+
     }
 }

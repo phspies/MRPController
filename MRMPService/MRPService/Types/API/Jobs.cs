@@ -29,16 +29,14 @@ namespace MRMPService.API.Types.API
         public string source_workload_id { get; set; }
         public string job_type { get; set; }
         public string dt_job_id { get; set; }
-        public Int64 dt_memory_replication_queue { get; set; }
-        public Int64 dt_disk_replication_queue { get; set; }
-        public Int64 dt_disk_queue_size { get; set; }
-        public Int64 dt_memory_queue_size { get; set; }
-        public DateTime? dt_queue_datetime_activation { get; set; }
         public string organization_id { get; set; }
-        public Int64 dt_total_size { get; set; }
-        public Int64 dt_remaining_size { get; set; }
         public string state { get; set; }
         public string servicestack_id { get; set; }
+        public MRPWorkloadType source_workload { get; set; }
+        public MRPWorkloadType target_workload { get; set; }
+        public string internal_state { get; set; }
+        public DateTime? last_contact { get; set; }
+
     }
     public class MRPJobIDGETType
     {

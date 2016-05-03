@@ -85,10 +85,10 @@ namespace MRMPService.Tasks.DoubleTake
                             _mrp_api.task().progress(payload, progress, (((double)percentcomplete / 100) * 60) + 30);
 
                             Thread.Sleep(TimeSpan.FromSeconds(10));
-                            DateTime timeoutTime = DateTime.Now.AddMinutes(15);
+                            DateTime timeoutTime = DateTime.UtcNow.AddMinutes(15);
                             while (true)
                             {
-                                if (DateTime.Now > timeoutTime)
+                                if (DateTime.UtcNow > timeoutTime)
                                 {
                                     _mrp_api.task().progress(payload, String.Format("Timeout waiting for target workload {0} to become available", _target_workload.hostname), 94);
                                     _mrp_api.task().successcomplete(payload, JsonConvert.SerializeObject(jobinfo));

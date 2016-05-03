@@ -15,7 +15,7 @@ namespace MRMPService.API.Classes
         {
             while (true)
             {
-                DateTime _next_netstat_run = DateTime.Now.AddMinutes(Global.os_netstat_interval);
+                DateTime _next_netstat_run = DateTime.UtcNow.AddMinutes(Global.os_netstat_interval);
                 Stopwatch sw = Stopwatch.StartNew();
                 int _processed_workloads = 0;
 
@@ -47,7 +47,7 @@ namespace MRMPService.API.Classes
                     _processed_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_netstat_run), Logger.Severity.Info);
 
                 //Wait for next run
-                while (_next_netstat_run > DateTime.Now)
+                while (_next_netstat_run > DateTime.UtcNow)
                 {
                     Thread.Sleep(new TimeSpan(0, 0, 5));
                 }

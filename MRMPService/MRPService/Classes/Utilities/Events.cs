@@ -9,7 +9,7 @@ namespace MRMPService.Utilities
         {
             MRPDatabase db = new MRPDatabase();
 
-            _event.timestamp = DateTime.Now;
+            _event.timestamp = DateTime.UtcNow;
             _event.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
             db.Events.Add(_event);
             db.SaveChanges();

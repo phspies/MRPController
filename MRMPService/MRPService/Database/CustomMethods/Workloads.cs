@@ -27,7 +27,7 @@ namespace MRMPService.LocalDatabase
                         workload.os_contact_error_count = workload.os_contact_error_count == null ? 1 : workload.os_contact_error_count++;
                     }
                     workload.os_collection_message = message;
-                    workload.os_last_contact = DateTime.Now;
+                    workload.os_last_contact = DateTime.UtcNow;
                     _workload_db.Save();
                 }
                 else
@@ -55,7 +55,7 @@ namespace MRMPService.LocalDatabase
                         workload.perf_contact_error_count = workload.perf_contact_error_count == null ? 1 : workload.perf_contact_error_count++;
                     }
                     workload.perf_collection_message = message;
-                    workload.perf_last_contact = DateTime.Now;
+                    workload.perf_last_contact = DateTime.UtcNow;
                     _workload_db.Save();
                 }
                 else
@@ -82,7 +82,7 @@ namespace MRMPService.LocalDatabase
                         workload.dt_contact_error_count = workload.dt_contact_error_count == null ? 1 : workload.dt_contact_error_count++;
                     }
                     workload.dt_collection_message = message;
-                    workload.dt_last_contact = DateTime.Now;
+                    workload.dt_last_contact = DateTime.UtcNow;
                     _workload_db.Save();
                 }
                 else

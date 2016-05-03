@@ -15,40 +15,43 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
     {
         public void Start()
         {
-            API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient();
-
-            //process netstat 
-            using (NetstatSet _db_netstat = new NetstatSet())
+            Logger.log("Starting Netstat Upload Thread", Logger.Severity.Debug);
+            Stopwatch _sw = Stopwatch.StartNew();
+            using (API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient())
             {
-                List<MRPNetworkStatCRUDType> _netstat_list = new List<MRPNetworkStatCRUDType>();
-
-                foreach (Netstat _db_netstat_record in _db_netstat.ModelRepository.Get())
+                using (MRPDatabase db = new MRPDatabase())
                 {
-                    MRPNetworkStatCRUDType _netstatcrud = new MRPNetworkStatCRUDType();
-                    Objects.Copy(_db_netstat_record, _netstatcrud);
+                    List<MRPNetworkStatCRUDType> _netstat_list = new List<MRPNetworkStatCRUDType>();
+                    IList<Netstat> _db_netstats = db.Netstat.AsEnumerable().ToList();
 
-                    //add record to list
-                    _netstat_list.Add(_netstatcrud);
-
-                    //process batch
-                    if (_netstat_list.Count > Global.portal_upload_netstat_page_size)
+                    foreach (Netstat _db_netstat_record in _db_netstats)
                     {
-                        //add record to portal
+                        MRPNetworkStatCRUDType _netstatcrud = new MRPNetworkStatCRUDType();
+                        Objects.Copy(_db_netstat_record, _netstatcrud);
+                        _netstat_list.Add(_netstatcrud);
+                        if (_netstat_list.Count > Global.portal_upload_netstat_page_size)
+                        {
+                            _cloud_movey.netstat().create_bulk(_netstat_list);
+                            _netstat_list.Clear();
+                        }
+                    }
+                    if (_netstat_list.Count > 0)
+                    {
                         _cloud_movey.netstat().create_bulk(_netstat_list);
-
-                        //reset list 
-                        _netstat_list.Clear();
                     }
 
-                    //remove from local database
-                    _db_netstat.ModelRepository.Delete(_db_netstat_record.id);
-                }
-                //process last remaining netstat entries
-                if (_netstat_list.Count > 0)
-                {
-                    _cloud_movey.netstat().create_bulk(_netstat_list);
+                    //remove all processed records from from local database
+                    Logger.log(String.Format("Deleting uploaded Netstat records: {0}", _db_netstats.Count()), Logger.Severity.Debug);
+                    Stopwatch _sw_delete = Stopwatch.StartNew();
+                    db.Netstat.RemoveRange(_db_netstats);
+                    db.SaveChanges();
+                    _sw_delete.Stop();
+                    Logger.log(String.Format("Took {0} to delete {1} performance records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _db_netstats.Count()), Logger.Severity.Debug);
+
                 }
             }
+            _sw.Stop();
+            Logger.log(String.Format("Completed Nestat Upload Thread in {0}", TimeSpan.FromMilliseconds(_sw.Elapsed.TotalMilliseconds)), Logger.Severity.Debug);
         }
     }
 }

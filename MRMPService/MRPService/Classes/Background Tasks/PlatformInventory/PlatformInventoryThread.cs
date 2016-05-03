@@ -19,7 +19,7 @@ namespace MRMPService.PlatformInventory
         {
             while (true)
             {
-                DateTime _next_inventory_run = DateTime.Now.AddMinutes(Global.platform_inventory_interval);
+                DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(Global.platform_inventory_interval);
                 Logger.log(String.Format("Staring platform inventory process with {0} threads", Global.platform_inventory_concurrency), Logger.Severity.Info);
                 MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
@@ -89,7 +89,7 @@ namespace MRMPService.PlatformInventory
                     TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_inventory_run), Logger.Severity.Info);
 
                 //Wait for next run
-                while (_next_inventory_run > DateTime.Now)
+                while (_next_inventory_run > DateTime.UtcNow)
                 {
                     Thread.Sleep(new TimeSpan(0, 0, 5));
                 }

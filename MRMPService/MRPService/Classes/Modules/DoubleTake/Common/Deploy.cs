@@ -163,7 +163,7 @@ namespace MRMPService.Tasks.DoubleTake
                         remoteTempLocation = remoteTempLocation.Replace(':', '$');
                         string _target_workload_temp_path = Path.Combine(_contactable_ip, remoteTempLocation);
                         _target_workload_temp_path = @"\\" + _target_workload_temp_path + @"\" + systemArchitecture;
-                        var endTime = DateTime.Now.AddMinutes(1);
+                        var endTime = DateTime.UtcNow.AddMinutes(1);
                         if (!Directory.Exists(_target_workload_temp_path))
                         {
                             Directory.CreateDirectory(_target_workload_temp_path);
@@ -255,10 +255,10 @@ namespace MRMPService.Tasks.DoubleTake
                         //Wait for the process to complete
                         _mrp_portal.task().progress(payload, "Wait for remote installer to complete", _counter + 31);
 
-                        DateTime installEndTime = DateTime.Now.AddSeconds(2700);
+                        DateTime installEndTime = DateTime.UtcNow.AddSeconds(2700);
                         Process process;
 
-                        while (DateTime.Now < installEndTime)
+                        while (DateTime.UtcNow < installEndTime)
                         {
                             try
                             {
@@ -271,7 +271,7 @@ namespace MRMPService.Tasks.DoubleTake
                             }
                             Thread.Sleep(TimeSpan.FromSeconds(10));
                         }
-                        if (installEndTime <= DateTime.Now)
+                        if (installEndTime <= DateTime.UtcNow)
                         {
                             _mrp_portal.task().failcomplete(payload, String.Format("Timeout waiting for install process to complete on {0}", _working_workload.hostname));
                             return;

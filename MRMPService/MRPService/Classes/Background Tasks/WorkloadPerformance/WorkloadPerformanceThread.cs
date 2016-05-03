@@ -70,7 +70,7 @@ namespace MRMPService.PerformanceCollection
 
             while (true)
             {
-                DateTime _next_performance_run = DateTime.Now.AddHours(1);
+                DateTime _next_performance_run = DateTime.UtcNow.AddHours(1);
                 Stopwatch sw = Stopwatch.StartNew();
                 int _processed_workloads = 0;
 
@@ -106,7 +106,7 @@ namespace MRMPService.PerformanceCollection
                     _processed_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_performance_run), Logger.Severity.Info);
 
                 //Wait for next run
-                while (_next_performance_run > DateTime.Now)
+                while (_next_performance_run > DateTime.UtcNow)
                 {
                     Thread.Sleep(new TimeSpan(0, 0, 5));
                 }

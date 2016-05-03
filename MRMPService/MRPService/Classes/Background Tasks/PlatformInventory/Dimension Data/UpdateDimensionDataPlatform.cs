@@ -140,7 +140,7 @@ namespace MRMPService.PlatformInventory
                     _db_platform.networkdomain_count = networkdomains;
                     _db_platform.platform_version = _caas_dc.type;
 
-                    _db_platform.lastupdated = DateTime.Now;
+                    _db_platform.lastupdated = DateTime.UtcNow;
                     _db_platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
                     _db_platform.moid = _caas_dc.id;
                     _platform_dbset.Save();

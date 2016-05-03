@@ -7,9 +7,7 @@ namespace MRMPService.API
 {
     class MRPJob : Core
     {
-        public MRPJob(MRP_ApiClient _MRP) : base(_MRP) {
-        }
-        public MRP_ApiClient MRP = new MRP_ApiClient();
+        public MRPJob(MRP_ApiClient _MRP) : base(_MRP) { }
 
         public MRPJobListType listjobs()
         {
@@ -18,17 +16,17 @@ namespace MRMPService.API
             return (MRPJobListType)post<MRPJobListType>(worker);
         }
 
-        public MRPJobType getjob_id(string _job_id)
+        public ResultType getjob_id(string _job_id)
         {
             endpoint = "/jobs/get_id.json";
             MRPJobIDGETType job = new MRPJobIDGETType()
             {
                 job_id = _job_id
-                
+
             };
-            return post<MRPJobType>(job);
+            return post<ResultType>(job);
         }
-        public MRPJobType getjob_dt_id(string _dt_job_id)
+        public ResultType getjob_dt_id(string _dt_job_id)
         {
             endpoint = "/jobs/get_id.json";
             MRPJobDTIDGETType job = new MRPJobDTIDGETType()
@@ -36,10 +34,10 @@ namespace MRMPService.API
                 dt_job_id = _dt_job_id
 
             };
-            return post<MRPJobType>(job);
+            return post<ResultType>(job);
         }
 
-        public MRPJobType createjob(MRPJobType _job)
+        public ResultType createjob(MRPJobType _job)
         {
             MRPJobsCRUDType job = new MRPJobsCRUDType()
             {
@@ -47,9 +45,9 @@ namespace MRMPService.API
             };
 
             endpoint = "/jobs/create.json";
-            return post<MRPJobType>(job);
+            return post<ResultType>(job);
         }
-        public MRPJobType updatejob(MRPJobType _job)
+        public ResultType updatejob(MRPJobType _job)
         {
             MRPJobsCRUDType job = new MRPJobsCRUDType()
             {
@@ -57,7 +55,7 @@ namespace MRMPService.API
             };
 
             endpoint = "/jobs/update.json";
-            return (MRPJobType)put<MRPJobType>(job);
+            return put<ResultType>(job);
         }
 
     }

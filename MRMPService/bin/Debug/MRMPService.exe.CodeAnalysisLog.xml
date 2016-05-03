@@ -10,15 +10,15 @@
        <Types>
         <Type Name="Global+TryLock" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
+          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="Breaking">
            <Issue Name="ProvideDisposeBool" Certainty="95" Level="Error">Provide an overridable implementation of Dispose(bool) on 'Global.TryLock' or mark the type as sealed. A call to Dispose(false) should only clean up native resources. A call to Dispose(true) should clean up both managed and native resources.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#Dispose()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService" File="Global.cs" Line="155">Modify 'Global.TryLock.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.</Issue>
+            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="Breaking">
+             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService" File="Global.cs" Line="158">Modify 'Global.TryLock.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.</Issue>
             </Message>
            </Messages>
           </Member>
@@ -32,44 +32,37 @@
          <Members>
           <Member Name="#Serialize(System.Object)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="DependsOnFix">
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Modules\MRPPortal" File="JSONSerializer.cs" Line="56">Object 'stringWriter' can be disposed more than once in method 'JsonSerializer.Serialize(object)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 56</Issue>
             </Message>
            </Messages>
           </Member>
          </Members>
         </Type>
-        <Type Name="MRPJob" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
-         <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-           <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'MRPJob' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
-          </Message>
-         </Messages>
-        </Type>
         <Type Name="MRPStacktree" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'MRPStacktree' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="MRPTask" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'MRPTask' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="MRPWorkload" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'MRPWorkload' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="PortalCredential" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'PortalCredential' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
@@ -80,21 +73,21 @@
        <Types>
         <Type Name="WorkloadInventory" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'WorkloadInventory' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="WorkloadInventoryThread" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'WorkloadInventoryThread' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="WorkloadNetstat" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'WorkloadNetstat' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
@@ -107,7 +100,7 @@
          <Members>
           <Member Name="#set_job_options(MRMPService.MRMPService.Types.API.MRPTaskType,DoubleTake.Web.Models.CreateOptionsModel)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="DependsOnFix">
+            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="DependsOnFix">
              <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DoubleTake" File="JobOptions.cs" Line="37">Method 'SetOptions.set_job_options(MRPTaskType, CreateOptionsModel)' calls 'string.Format(string, object, object, object)' and does not provide a format item for argument "3". The provided format string is: '"MRMP [{0}] {1} to {1}"'</Issue>
             </Message>
            </Messages>
@@ -122,7 +115,7 @@
          <Members>
           <Member Name="#log(System.String,MRMPService.MRMPService.Log.Logger+Severity)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="DependsOnFix">
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService" File="Logging.cs" Line="37">Object 'sw' can be disposed more than once in method 'Logger.log(string, Logger.Severity)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 37</Issue>
             </Message>
            </Messages>
@@ -137,7 +130,7 @@
          <Members>
           <Member Name="#UpdateVMWareWorkload(System.String,System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="DependsOnFix">
+            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="DependsOnFix">
              <Issue Name="MissingArgument" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\PlatformInventory\VMWare" File="UpdateVMWareWorkload.cs" Line="37">Method 'PlatformInventoryWorkloadDo.UpdateVMWareWorkload(string, string)' calls 'string.Format(string, object)' and does not provide an argument for format item "{1}". The provided format string is: '"Error connecting to VMMare VCenter Server {1}"'</Issue>
              <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\PlatformInventory\VMWare" File="UpdateVMWareWorkload.cs" Line="37">Method 'PlatformInventoryWorkloadDo.UpdateVMWareWorkload(string, string)' calls 'string.Format(string, object)' and does not provide a format item for argument "1". The provided format string is: '"Error connecting to VMMare VCenter Server {1}"'</Issue>
             </Message>
@@ -151,26 +144,10 @@
        <Types>
         <Type Name="TaskWorker" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'TaskWorker' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
-        </Type>
-       </Types>
-      </Namespace>
-      <Namespace Name="MRMPService.Tasks.MCP">
-       <Types>
-        <Type Name="MCP_Platform" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
-         <Members>
-          <Member Name="#ProvisionVM(MRMPService.MRMPService.Types.API.MRPTaskType)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="DependsOnFix">
-             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Modules\MCP" File="ProvisionVM.cs" Line="137">Method 'MCP_Platform.ProvisionVM(MRPTaskType)' calls 'string.Format(string, object)' and does not provide a format item for argument "1". The provided format string is: '"Error submitting workload creation task:"'</Issue>
-             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Modules\MCP" File="ProvisionVM.cs" Line="138">Method 'MCP_Platform.ProvisionVM(MRPTaskType)' calls 'string.Format(string, object)' and does not provide a format item for argument "1". The provided format string is: '"Error submitting workload creation task:"'</Issue>
-            </Message>
-           </Messages>
-          </Member>
-         </Members>
         </Type>
        </Types>
       </Namespace>
@@ -178,35 +155,35 @@
        <Types>
         <Type Name="Impersonator" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
+          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="Breaking">
            <Issue Name="ProvideDisposeBool" Certainty="95" Level="Error">Provide an overridable implementation of Dispose(bool) on 'Impersonator' or mark the type as sealed. A call to Dispose(false) should only clean up native resources. A call to Dispose(true) should clean up both managed and native resources.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#CloseHandle(System.IntPtr)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Impersonator.CloseHandle(IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Dispose()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
+            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="Breaking">
              <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities" File="Impersonate.cs" Line="64">Modify 'Impersonator.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#DuplicateToken(System.IntPtr,System.Int32,System.IntPtr&amp;)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Impersonator.DuplicateToken(IntPtr, int, ref IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ImpersonateValidUser(System.String,System.String,System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
              <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities" File="Impersonate.cs" Line="146">Method 'Impersonator.ImpersonateValidUser(string, string, string)' called GetLastWin32Error but the immediately preceding call to 'Win32Exception.Win32Exception(int)' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
              <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities" File="Impersonate.cs" Line="151">Method 'Impersonator.ImpersonateValidUser(string, string, string)' called GetLastWin32Error but the immediately preceding call to 'Win32Exception.Win32Exception(int)' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
              <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities" File="Impersonate.cs" Line="141">Method 'Impersonator.ImpersonateValidUser(string, string, string)' called GetLastWin32Error but the immediately preceding call to 'WindowsIdentity.Impersonate()' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
@@ -215,23 +192,23 @@
           </Member>
           <Member Name="#LogonUser(System.String,System.String,System.String,System.Int32,System.Int32,System.IntPtr&amp;)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Impersonator.LogonUser(string, string, string, int, int, ref IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
              <Issue Name="ParameterImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal parameter 'lpszUserName' as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Issue>
             </Message>
-            <Message Id="1" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+            <Message Id="1" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
              <Issue Name="ParameterImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal parameter 'lpszDomain' as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Issue>
             </Message>
-            <Message Id="2" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+            <Message Id="2" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
              <Issue Name="ParameterImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal parameter 'lpszPassword' as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#RevertToSelf()" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Impersonator.RevertToSelf()' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
@@ -240,388 +217,10 @@
         </Type>
         <Type Name="SyncronizedList+SyncronisedList`1" Kind="Class" Accessibility="Public" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-02 21:36:18Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'SyncronizedList.SyncronisedList&lt;T&gt;' because it creates members of the following IDisposable types: 'ReaderWriterLockSlim'.</Issue>
           </Message>
          </Messages>
-        </Type>
-       </Types>
-      </Namespace>
-      <Namespace Name="MRPDiskLib.Ntfs">
-       <Types>
-        <Type Name="NtfsUsnJournal" Kind="Class" Accessibility="Public" ExternallyVisible="True">
-         <Messages>
-          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-           <Issue Name="ProvideDisposeBool" Certainty="95" Level="Error">Provide an overridable implementation of Dispose(bool) on 'NtfsUsnJournal' or mark the type as sealed. A call to Dispose(false) should only clean up native resources. A call to Dispose(true) should clean up both managed and native resources.</Issue>
-          </Message>
-         </Messages>
-         <Members>
-          <Member Name="#Dispose()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="USN.cs" Line="1094">Modify 'NtfsUsnJournal.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#GetFilesMatchingFilter(System.String,System.Collections.Generic.List`1&lt;MRPDiskLib.Ntfs.Win32Api+UsnEntry&gt;&amp;)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="USN.cs" Line="535">Method 'NtfsUsnJournal.GetFilesMatchingFilter(string, out List&lt;Win32Api.UsnEntry&gt;)' called GetLastWin32Error but the immediately preceding call to 'Marshal.FreeHGlobal(IntPtr)' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#GetNtfsVolumeFolders(System.Collections.Generic.List`1&lt;MRPDiskLib.Ntfs.Win32Api+UsnEntry&gt;&amp;)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="USN.cs" Line="433">Method 'NtfsUsnJournal.GetNtfsVolumeFolders(out List&lt;Win32Api.UsnEntry&gt;)' called GetLastWin32Error but the immediately preceding call to 'Marshal.FreeHGlobal(IntPtr)' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#GetRootHandle(System.IntPtr&amp;)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="USN.cs" Line="1049">Method 'NtfsUsnJournal.GetRootHandle(out IntPtr)' called GetLastWin32Error but the immediately preceding call to 'IntPtr.ToInt32()' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#GetUsnJournalEntries(MRPDiskLib.Ntfs.Win32Api+USN_JOURNAL_DATA,System.UInt32,System.Collections.Generic.List`1&lt;MRPDiskLib.Ntfs.Win32Api+UsnEntry&gt;&amp;,MRPDiskLib.Ntfs.Win32Api+USN_JOURNAL_DATA&amp;)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="USN.cs" Line="830">Method 'NtfsUsnJournal.GetUsnJournalEntries(Win32Api.USN_JOURNAL_DATA, uint, out List&lt;Win32Api.UsnEntry&gt;, out Win32Api.USN_JOURNAL_DATA)' called GetLastWin32Error but the immediately preceding call to 'Win32Api.UsnEntry.RecordLength.get()' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#QueryUsnJournal(MRPDiskLib.Ntfs.Win32Api+USN_JOURNAL_DATA&amp;)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="USN.cs" Line="1083">Method 'NtfsUsnJournal.QueryUsnJournal(ref Win32Api.USN_JOURNAL_DATA)' called GetLastWin32Error but the immediately preceding call to 'Marshal.GetLastWin32Error()' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-         </Members>
-        </Type>
-        <Type Name="Win32Api" Kind="Class" Accessibility="Public" ExternallyVisible="True">
-         <Members>
-          <Member Name="#CloseHandle(System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.CloseHandle(IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.CloseHandle(IntPtr)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#CreateFile(System.String,System.UInt32,System.UInt32,System.IntPtr,System.UInt32,System.UInt32,System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.CreateFile(string, uint, uint, IntPtr, uint, uint, IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.CreateFile(string, uint, uint, IntPtr, uint, uint, IntPtr)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Name="ParameterImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal parameter 'lpFileName' as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#DecryptLicenseString(System.IntPtr,System.UInt32)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="DependsOnFix">
-             <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="Win32API.cs" Line="1086">Object 'cs' can be disposed more than once in method 'Win32Api.DecryptLicenseString(IntPtr, uint)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 1086</Issue>
-             <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="Win32API.cs" Line="1086">Object 'ms' can be disposed more than once in method 'Win32Api.DecryptLicenseString(IntPtr, uint)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 1086, 1087, 1088</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#DeleteFile(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.DeleteFile(string)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.DeleteFile(string)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Name="ParameterImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal parameter 'fileName' as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#DeviceIoControl(System.IntPtr,System.UInt32,System.IntPtr,System.Int32,MRPDiskLib.Ntfs.Win32Api+USN_JOURNAL_DATA&amp;,System.Int32,System.UInt32&amp;,System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.DeviceIoControl(IntPtr, uint, IntPtr, int, out Win32Api.USN_JOURNAL_DATA, int, out uint, IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.DeviceIoControl(IntPtr, uint, IntPtr, int, out Win32Api.USN_JOURNAL_DATA, int, out uint, IntPtr)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#DeviceIoControl(System.IntPtr,System.UInt32,System.IntPtr,System.Int32,System.IntPtr,System.Int32,System.UInt32&amp;,System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.DeviceIoControl(IntPtr, uint, IntPtr, int, IntPtr, int, out uint, IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.DeviceIoControl(IntPtr, uint, IntPtr, int, IntPtr, int, out uint, IntPtr)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#EncryptLicenseString(System.String)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="DependsOnFix">
-             <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="Win32API.cs" Line="1053">Object 'cs' can be disposed more than once in method 'Win32Api.EncryptLicenseString(string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 1053</Issue>
-             <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="Win32API.cs" Line="1053">Object 'ms' can be disposed more than once in method 'Win32Api.EncryptLicenseString(string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 1053</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#GetCursorPos(MRPDiskLib.Ntfs.Win32Api+POINT&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.GetCursorPos(out Win32Api.POINT)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.GetCursorPos(out Win32Api.POINT)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#GetFileInformationByHandle(System.IntPtr,MRPDiskLib.Ntfs.Win32Api+BY_HANDLE_FILE_INFORMATION&amp;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.GetFileInformationByHandle(IntPtr, out Win32Api.BY_HANDLE_FILE_INFORMATION)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.GetFileInformationByHandle(IntPtr, out Win32Api.BY_HANDLE_FILE_INFORMATION)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#GetWindowLong(System.IntPtr,System.Int32)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.GetWindowLong(IntPtr, int)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.GetWindowLong(IntPtr, int)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#NtCreateFile(System.IntPtr&amp;,System.IO.FileAccess,MRPDiskLib.Ntfs.Win32Api+OBJECT_ATTRIBUTES&amp;,MRPDiskLib.Ntfs.Win32Api+IO_STATUS_BLOCK&amp;,System.Int64&amp;,System.UInt32,System.IO.FileShare,System.UInt32,System.UInt32,System.IntPtr,System.UInt32)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.NtCreateFile(ref IntPtr, FileAccess, ref Win32Api.OBJECT_ATTRIBUTES, ref Win32Api.IO_STATUS_BLOCK, ref long, uint, FileShare, uint, uint, IntPtr, uint)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.NtCreateFile(ref IntPtr, FileAccess, ref Win32Api.OBJECT_ATTRIBUTES, ref Win32Api.IO_STATUS_BLOCK, ref long, uint, FileShare, uint, uint, IntPtr, uint)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#NtQueryInformationFile(System.IntPtr,MRPDiskLib.Ntfs.Win32Api+IO_STATUS_BLOCK&amp;,System.IntPtr,System.UInt32,MRPDiskLib.Ntfs.Win32Api+FILE_INFORMATION_CLASS)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.NtQueryInformationFile(IntPtr, ref Win32Api.IO_STATUS_BLOCK, IntPtr, uint, Win32Api.FILE_INFORMATION_CLASS)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.NtQueryInformationFile(IntPtr, ref Win32Api.IO_STATUS_BLOCK, IntPtr, uint, Win32Api.FILE_INFORMATION_CLASS)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#ReadAlternateStreamEncrypted(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="Win32API.cs" Line="930">Method 'Win32Api.ReadAlternateStreamEncrypted(string)' called GetLastWin32Error but the immediately preceding call to 'Win32Api.DecryptLicenseString(IntPtr, uint)' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#ReadAlternateStreamEx(System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="Win32API.cs" Line="877">Method 'Win32Api.ReadAlternateStreamEx(string)' called GetLastWin32Error but the immediately preceding call to 'Exception.Exception(string)' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#ReadFile(System.IntPtr,System.IntPtr,System.UInt32,System.UInt32&amp;,System.IntPtr)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="DeclarePInvokesCorrectly" Category="Microsoft.Interoperability" CheckId="CA1415" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Name="NativeOverlapped" Certainty="95" Level="CriticalError">Change the declaration of 'Win32Api.ReadFile(IntPtr, IntPtr, uint, out uint, IntPtr)' so that parameter 'lpOverlapped' is a pointer to System.Threading.NativeOverlapped.</Issue>
-            </Message>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.ReadFile(IntPtr, IntPtr, uint, out uint, IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.ReadFile(IntPtr, IntPtr, uint, out uint, IntPtr)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#SetWindowLong(System.IntPtr,System.Int32,System.Int32)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.SetWindowLong(IntPtr, int, int)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.SetWindowLong(IntPtr, int, int)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#WriteAlternateStream(System.String,System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="Win32API.cs" Line="797">Method 'Win32Api.WriteAlternateStream(string, string)' called GetLastWin32Error but the immediately preceding call to 'Exception.Exception(string)' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#WriteAlternateStreamEncrypted(System.String,System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="DependsOnFix">
-             <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="Win32API.cs" Line="1017">Object 'cs' can be disposed more than once in method 'Win32Api.WriteAlternateStreamEncrypted(string, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 1017</Issue>
-             <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Ntfs" File="Win32API.cs" Line="1017">Object 'ms' can be disposed more than once in method 'Win32Api.WriteAlternateStreamEncrypted(string, string)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 1017, 1023, 1024</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#WriteFile(System.IntPtr,System.Byte[],System.UInt32,System.UInt32&amp;,System.Int32)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="DeclarePInvokesCorrectly" Category="Microsoft.Interoperability" CheckId="CA1415" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Name="NativeOverlapped" Certainty="95" Level="CriticalError">Change the declaration of 'Win32Api.WriteFile(IntPtr, byte[], uint, out uint, int)' so that parameter 'overlapped' is a pointer to System.Threading.NativeOverlapped.</Issue>
-            </Message>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.WriteFile(IntPtr, byte[], uint, out uint, int)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message Id="4" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Name="Parameter" Certainty="95" Level="Error">As it is declared in your code, parameter 'overlapped' of P/Invoke 'Win32Api.WriteFile(IntPtr, byte[], uint, out uint, int)' will be 4 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 8 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'int'.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.WriteFile(IntPtr, byte[], uint, out uint, int)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#WriteFile(System.IntPtr,System.IntPtr,System.UInt32,System.UInt32&amp;,System.Int32)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="DeclarePInvokesCorrectly" Category="Microsoft.Interoperability" CheckId="CA1415" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Name="NativeOverlapped" Certainty="95" Level="CriticalError">Change the declaration of 'Win32Api.WriteFile(IntPtr, IntPtr, uint, out uint, int)' so that parameter 'overlapped' is a pointer to System.Threading.NativeOverlapped.</Issue>
-            </Message>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.WriteFile(IntPtr, IntPtr, uint, out uint, int)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message Id="4" TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Name="Parameter" Certainty="95" Level="Error">As it is declared in your code, parameter 'overlapped' of P/Invoke 'Win32Api.WriteFile(IntPtr, IntPtr, uint, out uint, int)' will be 4 bytes wide on 64-bit platforms. This is not correct, as the actual native declaration of this API indicates it should be 8 bytes wide on 64-bit platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of 'int'.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.WriteFile(IntPtr, IntPtr, uint, out uint, int)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#ZeroMemory(System.IntPtr,System.Int32)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Win32Api.ZeroMemory(IntPtr, int)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="50" Level="CriticalError">Change the accessibility of P/Invoke 'Win32Api.ZeroMemory(IntPtr, int)' so that it is no longer visible from outside its assembly.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-         </Members>
-        </Type>
-        <Type Name="Win32Api+OBJECT_ATTRIBUTES" Kind="Struct" Accessibility="Public" ExternallyVisible="True">
-         <Members>
-          <Member Name="#ObjectName" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="PointersShouldNotBeVisible" Category="Microsoft.Security" CheckId="CA2111" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="75" Level="CriticalError">Make 'Win32Api.OBJECT_ATTRIBUTES.ObjectName' private.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#RootDirectory" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="PointersShouldNotBeVisible" Category="Microsoft.Security" CheckId="CA2111" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="75" Level="CriticalError">Make 'Win32Api.OBJECT_ATTRIBUTES.RootDirectory' private.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-         </Members>
-        </Type>
-        <Type Name="Win32Api+UNICODE_STRING" Kind="Struct" Accessibility="Public" ExternallyVisible="True">
-         <Members>
-          <Member Name="#Buffer" Kind="Field" Static="False" Accessibility="Public" ExternallyVisible="True">
-           <Messages>
-            <Message TypeName="PointersShouldNotBeVisible" Category="Microsoft.Security" CheckId="CA2111" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="75" Level="CriticalError">Make 'Win32Api.UNICODE_STRING.Buffer' private.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-         </Members>
-        </Type>
-       </Types>
-      </Namespace>
-      <Namespace Name="MRPDiskLib.Physical">
-       <Types>
-        <Type Name="Disk" Kind="Class" Accessibility="Public" ExternallyVisible="True">
-         <Members>
-          <Member Name="#Layers" Kind="Property" Static="False" Accessibility="Public" ExternallyVisible="True">
-           <Accessors>
-            <Accessor Name="#get_Layers()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
-             <Messages>
-              <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-               <Issue Name="PropertyGetter" Certainty="90" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Physical" File="Disk.cs" Line="110">'Disk.Layers.get()' creates an exception of type 'NotImplementedException', an exception type that should not be raised in a property. If this exception instance might be raised, use a different exception type, convert this property into a method, or change this property's logic so that it no longer raises an exception.</Issue>
-              </Message>
-             </Messages>
-            </Accessor>
-           </Accessors>
-          </Member>
-         </Members>
-        </Type>
-        <Type Name="NativeMethods" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
-         <Members>
-          <Member Name="#CreateVssBackupComponents64(MRPDiskLib.Physical.IVssBackupComponents&amp;)" Kind="Method" Static="True" Accessibility="Assembly" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="PInvokeEntryPointsShouldExist" Category="Microsoft.Interoperability" CheckId="CA1400" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="50" Level="CriticalWarning">Correct the declaration of 'NativeMethods.CreateVssBackupComponents64(out IVssBackupComponents)' so that it correctly points to an existing entry point in 'vssapi.dll'. The unmanaged entry point name currently linked to is ?CreateVssBackupComponents@@YAJPEAPEAVIVssBackupComponents@@@Z.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#ReadFile(Microsoft.Win32.SafeHandles.SafeFileHandle,System.IntPtr,System.Int32,System.Int32&amp;,System.IntPtr)" Kind="Method" Static="True" Accessibility="Assembly" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="DeclarePInvokesCorrectly" Category="Microsoft.Interoperability" CheckId="CA1415" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Name="NativeOverlapped" Certainty="95" Level="CriticalError">Change the declaration of 'NativeMethods.ReadFile(SafeFileHandle, IntPtr, int, out int, IntPtr)' so that parameter 'overlapped' is a pointer to System.Threading.NativeOverlapped.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-         </Members>
-        </Type>
-       </Types>
-      </Namespace>
-      <Namespace Name="MRPDiskLib.SCSI">
-       <Types>
-        <Type Name="DiskGeometry" Kind="Class" Accessibility="Public" ExternallyVisible="True">
-         <Members>
-          <Member Name="#.ctor(System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Physical" File="DiskManagment.cs" Line="306">'DiskGeometry.DiskGeometry(string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;DiskGeometry..ctor(String)&#xD;&#xA;CubicAddress.get_Sector():UInt32</Issue>
-             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DiscUtils\Physical" File="DiskManagment.cs" Line="306">'DiskGeometry.DiskGeometry(string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;DiskGeometry..ctor(String)&#xD;&#xA;CubicAddress.get_Sector():UInt32&#xD;&#xA;CubicAddress.get_Head():UInt32</Issue>
-            </Message>
-           </Messages>
-          </Member>
-         </Members>
-        </Type>
-        <Type Name="IoCtl" Kind="Class" Accessibility="Public" ExternallyVisible="True">
-         <Members>
-          <Member Name="#CreateFile(System.String,System.UInt32,System.UInt32,System.IntPtr,System.UInt32,System.UInt32,System.IntPtr)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'IoCtl.CreateFile(string, uint, uint, IntPtr, uint, uint, IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="NonBreaking">
-             <Issue Name="ParameterImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal parameter 'lpFileName' as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-          <Member Name="#DeviceIoControl(Microsoft.Win32.SafeHandles.SafeFileHandle,System.UInt32,System.IntPtr,System.UInt32,System.IntPtr,System.Int32,System.UInt32&amp;,System.IntPtr)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
-           <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-04-29 21:24:28Z" FixCategory="Breaking">
-             <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'IoCtl.DeviceIoControl(SafeFileHandle, uint, IntPtr, uint, IntPtr, int, ref uint, IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
-            </Message>
-           </Messages>
-          </Member>
-         </Members>
         </Type>
        </Types>
       </Namespace>
@@ -641,16 +240,6 @@
    <MessageLevel Certainty="95">Error</MessageLevel>
    <File Name="interoperabilityrules.dll" Version="14.0.0.0" />
   </Rule>
-  <Rule TypeName="DeclarePInvokesCorrectly" Category="Microsoft.Interoperability" CheckId="CA1415">
-   <Name>Declare P/Invokes correctly</Name>
-   <Description>P/Invoke methods should be declared correctly to ensure correct runtime behaviors.</Description>
-   <Resolution Name="NativeOverlapped">Change the declaration of {0} so that parameter {1} is a pointer to System.Threading.NativeOverlapped.</Resolution>
-   <Owner />
-   <Url>http://msdn.microsoft.com/library/ms182204.aspx</Url>
-   <Email>[none]</Email>
-   <MessageLevel Certainty="95">CriticalError</MessageLevel>
-   <File Name="interoperabilityrules.dll" Version="14.0.0.0" />
-  </Rule>
   <Rule TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202">
    <Name>Do not dispose objects multiple times</Name>
    <Description>A correctly implemented Dispose method can be called multiple times without throwing an exception. However, this is not guaranteed and to avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.</Description>
@@ -660,26 +249,6 @@
    <Email />
    <MessageLevel Certainty="75">Warning</MessageLevel>
    <File Name="dataflowrules.dll" Version="14.0.0.0" />
-  </Rule>
-  <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
-   <Name>Do not call overridable methods in constructors</Name>
-   <Description>Virtual methods defined on the class should not be called from constructors. If a derived class has overridden the method, the derived class version will be called (before the derived class constructor is called).</Description>
-   <Resolution Name="Default">{0} contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: {1}</Resolution>
-   <Owner />
-   <Url>http://msdn.microsoft.com/library/ms182331.aspx</Url>
-   <Email>[none]</Email>
-   <MessageLevel Certainty="95">CriticalWarning</MessageLevel>
-   <File Name="usagerules.dll" Version="14.0.0.0" />
-  </Rule>
-  <Rule TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065">
-   <Name>Do not raise exceptions in unexpected locations</Name>
-   <Description>Do not explicitly raise exceptions from unexpected locations. There are some methods, such as Equals and GetHashCode, which users do not expect to raise exceptions. Therefore calls to these methods are not commonly wrapped in try catch blocks.</Description>
-   <Resolution Name="PropertyGetter">{0} creates an exception of type {1}, an exception type that should not be raised in a property. If this exception instance might be raised, use a different exception type, convert this property into a method, or change this property's logic so that it no longer raises an exception.</Resolution>
-   <Owner />
-   <Url>http://msdn.microsoft.com/library/bb386039.aspx</Url>
-   <Email>[none]</Email>
-   <MessageLevel Certainty="90">Error, Warning</MessageLevel>
-   <File Name="designrules.dll" Version="14.0.0.0" />
   </Rule>
   <Rule TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063">
    <Name>Implement IDisposable correctly</Name>
@@ -701,46 +270,6 @@
    <Email>[none]</Email>
    <MessageLevel Certainty="95">CriticalWarning</MessageLevel>
    <File Name="designrules.dll" Version="14.0.0.0" />
-  </Rule>
-  <Rule TypeName="PInvokeDeclarationsShouldBePortable" Category="Microsoft.Portability" CheckId="CA1901">
-   <Name>P/Invoke declarations should be portable</Name>
-   <Description>.</Description>
-   <Resolution Name="Parameter">As it is declared in your code, parameter {0} of P/Invoke {1} will be {2} bytes wide on {3} platforms. This is not correct, as the actual native declaration of this API indicates it should be {4} bytes wide on {3} platforms. Consult the MSDN Platform SDK documentation for help determining what data type should be used instead of {5}.</Resolution>
-   <Owner />
-   <Url>http://msdn.microsoft.com/library/ms182284(VS.100).aspx</Url>
-   <Email>[none]</Email>
-   <MessageLevel Certainty="95">Error</MessageLevel>
-   <File Name="portabilityrules.dll" Version="14.0.0.0" />
-  </Rule>
-  <Rule TypeName="PInvokeEntryPointsShouldExist" Category="Microsoft.Interoperability" CheckId="CA1400">
-   <Name>P/Invoke entry points should exist</Name>
-   <Description>Methods decorated with the DllImport attribute should point to existing unmanaged entry points. There is no compile-time check to ensure that methods decorated with the DllImport attribute actually exist in the referenced unmanaged dll. In the event that an entry point does not exist or the specified argument list is not correct, a runtime exception will be generated.</Description>
-   <Resolution Name="Default">Correct the declaration of {0} so that it correctly points to an existing entry point in {1}. The unmanaged entry point name currently linked to is {2}.</Resolution>
-   <Owner />
-   <Url>http://msdn.microsoft.com/library/ms182208.aspx</Url>
-   <Email>[none]</Email>
-   <MessageLevel Certainty="50">CriticalWarning</MessageLevel>
-   <File Name="interoperabilityrules.dll" Version="14.0.0.0" />
-  </Rule>
-  <Rule TypeName="PInvokesShouldNotBeVisible" Category="Microsoft.Interoperability" CheckId="CA1401">
-   <Name>P/Invokes should not be visible</Name>
-   <Description>Interop layer should not be public. The DllImport attribute should not be applied to publicly accessible members (public or protected).</Description>
-   <Resolution Name="Default">Change the accessibility of P/Invoke {0} so that it is no longer visible from outside its assembly.</Resolution>
-   <Owner />
-   <Url>http://msdn.microsoft.com/library/ms182209.aspx</Url>
-   <Email>[none]</Email>
-   <MessageLevel Certainty="50">CriticalError</MessageLevel>
-   <File Name="interoperabilityrules.dll" Version="14.0.0.0" />
-  </Rule>
-  <Rule TypeName="PointersShouldNotBeVisible" Category="Microsoft.Security" CheckId="CA2111">
-   <Name>Pointers should not be visible</Name>
-   <Description>IntPtr and UIntPtr fields should be declared as private. Exposing non-private pointers can cause a security weakness.</Description>
-   <Resolution Name="Default">Make {0} private.</Resolution>
-   <Owner />
-   <Url>http://msdn.microsoft.com/library/ms182306.aspx</Url>
-   <Email>[none]</Email>
-   <MessageLevel Certainty="75">CriticalError</MessageLevel>
-   <File Name="securityrules.dll" Version="14.0.0.0" />
   </Rule>
   <Rule TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241">
    <Name>Provide correct arguments to formatting methods</Name>
@@ -766,7 +295,6 @@
   <Rule TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001">
    <Name>Types that own disposable fields should be disposable</Name>
    <Description>Types that declare disposable members should also implement IDisposable. If the type does not own any unmanaged resources, do not implement a finalizer on it.</Description>
-   <Resolution Name="DependsOnFix">Implement IDisposable on {0} because it creates members of the following IDisposable types: {1}. If {0} has previously shipped, adding new members that implement IDisposable to this type is considered a breaking change to existing consumers.</Resolution>
    <Resolution Name="NonBreaking">Implement IDisposable on {0} because it creates members of the following IDisposable types: {1}.</Resolution>
    <Owner />
    <Url>http://msdn.microsoft.com/library/ms182172.aspx</Url>
