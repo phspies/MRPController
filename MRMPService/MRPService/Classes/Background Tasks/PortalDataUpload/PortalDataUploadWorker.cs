@@ -29,10 +29,10 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     performance_thread.Name = "Performance Upload Thread";
                     performance_thread.Start();
 
-                    NetstatUpload _netstat = new NetstatUpload();
-                    Thread netstat_thread = new Thread(new ThreadStart(_netstat.Start));
-                    netstat_thread.Name = "Netstat Upload Thread";
-                    netstat_thread.Start();
+                    //NetstatUpload _netstat = new NetstatUpload();
+                    //Thread netstat_thread = new Thread(new ThreadStart(_netstat.Start));
+                    //netstat_thread.Name = "Netstat Upload Thread";
+                    //netstat_thread.Start();
 
                     NetflowUpload _netflow = new NetflowUpload();
                     Thread netflow_thread = new Thread(new ThreadStart(_netflow.Start));
@@ -40,7 +40,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     netflow_thread.Start();
 
                     performance_thread.Join();
-                    netstat_thread.Join();
+                    //netstat_thread.Join();
                     netflow_thread.Join();
 
 

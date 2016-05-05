@@ -78,7 +78,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     {
                         //process performancecounters
                         List<MRPPerformanceCounterCRUDType> _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
-
+                        List<Performance> _delete_bucket = new List<Performance>();
                         foreach (Performance _performance in _local_performance)
                         {
                             MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
@@ -87,6 +87,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                             MRPPerformanceCategoryType _category = _categories.performancecategories.FirstOrDefault(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name && x.workload_id == _performance.workload_id);
                             _performancecrud.performancecategory_id = _category.id;
                             _performancecounters_list.Add(_performancecrud);
+                           
                             if (_performancecounters_list.Count > Global.portal_upload_performanceounter_page_size)
                             {
                                 _cloud_movey.performancecounter().create(_performancecounters_list);

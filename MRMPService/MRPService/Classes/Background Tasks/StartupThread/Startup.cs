@@ -148,10 +148,10 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             _osinventody_thread = new Thread(new ThreadStart(_osinventody.Start));
             _osinventody_thread.Start();
 
-            WorkloadNetstatThread _osnetstat = new WorkloadNetstatThread();
-            if (Global.debug) { Logger.log("Starting OS Netstat Thread", Logger.Severity.Debug); };
-            _osnetstat_thread = new Thread(new ThreadStart(_osnetstat.Start));
-            _osnetstat_thread.Start();
+            //WorkloadNetstatThread _osnetstat = new WorkloadNetstatThread();
+            //if (Global.debug) { Logger.log("Starting OS Netstat Thread", Logger.Severity.Debug); };
+            //_osnetstat_thread = new Thread(new ThreadStart(_osnetstat.Start));
+            //_osnetstat_thread.Start();
 
             DTPollerThread _dt_polling = new DTPollerThread();
             if (Global.debug) { Logger.log("Starting DT Polling Thread", Logger.Severity.Debug); };

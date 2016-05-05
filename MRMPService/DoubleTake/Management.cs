@@ -30,6 +30,10 @@ namespace MRMPService.DoubleTake
                             {
                                 //notify use that current key will not work and that a new key would need to be generated
                             }
+                            else
+                            {
+                                license_status = true;
+                            }
                         }
                         else
                         {
@@ -44,9 +48,11 @@ namespace MRMPService.DoubleTake
                     }
                     else
                     {
-                        //we have a good target license host
+                        license_status = true;
                     }
+                    license_status = true;
                     break;
+
 
                 case "FullServerFailover":
                     //check source first
@@ -55,11 +61,19 @@ namespace MRMPService.DoubleTake
                     {
                         //load DTMU source license key
                     }
+                    else
+                    {
+                        license_status = true;
+                    }
                     //check target server
                     ActivationCodeModel _target_ha_protectcode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "Availability") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_TARGET"));
                     if (_target_ha_protectcode == null)
                     {
                         //run DTMU license key utility on target server              
+                    }
+                    else
+                    {
+                        license_status = true;
                     }
                     break;
                 case "FullServerImageProtection":

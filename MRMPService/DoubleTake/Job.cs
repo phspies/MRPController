@@ -68,26 +68,21 @@ namespace MRMPService.DoubleTake
             while (true)
             {
                 var result = jobApi.VerifyJobOptionsAsync(_job_type, jobCredentials, jobOptions, new Progress<VerificationStatusModel>()).Result;
-
                 result.EnsureSuccessStatusCode();
-
-                if (_job_errorfree)
-                {
-                    if (result.Content.Steps.Any(s => s.Status == VerificationStatus.Error))
-                    {
-                        _errors = result.Content.Steps.Where(s => s.Status == VerificationStatus.Error).ToList();
-                    }
-
-                    break;
-                }
-
                 var stepsToFix = result.Content.Steps.Where(s => s.Status == VerificationStatus.Error).ToList();
-
                 if (stepsToFix.Any())
                 {
                     var fixResponse = jobApi.FixRecommendedJobOptionsAsync(_job_type, jobCredentials, jobOptions, stepsToFix).Result;
-
                     fixResponse.EnsureSuccessStatusCode();
+                    var _fix_result = jobApi.VerifyJobOptionsAsync(_job_type, jobCredentials, fixResponse.Content.JobOptions, new Progress<VerificationStatusModel>()).Result;
+                    _fix_result.EnsureSuccessStatusCode();
+
+                    if (_fix_result.Content.Steps.Any(s => s.Status == VerificationStatus.Error))
+                    {
+                        _errors = result.Content.Steps.Where(s => s.Status == VerificationStatus.Error).ToList();
+                        break;
+                    }
+   
                     jobOptions = fixResponse.Content.JobOptions;
                     _job_errorfree = true;
                 }
@@ -96,6 +91,9 @@ namespace MRMPService.DoubleTake
                     _job_errorfree = true;
                     break;
                 }
+
+
+
             }
 
             return new Tuple<bool, JobOptionsModel, List<VerificationStepModel>>(_job_errorfree, jobOptions, _errors);

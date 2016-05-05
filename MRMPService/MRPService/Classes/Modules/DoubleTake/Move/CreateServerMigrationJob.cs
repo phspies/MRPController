@@ -76,7 +76,7 @@ namespace MRMPService.Tasks.DoubleTake
 
                         _mrp_api.task().progress(payload, "Verifying job options and settings", 55);
 
-                        JobOptionsModel _job_model;
+                        JobOptionsModel _job_model = new JobOptionsModel();
                         var _fix_result = _dt.job().VerifyAndFixJobOptions(jobCreds, jobInfo.JobOptions, DT_JobTypes.Move_Server_Migration);
                         if (_fix_result.Item1)
                         {
@@ -87,16 +87,19 @@ namespace MRMPService.Tasks.DoubleTake
                             int _fix_count = 0;
                             foreach (var _failed_item in _fix_result.Item3)
                             {
-                                _mrp_api.task().progress(payload, String.Format("Error creating job: {0}", _failed_item.TitleKey), _fix_count + 55);
+                                _mrp_api.task().progress(payload, String.Format("Error creating job: {0} : {1}", _failed_item.TitleKey, _failed_item.MessageKey), _fix_count + 55);
+
                                 _fix_count++;
                             }
+                            Logger.log(String.Format("Job Model Information {0}", JsonConvert.SerializeObject(_job_model)), Logger.Severity.Error);
+
                             throw new System.ArgumentException(string.Format("Cannot create job"));
 
                         }
                         _mrp_api.task().progress(payload, "Creating new job", 56);
                         Guid jobId = _dt.job().CreateJob((new CreateOptionsModel
                         {
-                            JobOptions = jobInfo.JobOptions,
+                            JobOptions = _job_model,
                             JobCredentials = jobCreds,
                             JobType = DT_JobTypes.Move_Server_Migration
                         })).Result;
@@ -123,39 +126,21 @@ namespace MRMPService.Tasks.DoubleTake
                         _mrp_api.task().progress(payload, "Waiting for sync process to start", 65);
 
                         JobInfoModel jobinfo = _dt.job().GetJob(jobId).Result;
-                        while (jobinfo.Statistics.CoreConnectionDetails.TargetState == TargetStates.Unknown)
+                        while (jobinfo.Statistics.CoreConnectionDetails.MirrorState != MirrorState.Mirror)
                         {
-                            Thread.Sleep(5000);
+                            Thread.Sleep(new TimeSpan(0, 0, 30));
                             jobinfo = _dt.job().GetJob(jobId).Result;
                         }
-                        Thread.Sleep(5000);
-                        jobinfo = _dt.job().GetJob(jobId).Result;
 
-                        _mrp_api.task().progress(payload, "Sync process started", 70);
-                        while (jobinfo.Statistics.CoreConnectionDetails.MirrorState != MirrorState.Idle)
-                        {
-                            if (jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining != 0)
-                            {
-                                double totalremaining = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining) / 1024 / 1024 / 1024;
-                                double totalstorage = ((long)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSent + (double)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesSkipped + (double)jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining) / 1024 / 1024 / 1024;
-                                double totalcomplete = totalstorage - totalremaining;
-                                if ((totalremaining > 0) && (totalremaining > 0))
-                                {
-                                    double percentage = (((double)totalcomplete / (double)totalstorage) * 20);
-                                    String progress = String.Format("{0}GB of {1}GB seeded", Math.Round(totalcomplete, 2), Math.Round(totalstorage, 2));
-                                    _mrp_api.task().progress(payload, progress, percentage + 72);
-                                }
-                            }
-                            Thread.Sleep(new TimeSpan(0, 0, 10));
-                            jobinfo = _dt.job().GetJob(jobId).Result;
-                        }
-                        _mrp_api.task().progress(payload, String.Format("Successfully synchronized {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
+                        _mrp_api.task().progress(payload, String.Format("Sync process started at {0}", jobinfo.Statistics.CoreConnectionDetails.StartTime), 70);
+
+                        _mrp_api.task().progress(payload, String.Format("Successfully created move synchronization job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
                         _mrp_api.task().successcomplete(payload, JsonConvert.SerializeObject(jobinfo));
                     }
                 }
                 catch (Exception e)
                 {
-                    Logger.log(String.Format("Error creating availbility sync job: {0}", e.ToString()), Logger.Severity.Error);
+                    Logger.log(String.Format("Error creating migration sync job: {0}", e.ToString()), Logger.Severity.Error);
                     _mrp_api.task().failcomplete(payload, String.Format("Create sync process failed: {0}", e.Message));
                 }
             }

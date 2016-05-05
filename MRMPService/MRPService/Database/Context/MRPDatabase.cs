@@ -35,7 +35,7 @@ namespace MRMPService.LocalDatabase
             var factory = DbProviderFactories.GetFactory("System.Data.SqlServerCe.4.0");
             var connection = factory.CreateConnection();
             string dbfullpath = Path.Combine(dblocation, dbfilename);
-            connection.ConnectionString = "Data Source=" + dbfullpath + "; Persist Security Info=False;Max Database Size=4091;";
+            connection.ConnectionString = "Data Source=" + dbfullpath + ";Persist Security Info=False;Max Database Size=4091;";
             return connection;
         }
 

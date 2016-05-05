@@ -148,15 +148,29 @@ namespace MRMPService.Tasks.MCP
                 using (WorkloadSet _workload_db = new WorkloadSet())
                 {
                     //Add or update workload record in database
-                    Workload _new_workload = new Workload() { id = _target_workload.id, moid = _newvm_platform_guid.ToString(), enabled = true, hostname = _target_workload.hostname, platform_id = _platform.id, credential_id = _stadalone_credential.id };
-                    if (_workload_db.ModelRepository.GetById(_new_workload.id) != null)
+                    if (_workload_db.ModelRepository.GetById(_target_workload.id) != null)
                     {
-                        Workload _current_workload = _workload_db.ModelRepository.GetById(_new_workload.id);
-                        Objects.Copy(_new_workload, _current_workload);
+                        Workload _current_workload = _workload_db.ModelRepository.GetById(_target_workload.id);
+                        _current_workload.id = _target_workload.id;
+                        _current_workload.moid = _newvm_platform_guid.ToString();
+                        _current_workload.enabled = true;
+                        _current_workload.hostname = _target_workload.hostname;
+                        _current_workload.platform_id = _platform.id;
+                        _current_workload.credential_id = _stadalone_credential.id;
                         _workload_db.ModelRepository.Update(_current_workload);
                     }
                     else
                     {
+                        Workload _new_workload = new Workload()
+                        {
+                            id = _target_workload.id,
+                            moid = _newvm_platform_guid.ToString(),
+                            enabled = true,
+                            hostname = _target_workload.hostname,
+                            platform_id = _platform.id,
+                            credential_id = _stadalone_credential.id
+                        };
+
                         _workload_db.ModelRepository.Insert(_new_workload);
                     }
                 }
@@ -309,7 +323,7 @@ namespace MRMPService.Tasks.MCP
                             return;
                         }
                     }
-                    MRPTaskVolumeType _c_volume_object = _target_workload.volumes.FirstOrDefault(x => x.driveletter == "C:");
+                    MRPTaskVolumeType _c_volume_object = _target_workload.volumes.FirstOrDefault(x => x.driveletter == "C");
                     long _c_volume_to_add = 0;
                     if (_c_volume_object != null)
                     {
@@ -350,9 +364,12 @@ namespace MRMPService.Tasks.MCP
                     }
                     foreach (int _disk_index in _target_workload.volumes.Select(x => x.diskindex).Distinct())
                     {
-                        _diskpart_struct.Add(String.Format("select disk {0}", _disk_index));
-                        _diskpart_struct.Add("ATTRIBUTES DISK CLEAR READONLY noerr");
-                        _diskpart_struct.Add("ONLINE DISK noerr");
+                        if (_disk_index != 0)
+                        {
+                            _diskpart_struct.Add(String.Format("select disk {0}", _disk_index));
+                            _diskpart_struct.Add("ATTRIBUTES DISK CLEAR READONLY noerr");
+                            _diskpart_struct.Add("ONLINE DISK noerr");
+                        }
                         int _vol_index = 0;
                         if (_disk_index == 0)
                         {
@@ -362,26 +379,24 @@ namespace MRMPService.Tasks.MCP
                         {
                             _vol_index = 1;
                         }
-                        foreach (MRPTaskVolumeType _volume in _target_workload.volumes.ToList().Where(x => x.diskindex == _disk_index).OrderBy(x => x.driveletter))
+                        foreach (MRPTaskVolumeType _volume in _target_workload.volumes.ToList().Where(x => x.diskindex == _disk_index && !x.driveletter.Contains("C")).OrderBy(x => x.driveletter))
                         {
-                            if (_volume.driveletter != "C:")
-                            {
-                                string _driveletter = _volume.driveletter.Substring(0, 1);
-                                _diskpart_struct.Add("clean noerr");
-                                _diskpart_struct.Add(String.Format("create partition primary size = {0} noerr", _volume.volumesize * 1024));
-                                _diskpart_struct.Add(String.Format("select partition {0}", _vol_index));
-                                _diskpart_struct.Add("format fs=ntfs quick");
-                                _diskpart_struct.Add(String.Format("assign letter={0} noerr", _driveletter));
-                                _diskpart_struct.Add("active");
-                                _diskpart_struct.Add("");
-                            }
+                            string _driveletter = _volume.driveletter.Substring(0, 1);
+                            _diskpart_struct.Add("clean");
+                            _diskpart_struct.Add(String.Format("create partition primary size={0} noerr", _volume.volumesize * 1024));
+                            _diskpart_struct.Add(String.Format("select partition {0}", _vol_index));
+                            _diskpart_struct.Add("format fs=ntfs quick");
+                            _diskpart_struct.Add(String.Format("assign letter={0} noerr", _driveletter));
+                            _diskpart_struct.Add("active");
+                            _diskpart_struct.Add("");
                             _vol_index++;
                         }
                     }
                     WorkloadSet dbworkload = new WorkloadSet();
                     CredentialSet dbcredential = new CredentialSet();
                     string workloadPath = null;
-
+                    string diskpart_bat = null;
+                    string[] diskpart_bat_content = new String[] { @"C:\Windows\System32\diskpart.exe /s C:\diskpart.txt > C:\diskpart.log" };
                     try
                     {
                         using (new Impersonator(_stadalone_credential.username, (String.IsNullOrWhiteSpace(_stadalone_credential.domain) ? "." : _stadalone_credential.domain), _stadalone_credential.password))
@@ -389,12 +404,15 @@ namespace MRMPService.Tasks.MCP
                             string remoteInstallFiles = @"C:\";
                             remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
                             workloadPath = @"\\" + Path.Combine(new_workload_ip, remoteInstallFiles, "diskpart.txt");
+                            diskpart_bat = @"\\" + Path.Combine(new_workload_ip, remoteInstallFiles, "diskpart.bat");
+
                             int _copy_retries = 30;
                             while (true)
                             {
                                 try
                                 {
                                     File.WriteAllLines(workloadPath, _diskpart_struct.ConvertAll(Convert.ToString));
+                                    File.WriteAllLines(diskpart_bat, diskpart_bat_content);
                                     Logger.log(String.Format("Successfully copied diskpart disk after {0} retries", _copy_retries), Logger.Severity.Info);
                                     break;
                                 }
@@ -456,10 +474,10 @@ namespace MRMPService.Tasks.MCP
                         }
                     }
 
-                    string diskpartCmd = @"diskpart /s C:\diskpart.txt > diskpart.log";
+                    string diskpartCmd = @"C:\diskpart.bat";
                     Dictionary<string, string> installCmdParams = new Dictionary<string, string>();
                     installCmdParams["CommandLine"] = diskpartCmd;
-                    installCmdParams["CurrentDirectory"] = @"C:\Windows";
+                    installCmdParams["CurrentDirectory"] = @"C:\";
 
                     Dictionary<string, object> returnValues = new Dictionary<string, object>();
                     ManagementPath wmiObjectPath = new ManagementPath("Win32_Process");
@@ -513,6 +531,13 @@ namespace MRMPService.Tasks.MCP
                     _update_workload.workloadtype = _workload.workloadtype;
                     _update_workload.credential_id = _stadalone_credential.id;
                     _update_workload.provisioned = true;
+
+                    //update first network interface with the newly provisioned server's information
+                    var _interface = _update_workload.workloadinterfaces_attributes.First();
+                    _interface.moid = _newvm.networkInfo.primaryNic.id;
+                    _interface.ipaddress = _newvm.networkInfo.primaryNic.privateIpv4;
+                    _interface.ipassignment = "manual";
+                    _interface.ipv6address = _newvm.networkInfo.primaryNic.ipv6;
 
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {

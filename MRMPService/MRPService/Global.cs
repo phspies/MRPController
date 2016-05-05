@@ -37,7 +37,7 @@ namespace MRMPService
         public static int job_polling_interval = (int)MRPRegistry.RegAccess("job_polling_interval", 300, RegistryValueKind.DWord); //minutes
         public static int job_polling_concurrency = (int)MRPRegistry.RegAccess("job_polling_concurrency", 10, RegistryValueKind.DWord);
 
-        public static int os_netstat_interval = (int)MRPRegistry.RegAccess("os_netstat_interval", 30, RegistryValueKind.DWord);  //minutes
+        public static int os_netstat_interval = (int)MRPRegistry.RegAccess("os_netstat_interval", 60, RegistryValueKind.DWord);  //minutes
         public static int os_netstat_concurrency = (int)MRPRegistry.RegAccess("os_netstat_concurrency", 10, RegistryValueKind.DWord);
 
         public static int platform_inventory_interval = (int)MRPRegistry.RegAccess("platform_inventory_interval", 1440, RegistryValueKind.DWord); //minutes

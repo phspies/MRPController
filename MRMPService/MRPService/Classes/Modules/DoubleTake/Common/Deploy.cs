@@ -18,28 +18,29 @@ namespace MRMPService.Tasks.DoubleTake
 {
     class Deploy
     {
-
+        static dt_server_type server_type = dt_server_type.source;
         public static async void DeployDoubleTake(MRPTaskType payload)
         {
             API.MRP_ApiClient _mrp_portal = new API.MRP_ApiClient();
-            dt_server_type server_type = dt_server_type.source;
+            
             try
             {
                 MRPDatabase _db = new MRPDatabase();
                 MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
                 MRPTaskWorkloadType _target_workload = payload.submitpayload.target;
 
+                MRPTaskWorkloadType _working_workload = new MRPTaskWorkloadType();
                 int _counter = 0;
-                foreach (MRPTaskWorkloadType _working_workload in (new List<MRPTaskWorkloadType> { _source_workload, _target_workload }))
-                {
-                    switch (_counter)
+                while (true)
+                { 
+                    switch (server_type)
                     {
-                        case 0:
-                            server_type = dt_server_type.source;
+                        case dt_server_type.source:
+                            _working_workload = _source_workload;
                             _counter = 1;
                             break;
-                        case 1:
-                            server_type = dt_server_type.target;
+                        case dt_server_type.target:
+                            _working_workload = _target_workload;
                             _counter = 50;
                             break;
                     }
@@ -60,6 +61,7 @@ namespace MRMPService.Tasks.DoubleTake
                     if (_workload_credentials == null)
                     {
                         _mrp_portal.task().progress(payload, String.Format("Cannot determine credentials for {0}", _working_workload.hostname), _counter + 16);
+                        server_type = dt_server_type.target;
                         continue;
                     }
                     string _contactable_ip = null;
@@ -70,6 +72,7 @@ namespace MRMPService.Tasks.DoubleTake
                     if (_contactable_ip == null)
                     {
                         _mrp_portal.task().failcomplete(payload, String.Format("Cannot contant workload {0}", _working_workload.hostname));
+                        server_type = dt_server_type.target;
                         continue;
                     }
 
@@ -92,12 +95,14 @@ namespace MRMPService.Tasks.DoubleTake
                             else
                             {
                                 _mrp_portal.task().progress(payload, String.Format("32Bit Workloads not supported {0} ", _working_workload.hostname), _counter + 10);
+                                server_type = dt_server_type.target;
                                 continue;
                             }
                         }
                         else
                         {
                             _mrp_portal.task().progress(payload, String.Format("Cannot determine remote achitecture for {0}", _working_workload.hostname), _counter + 11);
+                            server_type = dt_server_type.target;
                             continue;
                         }
                         _mrp_portal.task().progress(payload, String.Format("{0} is of type {1} architecture", _working_workload.hostname, systemArchitecture), _counter + 15);
@@ -152,6 +157,7 @@ namespace MRMPService.Tasks.DoubleTake
                                         _mrp_portal.task().progress(payload, String.Format("Double-Take installed on {0} but cannot be contacted: {1}", _working_workload.hostname, ex.Message), _counter + 19);
                                     }
                                 }
+                                server_type = dt_server_type.target;
                                 continue;
                             }
                         }
@@ -291,14 +297,22 @@ namespace MRMPService.Tasks.DoubleTake
                             if (_dt_version == null)
                             {
                                 _mrp_portal.task().failcomplete(payload, "Cannot determine installed version of Double-Take");
+                                server_type = dt_server_type.target;
                                 continue;
                             }
                         }
                         _mrp_portal.task().progress(payload, String.Format("Double-Take version {0}.{1}.{2} has successfully installed on workload {3} ", _dt_version.Major, _dt_version.Minor, _dt_version.Build, _working_workload.hostname), _counter + 45);
 
                         #endregion
+
                     }
-                    _counter += 50;
+                    //if we done with the target, then we done with the job...
+                    if (server_type == dt_server_type.target)
+                    {
+                        break;
+                    }
+                    //once we have the source deployed, move to the target
+                    server_type = dt_server_type.target;
                 }
                 _mrp_portal.task().successcomplete(payload, "Completed Double-Take deployment");
             }
