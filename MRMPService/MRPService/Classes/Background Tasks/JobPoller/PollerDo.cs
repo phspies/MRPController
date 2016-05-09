@@ -54,6 +54,16 @@ namespace MRMPService.DTPollerCollection
             }
             catch (Exception ex)
             {
+                //Mark the job as being unavailable because the system can't be reached
+                using (MRP_ApiClient _mrmp = new MRP_ApiClient())
+                {
+                    _mrmp.job().updatejob(new MRPJobType()
+                    {
+                        id = job.id,
+                        internal_state = "unavailable",
+                    });
+                }
+
                 Logger.log(String.Format("Double-Take: Error contacting Double-Take Management Service for {0} using {1} : {2}", job.target_workload, workload_ip, ex.ToString()), Logger.Severity.Info);
                 throw new ArgumentException(String.Format("Double-Take:Error contacting Double-Take management service for {0} using {1}", job.target_workload, workload_ip));
             }
@@ -64,6 +74,35 @@ namespace MRMPService.DTPollerCollection
                 using (DoubleTake.Doubletake _dt = new DoubleTake.Doubletake(null, job.target_workload_id))
                 {
                     _dt_job = _dt.job().GetJob(Guid.Parse(job.dt_job_id)).Result;
+                }
+                using (MRP_ApiClient _mrmp = new MRP_ApiClient())
+                {
+                    CoreConnectionDetailsModel _connection_details = _dt_job.Statistics.CoreConnectionDetails;
+                    MRPJobstatType _job_stat = new MRPJobstatType();
+                    {
+                        _job_stat.job_id = job.id;
+                        if (_connection_details != null)
+                        {
+                            _job_stat.replication_bytes_sent = _connection_details.ReplicationBytesSent;
+                            _job_stat.replication_bytes_sent_compressed = _connection_details.ReplicationBytesTransmitted;
+                            _job_stat.replication_disk_queue = _connection_details.DiskQueueBytes;
+                            _job_stat.replication_queue = _connection_details.ReplicationBytesQueued;
+                            _job_stat.replication_status = _connection_details.ReplicationState.ToString();
+
+                            _job_stat.mirror_remaining = _connection_details.MirrorBytesRemaining;
+                            _job_stat.mirror_percent_complete = _connection_details.MirrorPermillage;
+                            _job_stat.mirror_skipped = _connection_details.MirrorBytesSkipped;
+                            _job_stat.mirror_status = _connection_details.MirrorState.ToString();
+                            _job_stat.stransmit_mode = _dt_job.Status.HighLevelState.ToString();
+                        }
+                    }
+                    _mrmp.jobstat().createjobstat(_job_stat);
+                    _mrmp.job().updatejob(new MRPJobType()
+                    {
+                        id = job.id,
+                        internal_state = "active",
+                        last_contact = DateTime.UtcNow,
+                    });
                 }
             }
             //When we get an exception from collecting the job informationwe assume the job no longer exists and needs to be marked as being deleted on the portal
@@ -80,35 +119,7 @@ namespace MRMPService.DTPollerCollection
                 }
                 return;
             }
-            using (MRP_ApiClient _mrmp = new MRP_ApiClient())
-            {
-                CoreConnectionDetailsModel _connection_details = _dt_job.Statistics.CoreConnectionDetails;
-                MRPJobstatType _job_stat = new MRPJobstatType();
-                {
-                    _job_stat.job_id = job.id;
-                    if (_connection_details != null)
-                    {
-                        _job_stat.replication_bytes_sent = _connection_details.ReplicationBytesSent;
-                        _job_stat.replication_bytes_sent_compressed = _connection_details.ReplicationBytesTransmitted;
-                        _job_stat.replication_disk_queue = _connection_details.DiskQueueBytes;
-                        _job_stat.replication_queue = _connection_details.ReplicationBytesQueued;
-                        _job_stat.replication_status = _connection_details.ReplicationState.ToString();
 
-                        _job_stat.mirror_remaining = _connection_details.MirrorBytesRemaining;
-                        _job_stat.mirror_percent_complete = _connection_details.MirrorPermillage;
-                        _job_stat.mirror_skipped = _connection_details.MirrorBytesSkipped;
-                        _job_stat.mirror_status = _connection_details.MirrorState.ToString();
-                        _job_stat.stransmit_mode = _dt_job.Status.HighLevelState.ToString();
-                    }
-                }
-                _mrmp.jobstat().createjobstat(_job_stat);
-                _mrmp.job().updatejob(new MRPJobType()
-                {
-                    id = job.id,
-                    internal_state = "active",
-                    last_contact = DateTime.UtcNow,
-                });
-            }
             Logger.log(String.Format("Double-Take: Completed Double-Take collection for {0} using {1}", job.target_workload.hostname, workload_ip), Logger.Severity.Info);
         }
     }

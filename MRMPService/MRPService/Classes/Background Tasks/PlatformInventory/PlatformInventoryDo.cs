@@ -1,10 +1,4 @@
-﻿using MRMPService.MRMPService.Log;
-using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using MRMPService.API;
-using MRMPService.LocalDatabase;
+﻿using System;
 
 namespace MRMPService.PlatformInventory
 {

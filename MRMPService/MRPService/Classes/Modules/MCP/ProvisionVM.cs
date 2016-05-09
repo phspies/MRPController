@@ -549,14 +549,14 @@ namespace MRMPService.Tasks.MCP
                     {
                         _mrp_api.task().progress(payload, String.Format("Updating platform information for {0}", _target_workload.hostname), 91);
                     }
-                    PlatformInventoryWorkloadDo.UpdateMCPWorkload(_newvm_platform_guid.ToString(), _payload.platform.id);
+                    (new PlatformInventoryWorkloadDo()).UpdateMCPWorkload(_newvm_platform_guid.ToString(), _payload.platform.id);
 
                     //update OS information or newly provisioned server
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Updating operating system information for {0}", _target_workload.hostname), 92);
                     }
-                    WorkloadInventory.WorkloadInventoryDo(_target_workload.id);
+                    (new WorkloadInventory()).WorkloadInventoryDo(_target_workload.id);
 
                     //log the success
                     Logger.log(String.Format("Successfully provisioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);

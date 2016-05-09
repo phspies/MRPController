@@ -61,7 +61,7 @@ namespace MRMPService.PlatformInventory
 
                     foreach (Workload _workload in _workloads)
                     {
-                        PlatformInventoryWorkloadDo.UpdatePhysicalWorkload(_workload.id, _workload.platform_id);
+                        PlatformInventoryWorkloadDo.UpdatePhysicalWorkload(_workload.id, _workload.platform_id, _mrp_workloads);
                     }
                 }
 

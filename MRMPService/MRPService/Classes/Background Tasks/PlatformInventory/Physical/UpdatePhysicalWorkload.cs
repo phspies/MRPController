@@ -9,12 +9,15 @@ namespace MRMPService.PlatformInventory
 {
     partial class PlatformInventoryWorkloadDo
     {
-        public static void UpdatePhysicalWorkload(string _workload_id, string _platform_id)
+        public static void UpdatePhysicalWorkload(string _workload_id, string _platform_id, List<MRPWorkloadType> _mrp_workloads = null)
         {
             MRP_ApiClient _mrmp_portal = new MRP_ApiClient();
 
             //Retrieve portal objects
-            List<MRPWorkloadType> _mrp_workloads = _mrmp_portal.workload().listworkloads().workloads.Where(x => x.platform_id == _platform_id).ToList();
+            if (_mrp_workloads == null)
+            {
+                _mrp_workloads = _mrmp_portal.workload().listworkloads().workloads.Where(x => x.platform_id == _platform_id).ToList();
+            }
             MRPWorkloadCRUDType _mrp_workload = new MRPWorkloadCRUDType();
 
             using (WorkloadSet _workload_db = new WorkloadSet())

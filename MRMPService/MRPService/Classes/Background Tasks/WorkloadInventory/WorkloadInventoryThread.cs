@@ -35,7 +35,7 @@ namespace MRMPService.API.Classes
                     {
                         try
                         {
-                            WorkloadInventory.WorkloadInventoryDo(workload.id);
+                            (new WorkloadInventory()).WorkloadInventoryDo(workload.id);
                             Workloads_Update.InventoryUpdateStatus(workload.id, "Success", true);
                         }
                         catch (Exception ex)

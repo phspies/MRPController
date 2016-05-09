@@ -13,9 +13,7 @@ namespace MRMPService.API.Classes
 {
     class WorkloadInventory
     {
-        MRP_ApiClient _cloud_movey = new MRP_ApiClient();
-
-        public static void WorkloadInventoryDo(String workload_id)
+        public void WorkloadInventoryDo(String workload_id)
         {
             MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
