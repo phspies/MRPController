@@ -1,5 +1,4 @@
 ﻿using MRMPService.MRMPService.Log;
-using MRMPService.LocalDatabase;
 using MRMPService.API.Types.API;
 using System;
 using System.Diagnostics;
@@ -21,10 +20,10 @@ namespace MRMPService.API.Classes
 
                 Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", Global.os_netstat_concurrency), Logger.Severity.Info);
 
-                List<Workload> workloads;
-                using (WorkloadSet workload_set = new WorkloadSet())
+                List<MRPWorkloadType> workloads;
+                using (MRP_ApiClient _api = new MRP_ApiClient())
                 {
-                    workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.credential_id != null && x.iplist != null);
+                    workloads = _api.workload().listworkloads().workloads;
                 }
                 _processed_workloads = workloads.Count;
                 Parallel.ForEach(workloads,
@@ -33,7 +32,7 @@ namespace MRMPService.API.Classes
                     {
                         try
                         {
-                            WorkloadNetstat.WorkloadNetstatDo(workload.id);
+                            WorkloadNetstat.WorkloadNetstatDo(workload);
                         }
                         catch (Exception ex)
                         {

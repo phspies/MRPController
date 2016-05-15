@@ -10,6 +10,7 @@ using MRMPService.MRMPService.Log;
 using MRMPService.API;
 using DoubleTake.Web.Models;
 using MRMPService.DoubleTake;
+using MRMPService.MRPService.Types.API;
 
 namespace MRMPService.Tasks.DoubleTake
 {
@@ -21,11 +22,11 @@ namespace MRMPService.Tasks.DoubleTake
             {
                 try
                 {
-                    MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
-                    MRPTaskWorkloadType _target_workload = payload.submitpayload.target;
-                    MRPTaskRecoverypolicyType _recovery_policy = payload.submitpayload.servicestack.recoverypolicy;
-                    MRPTaskServicestackType _service_stack = payload.submitpayload.servicestack;
-                    using (Doubletake _dt = new Doubletake(_source_workload.id, _target_workload.id))
+                    MRPWorkloadType _source_workload = payload.submitpayload.source;
+                    MRPWorkloadType _target_workload = payload.submitpayload.target;
+                    MRPRecoverypolicyType _recovery_policy = payload.submitpayload.servicestack.recoverypolicy;
+                    MRPServicestackType _service_stack = payload.submitpayload.servicestack;
+                    using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
                     {
                         _mrp_api.task().progress(payload, "Verifying license status on both source and target workloads", 2);
                         if (!_dt.management().CheckLicense(DT_JobTypes.HA_Full_Failover))

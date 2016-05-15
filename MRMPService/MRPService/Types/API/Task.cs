@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MRMPService.API.Types.API;
+using MRMPService.MRPService.Types.API;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,11 +44,11 @@ namespace MRMPService.MRMPService.Types.API
 
     public class MRPTaskSubmitpayloadType
     {
-        public MRPTaskWorkloadType original { get; set; }
-        public MRPTaskWorkloadType source { get; set; }
-        public MRPTaskWorkloadType target { get; set; }
-        public MRPTaskServicestackType servicestack { get; set; }
-        public MRPTaskPlatformType platform { get; set; }
+        public MRPWorkloadType original { get; set; }
+        public MRPWorkloadType source { get; set; }
+        public MRPWorkloadType target { get; set; }
+        public MRPServicestackType servicestack { get; set; }
+        public MRPPlatformType platform { get; set; }
         public MRPTaskJobType job { get; set; }
         public MRPStacktreeType stacktree { get; set; }
     }
@@ -70,84 +72,6 @@ namespace MRMPService.MRMPService.Types.API
         public string state { get; set; }
         public string servicestack_id { get; set; }
     }
-    public class MRPTaskRecoverypolicyType
-    {
-        public string id { get; set; }
-        public string policy { get; set; }
-        public string policytype { get; set; }
-        public string repositorypath { get; set; }
-        public object mirrortype { get; set; }
-        public object calculatesize { get; set; }
-        public object deleteorphanedfiles { get; set; }
-        public string networkroute { get; set; }
-        public bool enablesnapshots { get; set; }
-        public int snapshotincrement { get; set; }
-        public string snapshotinterval { get; set; }
-        public bool enablecompression { get; set; }
-        public int compressionlevel { get; set; }
-        public bool enablebandwidthlimit { get; set; }
-        public int bandwidthlimit { get; set; }
-        public string organization_id { get; set; }
-        public bool delete_current_jobs { get; set; }
-        public int snapshotcount { get; set; }
-        public bool shutdown_source { get; set; }
-        public bool change_target_ports { get; set;}
-        public bool retain_network_configuration { get; set; }
-    }
-    public class MRPTaskWorkloadType
-    {
-        public string id { get; set; }
-        public string hostname { get; set; }
-        public string iplist { get; set; }
-        public string credential_id { get; set; }
-        public int vcpu { get; set; }
-        public int vcore { get; set; }
-        public int vmemory { get; set; }
-        public string primary_dns { get; set; }
-        public string secondary_dns { get; set; }
-        public string timezone { get; set; }
-        public MRPTaskDeploymentpolicyType deploymentpolicy { get; set; }
-        public List<MRPTaskVolumeType> volumes { get; set; }
-        public List<MRPTaskInterfaceType> interfaces { get; set; }
-        public MRPTaskTemplateType platform_template { get; set; }
-    }
-    public class MRPTaskDeploymentpolicyType
-    {
-        public string id { get; set; }
-        public string policy { get; set; }
-        public string dt_installpath { get; set; }
-        public string dt_temppath { get; set; }
-        public string dt_inifile { get; set; }
-        public string organization_id { get; set; }
-        public bool _default { get; set; }
-        public bool enabled { get; set; }
-        public int dt_max_memory { get; set; }
-        public string dt_queue_folder { get; set; }
-        public int dt_queue_limit_disk_size { get; set; }
-        public int dt_queue_min_disk_free_size { get; set; }
-        public string dt_queue_scheme { get; set; }
-        public string source_activation_code { get; set; }
-        public string target_activation_code { get; set; }
-
-    }
-
-    public class MRPTaskTemplateType
-    {
-        public string id { get; set; }
-        public string platform_id { get; set; }
-        public object systemtemplate_id { get; set; }
-        public string platform_moid { get; set; }
-        public string organization_id { get; set; }
-        public string image_moid { get; set; }
-        public string image_name { get; set; }
-        public string image_description { get; set; }
-        public object image_type { get; set; }
-        public string os_id { get; set; }
-        public string os_type { get; set; }
-        public string os_displayname { get; set; }
-        public DateTime created_at { get; set; }
-        public string updated_at { get; set; }
-    }
 
     public class MRPTaskPlatformstoragetierType
     {
@@ -157,98 +81,7 @@ namespace MRMPService.MRMPService.Types.API
         public string shortname { get; set; }
     }
 
-    public class MRPTaskVolumeType
-    {
-        public string id { get; set; }
-        public string workload_id { get; set; }
-        public int diskindex { get; set; }
-        public string driveletter { get; set; }
-        public string serialnumber { get; set; }
-        public int blocksize { get; set; }
-        public string deviceid { get; set; }
-        public Int64 volumesize { get; set; }
-        public Int64 volumefreespace { get; set; }
-        public bool provisioned { get; set; }
-        public string volumename { get; set; }
-        public DateTime created_at { get; set; }
-        public DateTime updated_at { get; set; }
-        public MRPTaskPlatformstoragetierType platformstoragetier { get; set; }
-
-    }
-
-    public class MRPTaskInterfaceType
-    {
-        public string id { get; set; }
-        public string workload_id { get; set; }
-        public int vnic { get; set; }
-        public string ipaddress { get; set; }
-        public string ipv6address { get; set; }
-        public string netmask { get; set; }
-        public string ipv6netmask { get; set; }
-        public string platformnetwork_id { get; set; }
-        public string ipassignment { get; set; }
-        public string moid { get; set; }
-        public int connection_index { get; set; }
-        public string connection_id { get; set; }
-        public DateTime created_at { get; set; }
-        public DateTime updated_at { get; set; }
-        public string macaddress { get; set; }
-        public MRPTaskPlatformnetworkType platformnetwork { get; set; }
-    }
-
-    public class MRPTaskPlatformnetworkType
-    {
-        public string id { get; set; }
-        public string platformdomain_id { get; set; }
-        public string network { get; set; }
-        public string description { get; set; }
-        public string ipv4subnet { get; set; }
-        public int ipv4netmask { get; set; }
-        public object networktype { get; set; }
-        public string moid { get; set; }
-        public bool provisioned { get; set; }
-        public string ipv6subnet { get; set; }
-        public int ipv6netmask { get; set; }
-        public string networkdomain_moid { get; set; }
-        public string networkdomain_name { get; set; }
-    }
-
-    public class MRPTaskServicestackType
-    {
-        public string id { get; set; }
-        public string service { get; set; }
-        public string supportservice_id { get; set; }
-        public int position { get; set; }
-        public string organization_id { get; set; }
-        public string stacktype { get; set; }
-        public int currentstep { get; set; }
-        public string recoverypolicy_id { get; set; }
-        public string repository_workload_id { get; set; }
-        public MRPTaskRecoverypolicyType recoverypolicy { get; set; }
-    }
-
-    public class MRPTaskPlatformType
-    {
-        public string id { get; set; }
-        public string organization_id { get; set; }
-        public string credential_id { get; set; }
-        public string platform { get; set; }
-        public string mapping { get; set; }
-        public bool enabled { get; set; }
-        public string platformtype { get; set; }
-        public int maxcpu { get; set; }
-        public int maxmemory { get; set; }
-        public int maxdiskcount { get; set; }
-        public int maxdisksize { get; set; }
-        public int maxnetwork { get; set; }
-        public string url { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string moid { get; set; }
-        public object mcpendpoint_id { get; set; }
-        public string manager_id { get; set; }
-        public string platform_version { get; set; }
-    }
+   
     public class MRPTaskUpdateType
     {
         public string id { get; set; }

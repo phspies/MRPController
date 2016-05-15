@@ -13,42 +13,15 @@ namespace MRMPService.API.Classes
 {
     class WorkloadInventory
     {
-        public void WorkloadInventoryDo(String workload_id)
+        public void WorkloadInventoryDo(MRPWorkloadType _workload)
         {
             MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
-            var _mrmp_test_workload = _cloud_movey.workload().getworkload(workload_id);
-            if (_mrmp_test_workload is ResultType)
-            {
-                throw new ArgumentException(String.Format("Inventory: Error finding workload in MRP Portal {0} : {1}", workload_id, ((ResultType)_mrmp_test_workload).result.message));
-            }
-            if (_mrmp_test_workload == null)
-            {
-                throw new ArgumentException(String.Format("Inventory: Error finding workload in MRP Portal {0}", workload_id));
-            }
-
-            //Check if workload exists in local database
-            Workload _workload;
-            using (WorkloadSet dbworkload = new WorkloadSet())
-            {
-                _workload = dbworkload.ModelRepository.GetById(workload_id);
-            }
-
-            if (_workload == null)
-            {
-                throw new ArgumentException("Inventory: Error finding workload in manager database");
-            }
-            MRPWorkloadType _mrmp_workload = (MRPWorkloadType)_mrmp_test_workload;
-
             //check for credentials
-            Credential _credential;
-            using (CredentialSet dbcredential = new CredentialSet())
-            {
-                _credential = dbcredential.ModelRepository.GetById(_workload.credential_id);
-            }
+            MRPCredentialType _credential = _workload.credential;
             if (_credential == null)
             {
-                throw new ArgumentException(String.Format("Inventory: Error finding credentials for workload {0} {1}", workload_id, _workload.hostname));
+                throw new ArgumentException(String.Format("Inventory: Error finding credentials for workload {0} {1}", _workload, _workload.hostname));
             }
 
             string workload_ip = null;
@@ -122,13 +95,7 @@ namespace MRMPService.API.Classes
                 try { _workload.vcpu_speed = int.Parse(item["CurrentClockSpeed"].ToString()); } catch (Exception) { }
             }
 
-            //save workload to database
-            using (WorkloadSet dbworkload = new WorkloadSet())
-            {
-                dbworkload.ModelRepository.Update(_workload);
-            }
-
-            //process running processes
+            //process running workloadprocesses_attributes
             SelectQuery msProcessQuery = new SelectQuery("SELECT * FROM Win32_Process");
             foreach (ManagementObject item in new ManagementObjectSearcher(connectionScope, msProcessQuery).Get())
             {
@@ -142,19 +109,19 @@ namespace MRMPService.API.Classes
                 {
                     continue;
                 }
-                if (_mrmp_workload.processes == null)
+                if (_workload.workloadprocesses_attributes == null)
                 {
-                    _mrmp_workload.processes = new List<MRPWorkloadProcessType>();
+                    _workload.workloadprocesses_attributes = new List<MRPWorkloadProcessType>();
                 }
                 //if procces already exists in portal, just update it   
-                if (_mrmp_workload.processes.Exists(x => x.caption == _process_name))
+                if (_workload.workloadprocesses_attributes.Exists(x => x.caption == _process_name))
                 {
-                    _process = _mrmp_workload.processes.FirstOrDefault(x => x.caption == item["Caption"].ToString());
+                    _process = _workload.workloadprocesses_attributes.FirstOrDefault(x => x.caption == item["Caption"].ToString());
                 }
                 else
                 {
                     _process = new MRPWorkloadProcessType();
-                    _mrmp_workload.processes.Add(_process);
+                    _workload.workloadprocesses_attributes.Add(_process);
                 }
 
                 try { _process.caption = item["Caption"].ToString(); } catch (Exception) { }
@@ -185,18 +152,18 @@ namespace MRMPService.API.Classes
                 {
                     continue;
                 }
-                if (_mrmp_workload.softwares == null)
+                if (_workload.workloadsoftwares_attributes == null)
                 {
-                    _mrmp_workload.softwares = new List<MRPWorkloadSoftwareType>();
+                    _workload.workloadsoftwares_attributes = new List<MRPWorkloadSoftwareType>();
                 }
-                if (_mrmp_workload.softwares.Exists(x => x.name == _software_name))
+                if (_workload.workloadsoftwares_attributes.Exists(x => x.name == _software_name))
                 {
-                    _software = _mrmp_workload.softwares.FirstOrDefault(x => x.name == item["Name"].ToString());
+                    _software = _workload.workloadsoftwares_attributes.FirstOrDefault(x => x.name == item["Name"].ToString());
                 }
                 else
                 {
                     _software = new MRPWorkloadSoftwareType();
-                    _mrmp_workload.softwares.Add(_software);
+                    _workload.workloadsoftwares_attributes.Add(_software);
                 }
                 try { _software.name = item["Name"].ToString(); } catch (Exception) { }
                 try { _software.caption = item["Caption"].ToString(); } catch (Exception) { }
@@ -207,10 +174,10 @@ namespace MRMPService.API.Classes
                 try { _software.version = item["Version"].ToString(); } catch (Exception) { }
             }
 
-            //process logical volumes
+            //process logical workloadvolumes_attributes
 
-            //set all volumes to be destroyed and remove destroy tag as we processes volumes
-            _mrmp_workload.volumes.ForEach(x => { x._destroy = true; });
+            //set all workloadvolumes_attributes to be destroyed and remove destroy tag as we workloadprocesses_attributes workloadvolumes_attributes
+            _workload.workloadvolumes_attributes.ForEach(x => { x._destroy = true; });
 
             SelectQuery wmiDiskDrives = new SelectQuery("SELECT * FROM Win32_DiskDrive");
             foreach (ManagementObject wmiDiskDrive in new ManagementObjectSearcher(connectionScope, wmiDiskDrives).Get())
@@ -226,9 +193,9 @@ namespace MRMPService.API.Classes
                             MRPWorkloadVolumeType _volume;
 
                             //if volume already exists in portal, just update it   
-                            if (_mrmp_workload.volumes.Exists(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()))
+                            if (_workload.workloadvolumes_attributes.Exists(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()))
                             {
-                                _volume = _mrmp_workload.volumes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString());
+                                _volume = _workload.workloadvolumes_attributes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString());
                                 _volume._destroy = false;
                             }
                             else
@@ -237,7 +204,7 @@ namespace MRMPService.API.Classes
                                 _volume._destroy = false;
 
                                 //Add new volume object to mrpworkload
-                                _mrmp_workload.volumes.Add(_volume);
+                                _workload.workloadvolumes_attributes.Add(_volume);
                             }
                             Decimal _freespace = 0;
                             Decimal _size = 0;
@@ -268,7 +235,7 @@ namespace MRMPService.API.Classes
             }
 
 
-            //process network interfaces that has IP address configured
+            //process network workloadinterfaces_attributes that has IP address configured
             SelectQuery wmiNetInterfaces = new SelectQuery("select * from Win32_NetworkAdapterConfiguration where IPEnabled = 'True'");
             ManagementObjectCollection _network_adapters = new ManagementObjectSearcher(connectionScope, wmiNetInterfaces).Get();
 
@@ -286,33 +253,33 @@ namespace MRMPService.API.Classes
                     if (_conn_index == null) //something went wrong and we dont have the index number
                     {
                         _conn_index = 0;
-                        _mrmp_workload.interfaces.Add(_interface);
+                        _workload.workloadinterfaces_attributes.Add(_interface);
 
                     }
-                    else if (_network_adapters.Count == 1 && _mrmp_workload.interfaces.Count == 1) //if we only have one adapter and the portal also only knows about one, the update the same adapter
+                    else if (_network_adapters.Count == 1 && _workload.workloadinterfaces_attributes.Count == 1) //if we only have one adapter and the portal also only knows about one, the update the same adapter
                     {
-                        _interface = _mrmp_workload.interfaces.First();
+                        _interface = _workload.workloadinterfaces_attributes.First();
                     }
-                    else if (_mrmp_workload.interfaces.Exists(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')))) //try to find the interface by means of the IP address
+                    else if (_workload.workloadinterfaces_attributes.Exists(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')))) //try to find the interface by means of the IP address
                     {
-                        _interface = _mrmp_workload.interfaces.FirstOrDefault(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')));
+                        _interface = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')));
                     }
                     else if (_network_adapters.Count > 1) //if we have more than one adapter in the server, we need to switch to index numbers
                     {
-                        //first check if the current interfaces uses connection_index information, and get that interface for this loop
-                        if (_mrmp_workload.interfaces.Any(x => x.connection_index == _conn_index))
+                        //first check if the current workloadinterfaces_attributes uses connection_index information, and get that interface for this loop
+                        if (_workload.workloadinterfaces_attributes.Any(x => x.connection_index == _conn_index))
                         {
-                            _interface = _mrmp_workload.interfaces.FirstOrDefault(x => x.connection_index == _conn_index);
+                            _interface = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.connection_index == _conn_index);
                         }
                         else
                         {
                             //we give up. this seems like a new interface....
-                            _mrmp_workload.interfaces.Add(_interface);
+                            _workload.workloadinterfaces_attributes.Add(_interface);
                         }
                     }
                     else
                     {
-                        _mrmp_workload.interfaces.Add(_interface);
+                        _workload.workloadinterfaces_attributes.Add(_interface);
                     }
 
                     _interface.ipaddress = addresses.FirstOrDefault(s => s.Contains('.'));
@@ -323,26 +290,16 @@ namespace MRMPService.API.Classes
                     try { _interface.connection_id = searchNetInterface["NetConnectionID"].ToString(); } catch (Exception) { }
                     try { _interface.macaddress = searchNetInterface["MACAddress"].ToString(); } catch (Exception) { }
                 }
-                Workloads_Update.InventoryUpdateStatus(_workload.id, "Success", true);
-
-                //refresh workload object from DB
-                using (WorkloadSet dbworkload = new WorkloadSet())
+                using (MRP_ApiClient _api = new MRP_ApiClient())
                 {
-                    _workload = dbworkload.ModelRepository.GetById(workload_id);
+                    _api.workload().InventoryUpdateStatus(_workload, "Success", true);
                 }
-                //Update workload in the portal
-                MRPWorkloadCRUDType _mrmp_crud_workload = new MRPWorkloadCRUDType();
-                Objects.Copy(_workload, _mrmp_crud_workload);
 
                 //set more aatributes
-                _mrmp_crud_workload.ostype = "windows";
+                _workload.ostype = "windows";
 
-                _mrmp_crud_workload.workloadvolumes_attributes = _mrmp_workload.volumes;
-                _mrmp_crud_workload.workloadinterfaces_attributes = _mrmp_workload.interfaces;
-                _mrmp_crud_workload.workloadprocesses_attributes = _mrmp_workload.processes;
-                _mrmp_crud_workload.workloadsoftwares_attributes = _mrmp_workload.softwares;
 
-                _cloud_movey.workload().updateworkload(_mrmp_crud_workload);
+                _cloud_movey.workload().updateworkload(_workload);
 
                 Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 

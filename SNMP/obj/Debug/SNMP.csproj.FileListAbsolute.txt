@@ -1,7 +1,0 @@
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\SNMP\bin\Debug\SNMP.exe.config
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\SNMP\bin\Debug\SNMP.exe
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\SNMP\bin\Debug\SNMP.pdb
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\SNMP\bin\Debug\SnmpSharpNet.dll
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\SNMP\obj\Debug\SNMP.csprojResolveAssemblyReference.cache
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\SNMP\obj\Debug\SNMP.exe
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\SNMP\obj\Debug\SNMP.pdb

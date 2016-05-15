@@ -88,17 +88,13 @@ namespace MRMPService.PlatformInventory
                 _db_workload.osedition = OSEditionSimplyfier.Simplyfier(_vmware_workload.Config.GuestFullName);
                 if (_new_workload_flag)
                 {
-                    _db_workload.id = Objects.RamdomGuid();
-                    db.Workloads.Add(_db_workload);
-                    db.SaveChanges();
+
                 }
                 else
                 {
                     db.SaveChanges();
                     if (_db_workload.enabled == true)
                     {
-                        MRPWorkloadCRUDType _mrp_workload = new MRPWorkloadCRUDType();
-
                         //copy db object into mrp portal object
                         Objects.Copy(_db_workload, _mrp_workload);
 
@@ -117,9 +113,9 @@ namespace MRMPService.PlatformInventory
                                 _destroy = false,
                                 platformnetwork_id = _mrp_networks.FirstOrDefault(x => x.moid == _nic_backing.Network.Value).id
                             };
-                            if (_mrp_workloads.Exists((x => x.moid == _workload_moid && x.interfaces.Exists(y => y.macaddress == _workloadnic.MacAddress))))
+                            if (_mrp_workloads.Exists((x => x.moid == _workload_moid && x.workloadinterfaces_attributes.Exists(y => y.macaddress == _workloadnic.MacAddress))))
                             {
-                                _logical_interface.id = _mrp_workloads.FirstOrDefault(x => x.moid == _workload_moid).interfaces.FirstOrDefault(y => y.macaddress == _workloadnic.MacAddress).id;
+                                _logical_interface.id = _mrp_workloads.FirstOrDefault(x => x.moid == _workload_moid).workloadinterfaces_attributes.FirstOrDefault(y => y.macaddress == _workloadnic.MacAddress).id;
                             }
                             _mrp_workload.workloadinterfaces_attributes.Add(_logical_interface);
                         }
@@ -129,7 +125,6 @@ namespace MRMPService.PlatformInventory
                         //Update if the portal has this workload and create if it's new to the portal....
                         if (_mrp_workloads.Exists(x => x.moid == _workload_moid))
                         {
-                            _mrp_workload.id = _db_workload.id;
                             _cloud_movey.workload().updateworkload(_mrp_workload);
                         }
                         else

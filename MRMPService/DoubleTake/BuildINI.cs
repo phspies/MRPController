@@ -1,4 +1,5 @@
 ﻿using MRMPService.MRMPService.Types.API;
+using MRMPService.MRPService.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace MRMPService.DoubleTake
 {
     class BuildINI
     {
-        public static List<String> BuildINIFile(MRPTaskDeploymentpolicyType _deployment_policy, dt_server_type _source_workload)
+        public static List<String> BuildINIFile(MRPDeploymentpolicyType _deployment_policy, dt_server_type _source_workload)
         {
             List<String> _setup_file = new List<string>();
             _setup_file.Add("[Config]");

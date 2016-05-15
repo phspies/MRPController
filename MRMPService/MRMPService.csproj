@@ -159,7 +159,10 @@
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Web.Helpers.dll.1.0.0\lib\Net40\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -517,22 +520,23 @@
     <Compile Include="DimensionData\Compute.Contracts\Vip\Vips.cs" />
     <Compile Include="DimensionData\Compute.Contracts\Vip\VipTargetType.cs" />
     <Compile Include="DimensionData\Compute.Contracts\XmlNamespaceConstants.cs" />
+    <Compile Include="DoubleTake\Events.cs" />
     <Compile Include="DoubleTake\Management.cs" />
     <Compile Include="DoubleTake\Job.cs" />
     <Compile Include="DoubleTake\Core.cs" />
     <Compile Include="DoubleTake\DoubleTake.cs" />
     <Compile Include="DoubleTake\Workload.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\DTEventPoller\PollerDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\DTEventPoller\PollerThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\ProcessInfo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\MRPworkloadType.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Physical\UpdatePhysicalPlatform.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Physical\UpdatePhysicalWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\NetflowUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\PerformanceUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\NetstatUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\StartupThread\Startup.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\JobPoller\PollerDo.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\JobPoller\PollerThread.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\DTJobPoller\PollerDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\DTJobPoller\PollerThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\TimeCalculations.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadCounters.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FilesAndFoldersJobEx.cs" />
@@ -558,6 +562,7 @@
     <Compile Include="MRPService\Classes\Modules\MCP\TimeZones.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobstats.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Stacktrees.cs" />
+    <Compile Include="MRPService\Classes\Modules\Platform\DiscoveryPlatform.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatDo.cs" />
@@ -614,17 +619,12 @@
     <Compile Include="MRPService\Database\Classes\NetstatSet.cs" />
     <Compile Include="MRPService\Database\Classes\NetworkFlowSet.cs" />
     <Compile Include="MRPService\Database\Classes\GenericDatabase.cs" />
-    <Compile Include="MRPService\Database\Classes\CredentialSet.cs" />
     <Compile Include="MRPService\Database\Classes\PerformanceSet.cs" />
-    <Compile Include="MRPService\Database\Classes\WorkloadSet.cs" />
     <Compile Include="MRPService\Database\CustomMethods\Workloads.cs" />
     <Compile Include="MRPService\Database\Interfaces\INetstat.cs" />
     <Compile Include="MRPService\Database\Interfaces\INetworkSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\IGenericDatabase.cs" />
     <Compile Include="MRPService\Database\Interfaces\IPerformanceSet.cs" />
-    <Compile Include="MRPService\Database\Interfaces\ICredentialSet.cs" />
-    <Compile Include="MRPService\Database\Interfaces\IWorkloadSet.cs" />
-    <Compile Include="MRPService\Database\Interfaces\IPlatformSet.cs" />
     <Compile Include="MRPService\Database\Context\MRPDatabase.cs" />
     <Compile Include="MRPService\Classes\Utilities\SimpleEAS.cs" />
     <Compile Include="MRPService\Database\Structures\Credential.cs" />
@@ -634,10 +634,10 @@
     <Compile Include="MRPService\Database\Structures\Performance.cs" />
     <Compile Include="MRPService\Database\Structures\Platform.cs" />
     <Compile Include="MRPService\Database\Structures\Workload.cs" />
-    <Compile Include="MRPService\Database\Classes\PlatformSet.cs" />
     <Compile Include="MRPService\Logging.cs" />
     <Compile Include="MRPService\Types\API\CommandController.cs" />
     <Compile Include="MRPService\Types\API\Credentials.cs" />
+    <Compile Include="MRPService\Types\API\DeploymentPolicy.cs" />
     <Compile Include="MRPService\Types\API\Error.cs" />
     <Compile Include="MRPService\Types\API\Jobstats.cs" />
     <Compile Include="MRPService\Types\API\Jobs.cs" />
@@ -653,6 +653,7 @@
     <Compile Include="MRPService\Types\API\RecoveryJobTypes.cs" />
     <Compile Include="MRPService\Types\API\RecoveryPolicy.cs" />
     <Compile Include="MRPService\Types\API\ResultStatus.cs" />
+    <Compile Include="MRPService\Types\API\ServiceStack.cs" />
     <Compile Include="MRPService\Types\API\Stacktrees.cs" />
     <Compile Include="MRPService\Types\API\Task.cs" />
     <Compile Include="MRPService\Types\API\Windows.cs" />
@@ -722,6 +723,7 @@
     <None Include="RP4VM\xsd0.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Scripts\jquery-2.2.3.min.map" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MRPSvc.resx">
@@ -754,6 +756,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mrp.ico" />
+    <Content Include="Scripts\jquery-2.2.3.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.3.js" />
+    <Content Include="Scripts\jquery-2.2.3.min.js" />
+    <Content Include="Scripts\nugetexample.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

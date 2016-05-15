@@ -6,7 +6,6 @@ using MRMPService.PerformanceCollection;
 using MRMPService.PlatformInventory;
 using MRMPService.TaskExecutioner;
 using MRMPService.Utilities;
-using MRMPService.WCF;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlServerCe;
@@ -104,13 +103,13 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             basicHttpBinding.ReaderQuotas.MaxBytesPerRead = int.MaxValue;
             Uri wcfbaseAddress = new Uri("http://localhost:8734/MRMPWCFService");
 
-            ServiceHost serviceHost = new ServiceHost(typeof(MRPWCFService));
-            ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();
-            wcfsmb.HttpGetEnabled = true;
-            wcfsmb.HttpGetUrl = wcfbaseAddress;
-            serviceHost.Description.Behaviors.Add(wcfsmb);
-            serviceHost.AddServiceEndpoint(typeof(IMRPWCFService), basicHttpBinding, wcfbaseAddress);
-            serviceHost.Open();
+            //ServiceHost serviceHost = new ServiceHost(typeof(MRPWCFService));
+            //ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();
+            //wcfsmb.HttpGetEnabled = true;
+            //wcfsmb.HttpGetUrl = wcfbaseAddress;
+            //serviceHost.Description.Behaviors.Add(wcfsmb);
+            //serviceHost.AddServiceEndpoint(typeof(IMRPWCFService), basicHttpBinding, wcfbaseAddress);
+            //serviceHost.Open();
 
 
             Settings.SetupController();
@@ -153,7 +152,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             //_osnetstat_thread = new Thread(new ThreadStart(_osnetstat.Start));
             //_osnetstat_thread.Start();
 
-            DTPollerThread _dt_polling = new DTPollerThread();
+            DTJobPollerThread _dt_polling = new DTJobPollerThread();
             if (Global.debug) { Logger.log("Starting DT Polling Thread", Logger.Severity.Debug); };
             _dt_thread = new Thread(new ThreadStart(_dt_polling.Start));
             _dt_thread.Start();

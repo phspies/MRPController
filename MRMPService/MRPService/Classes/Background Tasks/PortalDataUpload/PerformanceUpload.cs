@@ -7,6 +7,7 @@ using System.Threading;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
 using MRMPService.Utilities;
+using MRMPService.API;
 
 namespace MRMPService.MRMPService.Classes.Background_Classes
 {
@@ -26,25 +27,31 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                 Stopwatch _sw = Stopwatch.StartNew();
                 using (API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient())
                 {
-
+                    List<MRPWorkloadType> _mrp_workloads;
+                    using (MRP_ApiClient _api = new MRP_ApiClient())
+                    {
+                        _mrp_workloads = _api.workload().listworkloads().workloads;
+                    }
+                    if (_mrp_workloads == null)
+                    {
+                        throw new System.ArgumentException(String.Format("PerformanceUpload: Error connecting retrieving workloads"));
+                    }
                     List<Performance> _local_performance;
                     using (MRPDatabase db = new MRPDatabase())
                     {
                         _local_performance = db.Performance.AsEnumerable().ToList();
 
                         //check if workload exists for performancecounter and remove if required
-                        using (WorkloadSet _db_workload = new WorkloadSet())
+
+                        var _workload_grouped = _local_performance.Select(x => x.workload_id).ToList().Distinct();
+                        foreach (var _workload in _workload_grouped)
                         {
-                            var _workload_grouped = _local_performance.Select(x => x.workload_id).ToList().Distinct();
-                            foreach (var _workload in _workload_grouped)
+                            if (!_mrp_workloads.Exists(x => x.id == _workload))
                             {
-                                if (_db_workload.ModelRepository.GetById(_workload) == null)
+                                using (MRPDatabase _db = new MRPDatabase())
                                 {
-                                    using (MRPDatabase _db = new MRPDatabase())
-                                    {
-                                        _db.Performance.RemoveRange(_db.Performance.Where(x => x.workload_id == _workload));
-                                        _db.SaveChanges();
-                                    }
+                                    _db.Performance.RemoveRange(_db.Performance.Where(x => x.workload_id == _workload));
+                                    _db.SaveChanges();
                                 }
                             }
                         }

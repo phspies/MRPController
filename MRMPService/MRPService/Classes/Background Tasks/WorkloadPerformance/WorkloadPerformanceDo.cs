@@ -8,17 +8,17 @@ using System.Security.Principal;
 using MRMPService.Utilities;
 using static MRMPService.Utilities.SyncronizedList;
 using System.Runtime.InteropServices;
+using MRMPService.API.Types.API;
 
 namespace MRMPService.PerformanceCollection
 {
     class WorkloadPerformance
     {
-        public static void WorkloadPerformanceDo(SyncronisedList<WorkloadCounters> _workload_counters, SyncronisedList<CollectionCounter> _available_counters, Workload workload)
+        public static void WorkloadPerformanceDo(SyncronisedList<WorkloadCounters> _workload_counters, SyncronisedList<CollectionCounter> _available_counters, MRPWorkloadType workload)
         {
             #region load and check workload information
             //check for credentials
-            CredentialSet dbcredential = new CredentialSet();
-            Credential _credential = dbcredential.ModelRepository.GetById(workload.credential_id);
+            MRPCredentialType _credential = workload.credential;
             if (_credential == null)
             {
                 throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", workload.id, workload.hostname));

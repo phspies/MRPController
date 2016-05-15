@@ -5,6 +5,7 @@ using MRMPService.DoubleTake;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
+using MRMPService.MRPService.Types.API;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,11 @@ namespace MRMPService.Tasks.DoubleTake
             {
                 try
                 {
-                    MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
-                    MRPTaskWorkloadType _target_workload = payload.submitpayload.target;
+                    MRPWorkloadType _source_workload = payload.submitpayload.source;
+                    MRPWorkloadType _target_workload = payload.submitpayload.target;
                     MRPTaskJobType _dt_job = payload.submitpayload.job;
-                    MRPTaskServicestackType _service_stack = payload.submitpayload.servicestack;
-                    using (Doubletake _dt = new Doubletake(_source_workload.id, _target_workload.id))
+                    MRPServicestackType _service_stack = payload.submitpayload.servicestack;
+                    using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
                     {
                         _mrp_api.task().progress(payload, "Verifying license status on both source and target workloads", 2);
                         if (!_dt.management().CheckLicense(DT_JobTypes.Move_Server_Migration))
@@ -54,17 +55,15 @@ namespace MRMPService.Tasks.DoubleTake
                         ActivityStatusModel _status = _dt.job().FailoverJob(Guid.Parse(payload.submitpayload.job.dt_job_id), _options);
 
                         _mrp_api.task().progress(payload, "Setting source workload to disabled", 20);
-                        using (WorkloadSet _workload_db = new WorkloadSet())
+                        using (MRP_ApiClient _api = new MRP_ApiClient())
                         {
-                            LocalDatabase.Workload _target_workload_update = _workload_db.ModelRepository.GetById(_source_workload.id);
-                            _target_workload_update.enabled = false;
-                            _workload_db.ModelRepository.Update(_target_workload_update);
+                            _target_workload.enabled = false;
+                            _api.workload().updateworkload(_target_workload);
 
-                            LocalDatabase.Workload _source_workload_update = _workload_db.ModelRepository.GetById(_source_workload.id);
-                            _source_workload_update.enabled = true;
-                            _source_workload_update.iplist = _target_workload_update.iplist;
-                            _source_workload_update.platform_id = _target_workload_update.platform_id;
-                            _workload_db.ModelRepository.Update(_source_workload_update);
+                            _source_workload.enabled = true;
+                            _source_workload.iplist = _target_workload.iplist;
+                            _source_workload.platform_id = _target_workload.platform_id;
+                            _api.workload().updateworkload(_source_workload);
                         }
                         _mrp_api.task().progress(payload, "Move process started", 30);
                         JobInfoModel jobinfo = _dt.job().GetJob(Guid.Parse(payload.submitpayload.job.dt_job_id)).Result;

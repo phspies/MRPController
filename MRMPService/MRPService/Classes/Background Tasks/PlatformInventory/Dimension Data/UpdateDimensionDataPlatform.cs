@@ -22,17 +22,12 @@ namespace MRMPService.PlatformInventory
     class PlatformDimensionDataMCP2InventoryDo
     {
 
-        public static void UpdateMCPPlatform(String _platform_id, bool full = true)
+        public static void UpdateMCPPlatform(MRPPlatformType _platform, bool full = true)
         {
             MRP_ApiClient _mrp_api_endpoint = new MRP_ApiClient();
-            Platform _platform;
-            using (PlatformSet _platform_db = new PlatformSet())
-            {
-                _platform = _platform_db.ModelRepository.GetById(_platform_id);
-            }
             try
             {
-                Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.human_vendor, _platform.moid), Logger.Severity.Info);
+                Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.moid), Logger.Severity.Info);
                 Stopwatch sw = Stopwatch.StartNew();
                 int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads, _removed_workloads;
                 _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = _removed_workloads = 0;
@@ -45,7 +40,7 @@ namespace MRMPService.PlatformInventory
                     _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
 
                 }
-                List<MRPPlatformdomainType> _mrp_domains = _mrp_api_endpoint.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform_id).ToList();
+                List<MRPPlatformdomainType> _mrp_domains = _mrp_api_endpoint.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform.id).ToList();
                 List<MRPPlatformnetworkType> _mrp_networks = _mrp_api_endpoint.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
 
 
@@ -123,31 +118,6 @@ namespace MRMPService.PlatformInventory
                     List<VlanType> _caas_vlan_list = CaaS.Networking.Vlan.GetVlans(new VlanListOptions() { DatacenterId = _platform.moid }).Result.ToList();
                     DatacenterType _caas_dc = CaaS.Infrastructure.GetDataCenters(new PageableRequest() { PageSize = 250 }, new DataCenterListOptions() { Id = _platform.moid }).Result.ToList().FirstOrDefault();
 
-                    int workloads, networkdomains, vlans;
-                    string workloads_md5, networkdomains_md5, vlans_md5;
-                    workloads = networkdomains = vlans = 0;
-
-                    workloads = _caas_workload_list.Count();
-                    workloads_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(_caas_workload_list));
-                    vlans = _caas_vlan_list.Count();
-                    vlans_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(_caas_vlan_list));
-                    networkdomains = _caas_networkdomain_list.Count();
-                    networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(_caas_networkdomain_list));
-
-                    using (PlatformSet _platform_dbset = new PlatformSet())
-                    {
-                        Platform _db_platform = _platform_dbset.ModelRepository.GetById(_platform.id);
-                        _db_platform.vlan_count = vlans;
-                        _db_platform.workload_count = workloads;
-                        _db_platform.networkdomain_count = networkdomains;
-                        _db_platform.platform_version = _caas_dc.type;
-
-                        _db_platform.lastupdated = DateTime.UtcNow;
-                        _db_platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
-                        _db_platform.moid = _caas_dc.id;
-                        _platform_dbset.Save();
-                    }
-
                     foreach (NetworkDomainType _caas_domain in _caas_networkdomain_list)
                     {
                         MRPPlatformdomainCRUDType _mrp_mdomain = new MRPPlatformdomainCRUDType();
@@ -224,12 +194,12 @@ namespace MRMPService.PlatformInventory
                     {
                         //update lists before we start the workload inventory process
                         List<MRPWorkloadType> _mrp_workloads = _mrp_api_endpoint.workload().listworkloads().workloads.ToList();
-                        _mrp_domains = _mrp_api_endpoint.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform_id).ToList();
+                        _mrp_domains = _mrp_api_endpoint.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform.id).ToList();
                         _mrp_networks = _mrp_api_endpoint.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
 
                         foreach (ServerType _caasworkload in _caas_workload_list.Where(x => x.operatingSystem.family.ToUpper() == "WINDOWS"))
                         {
-                            (new PlatformInventoryWorkloadDo()).UpdateMCPWorkload(_caasworkload.id, _platform.id, _mrp_workloads, _mrp_domains, _mrp_networks, _platformtemplates);
+                            (new PlatformInventoryWorkloadDo()).UpdateMCPWorkload(_caasworkload.id, _platform, _mrp_workloads, _mrp_domains, _mrp_networks, _platformtemplates);
                         }
                     }
                 }
@@ -238,12 +208,12 @@ namespace MRMPService.PlatformInventory
                 Logger.log(
                     String.Format("Completed inventory process for {5} - {0} new workloads - {1} updated platform networks - {2} updated workloads - {3} removed workloads = Total Execute Time: {4}",
                     _new_workloads, _updated_platforms, _updated_workloads, _removed_workloads,
-                     TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), (_platform.human_vendor + " : " + _platform.moid)
+                     TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), (_platform.platformtype + " : " + _platform.moid)
                     ), Logger.Severity.Info);
             }
             catch (Exception ex)
             {
-                Logger.log(String.Format("Error in inventory process for {0} {1}", (_platform.human_vendor + " : " + _platform.moid), ex.ToString()), Logger.Severity.Error);
+                Logger.log(String.Format("Error in inventory process for {0} {1}", (_platform.platformtype + " : " + _platform.moid), ex.ToString()), Logger.Severity.Error);
             }
         }
 

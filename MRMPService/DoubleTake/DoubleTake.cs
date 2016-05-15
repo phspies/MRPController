@@ -1,15 +1,16 @@
 ﻿using DoubleTake.Web.Client;
+using MRMPService.API.Types.API;
 using System;
 
 namespace MRMPService.DoubleTake
 {
     class Doubletake : IDisposable
     {
-        public string _source_workload_id, _target_workload_id;
-        public Doubletake(string source_workload_id, string target_workload_id)
+        public MRPWorkloadType _source_workload, _target_workload;
+        public Doubletake(MRPWorkloadType source_workload, MRPWorkloadType target_workload)
         {
-            _source_workload_id = source_workload_id;
-            _target_workload_id = target_workload_id;
+            _source_workload = source_workload;
+            _target_workload = target_workload;
         }
 
         public Job job()
@@ -23,6 +24,10 @@ namespace MRMPService.DoubleTake
         public Management management()
         {
             return new Management(this);
+        }
+        public Event events()
+        {
+            return new Event(this);
         }
         public void Dispose()
         {

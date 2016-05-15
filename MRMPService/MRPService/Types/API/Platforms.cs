@@ -41,6 +41,9 @@ namespace MRMPService.API.Types.API
         public string platform_version { get; set; }
         public string hash_value { get; set; }
         public bool deleted { get; set; }
+        public string dc_discovery_list { get; set; }
+        public bool dc_discovery_status { get; set; }
+        public string dc_discovery_message { get; set; }
 
     }
     public class MRPPlatformListType
@@ -71,7 +74,11 @@ namespace MRMPService.API.Types.API
         public string organization_id { get; set; }
         public string hash_value { get; set; }
         public bool deleted { get; set; }
+        public string dc_discovery_list { get; set; }
+        public bool dc_discovery_status { get; set; }
+        public string dc_discovery_message { get; set; }
 
+        public MRPCredentialType credential;
 
     }
 

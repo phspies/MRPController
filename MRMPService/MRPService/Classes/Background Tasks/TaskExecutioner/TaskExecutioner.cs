@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using MRMPService.API;
-using MRMPService.Tasks;
 using MRMPService.Tasks.DoubleTake;
 using MRMPService.Tasks.MCP;
+using MRMPService.Tasks.DiscoveryPlatform;
 
 namespace MRMPService.TaskExecutioner
 {
@@ -122,54 +122,51 @@ namespace MRMPService.TaskExecutioner
                                     }
                                 case "platform":
                                     {
-                                        switch ((string)task.task_type)
+                                        switch (task.task_type)
                                         {
-                                            //Start MCP datacenters thread
-                                            //case "getdatacenters":
-
-                                            //    if (task.submitpayload.mcp != null)
-                                            //    {
-                                            //        Thread newThread = new Thread(() => MRPPlatform.mcp_getdatacenters(task));
-                                            //        newThread.Name = task.target_id;
-                                            //        newThread.Start();
-                                            //        lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                            //    }
-                                            //    break;
-                                            ////Start MCP templates thread
-                                            //case "gettemplates":
-                                            //    {
-                                            //        if (task.submitpayload.mcp != null)
-                                            //        {
-                                            //            Thread newThread = new Thread(() => MRPPlatform.mcp_gettemplates(task));
-                                            //            newThread.Name = task.target_id;
-                                            //            newThread.Start();
-                                            //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                            //        }
-                                            //        break;
-                                            //    }
-                                            ////Start MCP workloads thread
-                                            //case "retrieveworkloads":
-                                            //    {
-                                            //        if (task.submitpayload.mcp != null)
-                                            //        {
-                                            //            Thread newThread = new Thread(() => MRPPlatform.mcp_retrieveworkloads(task));
-                                            //            newThread.Name = task.target_id;
-                                            //            newThread.Start();
-                                            //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                            //        }
-                                            //        break;
-                                            //    }
-                                            //case "retrievenetworks":
-                                            //    {
-                                            //        if (task.submitpayload.mcp != null)
-                                            //        {
-                                            //            Thread newThread = new Thread(() => MRPPlatform.mcp_retrievenetworks(task));
-                                            //            newThread.Name = task.target_id;
-                                            //            newThread.Start(task);
-                                            //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                            //        }
-                                            //        break;
-                                            //    }
+                                            case "getdatacenters":
+                                                {
+                                                    Thread newThread = new Thread(() => DiscoveryPlatform.DiscoveryPlatformDo(task));
+                                                    newThread.Name = task.target_id;
+                                                    newThread.Start();
+                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                }
+                                                break;
+                                                ////Start MCP templates thread
+                                                //case "gettemplates":
+                                                //    {
+                                                //        if (task.submitpayload.mcp != null)
+                                                //        {
+                                                //            Thread newThread = new Thread(() => MRPPlatform.mcp_gettemplates(task));
+                                                //            newThread.Name = task.target_id;
+                                                //            newThread.Start();
+                                                //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                //        }
+                                                //        break;
+                                                //    }
+                                                ////Start MCP workloads thread
+                                                //case "retrieveworkloads":
+                                                //    {
+                                                //        if (task.submitpayload.mcp != null)
+                                                //        {
+                                                //            Thread newThread = new Thread(() => MRPPlatform.mcp_retrieveworkloads(task));
+                                                //            newThread.Name = task.target_id;
+                                                //            newThread.Start();
+                                                //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                //        }
+                                                //        break;
+                                                //    }
+                                                //case "retrievenetworks":
+                                                //    {
+                                                //        if (task.submitpayload.mcp != null)
+                                                //        {
+                                                //            Thread newThread = new Thread(() => MRPPlatform.mcp_retrievenetworks(task));
+                                                //            newThread.Name = task.target_id;
+                                                //            newThread.Start(task);
+                                                //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                //        }
+                                                //        break;
+                                                //    }
                                         }
                                         break;
                                     }

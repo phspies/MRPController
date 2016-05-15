@@ -13,6 +13,7 @@ using System.Threading;
 using MRMPService.Utilities;
 using DoubleTake.Web.Models;
 using MRMPService.DoubleTake;
+using MRMPService.API.Types.API;
 
 namespace MRMPService.Tasks.DoubleTake
 {
@@ -26,10 +27,10 @@ namespace MRMPService.Tasks.DoubleTake
             try
             {
                 MRPDatabase _db = new MRPDatabase();
-                MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
-                MRPTaskWorkloadType _target_workload = payload.submitpayload.target;
+                MRPWorkloadType _source_workload = payload.submitpayload.source;
+                MRPWorkloadType _target_workload = payload.submitpayload.target;
 
-                MRPTaskWorkloadType _working_workload = new MRPTaskWorkloadType();
+                MRPWorkloadType _working_workload = new MRPWorkloadType();
                 int _counter = 0;
                 while (true)
                 { 
@@ -48,17 +49,8 @@ namespace MRMPService.Tasks.DoubleTake
                     _mrp_portal.task().progress(payload, String.Format("Starting DT deploying process on {0}", _working_workload.hostname), _counter + 5);
 
                     string remoteTempLocation = _working_workload.deploymentpolicy.dt_temppath;
-                    LocalDatabase.Workload _db_workload;
-                    using (WorkloadSet _local_db = new WorkloadSet())
-                    {
-                        _db_workload = _local_db.ModelRepository.GetById(_working_workload.id);
-                    }
-                    Credential _workload_credentials;
-                    using (CredentialSet _local_db = new CredentialSet())
-                    {
-                        _workload_credentials = _local_db.ModelRepository.GetById(_db_workload.credential_id);
-                    }
-                    if (_workload_credentials == null)
+                    MRPCredentialType _credentials = _working_workload.credential;
+                    if (_credentials == null)
                     {
                         _mrp_portal.task().progress(payload, String.Format("Cannot determine credentials for {0}", _working_workload.hostname), _counter + 16);
                         server_type = dt_server_type.target;
@@ -80,7 +72,7 @@ namespace MRMPService.Tasks.DoubleTake
                     string systemArchitecture = null;
                     //Determine if the setup to be installed is 32 bit or 64 bit
                     string keyString = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
-                    using (new Impersonator(_workload_credentials.username, (String.IsNullOrWhiteSpace(_workload_credentials.domain) ? "." : _workload_credentials.domain), _workload_credentials.password))
+                    using (new Impersonator(_credentials.username, (String.IsNullOrWhiteSpace(_credentials.domain) ? "." : _credentials.domain), _credentials.password))
                     {
                         #region Detect Target Architecture
                         RegistryKey rk = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, _contactable_ip);
@@ -144,7 +136,7 @@ namespace MRMPService.Tasks.DoubleTake
                             {
                                 _mrp_portal.task().progress(payload, String.Format("Product version being PushInstalled is same or less than the version ({0}) installed on {1}", localFileVersion.ProductVersion, _working_workload.hostname), _counter + 18);
                                 ProductVersionModel _installed_dt_version;
-                                using (Doubletake _dt = new Doubletake(null, _working_workload.id))
+                                using (Doubletake _dt = new Doubletake(null, _working_workload))
                                 {
                                     try
                                     {
@@ -214,8 +206,8 @@ namespace MRMPService.Tasks.DoubleTake
                         connOptions.Impersonation = ImpersonationLevel.Impersonate;
                         connOptions.Authentication = AuthenticationLevel.Default;
                         connOptions.EnablePrivileges = true;
-                        connOptions.Username = (_workload_credentials.domain == null ? "." : _workload_credentials.domain) + @"\" + _workload_credentials.username;
-                        connOptions.Password = _workload_credentials.password;
+                        connOptions.Username = (_credentials.domain == null ? "." : _credentials.domain) + @"\" + _credentials.username;
+                        connOptions.Password = _credentials.password;
 
                         //var configPath = @"C:\DTSetup";
                         ManagementScope scope = new ManagementScope(@"\\" + _contactable_ip + @"\root\CIMV2", connOptions);
@@ -291,7 +283,7 @@ namespace MRMPService.Tasks.DoubleTake
                         //Verify if the management service of Double-Take is running
                         // to determine that the software is installed properly
                         ProductVersionModel _dt_version;
-                        using (Doubletake _dt = new Doubletake(null, _working_workload.id))
+                        using (Doubletake _dt = new Doubletake(null, _working_workload))
                         {
                             _dt_version = (await _dt.management().GetProductInfo()).ManagementServiceVersion;
                             if (_dt_version == null)

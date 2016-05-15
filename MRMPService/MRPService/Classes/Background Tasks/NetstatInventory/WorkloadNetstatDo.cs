@@ -4,7 +4,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Runtime.Serialization.Formatters.Binary;
 using MRMPService.Utilities;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,23 +16,17 @@ namespace MRMPService.API.Classes
     {
         MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
-        public static void WorkloadNetstatDo(String workload_id)
+        public static void WorkloadNetstatDo(MRPWorkloadType workload)
         {
-            WorkloadSet dbworkload = new WorkloadSet();
-            CredentialSet dbcredential = new CredentialSet();
-
-            //Check if workload exists in local database
-            Workload _workload = dbworkload.ModelRepository.GetById(workload_id);
+            MRPWorkloadType _workload = workload;
             if (_workload == null)
             {
                 throw new ArgumentException("Inventory: Error finding workload in manager database");
             }
-
-            //check for credentials
-            Credential _credential = dbcredential.ModelRepository.GetById(_workload.credential_id);
+            MRPCredentialType _credential = _workload.credential;
             if (_credential == null)
             {
-                throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", workload_id, _workload.hostname));
+                throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", _workload.id, _workload.hostname));
             }
 
             string workload_ip = null;
@@ -85,7 +78,7 @@ namespace MRMPService.API.Classes
 
                 if (processId == 0)
                 {
-                    throw new ArgumentException(String.Format("Error running netstat on {0} {1}", workload_id, _workload.hostname));
+                    throw new ArgumentException(String.Format("Error running netstat on {0} {1}", _workload.id, _workload.hostname));
                 }
                 //Wait for the process to complete
                 Process process = new Process();
@@ -144,7 +137,7 @@ namespace MRMPService.API.Classes
                                     _netstat_db.ModelRepository.Insert(new Netstat()
                                     {
                                         id = Objects.RamdomGuid(),
-                                        workload_id = workload_id,
+                                        workload_id = workload.id,
                                         proto = tokens[0],
                                         pid = _pid,
                                         process = _processes.FirstOrDefault(x => x.pid == _pid).name,

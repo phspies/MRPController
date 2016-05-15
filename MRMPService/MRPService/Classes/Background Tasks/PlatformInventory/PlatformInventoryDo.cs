@@ -14,9 +14,6 @@ namespace MRMPService.PlatformInventory
                 case 1:
                     PlatformVMwareInventoryDo.UpdateVMwarePlatform(platform_id, full);
                     break;
-                case 3:
-                    PlatformPhysicalInventoryDo.UpdatePhysicalPlatform(platform_id);
-                    break;
             }
         }
         private bool disposed = false;

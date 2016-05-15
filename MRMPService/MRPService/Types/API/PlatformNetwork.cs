@@ -47,9 +47,9 @@ namespace MRMPService.API.Types.API
         public string networktype { get; set; }
         public string moid { get; set; }
         public bool provisioned { get; set; }
-        public object ipv6subnet { get; set; }
-        public object ipv6netmask { get; set; }
-        public object networkdomain_moid { get; set; }
-        public object networkdomain_name { get; set; }
+        public string ipv6subnet { get; set; }
+        public string ipv6netmask { get; set; }
+        public string networkdomain_moid { get; set; }
+        public string networkdomain_name { get; set; }
     }
 }

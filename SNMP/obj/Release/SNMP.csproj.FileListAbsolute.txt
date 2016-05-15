@@ -1,1 +1,0 @@
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\SNMP\bin\Release\SNMP.exe.config

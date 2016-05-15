@@ -16,17 +16,11 @@ namespace MRMPService.PlatformInventory
 {
     class PlatformVMwareInventoryDo
     {
-        static public void UpdateVMwarePlatform(String _platform_id, bool full = true)
+        static public void UpdateVMwarePlatform(MRPPlatformType _platform, bool full = true)
         {
             MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
-            Platform _platform;
-            using (PlatformSet _platform_db = new PlatformSet())
-            {
-                _platform = _platform_db.ModelRepository.GetById(_platform_id);
-            }
-
-            Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.human_vendor, _platform.datacenter), Logger.Severity.Info);
+            Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.moid), Logger.Severity.Info);
             Stopwatch sw = Stopwatch.StartNew();
 
             //define object lists
@@ -59,22 +53,8 @@ namespace MRMPService.PlatformInventory
             networkdomains = networkdomain_list.Count();
             networkdomains_md5 = ObjectExtensions.GetMD5Hash(JsonConvert.SerializeObject(networkdomain_list));
 
-            using (MRPDatabase db = new MRPDatabase())
-            {
-                Platform __platform = db.Platforms.Find(_platform.id);
-                __platform.vlan_count = vlans;
-                __platform.workload_count = workloads;
-                __platform.networkdomain_count = networkdomains;
-                __platform.platform_version = "na";
-
-                __platform.lastupdated = DateTime.UtcNow;
-                __platform.human_vendor = (new Vendors()).VendorList.First(x => x.ID == _platform.vendor).Vendor;
-                __platform.moid = dc.MoRef.Value;
-                db.SaveChanges();
-            }
-
-            List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().listworkloads().workloads.Where(x => x.platform_id == _platform_id).ToList();
-            List<MRPPlatformdomainType> _mrp_domains = _cloud_movey.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform_id).ToList();
+            List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().listworkloads().workloads.Where(x => x.platform_id == _platform.id).ToList();
+            List<MRPPlatformdomainType> _mrp_domains = _cloud_movey.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform.id).ToList();
             List<MRPPlatformnetworkType> _mrp_networks = _cloud_movey.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
 
             //Process standard port groups aka "VM Networks"

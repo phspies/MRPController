@@ -4,7 +4,6 @@ using System.ServiceProcess;
 using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.Threading;
-using MRMPService.WCF;
 using MRMPService.API.Classes;
 using MRMPService.MRMPService.Classes.Background_Classes;
 using System.Linq;

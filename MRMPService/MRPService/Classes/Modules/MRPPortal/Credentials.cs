@@ -14,28 +14,8 @@ namespace MRMPService.API
         {
             endpoint = "/credentials/list.json";
             MRPCommandManagerType worker = new MRPCommandManagerType();
-            return (MRPCredentialListType)post<MRPCredentialListType>(worker);
+            return post<MRPCredentialListType>(worker);
         }
-
-        public MRPCredentialType createcredential(MRPCredentialCRUDType _credential)
-        {
-            MRPCredentialsCRUDType platform = new MRPCredentialsCRUDType()
-            {
-                credential = _credential
-            };
-            endpoint = "/credentials/create.json";
-            return (MRPCredentialType)post<MRPCredentialType>(platform);
-        }
-        public MRPCredentialType updatecredential(MRPCredentialCRUDType _credential)
-        {
-            MRPCredentialsCRUDType credential = new MRPCredentialsCRUDType()
-            {
-                credential = _credential
-            };
-            endpoint = "/credentials/update.json";
-            return (MRPCredentialType)put<MRPCredentialType>(credential);
-        }
-
     }
 }
 

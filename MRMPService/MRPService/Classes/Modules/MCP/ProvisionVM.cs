@@ -13,8 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Security.Principal;
 using System.Threading;
 using MRMPService.Utilities;
 using MRMPService.PlatformInventory;
@@ -33,41 +31,17 @@ namespace MRMPService.Tasks.MCP
             }
 
             MRPTaskSubmitpayloadType _payload = payload.submitpayload;
-            Platform _platform;
-            using (PlatformSet _platform_db = new PlatformSet())
-            {
-                _platform = _platform_db.ModelRepository.GetById(_payload.platform.id);
-            }
+            MRPPlatformType _platform = _payload.platform;
             if (_platform == null)
             {
                 throw new System.ArgumentException(String.Format("Cannot find platform {0} in local database", _payload.platform.platform));
             }
 
 
-            //Retrieve or create new standalone credentials
-            Credential _stadalone_credential;
-            Credential _platform_credentail;
-            using (CredentialSet _credential_db = new CredentialSet())
-            {
-                //get credential for platform
-                _platform_credentail = _credential_db.ModelRepository.GetById(_platform.credential_id);
+            MRPWorkloadType _target_workload = _payload.target;
+            MRPCredentialType _stadalone_credential = _target_workload.credential;
+            MRPCredentialType _platform_credentail = _platform.credential;
 
-                //get or create credentials for standalone workload
-                if (_credential_db.ModelRepository.Get(x => x.description == "Standalone Windows Credentials").Count > 0)
-                {
-                    _stadalone_credential = _credential_db.ModelRepository.Get(x => x.description == "Standalone Windows Credentials").FirstOrDefault();
-                }
-                else
-                {
-                    _stadalone_credential = new Credential();
-                    _stadalone_credential.credential_type = 1;
-                    _stadalone_credential.description = "Standalone Windows Credentials";
-                    _stadalone_credential.username = "Administrator";
-                    _stadalone_credential.password = new Random().GetSHA1Hash().Substring(0, 12);
-                    _stadalone_credential.id = Objects.RamdomGuid();
-                    _credential_db.ModelRepository.Insert(_stadalone_credential);
-                }
-            }
             if (_stadalone_credential == null)
             {
                 throw new System.ArgumentException("Cannot find standalone credential for workload deployment");
@@ -82,33 +56,30 @@ namespace MRMPService.Tasks.MCP
                 _dc_options.Id = _platform.moid;
                 DatacenterType _dc = CaaS.Infrastructure.GetDataCenters(null, _dc_options).Result.FirstOrDefault();
 
-
-                MRPTaskWorkloadType _target_workload = _payload.target;
-
                 DeployServerType _vm = new DeployServerType();
 
                 List<DeployServerTypeDisk> _disks = new List<DeployServerTypeDisk>();
 
                 //Set Tier for first disk being deployed
-                MRPTaskVolumeType _first_disk = _target_workload.volumes.FirstOrDefault(x => x.diskindex == 0);
+                MRPWorkloadVolumeType _first_disk = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.diskindex == 0);
                 _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier.shortname });
 
                 _vm.name = _target_workload.hostname;
                 _vm.description = String.Format("{0} MRMP : {1}", DateTime.UtcNow, payload.submitpayload.servicestack.service);
                 DeployServerTypeNetwork _network = new DeployServerTypeNetwork();
-                _network.Item = _target_workload.interfaces[0].platformnetwork.moid;
+                _network.Item = _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid;
                 _network.ItemElementName = NetworkIdOrPrivateIpv4ChoiceType.networkId;
-                _network.networkId = _target_workload.interfaces[0].platformnetwork.moid;
+                _network.networkId = _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid;
                 DeployServerTypeNetworkInfo _networkInfo = new DeployServerTypeNetworkInfo();
-                _networkInfo.networkDomainId = _target_workload.interfaces[0].platformnetwork.networkdomain_moid;
+                _networkInfo.networkDomainId = _target_workload.workloadinterfaces_attributes[0].platformnetwork.networkdomain_moid;
                 _networkInfo.primaryNic = new VlanIdOrPrivateIpType()
                 {
-                    vlanId = _target_workload.interfaces[0].platformnetwork.moid != null ? _target_workload.interfaces[0].platformnetwork.moid : null,
-                    privateIpv4 = _target_workload.interfaces[0].ipassignment != "auto_ip" ? _target_workload.interfaces[0].ipaddress : null
+                    vlanId = _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid != null ? _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid : null,
+                    privateIpv4 = _target_workload.workloadinterfaces_attributes[0].ipassignment != "auto_ip" ? _target_workload.workloadinterfaces_attributes[0].ipaddress : null
                 };
                 _vm.network = _network;
                 _vm.networkInfo = _networkInfo;
-                _vm.imageId = _target_workload.platform_template.image_moid;
+                _vm.imageId = _target_workload.platformtemplate.image_moid;
                 _vm.cpu = new DeployServerTypeCpu() { count = Convert.ToUInt16(_target_workload.vcpu), countSpecified = true, coresPerSocket = Convert.ToUInt16(_target_workload.vcore), coresPerSocketSpecified = true };
                 _vm.memoryGb = Convert.ToUInt16(_target_workload.vmemory);
                 _vm.start = false;
@@ -117,6 +88,7 @@ namespace MRMPService.Tasks.MCP
                 _vm.primaryDns = _target_workload.primary_dns;
                 _vm.secondaryDns = _target_workload.secondary_dns;
                 _vm.microsoftTimeZone = _target_workload.timezone;
+                Logger.log(String.Format("Attempting the creation of [{0}] in [{1}]: {2}", _vm.name, _dc.displayName, JsonConvert.SerializeObject(_vm)), Logger.Severity.Debug);
 
                 //create virtual server
                 ResponseType _status = new ResponseType();
@@ -145,35 +117,6 @@ namespace MRMPService.Tasks.MCP
                 //create newly created server in local database
                 var serverInfo = _status.info.Single(info => info.name == "serverId");
                 Guid _newvm_platform_guid = Guid.Parse(serverInfo.value);
-                using (WorkloadSet _workload_db = new WorkloadSet())
-                {
-                    //Add or update workload record in database
-                    if (_workload_db.ModelRepository.GetById(_target_workload.id) != null)
-                    {
-                        Workload _current_workload = _workload_db.ModelRepository.GetById(_target_workload.id);
-                        _current_workload.id = _target_workload.id;
-                        _current_workload.moid = _newvm_platform_guid.ToString();
-                        _current_workload.enabled = true;
-                        _current_workload.hostname = _target_workload.hostname;
-                        _current_workload.platform_id = _platform.id;
-                        _current_workload.credential_id = _stadalone_credential.id;
-                        _workload_db.ModelRepository.Update(_current_workload);
-                    }
-                    else
-                    {
-                        Workload _new_workload = new Workload()
-                        {
-                            id = _target_workload.id,
-                            moid = _newvm_platform_guid.ToString(),
-                            enabled = true,
-                            hostname = _target_workload.hostname,
-                            platform_id = _platform.id,
-                            credential_id = _stadalone_credential.id
-                        };
-
-                        _workload_db.ModelRepository.Insert(_new_workload);
-                    }
-                }
 
                 //track progress of server creation and report updates
 
@@ -206,12 +149,12 @@ namespace MRMPService.Tasks.MCP
 
                     //Expand C: drive and Add additional disks if required
                     int count = 0;
-                    foreach (int _disk_index in _target_workload.volumes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
+                    foreach (int _disk_index in _target_workload.workloadvolumes_attributes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
                     {
                         //increase disk by 5GB
-                        long _disk_size = _target_workload.volumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
+                        long _disk_size = _target_workload.workloadvolumes_attributes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
 
-                        MRPTaskPlatformstoragetierType _disk_tier = _target_workload.volumes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier;
+                        MRPPlatformStorageTierType _disk_tier = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier;
                         if (_newvm.disk.ToList().Exists(x => x.scsiId == _disk_index))
                         {
                             if (_newvm.disk.ToList().Find(x => x.scsiId == _disk_index).sizeGb < _disk_size)
@@ -323,7 +266,7 @@ namespace MRMPService.Tasks.MCP
                             return;
                         }
                     }
-                    MRPTaskVolumeType _c_volume_object = _target_workload.volumes.FirstOrDefault(x => x.driveletter == "C");
+                    MRPWorkloadVolumeType _c_volume_object = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.driveletter == "C");
                     long _c_volume_to_add = 0;
                     if (_c_volume_object != null)
                     {
@@ -339,7 +282,7 @@ namespace MRMPService.Tasks.MCP
                     }
 
 
-                    List<String> _used_drive_letters = _target_workload.volumes.Select(x => x.driveletter.Substring(0, 1)).ToList();
+                    List<String> _used_drive_letters = _target_workload.workloadvolumes_attributes.Select(x => x.driveletter.Substring(0, 1)).ToList();
                     List<String> _systemdriveletters = new List<String>();
                     _systemdriveletters.AddRange("DEFGHIJKLMNOPQRSTUVWXYZ".Select(d => d.ToString()));
                     List<String> _availabledriveletters = _systemdriveletters.Except(_used_drive_letters).ToList<String>();
@@ -362,7 +305,7 @@ namespace MRMPService.Tasks.MCP
                         _diskpart_struct.Add(String.Format("assign letter={0} noerr", _availabledriveletters.Last()));
                         _diskpart_struct.Add("");
                     }
-                    foreach (int _disk_index in _target_workload.volumes.Select(x => x.diskindex).Distinct())
+                    foreach (int _disk_index in _target_workload.workloadvolumes_attributes.Select(x => x.diskindex).Distinct())
                     {
                         if (_disk_index != 0)
                         {
@@ -379,7 +322,7 @@ namespace MRMPService.Tasks.MCP
                         {
                             _vol_index = 1;
                         }
-                        foreach (MRPTaskVolumeType _volume in _target_workload.volumes.ToList().Where(x => x.diskindex == _disk_index && !x.driveletter.Contains("C")).OrderBy(x => x.driveletter))
+                        foreach (MRPWorkloadVolumeType _volume in _target_workload.workloadvolumes_attributes.ToList().Where(x => x.diskindex == _disk_index && !x.driveletter.Contains("C")).OrderBy(x => x.driveletter))
                         {
                             string _driveletter = _volume.driveletter.Substring(0, 1);
                             _diskpart_struct.Add("clean");
@@ -392,8 +335,6 @@ namespace MRMPService.Tasks.MCP
                             _vol_index++;
                         }
                     }
-                    WorkloadSet dbworkload = new WorkloadSet();
-                    CredentialSet dbcredential = new CredentialSet();
                     string workloadPath = null;
                     string diskpart_bat = null;
                     string[] diskpart_bat_content = new String[] { @"C:\Windows\System32\diskpart.exe /s C:\diskpart.txt > C:\diskpart.log" };
@@ -520,15 +461,10 @@ namespace MRMPService.Tasks.MCP
 
 
                     //Get updated workload object from portal and update the moid,credential_id,provisioned on the portal
-                    MRPWorkloadType _workload;
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
-                    {
-                        _workload = (MRPWorkloadType)_mrp_api.workload().getworkload(_target_workload.id);
-                    }
-                    MRPWorkloadCRUDType _update_workload = new MRPWorkloadCRUDType();
+                    MRPWorkloadType _update_workload = new MRPWorkloadType();
                     _update_workload.id = _target_workload.id;
                     _update_workload.moid = _newvm.id;
-                    _update_workload.workloadtype = _workload.workloadtype;
+                    _update_workload.workloadtype = _target_workload.workloadtype;
                     _update_workload.credential_id = _stadalone_credential.id;
                     _update_workload.provisioned = true;
 
@@ -549,14 +485,14 @@ namespace MRMPService.Tasks.MCP
                     {
                         _mrp_api.task().progress(payload, String.Format("Updating platform information for {0}", _target_workload.hostname), 91);
                     }
-                    (new PlatformInventoryWorkloadDo()).UpdateMCPWorkload(_newvm_platform_guid.ToString(), _payload.platform.id);
+                    (new PlatformInventoryWorkloadDo()).UpdateMCPWorkload(_newvm_platform_guid.ToString(), _target_workload.platform);
 
                     //update OS information or newly provisioned server
                     using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Updating operating system information for {0}", _target_workload.hostname), 92);
                     }
-                    (new WorkloadInventory()).WorkloadInventoryDo(_target_workload.id);
+                    (new WorkloadInventory()).WorkloadInventoryDo(_target_workload);
 
                     //log the success
                     Logger.log(String.Format("Successfully provisioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);

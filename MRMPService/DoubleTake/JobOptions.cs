@@ -1,7 +1,10 @@
 ﻿using DoubleTake.Web.Models;
+using MRMPService.API.Types.API;
 using MRMPService.MRMPService.Types.API;
+using MRMPService.MRPService.Types.API;
 using MRMPService.Utilities;
 using System;
+using System.Collections.Generic;
 
 namespace MRMPService.DoubleTake
 {
@@ -9,10 +12,10 @@ namespace MRMPService.DoubleTake
     {
         public static CreateOptionsModel set_job_options(MRPTaskType payload, CreateOptionsModel jobInfo)
         {
-            MRPTaskWorkloadType _source_workload = payload.submitpayload.source;
-            MRPTaskWorkloadType _target_workload = payload.submitpayload.target;
-            MRPTaskRecoverypolicyType _recovery_policy = payload.submitpayload.servicestack.recoverypolicy;
-            MRPTaskServicestackType _service_stack = payload.submitpayload.servicestack;
+            MRPWorkloadType _source_workload = payload.submitpayload.source;
+            MRPWorkloadType _target_workload = payload.submitpayload.target;
+            MRPRecoverypolicyType _recovery_policy = payload.submitpayload.servicestack.recoverypolicy;
+            MRPServicestackType _service_stack = payload.submitpayload.servicestack;
 
             //disable backup network connection
             jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
@@ -88,10 +91,17 @@ namespace MRMPService.DoubleTake
             }
 
             //set dns credentials with model to the DnsOptions
-            //DnsOptionsModel _dns = new DnsOptionsModel();
-            //_dns.Domains[0] = new DnsDomainDetailsModel() { };
-            //jobInfo.JobOptions.DnsOptions = _dns;
 
+            DnsOptionsModel _dns = new DnsOptionsModel();
+            _dns.Domains = new DnsDomainDetailsModel[] {
+                new DnsDomainDetailsModel() {
+                    DnsServers = new DnsServerDetailModel[] { new DnsServerDetailModel() { Address = "" } },
+                    Credentials = new CredentialModel() { Domain = "", Password = "", UserName = "" },
+                    DomainName = "",
+                    ShouldUpdateTtl = true,
+                    }
+                };
+            jobInfo.JobOptions.DnsOptions = _dns;
 
             return jobInfo;
 

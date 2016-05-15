@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading;
 using static MRMPService.Utilities.SyncronizedList;
 using System.Threading.Tasks;
+using MRMPService.API.Types.API;
+using MRMPService.API;
 
 namespace MRMPService.PerformanceCollection
 {
@@ -76,11 +78,10 @@ namespace MRMPService.PerformanceCollection
 
                 Logger.log(String.Format("Staring performance collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
 
-                List<Workload> workloads;
-                using (WorkloadSet workload_set = new WorkloadSet())
+                List<MRPWorkloadType> workloads;
+                using (MRP_ApiClient _api = new MRP_ApiClient())
                 {
-                    workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.credential_id != null && x.iplist != null);
-
+                    workloads = _api.workload().listworkloads().workloads;
                 }
                 _processed_workloads = workloads.Count();
                 Parallel.ForEach(workloads,
@@ -91,12 +92,18 @@ namespace MRMPService.PerformanceCollection
                         {
                             var thread = Thread.CurrentThread.ManagedThreadId;
                             WorkloadPerformance.WorkloadPerformanceDo(_workload_counters, _available_counters, workload);
-                            Workloads_Update.PeformanceUpdateStatus(workload.id, "Success", true);
+                            using (MRP_ApiClient _api = new MRP_ApiClient())
+                            {
+                                _api.workload().PeformanceUpdateStatus(workload, "Success", true);
+                            }
                         }
                         catch (Exception ex)
                         {
                             Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
-                            Workloads_Update.PeformanceUpdateStatus(workload.id, ex.Message, false);
+                            using (MRP_ApiClient _api = new MRP_ApiClient())
+                            {
+                                _api.workload().PeformanceUpdateStatus(workload, ex.Message, false);
+                            }
                         }
                     });
 

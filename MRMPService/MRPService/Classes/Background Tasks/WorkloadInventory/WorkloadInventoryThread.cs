@@ -23,11 +23,12 @@ namespace MRMPService.API.Classes
 
                 Logger.log(String.Format("Staring operating system inventory process with {0} threads", Global.os_inventory_concurrency), Logger.Severity.Info);
 
-                List<Workload> workloads;
-                using (WorkloadSet workload_set = new WorkloadSet())
+                List<MRPWorkloadType> workloads;
+                using (MRP_ApiClient _api = new MRP_ApiClient())
                 {
-                    workloads = workload_set.ModelRepository.Get(x => x.enabled == true && x.credential_id != null && x.iplist != null);
+                    workloads = _api.workload().listworkloads().workloads;
                 }
+
                 _processed_workloads = workloads.Count;
                 Parallel.ForEach(workloads,
                     new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
@@ -35,13 +36,19 @@ namespace MRMPService.API.Classes
                     {
                         try
                         {
-                            (new WorkloadInventory()).WorkloadInventoryDo(workload.id);
-                            Workloads_Update.InventoryUpdateStatus(workload.id, "Success", true);
+                            (new WorkloadInventory()).WorkloadInventoryDo(workload);
+                            using (MRP_ApiClient _api = new MRP_ApiClient())
+                            {
+                                _api.workload().InventoryUpdateStatus(workload, "Success", true);
+                            }
                         }
                         catch (Exception ex)
                         {
                             Logger.log(String.Format("Error collecting inventory information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
-                            Workloads_Update.InventoryUpdateStatus(workload.id, ex.Message, false);
+                            using (MRP_ApiClient _api = new MRP_ApiClient())
+                            {
+                                _api.workload().InventoryUpdateStatus(workload, ex.Message, false);
+                            }
                         }
                     });
 
