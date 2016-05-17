@@ -10,14 +10,14 @@ namespace MRMPService.API
         public PortalPlatform(MRP_ApiClient _MRP) : base(_MRP) {
         }
          
-        public MRPPlatformListType listplatforms()
+        public MRPPlatformListType list()
         {
             endpoint = "/platforms/list.json";
             MRPCommandManagerType worker = new MRPCommandManagerType();
             return (MRPPlatformListType)post<MRPPlatformListType>(worker);
         }
 
-        public MRPPlatformType getplatform(string _platform_id)
+        public MRPPlatformType get_by_id(string _platform_id)
         {
             endpoint = "/platforms/get_byid.json";
             MRPPlatformGETType worker = new MRPPlatformGETType()
@@ -27,7 +27,7 @@ namespace MRMPService.API
             return post<MRPPlatformType>(worker);
         }
 
-        public MRPPlatformType createplatform(MRPPlatformCRUDType _platform)
+        public MRPPlatformType create(MRPPlatformType _platform)
         {
             MRPPlatformsCRUDType platform = new MRPPlatformsCRUDType()
             {
@@ -37,7 +37,7 @@ namespace MRMPService.API
             endpoint = "/platforms/create.json";
             return (MRPPlatformType)post<MRPPlatformType>(platform);
         }
-        public MRPPlatformType updateplatform(MRPPlatformCRUDType _platform)
+        public MRPPlatformType update(MRPPlatformType _platform)
         {
             MRPPlatformsCRUDType platform = new MRPPlatformsCRUDType()
             {

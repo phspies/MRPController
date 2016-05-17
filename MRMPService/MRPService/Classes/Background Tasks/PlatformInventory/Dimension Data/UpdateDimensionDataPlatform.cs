@@ -24,8 +24,7 @@ namespace MRMPService.PlatformInventory
 
         public static void UpdateMCPPlatform(MRPPlatformType _platform, bool full = true)
         {
-            MRP_ApiClient _mrp_api_endpoint = new MRP_ApiClient();
-            try
+            using (MRP_ApiClient _mrp_api_endpoint = new MRP_ApiClient())
             {
                 Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.moid), Logger.Severity.Info);
                 Stopwatch sw = Stopwatch.StartNew();
@@ -33,31 +32,33 @@ namespace MRMPService.PlatformInventory
                 _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = _removed_workloads = 0;
 
                 //define object lists
-                Credential _credential;
-                using (MRPDatabase db = new MRPDatabase())
-                {
-                    List<Credential> _workercredentials = db.Credentials.ToList();
-                    _credential = _workercredentials.FirstOrDefault(x => x.id == _platform.credential_id);
+                MRPCredentialType _credential = _platform.credential;
 
-                }
-                List<MRPPlatformdomainType> _mrp_domains = _mrp_api_endpoint.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform.id).ToList();
-                List<MRPPlatformnetworkType> _mrp_networks = _mrp_api_endpoint.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
+                List<MRPWorkloadType> _mrp_workloads = _mrp_api_endpoint.workload().list_by_platform_all(_platform).workloads;
+                List<MRPPlatformdomainType> _mrp_domains = _mrp_api_endpoint.platformdomain().list_by_platform(_platform).platformdomains;
+                List<MRPPlatformnetworkType> _mrp_networks = _mrp_api_endpoint.platformnetwork().list_by_platform(_platform).platformnetworks;
+                List<MRPPlatformtemplateType> _platformtemplates = _mrp_api_endpoint.platformtemplate().list_by_platform(_platform).platformtemplates;
 
-
-                //populate platform credential object
-
-                //create dimension data mcp object
                 ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_credential.username, _credential.password));
-                CaaS.Login().Wait();
-
+                try
+                {
+                    CaaS.Login().Wait();
+                }
+                catch (Exception ex)
+                {
+                    throw new System.ArgumentException(String.Format("Error connecting to MCP Endpoint {1}", ex.ToString()));
+                }
 
                 //mirror platorm templates for this platform
-                MRPPlatformtemplateListType _platformtemplates = _mrp_api_endpoint.platformtemplate().listplatformtemplates();
                 List<OsImageType> _caas_templates = CaaS.ServerManagement.ServerImage.GetOsImages(new ServerOsImageListOptions() { DatacenterId = _platform.moid }, new PageableRequest() { PageSize = 250 }).Result.items.ToList();
 
                 foreach (OsImageType _caas_template in _caas_templates)
                 {
-                    MRPPlatformtemplateCRUDType _mrp_template = new MRPPlatformtemplateCRUDType();
+                    MRPPlatformtemplateType _mrp_template = new MRPPlatformtemplateType();
+                    if (_platformtemplates.Exists(x => x.image_moid == _caas_template.id))
+                    {
+                        _mrp_template = _platformtemplates.FirstOrDefault(x => x.image_moid == _caas_template.id);
+                    }
                     _mrp_template.image_type = _caas_template.softwareLabel == null ? "os" : "software";
                     _mrp_template.image_description = _caas_template.description;
                     _mrp_template.platform_id = _platform.id;
@@ -67,9 +68,8 @@ namespace MRMPService.PlatformInventory
                     _mrp_template.os_id = _caas_template.operatingSystem.id;
                     _mrp_template.os_type = _caas_template.operatingSystem.family;
                     _mrp_template.platform_moid = _platform.moid;
-                    if (_platformtemplates.platformtemplates.Exists(x => x.image_moid == _caas_template.id))
+                    if (_platformtemplates.Exists(x => x.image_moid == _caas_template.id))
                     {
-                        _mrp_template.id = _platformtemplates.platformtemplates.FirstOrDefault(x => x.image_moid == _caas_template.id).id;
                         _mrp_api_endpoint.platformtemplate().updateplatformtemplate(_mrp_template);
                     }
                     else
@@ -84,7 +84,12 @@ namespace MRMPService.PlatformInventory
                 {
                     foreach (var _caas_template in _customer_templates.items)
                     {
-                        MRPPlatformtemplateCRUDType _mrp_template = new MRPPlatformtemplateCRUDType();
+                        MRPPlatformtemplateType _mrp_template = new MRPPlatformtemplateType();
+                        if (_platformtemplates.Exists(x => x.image_moid == _caas_template.id))
+                        {
+                            _mrp_template = _platformtemplates.FirstOrDefault(x => x.image_moid == _caas_template.id);
+                        }
+
                         _mrp_template.image_type = "os";
                         _mrp_template.image_description = _caas_template.description;
                         _mrp_template.image_moid = _caas_template.id;
@@ -94,9 +99,9 @@ namespace MRMPService.PlatformInventory
                         _mrp_template.os_id = _caas_template.operatingSystem.id;
                         _mrp_template.os_type = _caas_template.operatingSystem.family;
                         _mrp_template.platform_moid = _platform.moid;
-                        if (_platformtemplates.platformtemplates.Exists(x => x.image_moid == _caas_template.id))
+
+                        if (_platformtemplates.Exists(x => x.image_moid == _caas_template.id))
                         {
-                            _mrp_template.id = _platformtemplates.platformtemplates.FirstOrDefault(x => x.image_moid == _caas_template.id).id;
                             _mrp_api_endpoint.platformtemplate().updateplatformtemplate(_mrp_template);
                         }
                         else
@@ -106,86 +111,79 @@ namespace MRMPService.PlatformInventory
                     }
                 }
 
-                //refresh templates
-                _platformtemplates = _mrp_api_endpoint.platformtemplate().listplatformtemplates();
-
                 List<ServerType> _caas_workload_list = CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.moid, State = "NORMAL" }).Result.ToList();
                 if (_caas_workload_list.Count() > 0)
                 {
-
-                    //update localdb platform information
                     List<NetworkDomainType> _caas_networkdomain_list = CaaS.Networking.NetworkDomain.GetNetworkDomains(new NetworkDomainListOptions() { DatacenterId = _platform.moid }).Result.ToList();
                     List<VlanType> _caas_vlan_list = CaaS.Networking.Vlan.GetVlans(new VlanListOptions() { DatacenterId = _platform.moid }).Result.ToList();
                     DatacenterType _caas_dc = CaaS.Infrastructure.GetDataCenters(new PageableRequest() { PageSize = 250 }, new DataCenterListOptions() { Id = _platform.moid }).Result.ToList().FirstOrDefault();
 
                     foreach (NetworkDomainType _caas_domain in _caas_networkdomain_list)
                     {
-                        MRPPlatformdomainCRUDType _mrp_mdomain = new MRPPlatformdomainCRUDType();
-                        _mrp_mdomain.platformnetworks_attributes = new List<MRPPlatformnetworkCRUDType>();
-                        _mrp_mdomain.moid = _caas_domain.id;
-                        _mrp_mdomain.domain = _caas_domain.name;
-                        _mrp_mdomain.platform_id = _platform.id;
+                        MRPPlatformdomainType _mrp_domain = new MRPPlatformdomainType();
+                        if (_mrp_domains.Exists(x => x.moid == _caas_domain.id))
+                        {
+                            _mrp_domain = _mrp_domains.FirstOrDefault(x => x.moid == _caas_domain.id);
+                        }
+                        _mrp_domain.platformnetworks_attributes = new List<MRPPlatformnetworkType>();
+                        _mrp_domain.moid = _caas_domain.id;
+                        _mrp_domain.domain = _caas_domain.name;
+                        _mrp_domain.platform_id = _platform.id;
 
                         VlanListOptions _vlan_options = new VlanListOptions() { DatacenterId = _caas_dc.id };
                         IEnumerable<VlanType> _vlans = CaaS.Networking.Vlan.GetVlans(_vlan_options).Result;
                         foreach (VlanType _caas_network in _vlans.Where(x => x.networkDomain.id == _caas_domain.id))
                         {
-                            MRPPlatformnetworkCRUDType _mrp_network = new MRPPlatformnetworkCRUDType();
+                            MRPPlatformnetworkType _mrp_network = new MRPPlatformnetworkType();
+                            if (_mrp_networks.Exists(x => x.moid == _caas_network.id))
+                            {
+                                _mrp_network = _mrp_networks.FirstOrDefault(x => x.moid == _caas_network.id);
+                            }
                             _mrp_network.moid = _caas_network.id;
                             _mrp_network.network = _caas_network.name;
                             _mrp_network.description = _caas_network.description;
-                            _mrp_network.platformdomain_id = _mrp_mdomain.id;
+                            _mrp_network.platformdomain_id = _mrp_domain.id;
                             _mrp_network.ipv4subnet = _caas_network.privateIpv4Range.address;
                             _mrp_network.ipv4netmask = _caas_network.privateIpv4Range.prefixSize;
                             _mrp_network.ipv6subnet = _caas_network.ipv6Range.address;
                             _mrp_network.ipv6netmask = _caas_network.ipv6Range.prefixSize;
                             _mrp_network.networkdomain_moid = _caas_network.networkDomain.id;
                             _mrp_network.provisioned = true;
-                            if (_mrp_networks.Exists(x => x.moid == _caas_network.id))
-                            {
-                                _mrp_network.id = _mrp_networks.FirstOrDefault(x => x.moid == _caas_network.id).id;
-                                _updated_platformnetworks += 1;
-                            }
-                            else
-                            {
-                                _new_platformnetworks += 1;
-                            }
-                            _mrp_mdomain.platformnetworks_attributes.Add(_mrp_network);
+
+                            //add network to nested attributes
+                            _mrp_domain.platformnetworks_attributes.Add(_mrp_network);
                         }
                         //Workaround
                         //if no networks were found, set platformnetworks_aatributes to null
-                        if (_mrp_mdomain.platformnetworks_attributes.Count == 0)
+                        if (_mrp_domain.platformnetworks_attributes.Count == 0)
                         {
-                            _mrp_mdomain.platformnetworks_attributes = null;
+                            _mrp_domain.platformnetworks_attributes = null;
                         }
+
                         if (_mrp_domains.Exists(x => x.moid == _caas_domain.id))
                         {
-                            _mrp_mdomain.id = _mrp_domains.FirstOrDefault(x => x.moid == _caas_domain.id).id;
-                            _mrp_api_endpoint.platformdomain().updateplatformdomain(_mrp_mdomain);
-                            _updated_platformnetworks += 1;
+                            _mrp_api_endpoint.platformdomain().update(_mrp_domain);
                         }
                         else
                         {
-                            _mrp_api_endpoint.platformdomain().createplatformdomain(_mrp_mdomain);
-                            _new_platformnetworks += 1;
+                            _mrp_api_endpoint.platformdomain().create(_mrp_domain);
                         }
                     }
-                    //refresh platform network list from portal
-                    _mrp_networks = _mrp_api_endpoint.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Any(y => y.id == x.platformdomain_id)).ToList();
-
-                    //process workloads
-
                     //process deleted platform workloads
                     using (MRPDatabase db = new MRPDatabase())
                     {
-                        foreach (var _workload in db.Workloads.Where(x => x.platform_id == _platform.id))
+                        foreach (var _workload in _mrp_workloads.Where(x => x.platform_id == _platform.id))
                         {
-                            if (!_caas_workload_list.Any(x => x.id == _workload.moid && x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                            if (!_caas_workload_list.Any(x => x.id == _workload.moid))
                             {
-                                Logger.log(String.Format("Manager Workload {0} {1} is not found in the MCP {2}", _workload.hostname, _workload.moid, _platform.description), Logger.Severity.Info);
-
-                                //db.Workloads.Remove(db.Workloads.Find(_workload.id));
-                                //db.SaveChanges();
+                                Logger.log(String.Format("Portal workload {0} {1} is not found in the MCP {2}", _workload.hostname, _workload.moid, _platform.moid), Logger.Severity.Info);
+                                MRPWorkloadType _removed_workload = new MRPWorkloadType();
+                                _removed_workload.id = _mrp_workloads.FirstOrDefault(x => x.id == _workload.moid).id;
+                                _removed_workload.deleted = true;
+                                using (MRP_ApiClient _api = new MRP_ApiClient())
+                                {
+                                    _api.workload().updateworkload(_removed_workload);
+                                }
                                 _removed_workloads += 1;
                             }
                         }
@@ -193,11 +191,10 @@ namespace MRMPService.PlatformInventory
                     if (full)
                     {
                         //update lists before we start the workload inventory process
-                        List<MRPWorkloadType> _mrp_workloads = _mrp_api_endpoint.workload().listworkloads().workloads.ToList();
-                        _mrp_domains = _mrp_api_endpoint.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform.id).ToList();
-                        _mrp_networks = _mrp_api_endpoint.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
-
-                        foreach (ServerType _caasworkload in _caas_workload_list.Where(x => x.operatingSystem.family.ToUpper() == "WINDOWS"))
+                        _mrp_domains = _mrp_api_endpoint.platformdomain().list_by_platform(_platform).platformdomains;
+                        _mrp_networks = _mrp_api_endpoint.platformnetwork().list_by_platform(_platform).platformnetworks;
+                        _platformtemplates = _mrp_api_endpoint.platformtemplate().list_by_platform(_platform).platformtemplates;
+                        foreach (ServerType _caasworkload in _caas_workload_list)
                         {
                             (new PlatformInventoryWorkloadDo()).UpdateMCPWorkload(_caasworkload.id, _platform, _mrp_workloads, _mrp_domains, _mrp_networks, _platformtemplates);
                         }
@@ -210,10 +207,6 @@ namespace MRMPService.PlatformInventory
                     _new_workloads, _updated_platforms, _updated_workloads, _removed_workloads,
                      TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), (_platform.platformtype + " : " + _platform.moid)
                     ), Logger.Severity.Info);
-            }
-            catch (Exception ex)
-            {
-                Logger.log(String.Format("Error in inventory process for {0} {1}", (_platform.platformtype + " : " + _platform.moid), ex.ToString()), Logger.Severity.Error);
             }
         }
 

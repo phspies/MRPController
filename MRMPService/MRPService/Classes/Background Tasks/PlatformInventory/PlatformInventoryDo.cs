@@ -1,20 +1,30 @@
-﻿using System;
+﻿using MRMPService.API.Types.API;
+using MRMPService.MRMPService.Log;
+using System;
 
 namespace MRMPService.PlatformInventory
 {
     public class PlatformDoInventory : IDisposable
     {
-        public void PlatformInventoryDo(string platform_id, int _platform_vendor_id, bool full = true)
+        public void PlatformInventoryDo(MRPPlatformType _platform, bool full = true)
         {
-            switch (_platform_vendor_id)
+            try
             {
-                case 0:
-                    PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(platform_id, full);
-                    break;
-                case 1:
-                    PlatformVMwareInventoryDo.UpdateVMwarePlatform(platform_id, full);
-                    break;
+                switch (_platform.platformtype)
+                {
+                    case "dimension_data":
+                        PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(_platform, full);
+                        break;
+                    case "vmware":
+                        PlatformVMwareInventoryDo.UpdateVMwarePlatform(_platform, full);
+                        break;
+                }
             }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error in inventory process for {0} {1}", (_platform.platformtype + " : " + _platform.moid), ex.ToString()), Logger.Severity.Error);
+            }
+
         }
         private bool disposed = false;
 

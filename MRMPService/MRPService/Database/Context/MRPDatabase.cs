@@ -10,16 +10,12 @@ namespace MRMPService.LocalDatabase
     [DbConfigurationType(typeof(MyDbConfiguration))]
     public partial class MRPDatabase : DbContext
 	{
-        string _connection_string;
         public MRPDatabase() : base(GetConnection(), true)
         {
             Database.SetInitializer<MRPDatabase>(new MRPDBInitializer());
         }
 
-        public DbSet<Credential> Credentials { get; set; }
-        public DbSet<Platform> Platforms { get; set; }
         public DbSet<Event> Events { get; set; }
-        public DbSet<Workload> Workloads { get; set; }
         public DbSet<NetworkFlow> NetworkFlows { get; set; }
         public DbSet<Netstat> Netstat { get; set; }
         public DbSet<Performance> Performance { get; set; }

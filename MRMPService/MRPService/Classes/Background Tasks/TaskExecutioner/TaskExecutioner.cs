@@ -13,8 +13,6 @@ namespace MRMPService.TaskExecutioner
 {
     class TaskWorker
     {
-        static int maxThreads = 30;
-        MRP_ApiClient MRP = new MRP_ApiClient();
         public void Start()
         {
             List<string> activeObjects = new List<string>();
@@ -22,13 +20,18 @@ namespace MRMPService.TaskExecutioner
 
             while (true)
             {
-                MRPTaskListType tasklist = MRP.task().tasks();
+                MRPTaskListType tasklist = null;
+                using (MRP_ApiClient MRP = new MRP_ApiClient())
+                {
+                    tasklist = MRP.task().tasks();
+                }
+
                 if (tasklist != null)
                 {
                     foreach (MRPTaskType task in tasklist.tasks)
                     {
                         //make sure new target task does not have an active task busy
-                        if ((lstThreads.FindAll(x => x.target_id == task.target_id).Count() == 0 && lstThreads.Count < maxThreads) || task.hidden == true)
+                        if ((lstThreads.FindAll(x => x.target_id == task.target_id).Count() == 0 && lstThreads.Count < Global.scheduler_concurrency) || task.hidden == true)
                         {
                             switch (task.target_type)
                             {
@@ -68,40 +71,6 @@ namespace MRMPService.TaskExecutioner
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
-
-                                                //case "getproductinformation":
-                                                //    if (task.submitpayload.dt != null)
-                                                //    {
-                                                //        //Thread newThread = new Thread(() => DoubleTakeNS.dt_getproductinformation(task));
-                                                //        //newThread.Name = task.target_id;
-                                                //        //newThread.Start(task);
-                                                //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                //    }
-                                                //    break;
-                                                //case "createdrseedjob":
-                                                //    {
-                                                //        //Thread newThread = new Thread(() => DT_DR.dt_create_dr_seedjob(task));
-                                                //        //newThread.Name = task.target_id;
-                                                //        //newThread.Start(task);
-                                                //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                //    }
-                                                //    break;
-                                                //case "createdrsyncjob":
-                                                //    {
-                                                //        //Thread newThread = new Thread(() => DT_DR.dt_create_dr_syncjob(task));
-                                                //        //newThread.Name = task.target_id;
-                                                //        //newThread.Start();
-                                                //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                //    }
-                                                //    break;
-                                                //case "createdrpopulatejob":
-                                                //    {
-                                                //        //Thread newThread = new Thread(() => DT_DR.dt_create_dr_restorejob(task));
-                                                //        //newThread.Name = task.target_id;
-                                                //        //newThread.Start();
-                                                //        //lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                //    }
-                                                //    break;
                                         }
                                         break;
                                     }
@@ -116,7 +85,6 @@ namespace MRMPService.TaskExecutioner
                                                 newThread.Start();
                                                 lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 break;
-
                                         }
                                         break;
                                     }
@@ -124,49 +92,23 @@ namespace MRMPService.TaskExecutioner
                                     {
                                         switch (task.task_type)
                                         {
-                                            case "getdatacenters":
+                                            case "discover_datacenters_method":
                                                 {
-                                                    Thread newThread = new Thread(() => DiscoveryPlatform.DiscoveryPlatformDo(task));
+                                                    Thread newThread = new Thread(() => DatacenterDiscovery.DatacenterDiscoveryDo(task));
                                                     newThread.Name = task.target_id;
                                                     newThread.Start();
                                                     lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
                                                 }
                                                 break;
-                                                ////Start MCP templates thread
-                                                //case "gettemplates":
-                                                //    {
-                                                //        if (task.submitpayload.mcp != null)
-                                                //        {
-                                                //            Thread newThread = new Thread(() => MRPPlatform.mcp_gettemplates(task));
-                                                //            newThread.Name = task.target_id;
-                                                //            newThread.Start();
-                                                //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                //        }
-                                                //        break;
-                                                //    }
-                                                ////Start MCP workloads thread
-                                                //case "retrieveworkloads":
-                                                //    {
-                                                //        if (task.submitpayload.mcp != null)
-                                                //        {
-                                                //            Thread newThread = new Thread(() => MRPPlatform.mcp_retrieveworkloads(task));
-                                                //            newThread.Name = task.target_id;
-                                                //            newThread.Start();
-                                                //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                //        }
-                                                //        break;
-                                                //    }
-                                                //case "retrievenetworks":
-                                                //    {
-                                                //        if (task.submitpayload.mcp != null)
-                                                //        {
-                                                //            Thread newThread = new Thread(() => MRPPlatform.mcp_retrievenetworks(task));
-                                                //            newThread.Name = task.target_id;
-                                                //            newThread.Start(task);
-                                                //            lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                //        }
-                                                //        break;
-                                                //    }
+                                            case "discovery_method":
+                                                {
+                                                    Thread newThread = new Thread(() => PlatformDiscovery.PlatformDiscoveryDo(task));
+                                                    newThread.Name = task.target_id;
+                                                    newThread.Start();
+                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
+                                                }
+                                                break;
+
                                         }
                                         break;
                                     }
@@ -179,7 +121,7 @@ namespace MRMPService.TaskExecutioner
                     Logger.log("Agent not associated to organization!", Logger.Severity.Warn);
                 }
 
-                lstThreads.RemoveAll(x => x.task.ThreadState == ThreadState.Stopped);
+                lstThreads.RemoveAll(x => x.task.ThreadState != ThreadState.Running);
                 Global.worker_queue_count = lstThreads.Count();
 
                 Thread.Sleep(new TimeSpan(0, 0, Global.scheduler_interval));

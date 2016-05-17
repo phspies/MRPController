@@ -9,14 +9,22 @@ namespace MRMPService.API
         public MRPPlatformDomain(MRP_ApiClient _MRP) : base(_MRP) {
         }
          
-        public MRPPlatformdomainListType listplatformdomains()
+        public MRPPlatformdomainListType list()
         {
             endpoint = "/platformdomains/list.json";
             MRPCommandManagerType worker = new MRPCommandManagerType();
             return (MRPPlatformdomainListType)post<MRPPlatformdomainListType>(worker);
         }
-
-        public MRPPlatformdomainType createplatformdomain(MRPPlatformdomainCRUDType _platformdomain)
+        public MRPPlatformdomainListType list_by_platform(MRPPlatformType _platform)
+        {
+            endpoint = "/platformdomains/list_by_platform.json";
+            MRPPlatformGETType _filter_by_platform = new MRPPlatformGETType()
+            {
+                platform_id = _platform.id
+            };
+            return post<MRPPlatformdomainListType>(_filter_by_platform);
+        }
+        public MRPPlatformdomainType create(MRPPlatformdomainType _platformdomain)
         {
             MRPPlatformdomainsCRUDType platformdomain = new MRPPlatformdomainsCRUDType()
             {
@@ -26,7 +34,7 @@ namespace MRMPService.API
             endpoint = "/platformdomains/create.json";
             return (MRPPlatformdomainType)post<MRPPlatformdomainType>(platformdomain);
         }
-        public MRPPlatformdomainType updateplatformdomain(MRPPlatformdomainCRUDType _platformdomain)
+        public MRPPlatformdomainType update(MRPPlatformdomainType _platformdomain)
         {
             MRPPlatformdomainsCRUDType platformdomain = new MRPPlatformdomainsCRUDType()
             {

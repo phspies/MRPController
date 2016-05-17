@@ -16,7 +16,24 @@ namespace MRMPService.API
             MRPCommandManagerType worker = new MRPCommandManagerType();
             return post<MRPWorkloadListType>(worker);
         }
-
+        public MRPWorkloadListType list_by_platform(MRPPlatformType _platform)
+        {
+            endpoint = "/workloads/list_by_platform.json";
+            MRPPlatformGETType _get_workloads_platform = new MRPPlatformGETType()
+            {
+                platform_id = _platform.id
+            };
+            return post<MRPWorkloadListType>(_get_workloads_platform);
+        }
+        public MRPWorkloadListType list_by_platform_all(MRPPlatformType _platform)
+        {
+            endpoint = "/workloads/list_by_platform_all.json";
+            MRPPlatformGETType _get_workloads_platform = new MRPPlatformGETType()
+            {
+                platform_id = _platform.id
+            };
+            return post<MRPWorkloadListType>(_get_workloads_platform);
+        }
         public ResultType createworkload(MRPWorkloadType _workload)
         {
             MRPWorkloadsCRUDType platform = new MRPWorkloadsCRUDType()

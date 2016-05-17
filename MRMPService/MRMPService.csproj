@@ -529,7 +529,6 @@
     <Compile Include="MRPService\Classes\Background Tasks\DTEventPoller\PollerDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\DTEventPoller\PollerThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\ProcessInfo.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\MRPworkloadType.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\NetflowUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\PerformanceUpload.cs" />
@@ -561,8 +560,10 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\LVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\TimeZones.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobstats.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformDatacenters.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Stacktrees.cs" />
-    <Compile Include="MRPService\Classes\Modules\Platform\DiscoveryPlatform.cs" />
+    <Compile Include="MRPService\Classes\Modules\Platform\PlatformDiscovery.cs" />
+    <Compile Include="MRPService\Classes\Modules\Platform\DatacenterDiscovery.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatDo.cs" />
@@ -646,6 +647,7 @@
     <Compile Include="MRPService\Types\API\PerformanceCategory.cs" />
     <Compile Include="MRPService\Types\API\PerformanceCounter.cs" />
     <Compile Include="MRPService\Types\API\PlatformDomain.cs" />
+    <Compile Include="MRPService\Types\API\PlatformDatacenter.cs" />
     <Compile Include="MRPService\Types\API\PlatformNetwork.cs" />
     <Compile Include="MRPService\Types\API\Platforms.cs" />
     <Compile Include="MRPService\Types\API\PlatformStorageTier.cs" />

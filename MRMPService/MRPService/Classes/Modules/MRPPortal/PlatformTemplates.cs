@@ -16,8 +16,16 @@ namespace MRMPService.API
             MRPCommandManagerType worker = new MRPCommandManagerType();
             return (MRPPlatformtemplateListType)post<MRPPlatformtemplateListType>(worker);
         }
-
-        public MRPPlatformtemplateType createplatformtemplate(MRPPlatformtemplateCRUDType _platformtemplate)
+        public MRPPlatformtemplateListType list_by_platform(MRPPlatformType _platform)
+        {
+            endpoint = "/platformtemplates/list_by_platform.json";
+            MRPPlatformGETType _filter_by_platform = new MRPPlatformGETType()
+            {
+                platform_id = _platform.id
+            };
+            return post<MRPPlatformtemplateListType>(_filter_by_platform);
+        }
+        public MRPPlatformtemplateType createplatformtemplate(MRPPlatformtemplateType _platformtemplate)
         {
             MRPPlatformtemplatesCRUDType platformtemplate = new MRPPlatformtemplatesCRUDType()
             {
@@ -27,7 +35,7 @@ namespace MRMPService.API
             endpoint = "/platformtemplates/create.json";
             return (MRPPlatformtemplateType)post<MRPPlatformtemplateType>(platformtemplate);
         }
-        public MRPPlatformtemplateType updateplatformtemplate(MRPPlatformtemplateCRUDType _platformtemplate)
+        public MRPPlatformtemplateType updateplatformtemplate(MRPPlatformtemplateType _platformtemplate)
         {
             MRPPlatformtemplatesCRUDType platformtemplate = new MRPPlatformtemplatesCRUDType()
             {

@@ -79,13 +79,11 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             {
                 if (Global.debug)
                 {
-                    Logger.log(String.Format("Platforms: {0}, Workloads: {1}, Credentials: {2}, Performance Counters: {3}, Network Flows: {4}, Netstat Flows: {5}",
-                        db.Platforms.ToList().Count,
-                        db.Workloads.ToList().Count,
-                        db.Credentials.ToList().Count,
+                    Logger.log(String.Format("Performance Counters: {0}, Network Flows: {1}, Netstat Flows: {2}, Events: {3}",
                         db.Performance.ToList().Count,
                         db.NetworkFlows.ToList().Count,
-                        db.Netstat.ToList().Count
+                        db.Netstat.ToList().Count,
+                        db.Events.ToList().Count
                         ), Logger.Severity.Debug);
                 }
             }

@@ -30,51 +30,21 @@ namespace MRMPService.PlatformInventory
                 try
                 {
                     //process platform independant items
-                    MRPPlatformListType _platformplatforms = _cloud_movey.platform().listplatforms();
-
-                    //process platforms
-                    List<Platform> _workerplatforms;
-                    using (MRPDatabase db = new MRPDatabase())
-                    {
-                        _workerplatforms = db.Platforms.ToList();
-                    }
-
-                    foreach (var _platform in _workerplatforms)
-                    {
-                        MRPPlatformCRUDType _crudplatform = new MRPPlatformCRUDType();
-                        _crudplatform.id = _platform.id;
-                        _crudplatform.manager_id = Global.manager_id;
-                        _crudplatform.credential_id = _platform.credential_id;
-                        _crudplatform.platform_version = _platform.platform_version;
-                        _crudplatform.platformtype = (new Vendors()).VendorList.FirstOrDefault(x => x.ID == _platform.vendor).Vendor.Replace(" ", "_").ToLower();
-                        _crudplatform.moid = _platform.moid;
-                        _crudplatform.platform = _platform.description;
-
-                        if (_platformplatforms.platforms.Exists(x => x.id == _platform.id))
-                        {
-                            _cloud_movey.platform().updateplatform(_crudplatform);
-                            _updated_platforms += 1;
-                        }
-                        else
-                        {
-                            _cloud_movey.platform().createplatform(_crudplatform);
-                            _new_platforms += 1;
-                        }
-                    }
+                    List<MRPPlatformType> _mrp_platforms = _cloud_movey.platform().list().platforms;
 
                     //Process Platforms in paralel
-                    Parallel.ForEach(_workerplatforms, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_inventory_concurrency }, (platform) =>
+                    Parallel.ForEach(_mrp_platforms, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_inventory_concurrency }, (platform) =>
                           {
                               try
                               {
                                   using (PlatformDoInventory _inventoryclass = new PlatformDoInventory())
                                   {
-                                      _inventoryclass.PlatformInventoryDo(platform.id, platform.vendor);
+                                      _inventoryclass.PlatformInventoryDo(platform);
                                   }
                               }
                               catch (Exception ex)
                               {
-                                  Logger.log(String.Format("Error collecting inventory information from platform {0} with error {1}", platform.description, ex.ToString()), Logger.Severity.Error);
+                                  Logger.log(String.Format("Error collecting inventory information from platform {0} with error {1}", platform.platform, ex.ToString()), Logger.Severity.Error);
                               }
                           });
 

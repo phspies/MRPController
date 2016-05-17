@@ -1,0 +1,240 @@
+2016/05/17 12:04:19 Info > Staring data upload process
+2016/05/17 12:04:19 Debug > Starting Performance Upload Thread
+2016/05/17 12:04:19 Debug > Starting Netflow Upload Thread
+2016/05/17 12:04:19 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:04:19 Debug > Completed Netflow Upload Thread in 00:00:00.0500000
+2016/05/17 12:04:19 Debug > Deleting uploaded performance records: 0
+2016/05/17 12:04:19 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:04:19 Debug > Completed Performance Upload Thread in 00:00:00.3570000
+2016/05/17 12:04:19 Info > Completed data upload process. Total Elapsed Time: 00:00:00.4620000
+2016/05/17 12:08:58 Info > Staring Double-Take collection process with 10 threads
+2016/05/17 12:08:58 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0560000 [next run at 5/17/2016 12:18:58 AM]
+2016/05/17 12:09:03 Info > Staring performance collection process with 10 threads
+2016/05/17 12:09:04 Info > Performance: Start performance collection for 10-0-0-10 using 2607:f480:111:1359:14a4:ac63:1ae:a393
+2016/05/17 12:09:04 Info > Performance: Start performance collection for 10-0-0-11 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/05/17 12:09:04 Info > Performance: Start performance collection for 10-0-0-8 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/05/17 12:09:04 Info > Performance: Start performance collection for 10-0-0-9 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/05/17 12:09:19 Info > Staring data upload process
+2016/05/17 12:09:19 Debug > Starting Performance Upload Thread
+2016/05/17 12:09:19 Debug > Starting Netflow Upload Thread
+2016/05/17 12:09:20 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:09:20 Debug > Completed Netflow Upload Thread in 00:00:00.0500000
+2016/05/17 12:09:21 Debug > Deleting uploaded performance records: 289
+2016/05/17 12:09:21 Debug > Took 00:00:00.1860000 to delete 289 performance records
+2016/05/17 12:09:21 Debug > Completed Performance Upload Thread in 00:00:01.4810000
+2016/05/17 12:09:21 Info > Completed data upload process. Total Elapsed Time: 00:00:01.5120000
+2016/05/17 12:09:31 Info > Performance: Completed performance collection for 10-0-0-8 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/05/17 12:09:31 Info > Performance: Completed performance collection for 10-0-0-9 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/05/17 12:09:37 Info > Performance: Completed performance collection for 10-0-0-10 using 2607:f480:111:1359:14a4:ac63:1ae:a393
+2016/05/17 12:09:40 Info > Performance: Completed performance collection for 10-0-0-11 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/05/17 12:09:40 Info > Completed performance collection for 4 workloads in 00:00:36.5810000 [next run at 5/17/2016 1:09:03 AM]
+2016/05/17 12:14:21 Info > Staring data upload process
+2016/05/17 12:14:21 Debug > Starting Performance Upload Thread
+2016/05/17 12:14:21 Debug > Starting Netflow Upload Thread
+2016/05/17 12:14:21 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:14:21 Debug > Completed Netflow Upload Thread in 00:00:00.0620000
+2016/05/17 12:14:22 Debug > Deleting uploaded performance records: 280
+2016/05/17 12:14:22 Debug > Took 00:00:00.1630000 to delete 280 performance records
+2016/05/17 12:14:22 Debug > Completed Performance Upload Thread in 00:00:01.3750000
+2016/05/17 12:14:22 Info > Completed data upload process. Total Elapsed Time: 00:00:01.4270000
+2016/05/17 12:18:58 Info > Staring Double-Take collection process with 10 threads
+2016/05/17 12:18:58 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0510000 [next run at 5/17/2016 12:28:58 AM]
+2016/05/17 12:19:22 Info > Staring data upload process
+2016/05/17 12:19:22 Debug > Starting Performance Upload Thread
+2016/05/17 12:19:22 Debug > Starting Netflow Upload Thread
+2016/05/17 12:19:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:19:23 Debug > Completed Netflow Upload Thread in 00:00:00.0510000
+2016/05/17 12:19:23 Debug > Deleting uploaded performance records: 0
+2016/05/17 12:19:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:19:23 Debug > Completed Performance Upload Thread in 00:00:00.3090000
+2016/05/17 12:19:23 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3490000
+2016/05/17 12:24:23 Info > Staring data upload process
+2016/05/17 12:24:23 Debug > Starting Netflow Upload Thread
+2016/05/17 12:24:23 Debug > Starting Performance Upload Thread
+2016/05/17 12:24:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:24:23 Debug > Completed Netflow Upload Thread in 00:00:00.0640000
+2016/05/17 12:24:23 Debug > Deleting uploaded performance records: 0
+2016/05/17 12:24:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:24:23 Debug > Completed Performance Upload Thread in 00:00:00.3280000
+2016/05/17 12:24:23 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3770000
+2016/05/17 12:28:58 Info > Staring Double-Take collection process with 10 threads
+2016/05/17 12:28:58 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0740000 [next run at 5/17/2016 12:38:58 AM]
+2016/05/17 12:29:23 Info > Staring data upload process
+2016/05/17 12:29:23 Debug > Starting Performance Upload Thread
+2016/05/17 12:29:23 Debug > Starting Netflow Upload Thread
+2016/05/17 12:29:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:29:23 Debug > Completed Netflow Upload Thread in 00:00:00.0370000
+2016/05/17 12:29:24 Debug > Deleting uploaded performance records: 0
+2016/05/17 12:29:24 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:29:24 Debug > Completed Performance Upload Thread in 00:00:00.3320000
+2016/05/17 12:29:24 Info > Completed data upload process. Total Elapsed Time: 00:00:00.5890000
+2016/05/17 12:34:24 Info > Staring data upload process
+2016/05/17 12:34:24 Debug > Starting Performance Upload Thread
+2016/05/17 12:34:24 Debug > Starting Netflow Upload Thread
+2016/05/17 12:34:24 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:34:24 Debug > Completed Netflow Upload Thread in 00:00:00.0450000
+2016/05/17 12:34:25 Debug > Deleting uploaded performance records: 0
+2016/05/17 12:34:25 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:34:25 Debug > Completed Performance Upload Thread in 00:00:00.7220000
+2016/05/17 12:34:25 Info > Completed data upload process. Total Elapsed Time: 00:00:00.7640000
+2016/05/17 12:38:58 Info > Staring Double-Take collection process with 10 threads
+2016/05/17 12:38:58 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0530000 [next run at 5/17/2016 12:48:58 AM]
+2016/05/17 12:39:25 Info > Staring data upload process
+2016/05/17 12:39:25 Debug > Starting Performance Upload Thread
+2016/05/17 12:39:25 Debug > Starting Netflow Upload Thread
+2016/05/17 12:39:25 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:39:25 Debug > Completed Netflow Upload Thread in 00:00:00.0800000
+2016/05/17 12:39:25 Debug > Deleting uploaded performance records: 0
+2016/05/17 12:39:25 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:39:25 Debug > Completed Performance Upload Thread in 00:00:00.5190000
+2016/05/17 12:39:25 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8320000
+2016/05/17 12:44:26 Info > Staring data upload process
+2016/05/17 12:44:26 Debug > Starting Performance Upload Thread
+2016/05/17 12:44:26 Debug > Starting Netflow Upload Thread
+2016/05/17 12:44:26 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:44:26 Debug > Completed Netflow Upload Thread in 00:00:00.0710000
+2016/05/17 12:44:27 Debug > Deleting uploaded performance records: 0
+2016/05/17 12:44:27 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:44:27 Debug > Completed Performance Upload Thread in 00:00:01.3400000
+2016/05/17 12:44:27 Info > Completed data upload process. Total Elapsed Time: 00:00:01.3770000
+2016/05/17 12:44:40 Info > Started inventory process for dimension_data : NA9
+2016/05/17 12:44:45 Info > UpdateMCPWorkload: Inventory for appserver01 in NA9 
+2016/05/17 12:44:46 Info > UpdateMCPWorkload: Inventory for appserver02 in NA9 
+2016/05/17 12:44:46 Info > UpdateMCPWorkload: Inventory for appserver03 in NA9 
+2016/05/17 12:44:47 Info > UpdateMCPWorkload: Inventory for appserver04 in NA9 
+2016/05/17 12:44:47 Info > UpdateMCPWorkload: Inventory for 10-0-0-11 in NA9 
+2016/05/17 12:44:48 Info > UpdateMCPWorkload: Inventory for 10-0-0-10 in NA9 
+2016/05/17 12:44:48 Info > UpdateMCPWorkload: Inventory for 10-0-0-8 in NA9 
+2016/05/17 12:44:49 Info > UpdateMCPWorkload: Inventory for 10-0-0-9 in NA9 
+2016/05/17 12:44:49 Info > Completed inventory process for dimension_data : NA9 - 0 new workloads - 0 updated platform networks - 0 updated workloads - 0 removed workloads = Total Execute Time: 00:00:09.1760000
+2016/05/17 12:48:58 Info > Staring Double-Take collection process with 10 threads
+2016/05/17 12:48:58 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0560000 [next run at 5/17/2016 12:58:58 AM]
+2016/05/17 12:49:27 Info > Staring data upload process
+2016/05/17 12:49:27 Debug > Starting Performance Upload Thread
+2016/05/17 12:49:27 Debug > Starting Netflow Upload Thread
+2016/05/17 12:49:27 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:49:27 Debug > Completed Netflow Upload Thread in 00:00:00.0490000
+2016/05/17 12:49:27 Debug > Deleting uploaded performance records: 0
+2016/05/17 12:49:27 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:49:27 Debug > Completed Performance Upload Thread in 00:00:00.3650000
+2016/05/17 12:49:27 Info > Completed data upload process. Total Elapsed Time: 00:00:00.4770000
+2016/05/17 12:54:27 Info > Staring data upload process
+2016/05/17 12:54:27 Debug > Starting Performance Upload Thread
+2016/05/17 12:54:27 Debug > Starting Netflow Upload Thread
+2016/05/17 12:54:28 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:54:28 Debug > Completed Netflow Upload Thread in 00:00:00.0520000
+2016/05/17 12:54:28 Debug > Deleting uploaded performance records: 0
+2016/05/17 12:54:28 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:54:28 Debug > Completed Performance Upload Thread in 00:00:00.3090000
+2016/05/17 12:54:28 Info > Completed data upload process. Total Elapsed Time: 00:00:00.5250000
+2016/05/17 12:56:23 Error > Unexpected API error on https://www.mrplatform.net/api/v1/tasks/list.json with error ()
+2016/05/17 12:58:58 Info > Staring Double-Take collection process with 10 threads
+2016/05/17 12:58:58 Info > Completed Double-Take collection for 0 jobs in 00:00:00.1250000 [next run at 5/17/2016 1:08:58 AM]
+2016/05/17 12:59:28 Info > Staring data upload process
+2016/05/17 12:59:28 Debug > Starting Performance Upload Thread
+2016/05/17 12:59:28 Debug > Starting Netflow Upload Thread
+2016/05/17 12:59:28 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:59:28 Debug > Completed Netflow Upload Thread in 00:00:00.0500000
+2016/05/17 12:59:28 Debug > Deleting uploaded performance records: 0
+2016/05/17 12:59:28 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 12:59:29 Debug > Completed Performance Upload Thread in 00:00:00.4760000
+2016/05/17 12:59:29 Info > Completed data upload process. Total Elapsed Time: 00:00:00.5360000
+2016/05/17 01:04:29 Info > Staring data upload process
+2016/05/17 01:04:29 Debug > Starting Performance Upload Thread
+2016/05/17 01:04:29 Debug > Starting Netflow Upload Thread
+2016/05/17 01:04:29 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:04:29 Debug > Completed Netflow Upload Thread in 00:00:00.0610000
+2016/05/17 01:04:29 Debug > Deleting uploaded performance records: 0
+2016/05/17 01:04:29 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:04:29 Debug > Completed Performance Upload Thread in 00:00:00.4970000
+2016/05/17 01:04:29 Info > Completed data upload process. Total Elapsed Time: 00:00:00.5380000
+2016/05/17 01:08:59 Info > Staring Double-Take collection process with 10 threads
+2016/05/17 01:08:59 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0570000 [next run at 5/17/2016 1:18:59 AM]
+2016/05/17 01:09:05 Info > Staring performance collection process with 10 threads
+2016/05/17 01:09:05 Info > Performance: Start performance collection for 10-0-0-10 using 2607:f480:111:1359:14a4:ac63:1ae:a393
+2016/05/17 01:09:05 Info > Performance: Start performance collection for 10-0-0-8 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/05/17 01:09:05 Info > Performance: Start performance collection for 10-0-0-11 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/05/17 01:09:05 Info > Performance: Start performance collection for 10-0-0-9 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/05/17 01:09:29 Info > Staring data upload process
+2016/05/17 01:09:29 Debug > Starting Performance Upload Thread
+2016/05/17 01:09:29 Debug > Starting Netflow Upload Thread
+2016/05/17 01:09:29 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:09:29 Debug > Completed Netflow Upload Thread in 00:00:00.0560000
+2016/05/17 01:09:31 Debug > Deleting uploaded performance records: 271
+2016/05/17 01:09:31 Debug > Took 00:00:00.2910000 to delete 271 performance records
+2016/05/17 01:09:31 Debug > Completed Performance Upload Thread in 00:00:01.5960000
+2016/05/17 01:09:31 Info > Completed data upload process. Total Elapsed Time: 00:00:01.7230000
+2016/05/17 01:09:50 Info > Performance: Completed performance collection for 10-0-0-8 using 2607:f480:111:1359:492b:1740:ea0a:5f9c
+2016/05/17 01:09:50 Info > Performance: Completed performance collection for 10-0-0-9 using 2607:f480:111:1359:7f7e:61a5:36c2:345b
+2016/05/17 01:09:58 Info > Performance: Completed performance collection for 10-0-0-10 using 2607:f480:111:1359:14a4:ac63:1ae:a393
+2016/05/17 01:10:04 Info > Performance: Completed performance collection for 10-0-0-11 using 2607:f480:111:1359:dda:e8fe:c7f2:9e7e
+2016/05/17 01:10:04 Info > Completed performance collection for 4 workloads in 00:00:59.0320000 [next run at 5/17/2016 2:09:05 AM]
+2016/05/17 01:14:31 Info > Staring data upload process
+2016/05/17 01:14:31 Debug > Starting Performance Upload Thread
+2016/05/17 01:14:31 Debug > Starting Netflow Upload Thread
+2016/05/17 01:14:31 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:14:31 Debug > Completed Netflow Upload Thread in 00:00:00.0880000
+2016/05/17 01:14:33 Debug > Deleting uploaded performance records: 298
+2016/05/17 01:14:33 Debug > Took 00:00:00.2750000 to delete 298 performance records
+2016/05/17 01:14:33 Debug > Completed Performance Upload Thread in 00:00:01.9320000
+2016/05/17 01:14:33 Info > Completed data upload process. Total Elapsed Time: 00:00:02.0090000
+2016/05/17 01:18:59 Info > Staring Double-Take collection process with 10 threads
+2016/05/17 01:18:59 Info > Completed Double-Take collection for 0 jobs in 00:00:00.1080000 [next run at 5/17/2016 1:28:59 AM]
+2016/05/17 01:19:33 Info > Staring data upload process
+2016/05/17 01:19:33 Debug > Starting Performance Upload Thread
+2016/05/17 01:19:33 Debug > Starting Netflow Upload Thread
+2016/05/17 01:19:33 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:19:33 Debug > Completed Netflow Upload Thread in 00:00:00.1110000
+2016/05/17 01:19:34 Debug > Deleting uploaded performance records: 0
+2016/05/17 01:19:34 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:19:34 Debug > Completed Performance Upload Thread in 00:00:00.7500000
+2016/05/17 01:19:34 Info > Completed data upload process. Total Elapsed Time: 00:00:01.2480000
+2016/05/17 01:24:34 Info > Staring data upload process
+2016/05/17 01:24:34 Debug > Starting Performance Upload Thread
+2016/05/17 01:24:34 Debug > Starting Netflow Upload Thread
+2016/05/17 01:24:34 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:24:34 Debug > Completed Netflow Upload Thread in 00:00:00.0470000
+2016/05/17 01:24:35 Debug > Deleting uploaded performance records: 0
+2016/05/17 01:24:35 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:24:35 Debug > Completed Performance Upload Thread in 00:00:00.2890000
+2016/05/17 01:24:35 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3580000
+2016/05/17 01:28:59 Info > Staring Double-Take collection process with 10 threads
+2016/05/17 01:28:59 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0550000 [next run at 5/17/2016 1:38:59 AM]
+2016/05/17 01:29:35 Info > Staring data upload process
+2016/05/17 01:29:35 Debug > Starting Performance Upload Thread
+2016/05/17 01:29:35 Debug > Starting Netflow Upload Thread
+2016/05/17 01:29:35 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:29:35 Debug > Completed Netflow Upload Thread in 00:00:00.0460000
+2016/05/17 01:29:35 Debug > Deleting uploaded performance records: 0
+2016/05/17 01:29:35 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:29:35 Debug > Completed Performance Upload Thread in 00:00:00.4200000
+2016/05/17 01:29:35 Info > Completed data upload process. Total Elapsed Time: 00:00:00.4820000
+2016/05/17 01:34:35 Info > Staring data upload process
+2016/05/17 01:34:35 Debug > Starting Performance Upload Thread
+2016/05/17 01:34:35 Debug > Starting Netflow Upload Thread
+2016/05/17 01:34:35 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:34:35 Debug > Completed Netflow Upload Thread in 00:00:00.0750000
+2016/05/17 01:34:36 Debug > Deleting uploaded performance records: 0
+2016/05/17 01:34:36 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:34:36 Debug > Completed Performance Upload Thread in 00:00:00.3020000
+2016/05/17 01:34:36 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3550000
+2016/05/17 01:38:59 Info > Staring Double-Take collection process with 10 threads
+2016/05/17 01:38:59 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0580000 [next run at 5/17/2016 1:48:59 AM]
+2016/05/17 01:39:36 Info > Staring data upload process
+2016/05/17 01:39:36 Debug > Starting Performance Upload Thread
+2016/05/17 01:39:36 Debug > Starting Netflow Upload Thread
+2016/05/17 01:39:36 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:39:36 Debug > Completed Netflow Upload Thread in 00:00:00.0610000
+2016/05/17 01:39:36 Debug > Deleting uploaded performance records: 0
+2016/05/17 01:39:36 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:39:36 Debug > Completed Performance Upload Thread in 00:00:00.3050000
+2016/05/17 01:39:36 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3510000
+2016/05/17 01:44:36 Info > Staring data upload process
+2016/05/17 01:44:36 Debug > Starting Netflow Upload Thread
+2016/05/17 01:44:36 Debug > Starting Performance Upload Thread
+2016/05/17 01:44:36 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:44:36 Debug > Completed Netflow Upload Thread in 00:00:00.1110000
+2016/05/17 01:44:36 Debug > Deleting uploaded performance records: 0
+2016/05/17 01:44:36 Debug > Took 00:00:00 to delete 0 performance records
+2016/05/17 01:44:36 Debug > Completed Performance Upload Thread in 00:00:00.3340000
+2016/05/17 01:44:36 Info > Completed data upload process. Total Elapsed Time: 00:00:00.4450000

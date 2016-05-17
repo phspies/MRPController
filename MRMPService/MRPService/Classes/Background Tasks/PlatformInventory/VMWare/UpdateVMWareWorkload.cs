@@ -7,23 +7,17 @@ using MRMPService.Utilities;
 using MRMPService.API;
 using MRMPService.VMWare;
 using VMware.Vim;
+using MRMPService.MRMPService.Log;
 
 namespace MRMPService.PlatformInventory
 {
     partial class PlatformInventoryWorkloadDo
     {
-        public static void UpdateVMWareWorkload(string _workload_moid, string _platform_id)
+        public static void UpdateVMWareWorkload(string _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null, List<MRPPlatformdomainType> _mrp_domains = null, List<MRPPlatformnetworkType> _mrp_networks = null)
         {
             MRP_ApiClient _cloud_movey = new MRP_ApiClient();
 
-            Platform _platform;
-            Credential _platform_credential;
-
-            using (MRPDatabase db = new MRPDatabase())
-            {
-                _platform = db.Platforms.FirstOrDefault(x => x.id == _platform_id);
-                _platform_credential = db.Credentials.FirstOrDefault(x => x.id == _platform.credential_id);
-            }
+            MRPCredentialType _platform_credential = _platform.credential;
 
             //create dimension data mcp object
             VimApiClient _vim;
@@ -39,103 +33,79 @@ namespace MRMPService.PlatformInventory
 
             VirtualMachine _vmware_workload = _vim.workload().GetWorkload(_workload_moid);
 
-            //Retrieve portal objects
-            List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().listworkloads().workloads.Where(x => x.platform_id == _platform_id).ToList();
-            List<MRPPlatformdomainType> _mrp_domains = _cloud_movey.platformdomain().listplatformdomains().platformdomains.Where(x => x.platform_id == _platform_id).ToList();
-            List<MRPPlatformnetworkType> _mrp_networks = _cloud_movey.platformnetwork().listplatformnetworks().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
-
-            //Pupulate workload total storage allocated
-            long storage_allocated = 0;
-            foreach (VirtualDevice _virtualdevice in _vmware_workload.Config.Hardware.Device.Where(x => x.GetType() == typeof(VirtualDisk)))
+            if (_mrp_workloads == null)
             {
-                VirtualDisk _workloaddisk = (VirtualDisk)_virtualdevice;
-                storage_allocated += _workloaddisk.CapacityInKB / 1024 / 1024;
+                Logger.log(String.Format("UpdateVMwareWorkload: Workload list empty, fecthing new list"), Logger.Severity.Info);
+                _mrp_workloads = _cloud_movey.workload().listworkloads().workloads.ToList();
+            }
+            if (_mrp_domains == null)
+            {
+                Logger.log(String.Format("UpdateVMwareWorkload: Network Domain list empty, fecthing new list"), Logger.Severity.Info);
+                _mrp_domains = _cloud_movey.platformdomain().list().platformdomains.Where(x => x.platform_id == _platform.id).ToList();
+            }
+            if (_mrp_networks == null)
+            {
+                Logger.log(String.Format("UpdateVMwareWorkload: Network VLAN list empty, fecthing new list"), Logger.Severity.Info);
+                _mrp_networks = _cloud_movey.platformnetwork().list_all().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
             }
 
             //if workload is local, updated the local db record
             //User might use these servers later...
-            bool _new_workload_flag = true;
-            using (MRPDatabase db = new MRPDatabase())
+            MRPWorkloadType _mrp_workload = new MRPWorkloadType();
+            if (_mrp_workloads.Exists(x => x.moid == _vmware_workload.MoRef.Value))
             {
-                Workload _db_workload = new Workload();
-                if (db.Workloads.ToList().Exists(x => x.moid == _workload_moid && x.platform_id == _platform.id))
-                {
-                    _new_workload_flag = false;
-                    _db_workload = db.Workloads.FirstOrDefault(x => x.moid == _workload_moid && x.platform_id == _platform.id);
-                }
-                else
-                {
-                    //if server already exists in portal, retain GUID for the server to keep other table depedencies intact
-                    if (_mrp_workloads.Exists(x => x.moid == _workload_moid && x.platform_id == _platform.id))
-                    {
-                        _db_workload.id = _mrp_workloads.Find(x => x.moid == _workload_moid && x.platform_id == _platform.id).id;
-                    }
-                    else
-                    {
-                        _db_workload.id = Guid.NewGuid().ToString().Replace("-", "").GetHashString();
-                    }
-                }
-
-                _db_workload.vcpu = _vmware_workload.Config.Hardware.NumCPU;
-                _db_workload.vcore = _vmware_workload.Config.Hardware.NumCoresPerSocket;
-                _db_workload.vmemory = _vmware_workload.Config.Hardware.MemoryMB / 1024;
-                _db_workload.iplist = _vmware_workload.Guest.IpAddress;
-                _db_workload.storage_count = storage_allocated;
-                _db_workload.hostname = _vmware_workload.Guest.HostName;
-                _db_workload.moid = _vmware_workload.MoRef.Value;
-                _db_workload.platform_id = _platform.id;
-                _db_workload.ostype = _vmware_workload.Config.GuestFullName.Contains("Win") ? "WINDOWS" : "OTHER";
-                _db_workload.osedition = OSEditionSimplyfier.Simplyfier(_vmware_workload.Config.GuestFullName);
-                if (_new_workload_flag)
-                {
-
-                }
-                else
-                {
-                    db.SaveChanges();
-                    if (_db_workload.enabled == true)
-                    {
-                        //copy db object into mrp portal object
-                        Objects.Copy(_db_workload, _mrp_workload);
-
-                        //evaluate all virtual network interfaces for workload
-                        List<Type> _vmware_nic_types = new List<Type>() { typeof(VirtualE1000), typeof(VirtualE1000e), typeof(VirtualPCNet32), typeof(VirtualSriovEthernetCard), typeof(VirtualVmxnet) };
-                        int _index = 1;
-                        foreach (VirtualDevice _virtualdevice in _vmware_workload.Config.Hardware.Device.Where(x => _vmware_nic_types.Contains(x.GetType())))
-                        {
-                            VirtualEthernetCard _workloadnic = (VirtualEthernetCard)_virtualdevice;
-                            VirtualEthernetCardNetworkBackingInfo _nic_backing = (VirtualEthernetCardNetworkBackingInfo)_workloadnic.Backing;
-                            MRPWorkloadInterfaceType _logical_interface = new MRPWorkloadInterfaceType()
-                            {
-                                vnic = _index,
-                                ipassignment = "manual_ip",
-                                macaddress = _workloadnic.MacAddress,
-                                _destroy = false,
-                                platformnetwork_id = _mrp_networks.FirstOrDefault(x => x.moid == _nic_backing.Network.Value).id
-                            };
-                            if (_mrp_workloads.Exists((x => x.moid == _workload_moid && x.workloadinterfaces_attributes.Exists(y => y.macaddress == _workloadnic.MacAddress))))
-                            {
-                                _logical_interface.id = _mrp_workloads.FirstOrDefault(x => x.moid == _workload_moid).workloadinterfaces_attributes.FirstOrDefault(y => y.macaddress == _workloadnic.MacAddress).id;
-                            }
-                            _mrp_workload.workloadinterfaces_attributes.Add(_logical_interface);
-                        }
-
-                        _mrp_workload.provisioned = true;
-
-                        //Update if the portal has this workload and create if it's new to the portal....
-                        if (_mrp_workloads.Exists(x => x.moid == _workload_moid))
-                        {
-                            _cloud_movey.workload().updateworkload(_mrp_workload);
-                        }
-                        else
-                        {
-                            _cloud_movey.workload().createworkload(_mrp_workload);
-                        }
-                    }
-                }
+                _mrp_workload = _mrp_workloads.FirstOrDefault(x => x.moid == _vmware_workload.MoRef.Value);
             }
 
-        }
+            _mrp_workload.vcpu = _vmware_workload.Config.Hardware.NumCPU;
+            _mrp_workload.vcore = (int)_vmware_workload.Config.Hardware.NumCoresPerSocket;
+            _mrp_workload.vmemory = _vmware_workload.Config.Hardware.MemoryMB / 1024;
+            _mrp_workload.iplist = _vmware_workload.Guest.IpAddress;
+            _mrp_workload.hostname = _vmware_workload.Guest.HostName;
+            _mrp_workload.moid = _vmware_workload.MoRef.Value;
+            _mrp_workload.platform_id = _platform.id;
+            _mrp_workload.ostype = _vmware_workload.Config.GuestFullName.Contains("Win") ? "WINDOWS" : "UNIX";
+            _mrp_workload.osedition = OSEditionSimplyfier.Simplyfier(_vmware_workload.Config.GuestFullName);
 
+            //evaluate all virtual network interfaces for workload
+            List<Type> _vmware_nic_types = new List<Type>() { typeof(VirtualE1000), typeof(VirtualE1000e), typeof(VirtualPCNet32), typeof(VirtualSriovEthernetCard), typeof(VirtualVmxnet) };
+            int _index = 1;
+            foreach (VirtualDevice _virtualdevice in _vmware_workload.Config.Hardware.Device.Where(x => _vmware_nic_types.Contains(x.GetType())))
+            {
+                VirtualEthernetCard _workloadnic = (VirtualEthernetCard)_virtualdevice;
+                VirtualEthernetCardNetworkBackingInfo _nic_backing = (VirtualEthernetCardNetworkBackingInfo)_workloadnic.Backing;
+
+                MRPWorkloadInterfaceType _logical_interface = new MRPWorkloadInterfaceType();
+                if (_mrp_workloads.Exists((x => x.moid == _workload_moid && x.workloadinterfaces_attributes.Exists(y => y.macaddress == _workloadnic.MacAddress))))
+                {
+                    _logical_interface = _mrp_workloads.FirstOrDefault(x => x.moid == _workload_moid).workloadinterfaces_attributes.FirstOrDefault(y => y.macaddress == _workloadnic.MacAddress);
+                }
+                else
+                {
+                    _mrp_workload.workloadinterfaces_attributes.Add(_logical_interface);
+                }
+                //populate interface object
+                _logical_interface.vnic = _index;
+                _logical_interface.ipassignment = "manual_ip";
+                _logical_interface.macaddress = _workloadnic.MacAddress;
+                _logical_interface._destroy = false;
+                _logical_interface.platformnetwork_id = _mrp_networks.FirstOrDefault(x => x.moid == _nic_backing.Network.Value).id;
+    
+            }
+
+            _mrp_workload.provisioned = true;
+
+            //Update if the portal has this workload and create if it's new to the portal....
+            if (_mrp_workloads.Exists(x => x.moid == _mrp_workload.moid))
+            {
+                _cloud_movey.workload().updateworkload(_mrp_workload);
+            }
+            else
+            {
+                _cloud_movey.workload().createworkload(_mrp_workload);
+            }
+        }
     }
 }
+
+

@@ -26,26 +26,9 @@ namespace MRMPService.API.Types.API
                 return Global.manager_id;
             }
         }
-        public MRPPlatformCRUDType platform { get; set; }
+        public MRPPlatformType platform { get; set; }
     }
-    public class MRPPlatformCRUDType
-    {
-        public string id { get; set; }
-        public string platform { get; set; }
-        public string mapping { get; set; }
-        public bool? enabled { get; set; }
-        public string credential_id { get; set; }
-        public string manager_id { get;  set;}
-        public string platformtype { get; set; }
-        public string moid { get; set; }
-        public string platform_version { get; set; }
-        public string hash_value { get; set; }
-        public bool deleted { get; set; }
-        public string dc_discovery_list { get; set; }
-        public bool dc_discovery_status { get; set; }
-        public string dc_discovery_message { get; set; }
 
-    }
     public class MRPPlatformListType
     {
         public List<MRPPlatformType> platforms { get; set; }
@@ -53,35 +36,19 @@ namespace MRMPService.API.Types.API
     public class MRPPlatformType
     {
         public string id { get; set; }
-        public string platform { get; set; }
-        public string mapping { get; set; }
-        public bool? enabled { get; set; }
-        public string credential_id { get; set; }
-        public string platformtype { get; set; }
-        public int? maxcpu { get; set; }
-        public int? maxmemory { get; set; }
-        public string url { get; set; }
-        public string manager_id { get; set; }
-        public string moid { get; set; }
-        public string platform_version { get; set; }
-        public List<MRPPlatformnetworkType> platformnetworks { get; set; }
-        public int? maxdiskcount { get; set; }
-        public int? maxdisksize { get; set; }
-        public int? maxnetwork { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-        public string mcpendpoint_id { get; set; }
         public string organization_id { get; set; }
-        public string hash_value { get; set; }
-        public bool deleted { get; set; }
-        public string dc_discovery_list { get; set; }
-        public bool dc_discovery_status { get; set; }
-        public string dc_discovery_message { get; set; }
-
+        public string credential_id { get; set; }
+        public string platform { get; set; }
+        public bool? enabled { get; set; }
+        public string platformtype { get; set; }
+        public string url { get; set; }
+        public string moid { get; set; }
+        public string manager_id { get; set; }
+        public string platform_version { get; set; }
+        public bool? deleted { get; set; }
         public MRPCredentialType credential;
-
+        public List<MRPPlatformdomainType> platformdomains_attributes { get; set; }
+        public List<MRPPlatformdatacenterType> platformdatacenters_attributes { get; set; }
     }
-
-
 }
 

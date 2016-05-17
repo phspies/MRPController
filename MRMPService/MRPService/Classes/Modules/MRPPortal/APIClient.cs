@@ -44,6 +44,10 @@ namespace MRMPService.API
         {
             return new PortalPlatform(this);
         }
+        public PortalPlatformDatacenter platformdatacenter()
+        {
+            return new PortalPlatformDatacenter(this);
+        }
         public MRPPlatformDomain platformdomain()
         {
             return new MRPPlatformDomain(this);

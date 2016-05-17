@@ -130,7 +130,6 @@ namespace MRMPService.DoubleTake
             result.EnsureSuccessStatusCode();
         }
 
-
         public ActivityStatusModel FailoverJob(Guid jobId, FailoverOptionsModel options)
         {
             var result = jobApi.FailoverJobAsync(jobId, options, new Progress<ActivityStatusModel>()).Result;

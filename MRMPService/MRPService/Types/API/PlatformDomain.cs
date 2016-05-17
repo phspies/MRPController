@@ -15,20 +15,11 @@ namespace MRMPService.API.Types.API
                 return Global.manager_id;
             }
         }
-        public MRPPlatformdomainCRUDType platformdomain { get; set; }
+        public MRPPlatformdomainType platformdomain { get; set; }
     }
     public class MRPPlatformdomainListType
     {
         public List<MRPPlatformdomainType> platformdomains { get; set; }
-    }
-    public class MRPPlatformdomainCRUDType
-    {
-        public string id { get; set; }
-        public string platform_id { get; set; }
-        public string domain { get; set; }
-        public string moid { get; set; }
-        public List<MRPPlatformnetworkCRUDType> platformnetworks_attributes { get; set; }
-
     }
     public class MRPPlatformdomainType
     {
@@ -36,6 +27,7 @@ namespace MRMPService.API.Types.API
         public string platform_id { get; set; }
         public string domain { get; set; }
         public string moid { get; set; }
+        public List<MRPPlatformnetworkType> platformnetworks_attributes { get; set; }
 
     }
 }

@@ -13,7 +13,7 @@ namespace MRMPService.API.Types.API
         public string username { get; set; }
         public string password { get; set; }
         public string domain { get; set; }
-        public int credential_type { get; set; }
+        public string credential_type { get; set; }
         public bool enabled { get; set; }
         public string description { get; set; }
         public string organization_id { get; set; }

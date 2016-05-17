@@ -6,19 +6,71 @@
    <Modules>
     <Module Name="mrmpservice.exe">
      <Namespaces>
+      <Namespace Name="DD.CBU.Compute.Api.Client">
+       <Types>
+        <Type Name="ApiUris" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#GetCustomerImageExportHistory(System.Guid,System.Int32)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="DependsOnFix">
+             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DimensionData\Compute.Client" File="ApiUris.cs" Line="1157">Method 'ApiUris.GetCustomerImageExportHistory(Guid, int)' calls 'string.Format(string, object, object)' and does not provide a format item for argument "2". The provided format string is: '"oec/0.9/{0}/imageExportHistory?count="'</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="ComputeApiClient" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Dispose(System.Boolean)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="False">
+           <Messages>
+            <Message Id="_httpClientHandler" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
+             <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DimensionData\Compute.Client\WebApi" File="ComputeApiClient.cs" Line="492">'ComputeApiClient' contains field 'ComputeApiClient._httpClientHandler' that is of IDisposable type: 'HttpClientHandler'. Change the Dispose method on 'ComputeApiClient' to call Dispose or Close on this field.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="DD.CBU.Compute.Api.Client.Exceptions">
+       <Types>
+        <Type Name="CaaSOrganizationNotSetException" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Messages>
+          <Message TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
+           <Issue Certainty="95" Level="Error">Add [Serializable] to 'CaaSOrganizationNotSetException' as this type implements ISerializable.</Issue>
+          </Message>
+         </Messages>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="DD.CBU.Compute.Api.Contracts.Requests">
+       <Types>
+        <Type Name="Filter" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#ToString()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="Breaking">
+             <Issue Name="NoAllowedExceptions" Certainty="90" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DimensionData\Compute.Contracts\Requests" File="Filter.cs" Line="68">'Filter.ToString()' creates an exception of type 'NotSupportedException'. Exceptions should not be raised in this type of method. If this exception instance might be raised, change this method's logic so it no longer raises an exception.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
       <Namespace Name="MRMPService">
        <Types>
         <Type Name="Global+TryLock" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="Breaking">
+          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="Breaking">
            <Issue Name="ProvideDisposeBool" Certainty="95" Level="Error">Provide an overridable implementation of Dispose(bool) on 'Global.TryLock' or mark the type as sealed. A call to Dispose(false) should only clean up native resources. A call to Dispose(true) should clean up both managed and native resources.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#Dispose()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="Breaking">
-             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService" File="Global.cs" Line="158">Modify 'Global.TryLock.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.</Issue>
+            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="Breaking">
+             <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService" File="Global.cs" Line="161">Modify 'Global.TryLock.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.</Issue>
             </Message>
            </Messages>
           </Member>
@@ -32,7 +84,7 @@
          <Members>
           <Member Name="#Serialize(System.Object)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Modules\MRPPortal" File="JSONSerializer.cs" Line="56">Object 'stringWriter' can be disposed more than once in method 'JsonSerializer.Serialize(object)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 56</Issue>
             </Message>
            </Messages>
@@ -41,28 +93,28 @@
         </Type>
         <Type Name="MRPStacktree" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'MRPStacktree' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="MRPTask" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'MRPTask' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="MRPWorkload" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'MRPWorkload' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="PortalCredential" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'PortalCredential' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
@@ -71,23 +123,16 @@
       </Namespace>
       <Namespace Name="MRMPService.API.Classes">
        <Types>
-        <Type Name="WorkloadInventory" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
-         <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
-           <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'WorkloadInventory' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
-          </Message>
-         </Messages>
-        </Type>
         <Type Name="WorkloadInventoryThread" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'WorkloadInventoryThread' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
         </Type>
         <Type Name="WorkloadNetstat" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'WorkloadNetstat' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
@@ -100,8 +145,24 @@
          <Members>
           <Member Name="#set_job_options(MRMPService.MRMPService.Types.API.MRPTaskType,DoubleTake.Web.Models.CreateOptionsModel)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="DependsOnFix">
-             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DoubleTake" File="JobOptions.cs" Line="37">Method 'SetOptions.set_job_options(MRPTaskType, CreateOptionsModel)' calls 'string.Format(string, object, object, object)' and does not provide a format item for argument "3". The provided format string is: '"MRMP [{0}] {1} to {1}"'</Issue>
+            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="DependsOnFix">
+             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DoubleTake" File="JobOptions.cs" Line="40">Method 'SetOptions.set_job_options(MRPTaskType, CreateOptionsModel)' calls 'string.Format(string, object, object, object)' and does not provide a format item for argument "3". The provided format string is: '"MRMP [{0}] {1} to {1}"'</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="MRMPService.DTEventPollerCollection">
+       <Types>
+        <Type Name="DTEventPoller" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#PollerDo(MRMPService.API.Types.API.MRPWorkloadType)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="DependsOnFix">
+             <Issue Name="MissingArgument" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller" File="PollerDo.cs" Line="78">Method 'DTEventPoller.PollerDo(MRPWorkloadType)' calls 'string.Format(string, object, object)' and does not provide an argument for format item "{2}". The provided format string is: '"Double-Take Event: Error collecting event information from {1} : {2}"'</Issue>
+             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller" File="PollerDo.cs" Line="78">Method 'DTEventPoller.PollerDo(MRPWorkloadType)' calls 'string.Format(string, object, object)' and does not provide a format item for argument "1". The provided format string is: '"Double-Take Event: Error collecting event information from {1} : {2}"'</Issue>
             </Message>
            </Messages>
           </Member>
@@ -115,9 +176,9 @@
          <Members>
           <Member Name="#Start()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="DependsOnFix">
-             <Issue Name="MissingArgument" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\StartupThread" File="Startup.cs" Line="50">Method 'Startup.Start()' calls 'string.Format(string, object)' and does not provide an argument for format item "{1}". The provided format string is: '"Database repair failed, trying again: {1}"'</Issue>
-             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\StartupThread" File="Startup.cs" Line="50">Method 'Startup.Start()' calls 'string.Format(string, object)' and does not provide a format item for argument "1". The provided format string is: '"Database repair failed, trying again: {1}"'</Issue>
+            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="DependsOnFix">
+             <Issue Name="MissingArgument" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\StartupThread" File="Startup.cs" Line="49">Method 'Startup.Start()' calls 'string.Format(string, object)' and does not provide an argument for format item "{1}". The provided format string is: '"Database repair failed, trying again: {1}"'</Issue>
+             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\StartupThread" File="Startup.cs" Line="49">Method 'Startup.Start()' calls 'string.Format(string, object)' and does not provide a format item for argument "1". The provided format string is: '"Database repair failed, trying again: {1}"'</Issue>
             </Message>
            </Messages>
           </Member>
@@ -131,7 +192,7 @@
          <Members>
           <Member Name="#log(System.String,MRMPService.MRMPService.Log.Logger+Severity)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="DependsOnFix">
+            <Message TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="DependsOnFix">
              <Issue Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService" File="Logging.cs" Line="37">Object 'sw' can be disposed more than once in method 'Logger.log(string, Logger.Severity)'. To avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.: Lines: 37</Issue>
             </Message>
            </Messages>
@@ -142,13 +203,25 @@
       </Namespace>
       <Namespace Name="MRMPService.PlatformInventory">
        <Types>
+        <Type Name="PlatformDimensionDataMCP2InventoryDo" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#UpdateMCPPlatform(MRMPService.API.Types.API.MRPPlatformType,System.Boolean)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="DependsOnFix">
+             <Issue Name="MissingArgument" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data" File="UpdateDimensionDataPlatform.cs" Line="49">Method 'PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(MRPPlatformType, bool)' calls 'string.Format(string, object)' and does not provide an argument for format item "{1}". The provided format string is: '"Error connecting to MCP Endpoint {1}"'</Issue>
+             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data" File="UpdateDimensionDataPlatform.cs" Line="49">Method 'PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(MRPPlatformType, bool)' calls 'string.Format(string, object)' and does not provide a format item for argument "1". The provided format string is: '"Error connecting to MCP Endpoint {1}"'</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
         <Type Name="PlatformInventoryWorkloadDo" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Members>
-          <Member Name="#UpdateVMWareWorkload(System.String,System.String)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
+          <Member Name="#UpdateVMWareWorkload(System.String,MRMPService.API.Types.API.MRPPlatformType,System.Collections.Generic.List`1&lt;MRMPService.API.Types.API.MRPWorkloadType&gt;,System.Collections.Generic.List`1&lt;MRMPService.API.Types.API.MRPPlatformdomainType&gt;,System.Collections.Generic.List`1&lt;MRMPService.API.Types.API.MRPPlatformnetworkType&gt;)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="DependsOnFix">
-             <Issue Name="MissingArgument" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\PlatformInventory\VMWare" File="UpdateVMWareWorkload.cs" Line="37">Method 'PlatformInventoryWorkloadDo.UpdateVMWareWorkload(string, string)' calls 'string.Format(string, object)' and does not provide an argument for format item "{1}". The provided format string is: '"Error connecting to VMMare VCenter Server {1}"'</Issue>
-             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\PlatformInventory\VMWare" File="UpdateVMWareWorkload.cs" Line="37">Method 'PlatformInventoryWorkloadDo.UpdateVMWareWorkload(string, string)' calls 'string.Format(string, object)' and does not provide a format item for argument "1". The provided format string is: '"Error connecting to VMMare VCenter Server {1}"'</Issue>
+            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="DependsOnFix">
+             <Issue Name="MissingArgument" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\PlatformInventory\VMWare" File="UpdateVMWareWorkload.cs" Line="31">Method 'PlatformInventoryWorkloadDo.UpdateVMWareWorkload(string, MRPPlatformType, List&lt;MRPWorkloadType&gt;, List&lt;MRPPlatformdomainType&gt;, List&lt;MRPPlatformnetworkType&gt;)' calls 'string.Format(string, object)' and does not provide an argument for format item "{1}". The provided format string is: '"Error connecting to VMMare VCenter Server {1}"'</Issue>
+             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\PlatformInventory\VMWare" File="UpdateVMWareWorkload.cs" Line="31">Method 'PlatformInventoryWorkloadDo.UpdateVMWareWorkload(string, MRPPlatformType, List&lt;MRPWorkloadType&gt;, List&lt;MRPPlatformdomainType&gt;, List&lt;MRPPlatformnetworkType&gt;)' calls 'string.Format(string, object)' and does not provide a format item for argument "1". The provided format string is: '"Error connecting to VMMare VCenter Server {1}"'</Issue>
             </Message>
            </Messages>
           </Member>
@@ -160,10 +233,26 @@
        <Types>
         <Type Name="TaskWorker" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'TaskWorker' because it creates members of the following IDisposable types: 'MRP_ApiClient'.</Issue>
           </Message>
          </Messages>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="MRMPService.Tasks.DiscoveryPlatform">
+       <Types>
+        <Type Name="PlatformDiscovery" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#PlatformDiscoveryDo(MRMPService.MRMPService.Types.API.MRPTaskType)" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="Provide correct arguments to formatting methods" Category="Microsoft.Usage" CheckId="CA2241" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="DependsOnFix">
+             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Modules\Platform" File="PlatformDiscovery.cs" Line="47">Method 'PlatformDiscovery.PlatformDiscoveryDo(MRPTaskType)' calls 'string.Format(string, object)' and does not provide a format item for argument "1". The provided format string is: '"Error refreshing platform resources"'</Issue>
+             <Issue Name="MissingFormatItem" Certainty="75" Level="Warning" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Modules\Platform" File="PlatformDiscovery.cs" Line="48">Method 'PlatformDiscovery.PlatformDiscoveryDo(MRPTaskType)' calls 'string.Format(string, object)' and does not provide a format item for argument "1". The provided format string is: '"Error refreshing platform resources"'</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
         </Type>
        </Types>
       </Namespace>
@@ -171,35 +260,35 @@
        <Types>
         <Type Name="Impersonator" Kind="Class" Accessibility="Public" ExternallyVisible="True">
          <Messages>
-          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="Breaking">
+          <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="Breaking">
            <Issue Name="ProvideDisposeBool" Certainty="95" Level="Error">Provide an overridable implementation of Dispose(bool) on 'Impersonator' or mark the type as sealed. A call to Dispose(false) should only clean up native resources. A call to Dispose(true) should clean up both managed and native resources.</Issue>
           </Message>
          </Messages>
          <Members>
           <Member Name="#CloseHandle(System.IntPtr)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Impersonator.CloseHandle(IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Dispose()" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="Breaking">
+            <Message TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="Breaking">
              <Issue Name="DisposeImplementation" Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities" File="Impersonate.cs" Line="64">Modify 'Impersonator.Dispose()' so that it calls Dispose(true), then calls GC.SuppressFinalize on the current object instance ('this' or 'Me' in Visual Basic), and then returns.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#DuplicateToken(System.IntPtr,System.Int32,System.IntPtr&amp;)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Impersonator.DuplicateToken(IntPtr, int, ref IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#ImpersonateValidUser(System.String,System.String,System.String)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+            <Message TypeName="CallGetLastErrorImmediatelyAfterPInvoke" Category="Microsoft.Interoperability" CheckId="CA1404" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
              <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities" File="Impersonate.cs" Line="146">Method 'Impersonator.ImpersonateValidUser(string, string, string)' called GetLastWin32Error but the immediately preceding call to 'Win32Exception.Win32Exception(int)' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
              <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities" File="Impersonate.cs" Line="151">Method 'Impersonator.ImpersonateValidUser(string, string, string)' called GetLastWin32Error but the immediately preceding call to 'Win32Exception.Win32Exception(int)' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
              <Issue Certainty="95" Level="Error" Path="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Utilities" File="Impersonate.cs" Line="141">Method 'Impersonator.ImpersonateValidUser(string, string, string)' called GetLastWin32Error but the immediately preceding call to 'WindowsIdentity.Impersonate()' is not a P/Invoke statement. Move the call to GetLastWin32Error so that it immediately follows the relevant platform invoke call.</Issue>
@@ -208,23 +297,23 @@
           </Member>
           <Member Name="#LogonUser(System.String,System.String,System.String,System.Int32,System.Int32,System.IntPtr&amp;)" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Impersonator.LogonUser(string, string, string, int, int, ref IntPtr)' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
-            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+            <Message Id="0" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
              <Issue Name="ParameterImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal parameter 'lpszUserName' as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Issue>
             </Message>
-            <Message Id="1" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+            <Message Id="1" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
              <Issue Name="ParameterImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal parameter 'lpszDomain' as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Issue>
             </Message>
-            <Message Id="2" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+            <Message Id="2" TypeName="SpecifyMarshalingForPInvokeStringArguments" Category="Microsoft.Globalization" CheckId="CA2101" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
              <Issue Name="ParameterImplicitAnsi" Certainty="75" Level="Error">To reduce security risk, marshal parameter 'lpszPassword' as Unicode, by setting DllImport.CharSet to CharSet.Unicode, or by explicitly marshaling the parameter as UnmanagedType.LPWStr. If you need to marshal this string as ANSI or system-dependent, specify MarshalAs explicitly, and set BestFitMapping=false; for added security, also set ThrowOnUnmappableChar=true.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#RevertToSelf()" Kind="Method" Static="True" Accessibility="Private" ExternallyVisible="False">
            <Messages>
-            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="Breaking">
+            <Message TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="Breaking">
              <Issue Certainty="95" Level="CriticalWarning">Because it is a P/Invoke method, 'Impersonator.RevertToSelf()' should be defined in a class named NativeMethods, SafeNativeMethods, or UnsafeNativeMethods.</Issue>
             </Message>
            </Messages>
@@ -233,7 +322,7 @@
         </Type>
         <Type Name="SyncronizedList+SyncronisedList`1" Kind="Class" Accessibility="Public" ExternallyVisible="False">
          <Messages>
-          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-06 03:56:51Z" FixCategory="NonBreaking">
+          <Message TypeName="TypesThatOwnDisposableFieldsShouldBeDisposable" Category="Microsoft.Design" CheckId="CA1001" Status="Active" Created="2016-05-16 21:08:36Z" FixCategory="NonBreaking">
            <Issue Name="NonBreaking" Certainty="95" Level="CriticalError">Implement IDisposable on 'SyncronizedList.SyncronisedList&lt;T&gt;' because it creates members of the following IDisposable types: 'ReaderWriterLockSlim'.</Issue>
           </Message>
          </Messages>
@@ -256,6 +345,16 @@
    <MessageLevel Certainty="95">Error</MessageLevel>
    <File Name="interoperabilityrules.dll" Version="14.0.0.0" />
   </Rule>
+  <Rule TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213">
+   <Name>Disposable fields should be disposed</Name>
+   <Description>If a type that implements IDisposable owns fields that also implement IDisposable, the encapsulating type's Dispose() implementation should call Dispose() on each disposable field.</Description>
+   <Resolution Name="Default">{0} contains field {1} that is of IDisposable type: {2}. Change the Dispose method on {0} to call Dispose or Close on this field.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182328.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="usagerules.dll" Version="14.0.0.0" />
+  </Rule>
   <Rule TypeName="Do not dispose objects multiple times" Category="Microsoft.Usage" CheckId="CA2202">
    <Name>Do not dispose objects multiple times</Name>
    <Description>A correctly implemented Dispose method can be called multiple times without throwing an exception. However, this is not guaranteed and to avoid generating a System.ObjectDisposedException you should not call Dispose more than one time on an object.</Description>
@@ -265,6 +364,16 @@
    <Email />
    <MessageLevel Certainty="75">Warning</MessageLevel>
    <File Name="dataflowrules.dll" Version="14.0.0.0" />
+  </Rule>
+  <Rule TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065">
+   <Name>Do not raise exceptions in unexpected locations</Name>
+   <Description>Do not explicitly raise exceptions from unexpected locations. There are some methods, such as Equals and GetHashCode, which users do not expect to raise exceptions. Therefore calls to these methods are not commonly wrapped in try catch blocks.</Description>
+   <Resolution Name="NoAllowedExceptions">{0} creates an exception of type {1}. Exceptions should not be raised in this type of method. If this exception instance might be raised, change this method's logic so it no longer raises an exception.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/bb386039.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="90">Error, Warning</MessageLevel>
+   <File Name="designrules.dll" Version="14.0.0.0" />
   </Rule>
   <Rule TypeName="ImplementIDisposableCorrectly" Category="Microsoft.Design" CheckId="CA1063">
    <Name>Implement IDisposable correctly</Name>
@@ -276,6 +385,16 @@
    <Email>[none]</Email>
    <MessageLevel Certainty="95">Error</MessageLevel>
    <File Name="designrules.dll" Version="14.0.0.0" />
+  </Rule>
+  <Rule TypeName="MarkISerializableTypesWithSerializable" Category="Microsoft.Usage" CheckId="CA2237">
+   <Name>Mark ISerializable types with SerializableAttribute</Name>
+   <Description>The System.Runtime.Serialization.ISerializable interface allows the type to customize its serialization, while the Serializable attribute enables the runtime to recognize the type as being serializable.</Description>
+   <Resolution Name="Default">Add [Serializable] to {0} as this type implements ISerializable.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182350.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="usagerules.dll" Version="14.0.0.0" />
   </Rule>
   <Rule TypeName="MovePInvokesToNativeMethodsClass" Category="Microsoft.Design" CheckId="CA1060">
    <Name>Move P/Invokes to NativeMethods class</Name>
