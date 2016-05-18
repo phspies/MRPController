@@ -1,12 +1,12 @@
 ﻿using MRMPService.MRMPService.Log;
 using MRMPService.LocalDatabase;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using MRMPService.API;
+using MRMPService.MRMPAPI;
 using System.Threading.Tasks;
 
 
@@ -21,7 +21,7 @@ namespace MRMPService.PlatformInventory
             {
                 DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(Global.platform_inventory_interval);
                 Logger.log(String.Format("Staring platform inventory process with {0} threads", Global.platform_inventory_concurrency), Logger.Severity.Info);
-                MRP_ApiClient _cloud_movey = new MRP_ApiClient();
+                MRMP_ApiClient _cloud_movey = new MRMP_ApiClient();
 
                 Stopwatch sw = Stopwatch.StartNew();
                 int _new_platforms, _updated_platforms;

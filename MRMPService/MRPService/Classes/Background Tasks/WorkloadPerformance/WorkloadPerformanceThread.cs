@@ -7,8 +7,8 @@ using System.Linq;
 using System.Threading;
 using static MRMPService.Utilities.SyncronizedList;
 using System.Threading.Tasks;
-using MRMPService.API.Types.API;
-using MRMPService.API;
+using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.PerformanceCollection
 {
@@ -79,7 +79,7 @@ namespace MRMPService.PerformanceCollection
                 Logger.log(String.Format("Staring performance collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
 
                 List<MRPWorkloadType> workloads;
-                using (MRP_ApiClient _api = new MRP_ApiClient())
+                using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
                     workloads = _api.workload().listworkloads().workloads;
                 }
@@ -92,7 +92,7 @@ namespace MRMPService.PerformanceCollection
                         {
                             var thread = Thread.CurrentThread.ManagedThreadId;
                             WorkloadPerformance.WorkloadPerformanceDo(_workload_counters, _available_counters, workload);
-                            using (MRP_ApiClient _api = new MRP_ApiClient())
+                            using (MRMP_ApiClient _api = new MRMP_ApiClient())
                             {
                                 _api.workload().PeformanceUpdateStatus(workload, "Success", true);
                             }
@@ -100,7 +100,7 @@ namespace MRMPService.PerformanceCollection
                         catch (Exception ex)
                         {
                             Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
-                            using (MRP_ApiClient _api = new MRP_ApiClient())
+                            using (MRMP_ApiClient _api = new MRMP_ApiClient())
                             {
                                 _api.workload().PeformanceUpdateStatus(workload, ex.Message, false);
                             }

@@ -1,4 +1,4 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
 using MRMPService.Utilities;
-using MRMPService.API;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.MRMPService.Classes.Background_Classes
 {
@@ -25,10 +25,10 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             {
                 Logger.log("Starting Performance Upload Thread", Logger.Severity.Debug);
                 Stopwatch _sw = Stopwatch.StartNew();
-                using (API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient())
+                using (MRMPAPI.MRMP_ApiClient _cloud_movey = new MRMPAPI.MRMP_ApiClient())
                 {
                     List<MRPWorkloadType> _mrp_workloads;
-                    using (MRP_ApiClient _api = new MRP_ApiClient())
+                    using (MRMP_ApiClient _api = new MRMP_ApiClient())
                     {
                         _mrp_workloads = _api.workload().listworkloads().workloads;
                     }

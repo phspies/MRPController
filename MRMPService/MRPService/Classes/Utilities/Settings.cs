@@ -1,7 +1,7 @@
 ﻿using MRMPService.MRMPService.Log;
 using Microsoft.Win32;
 using System;
-using MRMPService.API;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.Utilities
 {
@@ -9,7 +9,7 @@ namespace MRMPService.Utilities
     {
         static public void ConfirmController()
         {
-            MRP_ApiClient MRP = new MRP_ApiClient();
+            MRMP_ApiClient MRP = new MRMP_ApiClient();
             MRP.manager().confirm_controller();
         }
 

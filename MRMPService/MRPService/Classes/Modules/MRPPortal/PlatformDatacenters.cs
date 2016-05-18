@@ -1,13 +1,13 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Net;
 
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
     class PortalPlatformDatacenter : Core
     {
-        public PortalPlatformDatacenter(MRP_ApiClient _MRP) : base(_MRP) {
+        public PortalPlatformDatacenter(MRMP_ApiClient _MRP) : base(_MRP) {
         }
          
         public MRPPlatformdatacenterListType list(MRPPlatformType _platform)

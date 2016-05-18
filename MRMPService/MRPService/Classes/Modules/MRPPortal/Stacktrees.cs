@@ -1,15 +1,15 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
 
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
     class MRPStacktree : Core
     {
 
-        public MRPStacktree(MRP_ApiClient _MRP) : base(_MRP)
+        public MRPStacktree(MRMP_ApiClient _MRP) : base(_MRP)
         {
         }
-        public MRP_ApiClient MRP = new MRP_ApiClient();
+        public MRMP_ApiClient MRP = new MRMP_ApiClient();
 
         public ResultType update(MRPStacktreeType _stacktree)
         {

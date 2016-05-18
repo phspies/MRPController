@@ -1,13 +1,13 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Net;
 
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
     class MRPPlatformtemplate : Core
     {
-        public MRPPlatformtemplate(MRP_ApiClient _MRP) : base(_MRP) {
+        public MRPPlatformtemplate(MRMP_ApiClient _MRP) : base(_MRP) {
         }
          
         public MRPPlatformtemplateListType listplatformtemplates()

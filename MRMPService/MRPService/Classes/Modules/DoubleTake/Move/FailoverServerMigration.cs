@@ -1,6 +1,6 @@
 ﻿using DoubleTake.Web.Models;
-using MRMPService.API;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI;
+using MRMPService.MRMPAPI.Types.API;
 using MRMPService.DoubleTake;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
@@ -19,7 +19,7 @@ namespace MRMPService.Tasks.DoubleTake
     {
         public static void FailoverServerMigration(MRPTaskType payload)
         {
-            using (MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+            using (MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
                 try
                 {
@@ -55,7 +55,7 @@ namespace MRMPService.Tasks.DoubleTake
                         ActivityStatusModel _status = _dt.job().FailoverJob(Guid.Parse(payload.submitpayload.job.dt_job_id), _options);
 
                         _mrp_api.task().progress(payload, "Setting source workload to disabled", 20);
-                        using (MRP_ApiClient _api = new MRP_ApiClient())
+                        using (MRMP_ApiClient _api = new MRMP_ApiClient())
                         {
                             _target_workload.enabled = false;
                             _api.workload().updateworkload(_target_workload);

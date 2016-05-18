@@ -1,12 +1,12 @@
 ﻿using MRMPService.MRMPService.Log;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace MRMPService.API.Classes
+namespace MRMPService.MRMPAPI.Classes
 {
     class WorkloadNetstatThread
     {
@@ -21,7 +21,7 @@ namespace MRMPService.API.Classes
                 Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", Global.os_netstat_concurrency), Logger.Severity.Info);
 
                 List<MRPWorkloadType> workloads;
-                using (MRP_ApiClient _api = new MRP_ApiClient())
+                using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
                     workloads = _api.workload().listworkloads().workloads;
                 }

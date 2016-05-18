@@ -1,4 +1,4 @@
-﻿namespace MRMPService.API.Types.API
+﻿namespace MRMPService.MRMPAPI.Types.API
 {
     class MRPManagerType
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MRMPService.API.Types.API
+namespace MRMPService.MRMPAPI.Types.API
 {
     public class MRPNetworkFlowsCRUDType
     {

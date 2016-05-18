@@ -1,4 +1,4 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             {
                 Logger.log("Starting Netstat Upload Thread", Logger.Severity.Debug);
                 Stopwatch _sw = Stopwatch.StartNew();
-                using (API.MRP_ApiClient _cloud_movey = new API.MRP_ApiClient())
+                using (MRMPAPI.MRMP_ApiClient _cloud_movey = new MRMPAPI.MRMP_ApiClient())
                 {
                     using (MRPDatabase db = new MRPDatabase())
                     {

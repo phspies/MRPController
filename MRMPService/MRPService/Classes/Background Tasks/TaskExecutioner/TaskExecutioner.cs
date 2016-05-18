@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using MRMPService.API;
+using MRMPService.MRMPAPI;
 using MRMPService.Tasks.DoubleTake;
 using MRMPService.Tasks.MCP;
 using MRMPService.Tasks.DiscoveryPlatform;
@@ -21,7 +21,7 @@ namespace MRMPService.TaskExecutioner
             while (true)
             {
                 MRPTaskListType tasklist = null;
-                using (MRP_ApiClient MRP = new MRP_ApiClient())
+                using (MRMP_ApiClient MRP = new MRMP_ApiClient())
                 {
                     tasklist = MRP.task().tasks();
                 }

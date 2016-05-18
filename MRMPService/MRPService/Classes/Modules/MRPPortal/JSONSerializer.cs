@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp.Serializers;
 using System.IO;
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
 
 

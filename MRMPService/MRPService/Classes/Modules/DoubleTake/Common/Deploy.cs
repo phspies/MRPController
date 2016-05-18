@@ -13,7 +13,7 @@ using System.Threading;
 using MRMPService.Utilities;
 using DoubleTake.Web.Models;
 using MRMPService.DoubleTake;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 
 namespace MRMPService.Tasks.DoubleTake
 {
@@ -22,7 +22,7 @@ namespace MRMPService.Tasks.DoubleTake
         static dt_server_type server_type = dt_server_type.source;
         public static async void DeployDoubleTake(MRPTaskType payload)
         {
-            API.MRP_ApiClient _mrp_portal = new API.MRP_ApiClient();
+            MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient();
             
             try
             {

@@ -1,7 +1,6 @@
 ﻿using MRMPService.MRMPService.Log;
 using MRMPService.LocalDatabase;
-using MRMPService.API.Types.API;
-using Newtonsoft.Json;
+using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,8 +12,7 @@ using DD.CBU.Compute.Api.Contracts.Network20;
 using DD.CBU.Compute.Api.Contracts.Requests;
 using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
 using DD.CBU.Compute.Api.Contracts.General;
-using MRMPService.Utilities;
-using MRMPService.API;
+using MRMPService.MRMPAPI;
 using DD.CBU.Compute.Api.Contracts.Requests.Network20;
 
 namespace MRMPService.PlatformInventory
@@ -24,7 +22,7 @@ namespace MRMPService.PlatformInventory
 
         public static void UpdateMCPPlatform(MRPPlatformType _platform, bool full = true)
         {
-            using (MRP_ApiClient _mrp_api_endpoint = new MRP_ApiClient())
+            using (MRMP_ApiClient _mrp_api_endpoint = new MRMP_ApiClient())
             {
                 Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.moid), Logger.Severity.Info);
                 Stopwatch sw = Stopwatch.StartNew();
@@ -170,22 +168,20 @@ namespace MRMPService.PlatformInventory
                         }
                     }
                     //process deleted platform workloads
-                    using (MRPDatabase db = new MRPDatabase())
+                    foreach (var _workload in _mrp_workloads.Where(x => x.platform_id == _platform.id))
                     {
-                        foreach (var _workload in _mrp_workloads.Where(x => x.platform_id == _platform.id))
+                        if (!_caas_workload_list.Any(x => x.id == _workload.moid))
                         {
-                            if (!_caas_workload_list.Any(x => x.id == _workload.moid))
+                            Logger.log(String.Format("Portal workload {0} {1} is not found in the MCP {2}", _workload.hostname, _workload.moid, _platform.moid), Logger.Severity.Info);
+                            MRPWorkloadType _removed_workload = new MRPWorkloadType();
+                            _removed_workload.id = _workload.id;
+                            _removed_workload.deleted = true;
+                            _removed_workload.enabled = false;
+                            using (MRMP_ApiClient _api = new MRMP_ApiClient())
                             {
-                                Logger.log(String.Format("Portal workload {0} {1} is not found in the MCP {2}", _workload.hostname, _workload.moid, _platform.moid), Logger.Severity.Info);
-                                MRPWorkloadType _removed_workload = new MRPWorkloadType();
-                                _removed_workload.id = _mrp_workloads.FirstOrDefault(x => x.id == _workload.moid).id;
-                                _removed_workload.deleted = true;
-                                using (MRP_ApiClient _api = new MRP_ApiClient())
-                                {
-                                    _api.workload().updateworkload(_removed_workload);
-                                }
-                                _removed_workloads += 1;
+                                _api.workload().updateworkload(_removed_workload);
                             }
+                            _removed_workloads += 1;
                         }
                     }
                     if (full)

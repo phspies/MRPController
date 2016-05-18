@@ -1,17 +1,17 @@
 ﻿using MRMPService.MRMPService.Log;
 using MRMPService.LocalDatabase;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace MRMPService.API.Classes
+namespace MRMPService.MRMPAPI.Classes
 {
     class WorkloadInventoryThread
     {
-        MRP_ApiClient _cloud_movey = new MRP_ApiClient();
+        MRMP_ApiClient _cloud_movey = new MRMP_ApiClient();
         public void Start()
         {
 
@@ -24,7 +24,7 @@ namespace MRMPService.API.Classes
                 Logger.log(String.Format("Staring operating system inventory process with {0} threads", Global.os_inventory_concurrency), Logger.Severity.Info);
 
                 List<MRPWorkloadType> workloads;
-                using (MRP_ApiClient _api = new MRP_ApiClient())
+                using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
                     workloads = _api.workload().listworkloads().workloads;
                 }
@@ -37,7 +37,7 @@ namespace MRMPService.API.Classes
                         try
                         {
                             (new WorkloadInventory()).WorkloadInventoryDo(workload);
-                            using (MRP_ApiClient _api = new MRP_ApiClient())
+                            using (MRMP_ApiClient _api = new MRMP_ApiClient())
                             {
                                 _api.workload().InventoryUpdateStatus(workload, "Success", true);
                             }
@@ -45,7 +45,7 @@ namespace MRMPService.API.Classes
                         catch (Exception ex)
                         {
                             Logger.log(String.Format("Error collecting inventory information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
-                            using (MRP_ApiClient _api = new MRP_ApiClient())
+                            using (MRMP_ApiClient _api = new MRMP_ApiClient())
                             {
                                 _api.workload().InventoryUpdateStatus(workload, ex.Message, false);
                             }

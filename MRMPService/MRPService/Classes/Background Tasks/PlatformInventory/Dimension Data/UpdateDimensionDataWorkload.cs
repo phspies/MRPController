@@ -1,11 +1,11 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using DD.CBU.Compute.Api.Client;
 using System.Net;
 using DD.CBU.Compute.Api.Contracts.Network20;
-using MRMPService.API;
+using MRMPService.MRMPAPI;
 using MRMPService.MRMPService.Log;
 
 namespace MRMPService.PlatformInventory
@@ -14,7 +14,7 @@ namespace MRMPService.PlatformInventory
     {
         public void UpdateMCPWorkload(String _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null, List<MRPPlatformdomainType> _mrp_domains = null, List<MRPPlatformnetworkType> _mrp_networks = null, List<MRPPlatformtemplateType> _mrp_templates = null)
         {
-            using (MRP_ApiClient _cloud_movey = new MRP_ApiClient())
+            using (MRMP_ApiClient _cloud_movey = new MRMP_ApiClient())
             {
                 MRPCredentialType _platform_credential = _platform.credential;
                 //create dimension data mcp object

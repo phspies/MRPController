@@ -1,6 +1,6 @@
 ﻿using DoubleTake.Web.Models;
-using MRMPService.API;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI;
+using MRMPService.MRMPAPI.Types.API;
 using MRMPService.DoubleTake;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
@@ -17,7 +17,7 @@ namespace MRMPService.Tasks.DoubleTake
     {
         public static void CreateServerMigrationJob(MRPTaskType payload)
         {
-            using (MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+            using (MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
                 try
                 {

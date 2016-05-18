@@ -1,14 +1,14 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Net;
 
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
     class PortalCredential : Core
     {
-        public PortalCredential(MRP_ApiClient _MRP) : base(_MRP) {
+        public PortalCredential(MRMP_ApiClient _MRP) : base(_MRP) {
         }
-        public MRP_ApiClient MRP = new MRP_ApiClient();
+        public MRMP_ApiClient MRP = new MRMP_ApiClient();
 
         public MRPCredentialListType listcredentials()
         {

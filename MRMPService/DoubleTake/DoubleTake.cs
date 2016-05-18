@@ -1,5 +1,5 @@
 ﻿using DoubleTake.Web.Client;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 using System;
 
 namespace MRMPService.DoubleTake

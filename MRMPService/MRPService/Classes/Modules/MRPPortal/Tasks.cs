@@ -1,11 +1,11 @@
 ﻿using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Diagnostics;
 using System.Net;
 
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
     public static class TaskStatus
     {
@@ -18,10 +18,10 @@ namespace MRMPService.API
     class MRPTask : Core
     {
 
-        public MRPTask(MRP_ApiClient _MRP) : base(_MRP)
+        public MRPTask(MRMP_ApiClient _MRP) : base(_MRP)
         {
         }
-        public MRP_ApiClient MRP = new MRP_ApiClient();
+        public MRMP_ApiClient MRP = new MRMP_ApiClient();
 
         public MRPTaskListType tasks()
         {

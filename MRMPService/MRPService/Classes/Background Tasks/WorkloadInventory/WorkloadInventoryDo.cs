@@ -1,5 +1,5 @@
 ﻿using MRMPService.LocalDatabase;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.IO;
 using System.Linq;
@@ -9,7 +9,7 @@ using MRMPService.Utilities;
 using MRMPService.MRMPService.Log;
 using System.Collections.Generic;
 
-namespace MRMPService.API.Classes
+namespace MRMPService.MRMPAPI.Classes
 {
     class WorkloadInventory
     {
@@ -266,7 +266,7 @@ namespace MRMPService.API.Classes
                 _updated_workload.ostype = "windows";
                 _updated_workload.provisioned = true;
 
-                using (MRP_ApiClient _api = new MRP_ApiClient())
+                using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
                     _api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
                     _api.workload().updateworkload(_updated_workload);

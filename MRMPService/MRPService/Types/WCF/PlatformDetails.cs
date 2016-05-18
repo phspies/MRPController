@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 
-namespace MRMPService.API.Models
+namespace MRMPService.MRMPAPI.Models
 {
     [DataContract]
     public class PlatformDetails

@@ -1,14 +1,13 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
 
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
     class MRPWorkload : Core
     {
-        public MRPWorkload(MRP_ApiClient _MRP) : base(_MRP)
-        {
-        }
-        public MRP_ApiClient MRP = new MRP_ApiClient();
+        public MRPWorkload(MRMP_ApiClient _MRP) : base(_MRP) { }
+
+        public MRMP_ApiClient MRP = new MRMP_ApiClient();
 
         public MRPWorkloadListType listworkloads()
         {
@@ -16,6 +15,14 @@ namespace MRMPService.API
             MRPCommandManagerType worker = new MRPCommandManagerType();
             return post<MRPWorkloadListType>(worker);
         }
+
+        public MRPWorkloadListType list_dt_installed()
+        {
+            endpoint = "/workloads/list_dt_installed.json";
+            MRPCommandManagerType worker = new MRPCommandManagerType();
+            return post<MRPWorkloadListType>(worker);
+        }
+
         public MRPWorkloadListType list_by_platform(MRPPlatformType _platform)
         {
             endpoint = "/workloads/list_by_platform.json";

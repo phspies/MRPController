@@ -4,17 +4,17 @@ using System.Net;
 using System.Threading;
 using Newtonsoft.Json;
 using MRMPService.MRMPService.Log;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
     class Core
     {
         private String _endpoint;
-        private MRP_ApiClient _client;
+        private MRMP_ApiClient _client;
         static string api_prefix = "/api/v1";
 
-        public Core(MRP_ApiClient _MRP)
+        public Core(MRMP_ApiClient _MRP)
         {
             _client = _MRP;
         }

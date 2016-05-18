@@ -1,4 +1,4 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.MRMPService.Log;
-using MRMPService.API;
+using MRMPService.MRMPAPI;
 using DoubleTake.Web.Models;
 using MRMPService.DoubleTake;
 using MRMPService.MRPService.Types.API;
@@ -18,7 +18,7 @@ namespace MRMPService.Tasks.DoubleTake
     {
         public static async void CreateJob(MRPTaskType payload)
         {
-            using (MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+            using (MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
                 try
                 {

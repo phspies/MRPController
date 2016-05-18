@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRMPService.API.Types.API
+namespace MRMPService.MRMPAPI.Types.API
 {
 
     public class MRPJobListType
@@ -36,7 +36,17 @@ namespace MRMPService.API.Types.API
         public MRPWorkloadType target_workload { get; set; }
         public string internal_state { get; set; }
         public DateTime? last_contact { get; set; }
-
+        public bool can_create_image_recovery { get; set; }
+        public bool can_delete { get; set; }
+        public bool can_edit { get; set; }
+        public bool can_failback { get; set; }
+        public bool can_pause { get; set; }
+        public bool can_restore { get; set; }
+        public bool can_reverse { get; set; }
+        public bool can_start { get; set; }
+        public bool can_stop { get; set; }
+        public bool can_undo_failover { get; set; }
+        public bool can_failover { get; set; }
     }
     public class MRPJobIDGETType
     {

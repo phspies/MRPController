@@ -1,6 +1,6 @@
 ﻿using MRMPService.MRMPService.Log;
 using MRMPService.LocalDatabase;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using MRMPService.Utilities;
 using VMware.Vim;
 using MRMPService.VMWare;
 using System.Collections.Specialized;
-using MRMPService.API;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.PlatformInventory
 {
@@ -18,7 +18,7 @@ namespace MRMPService.PlatformInventory
     {
         static public void UpdateVMwarePlatform(MRPPlatformType _platform, bool full = true)
         {
-            MRP_ApiClient _cloud_movey = new MRP_ApiClient();
+            MRMP_ApiClient _cloud_movey = new MRMP_ApiClient();
 
             Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.moid), Logger.Severity.Info);
             Stopwatch sw = Stopwatch.StartNew();

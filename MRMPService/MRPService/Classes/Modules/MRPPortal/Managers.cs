@@ -1,17 +1,17 @@
 ﻿using MRMPService.MRMPService.Log;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Diagnostics;
 
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
     class MRPManager : Core
     {
         MRPManagerType worker = new MRPManagerType();
-        public MRPManager(MRP_ApiClient _MRP) : base(_MRP)
+        public MRPManager(MRMP_ApiClient _MRP) : base(_MRP)
         {
             worker.hostname = Environment.MachineName;
             worker.version = Global.manager_version;

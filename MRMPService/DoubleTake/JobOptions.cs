@@ -1,5 +1,5 @@
 ﻿using DoubleTake.Web.Models;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.MRPService.Types.API;
 using MRMPService.Utilities;

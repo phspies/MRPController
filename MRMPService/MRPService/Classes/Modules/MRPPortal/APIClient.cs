@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
-    class MRP_ApiClient : IDisposable
+    class MRMP_ApiClient : IDisposable
 {
         public MRPTask task()
         {
@@ -23,6 +23,10 @@ namespace MRMPService.API
         public MRPWorkload workload()
         {
             return new MRPWorkload(this);
+        }
+        public MRPEvent @event()
+        {
+            return new MRPEvent(this);
         }
         public MRPNetworkflow netflow()
         {

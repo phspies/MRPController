@@ -4,8 +4,8 @@ using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
-using MRMPService.API.Classes;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Classes;
+using MRMPService.MRMPAPI.Types.API;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace MRMPService.Tasks.MCP
         public static void ProvisionVM(MRPTaskType payload)
         {
             //Get workload object from portal to perform updates once provisioned
-            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+            using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
                 _mrp_api.task().progress(payload, String.Format("Starting provisioning process"));
             }
@@ -104,7 +104,7 @@ namespace MRMPService.Tasks.MCP
                     {
                         if (--_deploy_retries == 0)
                         {
-                            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                            using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                             {
                                 _mrp_api.task().failcomplete(payload, String.Format("Error submitting workload creation task: {0} : {1}", ex.Message, _status.error));
                                 Logger.log(String.Format("Error submitting workload creation task: {0} : {1}", ex.Message, _status.error), Logger.Severity.Error);
@@ -126,7 +126,7 @@ namespace MRMPService.Tasks.MCP
                     {
                         deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                     }
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), 20);
                     }
@@ -137,7 +137,7 @@ namespace MRMPService.Tasks.MCP
                         {
                             if (_newvm.progress.step != null)
                             {
-                                using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                                using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                                 {
                                     _mrp_api.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.progress.step.name), 30 + _newvm.progress.step.number);
                                 }
@@ -160,7 +160,7 @@ namespace MRMPService.Tasks.MCP
                             if (_newvm.disk.ToList().Find(x => x.scsiId == _disk_index).sizeGb < _disk_size)
                             {
                                 String _disk_guid = _newvm.disk.ToList().Find(x => x.scsiId == _disk_index).id;
-                                using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                                using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                                 {
                                     _mrp_api.task().progress(payload, String.Format("Extending storage: {0} : {1}GB", _disk_index, _disk_size), 60 + count);
                                 }
@@ -169,7 +169,7 @@ namespace MRMPService.Tasks.MCP
                         }
                         else
                         {
-                            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                            using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                             {
                                 _mrp_api.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _disk_index, _disk_size, _disk_tier.storagetier), 60 + count);
                             }
@@ -185,7 +185,7 @@ namespace MRMPService.Tasks.MCP
                     }
 
                     //Start Workload
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Power on workload"), 70);
                     }
@@ -196,7 +196,7 @@ namespace MRMPService.Tasks.MCP
                         _newvm = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                         Thread.Sleep(5000);
                     }
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Workload powered on"), 71);
                     }
@@ -223,7 +223,7 @@ namespace MRMPService.Tasks.MCP
                     }
                     if (new_workload_ip == null)
                     {
-                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                         {
                             _mrp_api.task().failcomplete(payload, String.Format("Error contacting workwork {0} after 3 tries", _newvm.name));
                         }
@@ -245,7 +245,7 @@ namespace MRMPService.Tasks.MCP
                         }
                         catch (Exception ex)
                         {
-                            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                            using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                             {
                             }
                         }
@@ -259,7 +259,7 @@ namespace MRMPService.Tasks.MCP
                         }
                         catch (Exception ex)
                         {
-                            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                            using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                             {
                                 _mrp_api.task().failcomplete(payload, String.Format("Error collecting C: volume space information for {0}", _newvm.name));
                             }
@@ -274,7 +274,7 @@ namespace MRMPService.Tasks.MCP
                     }
                     else
                     {
-                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                         {
                             _mrp_api.task().failcomplete(payload, "Cannot find C: drive in volume list for partition mapping");
                         }
@@ -362,7 +362,7 @@ namespace MRMPService.Tasks.MCP
                                     if (--_copy_retries == 0)
                                     {
                                         Logger.log(String.Format("Error creating disk layout file on workload {0}: {1} : {2}", new_workload_ip, ex.Message, workloadPath), Logger.Severity.Info);
-                                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                                         {
                                             _mrp_api.task().failcomplete(payload, String.Format("Error creating disk layout file on workload: {0}", ex.Message));
                                         }
@@ -375,7 +375,7 @@ namespace MRMPService.Tasks.MCP
                     }
                     catch (Exception ex)
                     {
-                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                         {
                             _mrp_api.task().failcomplete(payload, String.Format("Error impersonating Administrator user: {0}", ex.Message));
                         }
@@ -384,7 +384,7 @@ namespace MRMPService.Tasks.MCP
                     }
                     //Run Diskpart Command on Workload
                     //Create connection object to remote machine
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Volume setup process on {0}", _newvm.name), 80);
                     }
@@ -405,7 +405,7 @@ namespace MRMPService.Tasks.MCP
                             if (--_connect_retries == 0)
                             {
                                 Logger.log(String.Format("Error running diskpart on workload {0}: {1} : {2}", new_workload_ip, ex.Message, workloadPath), Logger.Severity.Info);
-                                using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                                using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                                 {
                                     _mrp_api.task().failcomplete(payload, String.Format("Error running diskpart on workload: {0}", ex.Message));
                                 }
@@ -445,7 +445,7 @@ namespace MRMPService.Tasks.MCP
                     int _exitcode = Convert.ToInt32(returnValue.Properties["ReturnValue"].Value);
                     if (_exitcode != 0)
                     {
-                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                         {
                             _mrp_api.task().failcomplete(payload, String.Format("Failed diskpart process on {0} ({1})", _newvm.name, _exitcode));
                         }
@@ -453,7 +453,7 @@ namespace MRMPService.Tasks.MCP
                     }
                     else
                     {
-                        using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                         {
                             _mrp_api.task().progress(payload, String.Format("Volume setup process exit code: {0}", _exitcode), 81);
                         }
@@ -475,20 +475,20 @@ namespace MRMPService.Tasks.MCP
                     _interface.ipassignment = "manual";
                     _interface.ipv6address = _newvm.networkInfo.primaryNic.ipv6;
 
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         _mrp_api.workload().updateworkload(_update_workload);
                     }
 
                     //update Platform inventory for server
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Updating platform information for {0}", _target_workload.hostname), 91);
                     }
                     (new PlatformInventoryWorkloadDo()).UpdateMCPWorkload(_newvm_platform_guid.ToString(), _target_workload.platform);
 
                     //update OS information or newly provisioned server
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         _mrp_api.task().progress(payload, String.Format("Updating operating system information for {0}", _target_workload.hostname), 92);
                     }
@@ -496,14 +496,14 @@ namespace MRMPService.Tasks.MCP
 
                     //log the success
                     Logger.log(String.Format("Successfully provisioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         _mrp_api.task().successcomplete(payload, JsonConvert.SerializeObject(_newvm));
                     }
                 }
                 else
                 {
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         _mrp_api.task().failcomplete(payload, String.Format("Failed to create target virtual machine: {0}", _status.ToString()));
                     }
@@ -513,7 +513,7 @@ namespace MRMPService.Tasks.MCP
             }
             catch (Exception e)
             {
-                using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                 {
                     _mrp_api.task().failcomplete(payload, e.Message);
                 }

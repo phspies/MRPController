@@ -8,7 +8,7 @@ using System.Security.Principal;
 using MRMPService.Utilities;
 using static MRMPService.Utilities.SyncronizedList;
 using System.Runtime.InteropServices;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 
 namespace MRMPService.PerformanceCollection
 {

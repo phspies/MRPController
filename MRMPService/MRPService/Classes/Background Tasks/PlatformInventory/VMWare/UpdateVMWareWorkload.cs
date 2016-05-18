@@ -1,10 +1,9 @@
-﻿using MRMPService.LocalDatabase;
-using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using MRMPService.Utilities;
-using MRMPService.API;
+using MRMPService.MRMPAPI;
 using MRMPService.VMWare;
 using VMware.Vim;
 using MRMPService.MRMPService.Log;
@@ -15,7 +14,7 @@ namespace MRMPService.PlatformInventory
     {
         public static void UpdateVMWareWorkload(string _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null, List<MRPPlatformdomainType> _mrp_domains = null, List<MRPPlatformnetworkType> _mrp_networks = null)
         {
-            MRP_ApiClient _cloud_movey = new MRP_ApiClient();
+            MRMP_ApiClient _cloud_movey = new MRMP_ApiClient();
 
             MRPCredentialType _platform_credential = _platform.credential;
 

@@ -1,11 +1,11 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRMPService.API.Types
+namespace MRMPService.MRMPAPI.Types
 {
 
     public class Target

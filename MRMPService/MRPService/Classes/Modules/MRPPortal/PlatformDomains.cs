@@ -1,12 +1,12 @@
-﻿using MRMPService.API.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
 using System.Net;
 
-namespace MRMPService.API
+namespace MRMPService.MRMPAPI
 {
     class MRPPlatformDomain : Core
     {
-        public MRPPlatformDomain(MRP_ApiClient _MRP) : base(_MRP) {
+        public MRPPlatformDomain(MRMP_ApiClient _MRP) : base(_MRP) {
         }
          
         public MRPPlatformdomainListType list()

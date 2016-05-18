@@ -1,15 +1,12 @@
 ﻿using DD.CBU.Compute.Api.Client;
 using DD.CBU.Compute.Api.Contracts.Network20;
-using MRMPService.API.Types.API;
+using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Script.Serialization;
 
 namespace MRMPService.Tasks.DiscoveryPlatform
 {
@@ -17,7 +14,7 @@ namespace MRMPService.Tasks.DiscoveryPlatform
     {
         public static void DatacenterDiscoveryDo(MRPTaskType payload)
         {
-            using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+            using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
                 _mrp_api.task().progress(payload, String.Format("Starting datacenter discovering process"), 5);
             }
@@ -28,7 +25,7 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                 case "dimension_data":
                     ComputeApiClient CaaS = null;
                     MRPPlatformdatacenterListType _mrmp_datacenters = null;
-                    using (API.MRP_ApiClient _mrp_api = new API.MRP_ApiClient())
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         try
                         {
