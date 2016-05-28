@@ -21,7 +21,7 @@ namespace MRMPService.MRMPAPI.Classes
             MRPCredentialType _credential = _workload.credential;
             if (_credential == null)
             {
-                throw new ArgumentException(String.Format("Inventory: Error finding credentials for workload {0} {1}", _workload, _workload.hostname));
+                throw new ArgumentException(String.Format("Error finding credentials"));
             }
 
             string workload_ip = null;
@@ -31,7 +31,7 @@ namespace MRMPService.MRMPAPI.Classes
             }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Inventory: Error finding contactable IP for workload {0} {1}", _workload.id, _workload.hostname));
+                throw new ArgumentException(String.Format("Error finding contactable IP"));
             }
 
             Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);

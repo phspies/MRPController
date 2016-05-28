@@ -28,7 +28,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public string target_workload_id { get; set; }
         public string source_workload_id { get; set; }
         public string job_type { get; set; }
-        public string dt_job_id { get; set; }
+        public string jobname { get; set; }
+        public Guid? dt_job_id { get; set; }
         public string organization_id { get; set; }
         public string state { get; set; }
         public string servicestack_id { get; set; }
@@ -47,6 +48,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public bool can_stop { get; set; }
         public bool can_undo_failover { get; set; }
         public bool can_failover { get; set; }
+        public List<MRPJobstatType> jobstats_attributes { get; set; }
+        public List<MRPJobImageType> jobimages_attributes { get; set; }
     }
     public class MRPJobIDGETType
     {

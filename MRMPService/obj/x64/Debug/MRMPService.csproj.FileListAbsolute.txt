@@ -4,9 +4,11 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\MRMPService.exe.CodeAnalysisLog.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\MRMPService.exe.lastcodeanalysissucceeded
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.Core.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.Web.Client.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.Web.Client.Management.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.Web.Core.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DTMUConfiguratorConsole.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\EntityFramework.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\EntityFramework.SqlServerCompact.dll
@@ -21,7 +23,11 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Data.SqlServerCe.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Data.SqlServerCe.Entity.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Web.Helpers.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\VMware.Vim.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.Common.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.Contract.Service.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.Contract.Data.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Windows.Interactivity.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\Microsoft.Expression.Interactions.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.Core.xml
@@ -37,6 +43,9 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\RestSharp.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\SimpleImpersonation.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.Common.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.Contract.Service.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.Contract.Data.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Windows.Interactivity.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\Microsoft.Expression.Interactions.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\de\Microsoft.Expression.Prototyping.Interactivity.resources.dll
@@ -75,10 +84,10 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.csprojResolveAssemblyReference.cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.MRPSvc.resources
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.ProjectInstaller.resources
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.csproj.GenerateResource.Cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.pdb
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DTMUConfiguratorConsole.exe
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Web.Helpers.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\VimService60.XmlSerializers.dll

@@ -51,7 +51,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         db.NetworkFlows.RemoveRange(_db_flows);
                         db.SaveChanges();
                         _sw_delete.Stop();
-                        Logger.log(String.Format("Took {0} to delete {1} performance records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _db_flows.Count()), Logger.Severity.Debug);
+                        Logger.log(String.Format("Took {0} to delete {1} netflow records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _db_flows.Count()), Logger.Severity.Debug);
 
                     }
                 }

@@ -5,28 +5,28 @@ using System.Linq;
 
 namespace System.Net.NetFlowv9
 {
-	public class Packet
-	{
-		private V9Header _header;
+    public class V9Packet
+    {
+        private V9Header _header;
         private List<FlowSet> _flowset;
         private Byte[] _bytes;
 
-		public V9Header Header
-		{
-			get
-			{
-				return this._header;
-			}
-		}
-		public List<FlowSet> FlowSet
-		{
-			get
-			{
+        public V9Header Header
+        {
+            get
+            {
+                return this._header;
+            }
+        }
+        public List<FlowSet> FlowSet
+        {
+            get
+            {
                 return this._flowset;
-			}
-		}
+            }
+        }
 
-        public Packet(Byte[] bytes, TemplatesV9 templates)
+        public V9Packet(Byte[] bytes, TemplatesV9 templates)
         {
             this._bytes = bytes;
             this.Parse(templates);
@@ -51,7 +51,7 @@ namespace System.Net.NetFlowv9
 
             while ((templengh + 2) < flowset.Length)
             {
-                UInt16 lengths = BitConverter.ToUInt16(reverse, flowset.Length - sizeof(Int16) - (templengh+2));
+                UInt16 lengths = BitConverter.ToUInt16(reverse, flowset.Length - sizeof(Int16) - (templengh + 2));
                 Byte[] bflowsets = new Byte[lengths];
                 Array.Copy(flowset, templengh, bflowsets, 0, lengths);
 
@@ -74,11 +74,11 @@ namespace System.Net.NetFlowv9
                 + "ID: " + _header.ID + "\r\n\n"
                 + "FlowSet`s " + (this._bytes.Length - 20) + "b.:\r\n\n";
 
-            
+
 
             int a = 0;
 
-            foreach(FlowSet flows in this._flowset)
+            foreach (FlowSet flows in this._flowset)
             {
                 a++;
 
@@ -112,8 +112,7 @@ namespace System.Net.NetFlowv9
                         {
                             if (fields.Value.Count != 0) ret += new IPAddress(fields.Value.ToArray()).ToString();
                         }
-                        else if ((fields.GetTypes() == (UInt16)FieldType.L4_DST_PORT) ||
-                            (fields.GetTypes() == (UInt16)FieldType.L4_SRC_PORT))
+                        else if ((fields.GetTypes() == (UInt16)FieldType.L4_DST_PORT) || (fields.GetTypes() == (UInt16)FieldType.L4_SRC_PORT))
                         {
                             if (fields.Value.Count != 0) ret += BitConverter.ToUInt16(fields.Value.ToArray().Reverse().ToArray(), 0);
                         }
@@ -125,15 +124,14 @@ namespace System.Net.NetFlowv9
                                 ret += "0x" + bt.ToString("X") + " ";
                             }
                         }
-
                         if (fields.Value.Count != 0) ret += "\r\n";
                     }
 
                     i++;
                 }
             }
-            
+
             return ret;
         }
-	}
+    }
 }

@@ -1,10 +1,12 @@
 ﻿using DoubleTake.Web.Models;
+using MRMPService.MRMPAPI;
 using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.MRPService.Types.API;
 using MRMPService.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace MRMPService.DoubleTake
 {
@@ -21,49 +23,66 @@ namespace MRMPService.DoubleTake
             jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
 
             String _job_type = null;
-            if (payload.task_type.Contains("ha"))
+            if (jobInfo.JobType == DT_JobTypes.HA_Full_Failover)
             {
                 _job_type = "Availability";
-                jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = _recovery_policy.shutdown_source;
+                jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = (bool)_recovery_policy.shutdown_source;
             }
-            else if (payload.task_type.Contains("move"))
+            else if (jobInfo.JobType == DT_JobTypes.Move_Server_Migration)
             {
                 _job_type = "Move";
-                jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = _recovery_policy.shutdown_source;
+                jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = (bool)_recovery_policy.shutdown_source;
             }
-            else if (payload.task_type.Contains("dr"))
+            else if (jobInfo.JobType == DT_JobTypes.DR_Full_Protection)
             {
                 _job_type = "Disaster Recovery";
-                jobInfo.JobOptions.ImageRecoveryOptions.ShutdownSourceServer = _recovery_policy.shutdown_source;
+                jobInfo.JobOptions.ImageRecoveryOptions.ShutdownSourceServer = (bool)_recovery_policy.shutdown_source;
+                List<ImageVhdInfoModel> vhd = new List<ImageVhdInfoModel>();
+                int i = 0;
+                foreach (dynamic volume in payload.submitpayload.source.workloadvolumes_attributes)
+                {
+                    String _repositorypath = payload.submitpayload.servicestack.recoverypolicy.repositorypath;
+                    String _servicestack = payload.submitpayload.servicestack.service;
+                    String _original_id = payload.submitpayload.original.id;
+                    String _volume = volume.driveletter;
+                    Int16 _disksize = volume.disksize;
+                    Char _shortvolume = _volume[0];
+                    String _filename = _original_id + "_" + _shortvolume + ".vhdx";
+                    string absfilename = Path.Combine(_repositorypath, _servicestack.ToLower().Replace(" ", "_"), _original_id, _filename);
+                    vhd.Add(new ImageVhdInfoModel() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = false, FilePath = absfilename, SizeInMB = (_disksize * 1024) });
+                    using (MRMP_ApiClient _mrp_api = new MRMP_ApiClient())
+                    {
+                        _mrp_api.task().progress(payload, String.Format("Volume {0} being synced to {1} on repository server", _shortvolume.ToString(), absfilename), 51 + i);
+                    }
+                    i += 1;
+                }
+                jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
+                jobInfo.JobOptions.ImageProtectionOptions.ImageName = (String)payload.target_id;
             }
 
             jobInfo.JobOptions.Name = String.Format("MRMP [{0}] {1} to {1}", _job_type, payload.submitpayload.source.hostname, payload.submitpayload.target.hostname);
 
-            jobInfo.JobOptions.SystemStateOptions.IsWanFailover = _recovery_policy.retain_network_configuration;
+            jobInfo.JobOptions.SystemStateOptions.IsWanFailover = (bool)_recovery_policy.retain_network_configuration;
             jobInfo.JobOptions.SystemStateOptions.ApplyPorts = _recovery_policy.change_target_ports;
 
-            //DNSOptions _dnsOptions = new DNSOptions();
-            //DnsDomainDetails _dnsDomainDetails = new DnsDomainDetails();
-            //_dnsOptions.Domains = new Array[0](_dnsDomainDetails);
-            //jobInfo.JobOptions.DnsOptions = _dnsOptions;
             // level = 2 and algorithm = 31 Compression is enabled at high level
-            if (_recovery_policy.enablecompression)
+            if ((bool)_recovery_policy.enablecompression)
             {
                 jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.CompressionLevel.Level = 1;
                 jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.CompressionLevel.Algorithm = 21;
             }
             jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.MirrorParameters.ComparisonCriteria = MirrorComparisonCriteria.Newer;
 
-            if (_recovery_policy.enablesnapshots)
+            if ((bool)_recovery_policy.enablesnapshots)
             {
                 TimeSpan _snapshot_timespan = new TimeSpan();
                 switch (_recovery_policy.snapshotinterval)
                 {
                     case "Hours":
-                        _snapshot_timespan = new TimeSpan(_recovery_policy.snapshotincrement, 0, 0);
+                        _snapshot_timespan = new TimeSpan((int)_recovery_policy.snapshotincrement, 0, 0);
                         break;
                     case "Minutes":
-                        _snapshot_timespan = new TimeSpan(0, _recovery_policy.snapshotincrement, 0);
+                        _snapshot_timespan = new TimeSpan(0, (int)_recovery_policy.snapshotincrement, 0);
                         break;
 
                 }
@@ -74,35 +93,57 @@ namespace MRMPService.DoubleTake
                 _snapshot.StartTime = new DateTime();
                 jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.SnapshotSchedule = _snapshot;
             }
-            //if (_recovery_policy.enablebandwidthlimit)
-            //{
-            //    BandwidthSchedule _bandwidth = new BandwidthSchedule();
-
-            //    _bandwidth.Current.
-            //    BandwidthSpecification _bandwidth_specification = new BandwidthSpecification();
-            //    _bandwidth_specification
-            //    _bandwidth.Mode = BandwidthScheduleMode.Fixed;
-            //    _bandwidth.Specifications
-            //    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.Schedule.Bandwidth
-            //}
-            using (Connection _connection = new Connection())
-            {
-                //jobInfo.JobOptions.CoreConnectionOptions.TargetAddress = _connection.FindConnection(_target_workload.iplist, false);
-            }
 
             //set dns credentials with model to the DnsOptions
-
-            DnsOptionsModel _dns = new DnsOptionsModel();
-            _dns.Domains = new DnsDomainDetailsModel[] {
-                new DnsDomainDetailsModel() {
-                    DnsServers = new DnsServerDetailModel[] { new DnsServerDetailModel() { Address = "" } },
-                    Credentials = new CredentialModel() { Domain = "", Password = "", UserName = "" },
-                    DomainName = "",
-                    ShouldUpdateTtl = true,
+            if ((bool)_recovery_policy.dns_set_dns)
+            {
+                DnsOptionsModel _dns = new DnsOptionsModel();
+                List<DnsServerDetailModel> _dns_servers = new List<DnsServerDetailModel>();
+                if (_recovery_policy.dns_servers.Contains(","))
+                {
+                    foreach (string _dns_server in _recovery_policy.dns_servers.Split(','))
+                    {
+                        System.Net.IPAddress ipAddress = null;
+                        if (System.Net.IPAddress.TryParse(_dns_server, out ipAddress))
+                        {
+                            _dns_servers.Add(new DnsServerDetailModel() { Address = _dns_server });
+                        }
+                        else
+                        {
+                            using (MRMP_ApiClient _mrp_api = new MRMP_ApiClient())
+                            {
+                                _mrp_api.task().progress(payload, String.Format("Error in setting DNS server {0}",_dns_server), 51);
+                            }
+                        }
                     }
-                };
-            jobInfo.JobOptions.DnsOptions = _dns;
+                }
+                else
+                {
+                    System.Net.IPAddress ipAddress = null;
+                    if (System.Net.IPAddress.TryParse(_recovery_policy.dns_servers, out ipAddress))
+                    {
+                        _dns_servers.Add(new DnsServerDetailModel() { Address = _recovery_policy.dns_servers });
+                    }
+                    else
+                    {
+                        using (MRMP_ApiClient _mrp_api = new MRMP_ApiClient())
+                        {
+                            _mrp_api.task().progress(payload, String.Format("Error in setting DNS server {0}", _recovery_policy.dns_servers), 51);
+                        }
+                    }
+                }
 
+
+                _dns.Domains[0] = new DnsDomainDetailsModel()
+                {
+                    DnsServers = _dns_servers.ToArray(),
+                    Credentials = new CredentialModel() { Domain = _recovery_policy.dns_user_domain, Password = _recovery_policy.dns_password, UserName = _recovery_policy.dns_username },
+                    DomainName = _recovery_policy.dns_domain,
+                    ShouldUpdateTtl = (bool)_recovery_policy.dns_should_update_ttl,
+                    TtlValue = (int)_recovery_policy.dns_ttl
+                };
+                jobInfo.JobOptions.DnsOptions = _dns;
+            }
             return jobInfo;
 
         }

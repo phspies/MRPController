@@ -93,7 +93,7 @@ namespace MRMPService.Tasks.DoubleTake
                         _mrp_api.task().progress(payload, "Registering job with portal", 60);
                         _mrp_api.job().createjob(new MRPJobType()
                         {
-                            dt_job_id = jobId.ToString(),
+                            dt_job_id = jobId,
                             job_type = DT_JobTypes.HA_Full_Failover,
                             target_workload_id = _target_workload.id,
                             source_workload_id = _source_workload.id,

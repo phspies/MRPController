@@ -31,7 +31,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                 for (int i = 0; i < recv; i++)
                     bytes[i] = data[i];
 
-                Packet packet = new Packet(bytes, _templates);
+                V9Packet packet = new V9Packet(bytes, _templates);
 
             }
         }

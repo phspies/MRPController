@@ -2,11 +2,13 @@
 using DD.CBU.Compute.Api.Contracts.Network20;
 using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
+using MRMPService.VMWare;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using VMware.Vim;
 
 namespace MRMPService.Tasks.DiscoveryPlatform
 {
@@ -89,6 +91,61 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                 case "hyperv":
                     break;
                 case "vmware":
+                    VimApiClient _vim;
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
+                    {
+                        try
+                        {
+                            _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from {0} for type VMWare", _platform.url), 10);
+                            _mrmp_datacenters = _mrp_api.platformdatacenter().list(_platform);
+                            _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 10);
+                            String username = String.Concat((String.IsNullOrEmpty(_platform_credentail.domain) ? "" : (_platform_credentail.domain + @"\")), _platform_credentail.username);
+                            _vim = new VimApiClient(_platform.url, username, _platform_credentail.password);
+                            _vim.datacenter().DatacenterList();
+                            
+                        }
+                        catch (Exception ex)
+                        {
+                            _mrp_api.task().failcomplete(payload, ex.ToString());
+                            return;
+                        }
+
+
+                        List<Datacenter> _vmware_datacenters = _vim.datacenter().DatacenterList();
+                        if (_vmware_datacenters != null)
+                        {
+                            _mrp_api.task().progress(payload, String.Format("Found {0} datacenters", _vmware_datacenters.Count), 15);
+                            foreach (Datacenter _dc in _vmware_datacenters)
+                            {
+                                MRPPlatformdatacenterType _platform_datacenter = new MRPPlatformdatacenterType();
+                                if (_mrmp_datacenters.platformdatacenters.Exists(x => x.moid == _dc.MoRef.Value))
+                                {
+                                    _platform_datacenter.id = _mrmp_datacenters.platformdatacenters.FirstOrDefault(x => x.moid == _dc.MoRef.Value).id;
+                                }
+                                _platform_datacenter.moid = _dc.MoRef.Value;
+                                _platform_datacenter.displayname = _dc.Name;
+                                _platform_datacenter.platform_id = _platform.id;
+
+                                if (_mrmp_datacenters.platformdatacenters.Exists(x => x.moid == _dc.MoRef.Value))
+                                {
+                                    _mrp_api.platformdatacenter().update(_platform_datacenter);
+                                }
+                                else
+                                {
+                                    _mrp_api.platformdatacenter().create(_platform_datacenter);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            _mrp_api.task().progress(payload, String.Format("Something went wrong, null based vmware server list"), 15);
+                            _mrp_api.task().failcomplete(payload, String.Format("Something went wrong, null based vmware server list"));
+                            return;
+                        }
+                        _mrp_api.task().progress(payload, String.Format("Successfully created/updated {0} datacenter(s)", _vmware_datacenters.Count), 20);
+                        _mrp_api.task().successcomplete(payload, String.Format("Successfully created/updated {0} datacenter(s)", _vmware_datacenters.Count));
+                    }
+
                     break;
             }
         }

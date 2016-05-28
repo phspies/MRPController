@@ -40,7 +40,7 @@ namespace MRMPService.PlatformInventory
             int workloads, networkdomains, vlans;
             workloads = networkdomains = vlans = 0;
 
-            List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().list_by_platform(_platform).workloads.ToList();
+            List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().list_by_platform_all(_platform).workloads.ToList();
             List<MRPPlatformdomainType> _mrp_domains = _cloud_movey.platformdomain().list_by_platform(_platform).platformdomains.ToList();
             List<MRPPlatformnetworkType> _mrp_networks = _cloud_movey.platformnetwork().list_by_platform(_platform).platformnetworks.ToList();
 
@@ -54,20 +54,19 @@ namespace MRMPService.PlatformInventory
             foreach (Network _vmware_network in _vim.networks().GetStandardPgs(dc))
             {
                 MRPPlatformnetworkType _platformnetwork = new MRPPlatformnetworkType();
+
+                if (_mrp_networks.Exists(x => x.moid == _vmware_network.MoRef.Value))
+                {
+                    _platformnetwork = _mrp_networks.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value);
+                }
+
                 _platformnetwork.moid = _vmware_network.MoRef.Value;
                 _platformnetwork.network = _vmware_network.Name;
                 _platformnetwork.networkdomain_moid = "std_pg";
                 _platformnetwork.provisioned = true;
-                if (_mrp_networks.Exists(x => x.moid == _vmware_network.MoRef.Value))
-                {
-                    _platformnetwork.id = _mrp_networks.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value).id;
-                    //_updated_platformnetworks += 1;
-                }
-                else
-                {
-                    //_new_platformnetworks += 1;
-                }
+
                 _std_platformdomain.platformnetworks_attributes.Add(_platformnetwork);
+
             }
             if (_mrp_domains.Exists(x => x.moid == "std_pg"))
             {
@@ -124,6 +123,10 @@ namespace MRMPService.PlatformInventory
 
             if (full)
             {
+                //refresh domains and networks from portal
+                _mrp_domains = _cloud_movey.platformdomain().list_by_platform(_platform).platformdomains.ToList();
+                _mrp_networks = _cloud_movey.platformnetwork().list_by_platform(_platform).platformnetworks.ToList();
+
                 foreach (VirtualMachine _vmware_workload in _vmware_workload_list)
                 {
                     PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _platform, _mrp_workloads, _mrp_domains, _mrp_networks);

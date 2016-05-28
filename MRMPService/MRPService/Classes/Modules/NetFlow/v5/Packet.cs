@@ -41,8 +41,8 @@ namespace MRMPService.NetFlow.v5
         public uint OutInf { get { return this._out_if; } }
         public uint Packets { get { return this._pkts; } }
         public uint Octets { get { return this._octets; } }
-        public DateTime UptimeFirst { get { return new DateTime(1970, 1, 1).AddSeconds(this._uptime_first); } }
-        public DateTime UptimeLast { get { return new DateTime(1970, 1, 1).AddSeconds(this._uptime_first); } }
+        public long UptimeFirst { get { return this._uptime_first; } }
+        public long UptimeLast { get { return this._uptime_last; } }
         public uint SrcPort { get { return this._srcPort; } }
         public int DstPort { get { return this._dstPort; } }
         public uint TcpFlags { get { return this._tcp_flags; } }

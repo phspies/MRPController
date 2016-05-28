@@ -21,7 +21,7 @@ namespace MRMPService.PerformanceCollection
             MRPCredentialType _credential = workload.credential;
             if (_credential == null)
             {
-                throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", workload.id, workload.hostname));
+                throw new ArgumentException(String.Format("Error finding credentials"));
             }
 
             //check for working IP
@@ -32,7 +32,7 @@ namespace MRMPService.PerformanceCollection
             }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Performance: Error finding contactable IP for workload {0} {1}", workload.id, workload.hostname));
+                throw new ArgumentException(String.Format("Error finding contactable IP"));
             }
             #endregion
 

@@ -89,7 +89,7 @@ namespace MRMPService.VMWare
             }
             else
             {
-                return null;
+                return new List<DistributedVirtualSwitch>();
             }
         }
 

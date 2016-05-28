@@ -35,17 +35,17 @@ namespace MRMPService.PlatformInventory
             if (_mrp_workloads == null)
             {
                 Logger.log(String.Format("UpdateVMwareWorkload: Workload list empty, fecthing new list"), Logger.Severity.Info);
-                _mrp_workloads = _cloud_movey.workload().listworkloads().workloads.ToList();
+                _mrp_workloads = _cloud_movey.workload().list_by_platform_all(_platform).workloads.ToList();
             }
             if (_mrp_domains == null)
             {
                 Logger.log(String.Format("UpdateVMwareWorkload: Network Domain list empty, fecthing new list"), Logger.Severity.Info);
-                _mrp_domains = _cloud_movey.platformdomain().list().platformdomains.Where(x => x.platform_id == _platform.id).ToList();
+                _mrp_domains = _cloud_movey.platformdomain().list_by_platform(_platform).platformdomains.ToList();
             }
             if (_mrp_networks == null)
             {
                 Logger.log(String.Format("UpdateVMwareWorkload: Network VLAN list empty, fecthing new list"), Logger.Severity.Info);
-                _mrp_networks = _cloud_movey.platformnetwork().list_all().platformnetworks.Where(x => _mrp_domains.Exists(y => y.id == x.platformdomain_id)).ToList();
+                _mrp_networks = _cloud_movey.platformnetwork().list_by_platform(_platform).platformnetworks.ToList();
             }
 
             //if workload is local, updated the local db record
@@ -81,6 +81,10 @@ namespace MRMPService.PlatformInventory
                 }
                 else
                 {
+                    if (_mrp_workload.workloadinterfaces_attributes == null)
+                    {
+                        _mrp_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
+                    }
                     _mrp_workload.workloadinterfaces_attributes.Add(_logical_interface);
                 }
                 //populate interface object

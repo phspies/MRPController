@@ -14,7 +14,6 @@ namespace MRMPService.MRMPAPI.Classes
 {
     class WorkloadNetstat
     {
-        MRMP_ApiClient _cloud_movey = new MRMP_ApiClient();
 
         public static void WorkloadNetstatDo(MRPWorkloadType workload)
         {

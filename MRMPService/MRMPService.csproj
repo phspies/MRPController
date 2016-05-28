@@ -178,6 +178,9 @@
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml" />
     <Reference Include="VimService60, Version=6.0.0.0, Culture=neutral, PublicKeyToken=10980b081e887e9f, processorArchitecture=MSIL" />
+    <Reference Include="VimService60.XmlSerializers">
+      <HintPath>lib\VimService60.XmlSerializers.dll</HintPath>
+    </Reference>
     <Reference Include="VMware.Vim, Version=6.0.0.0, Culture=neutral, PublicKeyToken=10980b081e887e9f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\VMware.Vim.dll</HintPath>
@@ -527,6 +530,7 @@
     <Compile Include="DimensionData\Compute.Contracts\Vip\Vips.cs" />
     <Compile Include="DimensionData\Compute.Contracts\Vip\VipTargetType.cs" />
     <Compile Include="DimensionData\Compute.Contracts\XmlNamespaceConstants.cs" />
+    <Compile Include="DoubleTake\Images.cs" />
     <Compile Include="DoubleTake\Events.cs" />
     <Compile Include="DoubleTake\Management.cs" />
     <Compile Include="DoubleTake\Job.cs" />
@@ -550,6 +554,7 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\LinuxFullServerFailoverJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Cluster\ClusterAwareFilesAndFoldersJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Cluster\ClusterAwareSqlJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\CreateDRServerProtectionJob.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DataOnlyImageProtectionJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DataOnlyImageRecoveryJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DRRecoveryBase.cs" />
@@ -567,9 +572,24 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\LVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\TimeZones.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Events.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Images.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobstats.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformDatacenters.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Stacktrees.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v10\Field.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v10\FieldType.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v10\FlowSet.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v10\Header.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v10\Packet.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v10\Template.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v10\Templates.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Field.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\FieldType.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\FlowSet.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Header.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Packet.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Template.cs" />
+    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Templates.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\PlatformDiscovery.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\DatacenterDiscovery.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
@@ -629,7 +649,6 @@
     <Compile Include="MRPService\Database\Classes\NetworkFlowSet.cs" />
     <Compile Include="MRPService\Database\Classes\GenericDatabase.cs" />
     <Compile Include="MRPService\Database\Classes\PerformanceSet.cs" />
-    <Compile Include="MRPService\Database\CustomMethods\Workloads.cs" />
     <Compile Include="MRPService\Database\Interfaces\INetstat.cs" />
     <Compile Include="MRPService\Database\Interfaces\INetworkSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\IGenericDatabase.cs" />
@@ -649,6 +668,8 @@
     <Compile Include="MRPService\Types\API\DeploymentPolicy.cs" />
     <Compile Include="MRPService\Types\API\Error.cs" />
     <Compile Include="MRPService\Types\API\Event.cs" />
+    <Compile Include="MRPService\Types\API\Snapshots.cs" />
+    <Compile Include="MRPService\Types\API\Images.cs" />
     <Compile Include="MRPService\Types\API\Jobstats.cs" />
     <Compile Include="MRPService\Types\API\Jobs.cs" />
     <Compile Include="MRPService\Types\API\NetworkStat.cs" />
@@ -683,13 +704,6 @@
     <Compile Include="MRPService\Classes\Modules\NetFlow\NetflowCommon.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v5\Header.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v5\Packet.cs" />
-    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Field.cs" />
-    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\FieldType.cs" />
-    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\FlowSet.cs" />
-    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Header.cs" />
-    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Packet.cs" />
-    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Template.cs" />
-    <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Templates.cs" />
     <Compile Include="MRPService\Classes\Utilities\Utils.cs" />
     <Compile Include="RP4VM\xsd0.cs">
       <DependentUpon>xsd0.xsd</DependentUpon>

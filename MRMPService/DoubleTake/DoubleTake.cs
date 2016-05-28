@@ -21,6 +21,10 @@ namespace MRMPService.DoubleTake
         {
             return new Workload(this);
         }
+        public Image image()
+        {
+            return new Image(this);
+        }
         public Management management()
         {
             return new Management(this);

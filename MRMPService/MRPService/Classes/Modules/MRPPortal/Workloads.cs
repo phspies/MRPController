@@ -53,6 +53,37 @@ namespace MRMPService.MRMPAPI
         }
         public ResultType updateworkload(MRPWorkloadType _workload)
         {
+            _workload.credential = null;
+            _workload.platform = null;
+            if (_workload.workloadinterfaces_attributes != null)
+            {
+                if (_workload.workloadinterfaces_attributes.Count == 0)
+                {
+                    _workload.workloadinterfaces_attributes = null;
+                }
+            }
+            if (_workload.workloadprocesses_attributes != null)
+            {
+                if (_workload.workloadprocesses_attributes.Count == 0)
+                {
+                    _workload.workloadprocesses_attributes = null;
+                }
+            }
+            if (_workload.workloadsoftwares_attributes != null)
+            {
+                if (_workload.workloadsoftwares_attributes.Count == 0)
+                {
+                    _workload.workloadsoftwares_attributes = null;
+                }
+            }
+            if (_workload.workloadvolumes_attributes != null)
+            {
+                if (_workload.workloadvolumes_attributes.Count == 0)
+                {
+                    _workload.workloadvolumes_attributes = null;
+                }
+            }
+
             MRPWorkloadsCRUDType workload = new MRPWorkloadsCRUDType()
             {
                 workload = _workload

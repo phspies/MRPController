@@ -22,8 +22,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public int target_port { get; set; }
         public int protocol { get; set; }
         public DateTime timestamp { get; set; }
-        public DateTime start_timestamp { get; set; }
-        public DateTime stop_timestamp { get; set; }
+        public long start_timestamp { get; set; }
+        public long stop_timestamp { get; set; }
         public int packets { get; set; }
         public int kbyte { get; set; }
         public string source_workload_id { get; set; }
