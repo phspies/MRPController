@@ -107,7 +107,6 @@ namespace MRMPService.PlatformInventory
                         nic_index += 1;
 
                         _mrmp_workload.workloadinterfaces_attributes.Add(_logical_interface);
-
                     }
                 }
                 //Update if the portal has this workload and create if it's new to the portal....
@@ -122,6 +121,7 @@ namespace MRMPService.PlatformInventory
                 }
                 else
                 {
+                    _mrmp_workload.credential_id = _platform.default_credential_id;
                     _cloud_movey.workload().createworkload(_mrmp_workload);
                 }
             }

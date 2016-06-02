@@ -3038,6 +3038,11 @@
             Gets or sets the operational state of replication and mirroring.
             </summary>
         </member>
+        <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.SourceRpo">
+            <summary>
+            Gets or sets the RPO of the source.
+            </summary>
+        </member>
         <member name="T:DoubleTake.Web.Models.CoreConnectionOptionsModel">
             <summary>
             Core connection options model.

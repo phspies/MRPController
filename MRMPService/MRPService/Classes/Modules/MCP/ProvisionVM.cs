@@ -492,7 +492,7 @@ namespace MRMPService.Tasks.MCP
                     {
                         _mrp_api.task().progress(payload, String.Format("Updating operating system information for {0}", _target_workload.hostname), 92);
                     }
-                    (new WorkloadInventory()).WorkloadInventoryDo(_target_workload);
+                    (new WorkloadInventory()).WorkloadInventoryWindowsDo(_target_workload);
 
                     //log the success
                     Logger.log(String.Format("Successfully provisioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);

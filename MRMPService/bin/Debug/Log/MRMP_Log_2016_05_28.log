@@ -2078,3 +2078,9 @@
 2016/05/28 05:44:18 Debug > Took 00:00:00.0760000 to delete 75 performance records
 2016/05/28 05:44:18 Debug > Completed Performance Upload Thread in 00:00:01.0970000
 2016/05/28 05:44:18 Info > Completed data upload process. Total Elapsed Time: 00:00:01.1370000
+2016/05/28 07:54:51 Debug > Starting Manager Service
+2016/05/28 07:54:52 Info > Verifying database
+2016/05/28 07:54:52 Info > Compacting database
+2016/05/28 07:54:53 Debug > Starting WCF Service
+2016/05/28 07:54:54 Info > Debug Enabled!
+2016/05/28 07:54:54 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331

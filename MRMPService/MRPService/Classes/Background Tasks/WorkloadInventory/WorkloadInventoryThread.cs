@@ -19,7 +19,6 @@ namespace MRMPService.MRMPAPI.Classes
             {
                 DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(Global.os_inventory_interval);
                 Stopwatch sw = Stopwatch.StartNew();
-                int _processed_workloads = 0;
 
                 Logger.log(String.Format("Staring operating system inventory process with {0} threads", Global.os_inventory_concurrency), Logger.Severity.Info);
 
@@ -29,14 +28,22 @@ namespace MRMPService.MRMPAPI.Classes
                     workloads = _api.workload().listworkloads().workloads;
                 }
 
-                _processed_workloads = workloads.Count;
                 Parallel.ForEach(workloads,
                     new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
                     (workload) =>
                     {
                         try
                         {
-                            (new WorkloadInventory()).WorkloadInventoryDo(workload);
+                            switch (workload.ostype.ToUpper())
+                            {
+                                case "WINDOWS":
+                                    (new WorkloadInventory()).WorkloadInventoryWindowsDo(workload);
+                                    break;
+                                case "UNIX":
+                                    (new WorkloadInventory()).WorkloadInventoryUnixDo(workload);
+                                    break;
+                            }
+
                             using (MRMP_ApiClient _api = new MRMP_ApiClient())
                             {
                                 _api.workload().InventoryUpdateStatus(workload, "Success", true);
@@ -55,7 +62,7 @@ namespace MRMPService.MRMPAPI.Classes
                 sw.Stop();
 
                 Logger.log(String.Format("Completed operating system inventory for {0} workloads in {1} [next run at {2}]",
-                    _processed_workloads, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_inventory_run), Logger.Severity.Info);
+                    workloads.Count, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_inventory_run), Logger.Severity.Info);
 
                 //Wait for next run
                 while (_next_inventory_run > DateTime.UtcNow)

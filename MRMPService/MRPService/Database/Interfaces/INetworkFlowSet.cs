@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MRMPService.LocalDatabase
 {
-    public interface INetstatSet
+    public interface INetworkFlowSet
     {
-        IGenericRepository<Netstat> ModelRepository { get; }
+        IGenericRepository<NetworkFlow> ModelRepository { get; }
         void Save();
     }
 }

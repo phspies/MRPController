@@ -24,6 +24,8 @@ namespace MRMPService.Utilities
             {
                 Logger.log("Debug Disabled!", Logger.Severity.Info);
             }
+            MRPRegistry.RegAccess("manager_version", Global.manager_version, RegistryValueKind.String);
+
 
             //check if agent Id exists
             String _agentId = MRPRegistry.RegAccess("manager_id") as String;

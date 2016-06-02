@@ -60,7 +60,7 @@ namespace MRMPService.DoubleTake
                 jobInfo.JobOptions.ImageProtectionOptions.ImageName = (String)payload.target_id;
             }
 
-            jobInfo.JobOptions.Name = String.Format("MRMP [{0}] {1} to {1}", _job_type, payload.submitpayload.source.hostname, payload.submitpayload.target.hostname);
+            jobInfo.JobOptions.Name = String.Format("MRMP [{0}] {1} to {2}", _job_type, payload.submitpayload.source.hostname, payload.submitpayload.target.hostname);
 
             jobInfo.JobOptions.SystemStateOptions.IsWanFailover = (bool)_recovery_policy.retain_network_configuration;
             jobInfo.JobOptions.SystemStateOptions.ApplyPorts = _recovery_policy.change_target_ports;

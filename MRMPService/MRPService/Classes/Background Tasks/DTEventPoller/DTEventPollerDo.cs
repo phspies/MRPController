@@ -111,7 +111,7 @@ namespace MRMPService.DTEventPollerCollection
             //When we get an exception from collecting the job informationwe assume the job no longer exists and needs to be marked as being deleted on the portal
             catch (Exception ex)
             {
-                Logger.log(String.Format("Double-Take Event: Error collecting event information from {1} : {2}", _workload.hostname, ex.ToString()), Logger.Severity.Info);
+                Logger.log(String.Format("Double-Take Event: Error collecting event information from {0} : {1}", _workload.hostname, ex.ToString()), Logger.Severity.Info);
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
                     _api.workload().DoubleTakeUpdateStatus(_workload, ex.Message, false);

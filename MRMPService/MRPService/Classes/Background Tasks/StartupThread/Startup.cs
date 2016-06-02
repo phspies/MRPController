@@ -140,9 +140,9 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             _dataupload_thread = new Thread(new ThreadStart(_dataupload.Start));
             _dataupload_thread.Start();
 
-            WorkloadInventoryThread _osinventody = new WorkloadInventoryThread();
+            WorkloadInventoryThread _osinventory = new WorkloadInventoryThread();
             if (Global.debug) { Logger.log("Starting OS Inventory Thread", Logger.Severity.Debug); };
-            _osinventody_thread = new Thread(new ThreadStart(_osinventody.Start));
+            _osinventody_thread = new Thread(new ThreadStart(_osinventory.Start));
             _osinventody_thread.Start();
 
             WorkloadNetstatThread _osnetstat = new WorkloadNetstatThread();

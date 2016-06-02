@@ -547,6 +547,7 @@
     <Compile Include="MRPService\Classes\Background Tasks\StartupThread\Startup.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\DTJobPoller\DTJobPoller.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\DTJobPoller\DTJobPollerThread.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryUnixDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\TimeCalculations.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadCounters.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FilesAndFoldersJobEx.cs" />
@@ -596,7 +597,7 @@
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryWindowsDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMwarePlatform.cs" />
@@ -649,7 +650,7 @@
     <Compile Include="MRPService\Database\Classes\NetworkFlowSet.cs" />
     <Compile Include="MRPService\Database\Classes\GenericDatabase.cs" />
     <Compile Include="MRPService\Database\Classes\PerformanceSet.cs" />
-    <Compile Include="MRPService\Database\Interfaces\INetstat.cs" />
+    <Compile Include="MRPService\Database\Interfaces\INetworkFlowSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\INetworkSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\IGenericDatabase.cs" />
     <Compile Include="MRPService\Database\Interfaces\IPerformanceSet.cs" />

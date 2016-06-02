@@ -34,9 +34,9 @@ namespace MRMPConfigurator
             InitializeComponent();
 
             m_notifyIcon = new System.Windows.Forms.NotifyIcon();
-            m_notifyIcon.BalloonTipText = "MRP Notifier has been minimised. Click the tray icon to show.";
-            m_notifyIcon.BalloonTipTitle = "MRP Notifier";
-            m_notifyIcon.Text = "MRP Notifier";
+            m_notifyIcon.BalloonTipText = "MRMP Notifier has been minimised. Click the tray icon to show.";
+            m_notifyIcon.BalloonTipTitle = "MRMP Notifier";
+            m_notifyIcon.Text = "MMRP Notifier";
             m_notifyIcon.Icon = new Icon(Application.GetResourceStream(new Uri("pack://application:,,,/mrp.ico")).Stream);
             m_notifyIcon.Click += new EventHandler(m_notifyIcon_Click);
 
@@ -44,10 +44,10 @@ namespace MRMPConfigurator
         private void OnWindowLoaded(object sender, RoutedEventArgs e)
         {
             //pupolate window elements frem service
-            load_credentiallist();
+            //load_credentiallist();
             load_information();
-            load_platformlist();
-            load_workloadlist();
+            //load_platformlist();
+            //load_workloadlist();
         }
 
         //pupulate credential combo wiht data

@@ -44,7 +44,7 @@ namespace MRMPService.PlatformInventory
                 }
                 catch (Exception ex)
                 {
-                    throw new System.ArgumentException(String.Format("Error connecting to MCP Endpoint {1}", ex.ToString()));
+                    throw new System.ArgumentException(String.Format("Error connecting to MCP Endpoint {0}", ex.ToString()));
                 }
 
                 //mirror platorm templates for this platform

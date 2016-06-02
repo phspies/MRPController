@@ -34,11 +34,11 @@ namespace MRMPService.PlatformInventory
             Datacenter dc = _vim.datacenter().GetDataCenter(_platform.moid);
             List<DistributedVirtualSwitch> networkdomain_list = _vim.networks().GetDVSwitches(dc);
             NameValueCollection filter = new NameValueCollection();
-            List<VirtualMachine> _vmware_workload_list = _vim.workload().GetWorkloads(dc, filter).Where(x => x.Config.GuestId.Contains("win") && x.Runtime.PowerState == VirtualMachinePowerState.poweredOn).ToList();
+            List<VirtualMachine> _vmware_workload_list = _vim.workload().GetWorkloads(dc, filter).Where(x => x.Runtime.PowerState == VirtualMachinePowerState.poweredOn).ToList();
             List<Network> _vmware_vlan_list = _vim.networks().GetPortGroups(dc).ToList();
 
-            int workloads, networkdomains, vlans;
-            workloads = networkdomains = vlans = 0;
+            int workloads;
+            workloads = 0;
 
             List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().list_by_platform_all(_platform).workloads.ToList();
             List<MRPPlatformdomainType> _mrp_domains = _cloud_movey.platformdomain().list_by_platform(_platform).platformdomains.ToList();

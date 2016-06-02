@@ -11,9 +11,9 @@ using System.Collections.Generic;
 
 namespace MRMPService.MRMPAPI.Classes
 {
-    class WorkloadInventory
+    partial class WorkloadInventory
     {
-        public void WorkloadInventoryDo(MRPWorkloadType _workload)
+        public void WorkloadInventoryWindowsDo(MRPWorkloadType _workload)
         {
             MRPWorkloadType _updated_workload = new MRPWorkloadType() { id = _workload.id };
 

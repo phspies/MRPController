@@ -4,10 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Security.Principal;
 using MRMPService.Utilities;
 using static MRMPService.Utilities.SyncronizedList;
-using System.Runtime.InteropServices;
 using MRMPService.MRMPAPI.Types.API;
 
 namespace MRMPService.PerformanceCollection
@@ -61,6 +59,10 @@ namespace MRMPService.PerformanceCollection
                         {
                             continue;
                         }
+                    }
+                    catch (UnauthorizedAccessException access_ex)
+                    {
+                        throw new ArgumentException(access_ex.Message);
                     }
                     catch (Exception ex)
                     {

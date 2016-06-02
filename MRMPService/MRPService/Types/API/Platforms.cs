@@ -46,6 +46,7 @@ namespace MRMPService.MRMPAPI.Types.API
         public string manager_id { get; set; }
         public string platform_version { get; set; }
         public bool? deleted { get; set; }
+        public string default_credential_id { get; set; }
         public MRPCredentialType credential;
         public List<MRPPlatformdomainType> platformdomains_attributes { get; set; }
         public List<MRPPlatformdatacenterType> platformdatacenters_attributes { get; set; }
