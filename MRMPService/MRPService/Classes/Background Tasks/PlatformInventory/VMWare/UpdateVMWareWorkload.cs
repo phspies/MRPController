@@ -22,7 +22,7 @@ namespace MRMPService.PlatformInventory
             try
             {
                 String username = String.Concat((String.IsNullOrEmpty(_platform_credential.domain) ? "" : (_platform_credential.domain + @"\")), _platform_credential.username);
-                _vim = new VimApiClient(_platform.url, username, _platform_credential.password);
+                _vim = new VimApiClient(_platform.url, username, _platform_credential.encrypted_password);
             }
             catch (Exception ex)
             {

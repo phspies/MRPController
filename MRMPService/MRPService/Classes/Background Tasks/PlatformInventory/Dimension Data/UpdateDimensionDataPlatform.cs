@@ -37,7 +37,7 @@ namespace MRMPService.PlatformInventory
                 List<MRPPlatformnetworkType> _mrp_networks = _mrp_api_endpoint.platformnetwork().list_by_platform(_platform).platformnetworks;
                 List<MRPPlatformtemplateType> _platformtemplates = _mrp_api_endpoint.platformtemplate().list_by_platform(_platform).platformtemplates;
 
-                ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_credential.username, _credential.password));
+                ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_credential.username, _credential.encrypted_password));
                 try
                 {
                     CaaS.Login().Wait();

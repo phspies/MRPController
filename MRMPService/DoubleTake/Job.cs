@@ -21,13 +21,13 @@ namespace MRMPService.DoubleTake
             {
                 SourceServer = new ServiceConnectionModel()
                 {
-                    Credential = new CredentialModel() { Domain = _source_credentials.domain, Password = _source_credentials.password, UserName = _source_credentials.username },
+                    Credential = new CredentialModel() { Domain = _source_credentials.domain, Password = _source_credentials.encrypted_password, UserName = _source_credentials.username },
                     Host = _source_address
                 },
 
                 TargetServer = new ServiceConnectionModel()
                 {
-                    Credential = new CredentialModel() { Domain = _target_credentials.domain, Password = _target_credentials.password, UserName = _target_credentials.username },
+                    Credential = new CredentialModel() { Domain = _target_credentials.domain, Password = _target_credentials.encrypted_password, UserName = _target_credentials.username },
                     Host = _target_address
                 }
             };

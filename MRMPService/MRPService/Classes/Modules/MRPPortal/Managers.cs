@@ -29,6 +29,12 @@ namespace MRMPService.MRMPAPI
                 returnval = post<MRPManagerConfirmType>(worker) as MRPManagerConfirmType;
             }
             Global.organization_id = returnval.manager.organization_id;
+            if (Global.organization_id == null)
+            {
+                Logger.log("No Organization ID Detected! - Exiting!!!", Logger.Severity.Fatal);
+                System.ServiceProcess.ServiceController svc = new System.ServiceProcess.ServiceController("MRMP Service");
+                svc.Stop();
+            }
             return true;
         }
     }

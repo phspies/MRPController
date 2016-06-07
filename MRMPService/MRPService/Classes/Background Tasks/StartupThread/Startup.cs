@@ -118,41 +118,49 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             TaskWorker _scheduler = new TaskWorker();
             if (Global.debug) { Logger.log("Starting Scheduler Thread", Logger.Severity.Debug); };
             scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));
+            scheduler_thread.IsBackground = true;
             scheduler_thread.Start();
 
             PlatformInventoryThread _mirror = new PlatformInventoryThread();
             if (Global.debug) { Logger.log("Starting Mirror Thread", Logger.Severity.Debug); };
             mirror_thread = new Thread(new ThreadStart(_mirror.Start));
+            mirror_thread.IsBackground = true;
             mirror_thread.Start();
 
             WorkloadPerformanceThread _performance = new WorkloadPerformanceThread();
             if (Global.debug) { Logger.log("Starting Performance Collection Thread", Logger.Severity.Debug); };
             _performance_thread = new Thread(new ThreadStart(_performance.Start));
+            _performance_thread.IsBackground = true;
             _performance_thread.Start();
 
-            NetflowV5Worker _netflow = new NetflowV5Worker();
+            NetflowWorker _netflow = new NetflowWorker();
             if (Global.debug) { Logger.log("Starting Netflow v5 Collection Thread", Logger.Severity.Debug); };
             _netflow_thread = new Thread(new ThreadStart(_netflow.Start));
+            _netflow_thread.IsBackground = true;
             _netflow_thread.Start();
 
             PortalDataUploadWorker _dataupload = new PortalDataUploadWorker();
             if (Global.debug) { Logger.log("Starting Data Upload Thread", Logger.Severity.Debug); };
             _dataupload_thread = new Thread(new ThreadStart(_dataupload.Start));
+            _dataupload_thread.IsBackground = true;
             _dataupload_thread.Start();
 
             WorkloadInventoryThread _osinventory = new WorkloadInventoryThread();
             if (Global.debug) { Logger.log("Starting OS Inventory Thread", Logger.Severity.Debug); };
             _osinventody_thread = new Thread(new ThreadStart(_osinventory.Start));
+            _osinventody_thread.IsBackground = true;
             _osinventody_thread.Start();
 
             WorkloadNetstatThread _osnetstat = new WorkloadNetstatThread();
             if (Global.debug) { Logger.log("Starting OS Netstat Thread", Logger.Severity.Debug); };
             _osnetstat_thread = new Thread(new ThreadStart(_osnetstat.Start));
+            _osnetstat_thread.IsBackground = true;
             _osnetstat_thread.Start();
 
             DTJobPollerThread _dt_polling = new DTJobPollerThread();
             if (Global.debug) { Logger.log("Starting DT Polling Thread", Logger.Severity.Debug); };
             _dt_thread = new Thread(new ThreadStart(_dt_polling.Start));
+            _dt_thread.IsBackground = true;
             _dt_thread.Start();
 
         }

@@ -1,0 +1,5 @@
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Release\wadltocsharp.exe.config
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Release\wadltocsharp.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Release\wadltocsharp.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\obj\Release\wadltocsharp.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\obj\Release\wadltocsharp.pdb

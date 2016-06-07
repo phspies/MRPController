@@ -35,7 +35,7 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                             _mrmp_datacenters = _mrp_api.platformdatacenter().list(_platform);
                             _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 10);
 
-                            CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentail.username, _platform_credentail.password));
+                            CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentail.username, _platform_credentail.encrypted_password));
                             CaaS.Login().Wait();
                         }
                         catch (Exception ex)
@@ -100,7 +100,7 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                             _mrmp_datacenters = _mrp_api.platformdatacenter().list(_platform);
                             _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 10);
                             String username = String.Concat((String.IsNullOrEmpty(_platform_credentail.domain) ? "" : (_platform_credentail.domain + @"\")), _platform_credentail.username);
-                            _vim = new VimApiClient(_platform.url, username, _platform_credentail.password);
+                            _vim = new VimApiClient(_platform.url, username, _platform_credentail.encrypted_password);
                             _vim.datacenter().DatacenterList();
                             
                         }

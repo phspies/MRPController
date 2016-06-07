@@ -40,9 +40,9 @@ namespace MRMPService.MRMPAPI.Classes
             Logger.log(String.Format("Netstat: Started netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
 
-            using (new Impersonator(_credential.username, (String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain), _credential.password))
+            using (new Impersonator(_credential.username, (String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain), _credential.encrypted_password))
             {
-                ConnectionOptions options = WMIHelper.ProcessConnectionOptions(((String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain) + "\\" + _credential.username), _credential.password);
+                ConnectionOptions options = WMIHelper.ProcessConnectionOptions(((String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain) + "\\" + _credential.username), _credential.encrypted_password);
                 ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
 
                 string remoteFile = @"\\" + workload_ip + @"\c$\netstat.out";

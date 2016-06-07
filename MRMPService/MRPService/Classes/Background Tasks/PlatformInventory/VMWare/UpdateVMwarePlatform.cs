@@ -27,7 +27,7 @@ namespace MRMPService.PlatformInventory
             MRPCredentialType _vmware_credential = _platform.credential;
 
             String username = String.Concat((String.IsNullOrEmpty(_vmware_credential.domain) ? "" : (_vmware_credential.domain + @"\")), _vmware_credential.username);
-            VimApiClient _vim = new VimApiClient(_platform.url, username, _vmware_credential.password);
+            VimApiClient _vim = new VimApiClient(_platform.url, username, _vmware_credential.encrypted_password);
 
 
             //update localdb platform information

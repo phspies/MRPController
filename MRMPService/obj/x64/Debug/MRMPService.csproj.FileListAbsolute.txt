@@ -84,7 +84,6 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\ko\Microsoft.Expression.Interactions.resources.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\zh-Hans\Microsoft.Expression.Interactions.resources.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\zh-Hant\Microsoft.Expression.Interactions.resources.dll
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.csprojResolveAssemblyReference.cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.MRPSvc.resources
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.ProjectInstaller.resources
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.csproj.GenerateResource.Cache

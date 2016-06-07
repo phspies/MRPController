@@ -1,0 +1,35 @@
+using MRMPService.RP4VM;
+
+using MRMPService.RP4VMAPI;
+
+using System.Collections.Generic;
+
+
+
+namespace MRMPService.RP4VM
+{
+
+public class Group_copy_policy_templates : Core
+{
+
+public Clusters(RP4VM_ApiClient _RP4VM) : base(_RP4VM) { }
+
+public ConsistencyGroupCopyPolicyTemplate getConsistencyGroupCopyPolicyTemplates_Method(restString restString_object)
+{
+	endpoint = "/group_copy_policy_templates/by_name";
+	mediatype="application/json";
+	return post<ConsistencyGroupCopyPolicyTemplate>(restString_object);
+}
+
+
+public ConsistencyGroupCopyPolicyTemplateSet getConsistencyGroupCopyPolicyTemplates_Method()
+{
+	endpoint = "/group_copy_policy_templates";
+	mediatype="application/json";
+	return get<ConsistencyGroupCopyPolicyTemplateSet>();
+}
+
+
+
+}
+}

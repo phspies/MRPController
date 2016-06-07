@@ -47,7 +47,7 @@ namespace MRMPService.PerformanceCollection
             _this_workload_counters = _workload_counters.FirstOrDefault(x => x.workload_id == workload.id);
 
             //Impersonate credentials before collection of information
-            using (new Impersonator(_credential.username, (String.IsNullOrEmpty(_credential.domain) ? "." : _credential.domain), _credential.password))
+            using (new Impersonator(_credential.username, (String.IsNullOrEmpty(_credential.domain) ? "." : _credential.domain), _credential.encrypted_password))
             {
                 //loop each counter in the available counter list
                 foreach (string _current_category in _available_counters.Select(x => x.category).Distinct())

@@ -6,7 +6,7 @@ namespace MRMPService.MRMPService.Log
 {
     public class Logger
     {
-        public enum Severity { Info, Debug, Error, Warn };
+        public enum Severity { Info, Debug, Error, Warn, Fatal };
         private static ReaderWriterLockSlim _readWriteLock = new ReaderWriterLockSlim();
 
         public static void log(String message, Severity _severity)

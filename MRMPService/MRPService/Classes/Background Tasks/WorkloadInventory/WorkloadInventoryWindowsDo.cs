@@ -36,7 +36,27 @@ namespace MRMPService.MRMPAPI.Classes
 
             Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
-            ConnectionOptions options = WMIHelper.ProcessConnectionOptions((String.IsNullOrWhiteSpace(_credential.domain) ? (@".\" + _credential.username) : (_credential.domain + @"\" + _credential.username)), _credential.password);
+            String domainuser;
+            if (!String.IsNullOrWhiteSpace(_credential.domain))
+            {
+                if (_credential.domain.Contains("."))
+                {
+                    domainuser = String.Join("", _credential.domain, '@', _credential.username);
+                }
+                else if (_credential.username.Contains(@"\"))
+                {
+                    domainuser = _credential.username;
+                }
+                else
+                {
+                    domainuser = (_credential.domain + @"\" + _credential.username);
+                }
+            }
+            else
+            {
+                domainuser = @".\" + _credential.username;
+            }
+            ConnectionOptions options = WMIHelper.ProcessConnectionOptions(domainuser, _credential.encrypted_password);
             ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
 
             SelectQuery ComputerSystemQuery = new SelectQuery("SELECT Name, NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");

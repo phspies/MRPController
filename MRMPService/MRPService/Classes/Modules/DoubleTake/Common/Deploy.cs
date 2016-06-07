@@ -72,7 +72,7 @@ namespace MRMPService.Tasks.DoubleTake
                     string systemArchitecture = null;
                     //Determine if the setup to be installed is 32 bit or 64 bit
                     string keyString = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
-                    using (new Impersonator(_credentials.username, (String.IsNullOrWhiteSpace(_credentials.domain) ? "." : _credentials.domain), _credentials.password))
+                    using (new Impersonator(_credentials.username, (String.IsNullOrWhiteSpace(_credentials.domain) ? "." : _credentials.domain), _credentials.encrypted_password))
                     {
                         #region Detect Target Architecture
                         RegistryKey rk = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, _contactable_ip);
@@ -207,7 +207,7 @@ namespace MRMPService.Tasks.DoubleTake
                         connOptions.Authentication = AuthenticationLevel.Default;
                         connOptions.EnablePrivileges = true;
                         connOptions.Username = (_credentials.domain == null ? "." : _credentials.domain) + @"\" + _credentials.username;
-                        connOptions.Password = _credentials.password;
+                        connOptions.Password = _credentials.encrypted_password;
 
                         //var configPath = @"C:\DTSetup";
                         ManagementScope scope = new ManagementScope(@"\\" + _contactable_ip + @"\root\CIMV2", connOptions);

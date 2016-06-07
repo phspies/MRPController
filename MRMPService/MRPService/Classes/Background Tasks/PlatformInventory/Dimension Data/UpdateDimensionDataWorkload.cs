@@ -21,7 +21,7 @@ namespace MRMPService.PlatformInventory
                 ServerType _caasworkload;
                 try
                 {
-                    ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credential.username, _platform_credential.password));
+                    ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credential.username, _platform_credential.encrypted_password));
                     CaaS.Login().Wait();
                     _caasworkload = CaaS.ServerManagement.Server.GetServer(Guid.Parse(_workload_moid)).Result;
                 }

@@ -47,7 +47,7 @@ namespace MRMPService.Tasks.MCP
                 throw new System.ArgumentException("Cannot find standalone credential for workload deployment");
             }
 
-            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentail.username, _platform_credentail.password));
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentail.username, _platform_credentail.encrypted_password));
             CaaS.Login().Wait();
 
             try
@@ -84,7 +84,7 @@ namespace MRMPService.Tasks.MCP
                 _vm.memoryGb = Convert.ToUInt16(_target_workload.vmemory);
                 _vm.start = false;
                 _vm.disk = _disks.ToArray();
-                _vm.administratorPassword = _stadalone_credential.password;
+                _vm.administratorPassword = _stadalone_credential.encrypted_password;
                 _vm.primaryDns = _target_workload.primary_dns;
                 _vm.secondaryDns = _target_workload.secondary_dns;
                 _vm.microsoftTimeZone = _target_workload.timezone;
@@ -233,7 +233,7 @@ namespace MRMPService.Tasks.MCP
                     long _c_volume_actual_size = 0;
                     long _c_volume_actual_free = 0;
                     string _cdrom_drive_letter = "";
-                    ConnectionOptions options = WMIHelper.ProcessConnectionOptions((String.IsNullOrWhiteSpace(_stadalone_credential.domain) ? (@".\" + _stadalone_credential.username) : (_stadalone_credential.domain + @"\" + _stadalone_credential.username)), _stadalone_credential.password);
+                    ConnectionOptions options = WMIHelper.ProcessConnectionOptions((String.IsNullOrWhiteSpace(_stadalone_credential.domain) ? (@".\" + _stadalone_credential.username) : (_stadalone_credential.domain + @"\" + _stadalone_credential.username)), _stadalone_credential.encrypted_password);
                     ManagementScope connectionScope = WMIHelper.ConnectionScope(new_workload_ip, options);
                     SelectQuery VolumeQuery = new SelectQuery("SELECT Size, FreeSpace FROM Win32_LogicalDisk WHERE DeviceID = 'C:'");
                     SelectQuery CdromQuery = new SelectQuery("SELECT Drive FROM Win32_CDROMDrive");
@@ -340,7 +340,7 @@ namespace MRMPService.Tasks.MCP
                     string[] diskpart_bat_content = new String[] { @"C:\Windows\System32\diskpart.exe /s C:\diskpart.txt > C:\diskpart.log" };
                     try
                     {
-                        using (new Impersonator(_stadalone_credential.username, (String.IsNullOrWhiteSpace(_stadalone_credential.domain) ? "." : _stadalone_credential.domain), _stadalone_credential.password))
+                        using (new Impersonator(_stadalone_credential.username, (String.IsNullOrWhiteSpace(_stadalone_credential.domain) ? "." : _stadalone_credential.domain), _stadalone_credential.encrypted_password))
                         {
                             string remoteInstallFiles = @"C:\";
                             remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
@@ -388,7 +388,7 @@ namespace MRMPService.Tasks.MCP
                     {
                         _mrp_api.task().progress(payload, String.Format("Volume setup process on {0}", _newvm.name), 80);
                     }
-                    ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _stadalone_credential.password };
+                    ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _stadalone_credential.encrypted_password };
                     connOptions.Impersonation = ImpersonationLevel.Impersonate;
                     connOptions.Authentication = AuthenticationLevel.Default;
                     ManagementScope scope = new ManagementScope(@"\\" + new_workload_ip + @"\root\CIMV2", connOptions);

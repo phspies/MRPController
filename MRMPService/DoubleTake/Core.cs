@@ -34,7 +34,7 @@ namespace MRMPService.DoubleTake
             _target_connection = ManagementService.GetConnectionAsync(_target_address).Result;
             if (!_target_connection.CheckAuthorizationAsync().Result)
             {
-                _target_connection.AuthorizeAsync(_target_credentials.username, _target_credentials.password).Wait();
+                _target_connection.AuthorizeAsync(_target_credentials.username, _target_credentials.encrypted_password).Wait();
             }
 
             //source could be empty in certian instances
@@ -57,7 +57,7 @@ namespace MRMPService.DoubleTake
                 _source_connection = ManagementService.GetConnectionAsync(_source_address).Result;
                 if (!_source_connection.CheckAuthorizationAsync().Result)
                 {
-                    _source_connection.AuthorizeAsync(_source_credentials.username, _source_credentials.password).Wait();
+                    _source_connection.AuthorizeAsync(_source_credentials.username, _source_credentials.encrypted_password).Wait();
                 }
             }
         }

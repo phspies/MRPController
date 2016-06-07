@@ -593,6 +593,7 @@
     <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Templates.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\PlatformDiscovery.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\DatacenterDiscovery.cs" />
+    <Compile Include="MRPService\Classes\Utilities\CryptLib.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatDo.cs" />
@@ -628,8 +629,7 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Managers.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobs.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Workloads.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\NetflowCollection\NetflowV9Worker.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\NetflowCollection\NetflowV5Worker.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetflowCollection\NetflowWorker.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryThread.cs" />
@@ -706,9 +706,34 @@
     <Compile Include="MRPService\Classes\Modules\NetFlow\v5\Header.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v5\Packet.cs" />
     <Compile Include="MRPService\Classes\Utilities\Utils.cs" />
-    <Compile Include="RP4VM\xsd0.cs">
-      <DependentUpon>xsd0.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="RP4VM\Account.cs" />
+    <Compile Include="RP4VM\APIClient.cs" />
+    <Compile Include="RP4VM\Arrays.cs" />
+    <Compile Include="RP4VM\Clusters.cs" />
+    <Compile Include="RP4VM\Core.cs" />
+    <Compile Include="RP4VM\Events.cs" />
+    <Compile Include="RP4VM\GlobalLinks.cs" />
+    <Compile Include="RP4VM\GlobalPolicy.cs" />
+    <Compile Include="RP4VM\GroupCopies.cs" />
+    <Compile Include="RP4VM\GroupCopyPolicyTemplates.cs" />
+    <Compile Include="RP4VM\GroupLinkPolicyTemplates.cs" />
+    <Compile Include="RP4VM\Groups.cs" />
+    <Compile Include="RP4VM\GroupSets.cs" />
+    <Compile Include="RP4VM\Licenses.cs" />
+    <Compile Include="RP4VM\Logs.cs" />
+    <Compile Include="RP4VM\Reports.cs" />
+    <Compile Include="RP4VM\RepositoryVolumes.cs" />
+    <Compile Include="RP4VM\RP4VMSystem.cs" />
+    <Compile Include="RP4VM\RP4VMTime.cs" />
+    <Compile Include="RP4VM\Rpas.cs" />
+    <Compile Include="RP4VM\Settings.cs" />
+    <Compile Include="RP4VM\State.cs" />
+    <Compile Include="RP4VM\Statistics.cs" />
+    <Compile Include="RP4VM\Transactions.cs" />
+    <Compile Include="RP4VM\Users.cs" />
+    <Compile Include="RP4VM\vCenterServers.cs" />
+    <Compile Include="RP4VM\VirtualMachines.cs" />
+    <Compile Include="RP4VM\RP4VMTypes.cs" />
     <Compile Include="VMWare\Core.cs" />
     <Compile Include="VMWare\Datastores.cs" />
     <Compile Include="VMWare\Networks.cs" />
@@ -759,7 +784,9 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MRPService\Classes\Modules\RP4VM\" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
