@@ -10,9 +10,9 @@ using MRMPService.MRMPAPI.Types.API;
 
 namespace MRMPService.PerformanceCollection
 {
-    class WorkloadPerformance
+    partial class WorkloadPerformance
     {
-        public static void WorkloadPerformanceDo(SyncronisedList<WorkloadCounters> _workload_counters, SyncronisedList<CollectionCounter> _available_counters, MRPWorkloadType workload)
+        public static void WorkloadPerformanceWindowsDo(SyncronisedList<WorkloadCounters> _workload_counters, SyncronisedList<CollectionCounter> _available_counters, MRPWorkloadType workload)
         {
             #region load and check workload information
             //check for credentials
@@ -30,7 +30,7 @@ namespace MRMPService.PerformanceCollection
             }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Error finding contactable IP"));
+                throw new ArgumentException(String.Format("Error contacting workload"));
             }
             #endregion
 
@@ -196,9 +196,6 @@ namespace MRMPService.PerformanceCollection
                                 {
                                     performance_db_set.ModelRepository.Insert(_perf);
                                 }
-
-
-
                             }
                         }
                     }

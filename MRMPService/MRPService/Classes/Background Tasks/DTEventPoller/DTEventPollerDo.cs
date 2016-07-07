@@ -31,7 +31,7 @@ namespace MRMPService.DTEventPollerCollection
             }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Double-Take Event: Error finding contactable IP for workload {0}", _workload.hostname));
+                throw new ArgumentException(String.Format("Double-Take Event: Error contacting workload for workload {0}", _workload.hostname));
             }
             Logger.log(String.Format("Double-Take Event: Start Double-Take collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 

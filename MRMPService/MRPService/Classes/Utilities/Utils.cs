@@ -12,6 +12,14 @@ using System.Threading.Tasks;
 
 namespace MRMPService.Utilities
 {
+    public static class StringExtensionMethods
+    {
+        public static IEnumerable<string> GetLines(this string str, bool removeEmptyLines = false)
+        {
+            return str.Split(new[] { "\r\n", "\r", "\n" },
+                removeEmptyLines ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None);
+        }
+    }
     static class Objects
      {
         public static string RamdomGuid()

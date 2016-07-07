@@ -69,12 +69,19 @@ namespace MRMPService.MRMPAPI.Types.API
         public string deploymentpolicy_id { get; set; }
         public string ipaddress { get; set; }
         public string hash_value { get; set; }
+        public bool? perf_collection_enabled { get; set; }
+        public bool? os_collection_enabled { get; set; }
+        public bool? dt_collection_enabled { get; set; }
+        public bool? netstat_collection_enabled { get; set; }
         public bool? perf_collection_status { get; set; }
+        public bool? netstat_collection_status { get; set; }
         public bool? os_collection_status { get; set; }
         public bool? dt_collection_status { get; set; }
         public string perf_collection_message { get; set; }
+        public string netstat_collection_message { get; set; }
         public string os_collection_message { get; set; }
         public string dt_collection_message { get; set; }
+        public DateTime? netstat_last_contact { get; set; }
         public DateTime? os_last_contact { get; set; }
         public DateTime? perf_last_contact { get; set; }
         public DateTime? dt_last_contact { get; set; }
@@ -95,5 +102,6 @@ namespace MRMPService.MRMPAPI.Types.API
         public String primary_dns { get; set; }
         public String secondary_dns { get; set; }
         public string timezone { get; set; }
+       
     }
 }

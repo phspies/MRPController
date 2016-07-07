@@ -12,10 +12,10 @@ using MRMPService.MRMPService.Log;
 
 namespace MRMPService.MRMPAPI.Classes
 {
-    class WorkloadNetstat
+    partial class WorkloadNetstat
     {
 
-        public static void WorkloadNetstatDo(MRPWorkloadType workload)
+        public static void WorkloadNetstatWindowsDo(MRPWorkloadType workload)
         {
             MRPWorkloadType _workload = workload;
             if (_workload == null)
@@ -35,7 +35,7 @@ namespace MRMPService.MRMPAPI.Classes
             }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Error finding contactable IP for workload {0} {1}", _workload.id, _workload.hostname));
+                throw new ArgumentException(String.Format("Error contacting workload for workload {0} {1}", _workload.id, _workload.hostname));
             }
             Logger.log(String.Format("Netstat: Started netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 

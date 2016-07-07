@@ -31,7 +31,7 @@ namespace MRMPService.MRMPAPI.Classes
             }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Error finding contactable IP"));
+                throw new ArgumentException(String.Format("Error contacting workload"));
             }
 
             Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
@@ -288,8 +288,8 @@ namespace MRMPService.MRMPAPI.Classes
 
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
-                    _api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
                     _api.workload().updateworkload(_updated_workload);
+                    _api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
                 }
 
                 Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);

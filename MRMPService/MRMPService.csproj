@@ -128,6 +128,10 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Renci.SshNet, Version=2013.4.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2013.4.7\lib\net40\Renci.SshNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
       <Private>True</Private>
@@ -540,6 +544,7 @@
     <Compile Include="MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\ProcessInfo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatUnixDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\NetflowUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\PerformanceUpload.cs" />
@@ -550,6 +555,7 @@
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryUnixDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\TimeCalculations.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadCounters.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceUnixDo.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FilesAndFoldersJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FullServerFailoverJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\LinuxFullServerFailoverJobEx.cs" />
@@ -596,7 +602,7 @@
     <Compile Include="MRPService\Classes\Utilities\CryptLib.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryWindowsDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
@@ -605,7 +611,7 @@
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\CollectionCounter.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\InstanceCounters.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\PerfCounter.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs" />
     <Compile Include="DoubleTake\BuildINI.cs" />
     <Compile Include="DoubleTake\CompareVersion.cs" />
     <Compile Include="DoubleTake\JobOptions.cs" />

@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MRMPService.MRMPAPI.Classes
 {
@@ -24,7 +25,7 @@ namespace MRMPService.MRMPAPI.Classes
                 List<MRPWorkloadType> workloads;
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
-                    workloads = _api.workload().listworkloads().workloads;
+                    workloads = _api.workload().listworkloads().workloads.Where(x => x.os_collection_enabled == true).ToList();
                 }
 
                 Parallel.ForEach(workloads,

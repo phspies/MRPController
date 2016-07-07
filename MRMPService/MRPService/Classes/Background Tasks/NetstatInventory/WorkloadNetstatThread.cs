@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MRMPService.MRMPAPI.Classes
 {
@@ -23,7 +24,7 @@ namespace MRMPService.MRMPAPI.Classes
                 List<MRPWorkloadType> workloads;
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
-                    workloads = _api.workload().listworkloads().workloads;
+                    workloads = _api.workload().listworkloads().workloads.Where(x => x.netstat_collection_enabled == true).ToList();
                 }
                 _processed_workloads = workloads.Count;
                 Parallel.ForEach(workloads,
@@ -32,7 +33,15 @@ namespace MRMPService.MRMPAPI.Classes
                     {
                         try
                         {
-                            WorkloadNetstat.WorkloadNetstatDo(workload);
+                            switch (workload.ostype.ToUpper())
+                            {
+                                case "WINDOWS":
+                                    WorkloadNetstat.WorkloadNetstatWindowsDo(workload);
+                                    break;
+                                case "UNIX":
+                                    WorkloadNetstat.WorkloadNetstatUnixDo(workload);
+                                    break;
+                            }
                         }
                         catch (Exception ex)
                         {

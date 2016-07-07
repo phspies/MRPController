@@ -56,8 +56,5 @@ namespace MRMPService.RP4VM
             mediatype = "application/json";
             return get<eventsPage>();
         }
-
-
-
     }
 }

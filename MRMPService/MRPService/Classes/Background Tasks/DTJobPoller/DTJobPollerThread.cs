@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using MRMPService.MRMPAPI;
 using MRMPService.MRMPAPI.Types.API;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace MRMPService.DTPollerCollection
 {
@@ -20,13 +22,13 @@ namespace MRMPService.DTPollerCollection
 
                 Logger.log(String.Format("Staring Double-Take collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
 
-                MRPJobListType _jobs;
+                List<MRPJobType> _jobs;
                 using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
                 {
-                    _jobs = _mrmp.job().listjobs();
+                    _jobs = _mrmp.job().listjobs().jobs.Where(x => x.target_workload.dt_collection_enabled == true).ToList();
 
                 }
-                Parallel.ForEach(_jobs.jobs,
+                Parallel.ForEach(_jobs,
                     new ParallelOptions { MaxDegreeOfParallelism = Global.dt_event_polling_concurrency },
                     (Action<MRPJobType>)((job) =>
                     {
@@ -51,7 +53,7 @@ namespace MRMPService.DTPollerCollection
                 sw.Stop();
 
                 Logger.log(String.Format("Completed Double-Take collection for {0} jobs in {1} [next run at {2}]",
-                    _jobs.jobs.Count, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_poller_run), Logger.Severity.Info);
+                    _jobs.Count, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_poller_run), Logger.Severity.Info);
 
                 //Wait for next run
                 while (_next_poller_run > DateTime.UtcNow)

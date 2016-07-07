@@ -27,12 +27,10 @@ namespace MRMPService.PerformanceCollection
             _available_counters.Add(new CollectionCounter() { category = "Processor", counter = "% Processor Time" });
             _available_counters.Add(new CollectionCounter() { category = "Processor", counter = "Interrupts/sec" });
 
-
             _available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Available Bytes" });
             _available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Faults/sec" });
             _available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Reads/sec" });
             _available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Writes/sec" });
-
 
             _available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Free Space" });
             _available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Disk Time" });
@@ -81,7 +79,7 @@ namespace MRMPService.PerformanceCollection
                 List<MRPWorkloadType> workloads;
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
-                    workloads = _api.workload().listworkloads().workloads;
+                    workloads = _api.workload().listworkloads().workloads.Where(x => x.perf_collection_enabled == true).ToList();
                 }
                 _processed_workloads = workloads.Count();
                 Parallel.ForEach(workloads,
@@ -90,8 +88,15 @@ namespace MRMPService.PerformanceCollection
                     {
                         try
                         {
-                            var thread = Thread.CurrentThread.ManagedThreadId;
-                            WorkloadPerformance.WorkloadPerformanceDo(_workload_counters, _available_counters, workload);
+                            switch (workload.ostype.ToUpper())
+                            {
+                                case "WINDOWS":
+                                    WorkloadPerformance.WorkloadPerformanceWindowsDo(_workload_counters, _available_counters, workload);
+                                    break;
+                                case "UNIX":
+                                    WorkloadPerformance.WorkloadPerformanceUnixDo(workload);
+                                    break;
+                            }
                             using (MRMP_ApiClient _api = new MRMP_ApiClient())
                             {
                                 _api.workload().PeformanceUpdateStatus(workload, "Success", true);

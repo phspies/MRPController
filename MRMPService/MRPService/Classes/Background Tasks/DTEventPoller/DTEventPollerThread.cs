@@ -1,11 +1,11 @@
 ﻿using MRMPService.MRMPService.Log;
-using MRMPService.LocalDatabase;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using MRMPService.MRMPAPI;
 using MRMPService.MRMPAPI.Types.API;
+using System.Linq;
 
 namespace MRMPService.DTEventPollerCollection
 {
@@ -15,18 +15,18 @@ namespace MRMPService.DTEventPollerCollection
         {
             while (true)
             {
-                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(Global.dt_job_polling_interval);
+                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(Global.dt_event_polling_interval);
                 Stopwatch sw = Stopwatch.StartNew();
 
-                Logger.log(String.Format("Staring Double-Take Event collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
+                Logger.log(String.Format("Staring Double-Take Event collection process with {0} threads", Global.dt_event_polling_concurrency), Logger.Severity.Info);
 
                 MRPWorkloadListType _dt_workloads;
                 using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
                 {
                     _dt_workloads = _mrmp.workload().list_dt_installed();
                 }
-                Parallel.ForEach(_dt_workloads.workloads,
-                    new ParallelOptions { MaxDegreeOfParallelism = Global.dt_job_polling_concurrency },
+                Parallel.ForEach(_dt_workloads.workloads.Where(x => x.dt_collection_enabled == true),
+                    new ParallelOptions { MaxDegreeOfParallelism = Global.dt_event_polling_concurrency },
                     (workload) =>
                     {
                         try
@@ -49,7 +49,7 @@ namespace MRMPService.DTEventPollerCollection
 
                 sw.Stop();
 
-                Logger.log(String.Format("Completed Double-Take Event collection for {0} jobs in {1} [next run at {2}]",
+                Logger.log(String.Format("Completed Double-Take Event collection for {0} workloads in {1} [next run at {2}]",
                     _dt_workloads.workloads.Count, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_poller_run), Logger.Severity.Info);
 
                 //Wait for next run

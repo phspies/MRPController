@@ -17,6 +17,10 @@ namespace MRMPService.RP4VMAPI
         {
             return new Arrays(this);
         } 
+        public Events events()
+        {
+            return new Events(this);
+        }
 
         private bool disposed = false;
 

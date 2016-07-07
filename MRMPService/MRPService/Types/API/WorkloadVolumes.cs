@@ -19,6 +19,7 @@ namespace MRMPService.MRMPAPI.Types.API
         public string volumename { get; set; }
         public string deviceid { get; set; }
         public Int64 blocksize { get; set; }
+        public string filesystem_type { get; set; }
         public bool _destroy { get; set; }
         public MRPPlatformStorageTierType platformstoragetier { get; set; }
     }

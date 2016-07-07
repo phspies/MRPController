@@ -1,0 +1,8 @@
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\linux_code\bin\Debug\linux_code.exe.config
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\linux_code\bin\Debug\linux_code.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\linux_code\bin\Debug\linux_code.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\linux_code\bin\Debug\Renci.SshNet.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\linux_code\bin\Debug\Renci.SshNet.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\linux_code\obj\Debug\linux_code.csprojResolveAssemblyReference.cache
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\linux_code\obj\Debug\linux_code.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\linux_code\obj\Debug\linux_code.pdb
