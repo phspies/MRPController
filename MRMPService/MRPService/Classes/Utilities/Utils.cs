@@ -36,28 +36,18 @@ namespace MRMPService.Utilities
         //        }
         //    }
         //}
-        public static void Copy_Exclude_ID(object a, object b)
-        {
-            foreach (PropertyInfo propA in a.GetType().GetProperties())
-            {
-                if (propA.Name != "id")
-                {
-                    PropertyInfo propB = b.GetType().GetProperty(propA.Name);
-                    propB.SetValue(b, propA.GetValue(a, null), null);
-                }
-            }
-        }
-        public static object Copy(object source, object target)
-        {
-            foreach (PropertyInfo sourceProp in source.GetType().GetProperties())
-            {
-                PropertyInfo targetProp = target.GetType().GetProperties().Where(p => p.Name == sourceProp.Name).FirstOrDefault();
-                if (targetProp != null && targetProp.GetType().Name == sourceProp.GetType().Name)
-                {
-                    targetProp.SetValue(target, sourceProp.GetValue(source));
-                }
-            }
-            return target;
-        }
+
+        //public static object Copy(object source, object target)
+        //{
+        //    foreach (PropertyInfo sourceProp in source.GetType().GetProperties())
+        //    {
+        //        PropertyInfo targetProp = target.GetType().GetProperties().Where(p => p.Name == sourceProp.Name).FirstOrDefault();
+        //        if (targetProp != null && targetProp.GetType().Name == sourceProp.GetType().Name)
+        //        {
+        //            targetProp.SetValue(target, sourceProp.GetValue(source));
+        //        }
+        //    }
+        //    return target;
+        //}
     }
 }

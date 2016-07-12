@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Windows;
 
-namespace MRMPConfigurator
+namespace MRMPNotifier
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -11,24 +11,7 @@ namespace MRMPConfigurator
     {
         void ApplicationStart(object sender, StartupEventArgs e)
         {
-            SplashWindow splash = new SplashWindow();
-            splash.Show();
             MainWindow mainwindow = new MainWindow();
-            this.Dispatcher.Invoke((Action)(() =>
-            {
-                mainwindow = new MainWindow();
-                mainwindow.Show();
-                mainwindow.Activate();
-            }));
-            while (true)
-            {
-                if (mainwindow.IsLoaded)
-                {
-                    splash.Close();
-                    break;
-                }
-                Thread.Sleep(1000);
-            }
         }
     }
 

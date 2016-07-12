@@ -1,18 +1,13 @@
-﻿using MahApps.Metro.Controls;
-using MahApps.Metro.Controls.Dialogs;
-using MRMPConfigurator.Classes;
-using MRMPConfigurator.Classes.Common;
-using MRMPConfigurator.MRMPWCFService;
+﻿using MRMPNotifier.Classes;
+using MRMPNotifier.Classes.Common;
+using MRMPNotifier.MRMPWCFService;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.ServiceModel;
-using System.Windows.Data;
 
-namespace MRMPConfigurator
+namespace MRMPNotifier
 {
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow : Window
     {
         BackgroundWorker informationbgworker = new BackgroundWorker();
 
@@ -20,10 +15,10 @@ namespace MRMPConfigurator
         {
             if (!informationbgworker.IsBusy)
             {
-                information_progress_indicator.Visibility = System.Windows.Visibility.Visible;
-                information_progress_message.Visibility = System.Windows.Visibility.Visible;
-                information_progress_indicator.IsActive = true;
-                information_progress_message.Content = "Refreshing Manager Information";
+                //information_progress_indicator.Visibility = System.Windows.Visibility.Visible;
+                //information_progress_message.Visibility = System.Windows.Visibility.Visible;
+                //information_progress_indicator.IsActive = true;
+                //information_progress_message.Content = "Refreshing Manager Information";
             
                 informationbgworker.WorkerReportsProgress = true;
                 informationbgworker.WorkerSupportsCancellation = true;
@@ -81,10 +76,10 @@ namespace MRMPConfigurator
             }
             else
             {
-                await this.ShowMessageAsync("Error while contacting MRMP Service", _result.message);
+
             }
-            information_progress_indicator.Visibility = System.Windows.Visibility.Collapsed;
-            information_progress_message.Visibility = System.Windows.Visibility.Collapsed;
+            //information_progress_indicator.Visibility = System.Windows.Visibility.Collapsed;
+            //information_progress_message.Visibility = System.Windows.Visibility.Collapsed;
         }
     }
 }

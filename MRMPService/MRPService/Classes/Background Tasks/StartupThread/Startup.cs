@@ -16,6 +16,7 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using MRMPService.WCF;
 
 namespace MRMPService.MRMPService.Classes.Background_Classes
 {
@@ -101,13 +102,13 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             basicHttpBinding.ReaderQuotas.MaxBytesPerRead = int.MaxValue;
             Uri wcfbaseAddress = new Uri("http://localhost:8734/MRMPWCFService");
 
-            //ServiceHost serviceHost = new ServiceHost(typeof(MRPWCFService));
-            //ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();
-            //wcfsmb.HttpGetEnabled = true;
-            //wcfsmb.HttpGetUrl = wcfbaseAddress;
-            //serviceHost.Description.Behaviors.Add(wcfsmb);
-            //serviceHost.AddServiceEndpoint(typeof(IMRPWCFService), basicHttpBinding, wcfbaseAddress);
-            //serviceHost.Open();
+            ServiceHost serviceHost = new ServiceHost(typeof(MRPWCFService));
+            ServiceMetadataBehavior wcfsmb = new ServiceMetadataBehavior();
+            wcfsmb.HttpGetEnabled = true;
+            wcfsmb.HttpGetUrl = wcfbaseAddress;
+            serviceHost.Description.Behaviors.Add(wcfsmb);
+            serviceHost.AddServiceEndpoint(typeof(IMRPWCFService), basicHttpBinding, wcfbaseAddress);
+            serviceHost.Open();
 
 
             Settings.SetupController();

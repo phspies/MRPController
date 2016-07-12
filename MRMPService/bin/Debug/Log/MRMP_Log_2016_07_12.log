@@ -1,0 +1,428 @@
+2016/07/12 12:59:58 Debug > Starting Manager Service
+2016/07/12 01:00:00 Info > Verifying database
+2016/07/12 01:00:00 Info > Compacting database
+2016/07/12 01:00:00 Debug > Starting WCF Service
+2016/07/12 01:00:02 Info > Debug Enabled!
+2016/07/12 01:00:02 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/07/12 01:00:04 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/07/12 01:00:04 Debug > Starting Scheduler Thread
+2016/07/12 01:00:04 Debug > Starting Mirror Thread
+2016/07/12 01:00:04 Debug > Starting Performance Collection Thread
+2016/07/12 01:00:04 Info > Staring platform inventory process with 10 threads
+2016/07/12 01:00:04 Debug > Starting Netflow v5 Collection Thread
+2016/07/12 01:00:04 Debug > Starting Data Upload Thread
+2016/07/12 01:00:04 Info > Staring performance collection process with 10 threads
+2016/07/12 01:00:04 Debug > Starting OS Inventory Thread
+2016/07/12 01:00:04 Info > Staring data upload process
+2016/07/12 01:00:04 Debug > Starting OS Netstat Thread
+2016/07/12 01:00:04 Info > Staring operating system inventory process with 10 threads
+2016/07/12 01:00:04 Debug > Starting DT Polling Thread
+2016/07/12 01:00:04 Info > Netstat: Staring netstat collection process with 10 threads
+2016/07/12 01:00:04 Debug > Starting Netstat Upload Thread
+2016/07/12 01:00:04 Debug > Starting Performance Upload Thread
+2016/07/12 01:00:04 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 01:00:04 Debug > Starting Netflow Upload Thread
+2016/07/12 01:00:04 Info > Completed platform inventory for 0 platforms in 00:00:00.2110000 [next run at 7/13/2016 1:00:04 AM]
+2016/07/12 01:00:04 Info > Completed Double-Take collection for 0 jobs in 00:00:00.2990000 [next run at 7/12/2016 1:10:04 AM]
+2016/07/12 01:00:04 Info > Netstat: Started netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:00:04 Info > Performance: Start performance collection for phillip-System-Asus using 192.168.0.100
+2016/07/12 01:00:04 Info > Inventory: Started inventory collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:00:06 Info > Inventory: Completed inventory collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:00:06 Info > Completed operating system inventory for 1 workloads in 00:00:02.2580000 [next run at 7/13/2016 1:00:04 AM]
+2016/07/12 01:00:06 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:00:06 Debug > Completed Netflow Upload Thread in 00:00:02.1880000
+2016/07/12 01:00:06 Debug > Deleting uploaded Netstat records: 1
+2016/07/12 01:00:06 Debug > Took 00:00:00.0020000 to delete 1 performance records
+2016/07/12 01:00:06 Debug > Completed Nestat Upload Thread in 00:00:02.3840000
+2016/07/12 01:00:07 Debug > Deleting uploaded performance records: 11
+2016/07/12 01:00:07 Info > Inventory: Completed netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:00:07 Info > Netstat: Completed netstat collection for 1 workloads in 00:00:02.9250000 [next run at 7/12/2016 1:30:04 AM]
+2016/07/12 01:00:07 Debug > Took 00:00:00.1230000 to delete 11 performance records
+2016/07/12 01:00:07 Debug > Completed Performance Upload Thread in 00:00:02.8830000
+2016/07/12 01:00:07 Info > Completed data upload process. Total Elapsed Time: 00:00:03.1100000
+2016/07/12 01:01:12 Error > Error collecting performance information from phillip-System-Asus with error Renci.SshNet.Common.SftpPathNotFoundException: No such file   at Renci.SshNet.Sftp.SftpSession.RequestOpen(String path, Flags flags, Boolean nullOnError)   at Renci.SshNet.Sftp.SftpFileStream..ctor(SftpSession session, String path, FileMode mode, FileAccess access, Int32 bufferSize, Boolean useAsync)   at Renci.SshNet.Sftp.SftpFileStream..ctor(SftpSession session, String path, FileMode mode, FileAccess access)   at Renci.SshNet.SftpClient.ReadAllLines(String path, Encoding encoding)   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceUnixDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceUnixDo.cs:line 99   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs:line 97
+2016/07/12 01:01:12 Info > Completed performance collection for 1 workloads in 00:01:08.3490000 [next run at 7/12/2016 2:00:04 AM]
+2016/07/12 01:03:54 Debug > Starting Manager Service
+2016/07/12 01:03:54 Info > Verifying database
+2016/07/12 01:03:54 Info > Compacting database
+2016/07/12 01:03:55 Debug > Starting WCF Service
+2016/07/12 01:03:56 Info > Debug Enabled!
+2016/07/12 01:03:56 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/07/12 01:03:57 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/07/12 01:03:57 Debug > Starting Scheduler Thread
+2016/07/12 01:03:57 Debug > Starting Mirror Thread
+2016/07/12 01:03:57 Debug > Starting Performance Collection Thread
+2016/07/12 01:03:57 Info > Staring platform inventory process with 10 threads
+2016/07/12 01:03:57 Debug > Starting Netflow v5 Collection Thread
+2016/07/12 01:03:57 Debug > Starting Data Upload Thread
+2016/07/12 01:03:57 Debug > Starting OS Inventory Thread
+2016/07/12 01:03:57 Info > Staring data upload process
+2016/07/12 01:03:57 Debug > Starting OS Netstat Thread
+2016/07/12 01:03:57 Info > Staring performance collection process with 10 threads
+2016/07/12 01:03:57 Debug > Starting Netstat Upload Thread
+2016/07/12 01:03:57 Info > Staring operating system inventory process with 10 threads
+2016/07/12 01:03:57 Debug > Starting Performance Upload Thread
+2016/07/12 01:03:57 Info > Netstat: Staring netstat collection process with 10 threads
+2016/07/12 01:03:57 Debug > Starting DT Polling Thread
+2016/07/12 01:03:57 Debug > Starting Netflow Upload Thread
+2016/07/12 01:03:57 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 01:03:57 Info > Completed platform inventory for 0 platforms in 00:00:00.2170000 [next run at 7/13/2016 1:03:57 AM]
+2016/07/12 01:03:57 Info > Completed Double-Take collection for 0 jobs in 00:00:00.1500000 [next run at 7/12/2016 1:13:57 AM]
+2016/07/12 01:03:57 Info > Performance: Start performance collection for phillip-System-Asus using 192.168.0.100
+2016/07/12 01:03:57 Info > Inventory: Started inventory collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:03:57 Info > Netstat: Started netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:03:58 Debug > Took 00:00:00.0010000 to delete 0 netflow records
+2016/07/12 01:03:58 Debug > Completed Netflow Upload Thread in 00:00:00.8410000
+2016/07/12 01:04:05 Debug > Deleting uploaded Netstat records: 8
+2016/07/12 01:04:07 Debug > Took 00:00:01.8610000 to delete 8 performance records
+2016/07/12 01:04:07 Debug > Completed Nestat Upload Thread in 00:00:09.9600000
+2016/07/12 01:04:22 Info > Inventory: Completed netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:04:22 Info > Netstat: Completed netstat collection for 1 workloads in 00:00:25.4170000 [next run at 7/12/2016 1:33:57 AM]
+2016/07/12 01:04:22 Info > Inventory: Completed inventory collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:04:22 Info > Completed operating system inventory for 1 workloads in 00:00:25.5860000 [next run at 7/13/2016 1:03:57 AM]
+2016/07/12 01:04:23 Debug > Deleting uploaded performance records: 661
+2016/07/12 01:04:23 Debug > Took 00:00:00.4160000 to delete 661 performance records
+2016/07/12 01:04:23 Debug > Completed Performance Upload Thread in 00:00:26.2020000
+2016/07/12 01:04:23 Info > Completed data upload process. Total Elapsed Time: 00:00:26.5070000
+2016/07/12 01:04:30 Info > Performance: Completed performance collection for phillip-System-Asus using 192.168.0.100
+2016/07/12 01:04:30 Info > Completed performance collection for 1 workloads in 00:00:33.3730000 [next run at 7/12/2016 2:03:57 AM]
+2016/07/12 01:06:15 Debug > Starting Manager Service
+2016/07/12 01:06:15 Info > Verifying database
+2016/07/12 01:06:15 Info > Compacting database
+2016/07/12 01:06:16 Debug > Starting WCF Service
+2016/07/12 01:06:17 Info > Debug Enabled!
+2016/07/12 01:06:17 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/07/12 01:06:18 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/07/12 01:06:18 Debug > Starting Scheduler Thread
+2016/07/12 01:06:18 Debug > Starting Mirror Thread
+2016/07/12 01:06:18 Debug > Starting Performance Collection Thread
+2016/07/12 01:06:18 Info > Staring platform inventory process with 10 threads
+2016/07/12 01:06:18 Debug > Starting Netflow v5 Collection Thread
+2016/07/12 01:06:18 Debug > Starting Data Upload Thread
+2016/07/12 01:06:18 Info > Staring performance collection process with 10 threads
+2016/07/12 01:06:18 Debug > Starting OS Inventory Thread
+2016/07/12 01:06:18 Info > Staring data upload process
+2016/07/12 01:06:18 Debug > Starting OS Netstat Thread
+2016/07/12 01:06:18 Info > Staring operating system inventory process with 10 threads
+2016/07/12 01:06:18 Debug > Starting DT Polling Thread
+2016/07/12 01:06:18 Info > Netstat: Staring netstat collection process with 10 threads
+2016/07/12 01:06:18 Debug > Starting Performance Upload Thread
+2016/07/12 01:06:18 Debug > Starting Netflow Upload Thread
+2016/07/12 01:06:18 Debug > Starting Netstat Upload Thread
+2016/07/12 01:06:18 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 01:06:18 Info > Completed platform inventory for 0 platforms in 00:00:00.2110000 [next run at 7/13/2016 1:06:18 AM]
+2016/07/12 01:06:19 Info > Completed Double-Take collection for 0 jobs in 00:00:00.2020000 [next run at 7/12/2016 1:16:18 AM]
+2016/07/12 01:06:19 Info > Netstat: Started netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:06:19 Info > Inventory: Started inventory collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:06:19 Info > Performance: Start performance collection for phillip-System-Asus using 192.168.0.100
+2016/07/12 01:06:19 Debug > Took 00:00:00.0010000 to delete 0 netflow records
+2016/07/12 01:06:19 Debug > Completed Netflow Upload Thread in 00:00:01.0080000
+2016/07/12 01:06:19 Debug > Deleting uploaded Netstat records: 9
+2016/07/12 01:06:20 Debug > Took 00:00:00.0880000 to delete 9 performance records
+2016/07/12 01:06:20 Debug > Completed Nestat Upload Thread in 00:00:01.2470000
+2016/07/12 01:06:20 Info > Performance: Completed performance collection for phillip-System-Asus using 192.168.0.100
+2016/07/12 01:06:20 Info > Completed performance collection for 1 workloads in 00:00:01.6740000 [next run at 7/12/2016 2:06:18 AM]
+2016/07/12 01:06:20 Debug > Deleting uploaded performance records: 112
+2016/07/12 01:06:20 Info > Inventory: Completed netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:06:20 Info > Netstat: Completed netstat collection for 1 workloads in 00:00:01.7620000 [next run at 7/12/2016 1:36:18 AM]
+2016/07/12 01:06:20 Info > Inventory: Completed inventory collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:06:20 Debug > Took 00:00:00.1530000 to delete 112 performance records
+2016/07/12 01:06:20 Debug > Completed Performance Upload Thread in 00:00:01.8230000
+2016/07/12 01:06:20 Info > Completed operating system inventory for 1 workloads in 00:00:01.8980000 [next run at 7/13/2016 1:06:18 AM]
+2016/07/12 01:06:20 Info > Completed data upload process. Total Elapsed Time: 00:00:01.9110000
+2016/07/12 01:11:20 Info > Staring data upload process
+2016/07/12 01:11:20 Debug > Starting Performance Upload Thread
+2016/07/12 01:11:20 Debug > Starting Netstat Upload Thread
+2016/07/12 01:11:20 Debug > Starting Netflow Upload Thread
+2016/07/12 01:11:20 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:11:20 Debug > Completed Netflow Upload Thread in 00:00:00.0360000
+2016/07/12 01:11:20 Debug > Deleting uploaded Netstat records: 9
+2016/07/12 01:11:20 Debug > Took 00:00:00.0510000 to delete 9 performance records
+2016/07/12 01:11:20 Debug > Completed Nestat Upload Thread in 00:00:00.1950000
+2016/07/12 01:11:20 Debug > Deleting uploaded performance records: 0
+2016/07/12 01:11:20 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:11:20 Debug > Completed Performance Upload Thread in 00:00:00.2750000
+2016/07/12 01:11:20 Info > Completed data upload process. Total Elapsed Time: 00:00:00.3010000
+2016/07/12 01:16:19 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 01:16:19 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0550000 [next run at 7/12/2016 1:26:19 AM]
+2016/07/12 01:16:21 Info > Staring data upload process
+2016/07/12 01:16:21 Debug > Starting Performance Upload Thread
+2016/07/12 01:16:21 Debug > Starting Netstat Upload Thread
+2016/07/12 01:16:21 Debug > Starting Netflow Upload Thread
+2016/07/12 01:16:21 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:16:21 Debug > Completed Netflow Upload Thread in 00:00:00.0340000
+2016/07/12 01:16:21 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 01:16:21 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:16:21 Debug > Completed Nestat Upload Thread in 00:00:00.0710000
+2016/07/12 01:16:21 Debug > Deleting uploaded performance records: 0
+2016/07/12 01:16:21 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:16:21 Debug > Completed Performance Upload Thread in 00:00:00.2220000
+2016/07/12 01:16:21 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2550000
+2016/07/12 01:21:21 Info > Staring data upload process
+2016/07/12 01:21:21 Debug > Starting Performance Upload Thread
+2016/07/12 01:21:21 Debug > Starting Netstat Upload Thread
+2016/07/12 01:21:21 Debug > Starting Netflow Upload Thread
+2016/07/12 01:21:21 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 01:21:21 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:21:21 Debug > Completed Nestat Upload Thread in 00:00:00.0560000
+2016/07/12 01:21:21 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:21:21 Debug > Completed Netflow Upload Thread in 00:00:00.0700000
+2016/07/12 01:21:21 Debug > Deleting uploaded performance records: 0
+2016/07/12 01:21:21 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:21:21 Debug > Completed Performance Upload Thread in 00:00:00.1980000
+2016/07/12 01:21:21 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2450000
+2016/07/12 01:26:19 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 01:26:19 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0610000 [next run at 7/12/2016 1:36:19 AM]
+2016/07/12 01:26:21 Info > Staring data upload process
+2016/07/12 01:26:21 Debug > Starting Performance Upload Thread
+2016/07/12 01:26:21 Debug > Starting Netstat Upload Thread
+2016/07/12 01:26:21 Debug > Starting Netflow Upload Thread
+2016/07/12 01:26:21 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:26:21 Debug > Completed Netflow Upload Thread in 00:00:00.0290000
+2016/07/12 01:26:21 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 01:26:21 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:26:21 Debug > Completed Nestat Upload Thread in 00:00:00.0580000
+2016/07/12 01:26:21 Debug > Deleting uploaded performance records: 0
+2016/07/12 01:26:21 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:26:21 Debug > Completed Performance Upload Thread in 00:00:00.2000000
+2016/07/12 01:26:21 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2300000
+2016/07/12 01:31:21 Info > Staring data upload process
+2016/07/12 01:31:21 Debug > Starting Performance Upload Thread
+2016/07/12 01:31:21 Debug > Starting Netstat Upload Thread
+2016/07/12 01:31:21 Debug > Starting Netflow Upload Thread
+2016/07/12 01:31:21 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 01:31:21 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:31:21 Debug > Completed Nestat Upload Thread in 00:00:00.0580000
+2016/07/12 01:31:21 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:31:21 Debug > Completed Netflow Upload Thread in 00:00:00.0620000
+2016/07/12 01:31:22 Debug > Deleting uploaded performance records: 0
+2016/07/12 01:31:22 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:31:22 Debug > Completed Performance Upload Thread in 00:00:00.1740000
+2016/07/12 01:31:22 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2020000
+2016/07/12 01:36:19 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 01:36:19 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0550000 [next run at 7/12/2016 1:46:19 AM]
+2016/07/12 01:36:20 Info > Netstat: Staring netstat collection process with 10 threads
+2016/07/12 01:36:20 Info > Netstat: Started netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:36:21 Info > Inventory: Completed netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 01:36:21 Info > Netstat: Completed netstat collection for 1 workloads in 00:00:01.2100000 [next run at 7/12/2016 2:06:20 AM]
+2016/07/12 01:36:22 Info > Staring data upload process
+2016/07/12 01:36:22 Debug > Starting Performance Upload Thread
+2016/07/12 01:36:22 Debug > Starting Netstat Upload Thread
+2016/07/12 01:36:22 Debug > Starting Netflow Upload Thread
+2016/07/12 01:36:22 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:36:22 Debug > Completed Netflow Upload Thread in 00:00:00.0170000
+2016/07/12 01:36:22 Debug > Deleting uploaded Netstat records: 9
+2016/07/12 01:36:22 Debug > Took 00:00:00.0530000 to delete 9 performance records
+2016/07/12 01:36:22 Debug > Completed Nestat Upload Thread in 00:00:00.1960000
+2016/07/12 01:36:22 Debug > Deleting uploaded performance records: 0
+2016/07/12 01:36:22 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:36:22 Debug > Completed Performance Upload Thread in 00:00:00.2460000
+2016/07/12 01:36:22 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2820000
+2016/07/12 01:41:22 Info > Staring data upload process
+2016/07/12 01:41:22 Debug > Starting Performance Upload Thread
+2016/07/12 01:41:22 Debug > Starting Netstat Upload Thread
+2016/07/12 01:41:22 Debug > Starting Netflow Upload Thread
+2016/07/12 01:41:22 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:41:22 Debug > Completed Netflow Upload Thread in 00:00:00.0320000
+2016/07/12 01:41:22 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 01:41:22 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:41:22 Debug > Completed Nestat Upload Thread in 00:00:00.0710000
+2016/07/12 01:41:22 Debug > Deleting uploaded performance records: 0
+2016/07/12 01:41:22 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:41:22 Debug > Completed Performance Upload Thread in 00:00:00.1810000
+2016/07/12 01:41:22 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2380000
+2016/07/12 01:46:19 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 01:46:19 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0570000 [next run at 7/12/2016 1:56:19 AM]
+2016/07/12 01:46:22 Info > Staring data upload process
+2016/07/12 01:46:22 Debug > Starting Performance Upload Thread
+2016/07/12 01:46:22 Debug > Starting Netstat Upload Thread
+2016/07/12 01:46:22 Debug > Starting Netflow Upload Thread
+2016/07/12 01:46:22 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:46:22 Debug > Completed Netflow Upload Thread in 00:00:00.0280000
+2016/07/12 01:46:22 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 01:46:22 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:46:22 Debug > Completed Nestat Upload Thread in 00:00:00.0630000
+2016/07/12 01:46:22 Debug > Deleting uploaded performance records: 0
+2016/07/12 01:46:22 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:46:22 Debug > Completed Performance Upload Thread in 00:00:00.2020000
+2016/07/12 01:46:22 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2310000
+2016/07/12 01:51:22 Info > Staring data upload process
+2016/07/12 01:51:22 Debug > Starting Performance Upload Thread
+2016/07/12 01:51:22 Debug > Starting Netstat Upload Thread
+2016/07/12 01:51:22 Debug > Starting Netflow Upload Thread
+2016/07/12 01:51:22 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:51:23 Debug > Completed Netflow Upload Thread in 00:00:00.0510000
+2016/07/12 01:51:23 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 01:51:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:51:23 Debug > Completed Nestat Upload Thread in 00:00:00.0880000
+2016/07/12 01:51:23 Debug > Deleting uploaded performance records: 0
+2016/07/12 01:51:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:51:23 Debug > Completed Performance Upload Thread in 00:00:00.1850000
+2016/07/12 01:51:23 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2310000
+2016/07/12 01:56:19 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 01:56:19 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0610000 [next run at 7/12/2016 2:06:19 AM]
+2016/07/12 01:56:23 Info > Staring data upload process
+2016/07/12 01:56:23 Debug > Starting Performance Upload Thread
+2016/07/12 01:56:23 Debug > Starting Netstat Upload Thread
+2016/07/12 01:56:23 Debug > Starting Netflow Upload Thread
+2016/07/12 01:56:23 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 01:56:23 Debug > Completed Netflow Upload Thread in 00:00:00.0310000
+2016/07/12 01:56:23 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 01:56:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:56:23 Debug > Completed Nestat Upload Thread in 00:00:00.0660000
+2016/07/12 01:56:23 Debug > Deleting uploaded performance records: 0
+2016/07/12 01:56:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 01:56:23 Debug > Completed Performance Upload Thread in 00:00:00.1850000
+2016/07/12 01:56:23 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2160000
+2016/07/12 02:01:23 Info > Staring data upload process
+2016/07/12 02:01:23 Debug > Starting Performance Upload Thread
+2016/07/12 02:01:23 Debug > Starting Netstat Upload Thread
+2016/07/12 02:01:23 Debug > Starting Netflow Upload Thread
+2016/07/12 02:01:23 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 02:01:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:01:23 Debug > Completed Nestat Upload Thread in 00:00:00.0500000
+2016/07/12 02:01:23 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 02:01:23 Debug > Completed Netflow Upload Thread in 00:00:00.0530000
+2016/07/12 02:01:23 Debug > Deleting uploaded performance records: 0
+2016/07/12 02:01:23 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:01:23 Debug > Completed Performance Upload Thread in 00:00:00.2340000
+2016/07/12 02:01:23 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2770000
+2016/07/12 02:06:19 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 02:06:19 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0590000 [next run at 7/12/2016 2:16:19 AM]
+2016/07/12 02:06:20 Info > Staring performance collection process with 10 threads
+2016/07/12 02:06:20 Info > Performance: Start performance collection for phillip-System-Asus using 192.168.0.100
+2016/07/12 02:06:22 Info > Netstat: Staring netstat collection process with 10 threads
+2016/07/12 02:06:22 Info > Netstat: Started netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 02:06:22 Info > Inventory: Completed netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 02:06:22 Info > Netstat: Completed netstat collection for 1 workloads in 00:00:00.7040000 [next run at 7/12/2016 2:36:22 AM]
+2016/07/12 02:06:23 Info > Staring data upload process
+2016/07/12 02:06:23 Debug > Starting Performance Upload Thread
+2016/07/12 02:06:23 Debug > Starting Netstat Upload Thread
+2016/07/12 02:06:23 Debug > Starting Netflow Upload Thread
+2016/07/12 02:06:23 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 02:06:23 Debug > Completed Netflow Upload Thread in 00:00:00.0320000
+2016/07/12 02:06:23 Debug > Deleting uploaded Netstat records: 9
+2016/07/12 02:06:23 Debug > Took 00:00:00.0260000 to delete 9 performance records
+2016/07/12 02:06:23 Debug > Completed Nestat Upload Thread in 00:00:00.1530000
+2016/07/12 02:06:24 Debug > Deleting uploaded performance records: 43
+2016/07/12 02:06:24 Debug > Took 00:00:00.0370000 to delete 43 performance records
+2016/07/12 02:06:24 Debug > Completed Performance Upload Thread in 00:00:00.4030000
+2016/07/12 02:06:24 Info > Completed data upload process. Total Elapsed Time: 00:00:00.4250000
+2016/07/12 02:06:28 Info > Performance: Completed performance collection for phillip-System-Asus using 192.168.0.100
+2016/07/12 02:06:28 Info > Completed performance collection for 1 workloads in 00:00:08.0030000 [next run at 7/12/2016 3:06:20 AM]
+2016/07/12 02:11:24 Info > Staring data upload process
+2016/07/12 02:11:24 Debug > Starting Performance Upload Thread
+2016/07/12 02:11:24 Debug > Starting Netstat Upload Thread
+2016/07/12 02:11:24 Debug > Starting Netflow Upload Thread
+2016/07/12 02:11:24 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 02:11:24 Debug > Completed Netflow Upload Thread in 00:00:00.0280000
+2016/07/12 02:11:24 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 02:11:24 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:11:24 Debug > Completed Nestat Upload Thread in 00:00:00.0660000
+2016/07/12 02:11:24 Debug > Deleting uploaded performance records: 69
+2016/07/12 02:11:24 Debug > Took 00:00:00.0720000 to delete 69 performance records
+2016/07/12 02:11:24 Debug > Completed Performance Upload Thread in 00:00:00.5420000
+2016/07/12 02:11:24 Info > Completed data upload process. Total Elapsed Time: 00:00:00.5880000
+2016/07/12 02:16:19 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 02:16:20 Info > Completed Double-Take collection for 0 jobs in 00:00:00.5530000 [next run at 7/12/2016 2:26:19 AM]
+2016/07/12 02:16:24 Info > Staring data upload process
+2016/07/12 02:16:24 Debug > Starting Performance Upload Thread
+2016/07/12 02:16:24 Debug > Starting Netstat Upload Thread
+2016/07/12 02:16:24 Debug > Starting Netflow Upload Thread
+2016/07/12 02:16:24 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 02:16:24 Debug > Completed Netflow Upload Thread in 00:00:00.0460000
+2016/07/12 02:16:24 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 02:16:24 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:16:24 Debug > Completed Nestat Upload Thread in 00:00:00.0830000
+2016/07/12 02:16:25 Debug > Deleting uploaded performance records: 0
+2016/07/12 02:16:25 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:16:25 Debug > Completed Performance Upload Thread in 00:00:00.6800000
+2016/07/12 02:16:25 Info > Completed data upload process. Total Elapsed Time: 00:00:00.7130000
+2016/07/12 02:21:25 Info > Staring data upload process
+2016/07/12 02:21:25 Debug > Starting Performance Upload Thread
+2016/07/12 02:21:25 Debug > Starting Netstat Upload Thread
+2016/07/12 02:21:25 Debug > Starting Netflow Upload Thread
+2016/07/12 02:21:25 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 02:21:25 Debug > Completed Netflow Upload Thread in 00:00:00.0500000
+2016/07/12 02:21:25 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 02:21:25 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:21:25 Debug > Completed Nestat Upload Thread in 00:00:00.1000000
+2016/07/12 02:21:25 Debug > Deleting uploaded performance records: 0
+2016/07/12 02:21:25 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:21:25 Debug > Completed Performance Upload Thread in 00:00:00.1660000
+2016/07/12 02:21:25 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2080000
+2016/07/12 02:26:20 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 02:26:20 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0550000 [next run at 7/12/2016 2:36:20 AM]
+2016/07/12 02:26:25 Info > Staring data upload process
+2016/07/12 02:26:25 Debug > Starting Performance Upload Thread
+2016/07/12 02:26:25 Debug > Starting Netstat Upload Thread
+2016/07/12 02:26:25 Debug > Starting Netflow Upload Thread
+2016/07/12 02:26:25 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 02:26:25 Debug > Completed Netflow Upload Thread in 00:00:00.0280000
+2016/07/12 02:26:25 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 02:26:25 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:26:25 Debug > Completed Nestat Upload Thread in 00:00:00.0590000
+2016/07/12 02:26:25 Debug > Deleting uploaded performance records: 0
+2016/07/12 02:26:25 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:26:25 Debug > Completed Performance Upload Thread in 00:00:00.1720000
+2016/07/12 02:26:25 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2060000
+2016/07/12 02:31:25 Info > Staring data upload process
+2016/07/12 02:31:26 Debug > Starting Performance Upload Thread
+2016/07/12 02:31:26 Debug > Starting Netstat Upload Thread
+2016/07/12 02:31:26 Debug > Starting Netflow Upload Thread
+2016/07/12 02:31:26 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 02:31:26 Debug > Completed Netflow Upload Thread in 00:00:00.0570000
+2016/07/12 02:31:26 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 02:31:26 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:31:26 Debug > Completed Nestat Upload Thread in 00:00:00.1060000
+2016/07/12 02:31:26 Debug > Deleting uploaded performance records: 0
+2016/07/12 02:31:26 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:31:26 Debug > Completed Performance Upload Thread in 00:00:00.1920000
+2016/07/12 02:31:26 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2390000
+2016/07/12 02:36:20 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 02:36:20 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0690000 [next run at 7/12/2016 2:46:20 AM]
+2016/07/12 02:36:22 Info > Netstat: Staring netstat collection process with 10 threads
+2016/07/12 02:36:23 Info > Netstat: Started netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 02:36:24 Info > Inventory: Completed netstat collection for phillip-System-Asus : 192.168.0.100
+2016/07/12 02:36:24 Info > Netstat: Completed netstat collection for 1 workloads in 00:00:01.2900000 [next run at 7/12/2016 3:06:22 AM]
+2016/07/12 02:36:26 Info > Staring data upload process
+2016/07/12 02:36:26 Debug > Starting Performance Upload Thread
+2016/07/12 02:36:26 Debug > Starting Netstat Upload Thread
+2016/07/12 02:36:26 Debug > Starting Netflow Upload Thread
+2016/07/12 02:36:26 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 02:36:26 Debug > Completed Netflow Upload Thread in 00:00:00.0310000
+2016/07/12 02:36:26 Debug > Deleting uploaded Netstat records: 10
+2016/07/12 02:36:26 Debug > Deleting uploaded performance records: 0
+2016/07/12 02:36:26 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:36:26 Debug > Completed Performance Upload Thread in 00:00:00.1690000
+2016/07/12 02:36:26 Debug > Took 00:00:00.0590000 to delete 10 performance records
+2016/07/12 02:36:26 Debug > Completed Nestat Upload Thread in 00:00:00.2120000
+2016/07/12 02:36:26 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2500000
+2016/07/12 02:41:26 Info > Staring data upload process
+2016/07/12 02:41:26 Debug > Starting Performance Upload Thread
+2016/07/12 02:41:26 Debug > Starting Netstat Upload Thread
+2016/07/12 02:41:26 Debug > Starting Netflow Upload Thread
+2016/07/12 02:41:26 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 02:41:26 Debug > Completed Netflow Upload Thread in 00:00:00.0300000
+2016/07/12 02:41:26 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 02:41:26 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:41:26 Debug > Completed Nestat Upload Thread in 00:00:00.0630000
+2016/07/12 02:41:26 Debug > Deleting uploaded performance records: 0
+2016/07/12 02:41:26 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:41:26 Debug > Completed Performance Upload Thread in 00:00:00.1720000
+2016/07/12 02:41:26 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2270000
+2016/07/12 02:46:20 Info > Staring Double-Take collection process with 10 threads
+2016/07/12 02:46:20 Info > Completed Double-Take collection for 0 jobs in 00:00:00.0600000 [next run at 7/12/2016 2:56:20 AM]
+2016/07/12 02:46:26 Info > Staring data upload process
+2016/07/12 02:46:26 Debug > Starting Performance Upload Thread
+2016/07/12 02:46:26 Debug > Starting Netstat Upload Thread
+2016/07/12 02:46:26 Debug > Starting Netflow Upload Thread
+2016/07/12 02:46:26 Debug > Took 00:00:00 to delete 0 netflow records
+2016/07/12 02:46:26 Debug > Completed Netflow Upload Thread in 00:00:00.0340000
+2016/07/12 02:46:26 Debug > Deleting uploaded Netstat records: 0
+2016/07/12 02:46:26 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:46:26 Debug > Completed Nestat Upload Thread in 00:00:00.0660000
+2016/07/12 02:46:27 Debug > Deleting uploaded performance records: 0
+2016/07/12 02:46:27 Debug > Took 00:00:00 to delete 0 performance records
+2016/07/12 02:46:27 Debug > Completed Performance Upload Thread in 00:00:00.2150000
+2016/07/12 02:46:27 Info > Completed data upload process. Total Elapsed Time: 00:00:00.2430000

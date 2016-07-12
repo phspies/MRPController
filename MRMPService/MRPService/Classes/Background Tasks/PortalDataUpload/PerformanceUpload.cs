@@ -92,7 +92,11 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                             {
                                 MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
 
-                                Objects.Copy(_performance, _performancecrud);
+                                _performancecrud.instance = _performance.instance;
+                                _performancecrud.timestamp = _performance.timestamp;
+                                _performancecrud.value = _performance.value;
+                                _performancecrud.workload_id = _performance.workload_id;
+
                                 MRPPerformanceCategoryType _category = _categories.performancecategories.FirstOrDefault(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name && x.workload_id == _performance.workload_id);
                                 _performancecrud.performancecategory_id = _category.id;
                                 _performancecounters_list.Add(_performancecrud);

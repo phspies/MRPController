@@ -29,7 +29,16 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         foreach (Netstat _db_netstat_record in _db_netstats)
                         {
                             MRPNetworkStatCRUDType _netstatcrud = new MRPNetworkStatCRUDType();
-                            Objects.Copy(_db_netstat_record, _netstatcrud);
+                            _netstatcrud.pid = _db_netstat_record.pid;
+                            _netstatcrud.process = _db_netstat_record.process;
+                            _netstatcrud.proto = _db_netstat_record.proto;
+                            _netstatcrud.source_ip = _db_netstat_record.source_ip;
+                            _netstatcrud.source_port = _db_netstat_record.source_port;
+                            _netstatcrud.state = _db_netstat_record.state;
+                            _netstatcrud.target_ip = _db_netstat_record.target_ip;
+                            _netstatcrud.target_port = _db_netstat_record.target_port;
+                            _netstatcrud.workload_id = _db_netstat_record.workload_id;
+
                             _netstat_list.Add(_netstatcrud);
                             if (_netstat_list.Count > Global.portal_upload_netstat_page_size)
                             {

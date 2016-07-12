@@ -85,7 +85,7 @@
             else if (_longname.Contains("Ubuntu"))
             {
                 _simple_osedition += "UBUNTU";
-                _simple_osedition += "14";
+                _simple_osedition += _longname.Split(' ')[1].Split('.')[0];
                 if (_longname.Contains("64"))
                 {
                     _simple_osedition += "/64";

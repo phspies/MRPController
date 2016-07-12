@@ -2,16 +2,13 @@
 using MRMPService.LocalDatabase;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using MRMPService.Utilities;
-using static MRMPService.Utilities.SyncronizedList;
 using MRMPService.MRMPAPI.Types.API;
 using Renci.SshNet.Common;
 using Renci.SshNet;
 using System.IO;
 using Renci.SshNet.Sftp;
-using System.Globalization;
 
 namespace MRMPService.PerformanceCollection
 {
@@ -42,7 +39,9 @@ namespace MRMPService.PerformanceCollection
             Logger.log(String.Format("Performance: Start performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
             ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _credential.username, new AuthenticationMethod[] { new PasswordAuthenticationMethod(_credential.username, _credential.encrypted_password) });
 
-            string localpath = @"C:\Users\phillip.spies\Documents\MRMP\Scripts";
+            string locationlocation = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string localscripts = Path.Combine(locationlocation, "Scripts");
+
             string remotepath = @"mrmp";
             bool remotepath_exist = false;
 
@@ -61,7 +60,7 @@ namespace MRMPService.PerformanceCollection
                 }
                 if (!remotepath_exist)
                 {
-                    foreach (String _file in Directory.GetFiles(localpath))
+                    foreach (String _file in Directory.GetFiles(localscripts))
                     {
                         var fileStream = new FileStream(_file, FileMode.Open);
                         if (fileStream != null)
@@ -94,7 +93,7 @@ namespace MRMPService.PerformanceCollection
                     {
                         foreach (SftpFile _file in sftp.ListDirectory("output"))
                         {
-                            if (_file.Name.Contains("Perf_"))
+                            if (_file.Name.StartsWith("Perf_"))
                             {
                                 //get OS edition name
                                 List<String> _perf_file = sftp.ReadAllLines(_file.FullName).ToList();
@@ -134,7 +133,7 @@ namespace MRMPService.PerformanceCollection
                                                 DateTime _timestamp = _utc_time.ToUniversalTime();
                                                 _perf.timestamp = new DateTime(_utc_time.Year, _timestamp.Month, _timestamp.Day, _timestamp.Hour, 0, 0);
                                             }
-                                            if (_perf_file[i].Contains("PERD_CounterMax"))
+                                            if (_perf_file[i].Contains("PERD_CounterAvg"))
                                             {
                                                 _perf.value = Double.Parse(_perf_file[i].Split('=').Last());
                                             }
@@ -145,11 +144,11 @@ namespace MRMPService.PerformanceCollection
                                             _perf.id = Objects.RamdomGuid();
                                             if (_perf.counter_name == "Disk Bytes Out/sec")
                                             {
-                                                _perf.counter_name = "Disk Read Bytes/sec";
+                                                _perf.counter_name = "Disk Write Bytes/sec";
                                             }
                                             if (_perf.counter_name == "Disk Bytes In/sec")
                                             {
-                                                _perf.counter_name = "Disk Write Bytes/sec";
+                                                _perf.counter_name = "Disk Read Bytes/sec";
                                             }
                                             using (PerformanceSet performance_db_set = new PerformanceSet())
                                             {

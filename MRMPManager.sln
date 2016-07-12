@@ -4,7 +4,7 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRMPService", "MRMPService\MRMPService.csproj", "{98762892-9E86-451E-A26A-C614B4043A87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRMPConfigurator", "MRMPConfigurator\MRMPConfigurator.csproj", "{E5EFD650-4308-40AB-97DF-4DED1BC16F18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MRMPNotifier", "MRMPConfigurator\MRMPNotifier.csproj", "{E5EFD650-4308-40AB-97DF-4DED1BC16F18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wadltocsharp", "wadltocsharp\wadltocsharp.csproj", "{05277BAA-35F1-42BD-B04A-B7D86C2ABF88}"
 EndProject
@@ -42,7 +42,6 @@ Global
 		{05277BAA-35F1-42BD-B04A-B7D86C2ABF88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05277BAA-35F1-42BD-B04A-B7D86C2ABF88}.Release|Any CPU.Build.0 = Release|Any CPU
 		{05277BAA-35F1-42BD-B04A-B7D86C2ABF88}.Release|x64.ActiveCfg = Release|Any CPU
-		{05277BAA-35F1-42BD-B04A-B7D86C2ABF88}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

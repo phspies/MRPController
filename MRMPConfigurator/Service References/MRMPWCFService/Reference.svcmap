@@ -23,16 +23,10 @@
     <MetadataSource Address="http://localhost:8734/MRMPWCFService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="MRPWCFService1.wsdl" MetadataType="Wsdl" ID="a7159c98-08f3-4b3a-9ccb-6b199e42c9ef" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService" />
     <MetadataFile FileName="MRMPWCFService.xsd" MetadataType="Schema" ID="a0b6a6fe-c345-4435-b092-7fa7a652711d" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService?xsd=xsd0" />
     <MetadataFile FileName="MRMPWCFService5.xsd" MetadataType="Schema" ID="53d61b93-9fd2-4840-9f60-c733f3280950" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService?xsd=xsd1" />
     <MetadataFile FileName="MRMPWCFService3.xsd" MetadataType="Schema" ID="b875e1eb-cae5-4e44-a71d-bad503415a0b" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService?xsd=xsd2" />
-    <MetadataFile FileName="MRMPWCFService7.xsd" MetadataType="Schema" ID="f27ce37e-0d82-4535-aee6-b55bf1fe7a1d" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService?xsd=xsd3" />
-    <MetadataFile FileName="MRMPWCFService8.xsd" MetadataType="Schema" ID="9fc0d398-c07e-4860-955c-88fe5e9a4ec1" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService?xsd=xsd4" />
-    <MetadataFile FileName="MRMPWCFService1.xsd" MetadataType="Schema" ID="957a4597-40ed-416b-b5a2-2fa2b2e8a1a5" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService?xsd=xsd5" />
-    <MetadataFile FileName="MRMPWCFService2.xsd" MetadataType="Schema" ID="d5e5d847-554d-4fe1-90f0-57669c9abbe3" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService?xsd=xsd6" />
-    <MetadataFile FileName="MRMPWCFService4.xsd" MetadataType="Schema" ID="974610ac-a9ed-40e4-873a-62d855b4ad61" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService?xsd=xsd7" />
-    <MetadataFile FileName="MRMPWCFService6.xsd" MetadataType="Schema" ID="c760654b-70c7-42f3-8edd-5bfb3b58e383" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService?xsd=xsd8" />
-    <MetadataFile FileName="MRPWCFService1.wsdl" MetadataType="Wsdl" ID="a7159c98-08f3-4b3a-9ccb-6b199e42c9ef" SourceId="1" SourceUrl="http://localhost:8734/MRMPWCFService" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

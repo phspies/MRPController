@@ -1,9 +1,7 @@
 ﻿using MRMPService.LocalDatabase;
 using MRMPService.MRMPAPI.Types.API;
 using System;
-using System.IO;
 using System.Linq;
-using System.Management;
 using MRMPService.Utilities;
 using System.Collections.Generic;
 using MRMPService.MRMPService.Log;

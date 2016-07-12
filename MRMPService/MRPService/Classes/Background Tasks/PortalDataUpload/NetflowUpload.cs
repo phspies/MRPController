@@ -29,7 +29,16 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         foreach (NetworkFlow _db_flow in _db_flows)
                         {
                             MRPNetworkFlowCRUDType _mrp_crud = new MRPNetworkFlowCRUDType();
-                            Objects.Copy(_db_flow, _mrp_crud);
+                            _mrp_crud.kbyte = _db_flow.kbyte;
+                            _mrp_crud.packets = _db_flow.packets;
+                            _mrp_crud.protocol = _db_flow.protocol;
+                            _mrp_crud.source_address = _db_flow.source_address;
+                            _mrp_crud.source_port = _db_flow.source_port;
+                            _mrp_crud.start_timestamp = _db_flow.start_timestamp;
+                            _mrp_crud.stop_timestamp = _db_flow.stop_timestamp;
+                            _mrp_crud.target_address = _db_flow.target_address;
+                            _mrp_crud.target_port = _db_flow.target_port;
+                            _mrp_crud.timestamp = _db_flow.timestamp;
 
                             //add record to list
                             _networkflow_list.Add(_mrp_crud);

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MRMPConfigurator.Properties {
+namespace MRMPNotifier.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

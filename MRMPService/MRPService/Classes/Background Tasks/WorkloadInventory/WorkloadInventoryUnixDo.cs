@@ -41,8 +41,9 @@ namespace MRMPService.MRMPAPI.Classes
             ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _credential.username,
                  new AuthenticationMethod[] { new PasswordAuthenticationMethod(_credential.username, _credential.encrypted_password) }
              );
+            string locationlocation = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string localscripts = Path.Combine(locationlocation, "Scripts");
 
-            string localpath = @"C:\Users\phillip.spies\Documents\MRMP\Scripts";
             string remotepath = @"mrmp";
             bool remotepath_exist = false;
             try
@@ -62,7 +63,7 @@ namespace MRMPService.MRMPAPI.Classes
                     }
                     if (!remotepath_exist)
                     {
-                        foreach (String _file in Directory.GetFiles(localpath))
+                        foreach (String _file in Directory.GetFiles(localscripts))
                         {
                             var fileStream = new FileStream(_file, FileMode.Open);
                             if (fileStream != null)
@@ -96,7 +97,7 @@ namespace MRMPService.MRMPAPI.Classes
                             foreach (SftpFile _file in sftp.ListDirectory("output"))
                             {
                                 List<String> _inv_file = new List<string>();
-                                if (_file.Name.Contains("Inv_"))
+                                if (_file.Name.StartsWith("Inv_"))
                                 {
                                     try
                                     {
@@ -260,8 +261,6 @@ namespace MRMPService.MRMPAPI.Classes
                 Logger.log(String.Format("Inventory:Error collecting inventory information: {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
                 throw new ArgumentException(String.Format("Error collecting inventory information: {0}", ex.Message));
             }
-
-
 
             _updated_workload.ostype = "unix";
             _updated_workload.provisioned = true;

@@ -1,99 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MRMPService.LocalDatabase" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MRMPService.LocalDatabase" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfWorkload">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MRMPService.WCF" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MRMPService.WCF" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="workerInformation">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Workload" nillable="true" type="tns:Workload" />
+      <xs:element minOccurs="0" name="agentId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="currentJobs" type="xs:int" />
+      <xs:element minOccurs="0" name="versionNumber" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfWorkload" nillable="true" type="tns:ArrayOfWorkload" />
-  <xs:complexType name="Workload">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="application" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="cpu_coresPerSocket" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="credential_id" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="credential_ok" type="xs:boolean" />
-      <xs:element minOccurs="0" name="deleted" type="xs:boolean" />
-      <xs:element minOccurs="0" name="dt_collection_message" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="dt_collection_status" type="xs:boolean" />
-      <xs:element minOccurs="0" name="dt_contact_error_count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="dt_last_contact" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="enabled" nillable="true" type="xs:boolean" />
-      <xs:element minOccurs="0" name="hash_value" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="hostname" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="iplist" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="moid" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="os_collection_message" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="os_collection_status" type="xs:boolean" />
-      <xs:element minOccurs="0" name="os_contact_error_count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="os_last_contact" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="osedition" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ostype" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="perf_collection_message" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="perf_collection_status" type="xs:boolean" />
-      <xs:element minOccurs="0" name="perf_contact_error_count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="perf_last_contact" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="platform_id" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="storage_count" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="vcore" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="vcpu" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="vcpu_speed" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="vmemory" nillable="true" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Workload" nillable="true" type="tns:Workload" />
-  <xs:complexType name="ArrayOfPlatform">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Platform" nillable="true" type="tns:Platform" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfPlatform" nillable="true" type="tns:ArrayOfPlatform" />
-  <xs:complexType name="Platform">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="credential_id" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="datacenter" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="deleted" type="xs:boolean" />
-      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="hash_value" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="human_vendor" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="lastupdated" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="moid" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="networkdomain_count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="networkdomain_sha1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="passwordok" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="platform_details" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="platform_version" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="standalone" type="xs:boolean" />
-      <xs:element minOccurs="0" name="url" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="vendor" type="xs:int" />
-      <xs:element minOccurs="0" name="vlan_count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="vlan_sha1" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="workload_count" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="workload_sha1" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Platform" nillable="true" type="tns:Platform" />
-  <xs:complexType name="Credential">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="credential_type" type="xs:int" />
-      <xs:element minOccurs="0" name="deleted" type="xs:boolean" />
-      <xs:element minOccurs="0" name="description" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="domain" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="hash_value" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="human_type" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="id" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Credential" nillable="true" type="tns:Credential" />
-  <xs:complexType name="ArrayOfCredential">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="Credential" nillable="true" type="tns:Credential" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfCredential" nillable="true" type="tns:ArrayOfCredential" />
+  <xs:element name="workerInformation" nillable="true" type="tns:workerInformation" />
 </xs:schema>
