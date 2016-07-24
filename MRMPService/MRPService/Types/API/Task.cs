@@ -47,10 +47,10 @@ namespace MRMPService.MRMPService.Types.API
         public MRPWorkloadType original { get; set; }
         public MRPWorkloadType source { get; set; }
         public MRPWorkloadType target { get; set; }
-        public MRPServicestackType servicestack { get; set; }
+        public MRPProtectiongroupType protectiongroup { get; set; }
         public MRPPlatformType platform { get; set; }
         public MRPTaskJobType job { get; set; }
-        public MRPStacktreeType stacktree { get; set; }
+        public MRPProtectiongrouptreeType protectiongrouptree { get; set; }
     }
     public class MRPTaskJobType
     {

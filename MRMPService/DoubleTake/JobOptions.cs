@@ -16,8 +16,8 @@ namespace MRMPService.DoubleTake
         {
             MRPWorkloadType _source_workload = payload.submitpayload.source;
             MRPWorkloadType _target_workload = payload.submitpayload.target;
-            MRPRecoverypolicyType _recovery_policy = payload.submitpayload.servicestack.recoverypolicy;
-            MRPServicestackType _service_stack = payload.submitpayload.servicestack;
+            MRPRecoverypolicyType _recovery_policy = payload.submitpayload.protectiongroup.recoverypolicy;
+            MRPProtectiongroupType _service_stack = payload.submitpayload.protectiongroup;
 
             //disable backup network connection
             jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
@@ -41,8 +41,8 @@ namespace MRMPService.DoubleTake
                 int i = 0;
                 foreach (dynamic volume in payload.submitpayload.source.workloadvolumes_attributes)
                 {
-                    String _repositorypath = payload.submitpayload.servicestack.recoverypolicy.repositorypath;
-                    String _servicestack = payload.submitpayload.servicestack.service;
+                    String _repositorypath = payload.submitpayload.protectiongroup.recoverypolicy.repositorypath;
+                    String _servicestack = payload.submitpayload.protectiongroup.service;
                     String _original_id = payload.submitpayload.original.id;
                     String _volume = volume.driveletter;
                     Int16 _disksize = volume.disksize;

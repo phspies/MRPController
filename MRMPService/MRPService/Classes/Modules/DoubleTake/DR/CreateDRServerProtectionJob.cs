@@ -23,9 +23,9 @@ namespace MRMPService.Tasks.DoubleTake
                 {
                     MRPWorkloadType _source_workload = payload.submitpayload.source;
                     MRPWorkloadType _target_workload = payload.submitpayload.target;
-                    MRPRecoverypolicyType _recovery_policy = payload.submitpayload.servicestack.recoverypolicy;
-                    MRPServicestackType _service_stack = payload.submitpayload.servicestack;
-                    MRPStacktreeType _stacktree = payload.submitpayload.stacktree;
+                    MRPRecoverypolicyType _recovery_policy = payload.submitpayload.protectiongroup.recoverypolicy;
+                    MRPProtectiongroupType _service_stack = payload.submitpayload.protectiongroup;
+                    MRPProtectiongrouptreeType _stacktree = payload.submitpayload.protectiongrouptree;
                     using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
                     {
                         _mrp_api.task().progress(payload, "Verifying license status on both source and target workloads", 2);
@@ -118,7 +118,7 @@ namespace MRMPService.Tasks.DoubleTake
                             servicestack_id = _service_stack.id
                         });
                         _mrp_api.task().progress(payload, String.Format("Updating stacktree"), 70);
-                        _mrp_api.stacktree().update(new MRPStacktreeType()
+                        _mrp_api.stacktree().update(new MRPProtectiongrouptreeType()
                         {
                             id = _stacktree.id,
                             dt_job_id = jobId.ToString()

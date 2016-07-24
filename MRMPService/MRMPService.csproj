@@ -586,7 +586,7 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Images.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobstats.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformDatacenters.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\Stacktrees.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Protectiongrouptrees.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v10\Field.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v10\FieldType.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v10\FlowSet.cs" />
@@ -696,8 +696,8 @@
     <Compile Include="MRPService\Types\API\RecoveryJobTypes.cs" />
     <Compile Include="MRPService\Types\API\RecoveryPolicy.cs" />
     <Compile Include="MRPService\Types\API\ResultStatus.cs" />
-    <Compile Include="MRPService\Types\API\ServiceStack.cs" />
-    <Compile Include="MRPService\Types\API\Stacktrees.cs" />
+    <Compile Include="MRPService\Types\API\Protectiongroup.cs" />
+    <Compile Include="MRPService\Types\API\Protectiongrouptrees.cs" />
     <Compile Include="MRPService\Types\API\Task.cs" />
     <Compile Include="MRPService\Types\API\Windows.cs" />
     <Compile Include="MRPService\Types\API\Manager.cs" />

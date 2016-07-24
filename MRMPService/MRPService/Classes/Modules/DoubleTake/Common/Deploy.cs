@@ -196,7 +196,6 @@ namespace MRMPService.Tasks.DoubleTake
                         #region Start Remote Installer
                         _mrp_portal.task().progress(payload, String.Format("Starting installer on {0}", _working_workload.hostname), _counter + 30);
 
-
                         //Invoke install process on the remote machine
                         remoteTempLocation = remoteTempLocation.Replace('$', ':');
                         var setupPath = Path.Combine(remoteTempLocation, systemArchitecture);
@@ -319,13 +318,5 @@ namespace MRMPService.Tasks.DoubleTake
                 Logger.log(string.Format("Cannot access install process on remote machine; {0}", ex.ToString()), Logger.Severity.Error);
             }
         }
-
-
-
-
-
-
-
-
     }
 }

@@ -72,9 +72,9 @@ namespace MRMPService.MRMPAPI
         {
             return new MRPJobImage(this);
         }
-        public MRPStacktree stacktree()
+        public MRPProtectiongrouptree stacktree()
         {
-            return new MRPStacktree(this);
+            return new MRPProtectiongrouptree(this);
         }
 
 
