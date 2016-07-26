@@ -6,3 +6,13 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltoc
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\obj\Debug\wadltocsharp.csprojResolveAssemblyReference.cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\Newtonsoft.Json.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\Newtonsoft.Json.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\Renci.SshNet.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\Renci.SshNet.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\DD.CBU.Compute.Api.Client.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\DD.CBU.Compute.Api.Contracts.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\DD.CBU.Compute.Api.Client.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\DD.CBU.Compute.Api.Client.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\DD.CBU.Compute.Api.Contracts.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\DD.CBU.Compute.Api.Contracts.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\wadltocsharp\bin\Debug\System.Net.Http.Formatting.xml

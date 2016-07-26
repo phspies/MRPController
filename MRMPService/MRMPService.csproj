@@ -582,6 +582,8 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\HVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\LVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\TimeZones.cs" />
+    <Compile Include="MRPService\Classes\Modules\MCP\LinuxCustomization.cs" />
+    <Compile Include="MRPService\Classes\Modules\MCP\WindowsCustomization.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Events.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Images.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobstats.cs" />
