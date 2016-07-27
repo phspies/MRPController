@@ -209,7 +209,7 @@ namespace MRMPService.Tasks.MCP
                     switch (_newvm.operatingSystem.family)
                     {
                         case "UNIX":
-                            LinuxCustomization(payload, _newvm);
+                            LinuxCustomization(payload, _newvm, CaaS);
                             break;
                         case "WINDOWS":
                             WindowsCustomization(payload, _newvm);

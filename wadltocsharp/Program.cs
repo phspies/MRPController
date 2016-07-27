@@ -131,35 +131,27 @@ namespace wadltocsharp
                     throw new Exception("Error");
                 }
                 //create extended partition
-                var cmd = sshclient.CreateCommand("echo -e 'n\ne\n4\n\n\n\nw' | fdisk /dev/sda");
-                cmd.Execute();
+                var cmd = sshclient.RunCommand("echo -e 'n\ne\n4\n\n\n\nw' | fdisk /dev/sda");
+
                 //create new partition on number 5
                 int _create_part_number = 5;
-                cmd = sshclient.CreateCommand("echo -e 'n\nl\n\n\n\nw' | fdisk /dev/sda");
-                cmd.Execute();
+                cmd = sshclient.RunCommand("echo -e 'n\nl\n\n\n\nw' | fdisk /dev/sda");
 
                 //rescan linux device files
-                cmd = sshclient.CreateCommand("partprobe /dev/sda");
-                cmd.Execute();
+                cmd = sshclient.RunCommand("partprobe /dev/sda");
 
                 //create physical volume for new partition
-                cmd = sshclient.CreateCommand("pvcreate /dev/sda" + _create_part_number);
-                cmd.Execute();
-
-                cmd = sshclient.CreateCommand(String.Format("vgextend {0} /dev/sda{1}", _volumegroup, _create_part_number));
-                cmd.Execute();
-
-                cmd = sshclient.CreateCommand(String.Format("lvextend -L{3}G /dev/{0}/{1} /dev/sda{2}", _volumegroup, root_lvm_volume, _create_part_number, root_portal_size));
-                cmd.Execute();
+                cmd = sshclient.RunCommand("pvcreate /dev/sda" + _create_part_number);
+                cmd = sshclient.RunCommand(String.Format("vgextend {0} /dev/sda{1}", _volumegroup, _create_part_number));
+                cmd = sshclient.RunCommand(String.Format("lvextend -L{3}G /dev/{0}/{1} /dev/sda{2}", _volumegroup, root_lvm_volume, _create_part_number, root_portal_size));                
                 if (_part_fs_type == "xfs")
                 {
-                    cmd = sshclient.CreateCommand(String.Format("xfs_growfs /dev/{0}/{1}", _volumegroup, root_lvm_volume));
+                    cmd = sshclient.RunCommand(String.Format("xfs_growfs /dev/{0}/{1}", _volumegroup, root_lvm_volume));
                 }
                 else if (_part_fs_type == "ext4")
                 {
-                    cmd = sshclient.CreateCommand(String.Format("resize2fs /dev/{0}/{1}", _volumegroup, root_lvm_volume));
+                    cmd = sshclient.RunCommand(String.Format("resize2fs /dev/{0}/{1}", _volumegroup, root_lvm_volume));
                 }
-                cmd.Execute();
 
                 Console.ReadKey();
 
