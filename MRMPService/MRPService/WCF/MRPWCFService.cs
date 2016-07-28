@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System.Runtime.Serialization;
+using System.ServiceModel;
 
 namespace MRMPService.WCF
 {
@@ -279,10 +280,14 @@ namespace MRMPService.WCF
         }
 
     }
+    [DataContract]
     public class workerInformation
     {
+        [DataMember]
         public string agentId { set; get; }
+        [DataMember]
         public string versionNumber { set; get; }
+        [DataMember]
         public int currentJobs { set; get; }
     }
 

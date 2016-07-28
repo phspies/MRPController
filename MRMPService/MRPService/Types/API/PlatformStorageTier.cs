@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,13 @@ namespace MRMPService.MRMPAPI.Types.API
 {
     public class MRPPlatformStorageTierType
     {
+        [JsonProperty("id")]
         public string id { get; set; }
+        [JsonProperty("platform_id")]
         public string platform_id { get; set; }
+        [JsonProperty("storagetier")]
         public string storagetier { get; set; }
+        [JsonProperty("shortname")]
         public string shortname { get; set; }
     }
 }

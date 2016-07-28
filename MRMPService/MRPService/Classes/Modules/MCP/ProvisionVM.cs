@@ -72,11 +72,13 @@ namespace MRMPService.Tasks.MCP
                 _network.networkId = _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid;
                 DeployServerTypeNetworkInfo _networkInfo = new DeployServerTypeNetworkInfo();
                 _networkInfo.networkDomainId = _target_workload.workloadinterfaces_attributes[0].platformnetwork.networkdomain_moid;
-                _networkInfo.primaryNic = new VlanIdOrPrivateIpType()
+                _networkInfo.primaryNic = new NewNicType()
                 {
+                    ItemElementName = _target_workload.workloadinterfaces_attributes[0].ipassignment == "auto_ip" ? PrivateIpv4OrVlanIdChoiceType.vlanId : PrivateIpv4OrVlanIdChoiceType.privateIpv4,
                     vlanId = _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid != null ? _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid : null,
                     privateIpv4 = _target_workload.workloadinterfaces_attributes[0].ipassignment != "auto_ip" ? _target_workload.workloadinterfaces_attributes[0].ipaddress : null
                 };
+
                 _vm.network = _network;
                 _vm.networkInfo = _networkInfo;
                 _vm.imageId = _target_workload.platformtemplate.image_moid;

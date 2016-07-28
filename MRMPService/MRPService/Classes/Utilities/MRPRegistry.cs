@@ -32,7 +32,6 @@ namespace MRMPService.Utilities
                     rkSubKey.SetValue(key, defaultvalue, (RegistryValueKind)regkind);
                 }
 
-
                 //get value from registry
                 return_value = rkSubKey.GetValue(key);
 

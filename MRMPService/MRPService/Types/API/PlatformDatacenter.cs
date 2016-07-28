@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace MRMPService.MRMPAPI.Types.API
 {
     public class MRPPlatformdatacenterCRUDType
     {
+        [JsonProperty("manager_id")]
         public string manager_id
         {
             get
@@ -15,31 +17,51 @@ namespace MRMPService.MRMPAPI.Types.API
                 return Global.manager_id;
             }
         }
+        [JsonProperty("platformdatacenter")]
         public MRPPlatformdatacenterType platformdatacenter { get; set; }
     }
     public class MRPPlatformdatacenterListType
     {
+        [JsonProperty("platformdatacenters")]
         public List<MRPPlatformdatacenterType> platformdatacenters { get; set; }
     }
     public class MRPPlatformdatacenterType
     {
+        [JsonProperty("id")]
         public string id { get; set; }
+        [JsonProperty("platform_id")]
         public string platform_id { get; set; }
+        [JsonProperty("moid")]
         public string moid { get; set; }
+        [JsonProperty("maxcpu")]
         public int? maxcpu { get; set; }
+        [JsonProperty("maxmemory")]
         public int? maxmemory { get; set; }
+        [JsonProperty("maxdiskcount")]
         public int? maxdiskcount { get; set; }
+        [JsonProperty("maxdisksize")]
         public int? maxdisksize { get; set; }
+        [JsonProperty("maxnetwork")]
         public int? maxnetwork { get; set; }
+        [JsonProperty("mindisksize")]
         public int? mindisksize { get; set; }
+        [JsonProperty("minmemory")]
         public int? minmemory { get; set; }
+        [JsonProperty("city")]
         public string city { get; set; }
+        [JsonProperty("state")]
         public string state { get; set; }
+        [JsonProperty("country")]
         public string country { get; set; }
+        [JsonProperty("vpn_url")]
         public string vpn_url { get; set; }
+        [JsonProperty("diskspeeds")]
         public string diskspeeds { get; set; }
+        [JsonProperty("cpuspeeds")]
         public string cpuspeeds { get; set; }
+        [JsonProperty("deleted")]
         public bool? deleted { get; set; }
+        [JsonProperty("displayname")]
         public string displayname { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace MRMPService.MRMPAPI
         {
             worker.hostname = Environment.MachineName;
             worker.version = Global.manager_version;
-            worker.ipaddress = String.Join(",", Dns.GetHostEntry(System.Net.Dns.GetHostName()).AddressList.Select(x => x.ToString()).Where(x => x.ToString().Contains(".")));
+            worker.ipaddress = String.Join(",", Dns.GetHostEntry(Dns.GetHostName()).AddressList.Select(x => x.ToString()).Where(x => x.ToString().Contains(".")));
         }
         public bool confirm_controller()
         {

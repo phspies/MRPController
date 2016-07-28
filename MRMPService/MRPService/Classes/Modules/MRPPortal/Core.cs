@@ -44,7 +44,7 @@ namespace MRMPService.MRMPAPI
             request.AddJsonBody(_object);
 
             client.RemoveDefaultParameter("Accept");
-            client.AddDefaultParameter("Accept", "application/json", RestSharp.ParameterType.HttpHeader);
+            client.AddDefaultParameter("Accept", "application/json", ParameterType.HttpHeader);
             object responseobject = null;
             while (true)
             {

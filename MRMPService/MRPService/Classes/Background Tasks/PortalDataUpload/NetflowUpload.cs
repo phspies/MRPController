@@ -22,7 +22,11 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                 {
                     using (MRPDatabase db = new MRPDatabase())
                     {
-                        List<NetworkFlow> _db_flows = db.NetworkFlows.AsEnumerable().ToList();
+                        List<NetworkFlow> _db_flows = db.NetworkFlows.ToList();
+                        using (NetworkFlowSet _netstat = new NetworkFlowSet())
+                        {
+                            _db_flows = _netstat.ModelRepository.Get();
+                        }
 
                         //process netflows information
                         List<MRPNetworkFlowCRUDType> _networkflow_list = new List<MRPNetworkFlowCRUDType>();

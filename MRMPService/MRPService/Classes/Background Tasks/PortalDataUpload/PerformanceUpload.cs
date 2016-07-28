@@ -39,8 +39,10 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     List<Performance> _local_performance;
                     using (MRPDatabase db = new MRPDatabase())
                     {
-                        _local_performance = db.Performance.AsEnumerable().ToList();
-
+                        using (PerformanceSet _performance = new PerformanceSet())
+                        {
+                            _local_performance = _performance.ModelRepository.Get();
+                        }
                         //check if workload exists for performancecounter and remove if required
 
                         var _workload_grouped = _local_performance.Select(x => x.workload_id).ToList().Distinct();
@@ -48,16 +50,22 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                         {
                             if (!_mrp_workloads.Exists(x => x.id == _workload))
                             {
-                                using (MRPDatabase _db = new MRPDatabase())
+                                using (PerformanceSet _performance = new PerformanceSet())
                                 {
-                                    _db.Performance.RemoveRange(_db.Performance.Where(x => x.workload_id == _workload));
-                                    _db.SaveChanges();
+                                    _performance.ModelRepository.Delete(_workload);
                                 }
+                                //using (MRPDatabase _db = new MRPDatabase())
+                                //{
+                                //    _db.Performance.RemoveRange(_db.Performance.Where(x => x.workload_id == _workload));
+                                //    _db.SaveChanges();
+                                //}
                             }
                         }
                         //get an updated list form database
-                        _local_performance = db.Performance.AsEnumerable().ToList();
-
+                        using (PerformanceSet _performance = new PerformanceSet())
+                        {
+                            _local_performance = _performance.ModelRepository.Get();
+                        }
 
                         //first ensure we have a list of the portal performance categories and add what is missing
                         MRPPerformanceCategoryListType _categories = _cloud_movey.performancecategory().list();

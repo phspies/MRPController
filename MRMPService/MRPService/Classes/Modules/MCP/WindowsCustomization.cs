@@ -257,7 +257,6 @@ namespace MRMPService.Tasks.MCP
                     _mrp_api.task().failcomplete(payload, String.Format("Failed diskpart process on {0} ({1})", _newvm.name, _exitcode));
                     throw new ArgumentException(String.Format("Failed diskpart process on {0} ({1})", _newvm.name, _exitcode));
                 }
-                return;
             }
             else
             {

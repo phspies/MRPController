@@ -7,20 +7,16 @@ using MRMPService.PlatformInventory;
 using MRMPService.TaskExecutioner;
 using MRMPService.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Data.SqlServerCe;
 using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Description;
-using System.ServiceProcess;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using MRMPService.WCF;
 
 namespace MRMPService.MRMPService.Classes.Background_Classes
 {
-    class Startup
+    public class Startup
     {
         Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread, _osinventody_thread, _osnetstat_thread, _dt_thread;
 

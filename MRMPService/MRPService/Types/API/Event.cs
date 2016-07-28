@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace MRMPService.MRMPAPI.Types.API
@@ -20,16 +21,24 @@ namespace MRMPService.MRMPAPI.Types.API
     }
     public class MRMPEventType
     {
+        [JsonProperty("object_id")]
         public string object_id { get; set; }
+        [JsonProperty("timestamp")]
         public DateTime timestamp { get; set; }
+        [JsonProperty("message")]
         public string message { get; set; }
+        [JsonProperty("event_id")]
         public int event_id { get; set; }
+        [JsonProperty("severity")]
         public string severity { get; set; }
+        [JsonProperty("response")]
         public string response { get; set; }
+        [JsonProperty("source_subsystem")]
         public int source_subsystem { get; set; }
     }
     public class MRPEventsCRUDType
     {
+        [JsonProperty("manager_id")]
         public string manager_id
         {
             get
@@ -37,13 +46,18 @@ namespace MRMPService.MRMPAPI.Types.API
                 return Global.manager_id;
             }
         }
+        [JsonProperty("event")]
         public MRMPEventType @event { get; set; }
     }
     public class MRPInternalEventType
     {
+        [JsonProperty("id")]
         public int id { set; get; }
+        [JsonProperty("name")]
         public string name { set; get; }
+        [JsonProperty("severity")]
         public string severity { get; set; }
+        [JsonProperty("response")]
         public string response { get; set; }
     }
     public class MRPInternalEvents
