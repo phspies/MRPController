@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRMPService.MRPService.Types.API
+namespace MRMPService.MRMPService.Types.API
 {
     public class MRPProtectiongroupType
     {
@@ -30,5 +30,7 @@ namespace MRMPService.MRPService.Types.API
         public string repository_workload_id { get; set; }
         [JsonProperty("recoverypolicy")]
         public MRPRecoverypolicyType recoverypolicy { get; set; }
+        [JsonProperty("workload")]
+        public MRPWorkloadType workload { get; set; }
     }
 }

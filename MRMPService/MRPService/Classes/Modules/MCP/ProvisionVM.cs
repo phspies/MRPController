@@ -17,37 +17,29 @@ using System.Threading;
 using MRMPService.Utilities;
 using MRMPService.PlatformInventory;
 using DD.CBU.Compute.Api.Contracts.General;
+using MRMPService.MRMPService.Types.API;
 
 namespace MRMPService.Tasks.MCP
 {
     partial class MCP_Platform
     {
-        public static void ProvisionVM(MRPTaskType payload)
+        public static void ProvisionVM(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, bool _os_customization = false)
         {
             //Get workload object from portal to perform updates once provisioned
             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
-                _mrp_api.task().progress(payload, String.Format("Starting provisioning process"));
+                _mrp_api.task().progress(_task_id, String.Format("Starting provisioning process"));
             }
 
-            MRPTaskSubmitpayloadType _payload = payload.submitpayload;
-            MRPPlatformType _platform = _payload.platform;
-            if (_platform == null)
-            {
-                throw new System.ArgumentException(String.Format("Cannot find platform {0} in local database", _payload.platform.platform));
-            }
+            //MRPCredentialType _stadalone_credential = _target_workload.credential;
+            //MRPCredentialType _platform_credentail = _platform.credential;
 
-
-            MRPWorkloadType _target_workload = _payload.target;
-            MRPCredentialType _stadalone_credential = _target_workload.credential;
-            MRPCredentialType _platform_credentail = _platform.credential;
-
-            if (_stadalone_credential == null)
+            if (_target_workload.credential == null)
             {
                 throw new System.ArgumentException("Cannot find standalone credential for workload deployment");
             }
 
-            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentail.username, _platform_credentail.encrypted_password));
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.encrypted_password));
             CaaS.Login().Wait();
 
             try
@@ -65,7 +57,7 @@ namespace MRMPService.Tasks.MCP
                 _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier.shortname });
 
                 _vm.name = _target_workload.hostname;
-                _vm.description = String.Format("{0} MRMP : {1}", DateTime.UtcNow, payload.submitpayload.protectiongroup.service);
+                _vm.description = String.Format("{0} MRMP : {1}", DateTime.UtcNow, _protectiongroup.service);
                 DeployServerTypeNetwork _network = new DeployServerTypeNetwork();
                 _network.Item = _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid;
                 _network.ItemElementName = NetworkIdOrPrivateIpv4ChoiceType.networkId;
@@ -86,7 +78,7 @@ namespace MRMPService.Tasks.MCP
                 _vm.memoryGb = Convert.ToUInt16(_target_workload.vmemory);
                 _vm.start = false;
                 _vm.disk = _disks.ToArray();
-                _vm.administratorPassword = _stadalone_credential.encrypted_password;
+                _vm.administratorPassword = _target_workload.credential.encrypted_password;
                 _vm.primaryDns = _target_workload.primary_dns;
                 _vm.secondaryDns = _target_workload.secondary_dns;
                 _vm.microsoftTimeZone = _target_workload.timezone;
@@ -108,7 +100,7 @@ namespace MRMPService.Tasks.MCP
                         {
                             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                             {
-                                _mrp_api.task().failcomplete(payload, String.Format("Error submitting workload creation task: {0} : {1}", ex.Message, _status.error));
+                                _mrp_api.task().failcomplete(_task_id, String.Format("Error submitting workload creation task: {0} : {1}", ex.Message, _status.error));
                                 Logger.log(String.Format("Error submitting workload creation task: {0} : {1}", ex.Message, _status.error), Logger.Severity.Error);
                                 return;
                             }
@@ -130,7 +122,7 @@ namespace MRMPService.Tasks.MCP
                     }
                     using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
-                        _mrp_api.task().progress(payload, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), 20);
+                        _mrp_api.task().progress(_task_id, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), 20);
                     }
                     ServerType _newvm = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                     while (_newvm.state != "NORMAL" && _newvm.started == false)
@@ -141,7 +133,7 @@ namespace MRMPService.Tasks.MCP
                             {
                                 using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                                 {
-                                    _mrp_api.task().progress(payload, String.Format("Provisioning step: {0}", _newvm.progress.step.name), 30 + _newvm.progress.step.number);
+                                    _mrp_api.task().progress(_task_id, String.Format("Provisioning step: {0}", _newvm.progress.step.name), 30 + _newvm.progress.step.number);
                                 }
                             }
                         }
@@ -164,7 +156,7 @@ namespace MRMPService.Tasks.MCP
                                 String _disk_guid = _newvm.disk.ToList().Find(x => x.scsiId == _disk_index).id;
                                 using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                                 {
-                                    _mrp_api.task().progress(payload, String.Format("Extending storage: {0} : {1}GB", _disk_index, _disk_size), 60 + count);
+                                    _mrp_api.task().progress(_task_id, String.Format("Extending storage: {0} : {1}GB", _disk_index, _disk_size), 60 + count);
                                 }
                                 Status _create_status = CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _disk_guid, _disk_size.ToString()).Result;
                             }
@@ -173,7 +165,7 @@ namespace MRMPService.Tasks.MCP
                         {
                             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                             {
-                                _mrp_api.task().progress(payload, String.Format("Adding storage: {0} : {1}GB on {2}", _disk_index, _disk_size, _disk_tier.storagetier), 60 + count);
+                                _mrp_api.task().progress(_task_id, String.Format("Adding storage: {0} : {1}GB on {2}", _disk_index, _disk_size, _disk_tier.storagetier), 60 + count);
                             }
                             Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk_size.ToString(), _disk_tier.shortname).Result;
                         }
@@ -189,7 +181,7 @@ namespace MRMPService.Tasks.MCP
                     //Start Workload
                     using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
-                        _mrp_api.task().progress(payload, String.Format("Power on workload"), 70);
+                        _mrp_api.task().progress(_task_id, String.Format("Power on workload"), 70);
                     }
                     ResponseType _start_server = CaaS.ServerManagement.Server.StartServer(_newvm_platform_guid).Result;
                     _newvm = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
@@ -200,31 +192,19 @@ namespace MRMPService.Tasks.MCP
                     }
                     using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
-                        _mrp_api.task().progress(payload, String.Format("Workload powered on"), 71);
+                        _mrp_api.task().progress(_task_id, String.Format("Workload powered on"), 71);
                     }
                     _newvm = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
 
-                    //gibe workload some time to become available
+                    //give workload some time to become available
                     Thread.Sleep(new TimeSpan(0, 0, 30));
-
-                    //run OS customization code
-                    switch (_newvm.operatingSystem.family)
-                    {
-                        case "UNIX":
-                            LinuxCustomization(payload, _newvm, CaaS);
-                            break;
-                        case "WINDOWS":
-                            WindowsCustomization(payload, _newvm);
-                            break;
-                    }
 
                     //Get updated workload object from portal and update the moid,credential_id,provisioned on the portal
                     MRPWorkloadType _update_workload = new MRPWorkloadType();
                     _update_workload.id = _target_workload.id;
                     _update_workload.moid = _newvm.id;
-                    _update_workload.workloadtype = _target_workload.workloadtype;
-                    _update_workload.credential_id = _stadalone_credential.id;
                     _update_workload.provisioned = true;
+                    _update_workload.iplist = String.Join(",", _newvm.networkInfo.primaryNic.ipv6, _newvm.networkInfo.primaryNic.privateIpv4);
 
                     //update first network interface with the newly provisioned server's information
                     var _interface = _update_workload.workloadinterfaces_attributes.First();
@@ -241,14 +221,30 @@ namespace MRMPService.Tasks.MCP
                     //update Platform inventory for server
                     using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
-                        _mrp_api.task().progress(payload, String.Format("Updating platform information for {0}", _target_workload.hostname), 91);
+                        _mrp_api.task().progress(_task_id, String.Format("Updating platform information for {0}", _target_workload.hostname), 91);
                     }
                     (new PlatformInventoryWorkloadDo()).UpdateMCPWorkload(_newvm_platform_guid.ToString(), _target_workload.platform);
+
+                    //run OS customization code
+                    if (_os_customization)
+                    {
+                        switch (_newvm.operatingSystem.family)
+                        {
+                            case "UNIX":
+                                LinuxCustomization(_task_id, _platform, _target_workload, _protectiongroup);
+                                break;
+                            case "WINDOWS":
+                                WindowsCustomization(_task_id, _platform, _target_workload, _protectiongroup);
+                                break;
+                        }
+                    }
+
+
 
                     //update OS information or newly provisioned server
                     using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
-                        _mrp_api.task().progress(payload, String.Format("Updating operating system information for {0}", _target_workload.hostname), 92);
+                        _mrp_api.task().progress(_task_id, String.Format("Updating operating system information for {0}", _target_workload.hostname), 92);
                     }
                     (new WorkloadInventory()).WorkloadInventoryWindowsDo(_target_workload);
 
@@ -256,14 +252,14 @@ namespace MRMPService.Tasks.MCP
                     Logger.log(String.Format("Successfully provisioned VM [{0}] in [{1}]: {2}", _newvm.name, _dc.displayName, JsonConvert.SerializeObject(_newvm)), Logger.Severity.Debug);
                     using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
-                        _mrp_api.task().successcomplete(payload, JsonConvert.SerializeObject(_newvm));
+                        _mrp_api.task().successcomplete(_task_id, JsonConvert.SerializeObject(_newvm));
                     }
                 }
                 else
                 {
                     using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
-                        _mrp_api.task().failcomplete(payload, String.Format("Failed to create target virtual machine: {0}", _status.ToString()));
+                        _mrp_api.task().failcomplete(_task_id, String.Format("Failed to create target virtual machine: {0}", _status.ToString()));
                     }
                     Logger.log(String.Format("Failed to create target virtual machine: {0}", _status.error), Logger.Severity.Error);
 
@@ -273,61 +269,10 @@ namespace MRMPService.Tasks.MCP
             {
                 using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                 {
-                    _mrp_api.task().failcomplete(payload, e.Message);
+                    _mrp_api.task().failcomplete(_task_id, e.Message);
                 }
                 Logger.log(e.ToString(), Logger.Severity.Error);
             }
-        }
-        public static string mcp_getimage_name(String _ostype)
-        {
-            String _template = "WIN";
-            bool X64 = false;
-            if (_ostype.Contains("2012"))
-            {
-                _template = _template + "2012";
-                if (_ostype.Contains("R2"))
-                {
-                    _template = _template + "R2";
-                    X64 = true;
-                }
-            }
-            else if (_ostype.Contains("2008"))
-            {
-                _template = _template + "2008";
-                if (_ostype.Contains("R2"))
-                {
-                    _template = _template + "R2";
-                    X64 = true;
-                }
-            }
-            if (_ostype.Contains("Standard"))
-            {
-                _template = _template + "S";
-                X64 = true;
-
-            }
-            else if (_ostype.Contains("Enterprise"))
-            {
-                _template = _template + "E";
-                X64 = true;
-
-            }
-            else if (_ostype.Contains("Datacenter"))
-            {
-                _template = _template + "DC";
-                X64 = true;
-
-            }
-            switch (X64)
-            {
-                case true:
-                    _template = _template + "64";
-                    break;
-                case false:
-                    _template = _template + "32";
-                    break;
-            }
-            return _template;
         }
     }
 }

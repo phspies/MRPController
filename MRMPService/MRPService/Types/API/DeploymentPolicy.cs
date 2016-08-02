@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRMPService.MRPService.Types.API
+namespace MRMPService.MRMPService.Types.API
 {
     public class MRPDeploymentpolicyType
     {
@@ -15,8 +15,10 @@ namespace MRMPService.MRPService.Types.API
         public string policy { get; set; }
         [JsonProperty("dt_installpath")]
         public string dt_installpath { get; set; }
-        [JsonProperty("dt_temppath")]
-        public string dt_temppath { get; set; }
+        [JsonProperty("dt_windows_temppath")]
+        public string dt_windows_temppath { get; set; }
+        [JsonProperty("dt_linux_temppath")]
+        public string dt_linux_temppath { get; set; }
         [JsonProperty("dt_inifile")]
         public string dt_inifile { get; set; }
         [JsonProperty("organization_id")]
@@ -27,8 +29,10 @@ namespace MRMPService.MRPService.Types.API
         public bool enabled { get; set; }
         [JsonProperty("dt_max_memory")]
         public int dt_max_memory { get; set; }
-        [JsonProperty("dt_queue_folder")]
-        public string dt_queue_folder { get; set; }
+        [JsonProperty("dt_windows_queue_folder")]
+        public string dt_windows_queue_folder { get; set; }
+        [JsonProperty("dt_linux_queue_folder")]
+        public string dt_linux_queue_folder { get; set; }
         [JsonProperty("dt_queue_limit_disk_size")]
         public int dt_queue_limit_disk_size { get; set; }
         [JsonProperty("dt_queue_min_disk_free_size")]
@@ -39,6 +43,5 @@ namespace MRMPService.MRPService.Types.API
         public string source_activation_code { get; set; }
         [JsonProperty("target_activation_code")]
         public string target_activation_code { get; set; }
-
     }
 }

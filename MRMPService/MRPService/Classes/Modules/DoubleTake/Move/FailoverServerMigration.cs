@@ -5,7 +5,7 @@ using MRMPService.DoubleTake;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
-using MRMPService.MRPService.Types.API;
+using MRMPService.MRMPService.Types.API;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace MRMPService.Tasks.DoubleTake
                 {
                     MRPWorkloadType _source_workload = payload.submitpayload.source;
                     MRPWorkloadType _target_workload = payload.submitpayload.target;
-                    MRPTaskJobType _dt_job = payload.submitpayload.job;
+                    MRPManagementobjectType _dt_job = payload.submitpayload.managementobject;
                     MRPProtectiongroupType _service_stack = payload.submitpayload.protectiongroup;
                     using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
                     {
@@ -52,7 +52,7 @@ namespace MRMPService.Tasks.DoubleTake
                         _options.FailoverMode = FailoverMode.Live;
                         _options.FailoverDataAction = FailoverDataAction.Apply;
 
-                        ActivityStatusModel _status = _dt.job().FailoverJob(Guid.Parse(payload.submitpayload.job.dt_job_id), _options);
+                        ActivityStatusModel _status = _dt.job().FailoverJob((Guid)payload.submitpayload.managementobject.moid, _options);
 
                         _mrp_api.task().progress(payload, "Setting source workload to disabled", 20);
                         using (MRMP_ApiClient _api = new MRMP_ApiClient())
@@ -66,14 +66,14 @@ namespace MRMPService.Tasks.DoubleTake
                             _api.workload().updateworkload(_source_workload);
                         }
                         _mrp_api.task().progress(payload, "Move process started", 30);
-                        JobInfoModel jobinfo = _dt.job().GetJob(Guid.Parse(payload.submitpayload.job.dt_job_id)).Result;
+                        JobInfoModel jobinfo = _dt.job().GetJob(Guid.Parse(payload.submitpayload.managementobject.moid.ToString())).Result;
                         int _wait_times = 1;
                         while (jobinfo.Status.HighLevelState != HighLevelState.FailingOver)
                         {
                             _mrp_api.task().progress(payload, "Waiting for job to start the failover", 30);
                             Thread.Sleep(TimeSpan.FromSeconds(2));
                             _wait_times++;
-                            jobinfo = _dt.job().GetJob(Guid.Parse(payload.submitpayload.job.dt_job_id)).Result;
+                            jobinfo = _dt.job().GetJob(Guid.Parse(payload.submitpayload.managementobject.moid.ToString())).Result;
                         }
 
                         while (jobinfo.Status.HighLevelState == HighLevelState.FailingOver)
@@ -95,7 +95,7 @@ namespace MRMPService.Tasks.DoubleTake
                                 }
                                 try
                                 {
-                                    jobinfo = _dt.job().GetJob(Guid.Parse(payload.submitpayload.job.dt_job_id)).Result;
+                                    jobinfo = _dt.job().GetJob(Guid.Parse(payload.submitpayload.managementobject.moid.ToString())).Result;
                                     break;
                                 }
                                 catch (Exception ex)

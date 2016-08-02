@@ -29,7 +29,22 @@ namespace MRMPService.MRMPAPI
             MRPCommandManagerType worker = new MRPCommandManagerType();
             return post<MRPTaskListType>(worker);
         }
-
+        public ResultType successcomplete(String _task_id, string returnpayload)
+        {
+            MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
+            {
+                task_id = _task_id,
+                attributes = new MRPCompleteTaskUpdateAttributesType()
+                {
+                    percentage = 100,
+                    returnpayload = returnpayload,
+                    status = TaskStatus.Success,
+                    step = "Complete"
+                }
+            };
+            endpoint = "/tasks/update.json";
+            return put<ResultType>(task);
+        }
         public ResultType successcomplete(MRPTaskType payload, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
@@ -46,6 +61,22 @@ namespace MRMPService.MRMPAPI
             endpoint = "/tasks/update.json";
             return put<ResultType>(task);
         }
+        public ResultType successcomplete(String _task_id)
+        {
+            MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
+            {
+                task_id = _task_id,
+                attributes = new MRPCompleteTaskUpdateAttributesType()
+                {
+                    percentage = 100,
+                    status = TaskStatus.Success,
+                    step = "Complete"
+                }
+            };
+
+            endpoint = "/tasks/update.json";
+            return put<ResultType>(task);
+        }
         public ResultType successcomplete(MRPTaskType payload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
@@ -56,6 +87,22 @@ namespace MRMPService.MRMPAPI
                     percentage = 100,
                     status = TaskStatus.Success,
                     step = "Complete"
+                }
+            };
+
+            endpoint = "/tasks/update.json";
+            return put<ResultType>(task);
+        }
+        public ResultType failcomplete(String _task_id, string returnpayload)
+        {
+            MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
+            {
+                task_id = _task_id,
+                attributes = new MRPCompleteTaskUpdateAttributesType()
+                {
+                    percentage = 100,
+                    returnpayload = returnpayload,
+                    status = TaskStatus.Failed,
                 }
             };
 
@@ -78,6 +125,21 @@ namespace MRMPService.MRMPAPI
             endpoint = "/tasks/update.json";
             return put<ResultType>(task);
         }
+        public ResultType progress(String _task_id, string _step, double _progress)
+        {
+            MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
+            {
+                task_id = _task_id,
+                attributes = new MRPProgressTaskUpdateAttributesType()
+                {
+                    percentage = _progress,
+                    step = _step,
+                }
+            };
+
+            endpoint = "/tasks/update.json";
+            return put<ResultType>(task);
+        }
         public ResultType progress(MRPTaskType payload, string _step, double _progress)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
@@ -87,6 +149,20 @@ namespace MRMPService.MRMPAPI
                 {
                     percentage = _progress,
                     step = _step,
+                }
+            };
+
+            endpoint = "/tasks/update.json";
+            return put<ResultType>(task);
+        }
+        public ResultType progress(String _task_id, string _step)
+        {
+            MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
+            {
+                task_id = _task_id,
+                attributes = new MRPProgressTaskUpdateAttributesType()
+                {
+                    step = _step
                 }
             };
 

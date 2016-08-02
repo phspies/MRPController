@@ -1,5 +1,5 @@
 ﻿using MRMPService.MRMPService.Types.API;
-using MRMPService.MRPService.Types.API;
+using MRMPService.MRMPService.Types.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace MRMPService.DoubleTake
             }
             _setup_file.Add("DOUBLETAKEFOLDER=" + '"' + _deployment_policy.dt_installpath + '"');
             _setup_file.Add("QMEMORYBUFFERMAX=" + _deployment_policy.dt_max_memory);
-            _setup_file.Add("DISKQUEUEFOLDER=" + '"' + _deployment_policy.dt_queue_folder + '"');
+            _setup_file.Add("DISKQUEUEFOLDER=" + '"' + _deployment_policy.dt_windows_queue_folder + '"');
             switch (_deployment_policy.dt_queue_scheme)
             {
                 case "no_queue":

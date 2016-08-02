@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace MRMPService.MRMPAPI.Types.API
 {
 
-    public class MRPJobstatListType
+    public class MRPManagementobjectStatListType
     {
-        [JsonProperty("jobstats")]
-        public List<MRPJobstatType> jobstats { get; set; }
+        [JsonProperty("ManagementobjectStats")]
+        public List<MRPManagementobjectStatType> ManagementobjectStats { get; set; }
     }
-    public class MRPJobstatsCRUDType
+    public class MRPManagementobjectStatsCRUDType
     {
         [JsonProperty("manager_id")]
         public string manager_id
@@ -23,10 +23,10 @@ namespace MRMPService.MRMPAPI.Types.API
                 return Global.manager_id;
             }
         }
-        [JsonProperty("jobstat")]
-        public MRPJobstatType jobstat { get; set; }
+        [JsonProperty("ManagementobjectStat")]
+        public MRPManagementobjectStatType ManagementobjectStat { get; set; }
     }
-    public class MRPJobstatType
+    public class MRPManagementobjectStatType
     {
         [JsonProperty("job_id")]
         public string job_id { get; set; }
@@ -54,10 +54,13 @@ namespace MRMPService.MRMPAPI.Types.API
         public string stransmit_mode { get; set; }
         [JsonProperty("recovery_point_objective")]
         public DateTime recovery_point_objective { get; set; }
+        [JsonProperty("recovery_point_latency")]
+        public long recovery_point_latency { get; set; }
+
 
 
     }
-    public class MRPJobstatIDGETType
+    public class MRPManagementobjectStatIDGETType
     {
         [JsonProperty("manager_id")]
         public string manager_id
@@ -69,10 +72,10 @@ namespace MRMPService.MRMPAPI.Types.API
         }
         [JsonProperty("worker_hostname")]
         public string worker_hostname { get; set; }
-        [JsonProperty("jobstat_id")]
-        public string jobstat_id { get; set; }
+        [JsonProperty("ManagementobjectStat_id")]
+        public string managementobjectstat_id { get; set; }
     }
-    public class MRPJobstatDTIDGETType
+    public class MRPManagementobjectStatDTIDGETType
     {
         [JsonProperty("manager_id")]
         public string manager_id
@@ -84,7 +87,7 @@ namespace MRMPService.MRMPAPI.Types.API
         }
         [JsonProperty("worker_hostname")]
         public string worker_hostname { get; set; }
-        [JsonProperty("dt_jobstat_id")]
-        public string dt_jobstat_id { get; set; }
+        [JsonProperty("dt_managementobjectstat_id")]
+        public string dt_managementobjectstat_id { get; set; }
     }
 }

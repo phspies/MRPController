@@ -5,21 +5,21 @@ using System.Net;
 
 namespace MRMPService.MRMPAPI
 {
-    class MRPJobImage : Core
+    class MRPManagementobjectSnapshots : Core
     {
-        public MRPJobImage(MRMP_ApiClient _MRP) : base(_MRP) { }
+        public MRPManagementobjectSnapshots(MRMP_ApiClient _MRP) : base(_MRP) { }
 
-        public MRPJobImageListType list()
+        public MRPManagementobjectSnapshotListType list()
         {
-            endpoint = "/jobimages/list.json";
+            endpoint = "/managementobjectsnapshots/list.json";
             MRPCommandManagerType worker = new MRPCommandManagerType();
-            return post<MRPJobImageListType>(worker);
+            return post<MRPManagementobjectSnapshotListType>(worker);
         }
 
         public ResultType get_id(string _image_id)
         {
-            endpoint = "/jobimages/get_id.json";
-            MRPJobImageIDGETType image = new MRPJobImageIDGETType()
+            endpoint = "/managementobjectsnapshots/get_id.json";
+            MRPManagementobjectSnapshotIDGETType image = new MRPManagementobjectSnapshotIDGETType()
             {
                 image_id = _image_id
             };
@@ -27,32 +27,32 @@ namespace MRMPService.MRMPAPI
         }
         public ResultType get_moid(string _image_moid)
         {
-            endpoint = "/jobimages/get_id.json";
-            MRPJobImageMOIDGETType job = new MRPJobImageMOIDGETType()
+            endpoint = "/managementobjectsnapshots/get_id.json";
+            MRPManagementobjectSnapshotMOIDGETType job = new MRPManagementobjectSnapshotMOIDGETType()
             {
                  moid_id = _image_moid
             };
             return post<ResultType>(job);
         }
 
-        public ResultType create(MRPJobImageType _jobimage)
+        public ResultType create(MRPManagementobjectSnapshotType _ManagementobjectSnapshot)
         {
-            MRPJobImagesCRUDType job = new MRPJobImagesCRUDType()
+            MRPManagementobjectSnapshotsCRUDType job = new MRPManagementobjectSnapshotsCRUDType()
             {
-                 jobimage = _jobimage
+                 ManagementobjectSnapshot = _ManagementobjectSnapshot
             };
 
-            endpoint = "/jobimages/create.json";
+            endpoint = "/managementobjectsnapshots/create.json";
             return post<ResultType>(job);
         }
-        public ResultType update(MRPJobImageType _jobimage)
+        public ResultType update(MRPManagementobjectSnapshotType _ManagementobjectSnapshot)
         {
-            MRPJobImagesCRUDType job = new MRPJobImagesCRUDType()
+            MRPManagementobjectSnapshotsCRUDType job = new MRPManagementobjectSnapshotsCRUDType()
             {
-                 jobimage = _jobimage
+                 ManagementobjectSnapshot = _ManagementobjectSnapshot
             };
 
-            endpoint = "/jobimages/update.json";
+            endpoint = "/managementobjectsnapshots/update.json";
             return put<ResultType>(job);
         }
 

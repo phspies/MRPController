@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MRMPService.MRMPAPI.Types.API;
+using System;
 
 namespace MRMPService.MRMPAPI
 {
@@ -60,17 +61,17 @@ namespace MRMPService.MRMPAPI
         {
             return new MRPPlatformNetwork(this);
         }
-        public MRPJob job()
+        public MRPManagementobject managementobject()
         {
-            return new MRPJob(this);
+            return new MRPManagementobject(this);
         }
-        public MRPJobstat jobstat()
+        public MRPManagementobjectStat managementobjectstat()
         {
-            return new MRPJobstat(this);
+            return new MRPManagementobjectStat(this);
         }
-        public MRPJobImage jobimage()
+        public MRPManagementobjectSnapshots jobimage()
         {
-            return new MRPJobImage(this);
+            return new MRPManagementobjectSnapshots(this);
         }
         public MRPProtectiongrouptree stacktree()
         {

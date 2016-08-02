@@ -8,6 +8,7 @@ using MRMPService.MRMPAPI;
 using MRMPService.Tasks.DoubleTake;
 using MRMPService.Tasks.MCP;
 using MRMPService.Tasks.DiscoveryPlatform;
+using MRMPService.PortalTasks;
 
 namespace MRMPService.TaskExecutioner
 {
@@ -33,85 +34,26 @@ namespace MRMPService.TaskExecutioner
                         //make sure new target task does not have an active task busy
                         if ((lstThreads.FindAll(x => x.target_id == task.target_id).Count() == 0 && lstThreads.Count < Global.scheduler_concurrency) || task.hidden == true)
                         {
-                            switch (task.target_type)
+                            switch (task.task_type)
                             {
-                                case "dt":
-                                    {
-                                        switch (task.task_type)
-                                        {
-                                            case "deploy_method":
-                                                {
-                                                    Thread newThread = new Thread(() => Deploy.DeployDoubleTake(task));
-                                                    newThread.Name = task.target_id;
-                                                    newThread.Start();
-                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                }
-                                                break;
-                                            case "sync_ha_method":
-                                                {
-                                                    Thread newThread = new Thread(() => Availability.CreateJob(task));
-                                                    newThread.Name = task.target_id;
-                                                    newThread.Start();
-                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                }
-                                                break;
-                                            case "move_setup_method":
-                                                {
-                                                    Thread newThread = new Thread(() => Migration.CreateServerMigrationJob(task));
-                                                    newThread.Name = task.target_id;
-                                                    newThread.Start();
-                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                }
-                                                break;
-                                            case "move_failover_method":
-                                                {
-                                                    Thread newThread = new Thread(() => Migration.FailoverServerMigration(task));
-                                                    newThread.Name = task.target_id;
-                                                    newThread.Start();
-                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                }
-                                                break;
-                                        }
-                                        break;
-                                    }
-                                case "workload":
-                                    {
-                                        switch (task.task_type)
-                                        {
-                                            case "create_method":
-                                                Logger.log(String.Format("Found workload creation job in tasks: {0}", task.submitpayload.target.hostname), Logger.Severity.Info);
-                                                Thread newThread = new Thread(() => MCP_Platform.ProvisionVM(task));
-                                                newThread.Name = task.target_id;
-                                                newThread.Start();
-                                                lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                break;
-                                        }
-                                        break;
-                                    }
-                                case "platform":
-                                    {
-                                        switch (task.task_type)
-                                        {
-                                            case "discover_datacenters_method":
-                                                {
-                                                    Thread newThread = new Thread(() => DatacenterDiscovery.DatacenterDiscoveryDo(task));
-                                                    newThread.Name = task.target_id;
-                                                    newThread.Start();
-                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                }
-                                                break;
-                                            case "discovery_method":
-                                                {
-                                                    Thread newThread = new Thread(() => PlatformDiscovery.PlatformDiscoveryDo(task));
-                                                    newThread.Name = task.target_id;
-                                                    newThread.Start();
-                                                    lstThreads.Add(new ThreadObject() { task = newThread, target_id = task.target_id });
-                                                }
-                                                break;
-
-                                        }
-                                        break;
-                                    }
+                                case "dr_servers_dormant_group_setup":
+                                    Thread dr_servers_dormant_group_setup_Thread = new Thread(() => DRSServersDormant.SetupProtectionJob(task));
+                                    dr_servers_dormant_group_setup_Thread.Name = task.target_id;
+                                    dr_servers_dormant_group_setup_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = dr_servers_dormant_group_setup_Thread, target_id = task.target_id });
+                                    break;
+                                case "discover_datacenters_method":
+                                    Thread discover_datacenters_method_Thread = new Thread(() => DatacenterDiscovery.DatacenterDiscoveryDo(task));
+                                    discover_datacenters_method_Thread.Name = task.target_id;
+                                    discover_datacenters_method_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = discover_datacenters_method_Thread, target_id = task.target_id });
+                                    break;
+                                case "discovery_method":
+                                    Thread discovery_method_Thread = new Thread(() => PlatformDiscovery.PlatformDiscoveryDo(task));
+                                    discovery_method_Thread.Name = task.target_id;
+                                    discovery_method_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = discovery_method_Thread, target_id = task.target_id });
+                                    break;
                             }
                         }
                     }

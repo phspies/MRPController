@@ -1,42 +1,35 @@
-﻿using DD.CBU.Compute.Api.Contracts.Network20;
-using MRMPService.MRMPService.Log;
-using MRMPService.MRMPService.Types.API;
-using MRMPService.MRMPAPI.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Management;
 using System.Threading;
 using MRMPService.Utilities;
 using Renci.SshNet;
+using MRMPService.MRMPService.Types.API;
 using DD.CBU.Compute.Api.Client;
+using System.Net;
+using DD.CBU.Compute.Api.Contracts.Network20;
 
 namespace MRMPService.Tasks.MCP
 {
     partial class MCP_Platform
     {
-        static public void LinuxCustomization(MRPTaskType payload, ServerType _newvm, ComputeApiClient _caas)
+        static public void LinuxCustomization(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup)
         {
-            MRPTaskSubmitpayloadType _payload = payload.submitpayload;
-            MRPPlatformType _platform = _payload.platform;
-            MRPWorkloadType _target_workload = _payload.target;
             MRPCredentialType _credential = _target_workload.credential;
-            MRPCredentialType _platform_credentail = _platform.credential;
 
             MRPWorkloadVolumeType _root_volume_object = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.driveletter == "/");
 
             string workload_ip = null;
             using (Connection _connection = new Connection())
             {
-                workload_ip = _connection.FindConnection(String.Join(",", _newvm.networkInfo.primaryNic.ipv6, _newvm.networkInfo.primaryNic.privateIpv4), true);
+                workload_ip = _connection.FindConnection(_target_workload.iplist, true);
             }
             if (workload_ip == null)
             {
                 using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                 {
-                    _mrp_api.task().failcomplete(payload, String.Format("Error contacting workwork {0} after 3 tries", _newvm.name));
-                    throw new ArgumentException(String.Format("Error contacting workwork {0} after 3 tries", _newvm.name));
+                    _mrp_api.task().failcomplete(_task_id, String.Format("Error contacting workwork {0} after 3 tries", _target_workload.hostname));
+                    throw new ArgumentException(String.Format("Error contacting workwork {0} after 3 tries", _target_workload.hostname));
                 }
             }
 
@@ -108,19 +101,22 @@ namespace MRMPService.Tasks.MCP
             //if we need to expand disk 0, lets do that first...
             if (_0_shortfall > 0)
             {
-                _caas.ServerManagementLegacy.Server.ChangeServerDiskSize(_newvm.id, _newvm.disk[0].id, (_0_shortfall + _newvm.disk[0].sizeGb).ToString()).Wait();
-                _newvm = _caas.ServerManagement.Server.GetServer(new Guid(_newvm.id)).Result;
-                while (_newvm.state != "NORMAL" && _newvm.started == true)
+                ComputeApiClient _caas = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.encrypted_password));
+                _caas.Login().Wait();
+                ServerType _mcp_workload = _caas.ServerManagement.Server.GetServer(new Guid(_target_workload.moid)).Result;
+                _caas.ServerManagementLegacy.Server.ChangeServerDiskSize(_mcp_workload.id, _mcp_workload.disk[0].id, (_0_shortfall + _mcp_workload.disk[0].sizeGb).ToString()).Wait();
+                _mcp_workload = _caas.ServerManagement.Server.GetServer(new Guid(_mcp_workload.id)).Result;
+                while (_mcp_workload.state != "NORMAL" && _mcp_workload.started == true)
                 {
                     Thread.Sleep(5000);
-                    _newvm = _caas.ServerManagement.Server.GetServer(new Guid(_newvm.id)).Result;
+                    _mcp_workload = _caas.ServerManagement.Server.GetServer(new Guid(_mcp_workload.id)).Result;
                 }
-                _caas.ServerManagement.Server.RebootServer(new Guid(_newvm.id)).Wait();
-                _newvm = _caas.ServerManagement.Server.GetServer(new Guid(_newvm.id)).Result;
-                while (_newvm.state != "NORMAL" && _newvm.started == true)
+                _caas.ServerManagement.Server.RebootServer(new Guid(_mcp_workload.id)).Wait();
+                _mcp_workload = _caas.ServerManagement.Server.GetServer(new Guid(_mcp_workload.id)).Result;
+                while (_mcp_workload.state != "NORMAL" && _mcp_workload.started == true)
                 {
                     Thread.Sleep(5000);
-                    _newvm = _caas.ServerManagement.Server.GetServer(new Guid(_newvm.id)).Result;
+                    _mcp_workload = _caas.ServerManagement.Server.GetServer(new Guid(_mcp_workload.id)).Result;
                 }
             }
             using (var sshclient = new SshClient(ConnNfo))

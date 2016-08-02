@@ -10,28 +10,25 @@ using MRMPService.MRMPService.Log;
 using MRMPService.MRMPAPI;
 using DoubleTake.Web.Models;
 using MRMPService.DoubleTake;
-using MRMPService.MRPService.Types.API;
+using MRMPService.MRMPService.Types.API;
 
 namespace MRMPService.Tasks.DoubleTake
 {
     public class Availability
     {
-        public static async void CreateJob(MRPTaskType payload)
+        public static async void CreateJob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
             using (MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
                 try
                 {
-                    MRPWorkloadType _source_workload = payload.submitpayload.source;
-                    MRPWorkloadType _target_workload = payload.submitpayload.target;
-                    MRPRecoverypolicyType _recovery_policy = payload.submitpayload.protectiongroup.recoverypolicy;
-                    MRPProtectiongroupType _service_stack = payload.submitpayload.protectiongroup;
+
                     using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
                     {
-                        _mrp_api.task().progress(payload, "Verifying license status on both source and target workloads", 2);
+                        _mrp_api.task().progress(_task_id, "Verifying license status on both source and target workloads", 2);
                         if (!_dt.management().CheckLicense(DT_JobTypes.HA_Full_Failover))
                         {
-                            _mrp_api.task().failcomplete(payload, String.Format("Invalid license detected on workloads."));
+                            _mrp_api.task().failcomplete(_task_id, String.Format("Invalid license detected on workloads."));
                             return;
                         }
 
@@ -39,11 +36,11 @@ namespace MRMPService.Tasks.DoubleTake
                         String[] _source_ips = _source_workload.iplist.Split(',');
                         String[] _target_ips = _target_workload.iplist.Split(',');
 
-                        _mrp_api.task().progress(payload, "Deleting current jobs associated to the source and target workloads", 11);
+                        _mrp_api.task().progress(_task_id, "Deleting current jobs associated to the source and target workloads", 11);
                         int _count = 1;
                         foreach (JobInfoModel _delete_job in _jobs.Where(x => x.JobType == DT_JobTypes.HA_Full_Failover && _source_ips.Any(x.SourceServer.Host.Contains) && _target_ips.Any(x.TargetServer.Host.Contains)))
                         {
-                            _mrp_api.task().progress(payload, String.Format("Deleting existing HA jobs between {0} and {1}", _source_ips[0], _target_ips[0]), _count + 15);
+                            _mrp_api.task().progress(_task_id, String.Format("Deleting existing HA jobs between {0} and {1}", _source_ips[0], _target_ips[0]), _count + 15);
                             _dt.job().DeleteJob(_delete_job.Id).Wait();
                             _count += 1;
                         }
@@ -57,7 +54,7 @@ namespace MRMPService.Tasks.DoubleTake
 
                         JobCredentialsModel jobCreds = _dt.job().CreateJobCredentials();
 
-                        _mrp_api.task().progress(payload, "Fetching recommended job options", 20);
+                        _mrp_api.task().progress(_task_id, "Fetching recommended job options", 20);
 
                         CreateOptionsModel jobInfo = await _dt.job().GetJobOptions(
                             wkld,
@@ -65,12 +62,12 @@ namespace MRMPService.Tasks.DoubleTake
                             DT_JobTypes.HA_Full_Failover);
 
                         jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
-                        //jobInfo.JobOptions.Name = payload.target_id;
+                        //jobInfo.JobOptions.Name = _task_id.target_id;
 
-                        _mrp_api.task().progress(payload, "Setting job options", 50);
-                        jobInfo = SetOptions.set_job_options(payload, jobInfo);
+                        _mrp_api.task().progress(_task_id, "Setting job options", 50);
+                        jobInfo = SetOptions.set_job_options(_task_id, _source_workload, _target_workload, _protectiongroup, jobInfo, 51, 54);
 
-                        _mrp_api.task().progress(payload, "Verifying job options and settings", 55);
+                        _mrp_api.task().progress(_task_id, "Verifying job options and settings", 55);
 
                         //bool job_status;
                         //JobOptionsModel _job_model;
@@ -79,7 +76,7 @@ namespace MRMPService.Tasks.DoubleTake
 
                         //JobOptionsModel _job_model =
 
-                        _mrp_api.task().progress(payload, "Creating new job", 56);
+                        _mrp_api.task().progress(_task_id, "Creating new job", 56);
                         Guid jobId = await _dt.job().CreateJob((new CreateOptionsModel
                         {
                             JobOptions = jobInfo.JobOptions,
@@ -87,21 +84,21 @@ namespace MRMPService.Tasks.DoubleTake
                             JobType = DT_JobTypes.HA_Full_Failover
                         }));
 
-                        _mrp_api.task().progress(payload, String.Format("Job created successfully. Starting job id ?", jobId), 57);
+                        _mrp_api.task().progress(_task_id, String.Format("Job created successfully. Starting job id ?", jobId), 57);
                         await _dt.job().StartJob(jobId);
 
-                        _mrp_api.task().progress(payload, "Registering job with portal", 60);
-                        _mrp_api.job().createjob(new MRPJobType()
+                        _mrp_api.task().progress(_task_id, "Registering job with portal", 60);
+                        _mrp_api.managementobject().createmanagementobject(new MRPManagementobjectType()
                         {
-                            dt_job_id = jobId,
-                            job_type = DT_JobTypes.HA_Full_Failover,
+                            moid = jobId,
+                            motype = DT_JobTypes.HA_Full_Failover,
                             target_workload_id = _target_workload.id,
                             source_workload_id = _source_workload.id,
-                            servicestack_id = _service_stack.id
+                            protectiongroup_id = _protectiongroup.id
                         });
 
 
-                        _mrp_api.task().progress(payload, "Waiting for sync process to start", 65);
+                        _mrp_api.task().progress(_task_id, "Waiting for sync process to start", 65);
 
                         JobInfoModel jobinfo = await _dt.job().GetJob(jobId);
                         while (jobinfo.Statistics.CoreConnectionDetails.TargetState == TargetStates.Unknown)
@@ -112,7 +109,7 @@ namespace MRMPService.Tasks.DoubleTake
                         Thread.Sleep(5000);
                         jobinfo = await _dt.job().GetJob(jobId);
 
-                        _mrp_api.task().progress(payload, "Sync process started", 70);
+                        _mrp_api.task().progress(_task_id, "Sync process started", 70);
                         while (jobinfo.Statistics.CoreConnectionDetails.MirrorState != MirrorState.Idle)
                         {
                             if (jobinfo.Statistics.CoreConnectionDetails.MirrorBytesRemaining != 0)
@@ -127,23 +124,23 @@ namespace MRMPService.Tasks.DoubleTake
                                     {
                                         _lastreport = percentage.ToString()[0];
                                         String progress = String.Format("{0}MB of {1}MB seeded", totalcomplete.ToString("N1", CultureInfo.InvariantCulture), totalstorage.ToString("N1", CultureInfo.InvariantCulture));
-                                        _mrp_api.task().progress(payload, progress, percentage);
+                                        _mrp_api.task().progress(_task_id, progress, percentage);
                                     }
                                 }
                             }
                             Thread.Sleep(TimeSpan.FromMinutes(5));
                             jobinfo = await _dt.job().GetJob(jobId);
                         }
-                        _mrp_api.task().progress(payload, String.Format("Successfully synchronized {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
+                        _mrp_api.task().progress(_task_id, String.Format("Successfully synchronized {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
 
-                        _mrp_api.task().successcomplete(payload, JsonConvert.SerializeObject(jobinfo));
+                        _mrp_api.task().successcomplete(_task_id, JsonConvert.SerializeObject(jobinfo));
                     }
 
                 }
                 catch (Exception e)
-                {
-                    _mrp_api.task().failcomplete(payload, String.Format("Create sync process failed: {0}", e.Message));
+                {                   
                     Logger.log(String.Format("Error creating availbility sync job: {0}", e.Message), Logger.Severity.Error);
+                    throw new Exception(String.Format("Create sync process failed: {0}", e.Message));
                 }
             }
         }
@@ -151,7 +148,7 @@ namespace MRMPService.Tasks.DoubleTake
         //{
         //    try
         //    {
-        //        Guid _jobId = request.payload.dt.jobId;
+        //        Guid _jobId = request._task_id.dt.jobId;
 
         //        MRP.task().progress(request, "Creating JobManager process", 5);
         //        IJobManager iJobMgr = JobManager().CreateChannel();
@@ -195,7 +192,7 @@ namespace MRMPService.Tasks.DoubleTake
         //            jobTypeConstant,
         //            wkld,
         //            jobCreds);
-        //        //jobInfo.JobOptions.ImageProtectionOptions.ImageName = request.payload;
+        //        //jobInfo.JobOptions.ImageProtectionOptions.ImageName = request._task_id;
         //        List<ImageVhdInfo> vhd = new List<ImageVhdInfo>();
 
         //        jobInfo.JobOptions.FullWorkloadFailoverOptions.CreateBackupConnection = false;
@@ -270,7 +267,7 @@ namespace MRMPService.Tasks.DoubleTake
         //            Thread.Sleep(10000);
         //            jobinfo = iJobMgr.GetJob(jobId);
         //        }
-        //        MRP.task().progress(request, "Successfully synchronized workload to " + (String)request.payload.dt.recoverypolicy.repositorypath, 99);
+        //        MRP.task().progress(request, "Successfully synchronized workload to " + (String)request._task_id.dt.recoverypolicy.repositorypath, 99);
 
         //        MRP.task().successcomplete(request, JsonConvert.SerializeObject(jobinfo));
         //    }

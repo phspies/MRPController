@@ -1,5 +1,5 @@
 ﻿using MRMPService.MRMPAPI.Types.API;
-using MRMPService.MRPService.Types.API;
+using MRMPService.MRMPService.Types.API;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -76,12 +76,14 @@ namespace MRMPService.MRMPService.Types.API
         public MRPWorkloadType source { get; set; }
         [JsonProperty("target")]
         public MRPWorkloadType target { get; set; }
+        [JsonProperty("repository")]
+        public MRPWorkloadType repository { get; set; }
         [JsonProperty("protectiongroup")]
         public MRPProtectiongroupType protectiongroup { get; set; }
         [JsonProperty("platform")]
         public MRPPlatformType platform { get; set; }
-        [JsonProperty("job")]
-        public MRPTaskJobType job { get; set; }
+        [JsonProperty("managementobject")]
+        public MRPManagementobjectType managementobject { get; set; }
         [JsonProperty("protectiongrouptree")]
         public MRPProtectiongrouptreeType protectiongrouptree { get; set; }
     }

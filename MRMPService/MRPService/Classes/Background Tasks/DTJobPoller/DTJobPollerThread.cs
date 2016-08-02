@@ -22,19 +22,19 @@ namespace MRMPService.DTPollerCollection
 
                 Logger.log(String.Format("Staring Double-Take collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
 
-                List<MRPJobType> _jobs;
+                List<MRPManagementobjectType> _jobs;
                 using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
                 {
-                    _jobs = _mrmp.job().listjobs().jobs.Where(x => x.target_workload.dt_collection_enabled == true).ToList();
+                    _jobs = _mrmp.managementobject().listmanagementobjects().managementobjects.Where(x => x.target_workload.dt_collection_enabled == true).ToList();
 
                 }
                 Parallel.ForEach(_jobs,
                     new ParallelOptions { MaxDegreeOfParallelism = Global.dt_event_polling_concurrency },
-                    (Action<MRPJobType>)((job) =>
+                    (Action<MRPManagementobjectType>)((job) =>
                     {
                         try
                         {
-                            DTJobPoller.PollerDo((MRPJobType)job);
+                            DTJobPoller.PollerDo((MRPManagementobjectType)job);
                             using (MRMP_ApiClient _api = new MRMP_ApiClient())
                             {
                                 _api.workload().DoubleTakeUpdateStatus(job.target_workload, "Success", true);

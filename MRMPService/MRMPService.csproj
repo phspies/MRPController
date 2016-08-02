@@ -230,6 +230,7 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\LinuxFullServerFailoverJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Cluster\ClusterAwareFilesAndFoldersJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Cluster\ClusterAwareSqlJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\DeployWindowsDoubleTake.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\CreateDRServerProtectionJob.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DataOnlyImageProtectionJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DataOnlyImageRecoveryJobEx.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Templates.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\PlatformDiscovery.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\DatacenterDiscovery.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupProtectionJob.cs" />
     <Compile Include="MRPService\Classes\Utilities\CryptLib.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
@@ -286,7 +288,7 @@
     <Compile Include="DoubleTake\BuildINI.cs" />
     <Compile Include="DoubleTake\CompareVersion.cs" />
     <Compile Include="DoubleTake\JobOptions.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\Deploy.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\DeployLinuxDoubleTake.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DisasterRecovery.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\CreateJob.cs" />
     <Compile Include="DoubleTake\Types.cs" />
@@ -304,7 +306,7 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Platforms.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Tasks.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Managers.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobs.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Managementobjects.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Workloads.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetflowCollection\NetflowWorker.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs" />
@@ -319,8 +321,8 @@
     <Compile Include="MRPService\Classes\Utilities\Impersonate.cs" />
     <Compile Include="MRPService\Classes\Utilities\IPSplit.cs" />
     <Compile Include="MRPService\Classes\Utilities\MRPRegistry.cs" />
+    <Compile Include="MRPService\Classes\Utilities\ReportProgress.cs" />
     <Compile Include="MRPService\Classes\Utilities\Settings.cs" />
-    <Compile Include="MRPService\Classes\Tasks\Workload.cs" />
     <Compile Include="MRPService\Classes\Utilities\SyncronizedList.cs" />
     <Compile Include="MRPService\Classes\Utilities\WMIHelper.cs" />
     <Compile Include="MRPService\Database\Classes\NetstatSet.cs" />
@@ -346,10 +348,9 @@
     <Compile Include="MRPService\Types\API\DeploymentPolicy.cs" />
     <Compile Include="MRPService\Types\API\Error.cs" />
     <Compile Include="MRPService\Types\API\Event.cs" />
-    <Compile Include="MRPService\Types\API\Snapshots.cs" />
-    <Compile Include="MRPService\Types\API\Images.cs" />
-    <Compile Include="MRPService\Types\API\Jobstats.cs" />
-    <Compile Include="MRPService\Types\API\Jobs.cs" />
+    <Compile Include="MRPService\Types\API\ManagementobjectSnapshots.cs" />
+    <Compile Include="MRPService\Types\API\ManagementobjectStats.cs" />
+    <Compile Include="MRPService\Types\API\Managementobjects.cs" />
     <Compile Include="MRPService\Types\API\NetworkStat.cs" />
     <Compile Include="MRPService\Types\API\NetworkFlow.cs" />
     <Compile Include="MRPService\Types\API\PerformanceCategory.cs" />
@@ -374,7 +375,6 @@
     <Compile Include="MRPService\Types\API\Workloads.cs" />
     <Compile Include="MRPService\Types\API\WorkloadSoftwares.cs" />
     <Compile Include="MRPService\Types\API\WorkloadVolumes.cs" />
-    <Compile Include="MRPService\Types\WCF\PlatformDetails.cs" />
     <Compile Include="MRPService\WCF\MRPWCFService.cs" />
     <Compile Include="MRPService\WCF\IMRPWCFService.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\NetflowCommon.cs" />
@@ -461,6 +461,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MRPService\Classes\Modules\RP4VM\" />
+    <Folder Include="MRPService\Classes\PortalTasks\Deploy\" />
+    <Folder Include="MRPService\Classes\PortalTasks\DRSMCP\" />
+    <Folder Include="MRPService\Classes\PortalTasks\DRSServersLive\" />
+    <Folder Include="MRPService\Classes\PortalTasks\DRSVMware\" />
+    <Folder Include="MRPService\Classes\PortalTasks\Migrate\" />
+    <Folder Include="MRPService\Types\WCF\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -499,7 +505,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
+      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -5,26 +5,26 @@ using System.Net;
 
 namespace MRMPService.MRMPAPI
 {
-    class MRPJobstat : Core
+    class MRPManagementobjectStat : Core
     {
-        public MRPJobstat(MRMP_ApiClient _MRP) : base(_MRP) { }
+        public MRPManagementobjectStat(MRMP_ApiClient _MRP) : base(_MRP) { }
 
-        public MRPJobstatListType listjobstats()
+        public MRPManagementobjectStatListType listManagementobjectStats()
         {
-            endpoint = "/jobstats/list.json";
+            endpoint = "/managementobjectstats/list.json";
             MRPCommandManagerType worker = new MRPCommandManagerType();
-            return (MRPJobstatListType)post<MRPJobstatListType>(worker);
+            return (MRPManagementobjectStatListType)post<MRPManagementobjectStatListType>(worker);
         }
 
-        public ResultType createjobstat(MRPJobstatType _jobstat)
+        public ResultType createManagementobjectStat(MRPManagementobjectStatType _ManagementobjectStat)
         {
-            MRPJobstatsCRUDType jobstat = new MRPJobstatsCRUDType()
+            MRPManagementobjectStatsCRUDType ManagementobjectStat = new MRPManagementobjectStatsCRUDType()
             {
-                jobstat = _jobstat
+                ManagementobjectStat = _ManagementobjectStat
             };
 
-            endpoint = "/jobstats/create.json";
-            return post<ResultType>(jobstat);
+            endpoint = "/managementobjectstats/create.json";
+            return post<ResultType>(ManagementobjectStat);
         }
 
     }

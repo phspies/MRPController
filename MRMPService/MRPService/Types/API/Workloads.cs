@@ -1,5 +1,5 @@
 ﻿using MRMPService.MRMPService.Types.API;
-using MRMPService.MRPService.Types.API;
+using MRMPService.MRMPService.Types.API;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

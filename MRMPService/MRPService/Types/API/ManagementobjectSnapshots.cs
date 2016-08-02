@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 namespace MRMPService.MRMPAPI.Types.API
 {
 
-    public class MRPJobImageListType
+    public class MRPManagementobjectSnapshotListType
     {
-        [JsonProperty("jobimages")]
-        public List<MRPJobImageType> jobimages { get; set; }
+        [JsonProperty("ManagementobjectSnapshots")]
+        public List<MRPManagementobjectSnapshotType> ManagementobjectSnapshots { get; set; }
     }
-    public class MRPJobImagesCRUDType
+    public class MRPManagementobjectSnapshotsCRUDType
     {
         [JsonProperty("manager_id")]
         public string manager_id
@@ -24,10 +24,10 @@ namespace MRMPService.MRMPAPI.Types.API
                 return Global.manager_id;
             }
         }
-        [JsonProperty("jobimage")]
-        public MRPJobImageType jobimage { get; set; }
+        [JsonProperty("ManagementobjectSnapshot")]
+        public MRPManagementobjectSnapshotType ManagementobjectSnapshot { get; set; }
     }
-    public class MRPJobImageType
+    public class MRPManagementobjectSnapshotType
     {
         [JsonProperty("id")]
         public string id { get; set; }
@@ -35,12 +35,12 @@ namespace MRMPService.MRMPAPI.Types.API
         public DateTime creation_timestamp { get; set; }
         [JsonProperty("description")]
         public string description { get; set; }
-        [JsonProperty("moid")]
-        public Guid moid { get; set; }
-        [JsonProperty("image_name")]
-        public string image_name { get; set; }
-        [JsonProperty("image_type")]
-        public ImageType image_type { get; set; }
+        [JsonProperty("imagemoid")]
+        public Guid imagemoid { get; set; }
+        [JsonProperty("imagename")]
+        public string imagename { get; set; }
+        [JsonProperty("imagetype")]
+        public ImageType imagetype { get; set; }
         [JsonProperty("protection_connection_id")]
         public string protection_connection_id { get; set; }
         [JsonProperty("protection_job_name")]
@@ -51,11 +51,14 @@ namespace MRMPService.MRMPAPI.Types.API
         public string source_name { get; set; }
         [JsonProperty("state")]
         public TargetStates state { get; set; }
-        [JsonProperty("jobimagesnapshots_attributes")]
-        public List<MRPSnapshotType> jobimagesnapshots_attributes { get; set; }
-
+        [JsonProperty("comment")]
+        public string comment { get; set; }
+        [JsonProperty("reason")]
+        public string reason { get; set; }
+        [JsonProperty("timestamp")]
+        public DateTime timestamp { get; set; }
     }
-    public class MRPJobImageIDGETType
+    public class MRPManagementobjectSnapshotIDGETType
     {
         [JsonProperty("manager_id")]
         public string manager_id
@@ -70,7 +73,7 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("image_id")]
         public string image_id { get; set; }
     }
-    public class MRPJobImageMOIDGETType
+    public class MRPManagementobjectSnapshotMOIDGETType
     {
         [JsonProperty("manager_id")]
         public string manager_id

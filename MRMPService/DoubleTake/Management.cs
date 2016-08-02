@@ -53,14 +53,18 @@ namespace MRMPService.DoubleTake
                     }
                     license_status = true;
                     break;
-                    
+
 
                 case "FullServerFailover":
                     //check source first
                     ActivationCodeModel _source_ha_protectcode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "Availability") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_SOURCE"));
                     if (_source_ha_protectcode == null)
                     {
-                        //load DTMU source license key
+                        InstallLicense(null, "1pqa-0naq-tt1n-wcfk-40ug-xqx6");
+                        InstallLicense(null, "hv9e-6fg1-mqgv-d7e5-07ee-026v");
+                        InstallLicense(null, "uqgn-mudg-t89m-7uqc-efpu-y2ee");
+                        InstallLicense(null, "v8nr-b928-b546-5qr7-n3k9-v7g1");
+
                     }
                     else
                     {
@@ -70,7 +74,7 @@ namespace MRMPService.DoubleTake
                     ActivationCodeModel _target_ha_protectcode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "Availability") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_TARGET"));
                     if (_target_ha_protectcode == null)
                     {
-                        //run DTMU license key utility on target server              
+                        SetDTMUCode(35, "dtmu_dev");
                     }
                     else
                     {
@@ -83,13 +87,13 @@ namespace MRMPService.DoubleTake
                     ActivationCodeModel _source_dr_recovercode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "DR") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_SOURCE") && x.Attributes.Any(z => z.Name == "Agent"));
                     if (_source_dr_recovercode == null)
                     {
-                        //install source DR license
+                        InstallLicense(null, "6fby-ef1f-bhpt-g904-bac9-6t9h");
                     }
                     //check target server
                     ActivationCodeModel _target_dr_recovercode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "DR") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_TARGET") && x.Attributes.Any(z => z.Name == "Repository"));
                     if (_target_dr_recovercode == null)
                     {
-                        //install target license - no activation required              
+                        SetDTMUCode(35, "dtmu_dev");
                     }
                     break;
                 case "FullServerImageRecovery":
@@ -98,13 +102,15 @@ namespace MRMPService.DoubleTake
                     ActivationCodeModel _source_recovery_dr_recovercode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "DR") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_TARGET") && x.Attributes.Any(z => z.Name == "Repository"));
                     if (_source_recovery_dr_recovercode == null)
                     {
-                        //install source DR license
+                        SetDTMUCode(35, "dtmu_dev");
+
                     }
                     //check target server
                     ActivationCodeModel _target_recovery_dr_recovercode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "DR") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_TARGET") && x.Attributes.Any(z => z.Name == "RecoveryTarget"));
                     if (_target_recovery_dr_recovercode == null)
                     {
-                        //install target license - no activation required              
+                        InstallLicense(null, "47y8-heb4-1dkd-hb37-rmed-ry33");
+
                     }
                     break;
 
@@ -152,5 +158,24 @@ namespace MRMPService.DoubleTake
 
         }
 
+        public List<DtmuProductModel> SetDTMUCode(int _product_code, string _customer_id)
+        {
+            DtmuApi api = new DtmuApi(_target_connection);
+
+            DtmuConfigurationModel model = new DtmuConfigurationModel();
+            model.ProductCode = _product_code;
+            model.ProviderName = _customer_id;
+            model.UserName = "phillip.spies@dimensiondata.com";
+
+            ApiResponse response = api.SetConfigurationAsync(model).Result;
+
+            response.EnsureSuccessStatusCode();
+
+            ApiResponse<IEnumerable<DtmuProductModel>> confirm_response = api.GetProductsAsync().Result;
+
+            response.EnsureSuccessStatusCode();
+
+            return confirm_response.Content.ToList();
+        }
     }
 }
