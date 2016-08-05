@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace MRMPService.DoubleTake
+namespace MRMPService.MRMPDoubleTake
 {
     class Job : Core
     {

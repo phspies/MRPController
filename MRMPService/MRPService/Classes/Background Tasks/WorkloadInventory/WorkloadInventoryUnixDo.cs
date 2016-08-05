@@ -14,7 +14,7 @@ namespace MRMPService.MRMPAPI.Classes
 {
     partial class WorkloadInventory
     {
-        public void WorkloadInventoryUnixDo(MRPWorkloadType _workload)
+        static public void  WorkloadInventoryLinuxDo(MRPWorkloadType _workload)
         {
             MRPWorkloadType _updated_workload = new MRPWorkloadType() { id = _workload.id };
 
@@ -83,7 +83,7 @@ namespace MRMPService.MRMPAPI.Classes
                                 if (cmd.ExitStatus != 0)
                                 {
                                     sshclient.Disconnect();
-                                    throw new ArgumentException(String.Format("Error while running unix setup script: %1", cmd.Result));
+                                    throw new Exception(String.Format("Error while running unix setup script: {0}", cmd.Result));
                                 }
 
                             }

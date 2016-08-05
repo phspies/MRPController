@@ -36,12 +36,24 @@ namespace MRMPService.TaskExecutioner
                         {
                             switch (task.task_type)
                             {
-                                case "dr_servers_dormant_group_setup":
-                                    Thread dr_servers_dormant_group_setup_Thread = new Thread(() => DRSServersDormant.SetupProtectionJob(task));
-                                    dr_servers_dormant_group_setup_Thread.Name = task.target_id;
-                                    dr_servers_dormant_group_setup_Thread.Start();
-                                    lstThreads.Add(new ThreadObject() { task = dr_servers_dormant_group_setup_Thread, target_id = task.target_id });
+                                //drs_servers_dormant
+                                case "dr_servers_dormant_create_protection_job":
+                                    Thread dr_servers_dormant_create_protection_job_Thread = new Thread(() => DRSServersDormant.SetupProtectionJob(task));
+                                    dr_servers_dormant_create_protection_job_Thread.Name = task.target_id;
+                                    dr_servers_dormant_create_protection_job_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = dr_servers_dormant_create_protection_job_Thread, target_id = task.target_id });
                                     break;
+
+
+                                //migrate
+                                case "migrate_create_job":
+                                    Thread migrate_create_job_Thread = new Thread(() => Migrate.SetupMigrateJob(task));
+                                    migrate_create_job_Thread.Name = task.target_id;
+                                    migrate_create_job_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = migrate_create_job_Thread, target_id = task.target_id });
+                                    break;
+
+                                //platform
                                 case "discover_datacenters_method":
                                     Thread discover_datacenters_method_Thread = new Thread(() => DatacenterDiscovery.DatacenterDiscoveryDo(task));
                                     discover_datacenters_method_Thread.Name = task.target_id;

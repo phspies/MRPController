@@ -1,0 +1,2094 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DoubleTake.PowerShell.Contract.Service</name>
+    </assembly>
+    <members>
+        <member name="T:DoubleTake.Common.Contract.IManagementService">
+            <summary>
+            Provides methods for getting information from and making changes to an instance of the management service.
+            </summary>
+            <exclude/>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.CancelDtInfoCollection(System.Guid)">
+            <summary>
+            Cancels an active DtInfo collection
+            </summary>
+            <param name="collectionId">The ID of the collection</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.CollectDtInfo">
+            <summary>
+            Begins a new DtInfo collection
+            </summary>
+            <returns>An ID which is a handle to the new collection process.  This ID is used by all DtInfo-related functions</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.DeleteImages(System.Collections.Generic.IEnumerable{DoubleTake.Core.Contract.ImageDeleteInfo})">
+            <summary>
+            Deletes images from the server
+            </summary>
+            <param name="deleteInfos">Information needed when deleting the images</param>
+            <returns>List of images available on the server after the delete executes.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.DeleteImageSnapshots(System.Guid,System.Collections.Generic.IEnumerable{System.Guid})">
+            <summary>
+            Deletes snapshots of a given image from the server
+            </summary>
+            <param name="imageId">The identifier of the image where the snapshot to delete resides.</param>
+            <param name="snapshotIds">The identifiers of the snapshots to delete</param>
+            <returns>List of images available on the server after the delete executes.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetAccessLevel">
+            <summary>
+            Gets the access level of the current connection to the management service.
+            </summary>
+            <returns>
+            An <see cref="T:AccessLevel"/> representing the access level of the
+            current connection to the management service.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetDashboardEngineOptions">
+            <summary>
+            Gets the options for Dashboard Engine.
+            </summary>
+            <returns>Options for Dashboard Engine.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetDomainRole">
+            <summary>
+            Returns the role of the local computer in an assigned domain workgroup.
+            </summary>
+            <returns>
+            One of the following values.
+            <list type="table">
+                <listheader>
+                    <term>Value</term>
+                    <description>Meaning</description>
+                </listheader>
+                <item>
+                    <term>0</term>
+                    <description>Standalone Workstation</description>
+                </item>
+                <item>
+                    <term>1</term>
+                    <description>Member Workstation</description>
+                </item>
+                <item>
+                    <term>2</term>
+                    <description>Standalone Server</description>
+                </item>
+                <item>
+                ///         <term>3</term>
+                    <description>Member Server</description>
+                </item>
+                <item>
+                    <term>4</term>
+                    <description>Backup Domain Controller</description>
+                </item>
+                <item>
+                    <term>5</term>
+                    <description>Primary Domain Controller</description>
+                </item>
+            </list>
+            </returns>
+            <remarks>
+            A domain workgroup is a collection of computers in the same network.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetDtInfoCollectionStatus(System.Guid)">
+            <summary>
+            Gets the status of an active DtInfo collection
+            </summary>
+            <param name="collectionId">The ID of the collection</param>
+            <returns>The status of the collection</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetEmailNotificationOptions">
+            <summary>
+            Gets the email notification options.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetEventLogEntries(System.Int32,System.Int32)">
+            <summary>
+            Gets the entries in the Windows event log generated by the engine and management service.
+            </summary>
+            <param name="chunkSize">
+            Number of entries to get.
+            </param>
+            <param name="lastIndex">
+            The index of the entry from where to start getting the entries.
+            </param>
+            <returns>
+            An array of <see cref="T:EventLogEntryData2"/> representing the Windows event log entries
+            generated by the engine and management service.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetImages(System.Collections.Generic.List{System.Guid})">
+            <summary>
+            Gets either all the images from the server or just requested images from the server.
+            </summary>
+            <param name="imageIds">null or empty value returns all images on the server, otherwise, only those requested.</param>
+            <returns>
+            List of image information.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetIntegerOption(System.String)">
+            <summary>
+            Gets the value of an option that is stored as a number.
+            </summary>
+            <param name="optionName">
+            Name of the option.
+            </param>
+            <returns>
+            The numeric value of the option.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetLogMessages(System.Int32,System.String,System.Int32,System.DateTimeOffset)">
+            <summary>
+            Gets the messages in the engine text log file.
+            </summary>
+            <param name="chunkSize">
+            Number of messages to get.
+            </param>
+            <param name="source">
+            The log source.
+            </param>
+            <param name="hash">
+            The hash of the message from where to start getting the messages.
+            </param>
+            <param name="lastTimestamp">
+            The timestamp from where to start getting the messages.
+            </param>
+            <returns>
+            An array of <see cref="T:LogMessage"/> representing the messages in the engine text log file.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetMultiStringOption(System.String)">
+            <summary>
+            Gets the value of an option that is stored as a multiline string.
+            </summary>
+            <param name="optionName">
+            Name of the option.
+            </param>
+            <returns>
+            An array of strings, where each element in the array represents a line in the value of the option.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetNetworkInterfaceInfo">
+            <summary>
+            Gets the network interface info.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetOptions(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Gets the values for any number of options.
+            </summary>
+            <param name="optionNames">
+            The option names.
+            </param>
+            <returns>
+            A <see cref="T:PropertyBag"/> that contains name-value pairs of the options to get.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetPathBlockingEntries">
+            <summary>
+            Gets all path blocking entries.
+            </summary>
+            <returns>An array of path blocking entries.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetPhysicalItems(DoubleTake.Common.Contract.PhysicalItem)">
+            <summary>
+            Gets the physical items (volumes, folders, and files) that are present on the server.
+            </summary>
+            <param name="referenceItem">
+            The item whose children should be enumerated and returned.
+            </param>
+            <returns>
+            An array of <see cref="T:PhysicalItem"/> that represents the children of <paramref name="referenceItem"/>.
+            </returns>
+            <remarks>
+            To get the volumes on a server, pass <see langword="null"/> for <paramref name="referenceItem"/>.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetProductInfo">
+            <summary>
+            Gets information about the product installed on the server.
+            </summary>
+            <returns>
+            An instance of <see cref="T:ProductInfo"/> that contains information about the product installed on the server.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetScriptCredentials">
+            <summary>
+            Gets the script credentials.
+            </summary>
+            <returns>The script credentials.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetServerInfo">
+            <summary>
+            Gets information about the server.
+            </summary>
+            <returns>
+            An instance of <see cref="T:ServerInfo"/> that contains information about the server.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetMachineInfo">
+            <summary>
+            Gets information about the server.
+            </summary>
+            <returns>
+            An instance of <see cref="T:ServerInfo"/> that contains information about the server.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetStringOption(System.String)">
+            <summary>
+            Gets the value of an option that is stored as a string.
+            </summary>
+            <param name="optionName">
+            Name of the option.
+            </param>
+            <returns>
+            The string value of the option.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.ListActiveDtInfoCollections">
+            <summary>
+            Lists all active DtInfo collections
+            </summary>
+            <returns>An array of IDs used to reference all the active collections</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.LoadImage(System.Guid,System.String)">
+            <summary>
+            Loads the given image
+            </summary>
+            <param name="imageId">The identifier of the image</param>
+            <param name="ownerId">The identifier of the owner of the image</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.LoadImageSnapshot(System.Guid,System.Guid,System.String)">
+            <summary>
+            Loads given image's snapshot.
+            </summary>
+            <param name="imageId">The identifier of the image</param>
+            <param name="snapshotSetId">The identifier of the snapshot set</param>
+            <param name="ownerId">The identifier of the owner of the image</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.PauseTarget">
+            <summary>
+            Pauses the target operations on all connections to the machine.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.ResumeTarget">
+            <summary>
+            Resumes the target operations on all connections to the machine.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.RunScript(System.String,System.String,DoubleTake.Common.Contract.Credentials)">
+            <summary>
+            Runs the specified script.
+            </summary>
+            <param name="script">The (absolute) script path.</param>
+            <param name="arguments">The script arguments.</param>
+            <param name="credentials">The credentials to run the script as.</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.SetActivationParameters(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Applies the activation codes to the server.
+            </summary>
+            <param name="activationCodes">The activation codes to apply.</param>
+            <param name="additionalCodes">The additional codes to apply.</param>
+            <returns>
+            An instance of <see cref="T:ActivationStatus"/> that indicates the current licensing status of the server.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.SetDashboardEngineOptions(DoubleTake.Common.Contract.DashboardEngineOptions)">
+            <summary>
+            Sets the options for Dashboard Engine.
+            </summary>
+            <param name="options">Options for Dashboard Engine.</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.SetEmailNotificationOptions(DoubleTake.Common.Contract.EmailNotificationOptions)">
+            <summary>
+            Sets the email notification options.
+            </summary>
+            <param name="options">The options.</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.SetOptions(DoubleTake.Common.Contract.PropertyBag)">
+            <summary>
+            Sets the values for any number of options.
+            </summary>
+            <param name="options">
+            A <see cref="T:PropertyBag"/> that contains name-value pairs of the options to set.
+            </param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.SetPathBlocking(System.String,DoubleTake.Core.Contract.PathBlockingMode)">
+            <summary>
+            Enables path blocking for all connections from a given source.
+            </summary>
+            <param name="sourceAddress">The source address.</param>
+            <param name="blockingMode">The blocking mode.</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.SetScriptCredentials(DoubleTake.Common.Contract.Credentials)">
+            <summary>
+             Sets the script credentials.
+            </summary>
+            <param name="credentials">The script credentials.</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.Shutdown(DoubleTake.Core.Contract.ShutdownOption)">
+            <summary>
+            Shuts down the Double-Take service on the machine.
+            </summary>
+            <param name="shutdownOption">The shutdown option.</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.ShutdownRemoteServer(System.Guid,System.String)">
+            <summary>
+            Attempts to shutdown a remote server. Credentials to the remote server must already
+            exist on the local server.
+            </summary>
+            <param name="jobId">Job id of the original job that saved the credentials. This is used to retrieve credentials from local cache.</param>
+            <param name="networkId">Network id of the server to shutdown. This is used to retrieve credentials from local cache.</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.TestEmailNotification(DoubleTake.Common.Contract.EmailNotificationOptions,System.String,System.String)">
+            <summary>
+            Tests the provided e-mail notification options by attempting to send a test e-mail.
+            </summary>
+            <param name="options">The e-mail notification options to test.</param>
+            <param name="to">The recipients to whom the test e-mail shall be sent.</param>
+            <param name="body">The body of the test e-mail.</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.TestScript(System.String,System.String,DoubleTake.Core.Contract.DesktopInteractionMode)">
+            <summary>
+            Tests the specified script.
+            </summary>
+            <param name="path">The path to the script.</param>
+            <param name="arguments">The script arguments.</param>
+            <param name="interactionMode">The interaction mode.</param>
+            <returns>The script's return code.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.TryVerifyRoute(System.Net.IPEndPoint)">
+            <summary>
+            Verifies connectivity to the specified endpoint.
+            </summary>
+            <param name="route">The route to verify.</param>
+            <returns>
+            True if the connection was successful
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.UnloadImage(System.Guid,System.String)">
+            <summary>
+            Unloads the given image
+            </summary>
+            <param name="imageId">The identifier of the image</param>
+            <param name="ownerId">The identifier of the owner of the image</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.UnloadImageSnapshot(System.Guid,System.Guid,System.String)">
+            <summary>
+            Unloads the given image's snapshot.
+            </summary>
+            <param name="imageId">The identifier of the image</param>
+            <param name="snapshotSetId">The identifier of the snapshot set</param>
+            <param name="ownerId">The identifier of the owner of the image</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.UpdateImageInfo(DoubleTake.Core.Contract.ImageInfo,DoubleTake.Core.Contract.ImageEditedProperties)">
+            <summary>
+            Updates the properties specified on the image info.
+            </summary>
+            <param name="imageInfo">The image info that has been edited.</param>
+            <param name="editedProperties">Flags for the properties that have been edited.</param>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.ValidateActivationParameters(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Validates any number of activation codes.
+            </summary>
+            <param name="activationCodes">The activation codes to validate.</param>
+            <param name="additionalCodes">The additional codes to validate.</param>
+            <returns>
+            An instance of <see cref="T:ActivationStatus"/> that indicates whether the provided activation codes are valid.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.ValidateActiveDirectoryCredentials(DoubleTake.Common.Contract.Credentials,System.Collections.Generic.IEnumerable{DoubleTake.Common.Alternate.Tuple{System.String,System.String}},DoubleTake.Common.Contract.ValidateActiveDirectoryCredentialsResult@)">
+            <summary>
+            Validates the specified Active Directory credentials.
+            </summary>
+            <param name="credentials">The active directory credentials.</param>'
+            <param name="computers">The computers (domain name and computer name) to validate the credentials against.</param>
+            <param name="result">Additional information about the validation result.</param>
+            <returns><see langword="true"/> if the credentials are valid; otherwise <see langword="false"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.ValidateScriptCredentials(DoubleTake.Common.Contract.Credentials)">
+            <summary>
+            Validates the script credentials.
+            </summary>
+            <param name="credentials">The script credentials.</param>
+            <returns><see langword="true"/> if the credentials validate; otherwise <see langword="false"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.GetServerRegistrationMethod">
+            <summary>
+            Gets the current server registration method
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.SetServerRegistrationMethod(DoubleTake.Common.Contract.ServerRegistrationMethod)">
+            <summary>
+            Sets the server registration method
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.BeginGetAccessLevel(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get the access level of the current connection to the management service.
+            </summary>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.BeginGetNetworkInterfaceInfo(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get the network interface info.
+            </summary>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.BeginGetProductInfo(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get the product info.
+            </summary>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.BeginGetServerInfo(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get the server info.
+            </summary>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.EndGetAccessLevel(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to get the access level of the current connection to the management service.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Common.Contract.IManagementService.BeginGetAccessLevel(System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>An <see cref="T:AccessLevel"/> representing the access level of the current connection to the management service.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.EndGetNetworkInterfaceInfo(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to get the network interface info.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Common.Contract.IManagementService.BeginGetNetworkInterfaceInfo(System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>The network interface info.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.EndGetProductInfo(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to get the product info.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Common.Contract.IManagementService.BeginGetProductInfo(System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>The product info.</returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IManagementService.EndGetServerInfo(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to get the server info.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Common.Contract.IManagementService.BeginGetServerInfo(System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>The server info.</returns>
+        </member>
+        <member name="T:DoubleTake.Common.Contract.IWorkloadManager">
+            <summary>
+            Provides methods for creating and managing workloads on a server.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.GetWorkloadTypes(DoubleTake.Core.Contract.ActivationStatus,DoubleTake.Core.Contract.ActivationStatus)">
+            <summary>
+            Gets the workload types available on a server.
+            </summary>
+            <param name="sourceActivationStatus">
+            An <see cref="T:ActivationStatus"/> value that represents the source server of the job. 
+            Pass <see langword="null"/> to use the activation status of the server hosting <see cref="T:IWorkloadManager"/>.
+            </param>
+            <param name="targetActivationStatus">
+            An <see cref="T:ActivationStatus"/> value that represents the target server of the job. 
+            Pass <see langword="null"/> to use the activation status of the server hosting <see cref="T:IWorkloadManager"/>.
+            </param>
+            <returns>
+            An array of <see cref="T:WorkloadType"/> representing the possible workload types on a server.
+            </returns>
+            <remarks>
+            Typically, clients will communicate with <see cref="T:IWorkloadManager"/> on the source server to configure 
+            a workload, then pass that workload to the target when creating a job. Thus, when retrieving workload types 
+            to display to the user, clients will frequently pass <see langword="null"/> for <paramref name="sourceActivationStatus"/>, 
+            and a target activation status that represents likely target servers for <paramref name="targetActivationStatus"/>.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.Create(System.String)">
+            <summary>
+            Creates a new workload instance of the given type on the server.
+            </summary>
+            <param name="workloadTypeName">
+            Name of the workload type.
+            </param>
+            <returns>
+            An id that uniquely identifies this instance of the workload on the server.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadTypeName"/> is <see langword="null"/> or a zero-length string.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no registered workload type whose name matches <paramref name="workloadTypeName"/>.
+            </exception>
+            <remarks>
+            This method will typically be called by clients creating new workloads for the first time.
+            The id returned from <see cref="M:Create"/> can be used for further operations on the workload.
+            Clients should call <see cref="M:Close"/> when they are finished modifying the workload instance.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.CreateWithDelegation(System.String,System.Uri)">
+            <summary>
+            Creates a new workload instance of the given type on the server.
+            </summary>
+            <param name="workloadTypeName">Name of the workload type.</param>
+            <param name="hostUri">The host URI that contains the credentials.</param>
+            <returns>
+            An id that uniquely identifies this instance of the workload on the server.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            	<paramref name="workloadTypeName"/> is <see langword="null"/> or a zero-length string.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no registered workload type whose name matches <paramref name="workloadTypeName"/>.
+            </exception>
+            <remarks>
+            This method will typically be called by clients creating new workloads for the first time.
+            The id returned from <see cref="M:Create"/> can be used for further operations on the workload.
+            Clients should call <see cref="M:Close"/> when they are finished modifying the workload instance.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.CreateFrom(DoubleTake.Common.Contract.Workload)">
+            <summary>
+            Creates a new workload instance on the server, given an existing workload.
+            </summary>
+            <param name="workload">
+            An existing <see cref="T:Workload"/> that describes the workload to be created on the server.
+            </param>
+            <returns>
+            An id that uniquely identifies this instance of the workload on the server.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workload"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no registered workload type whose name matches the value for <see cref="P:WorkloadTypeName"/> on <paramref name="workload"/>.
+            </exception>
+            <remarks>
+            This method will typically be called by clients creating workloads that already exist with a job.
+            The id returned from <see cref="M:Create"/> can be used for further operations on the workload.
+            Clients should call <see cref="M:Close"/> when they are finished modifying the workload instance.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.CreateFromWithDelegation(DoubleTake.Common.Contract.Workload,System.Uri)">
+            <summary>
+            Creates a new workload instance on the server, given an existing workload. Credentials
+            are provided to enable delegation to other machines.
+            </summary>
+            <param name="workload">An existing <see cref="T:Workload"/> that describes the workload to be created on the server.</param>
+            <param name="hostUri">The host URI that contains the credentials.</param>
+            <returns>
+            An id that uniquely identifies this instance of the workload on the server.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            	<paramref name="workload"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no registered workload type whose name matches the value for <see cref="P:WorkloadTypeName"/> on <paramref name="workload"/>.
+            </exception>
+            <remarks>
+            This method will typically be called by clients creating workloads that already exist with a job.
+            The id returned from <see cref="M:Create"/> can be used for further operations on the workload.
+            Clients should call <see cref="M:Close"/> when they are finished modifying the workload instance.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.CreateUsingImage(System.String,System.Guid,System.Guid)">
+            <summary>
+            Creates a new workload instance of the given type on the server using the image at the given image path.
+            Optionally, pass in a snapshot id to use that snapshot of the image.
+            </summary>
+            <param name="workloadTypeName">
+            Name of the workload type.
+            </param>
+            <param name="imageId">
+            Id of the image.
+            </param>
+            <param name="snapshotId">
+            Optional ID of the snapshot of the image to use.
+            </param>
+            <returns>
+            An id that uniquely identifies this instance of the workload on the server.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadTypeName"/> is <see langword="null"/> or a zero-length string.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no registered workload type whose name matches <paramref name="workloadTypeName"/>.
+            </exception>
+            <remarks>
+            This method will typically be called by clients creating new workloads for the first time.
+            The id returned from <see cref="M:Create"/> can be used for further operations on the workload.
+            Clients should call <see cref="M:Close"/> when they are finished modifying the workload instance.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.CreateUsingImageWithDelegation(System.String,System.Uri,System.Guid,System.Guid)">
+            <summary>
+            Creates a new workload instance of the given type on the server using the image at the given image path.
+            Optionally, pass in a snapshot id to use that snapshot of the image.
+            </summary>
+            <param name="workloadTypeName">Name of the workload type.</param>
+            <param name="hostUri">The host URI that contains the credentials.</param>
+            <param name="imageId">
+            Id of the image.
+            </param>
+            <param name="snapshotId">
+            Optional ID of the snapshot of the image to use.
+            </param>
+            <returns>
+            An id that uniquely identifies this instance of the workload on the server.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            	<paramref name="workloadTypeName"/> is <see langword="null"/> or a zero-length string.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no registered workload type whose name matches <paramref name="workloadTypeName"/>.
+            </exception>
+            <remarks>
+            This method will typically be called by clients creating new workloads for the first time.
+            The id returned from <see cref="M:Create"/> can be used for further operations on the workload.
+            Clients should call <see cref="M:Close"/> when they are finished modifying the workload instance.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.GetWorkload(System.Guid)">
+            <summary>
+            Gets the workload from the server.
+            </summary>
+            <param name="workloadId">
+            The workload id.
+            </param>
+            <returns>
+            The workload.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadId"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no workload whose id matches <paramref name="workloadId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.GetWorkloads">
+            <summary>
+            Gets all the active workloads from the server.
+            </summary>
+            <returns>
+            An array of <see cref="T:Workload"/> that represents the active workloads on the server.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.Close(System.Guid)">
+            <summary>
+            Closes the workload instance on the server.
+            </summary>
+            <param name="workloadId">
+            The workload id.
+            </param>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadId"/> is <see langword="null"/>.
+            </exception>
+            <remarks>
+            Clients should close workloads after they are done manipulating them on the server.
+            Closing a workload will release its unmanaged resources and allow its memory to be garbage collected.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.GetPhysicalItems(System.Guid,DoubleTake.Common.Contract.PhysicalItem)">
+            <summary>
+            Gets the physical items that can be included in a workload.
+            </summary>
+            <param name="workloadId">
+            The workload id.
+            </param>
+            <param name="referenceItem">
+            The item whose children should be enumerated and returned.
+            </param>
+            <returns>
+            An array of <see cref="T:PhysicalItem"/> that represents the children of <paramref name="referenceItem"/>.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadId"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no workload whose id matches <paramref name="workloadId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.GetLogicalItems(System.Guid,DoubleTake.Common.Contract.LogicalItem)">
+            <summary>
+            Gets the logical items that can be included in a workload.
+            </summary>
+            <param name="workloadId">
+            The workload id.
+            </param>
+            <param name="referenceItem">
+            The item whose children should be enumerated and returned.
+            </param>
+            <returns>
+            An array of <see cref="T:LogicalItem"/> that represents the children of <paramref name="referenceItem"/>.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadId"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no workload whose id matches <paramref name="workloadId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.AddPhysicalRule(System.Guid,DoubleTake.Common.Contract.PhysicalRule)">
+            <summary>
+            Adds a physical rule to a workload.
+            </summary>
+            <param name="workloadId">
+            The workload id.
+            </param>
+            <param name="physicalRule">
+            The physical rule.
+            </param>
+            <returns>
+            A <see cref="T:ChangedItems"/> that includes all affected physical items, logical items, and physical rules.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadId"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no workload whose id matches <paramref name="workloadId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.RemovePhysicalRule(System.Guid,DoubleTake.Common.Contract.PhysicalRule)">
+            <summary>
+            Removes a physical rule from a workload.
+            </summary>
+            <param name="workloadId">
+            The workload id.
+            </param>
+            <param name="physicalRule">
+            The physical rule.
+            </param>
+            <returns>
+            A <see cref="T:ChangedItems"/> that includes all affected physical items, logical items, and physical rules.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadId"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no workload whose id matches <paramref name="workloadId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.SelectLogicalItem(System.Guid,System.String)">
+            <summary>
+            Selects a logical item for a workload.
+            </summary>
+            <param name="workloadId">
+            The workload id.
+            </param>
+            <param name="logicalItemPath">
+            The logical item path.
+            </param>
+            <returns>
+            A <see cref="T:ChangedItems"/> that includes all affected physical items, logical items, and physical rules.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadId"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no workload whose id matches <paramref name="workloadId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.UnselectLogicalItem(System.Guid,System.String)">
+            <summary>
+            Unselects a logical item for a workload.
+            </summary>
+            <param name="workloadId">
+            The workload id.
+            </param>
+            <param name="logicalItemPath">
+            The logical item path.
+            </param>
+            <returns>
+            A <see cref="T:ChangedItems"/> that includes all affected physical items, logical items, and physical rules.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadId"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no workload whose id matches <paramref name="workloadId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Common.Contract.IWorkloadManager.GetRecommendedPathTransformations(System.Guid,System.String)">
+            <summary>
+            Gets the recommended path transformations for a workload.
+            </summary>
+            <param name="workloadId">
+            The workload id.
+            </param>
+            <param name="basePath">
+            The base path.
+            </param>
+            <returns>
+            An array of <see cref="T:DoubleTake.Common.Contract.PathTransformation"/> objects, one element in the array for each volume.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workloadId"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no workload whose id matches <paramref name="workloadId"/>.
+            </exception>
+            <remarks>
+            Providing a base path of <see langword="null"/> will result in 
+            a one-to-one volume mapping; otherwise you will be provided with a
+            many-to-one volume mapping based on the provided path.
+            </remarks>
+        </member>
+        <member name="T:DoubleTake.Discovery.Contract.IMetaservice">
+            <summary>
+            Describes the Double-Take services available on a host.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.GetMachineId">
+            <summary>
+            The unique ID of the physical or virtual machine running the service.
+            </summary>
+            <returns>A Guid specific to the machine running the service.</returns>
+            <remarks>
+            The machine ID is generated at first run.  It is a unique number, not a product of any other system identifiers.
+            The machine ID is ignored by full server failover.  It remains on the machine where it was generated.
+            The machine ID is regenerated when a machine's BIOS UUID changes.  Thus, in Hyper-V and ESX the machine ID is unique between cloned instances.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.GetVersion">
+            <summary>
+            The install version of the service.
+            </summary>
+            <returns>A string representation of the install version.</returns>
+            <remarks>This value comes from the registry:
+            [HKEY_LOCAL_MACHINE\SOFTWARE\NSI Software\Double-Take\CurrentVersion]
+            "VersionInfo"="[PROD_MAJVER].[PROD_MINVER].[PROD_SERVICEPACK].[PROD_SEQNUMBER].[PROD_HOTFIX].[PROD_BUILDTYPE]"
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.GetServiceTags">
+            <summary>
+            Tags representing features or services running on the machine.
+            </summary>
+            <returns>A collection of strings representing services.</returns>
+            <remarks>This list of service tags is intended to be a hint to clients. It may include services that aren't currently running, 
+            or may not include features that should remain hidden from anonymous discovery.</remarks>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.GetDynamicServiceEndpoints(System.String)">
+            <summary>
+            Features or services hosted at endpoints that may not be known to clients.
+            </summary>
+            <param name="serviceTag">The service tag associated with the feature or service.</param>
+            <returns>A list of DynamicServiceEndpoint describing access to each service.</returns>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.BeginGetMachineId(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get the unique ID of the physical or virtual machine running the service.
+            </summary>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.EndGetMachineId(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to get the unique ID of the physical or virtual machine running the service.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Discovery.Contract.IMetaservice.BeginGetMachineId(System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>A Guid specific to the machine running the service.</returns>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.BeginGetVersion(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get the install version of the service.
+            </summary>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.EndGetVersion(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to get the install version of the service.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Discovery.Contract.IMetaservice.BeginGetVersion(System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>A string representation of the install version.</returns>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.BeginGetServiceTags(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get tags representing features or services running on the machine.
+            </summary>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.EndGetServiceTags(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to get tags representing features or services running on the machine.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Discovery.Contract.IMetaservice.BeginGetServiceTags(System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>A collection of strings representing services.</returns>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.BeginGetDynamicServiceEndpoints(System.String,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get features or services hosted at endpoints that may not be known to clients.
+            </summary>
+            <param name="serviceTag"></param>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Discovery.Contract.IMetaservice.EndGetDynamicServiceEndpoints(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to get features or services hosted at endpoints that may not be known to clients.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Discovery.Contract.IMetaservice.BeginGetDynamicServiceEndpoints(System.String,System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>A list of DynamicServiceEndpoint describing access to each service.</returns>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.IsInitialData">
+            <summary>
+            Is this the initial data recorded when the job was created?
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.PersistencePath">
+            <summary>
+            Job persistence path
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.JobOrConnectionId">
+            <summary>
+            Job or connection ID
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.JobOrConnectionName">
+            <summary>
+            Job or connection name
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.JobOrConnectionType">
+            <summary>
+            Job or connection type
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.JobStatus">
+            <summary>
+            Job status
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.Timestamp">
+            <summary>
+            The time when the data was collected
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.SourceActivationStatus">
+            <summary>
+            Source activation status
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.SourceNetworkId">
+            <summary>
+            Source network ID (usually hostname)
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.SourceUniqueId">
+            <summary>
+            Source unique ID (aka hardware ID)
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.TargetNetworkId">
+            <summary>
+            Target network ID (usually hostname)
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Dtmu.Contract.JobUsageData.TargetUniqueId">
+            <summary>
+            Target unique ID (aka hardware ID)
+            </summary>
+        </member>
+        <member name="T:DoubleTake.Failover.Contract.IFailoverIdentitySupport">
+            <summary>
+            Methods for managing identity failover outside of the job manager/job (for troubleshooting)
+            </summary>
+            <exclude/>
+        </member>
+        <member name="M:DoubleTake.Failover.Contract.IFailoverIdentitySupport.AddShares(System.String,System.String)">
+            <summary>
+            Creates all the last known source shares in the specified job XML file (for troubleshooting)
+            </summary>
+            <param name="pathJobXml">Path to the job XML file.</param>
+            <param name="filterSharePath">Filter for source share paths (only add share paths containing filter).</param>
+        </member>
+        <member name="M:DoubleTake.Failover.Contract.IFailoverIdentitySupport.RemoveShares(System.String,System.String)">
+            <summary>
+            Removes all the last known source shares in the specified job XML file
+            </summary>
+            <param name="pathJobXml">Path to the job XML file.</param>
+            <param name="filterSharePath">Filter for source share paths (only remove share paths containing filter).</param>
+        </member>
+        <member name="T:DoubleTake.Jobs.Contract.IJobConfigurationVerifier">
+            <summary>
+            Provides methods for getting default options and verifying those options prior to creating a job.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobConfigurationVerifier.GetRecommendedJobOptions(System.String,DoubleTake.Common.Contract.Workload,DoubleTake.Jobs.Contract.JobCredentials)">
+            <summary>
+            Gets the default job options.
+            </summary>
+            <param name="jobType">
+            Type of the job.
+            </param>
+            <param name="workload">
+            The workload to be protected by this job.
+            </param>
+            <param name="jobCredentials">
+            The connection information and credentials for the source and target servers.
+            </param>
+            <returns>
+            A <see cref="T:RecommendedJobOptions"/> instance that includes the recommended job options and other potential values for those options.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobConfigurationVerifier.UpdateRecommendedJobOptions(System.String,DoubleTake.Jobs.Contract.JobOptions,DoubleTake.Common.Contract.Workload,DoubleTake.Jobs.Contract.JobCredentials)">
+            <summary>
+            Updates the recommended job options.
+            </summary>
+            <param name="jobType">Type of the job.</param>
+            <param name="currentOptions">The current options.</param>
+            <param name="newWorkload">The new workload.</param>
+            <param name="jobCredentials">The job credentials.</param>
+            <returns>
+            A <see cref="T:RecommendedJobOptions"/> instance that includes the recommended job options and other potential values for those options.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobConfigurationVerifier.VerifyJobOptions(System.String,DoubleTake.Jobs.Contract.JobOptions,DoubleTake.Jobs.Contract.JobCredentials)">
+            <summary>
+            Verifies the provided job options.
+            </summary>
+            <param name="jobType">
+            Type of the job.
+            </param>
+            <param name="jobOptions">
+            The job options to be verified.
+            </param>
+            <param name="jobCredentials">
+            The connection information and credentials for the source and target servers.
+            </param>
+            <returns>
+            An <see cref="T:ActionToken"/> that can be used to get the status of the verification operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobConfigurationVerifier.FixJobOptions(DoubleTake.Jobs.Contract.VerificationStep[],System.String,DoubleTake.Jobs.Contract.JobOptions,DoubleTake.Jobs.Contract.JobCredentials)">
+            <summary>
+            Attempts to fix items that failed verification.
+            </summary>
+            <param name="stepsToFix">
+            An array of <see cref="T:VerificationStep"/> indicating the items to fix.
+            </param>
+            <param name="jobType">
+            Type of the job.
+            </param>
+            <param name="jobOptions">
+            The job options to be verified.
+            </param>
+            <param name="jobCredentials">
+            The connection information and credentials for the source and target servers.
+            </param>
+            <returns>
+            An <see cref="T:ActionToken"/> that can be used to get the status of the fixing operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobConfigurationVerifier.GetVerificationStatus(DoubleTake.Common.Tasks.ActivityToken)">
+            <summary>
+            Gets the status of the verification operation.
+            </summary>
+            <param name="taskToken">
+            The token that identifies the verification operation.
+            </param>
+            <returns>
+            A <see cref="T:VerificationTaskStatus"/> that indicates the progress and result of the verification operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobConfigurationVerifier.GetFixJobOptionsStatus(DoubleTake.Common.Tasks.ActivityToken)">
+            <summary>
+            Gets the status of the fixing operation.
+            </summary>
+            <param name="taskToken">
+            The token that identifies the fixing operation
+            </param>
+            <returns>
+            A <see cref="T:FixJobOptionsTaskStatus"/> that indicates the progress and result of the fixing operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobConfigurationVerifier.GetRecommendedPathTransformations(DoubleTake.Common.Contract.Workload,System.String)">
+            <summary>
+            Gets the recommended path transformations for a workload.
+            </summary>
+            <param name="workload">
+            The workload.
+            </param>
+            <param name="basePath">
+            The base path.
+            </param>
+            <returns>
+            An array of <see cref="T:DoubleTake.Common.Contract.PathTransformation"/> objects, one element in the array for each volume.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="workload"/> is <see langword="null"/>.
+            </exception>
+            <remarks>
+            Providing a base path of <see langword="null"/> will result in
+            a one-to-one volume mapping; otherwise you will be provided with a
+            many-to-one volume mapping based on the provided path.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobConfigurationVerifier.GetDnsOptions(System.String,DoubleTake.Common.Contract.Workload,DoubleTake.Jobs.Contract.JobCredentials,DoubleTake.Common.Contract.Credentials)">
+            <summary>
+            Gets the DNS options.
+            </summary>
+            <param name="jobType">
+            Type of the job.
+            </param>
+            <param name="workload">
+            The workload.
+            </param>
+            <param name="credentialsJob">
+            The job credentials.
+            </param>
+            <param name="credentialsDomain">
+            The domain credentials.
+            </param>
+            <returns>
+            A <see cref="T:DoubleTake.Jobs.Contract.DNSOptions"/> object that contains the DNS options for the domain.
+            </returns>
+        </member>
+        <member name="T:DoubleTake.Jobs.Contract.IJobManager">
+            <summary>
+            Provides methods for creating and managing jobs on a server.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Add(DoubleTake.Jobs.Contract.JobInfo)">
+            <summary>
+            Adds an existing job to the job manager.
+            </summary>
+            <param name="jobInfo">
+            The job information.
+            </param>
+            <returns>
+            An id that uniquely identifies this job on the server.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="jobInfo"/> is <see langword="null"/>.
+            </exception>
+            <remarks>
+            This method is intended to be used by transitional implementations of jobs that
+            want to allow their jobs to be visible to the job manager, but will be responsible
+            for creating those jobs and managing their lifetime. Typically, jobs added to
+            the job manager in this way will have <see cref="P:Managed"/> set to <see langword="false"/>.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Create(DoubleTake.Jobs.Contract.CreateOptions,System.Guid)">
+            <summary>
+            Creates a job.
+            </summary>
+            <param name="createOptions">
+            The creation options.
+            </param>
+            <param name="requestId">
+            The request id. Callers should generate a unique id for all calls, except when
+            re-calling this method because of a problem with the channel.
+            </param>
+            <returns>
+            An id that uniquely identifies this job on the server.
+            </returns>
+            <exception cref="T:ArgumentNullException">
+            <paramref name="createOptions"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Delete(System.Guid,DoubleTake.Jobs.Contract.DeleteOptions)">
+            <summary>
+            Deletes a job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <param name="deleteOptions">
+            The delete options.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Edit(System.Guid,DoubleTake.Jobs.Contract.JobOptions,System.Guid)">
+            <summary>
+            Edits a job, that is, changes the user-facing job options.
+            </summary>
+            <param name="jobId">The job id.</param>
+            <param name="jobOptions">The job options.</param>
+            <param name="requestId">The request id. Callers should generate a unique id for all calls, except when
+            re-calling this method because of a problem with the channel.</param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetQualificationResults(System.Guid)">
+            <summary>
+            Gets the qualification results for job. The qualification results express 
+            the potential option that can be set for a job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <returns>
+            A <see cref="T:JobQualificationResults"/> that represents the potential options for a job.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.UpdateRecommendedJobOptions(System.Guid,DoubleTake.Jobs.Contract.JobOptions,DoubleTake.Common.Contract.Workload)">
+            <summary>
+            Updates the recommended job options.
+            </summary>
+            <param name="jobId">The job id.</param>
+            <param name="candidateOptions">The candidate options.</param>
+            <param name="newWorkload">The new workload.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.VerifyJobOptions(System.Guid,DoubleTake.Jobs.Contract.JobOptions)">
+            <summary>
+            Verifies the job options.
+            </summary>
+            <param name="jobId">The job id.</param>
+            <param name="jobOptions">The job options.</param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.FixJobOptions(DoubleTake.Jobs.Contract.VerificationStep[],System.Guid,DoubleTake.Jobs.Contract.JobOptions)">
+            <summary>
+            Fixes the job options that are causing the verification to fail.
+            </summary>
+            <param name="stepsToFix">The verification steps to fix.</param>
+            <param name="jobId">The job id.</param>
+            <param name="jobOptions">The job options.</param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+              </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetJob(System.Guid)">
+            <summary>
+            Gets a particular job on the server.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <returns>
+            A <see cref="T:JobInfo"/> that represents the job on the server.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetJobs">
+            <summary>
+            Gets all jobs on a server.
+            </summary>
+            <returns>
+            An array of <see cref="T:JobInfo"/> that represents the jobs on the server.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.BeginGetJobs(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get all jobs on a server.
+            </summary>
+            <param name="callback">
+            An optional asynchronous callback, to be called when the operation is complete.
+            </param>
+            <param name="asyncState">
+            A user-provided object that distinguishes this particular request from other requests.
+            </param>
+            <returns>
+            An <see cref="T:IAsyncResult"/> that represents the asynchronous operation, which could still be pending.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.EndGetJobs(System.IAsyncResult)">
+            <summary>
+            Waits for the pending asynchronous operation to get all jobs on a server to complete.
+            </summary>
+            <param name="result">
+            The reference to the pending asynchronous request to finish.
+            </param>
+            <returns>
+            An array of <see cref="T:JobInfo"/> that represents the jobs on the server.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetJobDisplayInfo">
+            <summary>
+            Gets all information the console displays consistently
+            </summary>
+            <returns>
+            An array of <see cref="T:JobDisplayInfo"/> that represents the jobs on the server.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.BeginGetJobDisplayInfo(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get all job display info on a server.
+            </summary>
+            <param name="callback">
+            An optional asynchronous callback, to be called when the operation is complete.
+            </param>
+            <param name="asyncState">
+            A user-provided object that distinguishes this particular request from other requests.
+            </param>
+            <returns>
+            An <see cref="T:IAsyncResult"/> that represents the asynchronous operation, which could still be pending.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.EndGetJobDisplayInfo(System.IAsyncResult)">
+            <summary>
+            Waits for the pending asynchronous operation to get all job display info on a server to complete.
+            </summary>
+            <param name="result">
+            The reference to the pending asynchronous request to finish.
+            </param>
+            <returns>
+            An array of <see cref="T:JobStatistics"/> that represents the jobs on the server.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Start(System.Guid)">
+            <summary>
+            Starts a job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Stop(System.Guid)">
+            <summary>
+            Stops a job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Pause(System.Guid)">
+            <summary>
+            Pauses a job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Failover(System.Guid,DoubleTake.Jobs.Contract.FailoverOptions)">
+            <summary>
+            Fails over a job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <param name="parameters">
+            The parameters.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetRecommendedFailoverOptions(System.Guid)">
+            <summary>
+            Gets the recommended failover options.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <returns>
+            A <see cref="T:RecommendedFailoverOptions"/> instance that includes the recommended failover options and other potential values for those options.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.VerifyFailoverOptions(System.Guid,DoubleTake.Jobs.Contract.FailoverOptions)">
+            <summary>
+            Verifies the failover options.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <param name="failoverOptions">
+            The failover options.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Failback(System.Guid,DoubleTake.Jobs.Contract.FailbackOptions)">
+            <summary>
+            Fails back a job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <param name="parameters">
+            The parameters.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetRecommendedFailbackOptions(System.Guid)">
+            <summary>
+            Gets the recommended failback options.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <returns>
+            A <see cref="T:RecommendedFailbackOptions"/> instance that includes the recommended failback options and other potential values for those options.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.VerifyFailbackOptions(System.Guid,DoubleTake.Jobs.Contract.FailbackOptions)">
+            <summary>
+            Verifies the failback options.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <param name="failbackOptions">
+            The failback options.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Restore(System.Guid,DoubleTake.Jobs.Contract.RestoreOptions)">
+            <summary>
+            Restores a job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <param name="parameters">
+            The parameters.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetRecommendedRestoreOptions(System.Guid,DoubleTake.Jobs.Contract.JobCredentials)">
+            <summary>
+            Gets the recommended restore options.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <param name="credentials">
+            The credentials.
+            </param>
+            <returns>
+            A <see cref="T:RecommendedRestoreOptions"/> instance that includes the recommended restore options and other potential values for those options.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.VerifyRestoreOptions(System.Guid,DoubleTake.Jobs.Contract.RestoreOptions)">
+            <summary>
+            Verifies the restore options.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <param name="restoreOptions">
+            The restore options.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.Reverse(System.Guid)">
+            <summary>
+            Reverses a job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.UndoFailover(System.Guid)">
+            <summary>
+            Undoes the failover of a job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+            <exception cref="T:ArgumentOutOfRangeException">
+            There is no job whose id matches <paramref name="jobId"/>.
+            </exception>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetVerificationStatus(DoubleTake.Common.Tasks.ActivityToken)">
+            <summary>
+            Gets the status of the verification task.
+            </summary>
+            <param name="taskToken">
+            The token that identifies the verification task.
+            </param>
+            <returns>
+            A <see cref="T:VerificationTaskStatus"/> that indicates the progress and result of the verification task.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetFixJobOptionsStatus(DoubleTake.Common.Tasks.ActivityToken)">
+            <summary>
+            Gets the status of the fixing operation.
+            </summary>
+            <param name="taskToken">
+            The token that identifies the fixing operation
+            </param>
+            <returns>
+            A <see cref="T:FixJobOptionsTaskStatus"/> that indicates the progress and result of the fixing operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.UpdateCredentials(System.Guid,DoubleTake.Jobs.Contract.JobCredentials)">
+            <summary>
+            Update the credentials a job is using to connect to the servers involved.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <param name="credentials">
+            The updated credentials.
+            </param>
+            <returns>
+            A <see cref="T:ActionToken"/> that can be used to get the status of the action.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetActionStatus(DoubleTake.Common.Tasks.ActivityToken)">
+            <summary>
+            Gets the status of an action requested on the job.
+            </summary>
+            <param name="taskToken">
+            The token that identifies the action request.
+            </param>
+            <returns>
+            A <see cref="T:JobAction"/> that represents the status of the requested action.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetActionStatuses(System.Guid)">
+            <summary>
+            Gets the status of all actions requested on the the job.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <returns>
+            An array of <see cref="T:JobAction"/> that represents the status of all requested actions.
+            </returns>
+            <exclude/>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManager.GetLogMessages(System.Guid,System.Int32,System.String,System.Int32,System.DateTimeOffset)">
+            <summary>
+            Gets the messages in the job text log file.
+            </summary>
+            <param name="jobId">
+            The job id.
+            </param>
+            <param name="chunkSize">
+            Number of messages to get.
+            </param>
+            <param name="source">
+            The log source.
+            </param>
+            <param name="hash">
+            The hash of the message from where to start getting the messages.
+            </param>
+            <param name="lastTimestamp">
+            The timestamp from where to start getting the messages.
+            </param>
+            <returns>
+            An array of <see cref="T:DoubleTake.Common.Contract.LogMessage"/> representing the messages in the job text log file.
+            </returns>
+        </member>
+        <member name="T:DoubleTake.Jobs.Contract.IJobManagerPrivate">
+            <summary>
+            Private JobManager interface only to be used internally.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManagerPrivate.CreateFromExistingJob(DoubleTake.Jobs.Contract.JobInfo,DoubleTake.Jobs.Contract.JobCredentials)">
+            <summary>
+            Creates a job using the provided job info.
+            </summary>
+            <param name="info">The job info.</param>
+            <param name="credentials">The job credentials.</param>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManagerPrivate.WriteDiagnosticToDisk(System.String[])">
+            <summary>
+            Causes service to dump diagnostic information to disk.
+            </summary>
+            <param name="diagnosticName">Array of diagnostic objects to write to disk.</param>
+        </member>
+        <member name="M:DoubleTake.Jobs.Contract.IJobManagerPrivate.TransferUsage(DoubleTake.Dtmu.Contract.UsageData)">
+            <summary>
+            Transfers usage from one server to another
+            </summary>
+        </member>
+        <member name="T:DoubleTake.Monitoring.Contract.IMonitorManager">
+            <summary>
+            The interface to be used for creating, configuring and controlling
+            monitors.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.Create(DoubleTake.Monitoring.Contract.MonitorOptions)">
+            <summary>
+            Creates a new monitor.
+            </summary>
+            <param name="options">The monitor options.</param>
+            <returns>A <see cref="T:System.Guid">GUID</see> representing the id of the new monitor.</returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.Delete(System.Guid)">
+            <summary>
+            Removes a monitor.
+            </summary>
+            <param name="id">The monitor id.</param>
+            <returns><see langword="true"/> if the monitor was found and deleted; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.Start(System.Guid)">
+            <summary>
+            Starts the monitor specified by the provided monitor id.
+            </summary>
+            <param name="id">The GUID.</param>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.Stop(System.Guid)">
+            <summary>
+            Stops the monitor specified by the provided monitor id.
+            </summary>
+            <param name="id">The GUID.</param>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.Edit(System.Guid,DoubleTake.Monitoring.Contract.MonitorOptions)">
+            <summary>
+            Edits the monitor specified by the provided monitor id.
+            </summary>
+            <param name="id">The id of the monitor.</param>
+            <param name="newOptions">The new options.</param>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.GetMonitorInfo(System.Guid)">
+            <summary>
+            Gets the monitor info for a specific monitor.
+            </summary>
+            <param name="id">The monitor id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.BeginGetMonitorInfo(System.Guid,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get the monitor info for a specific monitor.
+            </summary>
+            <param name="id">The id that specifies a monitor.</param>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.EndGetMonitorInfo(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to get the monitor info for a specific monitor.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Monitoring.Contract.IMonitorManager.BeginGetMonitorInfo(System.Guid,System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>The <see cref="T:MonitorInfo">MonitorInfo</see> for the specific monitor.</returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.GetSimpleMonitorInfo(System.Guid)">
+            <summary>
+            Gets the simple monitor info for a specific monitor.
+            </summary>
+            <param name="id">The monitor id.</param>
+            <returns></returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.BeginGetSimpleMonitorInfo(System.Guid,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to get the simple monitor info for a specific monitor.
+            </summary>
+            <param name="id">The id that specifies a monitor.</param>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.EndGetSimpleMonitorInfo(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to get the simple monitor info for a specific monitor.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Monitoring.Contract.IMonitorManager.BeginGetSimpleMonitorInfo(System.Guid,System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>The <see cref="T:MonitorInfo">MonitorInfo</see> for the specific monitor.</returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.GetMonitors">
+            <summary>
+            Gets all of the monitors.
+            </summary>
+            <returns>An enumerable collection of <see cref="T:MonitorInfo"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.BeginGetMonitors(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to the get information about all of the monitors.
+            </summary>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.EndGetMonitors(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to the get information about all of the monitors.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Monitoring.Contract.IMonitorManager.BeginGetMonitorInfo(System.Guid,System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>An enumerable collection of <see cref="T:MonitorInfo">MonitorInfo</see> instances.</returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.GetSimpleMonitors">
+            <summary>
+            Gets all of the monitors with a more abbreviated set of data for status purposes.
+            </summary>
+            <returns>An enumerable collection of <see cref="T:SimpleMonitorInfo"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.BeginGetSimpleMonitors(System.AsyncCallback,System.Object)">
+            <summary>
+            Begins an asynchronous operation to the get simple information about all of the monitors.
+            </summary>
+            <param name="callback">The <see cref="T:System.AsyncCallback"/> delegate that receives notification of the completion of
+            this asynchronous operation.</param>
+            <param name="asyncState">An object, specified by the application, that contains state information associated
+            with this asynchronous operation.</param>
+            <returns>
+            The <see cref="T:System.IAsyncResult"/> that references this asynchronous operation.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Monitoring.Contract.IMonitorManager.EndGetSimpleMonitors(System.IAsyncResult)">
+            <summary>
+            Completes an asynchronous operation to the get simple information about all of the monitors.
+            </summary>
+            <param name="result">The <see cref="T:System.IAsyncResult"/> that is returned by a call to the
+            <see cref="M:DoubleTake.Monitoring.Contract.IMonitorManager.BeginGetMonitorInfo(System.Guid,System.AsyncCallback,System.Object)"/> method.</param>
+            <returns>An enumerable collection of <see cref="T:SimpleMonitorInfo">SimpleMonitorInfo</see> instances.</returns>
+        </member>
+        <member name="T:DoubleTake.Virtualization.Contract.IBootProcessing">
+            <summary>
+            This interface is for internal use only.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IBootProcessing.MakeBootable(DoubleTake.Virtualization.Contract.BootProcessingInfo)">
+            <summary>
+            Takes the information provided in the bootProcessingInfo and performs the 
+            processing required to make the volumes bootable.  A log of the operations 
+            performed is kept in the logFile.
+            </summary>
+            <param name="bootProcessingInfo">The boot processing information.</param>
+            <returns>true if the processing was successful, false otherwise.</returns>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IBootProcessing.GetNetworkInterfaces(System.String)">
+            <summary>
+            Gets the network interfaces.
+            </summary>
+            <param name="scrape">This is either the XML text representing the source system or it is a fully qualified file which contains that XML.</param>
+            <returns>List of host network interface data for mapping to the source NICs.</returns>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IBootProcessing.Scrape">
+            <summary>
+            This routine examines the current system for its hardware, OS and OS version info
+            and writes it to the file specified by systemStateXML.  A log is kept in the 
+            logFile
+            </summary>
+            <returns>The XML text of the system scrape.</returns>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.GetDiskIdentifiers">
+            <summary>
+            Get a list of unique identifiers which can be used to represent a disk
+            to the other APIs in this interface.
+            </summary>
+            <returns>An array of strings containing one identifier per string</returns>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.InitializeDisk(DoubleTake.Virtualization.Contract.DiskInitializationInfo)">
+            <summary>
+            Initializes the disk using the input DiskInitializationInfo
+            </summary>
+            <param name="diskInfo">This class contains information about how the disk should be partitioned and formatted.</param>
+            <returns>
+            A DiskInitialization object where Success is the success or failure of the operation and Log is the log generated.
+            </returns>        
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.PartitionDisk(DoubleTake.Virtualization.Contract.DiskInitializationInfo)">
+            <summary>
+            Partition the disk based on partitionIfo collection in DiskInitializationInfo
+            </summary>
+            <param name="diskInfo">This class contains information about how the disks should be partitioned.</param>
+            <returns>
+            A DiskInitialization object where Success is the success or failure of the operation and Log is the log generated.
+            </returns>  
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.InitializeFileSystemOnDisks(DoubleTake.Virtualization.Contract.SystemInitializationInfo)">
+            <summary>
+            Initializes file systems on all the disk associated with job provided in SystemInitializationInfo
+            </summary>
+            <param name="systemDiskInfo">This class contains information about how the disks should be formatted.</param>
+            <returns>
+            An ActivityToken object with a unique ID so that management service can queried about the status of ongoing formatting.
+            </returns>  
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.GetFileSystemInitializationStatus(DoubleTake.Common.Tasks.ActivityToken)">
+            <summary>
+            Initializes the disk using the input DiskInitializationInfo
+            </summary>
+            <param name="activityToken">This class contains information about how the disk should be partitioned and formatted.</param>
+            <returns>
+            A ActivityStatusEntry object where Success is the success or failure of the operation. The status is pending
+            if the work is still going on. The logs are collected and sent in message object of ActivityStatusEntry
+            </returns>  
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.MountDisks(DoubleTake.Virtualization.Contract.DiskMountInfo[])">
+            <summary>
+            Mount all the disk required based on DiskMountInfo
+            </summary>
+            <param name="diskInfo">This class contains information about how the disks should be mounted on appliance.</param>
+            <returns>
+            A DiskInitialization object where Success is the success or failure of the operation and Log is the log generated.
+            </returns> 
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.BeginInitializeDisk(DoubleTake.Virtualization.Contract.DiskInitializationInfo,System.AsyncCallback,System.Object)">
+            <summary>
+            Begins the initialization of a disk.
+            </summary>
+            <param name="diskInfo">This class contains information about how the disk should be partitioned and formatted.</param>
+            <param name="callback">
+            An optional asynchronous callback, to be called when the operation is complete.
+            </param>
+            <param name="asyncState">
+            A user-provided object that distinguishes this particular request from other requests.
+            </param>
+            <returns>
+            An <see cref="T:IAsyncResult"/> that represents the asynchronous operation, which could still be pending.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.UnmountDisk(System.String)">
+            <summary>
+            Unmounts all the mountpoints associated with partitions on the disk.
+            </summary>
+            <param name="diskIdentifier">The disk identifier.</param>
+            <returns>true if the operation was successful, false otherwise</returns>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.deleteDiskDeviceFromOS(System.String)">
+            <summary>
+            Detach the disk from the OS.
+            </summary>
+            <param name="diskIdentifier">The disk identifier to detach from OS.</param>
+            <returns>true if this disk is detached from OS.</returns>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.UnmountVolumeFromMountpoint(System.String)">
+            <summary>
+            Unmounts the volume from mountpoint.
+            </summary>
+            <param name="mountPoint">The mount point.</param>
+            <returns>true if the operation succeeded, false otherwise.</returns>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.RemoveMountpoint(System.String)">
+            <summary>
+            Removes the mount point directory.
+            </summary>
+            <param name="mountPoint">The mount point.</param>
+            <returns>true if the operation was successful, false otherwise.</returns>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IDiskManagement.GetDiskVolumeInfo(System.String)">
+            <summary>
+            Gets the disk volume information.
+            </summary>
+            <param name="mountPoint">The mount point of the desired volume</param>
+            <returns>DiskManagementVolumeInfo instance containing data</returns>
+        </member>
+        <member name="P:DoubleTake.Virtualization.Contract.DtServiceException_Fault.Name">
+            <summary>
+            Gets or sets the name of the fault.
+            </summary>
+            <value>The name of the fault.</value>
+        </member>
+        <member name="P:DoubleTake.Virtualization.Contract.DtServiceException_Fault.Message">
+            <summary>
+            Gets or sets the fault error message.
+            </summary>
+            <value>The fault error message.</value>
+        </member>
+        <member name="P:DoubleTake.Virtualization.Contract.DtServiceException_Fault.StackTrace">
+            <summary>
+            Gets or sets the stack trace on the service that indicates where an unhandled exception occurred.
+            </summary>
+            <value>The stack trace.</value>
+        </member>
+        <member name="P:DoubleTake.Virtualization.Contract.DtServiceException_Fault.InnerFault">
+            <summary>
+            Gets or sets the inner fault.
+            </summary>
+            <remarks>
+            Populate this property if this fault was triggered by another fault and you need to
+            convey the information from that fault up to the consumer.
+            </remarks>
+            <value>The inner fault.</value>
+        </member>
+        <member name="P:DoubleTake.Virtualization.Contract.HyperVmNotFoundException_Fault.Name">
+            <summary>
+            Gets or sets the name of the fault.
+            </summary>
+            <value>The name of the fault.</value>
+        </member>
+        <member name="P:DoubleTake.Virtualization.Contract.HyperVmNotFoundException_Fault.Message">
+            <summary>
+            Gets or sets the fault error message.
+            </summary>
+            <value>The fault error message.</value>
+        </member>
+        <member name="P:DoubleTake.Virtualization.Contract.HyperVmNotFoundException_Fault.StackTrace">
+            <summary>
+            Gets or sets the stack trace on the service that indicates where an unhandled exception occurred.
+            </summary>
+            <value>The stack trace.</value>
+        </member>
+        <member name="P:DoubleTake.Virtualization.Contract.HyperVmNotFoundException_Fault.InnerFault">
+            <summary>
+            Gets or sets the inner fault.
+            </summary>
+            <remarks>
+            Populate this property if this fault was triggered by another fault and you need to
+            convey the information from that fault up to the consumer.
+            </remarks>
+            <value>The inner fault.</value>
+        </member>
+        <member name="T:DoubleTake.Virtualization.Contract.IDTHVService">
+            <summary>
+            Public interace: Client to DTHV service
+            Client is either console or a test script 
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IVRAExtensionAPI.MakeVolumeBootable(System.String,System.String,System.String)">
+            <summary>
+            Makes the volume bootable.
+            
+            The job should be in a stopped state and the volume to be made bootable should be mounted as a 
+            directory.
+            </summary>
+            <param name="jobUuid">The job UUID.</param>
+            <param name="bootDiskMountPoint">The boot disk mount point.</param>
+            <param name="logFile">The log file.</param>
+        </member>
+        <member name="M:DoubleTake.Virtualization.Contract.IVRAExtensionAPI.PrepareForBooting(System.String,System.String)">
+            <summary>
+            Using the info provided, we make the volume ready to be a system volume for a Vm.
+            </summary>
+            <param name="bootInformationXMLFile">The path to an XML file containing the info in a PrepareVmInformation data contract</param>
+            <param name="logFile">The path to a file which should contain the log messages for this invokation.</param>
+        </member>
+    </members>
+</doc>

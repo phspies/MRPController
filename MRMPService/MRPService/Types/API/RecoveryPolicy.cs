@@ -65,5 +65,11 @@ namespace MRMPService.MRMPAPI.Types.API
         public bool? dns_should_update_ttl { get; set; }
         [JsonProperty("dns_ttl")]
         public int? dns_ttl { get; set; }
+        [JsonProperty("linux_staging_path")]
+        public string linux_staging_path { get; set; }
+        [JsonProperty("windows_staging_path")]
+        public string windows_staging_path { get; set; }
+
+
     }
 }

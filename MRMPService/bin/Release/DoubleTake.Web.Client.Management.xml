@@ -299,6 +299,43 @@
             <returns><see langword="true"/> if the file exists; otherwise, <see langword="false"/>.</returns>
             <exception cref="T:System.ArgumentNullException">The <paramref name="path"/> argument was <see langword="null"/>.</exception>
         </member>
+        <member name="T:DoubleTake.Web.Client.DtmuApi">
+            <summary>
+            Dtmu configurator API client.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Web.Client.DtmuApi.#ctor(DoubleTake.Web.Client.ManagementConnection)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Web.Client.DtmuApi"/> class.
+            </summary>
+            <param name="connection">The connection.</param>
+        </member>
+        <member name="M:DoubleTake.Web.Client.DtmuApi.GetProductsAsync(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)">
+            <summary>
+            Gets the Dtmu products that this server supports.
+            </summary>
+            <param name="filter">The filter.</param>
+            <param name="sort">The sort.</param>
+            <param name="page">The page.</param>
+            <param name="pageSize">Size of the page.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The snapshots.</returns>
+        </member>
+        <member name="M:DoubleTake.Web.Client.DtmuApi.GetConfigurationAsync(System.Threading.CancellationToken)">
+            <summary>
+            Gets the current Dtmu configuration.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>the current Dtmu configuration</returns>
+        </member>
+        <member name="M:DoubleTake.Web.Client.DtmuApi.SetConfigurationAsync(DoubleTake.Web.Models.DtmuConfigurationModel,System.Threading.CancellationToken)">
+            <summary>
+            Sets the current Dtmu configuration.
+            </summary>
+            <param name="configuration">The requested Dtmu configuration.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns></returns>
+        </member>
         <member name="T:DoubleTake.Web.Client.ImagesApi">
             <summary>
             Images API client.
@@ -1158,17 +1195,17 @@
             <param name="password">The password.</param>
             <returns>The result.</returns>
         </member>
-        <member name="M:DoubleTake.Web.Client.ManagementConnection.RevokeAuthorizationAsync">
-            <summary>
-            Disconnects the server.
-            </summary>
-            <returns><see langword="true"/> if the server was disconnected; otherwise, <see langword="false"/>.</returns>
-        </member>
         <member name="M:DoubleTake.Web.Client.ManagementConnection.CheckAuthorizationAsync">
             <summary>
             Checks the authorization asynchronous.
             </summary>
             <returns>The result.</returns>
+        </member>
+        <member name="M:DoubleTake.Web.Client.ManagementConnection.RevokeAuthorizationAsync">
+            <summary>
+            Disconnects the server.
+            </summary>
+            <returns><see langword="true"/> if the server was disconnected; otherwise, <see langword="false"/>.</returns>
         </member>
         <member name="M:DoubleTake.Web.Client.ManagementConnection.UpdateTokenInfo(DoubleTake.Web.Client.TokenInfo)">
             <summary>
@@ -2393,14 +2430,14 @@
             Used for specifying the current or new bandwidth limit and/or mode.
             </summary>
         </member>
-        <member name="P:DoubleTake.Web.Models.BandwidthLimitModel.Mode">
-            <summary>
-            Gets or sets the bandwidth limiting mode.
-            </summary>
-        </member>
         <member name="P:DoubleTake.Web.Models.BandwidthLimitModel.Limit">
             <summary>
             Gets or sets the bandwidth limit in bytes per second.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.BandwidthLimitModel.Mode">
+            <summary>
+            Gets or sets the bandwidth limiting mode.
             </summary>
         </member>
         <member name="T:DoubleTake.Web.Models.BandwidthOptionsModel">
@@ -2813,11 +2850,6 @@
             Core connection details model.
             </summary>
         </member>
-        <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.Name">
-            <summary>
-            Gets or sets the name.
-            </summary>
-        </member>
         <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.BandwidthCollar">
             <summary>
             Gets or sets the current bandwidth limit.
@@ -2891,6 +2923,11 @@
         <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.MirrorState">
             <summary>
             Gets or sets the operational state of the mirror.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.Name">
+            <summary>
+            Gets or sets the name.
             </summary>
         </member>
         <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.PeerMemoryLow">
@@ -3038,9 +3075,29 @@
             Gets or sets the operational state of replication and mirroring.
             </summary>
         </member>
-        <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.SourceRpo">
+        <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.SourceRecoveryPointTime">
             <summary>
-            Gets or sets the RPO of the source.
+            Gets or sets the RecoveryPointTime of the source.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.SourceRecoveryPointLatency">
+            <summary>
+            Gets or sets the RecoveryPointLatency of the source.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.CurrentTime">
+            <summary>
+            Gets or sets the CurrentTime of the source.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.MirrorStartTime">
+            <summary>
+            Gets or sets the MirrorStartTime of the source.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.CoreConnectionDetailsModel.MirrorEndTime">
+            <summary>
+            Gets or sets the MirrorEndTime of the source.
             </summary>
         </member>
         <member name="T:DoubleTake.Web.Models.CoreConnectionOptionsModel">
@@ -3233,20 +3290,20 @@
             Parameters used in the CreateFromWithDelegation call
             </summary>
         </member>
-        <member name="P:DoubleTake.Web.Models.CreateDelegateWorkloadModel.Workload">
-            <summary>
-            Gets or sets the workload.
-            </summary>
-            <value>
-            The workload.
-            </value>
-        </member>
         <member name="P:DoubleTake.Web.Models.CreateDelegateWorkloadModel.Host">
             <summary>
             Gets or sets the host.
             </summary>
             <value>
             The host.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.CreateDelegateWorkloadModel.Workload">
+            <summary>
+            Gets or sets the workload.
+            </summary>
+            <value>
+            The workload.
             </value>
         </member>
         <member name="T:DoubleTake.Web.Models.CreateOptionsModel">
@@ -3468,6 +3525,56 @@
             <summary>
             Gets or sets a value indicating whether or not this DNS server will be updated during DNS failover.
             </summary>
+        </member>
+        <member name="T:DoubleTake.Web.Models.DtmuConfigurationModel">
+            <summary>
+            DTMU configuration model.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.DtmuConfigurationModel.ProductCode">
+            <summary>
+            Gets or sets the product code.
+            </summary>
+            <value>
+            The product code.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.DtmuConfigurationModel.ProviderName">
+            <summary>
+            Gets or sets the name of the provider.
+            </summary>
+            <value>
+            The name of the provider.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.DtmuConfigurationModel.UserName">
+            <summary>
+            Gets or sets the name of the user.
+            </summary>
+            <value>
+            The name of the user.
+            </value>
+        </member>
+        <member name="T:DoubleTake.Web.Models.DtmuProductModel">
+            <summary>
+            DTMU product model.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.DtmuProductModel.ProductCode">
+            <summary>
+            Gets or sets the product code.
+            </summary>
+            <value>
+            The product code.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.DtmuProductModel.ProductName">
+            <summary>
+            Gets or sets the name of the product.
+            </summary>
+            <value>
+            The name of the product.
+            </value>
         </member>
         <member name="T:DoubleTake.Web.Models.DynamicServiceEndpointModel">
             <summary>
@@ -6003,6 +6110,11 @@
             Gets or sets a bit mask that identifies the product suites available on the system.
             </summary>
         </member>
+        <member name="P:DoubleTake.Web.Models.OperatingSystemModel.HasBCDTemplate">
+            <summary>
+            Gets or sets a value indicating whether the BCDTemplate file exists on the source machine.
+            </summary>
+        </member>
         <member name="P:DoubleTake.Web.Models.OperatingSystemModel.ProductType">
             <summary>
             Gets or sets the product type of the operating system.
@@ -6108,6 +6220,137 @@
             Gets or sets the path expression used to transform file paths for the all-to-one transformations on the target.
             </summary>
         </member>
+        <member name="T:DoubleTake.Web.Models.PhysicalItemFlatModel">
+            <summary>
+            Represents a physical storage item such as Volume, Directory, File
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.Id">
+            <summary>
+            Gets or sets the item identifier.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.ClassName">
+            <summary>
+            Gets or sets the class name.
+            </summary>
+            <value>
+            The class name.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.Attributes">
+            <summary>
+            Gets or sets a value specifying the file system attributes of this item.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.CreationTime">
+            <summary>
+            Gets or sets a value specifying the time this item was created.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.LastAccessTime">
+            <summary>
+            Gets or sets a value specifying the time this item was last accessed.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.LastWriteTime">
+            <summary>
+            Gets or sets a value specifying the time this item was last written to.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.Metadata">
+            <summary>
+            Gets or sets a value specifying additional meta data for this item.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.Size">
+            <summary>
+            Gets or sets a value indicating the physical size of the item.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.AvailableFreeSpace">
+            <summary>
+            Gets or sets the available free space on this volume.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.DriveFormat">
+            <summary>
+            Gets or sets the format of the drive.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.DriveType">
+            <summary>
+            Gets or sets the type of the drive.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.IsSupported">
+            <summary>
+            Gets or sets a value indicating whether this volume is supported.
+            </summary>
+            <value>
+            <see langword="true" /> if this volume is supported; otherwise, <see langword="false" />.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.IsSystemDrive">
+            <summary>
+            Gets or sets a value indicating whether or not this volume is the system drive.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.Label">
+            <summary>
+            Gets or sets the volume label.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.TotalSize">
+            <summary>
+            Gets or sets the total size of the volume.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.VolumeType">
+            <summary>
+            Gets or sets the volume type.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.Name">
+            <summary>
+            Gets or sets the name of the item. Typically, this name is used for display in the user interface.
+            </summary>
+            <value>The name of this item.</value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.Path">
+            <summary>
+            Gets or sets the path of the item.
+            </summary>
+            <value>The path of this item.</value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.IsContainer">
+            <summary>
+            Gets or sets a value indicating whether or not the item is a container.
+            </summary>
+            <value>
+            <see langword="true"/> if this item is a container; otherwise, <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.IsReadOnly">
+            <summary>
+            Gets or sets a value indicating whether or not the item is read only.
+            </summary>
+            <value>
+            <see langword="true"/> if this item is read only; otherwise, <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.ItemType">
+            <summary>
+            Gets or sets the type of the item.
+            </summary>
+            <value>The type of this item.</value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemFlatModel.Saturation">
+            <summary>
+            Gets or sets a value which represents the saturation level of the item. Typically, this value is used to display a visual state in the user interface.
+            </summary>
+            <value>The saturation level.</value>
+        </member>
         <member name="T:DoubleTake.Web.Models.PhysicalItemModel">
             <summary>
             Physical item model.
@@ -6142,6 +6385,57 @@
             <summary>
             Gets or sets a value indicating the physical size of the item.
             </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemModel.AvailableFreeSpace">
+            <summary>
+            Gets or sets the available free space on this volume.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemModel.DriveFormat">
+            <summary>
+            Gets or sets the format of the drive.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemModel.DriveType">
+            <summary>
+            Gets or sets the type of the drive.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemModel.IsSupported">
+            <summary>
+            Gets or sets a value indicating whether this volume is supported.
+            </summary>
+            <value>
+            <see langword="true" /> if this volume is supported; otherwise, <see langword="false" />.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemModel.IsSystemDrive">
+            <summary>
+            Gets or sets a value indicating whether or not this volume is the system drive.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemModel.Label">
+            <summary>
+            Gets or sets the volume label.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemModel.TotalSize">
+            <summary>
+            Gets or sets the total size of the volume.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemModel.VolumeType">
+            <summary>
+            Gets or sets the volume type.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemModel.ClassName">
+            <summary>
+            Gets or sets the class name.
+            </summary>
+            <value>
+            The class name.
+            </value>
         </member>
         <member name="T:DoubleTake.Web.Models.PhysicalRuleModel">
             <summary>
@@ -7043,12 +7337,6 @@
             Initializes a new instance of the <see cref="T:DoubleTake.Web.Models.ServiceConnectionModel"/> class.
             </summary>
         </member>
-        <member name="M:DoubleTake.Web.Models.ServiceConnectionModel.#ctor(System.Uri)">
-            <summary>
-            Initializes a new instance of the <see cref="T:DoubleTake.Web.Models.ServiceConnectionModel"/> class.
-            </summary>
-            <param name="serviceUri">The service URI.</param>
-        </member>
         <member name="P:DoubleTake.Web.Models.ServiceConnectionModel.Credential">
             <summary>
             Gets or sets the credential.
@@ -7548,7 +7836,7 @@
             Target state info model.
             </summary>
         </member>
-        <member name="P:DoubleTake.Web.Models.TargetStateInfoModel.ConnectionId">
+        <member name="P:DoubleTake.Web.Models.TargetStateInfoModel.Guid">
             <summary>
             Gets or sets the unique identifier of the connection.
             </summary>
@@ -7558,7 +7846,7 @@
             Gets or sets the time this connection was created.
             </summary>
         </member>
-        <member name="P:DoubleTake.Web.Models.TargetStateInfoModel.EngineConnectionId">
+        <member name="P:DoubleTake.Web.Models.TargetStateInfoModel.ConnectionId">
             <summary>
             Gets or sets the engine connection id.
             </summary>
@@ -7593,7 +7881,7 @@
             Gets or sets the target queue bytes.
             </summary>
         </member>
-        <member name="P:DoubleTake.Web.Models.TargetStateInfoModel.ReplicationSetName">
+        <member name="P:DoubleTake.Web.Models.TargetStateInfoModel.WorkloadId">
             <summary>
             Gets or sets the name of the replication set.
             </summary>
@@ -7613,7 +7901,7 @@
             Gets or sets the current list of snapshots taken for this connection.
             </summary>
         </member>
-        <member name="P:DoubleTake.Web.Models.TargetStateInfoModel.SourceEndpoint">
+        <member name="P:DoubleTake.Web.Models.TargetStateInfoModel.SourceEndPoint">
             <summary>
             Gets or sets the source endpoint.
             </summary>
@@ -7638,7 +7926,7 @@
             Gets or sets the destination endpoint of the socket connection.
             </summary>
         </member>
-        <member name="P:DoubleTake.Web.Models.TargetStateInfoModel.TargetStates">
+        <member name="P:DoubleTake.Web.Models.TargetStateInfoModel.States">
             <summary>
             Gets or sets the target states.
             </summary>
@@ -8331,49 +8619,6 @@
             <summary>
             Volume model.
             </summary>
-        </member>
-        <member name="P:DoubleTake.Web.Models.VolumeModel.AvailableFreeSpace">
-            <summary>
-            Gets or sets the available free space on this volume.
-            </summary>
-        </member>
-        <member name="P:DoubleTake.Web.Models.VolumeModel.DriveFormat">
-            <summary>
-            Gets or sets the format of the drive.
-            </summary>
-        </member>
-        <member name="P:DoubleTake.Web.Models.VolumeModel.DriveType">
-            <summary>
-            Gets or sets the type of the drive.
-            </summary>
-        </member>
-        <member name="P:DoubleTake.Web.Models.VolumeModel.IsSystemDrive">
-            <summary>
-            Gets or sets a value indicating whether or not this volume is the system drive.
-            </summary>
-        </member>
-        <member name="P:DoubleTake.Web.Models.VolumeModel.Label">
-            <summary>
-            Gets or sets the volume label.
-            </summary>
-        </member>
-        <member name="P:DoubleTake.Web.Models.VolumeModel.TotalSize">
-            <summary>
-            Gets or sets the total size of the volume.
-            </summary>
-        </member>
-        <member name="P:DoubleTake.Web.Models.VolumeModel.VolumeType">
-            <summary>
-            Gets or sets the volume type.
-            </summary>
-        </member>
-        <member name="P:DoubleTake.Web.Models.VolumeModel.IsSupported">
-            <summary>
-            Gets or sets a value indicating whether this volume is supported.
-            </summary>
-            <value>
-            <see langword="true" /> if this volume is supported; otherwise, <see langword="false" />.
-            </value>
         </member>
         <member name="T:DoubleTake.Web.Models.VolumeOptionsModel">
             <summary>

@@ -601,6 +601,18 @@
             Provides extension methods for <see cref="T:System.Net.Http.HttpClient"/>.
             </summary>
         </member>
+        <member name="M:DoubleTake.Web.Client.HttpClientExtensions.PatchtAsJsonAsync``1(System.Net.Http.HttpClient,System.Uri,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
+            <summary>
+            Sends a PATCH request to the specified Uri using JSON content as an asynchronous operation.
+            </summary>
+            <typeparam name="T">The content type.</typeparam>
+            <param name="client">The client.</param>
+            <param name="uri">The Uri the request is sent to.</param>
+            <param name="content">The HTTP request content sent to the server.</param>
+            <param name="settings">The JSON serializer settings.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>The task object representing the asynchronous operation.</returns>
+        </member>
         <member name="M:DoubleTake.Web.Client.HttpClientExtensions.PostAsJsonAsync``1(System.Net.Http.HttpClient,System.Uri,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
             <summary>
             Sends a POST request to the specified Uri using JSON content as an asynchronous operation.
@@ -616,18 +628,6 @@
         <member name="M:DoubleTake.Web.Client.HttpClientExtensions.PutAsJsonAsync``1(System.Net.Http.HttpClient,System.Uri,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
             <summary>
             Sends a PUT request to the specified Uri using JSON content as an asynchronous operation.
-            </summary>
-            <typeparam name="T">The content type.</typeparam>
-            <param name="client">The client.</param>
-            <param name="uri">The Uri the request is sent to.</param>
-            <param name="content">The HTTP request content sent to the server.</param>
-            <param name="settings">The JSON serializer settings.</param>
-            <param name="cancellationToken">The cancellation token.</param>
-            <returns>The task object representing the asynchronous operation.</returns>
-        </member>
-        <member name="M:DoubleTake.Web.Client.HttpClientExtensions.PatchtAsJsonAsync``1(System.Net.Http.HttpClient,System.Uri,``0,Newtonsoft.Json.JsonSerializerSettings,System.Threading.CancellationToken)">
-            <summary>
-            Sends a PATCH request to the specified Uri using JSON content as an asynchronous operation.
             </summary>
             <typeparam name="T">The content type.</typeparam>
             <param name="client">The client.</param>
@@ -656,6 +656,14 @@
             The access token.
             </value>
         </member>
+        <member name="P:DoubleTake.Web.Client.TokenInfo.ClientId">
+            <summary>
+            Gets the client identifier.
+            </summary>
+            <value>
+            The client identifier.
+            </value>
+        </member>
         <member name="P:DoubleTake.Web.Client.TokenInfo.Expiration">
             <summary>
             Gets the expiration.
@@ -680,14 +688,6 @@
             The type of the token.
             </value>
         </member>
-        <member name="P:DoubleTake.Web.Client.TokenInfo.ClientId">
-            <summary>
-            Gets the client identifier.
-            </summary>
-            <value>
-            The client identifier.
-            </value>
-        </member>
         <member name="P:DoubleTake.Web.Client.TokenInfo.ClientSecret">
             <summary>
             Gets the client secret.
@@ -707,6 +707,22 @@
             </summary>
             <value>
             The access token.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Client.TokenModel.ClientId">
+            <summary>
+            Gets or sets the client identifier.
+            </summary>
+            <value>
+            The client identifier.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Client.TokenModel.ClientSecret">
+            <summary>
+            Gets or sets the client secret.
+            </summary>
+            <value>
+            The client secret.
             </value>
         </member>
         <member name="P:DoubleTake.Web.Client.TokenModel.ExpiresIn">
@@ -731,22 +747,6 @@
             </summary>
             <value>
             The type of the token.
-            </value>
-        </member>
-        <member name="P:DoubleTake.Web.Client.TokenModel.ClientId">
-            <summary>
-            Gets or sets the client identifier.
-            </summary>
-            <value>
-            The client identifier.
-            </value>
-        </member>
-        <member name="P:DoubleTake.Web.Client.TokenModel.ClientSecret">
-            <summary>
-            Gets or sets the client secret.
-            </summary>
-            <value>
-            The client secret.
             </value>
         </member>
         <member name="M:DoubleTake.Web.Client.TokenModel.ToTokenInfo">

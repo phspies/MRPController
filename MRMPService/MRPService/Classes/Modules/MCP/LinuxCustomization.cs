@@ -13,7 +13,7 @@ namespace MRMPService.Tasks.MCP
 {
     partial class MCP_Platform
     {
-        static public void LinuxCustomization(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup)
+        static public void LinuxCustomization(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress)
         {
             MRPCredentialType _credential = _target_workload.credential;
 

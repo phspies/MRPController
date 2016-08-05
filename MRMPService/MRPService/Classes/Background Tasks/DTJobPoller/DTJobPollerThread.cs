@@ -25,7 +25,7 @@ namespace MRMPService.DTPollerCollection
                 List<MRPManagementobjectType> _jobs;
                 using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
                 {
-                    _jobs = _mrmp.managementobject().listmanagementobjects().managementobjects.Where(x => x.target_workload.dt_collection_enabled == true).ToList();
+                    _jobs = _mrmp.managementobject().listmanagementobjects().managementobjects.Where(x => x.target_workload.dt_collection_enabled == true).GroupBy(i => i.moid).Select(group => group.First()).ToList();
 
                 }
                 Parallel.ForEach(_jobs,

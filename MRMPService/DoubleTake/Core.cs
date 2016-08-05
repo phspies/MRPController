@@ -1,10 +1,9 @@
 ﻿using DoubleTake.Web.Client;
 using MRMPService.MRMPAPI.Types.API;
-using MRMPService.LocalDatabase;
+using MRMPService.MRMPService.Types.API;
 using MRMPService.Utilities;
-using System;
 
-namespace MRMPService.DoubleTake
+namespace MRMPService.MRMPDoubleTake
 {
     class Core
     {
@@ -13,6 +12,7 @@ namespace MRMPService.DoubleTake
         public string _source_address, _target_address;
         public MRPCredentialType _source_credentials, _target_credentials;
         public ManagementConnection _source_connection, _target_connection;
+        public MRPDeploymentpolicyType _source_deployment_policy, _target_deployment_policy;
 
         public Core(Doubletake _doubletake)
         {
@@ -30,6 +30,8 @@ namespace MRMPService.DoubleTake
                 throw new System.ArgumentException(string.Format("Cannot contact workload {0}", _doubletake._target_workload.hostname));
             }
             _target_credentials = _doubletake._target_workload.credential;
+            _target_deployment_policy = _doubletake._target_workload.deploymentpolicy;
+
             //setup target connection 
             _target_connection = ManagementService.GetConnectionAsync(_target_address).Result;
             if (!_target_connection.CheckAuthorizationAsync().Result)
@@ -41,6 +43,7 @@ namespace MRMPService.DoubleTake
             if (_doubletake._source_workload != null)
             {
                 _source_credentials = _doubletake._source_workload.credential;
+                _source_deployment_policy = _doubletake._source_workload.deploymentpolicy;
 
                 //Find working IP
                 using (Connection _connection = new Connection())

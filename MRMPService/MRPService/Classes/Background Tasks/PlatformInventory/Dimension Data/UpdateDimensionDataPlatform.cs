@@ -192,7 +192,7 @@ namespace MRMPService.PlatformInventory
                         _platformtemplates = _mrp_api_endpoint.platformtemplate().list_by_platform(_platform).platformtemplates;
                         foreach (ServerType _caasworkload in _caas_workload_list)
                         {
-                            (new PlatformInventoryWorkloadDo()).UpdateMCPWorkload(_caasworkload.id, _platform, _mrp_workloads, _mrp_domains, _mrp_networks, _platformtemplates);
+                            PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform, _mrp_workloads, _mrp_domains, _mrp_networks, _platformtemplates);
                         }
                     }
                 }

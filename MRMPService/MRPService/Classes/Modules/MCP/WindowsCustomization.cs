@@ -1,5 +1,4 @@
-﻿using DD.CBU.Compute.Api.Contracts.Network20;
-using MRMPService.MRMPService.Log;
+﻿using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.MRMPAPI.Types.API;
 using System;
@@ -9,17 +8,19 @@ using System.Linq;
 using System.Management;
 using System.Threading;
 using MRMPService.Utilities;
-using MRMPService.MRMPService.Types.API;
 
 namespace MRMPService.Tasks.MCP
 {
     partial class MCP_Platform
     {
-        static public void WindowsCustomization(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup)
+        static public void WindowsCustomization(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress)
         {
-           // MRPCredentialType _stadalone_credential = _target_workload.credential;
-           // MRPCredentialType _platform_credentail = _platform.credential;
-
+            // MRPCredentialType _stadalone_credential = _target_workload.credential;
+            // MRPCredentialType _platform_credentail = _platform.credential;
+            using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
+            {
+                _mrp_api.task().progress(_task_id, String.Format("Starting volume customization process"), ReportProgress.Progress(_start_progress, _end_progress, 50));
+            }
             string new_workload_ip = null;
             using (Connection _connection = new Connection())
             {
@@ -159,7 +160,11 @@ namespace MRMPService.Tasks.MCP
                         {
                             File.WriteAllLines(workloadPath, _diskpart_struct.ConvertAll(Convert.ToString));
                             File.WriteAllLines(diskpart_bat, diskpart_bat_content);
-                            Logger.log(String.Format("Successfully copied diskpart disk after {0} retries", _copy_retries), Logger.Severity.Info);
+                            Logger.log(String.Format("Successfully copied diskpart after {0} retries", _copy_retries), Logger.Severity.Info);
+                            using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
+                            {
+                                _mrp_api.task().progress(_task_id, String.Format("Successfully copied diskpart after {0} retries", _copy_retries), ReportProgress.Progress(_start_progress, _end_progress, 50));
+                            }
                             break;
                         }
                         catch (Exception ex)
@@ -170,7 +175,7 @@ namespace MRMPService.Tasks.MCP
                                 using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                                 {
                                     _mrp_api.task().failcomplete(_task_id, String.Format("Error creating disk layout file on workload: {0}", ex.Message));
-                                    throw new ArgumentException(String.Format("Error creating disk layout file on workload: {0}", ex.Message));
+                                    throw new Exception(String.Format("Error creating disk layout file on workload: {0}", ex.Message));
                                 }
                             }
                             else Thread.Sleep(new TimeSpan(0, 0, 30));
@@ -191,7 +196,7 @@ namespace MRMPService.Tasks.MCP
             //Create connection object to remote machine
             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
-                _mrp_api.task().progress(_task_id, String.Format("Volume setup process on {0}", _target_workload.hostname), 80);
+                _mrp_api.task().progress(_task_id, String.Format("Volume setup process on {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 80));
             }
             ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _target_workload.credential.encrypted_password };
             connOptions.Impersonation = ImpersonationLevel.Impersonate;
@@ -260,7 +265,7 @@ namespace MRMPService.Tasks.MCP
             {
                 using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                 {
-                    _mrp_api.task().progress(_task_id, String.Format("Volume setup process exit code: {0}", _exitcode), 81);
+                    _mrp_api.task().progress(_task_id, String.Format("Volume setup process exit code: {0}", _exitcode), ReportProgress.Progress(_start_progress, _end_progress, 99));
                 }
             }
         }

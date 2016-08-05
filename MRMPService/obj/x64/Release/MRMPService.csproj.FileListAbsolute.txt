@@ -177,3 +177,6 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Release\DD.CBU.Compute.Api.Contracts.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Release\DD.CBU.Compute.Api.Contracts.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Release\MRMPService.csprojResolveAssemblyReference.cache
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Release\DoubleTake.PowerShell.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Release\DoubleTake.PowerShell.Contract.Service.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Release\DoubleTake.PowerShell.Contract.Data.xml

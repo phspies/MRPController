@@ -13,7 +13,7 @@ namespace MRMPService.MRMPAPI.Classes
 {
     partial class WorkloadInventory
     {
-        public void WorkloadInventoryWindowsDo(MRPWorkloadType _workload)
+        static public void  WorkloadInventoryWindowsDo(MRPWorkloadType _workload)
         {
             MRPWorkloadType _updated_workload = new MRPWorkloadType() { id = _workload.id };
 

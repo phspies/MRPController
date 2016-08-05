@@ -12,16 +12,15 @@ namespace MRMPService.PlatformInventory
 {
     partial class PlatformInventoryWorkloadDo
     {
-        public void UpdateMCPWorkload(String _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null, List<MRPPlatformdomainType> _mrp_domains = null, List<MRPPlatformnetworkType> _mrp_networks = null, List<MRPPlatformtemplateType> _mrp_templates = null)
+        public static void UpdateMCPWorkload(String _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null, List<MRPPlatformdomainType> _mrp_domains = null, List<MRPPlatformnetworkType> _mrp_networks = null, List<MRPPlatformtemplateType> _mrp_templates = null)
         {
             using (MRMP_ApiClient _cloud_movey = new MRMP_ApiClient())
             {
-                MRPCredentialType _platform_credential = _platform.credential;
                 //create dimension data mcp object
                 ServerType _caasworkload;
                 try
                 {
-                    ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credential.username, _platform_credential.encrypted_password));
+                    ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.encrypted_password));
                     CaaS.Login().Wait();
                     _caasworkload = CaaS.ServerManagement.Server.GetServer(Guid.Parse(_workload_moid)).Result;
                 }
@@ -52,6 +51,7 @@ namespace MRMPService.PlatformInventory
                     Logger.log(String.Format("UpdateMCPWorkload: Template list empty, fecthing new list"), Logger.Severity.Info);
                     _mrp_templates = _cloud_movey.platformtemplate().list_by_platform(_platform).platformtemplates;
                 }
+
 
                 MRPWorkloadType _mrmp_workload = new MRPWorkloadType();
                 MRPWorkloadType _current_mrmp_workload = new MRPWorkloadType();

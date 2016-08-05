@@ -1,13 +1,7 @@
-﻿using DoubleTake.Web.Models;
-using MRMPService.DoubleTake;
-using MRMPService.MRMPAPI.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.Tasks.DoubleTake;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MRMPService.PortalTasks
 {
@@ -28,10 +22,10 @@ namespace MRMPService.PortalTasks
                 {
                     if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
                     {
-                        Deploy.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 1, 25);
-                        DisasterRecovery.CreateDRServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 26, 50);
+                        Deploy.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 1, 50);
+                        DisasterRecovery.CreateDRServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 51, 99);
                     }
-                    _mrp_portal.task().successcomplete(_mrmp_task.id, "Successfull configured protection job");
+                    _mrp_portal.task().successcomplete(_mrmp_task.id, "Successfully configured protection job");
 
                 }
                 catch (Exception ex)

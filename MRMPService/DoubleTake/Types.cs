@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRMPService.DoubleTake
+namespace MRMPService.MRMPDoubleTake
 {
     enum dt_server_type { source, target }
 

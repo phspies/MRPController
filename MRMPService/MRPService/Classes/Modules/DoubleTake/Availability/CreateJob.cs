@@ -9,8 +9,7 @@ using MRMPService.MRMPService.Types.API;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPAPI;
 using DoubleTake.Web.Models;
-using MRMPService.DoubleTake;
-using MRMPService.MRMPService.Types.API;
+using MRMPService.MRMPDoubleTake;
 
 namespace MRMPService.Tasks.DoubleTake
 {
@@ -26,7 +25,7 @@ namespace MRMPService.Tasks.DoubleTake
                     using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
                     {
                         _mrp_api.task().progress(_task_id, "Verifying license status on both source and target workloads", 2);
-                        if (!_dt.management().CheckLicense(DT_JobTypes.HA_Full_Failover))
+                        if (!_dt.management().CheckLicense(DT_JobTypes.HA_Full_Failover, _protectiongroup.organization_id))
                         {
                             _mrp_api.task().failcomplete(_task_id, String.Format("Invalid license detected on workloads."));
                             return;

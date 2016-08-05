@@ -15,7 +15,15 @@ namespace MRMPService.MRMPAPI
             MRPCommandManagerType worker = new MRPCommandManagerType();
             return post<MRPWorkloadListType>(worker);
         }
-
+        public MRPWorkloadType get_by_id(string _workload_id)
+        {
+            endpoint = "/workloads/get_by_id.json";
+            MRPWorkloadGetIDType _workload_get = new MRPWorkloadGetIDType()
+            {
+                workload_id = _workload_id
+            };
+            return post<MRPWorkloadType>(_workload_get);
+        }
         public MRPWorkloadListType list_dt_installed()
         {
             endpoint = "/workloads/list_dt_installed.json";

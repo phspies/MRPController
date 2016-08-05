@@ -37,10 +37,10 @@ namespace MRMPService.MRMPAPI.Classes
                             switch (workload.ostype.ToUpper())
                             {
                                 case "WINDOWS":
-                                    (new WorkloadInventory()).WorkloadInventoryWindowsDo(workload);
+                                    WorkloadInventory.WorkloadInventoryWindowsDo(workload);
                                     break;
                                 case "UNIX":
-                                    (new WorkloadInventory()).WorkloadInventoryUnixDo(workload);
+                                    WorkloadInventory.WorkloadInventoryLinuxDo(workload);
                                     break;
                             }
 

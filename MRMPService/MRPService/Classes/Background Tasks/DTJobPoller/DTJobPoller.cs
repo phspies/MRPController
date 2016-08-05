@@ -34,20 +34,21 @@ namespace MRMPService.DTPollerCollection
             Logger.log(String.Format("Double-Take Job: Start Double-Take collection for {0} using {1}", _mrp_managementobject.target_workload.hostname, workload_ip), Logger.Severity.Info);
 
             //first try to connect to the target server to make sure we can connect
-            JobInfoModel _dt_job;
+            JobInfoModel _dt_job = new JobInfoModel() ;
             IEnumerable<ImageInfoModel> _dt_image_list = new List<ImageInfoModel>();
 
             bool _can_connect = false;
             try
             {
-                using (DoubleTake.Doubletake _dt = new DoubleTake.Doubletake(null, _target_workload))
+                using (MRMPDoubleTake.Doubletake _dt = new MRMPDoubleTake.Doubletake(null, _target_workload))
                 {
                     ProductInfoModel _info = _dt.management().GetProductInfo().Result;
-                    _dt_image_list = _dt.image().GetImages(_mrp_managementobject.moname).Result;
+                    _dt_job = _dt.job().GetJob((Guid)_mrp_managementobject.moid).Result;
+                    //_dt_image_list = _dt.image().GetImages(_mrp_managementobject.moname).Result;
 
                     //now we try to get the job information we have. IF we can't, then we know the job has been deleted...
                     _can_connect = true;
-                    _dt_job = _dt.job().GetJob((Guid)_mrp_managementobject.moid).Result;
+
                 }
                 using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
                 {
@@ -77,10 +78,11 @@ namespace MRMPService.DTPollerCollection
                 }
 
                 Logger.log(String.Format("Double-Take Job: Error contacting Double-Take Management Service for {0} using {1} : {2}", _mrp_managementobject.target_workload, workload_ip, ex.ToString()), Logger.Severity.Info);
-                throw new ArgumentException(String.Format("Double-Take Job: Error contacting Double-Take management service for {0} using {1}", _mrp_managementobject.target_workload, workload_ip));
+                //throw new ArgumentException(String.Format("Double-Take Job: Error contacting Double-Take management service for {0} using {1}", _mrp_managementobject.target_workload, workload_ip));
             }
 
             //now collect job information from target workload
+            MRPManagementobjectType _mrp_mo_update = new MRPManagementobjectType() { id = _mrp_managementobject.id };
             try
             {
                 using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
@@ -96,11 +98,11 @@ namespace MRMPService.DTPollerCollection
                             }
                             else
                             {
-                                if (_mrp_managementobject.managementobjectsnapshot_attributes == null)
+                                if (_mrp_mo_update.managementobjectsnapshot_attributes == null)
                                 {
-                                    _mrp_managementobject.managementobjectsnapshot_attributes = new List<MRPManagementobjectSnapshotType>();
+                                    _mrp_mo_update.managementobjectsnapshot_attributes = new List<MRPManagementobjectSnapshotType>();
                                 }
-                                _mrp_managementobject.managementobjectsnapshot_attributes.Add(_mrp_snapshot);
+                                _mrp_mo_update.managementobjectsnapshot_attributes.Add(_mrp_snapshot);
                             }
                             _mrp_snapshot.imagemoid = _dt_snap.Id;
                             _mrp_snapshot.reason = _dt_snap.Reason.ToString();
@@ -130,27 +132,32 @@ namespace MRMPService.DTPollerCollection
                             _managedobject_stat.recovery_point_objective = _connection_details.SourceRecoveryPointTime.UtcDateTime;
                             _managedobject_stat.recovery_point_latency = _connection_details.SourceRecoveryPointLatency;
 
-                            _mrp_managementobject.managementobjectstats_attributes.Add(_managedobject_stat);
+                            if (_mrp_mo_update.managementobjectstats_attributes == null)
+                            {
+                                _mrp_mo_update.managementobjectstats_attributes = new List<MRPManagementobjectStatType>();
+                            }
+                            _mrp_mo_update.managementobjectstats_attributes.Add(_managedobject_stat);
 
                         }
                     }
 
 
-                    _mrp_managementobject.internal_state = "active";
-                    _mrp_managementobject.last_contact = DateTime.UtcNow;
-                    _mrp_managementobject.can_create_image_recovery = _dt_job.Status.CanCreateImageRecovery;
-                    _mrp_managementobject.can_delete = _dt_job.Status.CanDelete;
-                    _mrp_managementobject.can_edit = _dt_job.Status.CanEdit;
-                    _mrp_managementobject.can_failback = _dt_job.Status.CanFailback;
-                    _mrp_managementobject.can_failover = _dt_job.Status.CanFailover;
-                    _mrp_managementobject.can_pause = _dt_job.Status.CanPause;
-                    _mrp_managementobject.can_restore = _dt_job.Status.CanRestore;
-                    _mrp_managementobject.can_reverse = _dt_job.Status.CanReverse;
-                    _mrp_managementobject.can_start = _dt_job.Status.CanStart;
-                    _mrp_managementobject.can_stop = _dt_job.Status.CanStop;
-                    _mrp_managementobject.can_undo_failover = _dt_job.Status.CanUndoFailover;
+                    _mrp_mo_update.state = _dt_job.Status.HighLevelState.ToString();
+                    _mrp_mo_update.internal_state = "active";
+                    _mrp_mo_update.last_contact = DateTime.UtcNow;
+                    _mrp_mo_update.can_create_image_recovery = _dt_job.Status.CanCreateImageRecovery;
+                    _mrp_mo_update.can_delete = _dt_job.Status.CanDelete;
+                    _mrp_mo_update.can_edit = _dt_job.Status.CanEdit;
+                    _mrp_mo_update.can_failback = _dt_job.Status.CanFailback;
+                    _mrp_mo_update.can_failover = _dt_job.Status.CanFailover;
+                    _mrp_mo_update.can_pause = _dt_job.Status.CanPause;
+                    _mrp_mo_update.can_restore = _dt_job.Status.CanRestore;
+                    _mrp_mo_update.can_reverse = _dt_job.Status.CanReverse;
+                    _mrp_mo_update.can_start = _dt_job.Status.CanStart;
+                    _mrp_mo_update.can_stop = _dt_job.Status.CanStop;
+                    _mrp_mo_update.can_undo_failover = _dt_job.Status.CanUndoFailover;
 
-                    _mrmp.managementobject().updatemanagementobject(_mrp_managementobject);
+                    _mrmp.managementobject().updatemanagementobject(_mrp_mo_update);
                 }
             }
             //When we get an exception from collecting the job informationwe assume the job no longer exists and needs to be marked as being deleted on the portal

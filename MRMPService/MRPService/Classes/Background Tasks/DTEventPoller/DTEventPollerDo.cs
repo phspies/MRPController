@@ -38,7 +38,7 @@ namespace MRMPService.DTEventPollerCollection
             //first try to connect to the target server to make sure we can connect
             try
             {
-                using (DoubleTake.Doubletake _dt = new DoubleTake.Doubletake(null, _workload))
+                using (MRMPDoubleTake.Doubletake _dt = new MRMPDoubleTake.Doubletake(null, _workload))
                 {
                     ProductInfoModel _dt_info = _dt.management().GetProductInfo().Result;
                 }
@@ -62,7 +62,7 @@ namespace MRMPService.DTEventPollerCollection
             List<MRPInternalEventType> _internal_events = (new MRPInternalEvents()).internal_events;
             try
             {
-                using (DoubleTake.Doubletake _dt = new DoubleTake.Doubletake(null, _workload))
+                using (MRMPDoubleTake.Doubletake _dt = new MRMPDoubleTake.Doubletake(null, _workload))
                 {
                     _dt_events = _dt.events().GetDoubleTakeEntries(_workload.last_dt_event_id).Result;
                 }

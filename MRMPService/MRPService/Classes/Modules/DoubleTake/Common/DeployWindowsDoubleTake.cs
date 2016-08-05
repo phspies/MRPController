@@ -9,7 +9,7 @@ using System.Security;
 using System.Threading;
 using MRMPService.Utilities;
 using DoubleTake.Web.Models;
-using MRMPService.DoubleTake;
+using MRMPService.MRMPDoubleTake;
 using MRMPService.MRMPAPI.Types.API;
 
 namespace MRMPService.Tasks.DoubleTake
@@ -43,8 +43,8 @@ namespace MRMPService.Tasks.DoubleTake
                     _mrp_portal.task().progress(_task_id, String.Format("Starting DT deploying process on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 5));
 
                     string remoteTempLocation = _working_workload.deploymentpolicy.dt_windows_temppath;
-                    MRPCredentialType _credentials = _working_workload.credential;
-                    if (_credentials == null)
+                    
+                    if (_working_workload.credential == null)
                     {
                         _mrp_portal.task().progress(_task_id, String.Format("Cannot determine credentials for {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 16));
                         server_type = dt_server_type.target;
@@ -66,7 +66,7 @@ namespace MRMPService.Tasks.DoubleTake
                     string systemArchitecture = null;
                     //Determine if the setup to be installed is 32 bit or 64 bit
                     string keyString = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
-                    using (new Impersonator(_credentials.username, (String.IsNullOrWhiteSpace(_credentials.domain) ? "." : _credentials.domain), _credentials.encrypted_password))
+                    using (new Impersonator(_working_workload.credential.username, (String.IsNullOrWhiteSpace(_working_workload.credential.domain) ? "." : _working_workload.credential.domain), _working_workload.credential.encrypted_password))
                     {
                         #region Detect Target Architecture
                         RegistryKey rk = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, _contactable_ip);
@@ -147,8 +147,11 @@ namespace MRMPService.Tasks.DoubleTake
                                 {
                                     break;
                                 }
-                                server_type = dt_server_type.target;
-                                continue;
+                                else if(server_type == dt_server_type.source)
+                                {
+                                    server_type = dt_server_type.target;
+                                    continue;
+                                }
                             }
                         }
                         #endregion
@@ -203,8 +206,8 @@ namespace MRMPService.Tasks.DoubleTake
                         connOptions.Impersonation = ImpersonationLevel.Impersonate;
                         connOptions.Authentication = AuthenticationLevel.Default;
                         connOptions.EnablePrivileges = true;
-                        connOptions.Username = (_credentials.domain == null ? "." : _credentials.domain) + @"\" + _credentials.username;
-                        connOptions.Password = _credentials.encrypted_password;
+                        connOptions.Username = (_working_workload.credential.domain == null ? "." : _working_workload.credential.domain) + @"\" + _working_workload.credential.username;
+                        connOptions.Password = _working_workload.credential.encrypted_password;
 
                         //var configPath = @"C:\DTSetup";
                         ManagementScope scope = new ManagementScope(@"\\" + _contactable_ip + @"\root\CIMV2", connOptions);

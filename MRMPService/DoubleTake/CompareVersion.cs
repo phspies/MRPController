@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MRMPService.DoubleTake
+namespace MRMPService.MRMPDoubleTake
 {
     class Versions
     {
@@ -12,7 +12,7 @@ namespace MRMPService.DoubleTake
 
             Func<string, IEnumerable<int>> f = s => s.Split('.').Select(t => int.Parse(t));
 
-            var diff = f(sa).Zip(f(sb), (a, b) => new { a, b }).FirstOrDefault(x => x.a != x.b);
+            var diff = f(sa).AsQueryable().Zip(f(sb), (a, b) => new { a, b }).FirstOrDefault(x => x.a != x.b);
 
             return diff == null ? 0 : diff.a < diff.b ? -1 : 1;
         }

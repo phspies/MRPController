@@ -2,7 +2,7 @@
 using MRMPService.MRMPAPI.Types.API;
 using System;
 
-namespace MRMPService.DoubleTake
+namespace MRMPService.MRMPDoubleTake
 {
     class Doubletake : IDisposable
     {

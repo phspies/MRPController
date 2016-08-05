@@ -2,13 +2,12 @@
 using MRMPService.MRMPAPI;
 using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
-using MRMPService.MRMPService.Types.API;
 using MRMPService.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace MRMPService.DoubleTake
+namespace MRMPService.MRMPDoubleTake
 {
     public class SetOptions
     {
@@ -48,7 +47,7 @@ namespace MRMPService.DoubleTake
                     vhd.Add(new ImageVhdInfoModel() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = false, FilePath = absfilename, SizeInMB = (_disksize * 1024) });
                     using (MRMP_ApiClient _mrp_api = new MRMP_ApiClient())
                     {
-                        _mrp_api.task().progress(_task_id, String.Format("Volume {0} being synced to {1} on repository server", _shortvolume.ToString(), absfilename), 51 + i);
+                        _mrp_api.task().progress(_task_id, String.Format("Volume {0} being synced to {1} on repository server", _shortvolume.ToString(), absfilename), ReportProgress.Progress(_start_progress, _end_progress, 51 + i));
                     }
                     i += 1;
                 }
@@ -58,7 +57,17 @@ namespace MRMPService.DoubleTake
 
             jobInfo.JobOptions.Name = String.Format("MRMP [{0}] {1} to {2}", _job_type, _source_workload.hostname, _target_workload.hostname);
 
+            //set ssm staging folder if present
+            if (!String.IsNullOrEmpty(_protectiongroup.recoverypolicy.windows_staging_path) || !String.IsNullOrEmpty(_protectiongroup.recoverypolicy.linux_staging_path))
+            {
+                jobInfo.JobOptions.SystemStateOptions.AlternateVolumeStaging = true;
+                jobInfo.JobOptions.SystemStateOptions.StagingFolder = _target_workload.ostype.ToLower() == "windows" ? _protectiongroup.recoverypolicy.windows_staging_path : _protectiongroup.recoverypolicy.linux_staging_path;
+            }
+
+            //set retain network settings option
             jobInfo.JobOptions.SystemStateOptions.IsWanFailover = (bool)_protectiongroup.recoverypolicy.retain_network_configuration;
+
+            //set change ports
             jobInfo.JobOptions.SystemStateOptions.ApplyPorts = _protectiongroup.recoverypolicy.change_target_ports;
 
             // level = 2 and algorithm = 31 Compression is enabled at high level
@@ -89,6 +98,7 @@ namespace MRMPService.DoubleTake
                 _snapshot.StartTime = new DateTime();
                 jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.SnapshotSchedule = _snapshot;
             }
+
 
             //set dns credentials with model to the DnsOptions
             if ((bool)_protectiongroup.recoverypolicy.dns_set_dns)

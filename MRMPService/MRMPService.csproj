@@ -95,6 +95,18 @@
     <Reference Include="DoubleTake.PowerShell">
       <HintPath>lib\DoubleTake.PowerShell.dll</HintPath>
     </Reference>
+    <Reference Include="DoubleTake.PowerShell.Common, Version=8.0.0.1420, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\DoubleTake.PowerShell.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DoubleTake.PowerShell.Contract.Data, Version=8.0.0.1420, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\DoubleTake.PowerShell.Contract.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="DoubleTake.PowerShell.Contract.Service, Version=8.0.0.1420, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\DoubleTake.PowerShell.Contract.Service.dll</HintPath>
+    </Reference>
     <Reference Include="DoubleTake.Web.Client, Version=0.1.80.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\DoubleTake.Web.Client.dll</HintPath>
@@ -168,6 +180,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Management" />
+    <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Management.Automation.6.1.7601.17515\lib\net45\System.Management.Automation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -175,6 +191,9 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Reactive">
+      <HintPath>lib\System.Reactive.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ServiceModel" />
@@ -236,7 +255,7 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DataOnlyImageRecoveryJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DRRecoveryBase.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\FullServerImageProtectionJobEx.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\FullServerImageRecoveryJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\CreateDRServerRecoveryJob.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FullServerBase.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\FailoverServerMigration.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\EVRAMoveJobEx.cs" />
@@ -271,7 +290,9 @@
     <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Templates.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\PlatformDiscovery.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\DatacenterDiscovery.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupRecoveryJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupProtectionJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Migrate\SetupMigrateJob.cs" />
     <Compile Include="MRPService\Classes\Utilities\CryptLib.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMWareWorkload.cs" />
@@ -465,7 +486,6 @@
     <Folder Include="MRPService\Classes\PortalTasks\DRSMCP\" />
     <Folder Include="MRPService\Classes\PortalTasks\DRSServersLive\" />
     <Folder Include="MRPService\Classes\PortalTasks\DRSVMware\" />
-    <Folder Include="MRPService\Classes\PortalTasks\Migrate\" />
     <Folder Include="MRPService\Types\WCF\" />
   </ItemGroup>
   <ItemGroup>

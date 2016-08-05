@@ -24,12 +24,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     using (MRPDatabase db = new MRPDatabase())
                     {
                         List<MRPNetworkStatCRUDType> _netstat_list = new List<MRPNetworkStatCRUDType>();
-                        List<Netstat> _db_netstats = new List<Netstat>();
-                        using (NetstatSet _netstat = new NetstatSet())
-                        {
-                            _db_netstats = _netstat.ModelRepository.Get();
-                        }
-                         
+                        List<Netstat> _db_netstats = db.Netstat.AsEnumerable().ToList();
 
                         foreach (Netstat _db_netstat_record in _db_netstats)
                         {

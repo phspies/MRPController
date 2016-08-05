@@ -103,3 +103,5 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.Contract.Service.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.Contract.Data.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Management.Automation.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Reactive.dll

@@ -76,6 +76,8 @@ namespace MRMPService.MRMPService.Types.API
         public MRPWorkloadType source { get; set; }
         [JsonProperty("target")]
         public MRPWorkloadType target { get; set; }
+        [JsonProperty("workload_pairs")]
+        public MRPWorkloadPairType workload_pairs { get; set; }
         [JsonProperty("repository")]
         public MRPWorkloadType repository { get; set; }
         [JsonProperty("protectiongroup")]
