@@ -1062,3 +1062,22 @@
 2016/08/05 03:34:49 Debug > Took 00:00:00.3720000 to delete 777 performance records
 2016/08/05 03:34:49 Debug > Completed Performance Upload Thread in 00:00:03.5220000
 2016/08/05 03:34:49 Info > Completed data upload process. Total Elapsed Time: 00:00:03.5810000
+2016/08/05 03:39:42 Info > Staring Double-Take collection process with 10 threads
+2016/08/05 03:39:42 Info > Double-Take Job: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:39:42 Info > Double-Take Job: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:39:43 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:39:43 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:39:44 Info > Completed Double-Take collection for 2 jobs in 00:00:01.3070000 [next run at 8/5/2016 3:49:42 AM]
+2016/08/05 03:39:49 Info > Staring data upload process
+2016/08/05 03:39:49 Debug > Starting Performance Upload Thread
+2016/08/05 03:39:49 Debug > Starting Netstat Upload Thread
+2016/08/05 03:39:49 Debug > Starting Netflow Upload Thread
+2016/08/05 03:39:49 Debug > Deleting uploaded Netstat records: 0
+2016/08/05 03:39:49 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 03:39:49 Debug > Completed Nestat Upload Thread in 00:00:00.0510000
+2016/08/05 03:39:49 Debug > Took 00:00:00 to delete 0 netflow records
+2016/08/05 03:39:49 Debug > Completed Netflow Upload Thread in 00:00:00.0490000
+2016/08/05 03:39:49 Debug > Deleting uploaded performance records: 0
+2016/08/05 03:39:49 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 03:39:49 Debug > Completed Performance Upload Thread in 00:00:00.4310000
+2016/08/05 03:39:49 Info > Completed data upload process. Total Elapsed Time: 00:00:00.4560000
