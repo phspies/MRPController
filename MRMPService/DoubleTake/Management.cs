@@ -40,7 +40,7 @@ namespace MRMPService.MRMPDoubleTake
                         //we dealing with a eval key
                         else if (_source_eval_code != null && _source_premium_code == null)
                         {
-                            if (_source_eval_code.IsValid && _source_eval_code.IsEvaluation)
+                            if (_source_eval_code.IsValid && _source_eval_code.IsEvaluation) 
                             {
                                 _source_license_status = true;
                                 break;
