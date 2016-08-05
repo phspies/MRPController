@@ -104,6 +104,7 @@ namespace MRMPService.Tasks.DoubleTake
                     {
                         id = _managementobject.id,
                         moid = jobId,
+                        moname = jobInfo.JobOptions.Name,
                         motype = DT_JobTypes.DR_Full_Recovery
                     });
                     _mrp_api.task().progress(_task_id, "Waiting for sync process to start", ReportProgress.Progress(_start_progress, _end_progress, 71));
