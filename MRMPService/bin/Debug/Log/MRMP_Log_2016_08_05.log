@@ -778,3 +778,287 @@
 2016/08/05 02:54:33 Debug > Took 00:00:00 to delete 0 performance records
 2016/08/05 02:54:33 Debug > Completed Performance Upload Thread in 00:00:00.4730000
 2016/08/05 02:54:33 Info > Completed data upload process. Total Elapsed Time: 00:00:00.5210000
+2016/08/05 02:59:33 Info > Staring data upload process
+2016/08/05 02:59:33 Debug > Starting Performance Upload Thread
+2016/08/05 02:59:33 Debug > Starting Netstat Upload Thread
+2016/08/05 02:59:33 Debug > Starting Netflow Upload Thread
+2016/08/05 02:59:33 Debug > Deleting uploaded Netstat records: 0
+2016/08/05 02:59:33 Debug > Took 00:00:00.0020000 to delete 0 performance records
+2016/08/05 02:59:33 Debug > Completed Nestat Upload Thread in 00:00:00.0690000
+2016/08/05 02:59:33 Debug > Took 00:00:00 to delete 0 netflow records
+2016/08/05 02:59:33 Debug > Completed Netflow Upload Thread in 00:00:00.0730000
+2016/08/05 02:59:33 Debug > Deleting uploaded performance records: 0
+2016/08/05 02:59:33 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 02:59:33 Debug > Completed Performance Upload Thread in 00:00:00.4400000
+2016/08/05 02:59:33 Info > Completed data upload process. Total Elapsed Time: 00:00:00.4900000
+2016/08/05 03:04:30 Info > Netstat: Staring netstat collection process with 10 threads
+2016/08/05 03:04:31 Info > Netstat: Started netstat collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/05 03:04:31 Info > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/05 03:04:31 Info > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/05 03:04:32 Info > Netstat: Started netstat collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:04:32 Info > Netstat: Started netstat collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:04:33 Info > Staring Double-Take collection process with 10 threads
+2016/08/05 03:04:33 Info > Double-Take Job: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:04:34 Info > Staring data upload process
+2016/08/05 03:04:35 Debug > Starting Performance Upload Thread
+2016/08/05 03:04:36 Debug > Starting Netstat Upload Thread
+2016/08/05 03:04:37 Debug > Deleting uploaded Netstat records: 0
+2016/08/05 03:04:37 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 03:04:37 Debug > Completed Nestat Upload Thread in 00:00:00.5270000
+2016/08/05 03:04:37 Debug > Starting Netflow Upload Thread
+2016/08/05 03:04:37 Debug > Deleting uploaded performance records: 0
+2016/08/05 03:04:37 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 03:04:38 Debug > Completed Performance Upload Thread in 00:00:02.4610000
+2016/08/05 03:04:37 Debug > Took 00:00:00 to delete 0 netflow records
+2016/08/05 03:04:38 Debug > Completed Netflow Upload Thread in 00:00:00.4770000
+2016/08/05 03:04:38 Info > Double-Take Job: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:04:40 Info > Completed data upload process. Total Elapsed Time: 00:00:04.6200000
+2016/08/05 03:04:40 Info > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/05 03:04:41 Info > Inventory: Completed netstat collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:04:42 Info > Inventory: Completed netstat collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/05 03:04:42 Info > Inventory: Completed netstat collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:04:43 Info > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/05 03:04:47 Info > Inventory: Completed netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/05 03:04:48 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:04:48 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:04:48 Info > Completed Double-Take collection for 2 jobs in 00:00:14.9280000 [next run at 8/5/2016 3:14:33 AM]
+2016/08/05 03:04:49 Info > Inventory: Completed netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/05 03:04:49 Info > Netstat: Completed netstat collection for 6 workloads in 00:00:18.4050000 [next run at 8/5/2016 3:34:30 AM]
+2016/08/05 03:09:35 Info > Staring data upload process
+2016/08/05 03:09:35 Debug > Starting Performance Upload Thread
+2016/08/05 03:09:35 Debug > Starting Netflow Upload Thread
+2016/08/05 03:09:35 Debug > Starting Netstat Upload Thread
+2016/08/05 03:09:36 Debug > Took 00:00:00 to delete 0 netflow records
+2016/08/05 03:09:36 Debug > Completed Netflow Upload Thread in 00:00:00.0660000
+2016/08/05 03:09:36 Debug > Deleting uploaded Netstat records: 53
+2016/08/05 03:09:36 Debug > Took 00:00:00.1200000 to delete 53 performance records
+2016/08/05 03:09:36 Debug > Completed Nestat Upload Thread in 00:00:00.4030000
+2016/08/05 03:09:36 Debug > Deleting uploaded performance records: 0
+2016/08/05 03:09:36 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 03:09:36 Debug > Completed Performance Upload Thread in 00:00:00.4270000
+2016/08/05 03:09:36 Info > Completed data upload process. Total Elapsed Time: 00:00:00.4890000
+2016/08/05 03:14:36 Info > Staring data upload process
+2016/08/05 03:14:36 Debug > Starting Performance Upload Thread
+2016/08/05 03:14:36 Debug > Starting Netflow Upload Thread
+2016/08/05 03:14:36 Debug > Starting Netstat Upload Thread
+2016/08/05 03:14:36 Debug > Deleting uploaded Netstat records: 0
+2016/08/05 03:14:36 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 03:14:36 Debug > Completed Nestat Upload Thread in 00:00:00.0540000
+2016/08/05 03:14:36 Debug > Took 00:00:00 to delete 0 netflow records
+2016/08/05 03:14:36 Debug > Completed Netflow Upload Thread in 00:00:00.1010000
+2016/08/05 03:14:37 Debug > Deleting uploaded performance records: 0
+2016/08/05 03:14:37 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 03:14:37 Debug > Completed Performance Upload Thread in 00:00:00.5480000
+2016/08/05 03:14:37 Info > Completed data upload process. Total Elapsed Time: 00:00:00.6010000
+2016/08/05 03:14:38 Info > Staring Double-Take collection process with 10 threads
+2016/08/05 03:14:38 Info > Double-Take Job: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:14:38 Info > Double-Take Job: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:14:39 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:14:39 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:14:39 Info > Completed Double-Take collection for 2 jobs in 00:00:01.4110000 [next run at 8/5/2016 3:24:38 AM]
+2016/08/05 03:19:37 Info > Staring data upload process
+2016/08/05 03:19:37 Debug > Starting Performance Upload Thread
+2016/08/05 03:19:37 Debug > Starting Netstat Upload Thread
+2016/08/05 03:19:37 Debug > Starting Netflow Upload Thread
+2016/08/05 03:19:37 Debug > Took 00:00:00 to delete 0 netflow records
+2016/08/05 03:19:37 Debug > Completed Netflow Upload Thread in 00:00:00.0310000
+2016/08/05 03:19:37 Debug > Deleting uploaded Netstat records: 0
+2016/08/05 03:19:37 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 03:19:37 Debug > Completed Nestat Upload Thread in 00:00:00.0770000
+2016/08/05 03:19:37 Debug > Deleting uploaded performance records: 0
+2016/08/05 03:19:37 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 03:19:37 Debug > Completed Performance Upload Thread in 00:00:00.4180000
+2016/08/05 03:19:37 Info > Completed data upload process. Total Elapsed Time: 00:00:00.4410000
+2016/08/05 03:24:28 Debug > Starting Manager Service
+2016/08/05 03:24:29 Info > Verifying database
+2016/08/05 03:24:29 Info > Compacting database
+2016/08/05 03:24:29 Debug > Starting WCF Service
+2016/08/05 03:24:30 Info > Debug Enabled!
+2016/08/05 03:24:31 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/08/05 03:24:31 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/08/05 03:24:31 Debug > Starting Scheduler Thread
+2016/08/05 03:24:31 Debug > Starting Mirror Thread
+2016/08/05 03:24:31 Info > Staring platform inventory process with 10 threads
+2016/08/05 03:24:31 Debug > Starting Performance Collection Thread
+2016/08/05 03:24:31 Debug > Starting Netflow v5 Collection Thread
+2016/08/05 03:24:31 Debug > Starting Data Upload Thread
+2016/08/05 03:24:31 Info > Staring performance collection process with 10 threads
+2016/08/05 03:24:31 Debug > Starting OS Inventory Thread
+2016/08/05 03:24:31 Info > Staring data upload process
+2016/08/05 03:24:31 Debug > Starting OS Netstat Thread
+2016/08/05 03:24:31 Info > Staring operating system inventory process with 10 threads
+2016/08/05 03:24:31 Debug > Starting DT Polling Thread
+2016/08/05 03:24:31 Debug > Starting Netstat Upload Thread
+2016/08/05 03:24:31 Info > Netstat: Staring netstat collection process with 10 threads
+2016/08/05 03:24:31 Debug > Starting Performance Upload Thread
+2016/08/05 03:24:31 Info > Staring Double-Take collection process with 10 threads
+2016/08/05 03:24:31 Debug > Starting Netflow Upload Thread
+2016/08/05 03:24:31 Info > Started inventory process for dimension_data : NA9
+2016/08/05 03:24:31 Info > Performance: Start performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/05 03:24:31 Info > Performance: Start performance collection for 10-1-1-6 using 2607:f480:111:1710:3abe:6be:b18c:11ae
+2016/08/05 03:24:31 Info > Performance: Start performance collection for 10-1-1-14 using 2607:f480:111:1710:7dad:a839:feed:f964
+2016/08/05 03:24:31 Info > Netstat: Started netstat collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/05 03:24:31 Info > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/05 03:24:31 Info > Netstat: Started netstat collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:24:31 Info > Inventory: Started inventory collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/05 03:24:32 Info > Double-Take Job: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:24:32 Debug > Deleting uploaded Netstat records: 0
+2016/08/05 03:24:32 Debug > Took 00:00:00.0010000 to delete 0 performance records
+2016/08/05 03:24:32 Debug > Completed Nestat Upload Thread in 00:00:01.1280000
+2016/08/05 03:24:32 Debug > Took 00:00:00 to delete 0 netflow records
+2016/08/05 03:24:32 Debug > Completed Netflow Upload Thread in 00:00:01.0650000
+2016/08/05 03:24:32 Debug > Deleting uploaded performance records: 0
+2016/08/05 03:24:32 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/05 03:24:32 Debug > Completed Performance Upload Thread in 00:00:01.2550000
+2016/08/05 03:24:32 Info > Completed data upload process. Total Elapsed Time: 00:00:01.3190000
+2016/08/05 03:24:32 Info > Inventory: Started inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/05 03:24:33 Info > Double-Take Job: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:24:34 Info > Performance: Start performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/05 03:24:35 Info > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/05 03:24:35 Info > Inventory: Started inventory collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:24:36 Info > Performance: Start performance collection for 10-1-1-5 using 2607:f480:111:1710:57da:1538:fdd4:a019
+2016/08/05 03:24:36 Info > Performance: Start performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/08/05 03:24:37 Info > Inventory: Completed netstat collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/05 03:24:37 Info > Netstat: Started netstat collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:24:37 Info > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/05 03:24:38 Info > Inventory: Completed netstat collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:24:38 Info > Inventory: Started inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/05 03:24:38 Info > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/05 03:24:38 Info > Inventory: Started inventory collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:24:40 Info > Inventory: Completed netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/05 03:24:41 Info > Inventory: Started inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/05 03:24:42 Info > Inventory: Completed inventory collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/05 03:24:45 Info > Inventory: Completed netstat collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:24:45 Info > Inventory: Completed inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/05 03:24:45 Info > Inventory: Completed netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/05 03:24:45 Info > Netstat: Completed netstat collection for 6 workloads in 00:00:14.2090000 [next run at 8/5/2016 3:54:31 AM]
+2016/08/05 03:24:45 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:24:45 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:24:45 Info > Completed Double-Take collection for 2 jobs in 00:00:14.2190000 [next run at 8/5/2016 3:34:31 AM]
+2016/08/05 03:24:46 Info > Inventory: Completed inventory collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:24:46 Info > UpdateMCPWorkload: Inventory for redhat01 in NA9 
+2016/08/05 03:24:47 Info > UpdateMCPWorkload: Inventory for centos01 in NA9 
+2016/08/05 03:24:47 Info > UpdateMCPWorkload: Inventory for ubuntu01 in NA9 
+2016/08/05 03:24:48 Info > UpdateMCPWorkload: Inventory for suse01 in NA9 
+2016/08/05 03:24:48 Info > UpdateMCPWorkload: Inventory for repository01 in NA9 
+2016/08/05 03:24:49 Info > UpdateMCPWorkload: Inventory for appserver01 in NA9 
+2016/08/05 03:24:49 Info > Inventory: Completed inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/05 03:24:49 Info > UpdateMCPWorkload: Inventory for appserver02 in NA9 
+2016/08/05 03:24:50 Info > UpdateMCPWorkload: Inventory for appserver03 in NA9 
+2016/08/05 03:24:50 Info > UpdateMCPWorkload: Inventory for 10-1-1-13-migrate in NA9 
+2016/08/05 03:24:51 Info > UpdateMCPWorkload: Inventory for 10-1-1-12 in NA9 
+2016/08/05 03:24:51 Info > Completed inventory process for dimension_data : NA9 - 0 new workloads - 0 updated platform networks - 0 updated workloads - 0 removed workloads = Total Execute Time: 00:00:19.6350000
+2016/08/05 03:24:51 Info > Completed platform inventory for 0 platforms in 00:00:20.1230000 [next run at 8/6/2016 3:24:31 AM]
+2016/08/05 03:24:51 Info > Inventory: Completed inventory collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:24:52 Info > Inventory: Completed inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/05 03:24:52 Info > Completed operating system inventory for 6 workloads in 00:00:21.0680000 [next run at 8/6/2016 3:24:31 AM]
+2016/08/05 03:25:09 Info > Performance: Completed performance collection for 10-1-1-14 using 2607:f480:111:1710:7dad:a839:feed:f964
+2016/08/05 03:25:34 Info > Performance: Completed performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/05 03:25:36 Info > Performance: Completed performance collection for 10-1-1-6 using 2607:f480:111:1710:3abe:6be:b18c:11ae
+2016/08/05 03:25:37 Info > Performance: Completed performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/08/05 03:25:39 Info > Performance: Completed performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/05 03:25:40 Info > Performance: Completed performance collection for 10-1-1-5 using 2607:f480:111:1710:57da:1538:fdd4:a019
+2016/08/05 03:25:40 Info > Completed performance collection for 6 workloads in 00:01:09.4770000 [next run at 8/5/2016 4:24:31 AM]
+2016/08/05 03:29:39 Debug > Starting Manager Service
+2016/08/05 03:29:39 Info > Verifying database
+2016/08/05 03:29:39 Info > Compacting database
+2016/08/05 03:29:39 Debug > Starting WCF Service
+2016/08/05 03:29:40 Info > Debug Enabled!
+2016/08/05 03:29:40 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/08/05 03:29:40 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/08/05 03:29:40 Debug > Starting Scheduler Thread
+2016/08/05 03:29:40 Debug > Starting Mirror Thread
+2016/08/05 03:29:40 Debug > Starting Performance Collection Thread
+2016/08/05 03:29:40 Info > Staring platform inventory process with 10 threads
+2016/08/05 03:29:40 Debug > Starting Netflow v5 Collection Thread
+2016/08/05 03:29:40 Debug > Starting Data Upload Thread
+2016/08/05 03:29:40 Debug > Starting OS Inventory Thread
+2016/08/05 03:29:40 Info > Staring data upload process
+2016/08/05 03:29:40 Debug > Starting OS Netstat Thread
+2016/08/05 03:29:40 Info > Staring performance collection process with 10 threads
+2016/08/05 03:29:40 Info > Staring operating system inventory process with 10 threads
+2016/08/05 03:29:40 Debug > Starting DT Polling Thread
+2016/08/05 03:29:41 Info > Netstat: Staring netstat collection process with 10 threads
+2016/08/05 03:29:41 Debug > Starting Netstat Upload Thread
+2016/08/05 03:29:41 Info > Staring Double-Take collection process with 10 threads
+2016/08/05 03:29:41 Debug > Starting Performance Upload Thread
+2016/08/05 03:29:41 Debug > Starting Netflow Upload Thread
+2016/08/05 03:29:41 Info > Started inventory process for dimension_data : NA9
+2016/08/05 03:29:41 Info > Inventory: Started inventory collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/05 03:29:41 Info > Performance: Start performance collection for 10-1-1-6 using 2607:f480:111:1710:3abe:6be:b18c:11ae
+2016/08/05 03:29:41 Info > Inventory: Started inventory collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:29:41 Info > Performance: Start performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/05 03:29:41 Info > Performance: Start performance collection for 10-1-1-14 using 2607:f480:111:1710:7dad:a839:feed:f964
+2016/08/05 03:29:41 Info > Inventory: Started inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/05 03:29:41 Info > Netstat: Started netstat collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/05 03:29:41 Info > Double-Take Job: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:29:41 Debug > Took 00:00:00.0010000 to delete 0 netflow records
+2016/08/05 03:29:41 Debug > Completed Netflow Upload Thread in 00:00:00.7720000
+2016/08/05 03:29:42 Debug > Deleting uploaded Netstat records: 54
+2016/08/05 03:29:42 Info > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/05 03:29:42 Debug > Took 00:00:00.0870000 to delete 54 performance records
+2016/08/05 03:29:42 Debug > Completed Nestat Upload Thread in 00:00:01.1310000
+2016/08/05 03:29:42 Info > Double-Take Job: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:29:43 Info > Performance: Start performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/05 03:29:44 Info > Inventory: Started inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/05 03:29:45 Info > Netstat: Started netstat collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:29:45 Debug > Deleting uploaded performance records: 815
+2016/08/05 03:29:45 Debug > Took 00:00:00.5120000 to delete 815 performance records
+2016/08/05 03:29:45 Debug > Completed Performance Upload Thread in 00:00:04.7580000
+2016/08/05 03:29:45 Info > Completed data upload process. Total Elapsed Time: 00:00:04.8760000
+2016/08/05 03:29:46 Info > Performance: Start performance collection for 10-1-1-5 using 2607:f480:111:1710:57da:1538:fdd4:a019
+2016/08/05 03:29:46 Info > Inventory: Completed netstat collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/05 03:29:46 Info > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/05 03:29:47 Info > Inventory: Started inventory collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:29:47 Info > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/05 03:29:47 Info > Netstat: Started netstat collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:29:48 Info > Performance: Start performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/08/05 03:29:49 Info > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/05 03:29:50 Info > Inventory: Completed netstat collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:29:50 Info > Inventory: Started inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/05 03:29:50 Info > Inventory: Completed inventory collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/05 03:29:51 Info > Inventory: Completed inventory collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:29:52 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:29:52 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/05 03:29:52 Info > Inventory: Completed netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/05 03:29:52 Info > Completed Double-Take collection for 2 jobs in 00:00:11.6860000 [next run at 8/5/2016 3:39:41 AM]
+2016/08/05 03:29:52 Info > Inventory: Completed netstat collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:29:53 Info > UpdateMCPWorkload: Inventory for redhat01 in NA9 
+2016/08/05 03:29:53 Info > Inventory: Completed inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/05 03:29:53 Info > UpdateMCPWorkload: Inventory for centos01 in NA9 
+2016/08/05 03:29:53 Info > Inventory: Completed inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/05 03:29:54 Info > UpdateMCPWorkload: Inventory for ubuntu01 in NA9 
+2016/08/05 03:29:54 Info > UpdateMCPWorkload: Inventory for suse01 in NA9 
+2016/08/05 03:29:55 Info > UpdateMCPWorkload: Inventory for repository01 in NA9 
+2016/08/05 03:29:55 Info > UpdateMCPWorkload: Inventory for appserver01 in NA9 
+2016/08/05 03:29:55 Info > Inventory: Completed netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/05 03:29:55 Info > Netstat: Completed netstat collection for 6 workloads in 00:00:14.6870000 [next run at 8/5/2016 3:59:41 AM]
+2016/08/05 03:29:56 Info > UpdateMCPWorkload: Inventory for appserver02 in NA9 
+2016/08/05 03:29:56 Info > UpdateMCPWorkload: Inventory for appserver03 in NA9 
+2016/08/05 03:29:56 Info > Inventory: Completed inventory collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/05 03:29:57 Info > UpdateMCPWorkload: Inventory for 10-1-1-13-migrate in NA9 
+2016/08/05 03:29:57 Info > UpdateMCPWorkload: Inventory for 10-1-1-12 in NA9 
+2016/08/05 03:29:57 Info > Completed inventory process for dimension_data : NA9 - 0 new workloads - 0 updated platform networks - 0 updated workloads - 0 removed workloads = Total Execute Time: 00:00:16.6900000
+2016/08/05 03:29:57 Info > Completed platform inventory for 0 platforms in 00:00:16.9720000 [next run at 8/6/2016 3:29:40 AM]
+2016/08/05 03:30:00 Info > Inventory: Completed inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/05 03:30:00 Info > Completed operating system inventory for 6 workloads in 00:00:19.7840000 [next run at 8/6/2016 3:29:40 AM]
+2016/08/05 03:30:16 Info > Performance: Completed performance collection for 10-1-1-14 using 2607:f480:111:1710:7dad:a839:feed:f964
+2016/08/05 03:30:34 Info > Performance: Completed performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/05 03:30:40 Info > Performance: Completed performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/08/05 03:30:43 Info > Performance: Completed performance collection for 10-1-1-6 using 2607:f480:111:1710:3abe:6be:b18c:11ae
+2016/08/05 03:30:45 Info > Performance: Completed performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/05 03:30:49 Info > Performance: Completed performance collection for 10-1-1-5 using 2607:f480:111:1710:57da:1538:fdd4:a019
+2016/08/05 03:30:49 Info > Completed performance collection for 6 workloads in 00:01:08.7080000 [next run at 8/5/2016 4:29:40 AM]
+2016/08/05 03:34:45 Info > Staring data upload process
+2016/08/05 03:34:45 Debug > Starting Performance Upload Thread
+2016/08/05 03:34:45 Debug > Starting Netstat Upload Thread
+2016/08/05 03:34:45 Debug > Starting Netflow Upload Thread
+2016/08/05 03:34:45 Debug > Took 00:00:00 to delete 0 netflow records
+2016/08/05 03:34:45 Debug > Completed Netflow Upload Thread in 00:00:00.0400000
+2016/08/05 03:34:46 Debug > Deleting uploaded Netstat records: 66
+2016/08/05 03:34:46 Debug > Took 00:00:00.0490000 to delete 66 performance records
+2016/08/05 03:34:46 Debug > Completed Nestat Upload Thread in 00:00:00.3930000
+2016/08/05 03:34:49 Debug > Deleting uploaded performance records: 777
+2016/08/05 03:34:49 Debug > Took 00:00:00.3720000 to delete 777 performance records
+2016/08/05 03:34:49 Debug > Completed Performance Upload Thread in 00:00:03.5220000
+2016/08/05 03:34:49 Info > Completed data upload process. Total Elapsed Time: 00:00:03.5810000
