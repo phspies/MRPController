@@ -32,15 +32,15 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("id")]
         public string id { get; set; }
         [JsonProperty("creation_timestamp")]
-        public DateTime creation_timestamp { get; set; }
+        public DateTime? creation_timestamp { get; set; }
         [JsonProperty("description")]
         public string description { get; set; }
         [JsonProperty("imagemoid")]
-        public Guid imagemoid { get; set; }
+        public Guid? imagemoid { get; set; }
         [JsonProperty("imagename")]
         public string imagename { get; set; }
         [JsonProperty("imagetype")]
-        public ImageType imagetype { get; set; }
+        public ImageType? imagetype { get; set; }
         [JsonProperty("protection_connection_id")]
         public string protection_connection_id { get; set; }
         [JsonProperty("protection_job_name")]
@@ -50,13 +50,15 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("source_name")]
         public string source_name { get; set; }
         [JsonProperty("state")]
-        public TargetStates state { get; set; }
+        public TargetStates? state { get; set; }
         [JsonProperty("comment")]
         public string comment { get; set; }
         [JsonProperty("reason")]
         public string reason { get; set; }
         [JsonProperty("timestamp")]
-        public DateTime timestamp { get; set; }
+        public DateTime? timestamp { get; set; }
+        [JsonProperty("connection_id")]
+        public Guid? connection_id{ get; set; }
     }
     public class MRPManagementobjectSnapshotIDGETType
     {

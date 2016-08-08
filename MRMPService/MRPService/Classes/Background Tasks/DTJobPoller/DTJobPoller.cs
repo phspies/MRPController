@@ -6,6 +6,7 @@ using DoubleTake.Web.Models;
 using MRMPService.MRMPAPI;
 using System.Collections.Generic;
 using System.Linq;
+using MRMPService.MRMPDoubleTake;
 
 namespace MRMPService.DTPollerCollection
 {
@@ -34,18 +35,25 @@ namespace MRMPService.DTPollerCollection
             Logger.log(String.Format("Double-Take Job: Start Double-Take collection for {0} using {1}", _mrp_managementobject.target_workload.hostname, workload_ip), Logger.Severity.Info);
 
             //first try to connect to the target server to make sure we can connect
-            JobInfoModel _dt_job = new JobInfoModel() ;
+            JobInfoModel _dt_job = new JobInfoModel();
             IEnumerable<ImageInfoModel> _dt_image_list = new List<ImageInfoModel>();
+            IEnumerable<SnapshotEntryModel> _dt_snapshot_list = new List<SnapshotEntryModel>();
 
             bool _can_connect = false;
             try
             {
-                using (MRMPDoubleTake.Doubletake _dt = new MRMPDoubleTake.Doubletake(null, _target_workload))
+                using (Doubletake _dt = new Doubletake(null, _target_workload))
                 {
                     ProductInfoModel _info = _dt.management().GetProductInfo().Result;
                     _dt_job = _dt.job().GetJob((Guid)_mrp_managementobject.moid).Result;
-                    //_dt_image_list = _dt.image().GetImages(_mrp_managementobject.moname).Result;
-
+                    if (_dt_job.JobType == DT_JobTypes.DR_Data_Protection || _dt_job.JobType == DT_JobTypes.DR_Full_Protection)
+                    {
+                        _dt_image_list = _dt.image().GetImages(_dt_job.Options.Name).Result;
+                    }
+                    else if (_dt_job.JobType == DT_JobTypes.HA_Full_Failover || _dt_job.JobType == DT_JobTypes.HA_FilesFolders)
+                    {
+                        _dt_snapshot_list = _dt.job().GetSnapShots(_dt_job.Id);                        
+                    }
                     //now we try to get the job information we have. IF we can't, then we know the job has been deleted...
                     _can_connect = true;
 
@@ -89,29 +97,47 @@ namespace MRMPService.DTPollerCollection
                 {
                     foreach (ImageInfoModel _dt_image in _dt_image_list)
                     {
-                        foreach (SnapshotEntryModel _dt_snap in _dt_image.Snapshots)
+                        foreach (SnapshotEntryModel _dt_snap in _dt_image.Snapshots.Where(x => x.States == TargetStates.Good))
                         {
                             MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
                             if (_mrp_managementobject.managementobjectsnapshot_attributes.Exists(x => x.imagemoid == _dt_snap.Id))
                             {
                                 _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshot_attributes.FirstOrDefault(x => x.imagemoid == _dt_snap.Id).id;
                             }
-                            else
-                            {
-                                if (_mrp_mo_update.managementobjectsnapshot_attributes == null)
-                                {
-                                    _mrp_mo_update.managementobjectsnapshot_attributes = new List<MRPManagementobjectSnapshotType>();
-                                }
-                                _mrp_mo_update.managementobjectsnapshot_attributes.Add(_mrp_snapshot);
-                            }
+                                                   
                             _mrp_snapshot.imagemoid = _dt_snap.Id;
                             _mrp_snapshot.reason = _dt_snap.Reason.ToString();
                             _mrp_snapshot.state = _dt_snap.States;
                             _mrp_snapshot.timestamp = _dt_snap.Timestamp.UtcDateTime;
                             _mrp_snapshot.comment = _dt_snap.Comment;
+
+                            if (_mrp_mo_update.managementobjectsnapshot_attributes == null)
+                            {
+                                _mrp_mo_update.managementobjectsnapshot_attributes = new List<MRPManagementobjectSnapshotType>();
+                            }
+                            _mrp_mo_update.managementobjectsnapshot_attributes.Add(_mrp_snapshot);
                         }
                     }
+                    foreach (SnapshotEntryModel _dt_snap in _dt_snapshot_list.Where(x => x.States == TargetStates.Good))
+                    {
+                        MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
+                        if (_mrp_managementobject.managementobjectsnapshot_attributes.Exists(x => x.imagemoid == _dt_snap.Id))
+                        {
+                            _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshot_attributes.FirstOrDefault(x => x.imagemoid == _dt_snap.Id).id;
+                        }
 
+                        _mrp_snapshot.imagemoid = _dt_snap.Id;
+                        _mrp_snapshot.reason = _dt_snap.Reason.ToString();
+                        _mrp_snapshot.state = _dt_snap.States;
+                        _mrp_snapshot.timestamp = _dt_snap.Timestamp.UtcDateTime;
+                        _mrp_snapshot.comment = _dt_snap.Comment;
+
+                        if (_mrp_mo_update.managementobjectsnapshot_attributes == null)
+                        {
+                            _mrp_mo_update.managementobjectsnapshot_attributes = new List<MRPManagementobjectSnapshotType>();
+                        }
+                        _mrp_mo_update.managementobjectsnapshot_attributes.Add(_mrp_snapshot);
+                    }
                     //Update job details
                     CoreConnectionDetailsModel _connection_details = _dt_job.Statistics.CoreConnectionDetails;
                     MRPManagementobjectStatType _managedobject_stat = new MRPManagementobjectStatType();
@@ -140,7 +166,6 @@ namespace MRMPService.DTPollerCollection
 
                         }
                     }
-
 
                     _mrp_mo_update.state = _dt_job.Status.HighLevelState.ToString();
                     _mrp_mo_update.internal_state = "active";

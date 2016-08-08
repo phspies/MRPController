@@ -14,6 +14,17 @@ namespace MRMPService.PerformanceCollection
 {
     partial class WorkloadPerformance
     {
+        static string _password;
+        static private void HandleKeyEvent(object sender, AuthenticationPromptEventArgs e)
+        {
+            foreach (AuthenticationPrompt prompt in e.Prompts)
+            {
+                if (prompt.Request.IndexOf("Password:", StringComparison.InvariantCultureIgnoreCase) != -1)
+                {
+                    prompt.Response = _password;
+                }
+            }
+        }
         public static void WorkloadPerformanceUnixDo(MRPWorkloadType _workload)
         {
             #region load and check workload information
@@ -23,6 +34,7 @@ namespace MRMPService.PerformanceCollection
             {
                 throw new ArgumentException(String.Format("Error finding credentials"));
             }
+            _password = _credential.encrypted_password;
 
             //check for working IP
             string workload_ip = null;
@@ -37,7 +49,10 @@ namespace MRMPService.PerformanceCollection
             #endregion
 
             Logger.log(String.Format("Performance: Start performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
-            ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _credential.username, new AuthenticationMethod[] { new PasswordAuthenticationMethod(_credential.username, _credential.encrypted_password) });
+            KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_credential.username);
+            _keyboard_authentication.AuthenticationPrompt += new EventHandler<AuthenticationPromptEventArgs>(HandleKeyEvent);
+            PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_credential.username, _password);
+            ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _credential.username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
 
             string locationlocation = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string localscripts = Path.Combine(locationlocation, "Scripts");
@@ -55,39 +70,9 @@ namespace MRMPService.PerformanceCollection
                 }
                 catch (SftpPathNotFoundException)
                 {
-                    sftp.CreateDirectory(remotepath);
-                    sftp.ChangeDirectory(remotepath);
+                    Logger.log(String.Format("MRMP scripts are not present on workload {0} {1}. Inventory process needs to setup scripts first!", _workload.hostname, workload_ip), Logger.Severity.Info);
                 }
-                if (!remotepath_exist)
-                {
-                    foreach (String _file in Directory.GetFiles(localscripts))
-                    {
-                        var fileStream = new FileStream(_file, FileMode.Open);
-                        if (fileStream != null)
-                        {
-                            //If you have a folder located at sftp://ftp.example.com/share
-                            //then you can add this like:
-                            sftp.UploadFile(fileStream, Path.GetFileName(_file), null);
-                        }
-                    }
-                    //Run setup script for the collector
-                    using (var sshclient = new SshClient(ConnNfo))
-                    {
-                        sshclient.Connect();
-                        using (var cmd = sshclient.CreateCommand(Path.Combine(remotepath, "mrmp_setup.sh")))
-                        {
-                            cmd.Execute();
-                            if (cmd.ExitStatus != 0)
-                            {
-                                sshclient.Disconnect();
-                                throw new ArgumentException(String.Format("Error while running unix setup script: %1", cmd.Result));
-                            }
-
-                        }
-                        sshclient.Disconnect();
-                    }
-                }
-                else
+                if (remotepath_exist)
                 {
                     if (sftp.Exists("output"))
                     {

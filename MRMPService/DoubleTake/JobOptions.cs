@@ -57,6 +57,9 @@ namespace MRMPService.MRMPDoubleTake
 
             jobInfo.JobOptions.Name = String.Format("MRMP [{0}] {1} to {2}", _job_type, _source_workload.hostname, _target_workload.hostname);
 
+            //Set snapshot ID when recovering from a snapshot
+            //jobInfo.JobOptions.ImageRecoveryOptions.SnapshotSetId
+
             //set ssm staging folder if present
             if (!String.IsNullOrEmpty(_protectiongroup.recoverypolicy.windows_staging_path) || !String.IsNullOrEmpty(_protectiongroup.recoverypolicy.linux_staging_path))
             {

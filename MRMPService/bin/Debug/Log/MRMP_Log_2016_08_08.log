@@ -1,0 +1,294 @@
+2016/08/08 12:55:38 Debug > Starting Manager Service
+2016/08/08 12:55:38 Info > Verifying database
+2016/08/08 12:55:38 Info > Compacting database
+2016/08/08 12:55:39 Debug > Starting WCF Service
+2016/08/08 12:59:02 Info > Debug Enabled!
+2016/08/08 12:59:02 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/08/08 12:59:02 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/08/08 12:59:02 Debug > Starting Scheduler Thread
+2016/08/08 12:59:02 Debug > Starting Mirror Thread
+2016/08/08 12:59:03 Debug > Starting Performance Collection Thread
+2016/08/08 12:59:03 Debug > Starting Netflow v5 Collection Thread
+2016/08/08 12:59:03 Info > Staring platform inventory process with 10 threads
+2016/08/08 12:59:03 Debug > Starting Data Upload Thread
+2016/08/08 12:59:03 Info > Staring performance collection process with 10 threads
+2016/08/08 12:59:03 Debug > Starting OS Inventory Thread
+2016/08/08 12:59:03 Info > Staring data upload process
+2016/08/08 12:59:03 Debug > Starting OS Netstat Thread
+2016/08/08 12:59:03 Info > Staring operating system inventory process with 10 threads
+2016/08/08 12:59:03 Debug > Starting Netstat Upload Thread
+2016/08/08 12:59:03 Debug > Starting DT Job Polling Thread
+2016/08/08 12:59:03 Debug > Starting Performance Upload Thread
+2016/08/08 12:59:03 Debug > Starting Netflow Upload Thread
+2016/08/08 12:59:03 Info > Netstat: Staring netstat collection process with 10 threads
+2016/08/08 12:59:03 Debug > Starting DT Event Polling Thread
+2016/08/08 12:59:03 Info > Staring Double-Take collection process with 10 threads
+2016/08/08 12:59:03 Info > Staring Double-Take Event collection process with 10 threads
+2016/08/08 12:59:03 Info > Inventory: Started inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/08 12:59:03 Info > Performance: Start performance collection for 10-1-1-14 using 2607:f480:111:1710:7dad:a839:feed:f964
+2016/08/08 12:59:03 Info > Performance: Start performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/08 12:59:03 Info > Performance: Start performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/08 12:59:03 Info > Performance: Start performance collection for 10-1-1-6 using 2607:f480:111:1710:3abe:6be:b18c:11ae
+2016/08/08 12:59:03 Info > Started inventory process for dimension_data : NA9
+2016/08/08 12:59:03 Info > Inventory: Started inventory collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/08 12:59:04 Info > Double-Take Event: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 12:59:04 Info > Netstat: Started netstat collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/08 12:59:04 Info > Double-Take Job: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 12:59:04 Info > Double-Take Event: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 12:59:05 Info > Double-Take Job: Start Double-Take collection for  using 2607-f480-111-1710-6d52-2615-9529-1304.ipv6-literal.net
+2016/08/08 12:59:05 Info > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/08 12:59:06 Info > Performance: Start performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/08 12:59:08 Info > Inventory: Started inventory collection for 10-1-1-10 : 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/08 12:59:08 Debug > Took 00:00:00.0010000 to delete 0 netflow records
+2016/08/08 12:59:08 Debug > Completed Netflow Upload Thread in 00:00:05.2770000
+2016/08/08 12:59:08 Debug > Deleting uploaded Netstat records: 55
+2016/08/08 12:59:08 Debug > Took 00:00:00.0940000 to delete 55 performance records
+2016/08/08 12:59:08 Debug > Completed Nestat Upload Thread in 00:00:05.6890000
+2016/08/08 12:59:10 Info > Inventory: Started inventory collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 12:59:10 Info > Performance: Completed performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/08 12:59:10 Info > Inventory: Started inventory collection for 10-1-1-8 : 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/08 12:59:10 Info > Performance: Start performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/08 12:59:11 Info > Performance: Completed performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/08 12:59:11 Info > Double-Take Job: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 12:59:11 Info > Performance: Start performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/08 12:59:11 Debug > Deleting uploaded performance records: 725
+2016/08/08 12:59:11 Info > Inventory: Completed netstat collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/08 12:59:11 Info > Netstat: Started netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/08/08 12:59:11 Info > Inventory: Completed inventory collection for 10-1-1-10 : 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/08 12:59:27 Info > Inventory: Started inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/08 12:59:33 Info > Inventory: Completed inventory collection for 10-1-1-8 : 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/08 12:59:33 Info > Double-Take Job: Error contacting Double-Take Management Service for MRMPService.MRMPAPI.Types.API.MRPWorkloadType using 2607-f480-111-1710-6d52-2615-9529-1304.ipv6-literal.net : System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it [2607:f480:111:1710:6d52:2615:9529:1304]:6326   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)   --- End of inner exception stack trace ---   at System.Net.HttpWebRequest.EndGetResponse(IAsyncResult asyncResult)   at System.Net.Http.HttpClientHandler.GetResponseCallback(IAsyncResult ar)   --- End of inner exception stack trace ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementConnectionManager.<GetIdentifierAsync>d__1.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionInternalAsync>d__23.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionAsync>d__14.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementService.<GetConnectionAsync>d__25.MoveNext()   --- End of inner exception stack trace ---   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)   at MRMPService.MRMPDoubleTake.Core..ctor(Doubletake _doubletake)   at MRMPService.MRMPDoubleTake.Management..ctor(Doubletake doubletake)   at MRMPService.MRMPDoubleTake.Doubletake.management()   at MRMPService.DTPollerCollection.DTJobPoller.PollerDo(MRPManagementobjectType _mrp_managementobject)---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it [2607:f480:111:1710:6d52:2615:9529:1304]:6326   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)   --- End of inner exception stack trace ---   at System.Net.HttpWebRequest.EndGetResponse(IAsyncResult asyncResult)   at System.Net.Http.HttpClientHandler.GetResponseCallback(IAsyncResult ar)   --- End of inner exception stack trace ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementConnectionManager.<GetIdentifierAsync>d__1.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionInternalAsync>d__23.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionAsync>d__14.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementService.<GetConnectionAsync>d__25.MoveNext()<---
+2016/08/08 12:59:33 Info > Double-Take Job : Error collecting job information for  on MRMPService.MRMPAPI.Types.API.MRPWorkloadType : System.NullReferenceException: Object reference not set to an instance of an object.   at MRMPService.DTPollerCollection.DTJobPoller.PollerDo(MRPManagementobjectType _mrp_managementobject)
+2016/08/08 12:59:33 Info > Inventory: Started inventory collection for 10-1-1-4 : 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/08 12:59:33 Error > Error collecting performance information from 10-1-1-6 with error System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.Entity.Core.UpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.SqlServerCe.SqlCeLockTimeoutException: SQL Server Compact timed out waiting for a lock. The default lock time is 2000ms for devices and 5000ms for desktops. The default lock timeout can be increased in the connection string using the ssce: default lock timeout property. [ Session id = 1,Thread id = 8452,Process id = 19784,Table name = Performances,Conflict type = ix lock (x blocks),Resource = TAB ]   at System.Data.SqlServerCe.SqlCeCommand.ProcessResults(Int32 hr)   at System.Data.SqlServerCe.SqlCeCommand.ExecuteCommandText(IntPtr& pCursor, Boolean& isBaseTableCursor)   at System.Data.SqlServerCe.SqlCeCommand.ExecuteCommand(CommandBehavior behavior, String method, ResultSetOptions options)   at System.Data.SqlServerCe.SqlCeCommand.ExecuteNonQuery()   at System.Data.Entity.SqlServerCompact.SqlCeMultiCommand.ExecuteNonQuery()   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)   at System.Data.Entity.Core.Mapping.Update.Internal.DynamicUpdateCommand.Execute(Dictionary`2 identifierValues, List`1 generatedValues)   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()   --- End of inner exception stack trace ---   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)   at System.Data.Entity.Internal.InternalContext.SaveChanges()   --- End of inner exception stack trace ---   at System.Data.Entity.Internal.InternalContext.SaveChanges()   at MRMPService.LocalDatabase.GenericRepository`1.Insert(TEntity entity)   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceWindowsDo(SyncronisedList`1 _workload_counters, SyncronisedList`1 _available_counters, MRPWorkloadType workload)   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_1(MRPWorkloadType workload)
+2016/08/08 12:59:33 Error > Error collecting performance information from 10-1-1-14 with error System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.Entity.Core.UpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.SqlServerCe.SqlCeLockTimeoutException: SQL Server Compact timed out waiting for a lock. The default lock time is 2000ms for devices and 5000ms for desktops. The default lock timeout can be increased in the connection string using the ssce: default lock timeout property. [ Session id = 1,Thread id = 8452,Process id = 19784,Table name = Performances,Conflict type = ix lock (x blocks),Resource = TAB ]   at System.Data.SqlServerCe.SqlCeCommand.ProcessResults(Int32 hr)   at System.Data.SqlServerCe.SqlCeCommand.ExecuteCommandText(IntPtr& pCursor, Boolean& isBaseTableCursor)   at System.Data.SqlServerCe.SqlCeCommand.ExecuteCommand(CommandBehavior behavior, String method, ResultSetOptions options)   at System.Data.SqlServerCe.SqlCeCommand.ExecuteNonQuery()   at System.Data.Entity.SqlServerCompact.SqlCeMultiCommand.ExecuteNonQuery()   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)   at System.Data.Entity.Core.Mapping.Update.Internal.DynamicUpdateCommand.Execute(Dictionary`2 identifierValues, List`1 generatedValues)   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()   --- End of inner exception stack trace ---   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)   at System.Data.Entity.Internal.InternalContext.SaveChanges()   --- End of inner exception stack trace ---   at System.Data.Entity.Internal.InternalContext.SaveChanges()   at MRMPService.LocalDatabase.GenericRepository`1.Insert(TEntity entity)   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceWindowsDo(SyncronisedList`1 _workload_counters, SyncronisedList`1 _available_counters, MRPWorkloadType workload)   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_1(MRPWorkloadType workload)
+2016/08/08 12:59:33 Error > Error collecting performance information from 10-1-1-11 with error System.Data.Entity.Infrastructure.DbUpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.Entity.Core.UpdateException: An error occurred while updating the entries. See the inner exception for details. ---> System.Data.SqlServerCe.SqlCeLockTimeoutException: SQL Server Compact timed out waiting for a lock. The default lock time is 2000ms for devices and 5000ms for desktops. The default lock timeout can be increased in the connection string using the ssce: default lock timeout property. [ Session id = 1,Thread id = 8452,Process id = 19784,Table name = Performances,Conflict type = ix lock (x blocks),Resource = TAB ]   at System.Data.SqlServerCe.SqlCeCommand.ProcessResults(Int32 hr)   at System.Data.SqlServerCe.SqlCeCommand.ExecuteCommandText(IntPtr& pCursor, Boolean& isBaseTableCursor)   at System.Data.SqlServerCe.SqlCeCommand.ExecuteCommand(CommandBehavior behavior, String method, ResultSetOptions options)   at System.Data.SqlServerCe.SqlCeCommand.ExecuteNonQuery()   at System.Data.Entity.SqlServerCompact.SqlCeMultiCommand.ExecuteNonQuery()   at System.Data.Entity.Infrastructure.Interception.InternalDispatcher`1.Dispatch[TTarget,TInterceptionContext,TResult](TTarget target, Func`3 operation, TInterceptionContext interceptionContext, Action`3 executing, Action`3 executed)   at System.Data.Entity.Infrastructure.Interception.DbCommandDispatcher.NonQuery(DbCommand command, DbCommandInterceptionContext interceptionContext)   at System.Data.Entity.Core.Mapping.Update.Internal.DynamicUpdateCommand.Execute(Dictionary`2 identifierValues, List`1 generatedValues)   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()   --- End of inner exception stack trace ---   at System.Data.Entity.Core.Mapping.Update.Internal.UpdateTranslator.Update()   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesToStore(SaveOptions options, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction)   at System.Data.Entity.Core.Objects.ObjectContext.SaveChangesInternal(SaveOptions options, Boolean executeInExistingTransaction)   at System.Data.Entity.Internal.InternalContext.SaveChanges()   --- End of inner exception stack trace ---   at System.Data.Entity.Internal.InternalContext.SaveChanges()   at MRMPService.LocalDatabase.GenericRepository`1.Insert(TEntity entity)   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceWindowsDo(SyncronisedList`1 _workload_counters, SyncronisedList`1 _available_counters, MRPWorkloadType workload)   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_1(MRPWorkloadType workload)
+2016/08/08 12:59:34 Info > Performance: Start performance collection for 10-1-1-5 using 2607:f480:111:1710:57da:1538:fdd4:a019
+2016/08/08 12:59:34 Info > Performance: Start performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/08 12:59:34 Debug > Took 00:00:22.4460000 to delete 725 performance records
+2016/08/08 12:59:34 Debug > Completed Performance Upload Thread in 00:00:30.7410000
+2016/08/08 12:59:34 Info > Completed data upload process. Total Elapsed Time: 00:00:30.8850000
+2016/08/08 12:59:34 Info > Performance: Start performance collection for  using 2607:f480:111:1710:6d52:2615:9529:1304
+2016/08/08 12:59:35 Info > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/08 12:59:40 Info > Netstat: Started netstat collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 12:59:56 Info > Inventory: Completed inventory collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/08 12:59:57 Info > Inventory: Completed inventory collection for 10-1-1-4 : 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/08 12:59:57 Info > Inventory: Started inventory collection for 10-1-1-9 : 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/08 12:59:57 Info > Inventory: Started inventory collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 12:59:58 Info > Performance: Completed performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/08 12:59:58 Info > Inventory: Completed inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/08 12:59:58 Info > Performance: Start performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/08/08 12:59:58 Info > Inventory: Completed netstat collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 12:59:58 Info > Netstat: Started netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/08/08 12:59:58 Info > Inventory: Started inventory collection for  : 2607:f480:111:1710:6d52:2615:9529:1304
+2016/08/08 12:59:59 Info > Inventory: Completed netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/08/08 12:59:59 Info > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/08 12:59:59 Info > Performance: Completed performance collection for  using 2607:f480:111:1710:6d52:2615:9529:1304
+2016/08/08 12:59:59 Info > Netstat: Started netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/08/08 12:59:59 Info > Netstat: Started netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/08/08 12:59:59 Info > Inventory: Completed netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/08/08 12:59:59 Info > Netstat: Started netstat collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:00:00 Info > Performance: Completed performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/08 01:00:00 Info > Inventory: Started inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/08 01:00:00 Info > Inventory: Completed inventory collection for 10-1-1-9 : 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/08 01:00:00 Info > Netstat: Started netstat collection for  : 2607-f480-111-1710-6d52-2615-9529-1304.ipv6-literal.net
+2016/08/08 01:00:00 Info > Inventory: Completed inventory collection for  : 2607:f480:111:1710:6d52:2615:9529:1304
+2016/08/08 01:00:05 Info > Inventory: Completed netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/08/08 01:00:05 Info > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/08 01:00:06 Info > Inventory: Completed netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/08/08 01:00:14 Info > Portal workload 10-1-1-10_migrate 19291f9f-6f3d-4e10-8225-5d8e684f1e35 is not found in the MCP NA9
+2016/08/08 01:00:15 Info > Inventory: Completed netstat collection for  : 2607-f480-111-1710-6d52-2615-9529-1304.ipv6-literal.net
+2016/08/08 01:00:16 Info > Portal workload 10-1-1-10_migrate 841fdd65-01ba-4ba3-b87e-b0f2d24d9210 is not found in the MCP NA9
+2016/08/08 01:00:21 Info > Inventory: Completed inventory collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:00:21 Info > Inventory: Completed inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/08 01:00:23 Info > UpdateMCPWorkload: Inventory for redhat01 in NA9 
+2016/08/08 01:00:25 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:00:25 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:00:26 Info > Completed Double-Take Event collection for 2 workloads in 00:01:22.7370000 [next run at 8/8/2016 1:09:03 AM]
+2016/08/08 01:00:26 Info > UpdateMCPWorkload: Inventory for centos01 in NA9 
+2016/08/08 01:00:35 Info > Inventory: Completed netstat collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:00:37 Info > Inventory: Completed netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/08 01:00:38 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:00:38 Info > UpdateMCPWorkload: Inventory for ubuntu01 in NA9 
+2016/08/08 01:00:38 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:00:38 Info > Completed Double-Take collection for 3 jobs in 00:01:35.2400000 [next run at 8/8/2016 1:09:03 AM]
+2016/08/08 01:00:38 Info > UpdateMCPWorkload: Inventory for suse01 in NA9 
+2016/08/08 01:00:40 Info > UpdateMCPWorkload: Inventory for repository01 in NA9 
+2016/08/08 01:00:46 Info > UpdateMCPWorkload: Inventory for appserver01 in NA9 
+2016/08/08 01:00:48 Info > Inventory: Completed netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/08 01:00:48 Info > Netstat: Completed netstat collection for 11 workloads in 00:01:44.8790000 [next run at 8/8/2016 1:29:03 AM]
+2016/08/08 01:00:48 Info > UpdateMCPWorkload: Inventory for appserver02 in NA9 
+2016/08/08 01:00:49 Info > UpdateMCPWorkload: Inventory for appserver03 in NA9 
+2016/08/08 01:00:52 Info > UpdateMCPWorkload: Inventory for 10-1-1-13-migrate in NA9 
+2016/08/08 01:01:11 Info > UpdateMCPWorkload: Inventory for 10-1-1-12 in NA9 
+2016/08/08 01:01:11 Info > UpdateMCPWorkload: Inventory for 10-1-1-4_migrate in NA9 
+2016/08/08 01:01:11 Info > Completed inventory process for dimension_data : NA9 - 0 new workloads - 0 updated platform networks - 0 updated workloads - 2 removed workloads = Total Execute Time: 00:02:07.6610000
+2016/08/08 01:01:11 Info > Completed platform inventory for 0 platforms in 00:02:08.6170000 [next run at 8/9/2016 12:59:03 AM]
+2016/08/08 01:01:15 Info > Inventory: Completed inventory collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:01:18 Info > Inventory: Completed inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/08 01:01:18 Info > Completed operating system inventory for 11 workloads in 00:02:15.2880000 [next run at 8/9/2016 12:59:03 AM]
+2016/08/08 01:02:26 Info > Performance: Completed performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/08 01:02:38 Info > Performance: Completed performance collection for 10-1-1-5 using 2607:f480:111:1710:57da:1538:fdd4:a019
+2016/08/08 01:02:40 Info > Performance: Completed performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/08/08 01:02:40 Info > Completed performance collection for 11 workloads in 00:03:37.5920000 [next run at 8/8/2016 1:59:03 AM]
+2016/08/08 01:04:18 Info > Staring data upload process
+2016/08/08 01:04:18 Debug > Starting Performance Upload Thread
+2016/08/08 01:04:18 Debug > Starting Netstat Upload Thread
+2016/08/08 01:04:18 Debug > Starting Netflow Upload Thread
+2016/08/08 01:04:18 Debug > Took 00:00:00 to delete 0 netflow records
+2016/08/08 01:04:18 Debug > Completed Netflow Upload Thread in 00:00:00.0230000
+2016/08/08 01:04:20 Debug > Deleting uploaded Netstat records: 50
+2016/08/08 01:04:25 Debug > Took 00:00:03.9660000 to delete 50 performance records
+2016/08/08 01:04:25 Debug > Completed Nestat Upload Thread in 00:00:06.1320000
+2016/08/08 01:04:29 Debug > Deleting uploaded performance records: 906
+2016/08/08 01:04:30 Debug > Took 00:00:00.4730000 to delete 906 performance records
+2016/08/08 01:04:30 Debug > Completed Performance Upload Thread in 00:00:11.2760000
+2016/08/08 01:04:30 Info > Completed data upload process. Total Elapsed Time: 00:00:12.1620000
+2016/08/08 01:07:48 Debug > Starting Manager Service
+2016/08/08 01:07:48 Info > Verifying database
+2016/08/08 01:07:48 Info > Compacting database
+2016/08/08 01:07:48 Debug > Starting WCF Service
+2016/08/08 01:07:49 Info > Debug Enabled!
+2016/08/08 01:07:49 Info > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/08/08 01:07:50 Debug > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/08/08 01:07:50 Debug > Starting Scheduler Thread
+2016/08/08 01:07:50 Debug > Starting Mirror Thread
+2016/08/08 01:07:50 Debug > Starting Performance Collection Thread
+2016/08/08 01:07:50 Info > Staring platform inventory process with 10 threads
+2016/08/08 01:07:50 Debug > Starting Netflow v5 Collection Thread
+2016/08/08 01:07:50 Debug > Starting Data Upload Thread
+2016/08/08 01:07:50 Info > Staring performance collection process with 10 threads
+2016/08/08 01:07:50 Debug > Starting OS Inventory Thread
+2016/08/08 01:07:50 Info > Staring data upload process
+2016/08/08 01:07:50 Debug > Starting OS Netstat Thread
+2016/08/08 01:07:50 Info > Staring operating system inventory process with 10 threads
+2016/08/08 01:07:50 Debug > Starting DT Job Polling Thread
+2016/08/08 01:07:50 Debug > Starting Netstat Upload Thread
+2016/08/08 01:07:50 Debug > Starting DT Event Polling Thread
+2016/08/08 01:07:50 Debug > Starting Performance Upload Thread
+2016/08/08 01:07:50 Debug > Starting Netflow Upload Thread
+2016/08/08 01:07:50 Info > Netstat: Staring netstat collection process with 10 threads
+2016/08/08 01:07:50 Info > Staring Double-Take collection process with 10 threads
+2016/08/08 01:07:50 Info > Staring Double-Take Event collection process with 10 threads
+2016/08/08 01:07:50 Info > Started inventory process for dimension_data : NA9
+2016/08/08 01:07:50 Info > Performance: Start performance collection for 10-1-1-14 using 2607:f480:111:1710:7dad:a839:feed:f964
+2016/08/08 01:07:50 Info > Performance: Start performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/08 01:07:50 Info > Performance: Start performance collection for 10-1-1-6 using 2607:f480:111:1710:3abe:6be:b18c:11ae
+2016/08/08 01:07:50 Info > Performance: Start performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/08 01:07:50 Info > Performance: Start performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/08 01:07:50 Info > Inventory: Started inventory collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/08 01:07:51 Info > Netstat: Started netstat collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/08 01:07:51 Info > Double-Take Job: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:07:51 Info > Double-Take Event: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:07:51 Debug > Took 00:00:00.0010000 to delete 0 netflow records
+2016/08/08 01:07:51 Debug > Completed Netflow Upload Thread in 00:00:01.2190000
+2016/08/08 01:07:51 Debug > Deleting uploaded Netstat records: 0
+2016/08/08 01:07:51 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/08 01:07:51 Debug > Completed Nestat Upload Thread in 00:00:01.2960000
+2016/08/08 01:07:51 Debug > Deleting uploaded performance records: 0
+2016/08/08 01:07:51 Debug > Took 00:00:00 to delete 0 performance records
+2016/08/08 01:07:51 Debug > Completed Performance Upload Thread in 00:00:01.4000000
+2016/08/08 01:07:51 Info > Completed data upload process. Total Elapsed Time: 00:00:01.5310000
+2016/08/08 01:07:51 Info > Inventory: Started inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/08 01:07:52 Info > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/08 01:07:52 Info > Double-Take Job: Start Double-Take collection for  using 2607-f480-111-1710-6d52-2615-9529-1304.ipv6-literal.net
+2016/08/08 01:07:54 Info > Double-Take Event: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:07:55 Info > Performance: Start performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/08 01:07:56 Info > Performance: Start performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/08 01:07:57 Info > Performance: Completed performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/08 01:07:57 Info > Performance: Start performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/08 01:07:58 Info > Performance: Completed performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/08 01:07:58 Info > Performance: Start performance collection for 10-1-1-5 using 2607:f480:111:1710:57da:1538:fdd4:a019
+2016/08/08 01:07:58 Info > Inventory: Completed netstat collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/08 01:07:58 Info > Netstat: Started netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/08/08 01:07:59 Info > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/08 01:07:59 Info > Double-Take Job: Error contacting Double-Take Management Service for MRMPService.MRMPAPI.Types.API.MRPWorkloadType using 2607-f480-111-1710-6d52-2615-9529-1304.ipv6-literal.net : System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it [2607:f480:111:1710:6d52:2615:9529:1304]:6326   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)   --- End of inner exception stack trace ---   at System.Net.HttpWebRequest.EndGetResponse(IAsyncResult asyncResult)   at System.Net.Http.HttpClientHandler.GetResponseCallback(IAsyncResult ar)   --- End of inner exception stack trace ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementConnectionManager.<GetIdentifierAsync>d__1.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionInternalAsync>d__23.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionAsync>d__14.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementService.<GetConnectionAsync>d__25.MoveNext()   --- End of inner exception stack trace ---   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)   at MRMPService.MRMPDoubleTake.Core..ctor(Doubletake _doubletake) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DoubleTake\Core.cs:line 36   at MRMPService.MRMPDoubleTake.Management..ctor(Doubletake doubletake) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DoubleTake\Management.cs:line 15   at MRMPService.MRMPDoubleTake.Doubletake.management() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\DoubleTake\DoubleTake.cs:line 30   at MRMPService.DTPollerCollection.DTJobPoller.PollerDo(MRPManagementobjectType _mrp_managementobject) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTJobPoller\DTJobPoller.cs:line 47---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it [2607:f480:111:1710:6d52:2615:9529:1304]:6326   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)   --- End of inner exception stack trace ---   at System.Net.HttpWebRequest.EndGetResponse(IAsyncResult asyncResult)   at System.Net.Http.HttpClientHandler.GetResponseCallback(IAsyncResult ar)   --- End of inner exception stack trace ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementConnectionManager.<GetIdentifierAsync>d__1.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionInternalAsync>d__23.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionAsync>d__14.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementService.<GetConnectionAsync>d__25.MoveNext()<---
+2016/08/08 01:07:59 Info > Netstat: Started netstat collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:07:59 Info > Double-Take Job : Error collecting job information for  on MRMPService.MRMPAPI.Types.API.MRPWorkloadType : System.NullReferenceException: Object reference not set to an instance of an object.   at MRMPService.DTPollerCollection.DTJobPoller.PollerDo(MRPManagementobjectType _mrp_managementobject) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTJobPoller\DTJobPoller.cs:line 142
+2016/08/08 01:07:59 Info > Double-Take Job: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:08:01 Info > Performance: Completed performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/08 01:08:01 Info > Performance: Start performance collection for  using 2607:f480:111:1710:6d52:2615:9529:1304
+2016/08/08 01:08:01 Info > Performance: Start performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/08/08 01:08:01 Info > Performance: Completed performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/08 01:08:01 Info > Inventory: Started inventory collection for 10-1-1-10 : 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/08 01:08:02 Info > Inventory: Completed netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/08/08 01:08:02 Info > Netstat: Started netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/08/08 01:08:02 Info > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/08 01:08:02 Info > Inventory: Completed inventory collection for 10-1-1-14 : 2607-f480-111-1710-7dad-a839-feed-f964.ipv6-literal.net
+2016/08/08 01:08:03 Info > Inventory: Started inventory collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:08:03 Info > Inventory: Completed netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/08/08 01:08:03 Info > Netstat: Started netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/08/08 01:08:03 Info > Inventory: Started inventory collection for 10-1-1-8 : 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/08 01:08:04 Info > Inventory: Completed netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/08/08 01:08:04 Info > Netstat: Started netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/08/08 01:08:05 Info > Inventory: Completed inventory collection for 10-1-1-10 : 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/08 01:08:05 Info > Performance: Completed performance collection for  using 2607:f480:111:1710:6d52:2615:9529:1304
+2016/08/08 01:08:05 Info > Inventory: Started inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/08 01:08:05 Info > Netstat: Started netstat collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:08:05 Info > Netstat: Started netstat collection for  : 2607-f480-111-1710-6d52-2615-9529-1304.ipv6-literal.net
+2016/08/08 01:08:05 Info > Inventory: Completed inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/08 01:08:06 Info > Inventory: Completed inventory collection for 10-1-1-8 : 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/08 01:08:06 Info > Inventory: Started inventory collection for 10-1-1-4 : 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/08 01:08:06 Info > Inventory: Started inventory collection for 10-1-1-9 : 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/08 01:08:06 Info > Inventory: Completed netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/08/08 01:08:06 Info > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/08 01:08:06 Info > Portal workload 10-1-1-10_migrate 19291f9f-6f3d-4e10-8225-5d8e684f1e35 is not found in the MCP NA9
+2016/08/08 01:08:06 Info > Portal workload 10-1-1-10_migrate 841fdd65-01ba-4ba3-b87e-b0f2d24d9210 is not found in the MCP NA9
+2016/08/08 01:08:06 Info > Inventory: Completed netstat collection for  : 2607-f480-111-1710-6d52-2615-9529-1304.ipv6-literal.net
+2016/08/08 01:08:06 Info > Inventory: Started inventory collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:08:07 Info > Inventory: Completed netstat collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:08:07 Info > Inventory: Started inventory collection for  : 2607:f480:111:1710:6d52:2615:9529:1304
+2016/08/08 01:08:07 Info > Inventory: Completed inventory collection for 10-1-1-9 : 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/08 01:08:07 Info > Inventory: Started inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/08 01:08:08 Info > Inventory: Completed inventory collection for 10-1-1-4 : 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/08 01:08:08 Info > UpdateMCPWorkload: Inventory for redhat01 in NA9 
+2016/08/08 01:08:08 Info > UpdateMCPWorkload: Inventory for centos01 in NA9 
+2016/08/08 01:08:09 Info > Inventory: Completed inventory collection for  : 2607:f480:111:1710:6d52:2615:9529:1304
+2016/08/08 01:08:09 Info > UpdateMCPWorkload: Inventory for ubuntu01 in NA9 
+2016/08/08 01:12:24 Info > UpdateMCPWorkload: Inventory for suse01 in NA9 
+2016/08/08 01:12:24 Info > Inventory: Completed netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/08 01:12:25 Info > UpdateMCPWorkload: Inventory for repository01 in NA9 
+2016/08/08 01:12:25 Info > Double-Take Job: Error contacting Double-Take Management Service for MRMPService.MRMPAPI.Types.API.MRPWorkloadType using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net : System.AggregateException: One or more errors occurred. ---> System.Threading.Tasks.TaskCanceledException: A task was canceled.   --- End of inner exception stack trace ---   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)   at MRMPService.MRMPDoubleTake.Core..ctor(Doubletake _doubletake)   at MRMPService.MRMPDoubleTake.Job..ctor(Doubletake doubletake)   at MRMPService.MRMPDoubleTake.Doubletake.job()   at MRMPService.DTPollerCollection.DTJobPoller.PollerDo(MRPManagementobjectType _mrp_managementobject)---> (Inner Exception #0) System.Threading.Tasks.TaskCanceledException: A task was canceled.<---
+2016/08/08 01:12:26 Info > Inventory: Completed netstat collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:12:26 Info > Double-Take Job : Error collecting job information for 69f7347b-239d-47c1-b1b4-4e95de112d43 on MRMPService.MRMPAPI.Types.API.MRPWorkloadType : System.NullReferenceException: Object reference not set to an instance of an object.   at MRMPService.DTPollerCollection.DTJobPoller.PollerDo(MRPManagementobjectType _mrp_managementobject)
+2016/08/08 01:12:26 Info > UpdateMCPWorkload: Inventory for appserver01 in NA9 
+2016/08/08 01:12:26 Info > UpdateMCPWorkload: Inventory for appserver02 in NA9 
+2016/08/08 01:12:27 Info > Inventory: Completed netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/08 01:12:27 Info > Netstat: Completed netstat collection for 11 workloads in 00:04:36.9120000 [next run at 8/8/2016 1:37:50 AM]
+2016/08/08 01:12:27 Info > UpdateMCPWorkload: Inventory for appserver03 in NA9 
+2016/08/08 01:12:28 Error > Error creating migration sync job: System.AggregateException: One or more errors occurred. ---> System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it [2607:f480:111:1710:6d52:2615:9529:1304]:6326   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)   --- End of inner exception stack trace ---   at System.Net.HttpWebRequest.EndGetResponse(IAsyncResult asyncResult)   at System.Net.Http.HttpClientHandler.GetResponseCallback(IAsyncResult ar)   --- End of inner exception stack trace ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementConnectionManager.<GetIdentifierAsync>d__1.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionInternalAsync>d__23.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionAsync>d__14.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementService.<GetConnectionAsync>d__25.MoveNext()   --- End of inner exception stack trace ---   at System.Threading.Tasks.Task`1.GetResultCore(Boolean waitCompletionNotification)   at MRMPService.MRMPDoubleTake.Core..ctor(Doubletake _doubletake)   at MRMPService.MRMPDoubleTake.Management..ctor(Doubletake doubletake)   at MRMPService.MRMPDoubleTake.Doubletake.management()   at MRMPService.Tasks.DoubleTake.Migration.CreateServerMigrationJob(String _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, Single _start_progress, Single _end_progress)---> (Inner Exception #0) System.Net.Http.HttpRequestException: An error occurred while sending the request. ---> System.Net.WebException: Unable to connect to the remote server ---> System.Net.Sockets.SocketException: No connection could be made because the target machine actively refused it [2607:f480:111:1710:6d52:2615:9529:1304]:6326   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)   at System.Net.ServicePoint.ConnectSocketInternal(Boolean connectFailure, Socket s4, Socket s6, Socket& socket, IPAddress& address, ConnectSocketState state, IAsyncResult asyncResult, Exception& exception)   --- End of inner exception stack trace ---   at System.Net.HttpWebRequest.EndGetResponse(IAsyncResult asyncResult)   at System.Net.Http.HttpClientHandler.GetResponseCallback(IAsyncResult ar)   --- End of inner exception stack trace ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementConnectionManager.<GetIdentifierAsync>d__1.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionInternalAsync>d__23.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ConnectionManager`1.<GetConnectionAsync>d__14.MoveNext()--- End of stack trace from previous location where exception was thrown ---   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)   at DoubleTake.Web.Client.ManagementService.<GetConnectionAsync>d__25.MoveNext()<---
+2016/08/08 01:12:28 Info > Inventory: Completed inventory collection for 10-1-1-6 : 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:12:28 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:12:28 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:12:28 Info > Completed Double-Take Event collection for 2 workloads in 00:04:37.8390000 [next run at 8/8/2016 1:17:50 AM]
+2016/08/08 01:12:28 Info > UpdateMCPWorkload: Inventory for 10-1-1-13-migrate in NA9 
+2016/08/08 01:12:28 Info > UpdateMCPWorkload: Inventory for 10-1-1-12 in NA9 
+2016/08/08 01:12:29 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3abe-6be-b18c-11ae.ipv6-literal.net
+2016/08/08 01:12:29 Info > Completed Double-Take collection for 3 jobs in 00:04:38.7630000 [next run at 8/8/2016 1:17:50 AM]
+2016/08/08 01:12:29 Info > UpdateMCPWorkload: Inventory for 10-1-1-4_migrate in NA9 
+2016/08/08 01:12:29 Info > Completed inventory process for dimension_data : NA9 - 0 new workloads - 0 updated platform networks - 0 updated workloads - 2 removed workloads = Total Execute Time: 00:04:38.7540000
+2016/08/08 01:12:29 Info > Completed platform inventory for 0 platforms in 00:04:39.2290000 [next run at 8/9/2016 1:07:50 AM]
+2016/08/08 01:12:30 Info > Inventory: Completed inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/08 01:12:31 Info > Inventory: Completed inventory collection for 10-1-1-5 : 2607-f480-111-1710-57da-1538-fdd4-a019.ipv6-literal.net
+2016/08/08 01:12:33 Info > Inventory: Completed inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/08 01:12:33 Info > Completed operating system inventory for 11 workloads in 00:04:43.1210000 [next run at 8/9/2016 1:07:50 AM]
+2016/08/08 01:12:42 Info > Performance: Completed performance collection for 10-1-1-14 using 2607:f480:111:1710:7dad:a839:feed:f964
+2016/08/08 01:12:54 Info > Staring data upload process
+2016/08/08 01:12:54 Debug > Starting Performance Upload Thread
+2016/08/08 01:12:54 Debug > Starting Netstat Upload Thread
+2016/08/08 01:12:54 Debug > Starting Netflow Upload Thread
+2016/08/08 01:12:54 Debug > Took 00:00:00 to delete 0 netflow records
+2016/08/08 01:12:54 Debug > Completed Netflow Upload Thread in 00:00:00.0220000
+2016/08/08 01:12:54 Debug > Deleting uploaded Netstat records: 58
+2016/08/08 01:12:54 Debug > Took 00:00:00.0510000 to delete 58 performance records
+2016/08/08 01:12:54 Debug > Completed Nestat Upload Thread in 00:00:00.3600000
+2016/08/08 01:12:58 Debug > Deleting uploaded performance records: 1002
+2016/08/08 01:12:59 Debug > Took 00:00:00.5260000 to delete 1002 performance records
+2016/08/08 01:12:59 Debug > Completed Performance Upload Thread in 00:00:04.9210000
+2016/08/08 01:12:59 Info > Completed data upload process. Total Elapsed Time: 00:00:04.9530000
+2016/08/08 01:13:09 Info > Performance: Completed performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/08 01:13:10 Info > Performance: Completed performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/08 01:13:11 Info > Performance: Completed performance collection for 10-1-1-6 using 2607:f480:111:1710:3abe:6be:b18c:11ae
+2016/08/08 01:13:16 Info > Performance: Completed performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/08/08 01:13:17 Info > Performance: Completed performance collection for 10-1-1-5 using 2607:f480:111:1710:57da:1538:fdd4:a019
+2016/08/08 01:13:17 Info > Completed performance collection for 11 workloads in 00:05:27.4550000 [next run at 8/8/2016 2:07:50 AM]

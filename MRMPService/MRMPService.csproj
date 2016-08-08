@@ -344,6 +344,7 @@
     <Compile Include="MRPService\Classes\Utilities\MRPRegistry.cs" />
     <Compile Include="MRPService\Classes\Utilities\ReportProgress.cs" />
     <Compile Include="MRPService\Classes\Utilities\Settings.cs" />
+    <Compile Include="MRPService\Classes\Utilities\SSHHandleKeyboard.cs" />
     <Compile Include="MRPService\Classes\Utilities\SyncronizedList.cs" />
     <Compile Include="MRPService\Classes\Utilities\WMIHelper.cs" />
     <Compile Include="MRPService\Database\Classes\NetstatSet.cs" />
@@ -525,7 +526,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

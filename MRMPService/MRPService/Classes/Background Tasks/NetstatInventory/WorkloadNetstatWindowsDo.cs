@@ -133,19 +133,24 @@ namespace MRMPService.MRMPAPI.Classes
                             {
                                 using (NetstatSet _netstat_db = new NetstatSet())
                                 {
-                                    _netstat_db.ModelRepository.Insert(new Netstat()
+                                    try
                                     {
-                                        id = Objects.RamdomGuid(),
-                                        workload_id = workload.id,
-                                        proto = tokens[0],
-                                        pid = _pid,
-                                        process = _processes.FirstOrDefault(x => x.pid == _pid).name,
-                                        source_ip = IPSplit.Parse(tokens[1]).Address.ToString(),
-                                        source_port = IPSplit.Parse(tokens[1]).Port,
-                                        target_ip = IPSplit.Parse(tokens[2]).Address.ToString(),
-                                        target_port = IPSplit.Parse(tokens[2]).Port,
-                                        state = tokens[3]
-                                    });
+                                        _netstat_db.ModelRepository.Insert(new Netstat()
+                                        {
+                                            id = Objects.RamdomGuid(),
+                                            workload_id = workload.id,
+                                            proto = tokens[0],
+                                            pid = _pid,
+                                            process = _processes.FirstOrDefault(x => x.pid == _pid).name,
+                                            source_ip = IPSplit.Parse(tokens[1]).Address.ToString(),
+                                            source_port = IPSplit.Parse(tokens[1]).Port,
+                                            target_ip = IPSplit.Parse(tokens[2]).Address.ToString(),
+                                            target_port = IPSplit.Parse(tokens[2]).Port,
+                                            state = tokens[3]
+                                        });
+                                    }
+                                    catch (Exception ex)
+                                    { }
                                 }
                             }
                         }

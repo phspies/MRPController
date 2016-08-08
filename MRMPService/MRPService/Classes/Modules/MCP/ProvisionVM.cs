@@ -25,6 +25,12 @@ namespace MRMPService.Tasks.MCP
             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
                 _mrp_api.task().progress(_task_id, String.Format("Starting provisioning process"), ReportProgress.Progress(_start_progress, _end_progress, 1));
+                
+                //update target workload with updated iplist and moid information
+                MRPWorkloadType _temp_workload = _mrp_api.workload().get_by_id(_target_workload.id);
+
+                _target_workload.moid = _temp_workload.moid;
+                _target_workload.iplist = _temp_workload.iplist;
             }
 
             if (_target_workload.credential == null)
@@ -109,7 +115,7 @@ namespace MRMPService.Tasks.MCP
                 _vm.administratorPassword = _target_workload.credential.encrypted_password;
                 _vm.primaryDns = String.IsNullOrEmpty(_target_workload.primary_dns) ? null : _target_workload.primary_dns;
                 _vm.secondaryDns = String.IsNullOrEmpty(_target_workload.secondary_dns) ? null : _target_workload.secondary_dns;
-                _vm.microsoftTimeZone = _target_workload.timezone;
+                _vm.microsoftTimeZone = (_target_workload.ostype == "windows" ? _target_workload.timezone : null);
                 Logger.log(String.Format("Attempting the creation of [{0}] in [{1}]: {2}", _vm.name, _dc.displayName, JsonConvert.SerializeObject(_vm)), Logger.Severity.Debug);
 
                 //create virtual server
@@ -247,6 +253,7 @@ namespace MRMPService.Tasks.MCP
                     MRPWorkloadType _update_workload = new MRPWorkloadType();
                     _update_workload.id = _target_workload.id;
                     _update_workload.moid = deployedServer.id;
+                    _update_workload.hostname = deployedServer.name;
                     _update_workload.provisioned = true;
                     _update_workload.deleted = false;
                     _update_workload.enabled = true;

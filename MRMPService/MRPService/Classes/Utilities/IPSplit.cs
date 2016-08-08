@@ -27,7 +27,7 @@ namespace MRMPService.Utilities
             }
 
             string[] values = endpointstring.Split(new char[] { ':' });
-            IPAddress ipaddy;
+            IPAddress ipaddy = null;
             int port = -1;
 
             //check if we have an IPv6 or ports
@@ -54,7 +54,14 @@ namespace MRMPService.Utilities
                 }
                 else //[a:b:c] or a:b:c
                 {
-                    ipaddy = IPAddress.Parse(endpointstring);
+                    try
+                    {
+                        ipaddy = IPAddress.Parse(endpointstring);
+                    }
+                    catch(Exception ex)
+                    {
+                        var error = ex;
+                    }
                     port = defaultport;
                 }
             }

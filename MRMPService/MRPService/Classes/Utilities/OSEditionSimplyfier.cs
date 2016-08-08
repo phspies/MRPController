@@ -46,7 +46,7 @@
             else if (_longname.Contains("SUSE"))
             {
                 _simple_osedition += "SUSE";
-                _simple_osedition += _longname.Split(' ')[3];
+                _simple_osedition += _longname.Split(' ')[4];
                 if (_longname.Contains("64"))
                 {
                     _simple_osedition += "/64";
@@ -59,7 +59,7 @@
             else if (_longname.Contains("Red Hat"))
             {
                 _simple_osedition += "REDHAT";
-                _simple_osedition += _longname.Split(' ')[4];
+                _simple_osedition += _longname.Split(' ')[5].Split('.')[0];
                 if (_longname.Contains("64"))
                 {
                     _simple_osedition += "/64";
@@ -69,10 +69,10 @@
                     _simple_osedition += "/32";
                 }
             }
-            else if (_longname.Contains("Centos"))
+            else if (_longname.Contains("CentOS"))
             {
                 _simple_osedition += "CENTOS";
-                _simple_osedition += _longname.Split(' ')[1];
+                _simple_osedition += _longname.Split(' ')[1].Split('.')[0];
                 if (_longname.Contains("64"))
                 {
                     _simple_osedition += "/64";

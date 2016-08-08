@@ -47,6 +47,17 @@ namespace MRMPService.MRMPDoubleTake
             };
             return createOptions;
         }
+        public List<SnapshotEntryModel> GetSnapShots(Guid _job_id)
+        {
+            List<SnapshotEntryModel> _snapshots = new List<SnapshotEntryModel>();
+            var _connections = jobApi.GetConnectionsAsync(_job_id).Result.Content;
+            foreach (var _connection in _connections)
+            {
+                var _connection_snapshots = jobApi.GetSnapshotsAsync(_job_id, _connection.ManagedConnectionId);
+                _snapshots.AddRange(_connection_snapshots.Result.Content);
+            }
+            return _snapshots;
+        }
         async public Task<Guid> CreateJob(CreateOptionsModel createOptions, string jobName)
         {
             if (!string.IsNullOrEmpty(jobName))

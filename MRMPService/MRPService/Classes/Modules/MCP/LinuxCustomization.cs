@@ -8,11 +8,23 @@ using MRMPService.MRMPService.Types.API;
 using DD.CBU.Compute.Api.Client;
 using System.Net;
 using DD.CBU.Compute.Api.Contracts.Network20;
+using Renci.SshNet.Common;
 
 namespace MRMPService.Tasks.MCP
 {
     partial class MCP_Platform
     {
+        static string _password;
+        static private void HandleKeyEvent(object sender, AuthenticationPromptEventArgs e)
+        {
+            foreach (AuthenticationPrompt prompt in e.Prompts)
+            {
+                if (prompt.Request.IndexOf("Password:", StringComparison.InvariantCultureIgnoreCase) != -1)
+                {
+                    prompt.Response = _password;
+                }
+            }
+        }
         static public void LinuxCustomization(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress)
         {
             MRPCredentialType _credential = _target_workload.credential;
@@ -32,8 +44,13 @@ namespace MRMPService.Tasks.MCP
                     throw new ArgumentException(String.Format("Error contacting workwork {0} after 3 tries", _target_workload.hostname));
                 }
             }
+            _password = _credential.encrypted_password;
 
-            ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _credential.username, new AuthenticationMethod[] { new PasswordAuthenticationMethod(_credential.username, _credential.encrypted_password) });
+
+            KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_credential.username);
+            _keyboard_authentication.AuthenticationPrompt += new EventHandler<AuthenticationPromptEventArgs>(HandleKeyEvent);
+            PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_credential.username, _password);
+            ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _credential.username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
 
             float root_lvm_size = 0;
             string root_lvm_volume = "";
@@ -59,9 +76,9 @@ namespace MRMPService.Tasks.MCP
                     foreach (string _line in lines)
                     {
                         string[] vars = _line.ToString().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                        if (vars.Count() > 6)
+                        if (vars.Count() == 6)
                         {
-                            if (vars[6] == _root_volume_object.driveletter)
+                            if (vars[5] == _root_volume_object.driveletter)
                             {
                                 string _string = vars[0];
                                 _volumegroup = _string.Split('-')[0];
@@ -69,9 +86,9 @@ namespace MRMPService.Tasks.MCP
                                 root_lvm_size = float.Parse(vars[3].ToString()) / 1024 / 1024 / 1024;
                             }
                         }
-                        if (vars.Count() > 7)
+                        if (vars.Count() == 7)
                         {
-                            if (vars[7] == _root_volume_object.driveletter)
+                            if (vars[6] == _root_volume_object.driveletter)
                             {
                                 string _string = vars[0];
                                 _volumegroup = _string.Split('-')[0];
@@ -138,9 +155,33 @@ namespace MRMPService.Tasks.MCP
                 {
                     throw new Exception("Error connecting to linux server");
                 }
+                var cmd = new Object();
                 //create extended partition
-                var cmd = sshclient.RunCommand("echo -e 'n\ne\n4\n\n\n\nw' | fdisk /dev/sda");
+                if (_0_shortfall > 0)
+                {
+                    cmd = sshclient.RunCommand("echo -e 'n\ne\n4\n\n\n\nw' | fdisk /dev/sda");
 
+                    //create new partition on number 5
+                    int _create_part_number = 5;
+                    cmd = sshclient.RunCommand("echo -e 'n\nl\n\n\n\nw' | fdisk /dev/sda");
+
+                    //rescan linux device files
+                    cmd = sshclient.RunCommand("partprobe /dev/sda");
+
+                    //create physical volume for new partition
+                    cmd = sshclient.RunCommand("pvcreate /dev/sda" + _create_part_number);
+                    cmd = sshclient.RunCommand(String.Format("vgextend {0} /dev/sda{1}", _volumegroup, _create_part_number));
+                    cmd = sshclient.RunCommand(String.Format("lvextend -L{3}G /dev/{0}/{1} /dev/sda{2}", _volumegroup, root_lvm_volume, _create_part_number, _root_volume_object.volumesize));
+
+                    if (_part_fs_type == "xfs")
+                    {
+                        cmd = sshclient.RunCommand(String.Format("xfs_growfs /dev/{0}/{1}", _volumegroup, root_lvm_volume));
+                    }
+                    else if (_part_fs_type == "ext4" || _part_fs_type == "ext3")
+                    {
+                        cmd = sshclient.RunCommand(String.Format("resize2fs /dev/{0}/{1}", _volumegroup, root_lvm_volume));
+                    }
+                }
                 //create partitions for all the other volumes if they exist
                 string[] _disk_id = new string[] { "b", "c", "d", "e", "f", "h", "k", "l", "m", "n" };
 
@@ -151,25 +192,8 @@ namespace MRMPService.Tasks.MCP
                     cmd = sshclient.RunCommand(String.Format("vgcreate {0} /dev/sd{1}1", String.Format("vg-{0}", _disk_id[_disk_index]), _disk_id[_disk_index]));
                 }
 
-                //create new partition on number 5
-                int _create_part_number = 5;
-                cmd = sshclient.RunCommand("echo -e 'n\nl\n\n\n\nw' | fdisk /dev/sda");
 
-                //rescan linux device files
-                cmd = sshclient.RunCommand("partprobe /dev/sda");
 
-                //create physical volume for new partition
-                cmd = sshclient.RunCommand("pvcreate /dev/sda" + _create_part_number);
-                cmd = sshclient.RunCommand(String.Format("vgextend {0} /dev/sda{1}", _volumegroup, _create_part_number));
-                cmd = sshclient.RunCommand(String.Format("lvextend -L{3}G /dev/{0}/{1} /dev/sda{2}", _volumegroup, root_lvm_volume, _create_part_number, _root_volume_object.volumesize));
-                if (_part_fs_type == "xfs")
-                {
-                    cmd = sshclient.RunCommand(String.Format("xfs_growfs /dev/{0}/{1}", _volumegroup, root_lvm_volume));
-                }
-                else if (_part_fs_type == "ext4")
-                {
-                    cmd = sshclient.RunCommand(String.Format("resize2fs /dev/{0}/{1}", _volumegroup, root_lvm_volume));
-                }
                 foreach (int _disk_index in _target_workload.workloadvolumes_attributes.Where(x => x.diskindex > 0).Select(x => x.diskindex).Distinct())
                 {
                     foreach (MRPWorkloadVolumeType _volume in _target_workload.workloadvolumes_attributes.ToList().Where(x => x.diskindex == _disk_index).OrderBy(x => x.driveletter))
@@ -182,7 +206,7 @@ namespace MRMPService.Tasks.MCP
                         {
                             cmd = sshclient.RunCommand(String.Format("mkfs.xfs /dev/{0}/{1}", _volume_group, _volume_name));
                         }
-                        else if (_part_fs_type == "ext4")
+                        else if (_part_fs_type == "ext4" || _part_fs_type == "ext3")
                         {
                             cmd = sshclient.RunCommand(String.Format("mkfs.ext4 /dev/{0}/{1}", _volume_group, _volume_name));
                         }

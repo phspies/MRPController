@@ -6,12 +6,23 @@ using MRMPService.Utilities;
 using System.Collections.Generic;
 using MRMPService.MRMPService.Log;
 using Renci.SshNet;
+using Renci.SshNet.Common;
 
 namespace MRMPService.MRMPAPI.Classes
 {
     partial class WorkloadNetstat
     {
-
+        static string _password;
+        static private void HandleKeyEvent(object sender, AuthenticationPromptEventArgs e)
+        {
+            foreach (AuthenticationPrompt prompt in e.Prompts)
+            {
+                if (prompt.Request.IndexOf("Password:", StringComparison.InvariantCultureIgnoreCase) != -1)
+                {
+                    prompt.Response = _password;
+                }
+            }
+        }
         public static void WorkloadNetstatUnixDo(MRPWorkloadType workload)
         {
             MRPWorkloadType _workload = workload;
@@ -24,6 +35,7 @@ namespace MRMPService.MRMPAPI.Classes
             {
                 throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", _workload.id, _workload.hostname));
             }
+            _password = _credential.encrypted_password;
 
             string workload_ip = null;
             using (Connection _connection = new Connection())
@@ -37,9 +49,12 @@ namespace MRMPService.MRMPAPI.Classes
             Logger.log(String.Format("Netstat: Started netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
 
-            ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _credential.username,
-                 new AuthenticationMethod[] { new PasswordAuthenticationMethod(_credential.username, _credential.encrypted_password) }
-             );
+            KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_credential.username);
+            _keyboard_authentication.AuthenticationPrompt += new EventHandler<AuthenticationPromptEventArgs>(HandleKeyEvent);
+            PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_credential.username, _password);
+            ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _credential.username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
+
+
             List<ProcessInfo> _processes = new List<ProcessInfo>();
             List<String> netstatList = new List<string>();
 
@@ -80,19 +95,24 @@ namespace MRMPService.MRMPAPI.Classes
                                 {
                                     using (NetstatSet _netstat_db = new NetstatSet())
                                     {
-                                        _netstat_db.ModelRepository.Insert(new Netstat()
+                                        try
                                         {
-                                            id = Objects.RamdomGuid(),
-                                            workload_id = workload.id,
-                                            proto = tokens[0],
-                                            pid = _pid,
-                                            process = _processes.FirstOrDefault(x => x.pid == _pid).name,
-                                            source_ip = IPSplit.Parse(tokens[4]).Address.ToString(),
-                                            source_port = IPSplit.Parse(tokens[4]).Port,
-                                            target_ip = IPSplit.Parse(tokens[3]).Address.ToString(),
-                                            target_port = IPSplit.Parse(tokens[3]).Port,
-                                            state = tokens[5]
-                                        });
+                                            _netstat_db.ModelRepository.Insert(new Netstat()
+                                            {
+                                                id = Objects.RamdomGuid(),
+                                                workload_id = workload.id,
+                                                proto = tokens[0],
+                                                pid = _pid,
+                                                process = _processes.FirstOrDefault(x => x.pid == _pid).name,
+                                                source_ip = IPSplit.Parse(tokens[4]).Address.ToString(),
+                                                source_port = IPSplit.Parse(tokens[4]).Port,
+                                                target_ip = IPSplit.Parse(tokens[3]).Address.ToString(),
+                                                target_port = IPSplit.Parse(tokens[3]).Port,
+                                                state = tokens[5]
+                                            });
+                                        }
+                                        catch (Exception ex)
+                                        { }
                                     }
                                 }
                             }

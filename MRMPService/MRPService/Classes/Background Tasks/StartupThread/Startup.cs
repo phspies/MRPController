@@ -13,12 +13,13 @@ using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.Threading;
 using MRMPService.WCF;
+using MRMPService.DTEventPollerCollection;
 
 namespace MRMPService.MRMPService.Classes.Background_Classes
 {
     public class Startup
     {
-        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread, _osinventody_thread, _osnetstat_thread, _dt_thread;
+        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _dataupload_thread, _osinventody_thread, _osnetstat_thread, _dt_job_thread, _dt_event_thread;
 
         public void Start()
         {
@@ -154,13 +155,17 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             _osnetstat_thread.IsBackground = true;
             _osnetstat_thread.Start();
 
-            DTJobPollerThread _dt_polling = new DTJobPollerThread();
-            if (Global.debug) { Logger.log("Starting DT Polling Thread", Logger.Severity.Debug); };
-            _dt_thread = new Thread(new ThreadStart(_dt_polling.Start));
-            _dt_thread.IsBackground = true;
-            _dt_thread.Start();
+            DTJobPollerThread _dt_job_polling = new DTJobPollerThread();
+            if (Global.debug) { Logger.log("Starting DT Job Polling Thread", Logger.Severity.Debug); };
+            _dt_job_thread = new Thread(new ThreadStart(_dt_job_polling.Start));
+            _dt_job_thread.IsBackground = true;
+            _dt_job_thread.Start();
 
+            DTEventPollerThread _dt_event_polling = new DTEventPollerThread();
+            if (Global.debug) { Logger.log("Starting DT Event Polling Thread", Logger.Severity.Debug); };
+            _dt_event_thread = new Thread(new ThreadStart(_dt_event_polling.Start));
+            _dt_event_thread.IsBackground = true;
+            _dt_event_thread.Start();
         }
-
     }
 }
