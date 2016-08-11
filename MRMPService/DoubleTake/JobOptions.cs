@@ -61,11 +61,11 @@ namespace MRMPService.MRMPDoubleTake
             //jobInfo.JobOptions.ImageRecoveryOptions.SnapshotSetId
 
             //set ssm staging folder if present
-            if (!String.IsNullOrEmpty(_protectiongroup.recoverypolicy.windows_staging_path) || !String.IsNullOrEmpty(_protectiongroup.recoverypolicy.linux_staging_path))
-            {
-                jobInfo.JobOptions.SystemStateOptions.AlternateVolumeStaging = true;
-                jobInfo.JobOptions.SystemStateOptions.StagingFolder = _target_workload.ostype.ToLower() == "windows" ? _protectiongroup.recoverypolicy.windows_staging_path : _protectiongroup.recoverypolicy.linux_staging_path;
-            }
+            //if (!String.IsNullOrEmpty(_protectiongroup.recoverypolicy.windows_staging_path) || !String.IsNullOrEmpty(_protectiongroup.recoverypolicy.linux_staging_path))
+            //{
+            //    jobInfo.JobOptions.SystemStateOptions.AlternateVolumeStaging = true;
+            //    jobInfo.JobOptions.SystemStateOptions.StagingFolder = _target_workload.ostype.ToLower() == "windows" ? _protectiongroup.recoverypolicy.windows_staging_path : _protectiongroup.recoverypolicy.linux_staging_path;
+            //}
 
             //set retain network settings option
             jobInfo.JobOptions.SystemStateOptions.IsWanFailover = (bool)_protectiongroup.recoverypolicy.retain_network_configuration;

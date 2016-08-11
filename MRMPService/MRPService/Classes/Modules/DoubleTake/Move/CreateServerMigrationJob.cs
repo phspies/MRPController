@@ -1,4 +1,5 @@
 ﻿using DoubleTake.Web.Models;
+using MRMPService.DTPollerCollection;
 using MRMPService.MRMPAPI;
 using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPDoubleTake;
@@ -110,6 +111,7 @@ namespace MRMPService.Tasks.DoubleTake
                             moname = jobInfo.JobOptions.Name,
                             motype = DT_JobTypes.Move_Server_Migration
                         });
+                        _managementobject = _mrp_api.managementobject().getmanagementobject_id(_managementobject.id);
 
 
                         _mrp_api.task().progress(_task_id, "Waiting for sync process to start", ReportProgress.Progress(_start_progress, _end_progress, 65));
@@ -124,13 +126,19 @@ namespace MRMPService.Tasks.DoubleTake
                         _mrp_api.task().progress(_task_id, String.Format("Sync process started at {0}", jobinfo.Statistics.CoreConnectionDetails.StartTime), ReportProgress.Progress(_start_progress, _end_progress, 70));
 
                         _mrp_api.task().progress(_task_id, String.Format("Successfully created move synchronization job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
-                        _mrp_api.task().successcomplete(_task_id, JsonConvert.SerializeObject(jobinfo));
+
+                        MRPWorkloadType _update_workload = new MRPWorkloadType();
+                        _update_workload.id = _target_workload.id;
+                        _update_workload.dt_installed = true;
+                        _mrp_api.workload().updateworkload(_update_workload);
+
+                        DTJobPoller.PollerDo(_managementobject);
                     }
                 }
                 catch (Exception e)
                 {
                     Logger.log(String.Format("Error creating migration sync job: {0}", e.ToString()), Logger.Severity.Error);
-                    _mrp_api.task().failcomplete(_task_id, String.Format("Create sync process failed: {0}", e.Message));
+                    throw new Exception(String.Format("Create sync process failed: {0} {1}", e.Message, e.InnerException.InnerException.InnerException.Message));
                 }
             }
         }

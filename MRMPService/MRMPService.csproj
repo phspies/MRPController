@@ -250,6 +250,9 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Cluster\ClusterAwareFilesAndFoldersJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Cluster\ClusterAwareSqlJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\DeployWindowsDoubleTake.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\PauseJob.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\StartJob.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\StopJob.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\CreateDRServerProtectionJob.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DataOnlyImageProtectionJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\DataOnlyImageRecoveryJobEx.cs" />
@@ -290,8 +293,12 @@
     <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Templates.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\PlatformDiscovery.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\DatacenterDiscovery.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Common\PauseJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Common\StartJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Common\StopJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupRecoveryJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupProtectionJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Migrate\FailoverMigrateJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Migrate\SetupMigrateJob.cs" />
     <Compile Include="MRPService\Classes\Utilities\CryptLib.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />

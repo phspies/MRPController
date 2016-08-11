@@ -104,9 +104,9 @@ namespace MRMPService.PlatformInventory
                         _logical_interface.moid = _caasworkloadinterface.id;
                         _logical_interface._destroy = false;
                         _logical_interface.platformnetwork_id = _mrp_networks.FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id;
-                        nic_index += 1;
 
                         _mrmp_workload.workloadinterfaces_attributes.Add(_logical_interface);
+                        nic_index += 1;
                     }
                 }
                 //Update if the portal has this workload and create if it's new to the portal....

@@ -1,0 +1,302 @@
+2016/08/11 01:35:51 1 > Starting Manager Service
+2016/08/11 01:35:51 0 > Verifying database
+2016/08/11 01:35:51 0 > Compacting database
+2016/08/11 01:35:51 1 > Starting WCF Service
+2016/08/11 01:35:51 0 > Debug Enabled!
+2016/08/11 01:35:51 0 > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/08/11 01:35:52 1 > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/08/11 01:35:52 1 > Starting Scheduler Thread
+2016/08/11 01:35:52 1 > Starting Mirror Thread
+2016/08/11 01:35:52 0 > Staring platform inventory process with 10 threads
+2016/08/11 01:35:52 1 > Starting Performance Collection Thread
+2016/08/11 01:35:52 1 > Starting Netflow v5 Collection Thread
+2016/08/11 01:35:52 1 > Starting Data Upload Thread
+2016/08/11 01:35:52 0 > Staring performance collection process with 10 threads
+2016/08/11 01:35:52 0 > Staring data upload process
+2016/08/11 01:35:52 1 > Starting OS Inventory Thread
+2016/08/11 01:35:52 1 > Starting Performance Upload Thread
+2016/08/11 01:35:52 0 > Staring operating system inventory process with 10 threads
+2016/08/11 01:35:52 1 > Starting Netflow Upload Thread
+2016/08/11 01:35:52 1 > Starting OS Netstat Thread
+2016/08/11 01:35:52 1 > Starting DT Job Polling Thread
+2016/08/11 01:35:52 1 > Starting Netstat Upload Thread
+2016/08/11 01:35:52 0 > Netstat: Staring netstat collection process with 10 threads
+2016/08/11 01:35:52 1 > Starting DT Event Polling Thread
+2016/08/11 01:35:52 0 > Staring Double-Take collection process with 10 threads
+2016/08/11 01:35:52 0 > Staring Double-Take Event collection process with 5 threads
+2016/08/11 01:35:52 0 > Started inventory process for dimension_data : NA9
+2016/08/11 01:35:52 0 > Performance: Start performance collection for 10-1-1-6 using 2607:f480:111:1710:3466:a8f2:ece:ddb0
+2016/08/11 01:35:52 0 > Performance: Start performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/11 01:35:52 0 > Inventory: Started inventory collection for 10-1-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 01:35:52 0 > Inventory: Started inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/11 01:35:52 0 > Double-Take Event: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 01:35:53 0 > Double-Take Job: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 01:35:53 1 > Took 00:00:00.0020000 to delete 0 netflow records
+2016/08/11 01:35:53 1 > Completed Netflow Upload Thread in 00:00:00.8310000
+2016/08/11 01:35:53 1 > Deleting uploaded Netstat records: 0
+2016/08/11 01:35:53 1 > Took 00:00:00 to delete 0 performance records
+2016/08/11 01:35:53 1 > Completed Nestat Upload Thread in 00:00:00.8460000
+2016/08/11 01:35:53 1 > Deleting uploaded performance records: 0
+2016/08/11 01:35:53 1 > Took 00:00:00 to delete 0 performance records
+2016/08/11 01:35:53 1 > Completed Performance Upload Thread in 00:00:01.0430000
+2016/08/11 01:35:53 0 > Completed data upload process. Total Elapsed Time: 00:00:01.0620000
+2016/08/11 01:35:53 0 > Netstat: Started netstat collection for 10-1-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 01:35:54 0 > Double-Take Job: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 01:35:55 0 > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/11 01:35:56 0 > Inventory: Started inventory collection for 10-1-1-10 : 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/11 01:35:57 0 > Performance: Start performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/11 01:35:59 0 > Netstat: Started netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/08/11 01:36:00 0 > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/11 01:36:00 0 > Netstat: Started netstat collection for 10-10-1-4 : 2607-f480-111-1711-1b54-b528-27b2-d529.ipv6-literal.net
+2016/08/11 01:36:00 0 > Performance: Completed performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/11 01:36:00 0 > Double-Take Event: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 01:36:00 0 > Performance: Start performance collection for 10-10-1-4 using 2607:f480:111:1711:1b54:b528:27b2:d529
+2016/08/11 01:36:00 0 > Inventory: Started inventory collection for 10-10-1-4 : 2607-f480-111-1711-1b54-b528-27b2-d529.ipv6-literal.net
+2016/08/11 01:36:00 0 > Inventory: Completed inventory collection for 10-1-1-10 : 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/11 01:36:01 0 > Inventory: Started inventory collection for 10-1-1-5 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 01:36:01 0 > Inventory: Completed netstat collection for 10-1-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 01:36:01 0 > Netstat: Started netstat collection for 10-1-1-5 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 01:36:01 0 > Inventory: Started inventory collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 01:36:02 0 > Inventory: Completed netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/08/11 01:36:02 0 > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 01:36:02 0 > Netstat: Started netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 01:36:02 0 > Performance: Start performance collection for 10-1-1-5 using 2607:f480:111:1710:48e0:2d25:42fe:3690
+2016/08/11 01:36:03 0 > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 01:36:04 0 > Inventory: Completed inventory collection for 10-1-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 01:36:04 0 > Inventory: Started inventory collection for 10-1-1-8 : 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/11 01:36:05 0 > Netstat: Started netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/08/11 01:36:05 0 > Inventory: Completed inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/11 01:36:06 0 > UpdateMCPWorkload: Inventory for redhat01 in NA9 
+2016/08/11 01:36:06 0 > Inventory: Completed inventory collection for 10-1-1-8 : 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/11 01:36:06 0 > Inventory: Started inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/11 01:36:06 0 > Inventory: Started inventory collection for 10-1-1-4 : 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/11 01:36:06 0 > Inventory: Completed netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/08/11 01:36:06 0 > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/11 01:36:06 0 > Netstat: Started netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/08/11 01:36:07 0 > Inventory: Started inventory collection for 10-1-1-9 : 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/11 01:36:07 0 > Inventory: Completed inventory collection for 10-1-1-4 : 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/11 01:36:08 0 > Inventory: Completed netstat collection for 10-10-1-4 : 2607-f480-111-1711-1b54-b528-27b2-d529.ipv6-literal.net
+2016/08/11 01:36:08 0 > UpdateMCPWorkload: Inventory for centos01 in NA9 
+2016/08/11 01:36:08 0 > Netstat: Started netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/08/11 01:36:08 0 > Inventory: Started inventory collection for 10-10-1-6 : 2607-f480-111-1711-39de-aea4-656f-6f49.ipv6-literal.net
+2016/08/11 01:36:08 0 > Inventory: Completed netstat collection for 10-1-1-5 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 01:36:08 0 > Netstat: Started netstat collection for 10-10-1-6 : 2607-f480-111-1711-39de-aea4-656f-6f49.ipv6-literal.net
+2016/08/11 01:36:08 0 > Inventory: Completed netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/08/11 01:36:08 0 > Netstat: Started netstat collection for 10-10-1-5 : 2607-f480-111-1711-4ba6-5ffd-1cdc-13ea.ipv6-literal.net
+2016/08/11 01:36:09 0 > Performance: Start performance collection for 10-1-1-7 using 2607:f480:111:1710:166d:5a30:85cb:d3e8
+2016/08/11 01:36:10 0 > UpdateMCPWorkload: Inventory for ubuntu01 in NA9 
+2016/08/11 01:36:10 0 > Inventory: Completed inventory collection for 10-1-1-9 : 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/11 01:36:10 0 > Inventory: Started inventory collection for 10-10-1-5 : 2607-f480-111-1711-4ba6-5ffd-1cdc-13ea.ipv6-literal.net
+2016/08/11 01:36:10 0 > Inventory: Completed netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/08/11 01:36:10 0 > Netstat: Started netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/08/11 01:36:10 0 > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/11 01:36:11 0 > Inventory: Started inventory collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/08/11 01:36:11 0 > UpdateMCPWorkload: Inventory for suse01 in NA9 
+2016/08/11 01:36:12 0 > Inventory: Completed inventory collection for 10-10-1-4 : 2607-f480-111-1711-1b54-b528-27b2-d529.ipv6-literal.net
+2016/08/11 01:36:12 0 > Inventory: Started inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/11 01:36:12 0 > Inventory: Completed inventory collection for 10-1-1-5 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 01:36:12 0 > Performance: Start performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/11 01:36:13 0 > Inventory: Completed inventory collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 01:36:13 0 > Performance: Start performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/11 01:36:13 0 > UpdateMCPWorkload: Inventory for repository01 in NA9 
+2016/08/11 01:36:14 0 > Performance: Completed performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/11 01:36:14 0 > Performance: Start performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/11 01:36:14 0 > Performance: Start performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/11 01:36:16 0 > Performance: Completed performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/11 01:36:16 0 > Performance: Start performance collection for 10-10-1-6 using 2607:f480:111:1711:39de:aea4:656f:6f49
+2016/08/11 01:36:17 0 > Inventory: Completed inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/11 01:36:17 0 > Performance: Start performance collection for 10-10-1-5 using 2607:f480:111:1711:4ba6:5ffd:1cdc:13ea
+2016/08/11 01:36:17 0 > Performance: Completed performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/11 01:36:17 0 > Performance: Start performance collection for 10-10-1-7 using 2607:f480:111:1711:7c2d:f357:c9a8:ee14
+2016/08/11 01:36:17 0 > UpdateMCPWorkload: Inventory for appserver01 in NA9 
+2016/08/11 01:36:17 0 > Double-Take Event: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 01:36:17 0 > Double-Take Event: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 01:36:17 0 > UpdateMCPWorkload: Inventory for appserver02 in NA9 
+2016/08/11 01:36:18 0 > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 01:36:18 0 > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 01:36:18 0 > Double-Take Job: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 01:36:18 0 > Double-Take Job: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 01:36:18 0 > UpdateMCPWorkload: Inventory for appserver03 in NA9 
+2016/08/11 01:36:18 0 > Completed Double-Take collection for 3 jobs in 00:00:26.1380000 [next run at 8/11/2016 1:45:52 AM]
+2016/08/11 01:36:18 0 > UpdateMCPWorkload: Inventory for demo_server01 in NA9 
+2016/08/11 01:36:19 0 > Inventory: Completed inventory collection for 10-10-1-6 : 2607-f480-111-1711-39de-aea4-656f-6f49.ipv6-literal.net
+2016/08/11 01:36:19 0 > UpdateMCPWorkload: Inventory for demo_server02 in NA9 
+2016/08/11 01:36:19 0 > UpdateMCPWorkload: Inventory for demo_server03 in NA9 
+2016/08/11 01:36:20 0 > UpdateMCPWorkload: Inventory for demo_server04 in NA9 
+2016/08/11 01:36:20 0 > UpdateMCPWorkload: Inventory for 10-10-1-4_migrate in NA9 
+2016/08/11 01:36:21 0 > UpdateMCPWorkload: Inventory for 10-10-1-6_migrate in NA9 
+2016/08/11 01:36:21 0 > Inventory: Completed inventory collection for 10-10-1-5 : 2607-f480-111-1711-4ba6-5ffd-1cdc-13ea.ipv6-literal.net
+2016/08/11 01:36:21 0 > UpdateMCPWorkload: Inventory for 10-10-1-5_migrate in NA9 
+2016/08/11 01:36:21 0 > Completed inventory process for dimension_data : NA9 - 0 new workloads - 0 updated platform networks - 0 updated workloads - 0 removed workloads = Total Execute Time: 00:00:29.1660000
+2016/08/11 01:36:21 0 > Completed platform inventory for 0 platforms in 00:00:29.4900000 [next run at 8/12/2016 1:35:52 AM]
+2016/08/11 01:36:22 0 > Inventory: Completed inventory collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/08/11 01:36:22 2 > Error collecting inventory information from 10-1-1-14 with error System.ArgumentException: Error contacting workload   at ..(Object  ) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryWindowsDo.cs:line 24   at ..<>c.(Object )   at ..<>c.<Start>b__1_1( workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 40
+2016/08/11 01:36:22 2 > Error collecting performance information from 10-1-1-14 with error System.ArgumentException: Error contacting workload   at ..(`1  , `1  , Object  ) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs:line 33   at ..<>c.<Start>b__2_1( workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs:line 94
+2016/08/11 01:36:22 0 > Performance: Start performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/08/11 01:36:23 2 > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at ..(Object  ) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 31   at ..<>c.(Object )   at ..<>c.<Start>b__0_1( workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 35
+2016/08/11 01:36:23 0 > Completed Double-Take Event collection for 4 workloads in 00:00:30.7470000 [next run at 8/11/2016 1:45:52 AM]
+2016/08/11 01:36:23 0 > Inventory: Completed inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/11 01:36:23 0 > Completed operating system inventory for 15 workloads in 00:00:31.0340000 [next run at 8/12/2016 1:35:52 AM]
+2016/08/11 01:36:24 2 > Netstat: Error collecting netstat information from 10-1-1-14 with error System.ArgumentException: Error contacting workload for workload 3d0a04d55b7f10dd80448951a14a2800a815fa65 10-1-1-14   at ..(Object  ) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs:line 38   at ..<>c.(Object )   at ..<>c.<Start>b__0_1( workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs:line 39
+2016/08/11 01:36:52 0 > Performance: Completed performance collection for 10-1-1-6 using 2607:f480:111:1710:3466:a8f2:ece:ddb0
+2016/08/11 01:37:00 0 > Performance: Completed performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/11 01:37:02 0 > Performance: Completed performance collection for 10-10-1-4 using 2607:f480:111:1711:1b54:b528:27b2:d529
+2016/08/11 01:37:08 0 > Performance: Completed performance collection for 10-1-1-5 using 2607:f480:111:1710:48e0:2d25:42fe:3690
+2016/08/11 01:37:16 0 > Shutdown initiated, waiting from threads to stops
+2016/08/11 01:37:16 0 > Shutdown complete!
+2016/08/11 03:33:22 2 > Failed to start the service System.TypeInitializationException: The type initializer for '.' threw an exception. ---> System.InvalidCastException: Specified cast is not valid.   at ...cctor() in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Global.cs:line 30   --- End of inner exception stack trace ---   at ..(Object  )   at ..(Object )   at ..OnStart(String[]  ) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPSvc.cs:line 23
+2016/08/11 03:33:27 1 > Starting Manager Service
+2016/08/11 03:33:27 0 > Verifying database
+2016/08/11 03:33:27 0 > Compacting database
+2016/08/11 03:33:27 1 > Starting WCF Service
+2016/08/11 03:33:27 0 > Debug Enabled!
+2016/08/11 03:33:27 0 > MRP Manager ID:9539656e4ba04a0394217fb0a240a331
+2016/08/11 03:33:28 1 > organization id: 7b6865d87b824b4a97d563ae5e5d35e7
+2016/08/11 03:33:28 1 > Starting Scheduler Thread
+2016/08/11 03:33:28 1 > Starting Mirror Thread
+2016/08/11 03:33:28 0 > Staring platform inventory process with 10 threads
+2016/08/11 03:33:28 1 > Starting Performance Collection Thread
+2016/08/11 03:33:28 0 > Staring performance collection process with 10 threads
+2016/08/11 03:33:28 1 > Starting Netflow v5 Collection Thread
+2016/08/11 03:33:28 1 > Starting Data Upload Thread
+2016/08/11 03:33:28 0 > Staring data upload process
+2016/08/11 03:33:28 1 > Starting OS Inventory Thread
+2016/08/11 03:33:28 1 > Starting Netstat Upload Thread
+2016/08/11 03:33:28 1 > Starting Netflow Upload Thread
+2016/08/11 03:33:28 0 > Staring operating system inventory process with 10 threads
+2016/08/11 03:33:28 1 > Starting Performance Upload Thread
+2016/08/11 03:33:28 1 > Starting OS Netstat Thread
+2016/08/11 03:33:28 1 > Starting DT Job Polling Thread
+2016/08/11 03:33:28 0 > Netstat: Staring netstat collection process with 10 threads
+2016/08/11 03:33:28 1 > Starting DT Event Polling Thread
+2016/08/11 03:33:28 0 > Staring Double-Take collection process with 10 threads
+2016/08/11 03:33:28 0 > Staring Double-Take Event collection process with 5 threads
+2016/08/11 03:33:28 0 > Started inventory process for dimension_data : NA9
+2016/08/11 03:33:28 1 > Took 00:00:00.0010000 to delete 0 netflow records
+2016/08/11 03:33:28 1 > Completed Netflow Upload Thread in 00:00:00.7040000
+2016/08/11 03:33:28 0 > Performance: Start performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/11 03:33:28 0 > Performance: Start performance collection for 10-10-1-4 using 2607:f480:111:1711:1b54:b528:27b2:d529
+2016/08/11 03:33:28 0 > Performance: Start performance collection for 10-1-1-6 using 2607:f480:111:1710:3466:a8f2:ece:ddb0
+2016/08/11 03:33:29 0 > Inventory: Started inventory collection for 10-1-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 03:33:29 0 > Netstat: Started netstat collection for 10-1-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 03:33:29 0 > Double-Take Event: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 03:33:29 0 > Double-Take Job: Start Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 03:33:29 1 > Deleting uploaded Netstat records: 33
+2016/08/11 03:33:29 1 > Took 00:00:00.2210000 to delete 33 performance records
+2016/08/11 03:33:29 1 > Completed Nestat Upload Thread in 00:00:01.4010000
+2016/08/11 03:33:29 0 > Performance: Start performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/11 03:33:31 0 > Double-Take Job: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 03:33:31 1 > Deleting uploaded performance records: 577
+2016/08/11 03:33:31 1 > Took 00:00:00.3630000 to delete 577 performance records
+2016/08/11 03:33:31 1 > Completed Performance Upload Thread in 00:00:03.7890000
+2016/08/11 03:33:31 0 > Completed data upload process. Total Elapsed Time: 00:00:03.8400000
+2016/08/11 03:33:33 0 > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 03:33:33 0 > Performance: Start performance collection for 10-1-1-5 using 2607:f480:111:1710:48e0:2d25:42fe:3690
+2016/08/11 03:33:34 0 > Performance: Completed performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/11 03:33:34 0 > Inventory: Started inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/11 03:33:34 0 > Performance: Start performance collection for 10-1-1-7 using 2607:f480:111:1710:166d:5a30:85cb:d3e8
+2016/08/11 03:33:34 0 > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/11 03:33:35 0 > Inventory: Started inventory collection for 10-1-1-10 : 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/11 03:33:36 0 > Performance: Start performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/11 03:33:37 0 > Inventory: Completed netstat collection for 10-1-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 03:33:37 0 > Netstat: Started netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/08/11 03:33:38 0 > Performance: Completed performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/11 03:33:38 0 > Performance: Start performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/11 03:33:39 0 > Double-Take Event: Start Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 03:33:40 0 > Inventory: Completed inventory collection for 10-1-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 03:33:40 0 > Netstat: Started netstat collection for 10-10-1-4 : 2607-f480-111-1711-1b54-b528-27b2-d529.ipv6-literal.net
+2016/08/11 03:33:40 0 > Inventory: Started inventory collection for 10-10-1-4 : 2607-f480-111-1711-1b54-b528-27b2-d529.ipv6-literal.net
+2016/08/11 03:33:40 0 > Inventory: Completed netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/08/11 03:33:40 0 > Inventory: Started inventory collection for 10-1-1-5 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 03:33:40 0 > Netstat: Started netstat collection for 10-1-1-5 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 03:33:42 0 > Performance: Start performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/11 03:33:42 0 > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/11 03:33:42 0 > Netstat: Started netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 03:33:43 0 > Performance: Completed performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/11 03:33:43 0 > Inventory: Started inventory collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 03:33:43 0 > Performance: Start performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/11 03:33:43 0 > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 03:33:43 0 > UpdateMCPWorkload: Inventory for redhat01 in NA9 
+2016/08/11 03:33:43 0 > Inventory: Completed inventory collection for 10-1-1-10 : 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/08/11 03:33:43 0 > Inventory: Started inventory collection for 10-1-1-8 : 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/11 03:33:45 0 > Performance: Completed performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/11 03:33:45 0 > Netstat: Started netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/08/11 03:33:45 0 > Performance: Start performance collection for 10-10-1-6 using 2607:f480:111:1711:39de:aea4:656f:6f49
+2016/08/11 03:33:47 0 > Inventory: Completed inventory collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/08/11 03:33:47 0 > Inventory: Started inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/11 03:33:47 0 > Inventory: Completed netstat collection for 10-1-1-5 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 03:33:47 0 > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/11 03:33:47 0 > Performance: Start performance collection for 10-10-1-5 using 2607:f480:111:1711:4ba6:5ffd:1cdc:13ea
+2016/08/11 03:33:47 0 > Inventory: Completed netstat collection for 10-10-1-4 : 2607-f480-111-1711-1b54-b528-27b2-d529.ipv6-literal.net
+2016/08/11 03:33:47 0 > Inventory: Completed inventory collection for 10-1-1-8 : 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/08/11 03:33:47 0 > Netstat: Started netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/08/11 03:33:47 0 > UpdateMCPWorkload: Inventory for centos01 in NA9 
+2016/08/11 03:33:48 0 > Inventory: Started inventory collection for 10-1-1-4 : 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/11 03:33:50 0 > Inventory: Completed netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/08/11 03:33:50 0 > Netstat: Started netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/08/11 03:33:51 0 > Inventory: Completed inventory collection for 10-10-1-4 : 2607-f480-111-1711-1b54-b528-27b2-d529.ipv6-literal.net
+2016/08/11 03:33:51 0 > Inventory: Completed inventory collection for 10-1-1-5 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 03:33:51 0 > Inventory: Started inventory collection for 10-1-1-9 : 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/11 03:33:51 0 > Inventory: Started inventory collection for 10-10-1-6 : 2607-f480-111-1711-39de-aea4-656f-6f49.ipv6-literal.net
+2016/08/11 03:33:52 0 > Inventory: Completed netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/08/11 03:33:52 0 > Netstat: Started netstat collection for 10-10-1-6 : 2607-f480-111-1711-39de-aea4-656f-6f49.ipv6-literal.net
+2016/08/11 03:33:52 0 > UpdateMCPWorkload: Inventory for ubuntu01 in NA9 
+2016/08/11 03:33:52 0 > Inventory: Started inventory collection for 10-10-1-5 : 2607-f480-111-1711-4ba6-5ffd-1cdc-13ea.ipv6-literal.net
+2016/08/11 03:33:53 0 > Inventory: Started inventory collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/08/11 03:33:53 0 > Inventory: Completed inventory collection for 10-1-1-9 : 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/08/11 03:33:53 0 > Inventory: Started inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/11 03:33:53 0 > UpdateMCPWorkload: Inventory for suse01 in NA9 
+2016/08/11 03:33:53 0 > Inventory: Completed inventory collection for 10-1-1-4 : 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/08/11 03:33:54 0 > Netstat: Started netstat collection for 10-10-1-5 : 2607-f480-111-1711-4ba6-5ffd-1cdc-13ea.ipv6-literal.net
+2016/08/11 03:33:54 0 > Inventory: Completed inventory collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 03:33:54 0 > Netstat: Started netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/08/11 03:33:54 0 > UpdateMCPWorkload: Inventory for repository01 in NA9 
+2016/08/11 03:33:55 0 > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/11 03:33:56 0 > Performance: Start performance collection for 10-10-1-7 using 2607:f480:111:1711:7c2d:f357:c9a8:ee14
+2016/08/11 03:33:56 0 > UpdateMCPWorkload: Inventory for appserver01 in NA9 
+2016/08/11 03:33:57 0 > Double-Take Event: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 03:33:57 0 > UpdateMCPWorkload: Inventory for appserver02 in NA9 
+2016/08/11 03:33:58 0 > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 03:33:58 0 > UpdateMCPWorkload: Inventory for appserver03 in NA9 
+2016/08/11 03:33:58 0 > Double-Take Job: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 03:33:58 0 > Double-Take Job: Completed Double-Take collection for 10-1-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/08/11 03:33:58 0 > UpdateMCPWorkload: Inventory for demo_server01 in NA9 
+2016/08/11 03:33:58 2 > Error collecting performance information from 10-1-1-14 with error System.ArgumentException: Error contacting workload   at ..(`1  , `1  , Object  ) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs:line 33   at ..<>c.<Start>b__2_1( workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs:line 94
+2016/08/11 03:33:58 0 > Inventory: Completed inventory collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/11 03:33:59 0 > UpdateMCPWorkload: Inventory for demo_server02 in NA9 
+2016/08/11 03:33:59 0 > Performance: Start performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/08/11 03:33:59 2 > Error collecting inventory information from 10-1-1-14 with error System.ArgumentException: Error contacting workload   at ..(Object  ) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryWindowsDo.cs:line 24   at ..<>c.(Object )   at ..<>c.<Start>b__1_1( workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryThread.cs:line 40
+2016/08/11 03:33:59 0 > UpdateMCPWorkload: Inventory for demo_server03 in NA9 
+2016/08/11 03:34:00 0 > Double-Take Event: Completed Double-Take collection for 10-1-1-5 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/08/11 03:34:00 0 > UpdateMCPWorkload: Inventory for demo_server04 in NA9 
+2016/08/11 03:34:00 2 > Netstat: Error collecting netstat information from 10-1-1-14 with error System.ArgumentException: Error contacting workload for workload 3d0a04d55b7f10dd80448951a14a2800a815fa65 10-1-1-14   at ..(Object  ) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs:line 38   at ..<>c.(Object )   at ..<>c.<Start>b__0_1( workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs:line 39
+2016/08/11 03:34:00 0 > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 03:34:00 0 > Completed Double-Take collection for 3 jobs in 00:00:31.9850000 [next run at 8/11/2016 3:43:28 AM]
+2016/08/11 03:34:00 2 > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at ..(Object  ) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 31   at ..<>c.(Object )   at ..<>c.<Start>b__0_1( workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 35
+2016/08/11 03:34:00 0 > UpdateMCPWorkload: Inventory for 10-10-1-4_migrate in NA9 
+2016/08/11 03:34:00 0 > Completed Double-Take Event collection for 4 workloads in 00:00:32.4590000 [next run at 8/11/2016 3:43:28 AM]
+2016/08/11 03:34:01 0 > UpdateMCPWorkload: Inventory for 10-10-1-6_migrate in NA9 
+2016/08/11 03:34:01 0 > UpdateMCPWorkload: Inventory for 10-10-1-5_migrate in NA9 
+2016/08/11 03:34:01 0 > Completed inventory process for dimension_data : NA9 - 0 new workloads - 0 updated platform networks - 0 updated workloads - 0 removed workloads = Total Execute Time: 00:00:33.2510000
+2016/08/11 03:34:01 0 > Completed platform inventory for 0 platforms in 00:00:33.5390000 [next run at 8/12/2016 3:33:28 AM]
+2016/08/11 03:34:02 0 > Inventory: Completed inventory collection for 10-10-1-6 : 2607-f480-111-1711-39de-aea4-656f-6f49.ipv6-literal.net
+2016/08/11 03:34:03 0 > Inventory: Completed inventory collection for 10-10-1-5 : 2607-f480-111-1711-4ba6-5ffd-1cdc-13ea.ipv6-literal.net
+2016/08/11 03:34:04 0 > Inventory: Completed inventory collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/08/11 03:34:05 0 > Inventory: Completed inventory collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/11 03:34:05 0 > Completed operating system inventory for 15 workloads in 00:00:37.1400000 [next run at 8/12/2016 3:33:28 AM]
+2016/08/11 03:34:13 0 > Inventory: Completed netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/08/11 03:34:32 0 > Performance: Completed performance collection for 10-1-1-6 using 2607:f480:111:1710:3466:a8f2:ece:ddb0
+2016/08/11 03:34:33 0 > Performance: Completed performance collection for 10-10-1-4 using 2607:f480:111:1711:1b54:b528:27b2:d529
+2016/08/11 03:34:39 0 > Performance: Completed performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/08/11 03:34:44 0 > Performance: Completed performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/08/11 03:34:44 0 > Performance: Completed performance collection for 10-1-1-5 using 2607:f480:111:1710:48e0:2d25:42fe:3690
+2016/08/11 03:34:55 2 > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Processor : The RPC server is too busy to complete this operation.
+2016/08/11 03:35:08 0 > Inventory: Completed netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/08/11 03:35:12 0 > Inventory: Completed netstat collection for 10-10-1-6 : 2607-f480-111-1711-39de-aea4-656f-6f49.ipv6-literal.net
+2016/08/11 03:35:12 0 > Inventory: Completed netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/08/11 03:35:12 0 > Inventory: Completed netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/08/11 03:35:13 0 > Inventory: Completed netstat collection for 10-10-1-5 : 2607-f480-111-1711-4ba6-5ffd-1cdc-13ea.ipv6-literal.net
+2016/08/11 03:35:13 0 > Inventory: Completed netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/08/11 03:35:13 0 > Netstat: Completed netstat collection for 15 workloads in 00:01:45.4640000 [next run at 8/11/2016 4:03:28 AM]
+2016/08/11 03:35:33 0 > Shutdown initiated, waiting from threads to stops
+2016/08/11 03:35:33 0 > Shutdown complete!

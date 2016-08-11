@@ -16,17 +16,17 @@ namespace MRMPService.MRMPAPI
             return (MRPManagementobjectListType)post<MRPManagementobjectListType>(worker);
         }
 
-        public ResultType getmanagementobject_id(string _moid)
+        public MRPManagementobjectType getmanagementobject_id(string _managementobject_id)
         {
             endpoint = "/managementobjects/get_id.json";
             MRPManagementobjectIDGETType Managementobject = new MRPManagementobjectIDGETType()
             {
-                moid = _moid
+                managementobject_id = _managementobject_id
 
             };
-            return post<ResultType>(Managementobject);
+            return post<MRPManagementobjectType>(Managementobject);
         }
-        public ResultType getmanagementobject_dt_id(string _moid)
+        public MRPManagementobjectType getmanagementobject_dt_id(string _moid)
         {
             endpoint = "/managementobjects/get_id.json";
             MRPManagementobjectDTIDGETType Managementobject = new MRPManagementobjectDTIDGETType()
@@ -34,7 +34,7 @@ namespace MRMPService.MRMPAPI
                 moid = _moid
 
             };
-            return post<ResultType>(Managementobject);
+            return post<MRPManagementobjectType>(Managementobject);
         }
 
         public ResultType createmanagementobject(MRPManagementobjectType _Managementobject)

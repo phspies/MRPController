@@ -1,9 +1,9 @@
 ﻿using DoubleTake.Web.Models;
+using MRMPService.DTPollerCollection;
 using MRMPService.MRMPAPI;
 using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPDoubleTake;
-using MRMPService.MRMPService.Types.API;
-using Newtonsoft.Json;
+using MRMPService.Utilities;
 using System;
 using System.Threading;
 
@@ -11,30 +11,14 @@ namespace MRMPService.Tasks.DoubleTake
 {
     partial class Migration
     {
-        public static void FailoverServerMigration(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void FailoverServerMigration(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
             using (MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
-
-
                 using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
                 {
-                    _mrp_api.task().progress(_task_id, "Verifying license status on both source and target workloads", 2);
-                    if (!_dt.management().CheckLicense(DT_JobTypes.Move_Server_Migration, _protectiongroup.organization_id))
-                    {
-                        _mrp_api.task().progress(_task_id, String.Format("Invalid license detected on workloads."), 3);
-                        _mrp_api.task().progress(_task_id, String.Format("Attempting to configure license in deployment policy."), 4);
-                        if (!_dt.management().CheckLicense(DT_JobTypes.Move_Server_Migration, _protectiongroup.organization_id))
-                        {
-                            _mrp_api.task().progress(_task_id, String.Format("Invalid license detected on workloads after trying to fix license"), 5);
-                        }
-                    }
-                    else
-                    {
-                        _mrp_api.task().progress(_task_id, String.Format("License valid on workloads."), 3);
-                    }
 
-                    _mrp_api.task().progress(_task_id, "Initiating job move operation", 10);
+                    _mrp_api.task().progress(_task_id, "Initiating job move operation", ReportProgress.Progress(_start_progress, _end_progress, 10));
                     FailoverOptionsModel _options = new FailoverOptionsModel();
 
                     _options.FailoverType = FailoverType.FullServer;
@@ -43,34 +27,34 @@ namespace MRMPService.Tasks.DoubleTake
 
                     ActivityStatusModel _status = _dt.job().FailoverJob((Guid)_managementobject.moid, _options);
 
-                    _mrp_api.task().progress(_task_id, "Setting source workload to disabled", 20);
-                    using (MRMP_ApiClient _api = new MRMP_ApiClient())
-                    {
-                        _target_workload.enabled = false;
-                        _api.workload().updateworkload(_target_workload);
-
-                        _source_workload.enabled = true;
-                        _source_workload.iplist = _target_workload.iplist;
-                        _source_workload.platform_id = _target_workload.platform_id;
-                        _api.workload().updateworkload(_source_workload);
-                    }
                     _mrp_api.task().progress(_task_id, "Move process started", 30);
                     JobInfoModel jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString())).Result;
                     int _wait_times = 1;
                     while (jobinfo.Status.HighLevelState != HighLevelState.FailingOver)
                     {
-                        _mrp_api.task().progress(_task_id, "Waiting for job to start the failover", 30);
+                        _mrp_api.task().progress(_task_id, "Waiting for job to start the failover", ReportProgress.Progress(_start_progress, _end_progress, 30));
                         Thread.Sleep(TimeSpan.FromSeconds(2));
                         _wait_times++;
                         jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString())).Result;
                     }
+                    bool _switched_personalities = false;
+
+                    //switched target workload
+                    MRPWorkloadType _new_target_workload = _target_workload;
+                    _new_target_workload.credential = _source_workload.credential;
+                    Doubletake _switched_dt = new Doubletake(null, _new_target_workload);
+
+                    //the source might be switched off during the failover process, so we need exclude it from the connection object
+                    Doubletake _temp_dt = new Doubletake(null, _target_workload);
+
 
                     while (jobinfo.Status.HighLevelState == HighLevelState.FailingOver)
                     {
                         int percentcomplete = jobinfo.Statistics.FullServerJobDetails.CutoverDetails.PercentComplete;
 
                         String progress = String.Format("{0}% complete", percentcomplete);
-                        _mrp_api.task().progress(_task_id, progress, (((double)percentcomplete / 100) * 60) + 30);
+                        _mrp_api.task().progress(_task_id, progress, ReportProgress.Progress(_start_progress, _end_progress, ReportProgress.Progress(30, 90, percentcomplete) ));
+                        DTJobPoller.PollerDo(_managementobject);
 
                         Thread.Sleep(TimeSpan.FromSeconds(10));
                         DateTime timeoutTime = DateTime.UtcNow.AddMinutes(15);
@@ -78,94 +62,77 @@ namespace MRMPService.Tasks.DoubleTake
                         {
                             if (DateTime.UtcNow > timeoutTime)
                             {
-                                _mrp_api.task().progress(_task_id, String.Format("Timeout waiting for target workload {0} to become available", _target_workload.hostname), 94);
-                                _mrp_api.task().successcomplete(_task_id, JsonConvert.SerializeObject(jobinfo));
-                                return;
+                                _mrp_api.task().progress(_task_id, String.Format("Timeout waiting for target workload {0} to become available", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
+                                throw new Exception(String.Format("Timeout waiting for target workload {0} to become available", _target_workload.hostname));
                             }
                             try
                             {
-                                jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString())).Result;
+                                if (_switched_personalities)
+                                {
+                                    jobinfo = _switched_dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString())).Result;
+                                    _mrp_api.task().progress(_task_id, String.Format("{0} became available, finalizing failover", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 94));                                  
+                                }
+                                else
+                                {
+                                    jobinfo = _temp_dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString())).Result;
+                                }
                                 break;
                             }
                             catch (Exception ex)
                             {
-                                _mrp_api.task().progress(_task_id, String.Format("Waiting for target workload {0} to become available", _target_workload.hostname), 93);
-                                Thread.Sleep(TimeSpan.FromSeconds(30));
+                                //we now know the target server is now offline and the source personality will now move to the target
+                                //we need to switch the source and target personalities to make sure we can connect to the new target server
+                                if (!_switched_personalities)
+                                {
+                                    _mrp_api.task().progress(_task_id, "Setting source workload to disabled and switching source and target credentials", ReportProgress.Progress(_start_progress, _end_progress, 90));
+
+                                    MRPWorkloadType _source_update_workload = new MRPWorkloadType();
+                                    MRPWorkloadType _target_update_workload = new MRPWorkloadType();
+                                    MRPManagementobjectType _update_managementobject = new MRPManagementobjectType();
+
+                                    _source_update_workload.id = _source_workload.id;
+                                    _source_update_workload.enabled = false;
+                                    _source_update_workload.dt_installed = false;
+                                    _mrp_api.workload().updateworkload(_source_update_workload);
+
+                                    _target_update_workload.id = _target_workload.id;
+                                    _target_update_workload.enabled = true;
+                                    _target_update_workload.dt_installed = true;
+                                    _target_update_workload.credential_id = _source_workload.credential_id;
+                                    _target_update_workload.hostname = _source_workload.hostname;
+                                    if (!jobinfo.Options.SystemStateOptions.IsWanFailover)
+                                    {
+                                        _target_update_workload.iplist = _source_workload.iplist;
+                                    }
+                                    _mrp_api.workload().updateworkload(_target_update_workload);
+
+                                    _switched_personalities = true;
+                                }
+                                _mrp_api.task().progress(_task_id, String.Format("Waiting for target workload {0} to become available", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 93));
+                                Thread.Sleep(TimeSpan.FromSeconds(10));
                             }
                         }
                     }
                     if (jobinfo.Status.HighLevelState == HighLevelState.FailedOver)
                     {
-                        _mrp_api.task().progress(_task_id, String.Format("Successfully moved {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
-                        _mrp_api.task().successcomplete(_task_id, JsonConvert.SerializeObject(jobinfo));
+                        MRPManagementobjectType _udated_managementobject = _mrp_api.managementobject().getmanagementobject_id(_managementobject.id);
+                        DTJobPoller.PollerDo(_udated_managementobject);
+
+                        _mrp_api.task().progress(_task_id, String.Format("Successfully moved {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 99));
+                        _mrp_api.task().successcomplete(_task_id);
                     }
                     else if (jobinfo.Status.HighLevelState == HighLevelState.FailoverFailed)
                     {
-                        _mrp_api.task().progress(_task_id, String.Format("Error moving {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
-                        _mrp_api.task().failcomplete(_task_id, JsonConvert.SerializeObject(jobinfo));
+                        _mrp_api.task().progress(_task_id, String.Format("Error moving {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 99));
+                        throw new Exception(String.Format("Error moving {0} to {1}", _source_workload.hostname, _target_workload.hostname));
                     }
                     else if (jobinfo.Status.HighLevelState == HighLevelState.TargetInfoNotAvailable)
                     {
-                        _mrp_api.task().progress(_task_id, String.Format("Cannot contact {0}", _target_workload.hostname), 95);
-                        _mrp_api.task().failcomplete(_task_id, JsonConvert.SerializeObject(jobinfo));
+                        _mrp_api.task().progress(_task_id, String.Format("Cannot contact {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 99));
+                        throw new Exception(String.Format("Cannot contact {0}", _target_workload.hostname));
                     }
                 }
-
-
             }
         }
     }
 }
-//public class MoveServerMigrationJobEx : FullServerBase, IExample
-//{
-//    public MoveServerMigrationJobEx() : base("MoveServerMigration") { }
-
-//    public async Task Execute(string[] args)
-//    {
-//        if (CommandLineHelper.Parser.ParseArguments(args, Options))
-//        {
-//            SimpleLog.Log("Creating Move Server Migration Failover job.");
-
-//            // note: The job must be created on the TARGET machine
-//            var connection = await ManagementService.GetConnectionAsync(Options.Target);
-//            jobApi = new JobsApi(connection);
-
-//            WorkloadModel workload = await CreateWorkload();
-
-//            JobCredentialsModel jobCredentials = CreateJobCredentials();
-
-//            // Create the job options
-//            CreateOptionsModel createOptions = await GetJobOptions(workload, jobCredentials);
-
-//            // Verify the options are good and update the CreateOptions with the possibly fixed values
-//            createOptions.JobOptions = await VerifyAndFixJobOptions(jobCredentials, createOptions.JobOptions);
-
-//            // Create the job
-//            Guid jobId = await CreateJob(createOptions, Options.JobName);
-
-//            await DeleteWorkload(workload);
-
-//            if (Options.StartJob)
-//            {
-//                await StartJob(jobId);
-
-//                if (Options.FailoverJob)
-//                {
-//                    SimpleLog.Log("Waiting for the job to reach a state where it is ready to failover.");
-//                    await WaitForJobStatus(jobId, s => s.CanFailover && s.Health == Health.Ok);
-
-//                    RecommendedFailoverOptionsModel recommendedFailoverOptions = await GetFailoverOptions(jobId);
-
-//                    SimpleLog.Log("Test Failover {0} supported.", recommendedFailoverOptions.IsTestFailoverSupported ? "is" : "is NOT");
-
-//                    await FailoverJob(jobId, recommendedFailoverOptions.FailoverOptions);
-//                }
-//            }
-
-//            if (!Options.DoNotDeleteJob)
-//            {
-//                await DeleteJob(jobId);
-//            }
-//        }
-//    }
-//}

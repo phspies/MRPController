@@ -93,7 +93,7 @@ namespace MRMPService.Tasks.MCP
                                 string _string = vars[0];
                                 _volumegroup = _string.Split('-')[0];
                                 root_lvm_volume = _string.Split('-')[1];
-                                root_lvm_size = float.Parse(vars[4].ToString()) / 1024 / 1024 / 1024;
+                                root_lvm_size = float.Parse(vars[3].ToString()) / 1024 / 1024 / 1024;
                             }
                         }
                     }

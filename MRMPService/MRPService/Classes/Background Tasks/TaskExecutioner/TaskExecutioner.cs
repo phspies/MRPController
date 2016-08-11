@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using MRMPService.MRMPAPI;
-using MRMPService.Tasks.DoubleTake;
-using MRMPService.Tasks.MCP;
 using MRMPService.Tasks.DiscoveryPlatform;
 using MRMPService.PortalTasks;
 
@@ -38,29 +36,65 @@ namespace MRMPService.TaskExecutioner
                             {
                                 //drs_servers_dormant
                                 case "dr_servers_dormant_create_protection_job":
+                                    ClaimTask(task);
                                     Thread dr_servers_dormant_create_protection_job_Thread = new Thread(() => DRSServersDormant.SetupProtectionJob(task));
                                     dr_servers_dormant_create_protection_job_Thread.Name = task.target_id;
                                     dr_servers_dormant_create_protection_job_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = dr_servers_dormant_create_protection_job_Thread, target_id = task.target_id });
                                     break;
-
-
                                 //migrate
                                 case "migrate_create_job":
+                                    ClaimTask(task);
                                     Thread migrate_create_job_Thread = new Thread(() => Migrate.SetupMigrateJob(task));
                                     migrate_create_job_Thread.Name = task.target_id;
                                     migrate_create_job_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = migrate_create_job_Thread, target_id = task.target_id });
                                     break;
+                                case "migrate_failover_job":
+                                    ClaimTask(task);
+                                    Thread migrate_failover_job_Thread = new Thread(() => Migrate.FailoverMigrateJob(task));
+                                    migrate_failover_job_Thread.Name = task.target_id;
+                                    migrate_failover_job_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = migrate_failover_job_Thread, target_id = task.target_id });
+                                    break;
+
+                                    
+
+                                //DT common tasks 
+                                case "dt_stop_job":
+                                    ClaimTask(task);
+                                    Thread dt_stop_job_Thread = new Thread(() => Common.StopJob(task));
+                                    dt_stop_job_Thread.Name = task.target_id;
+                                    dt_stop_job_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = dt_stop_job_Thread, target_id = task.target_id });
+                                    break;
+                                case "dt_pause_job":
+                                    ClaimTask(task);
+                                    Thread dt_pause_job_Thread = new Thread(() => Common.PauseJob(task));
+                                    dt_pause_job_Thread.Name = task.target_id;
+                                    dt_pause_job_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = dt_pause_job_Thread, target_id = task.target_id });
+                                    break;
+                                case "dt_start_job":
+                                    ClaimTask(task);
+                                    Thread dt_start_job_Thread = new Thread(() => Common.StartJob(task));
+                                    dt_start_job_Thread.Name = task.target_id;
+                                    dt_start_job_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = dt_start_job_Thread, target_id = task.target_id });
+                                    break;
+
+
 
                                 //platform
                                 case "discover_datacenters_method":
+                                    ClaimTask(task);
                                     Thread discover_datacenters_method_Thread = new Thread(() => DatacenterDiscovery.DatacenterDiscoveryDo(task));
                                     discover_datacenters_method_Thread.Name = task.target_id;
                                     discover_datacenters_method_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = discover_datacenters_method_Thread, target_id = task.target_id });
                                     break;
                                 case "discovery_method":
+                                    ClaimTask(task);
                                     Thread discovery_method_Thread = new Thread(() => PlatformDiscovery.PlatformDiscoveryDo(task));
                                     discovery_method_Thread.Name = task.target_id;
                                     discovery_method_Thread.Start();
@@ -79,6 +113,13 @@ namespace MRMPService.TaskExecutioner
                 Global.worker_queue_count = lstThreads.Count();
 
                 Thread.Sleep(new TimeSpan(0, 0, Global.scheduler_interval));
+            }
+        }
+        static private void ClaimTask(MRPTaskType _task)
+        {
+            using (MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
+            {
+                _mrp_api.task().progress(_task.id, String.Format("Task claimed by {0}", System.Environment.MachineName), 1);
             }
         }
     }

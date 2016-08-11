@@ -78,7 +78,8 @@ namespace MRMPService.DTEventPollerCollection
                             object_id = _workload.id,
                             timestamp = _event.TimeWritten.UtcDateTime,
                             response = (_internal_event == null) ? null : _internal_event.response,
-                            severity = _event.EntryType.ToString()
+                            severity = _event.EntryType.ToString(),
+                            eventnamefriendly = (_internal_event == null) ? null : _internal_event.name,
                         });
                     }
                 }

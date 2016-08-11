@@ -103,6 +103,15 @@ namespace MRMPService.Tasks.DoubleTake
                         {
                             remoteFileVersion = FileVersionInfo.GetVersionInfo(RemoteFilePath);
                             _mrp_portal.task().progress(_task_id, String.Format("Double-Take found on {0} : {1}", _working_workload.hostname, remoteFileVersion.ProductVersion), ReportProgress.Progress(_start_progress, _end_progress, _counter + 16));
+                            if (server_type == dt_server_type.target)
+                            {
+                                break;
+                            }
+                            else if (server_type == dt_server_type.source)
+                            {
+                                server_type = dt_server_type.target;
+                                continue;
+                            }
                         }
                         else
                         {
@@ -136,7 +145,6 @@ namespace MRMPService.Tasks.DoubleTake
                                     {
                                         _installed_dt_version = (_dt.management().GetProductInfo().Result).ManagementServiceVersion;
                                         _mrp_portal.task().progress(_task_id, String.Format("Double-Take installed and running on {0} with version {1}.{2}.{3}", _working_workload.hostname, _installed_dt_version.Major, _installed_dt_version.Minor, _installed_dt_version.Build), ReportProgress.Progress(_start_progress, _end_progress, _counter + 19));
-
                                     }
                                     catch (Exception ex)
                                     {
@@ -283,28 +291,41 @@ namespace MRMPService.Tasks.DoubleTake
                         //Verify if the management service of Double-Take is running
                         // to determine that the software is installed properly
                         ProductVersionModel _dt_version;
+                        int restries = 3;
                         using (Doubletake _dt = new Doubletake(null, _working_workload))
                         {
-                            _dt_version = (await _dt.management().GetProductInfo()).ManagementServiceVersion;
-                            if (_dt_version == null)
+                            while (true)
                             {
-                                _mrp_portal.task().failcomplete(_task_id, "Cannot determine installed version of Double-Take");
+                                try
+                                {
+                                    _dt_version = (await _dt.management().GetProductInfo()).ManagementServiceVersion;
+                                    break;
+                                }
+                                catch (Exception ex)
+                                {
+                                    if (restries-- == 0)
+                                    {
+                                        _mrp_portal.task().failcomplete(_task_id, "Cannot determine installed version of Double-Take");
+                                        break;
+
+                                    }
+                                }
+                                Thread.Sleep(new TimeSpan(0, 0, 5));
+                            }
+                            if (server_type == dt_server_type.target)
+                            {
+                                break;
+                            }
+                            else
+                            {
                                 server_type = dt_server_type.target;
                                 continue;
                             }
                         }
-                        _mrp_portal.task().progress(_task_id, String.Format("Double-Take version {0}.{1}.{2} has successfully installed on workload {3} ", _dt_version.Major, _dt_version.Minor, _dt_version.Build, _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 45));
 
                         #endregion
 
                     }
-                    //if we done with the target, then we done with the job...
-                    if (server_type == dt_server_type.target)
-                    {
-                        break;
-                    }
-                    //once we have the source deployed, move to the target
-                    server_type = dt_server_type.target;
                 }
                 _mrp_portal.task().progress(_task_id, "Completed Double-Take deployment", ReportProgress.Progress(_start_progress, _end_progress, _counter + 47));
             }

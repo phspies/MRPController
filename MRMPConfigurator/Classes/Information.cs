@@ -67,7 +67,7 @@ namespace MRMPNotifier
             }
             e.Result = _result;
         }
-        private async void load_informationlist_worker_complete(object sender, RunWorkerCompletedEventArgs e)
+        private void load_informationlist_worker_complete(object sender, RunWorkerCompletedEventArgs e)
         {
             WCFResultType _result = (WCFResultType)e.Result;
             if (_result.status)

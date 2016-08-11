@@ -59,7 +59,6 @@ namespace MRMPService.MRMPAPI.Classes
             string localscripts = Path.Combine(locationlocation, "Scripts");
 
             string remotepath = @"mrmp";
-            bool remotepath_exist = false;
             try
             {
                 using (var sftp = new SftpClient(conInfo))
@@ -68,15 +67,13 @@ namespace MRMPService.MRMPAPI.Classes
                     try
                     {
                         sftp.ChangeDirectory(remotepath);
-                        remotepath_exist = true;
                     }
                     catch (SftpPathNotFoundException)
                     {
                         sftp.CreateDirectory(remotepath);
                         sftp.ChangeDirectory(remotepath);
-                    }
-                    if (!remotepath_exist)
-                    {
+
+                        //setup collector as it is a new installation
                         foreach (String _file in Directory.GetFiles(localscripts))
                         {
                             FileStream fileStream = null;
@@ -144,7 +141,9 @@ namespace MRMPService.MRMPAPI.Classes
                             }
                             sshclient.Disconnect();
                         }
+
                     }
+
 
                     if (sftp.Exists("output"))
                     {
@@ -153,180 +152,202 @@ namespace MRMPService.MRMPAPI.Classes
                             List<String> _inv_file = new List<string>();
                             if (_file.Name.StartsWith("Inv_"))
                             {
-                                try
+                                if (_file.Length > 0)
                                 {
-                                    //get OS edition name
-                                    _inv_file = sftp.ReadAllLines(_file.FullName).ToList();
-
-                                    //Remove Inventory file from server
-                                    sftp.DeleteFile(_file.FullName);
-
-                                    string _os = _inv_file.FirstOrDefault(x => x.Contains("DAPP_Producer")).Split('=').Last();
-                                    //if the workload is SuSE we want to use the DAPP_NAME and not the Producer
-                                    if (_os.Contains("SuSE"))
+                                    try
                                     {
-                                        _os = _inv_file.FirstOrDefault(x => x.Contains("DAPP_Name")).Split('=').Last();
-                                    }
-                                    if (_os.Contains("CentOS"))
-                                    {
-                                        _os = _inv_file.FirstOrDefault(x => x.Contains("DAPP_Name")).Split('=').Last();
-                                    }
-                                    if (_os.Contains("Red Hat"))
-                                    {
-                                        _os = _inv_file.FirstOrDefault(x => x.Contains("DAPP_Name")).Split('=').Last();
-                                    }
-                                    string _arch = _inv_file.FirstOrDefault(x => x.Contains("DAPP_Architecture")).Split('=').Last();
-                                    _updated_workload.osedition = OSEditionSimplyfier.Simplyfier(String.Format("{0} {1}", _os, _arch));
-                                }
-                                catch (Exception ex)
-                                {
-                                    Logger.log(String.Format("Error collecting Caption (OS Type) from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
-                                }
-                                //get system resources (hostname, CPU, speed, Memory)
-                                var _temp_hostname = "";
-                                try { _temp_hostname = _inv_file.FirstOrDefault(x => x.Contains("ISRV_HostName")).Split('=').Last(); } catch (Exception) { }
+                                        //get OS edition name
+                                        _inv_file = sftp.ReadAllLines(_file.FullName).ToList();
 
-                                //check if we got the FQDN and only get the hostname
-                                if (_temp_hostname.Contains("."))
-                                {
-                                    _updated_workload.hostname = _temp_hostname.Split('.').First();
+                                        //Remove Inventory file from server
+                                        sftp.DeleteFile(_file.FullName);
+
+                                        string _os = _inv_file.FirstOrDefault(x => x.Contains("DAPP_Producer")).Split('=').Last();
+                                        //if the workload is SuSE we want to use the DAPP_NAME and not the Producer
+                                        if (_os.Contains("SuSE"))
+                                        {
+                                            _os = _inv_file.FirstOrDefault(x => x.Contains("DAPP_Name")).Split('=').Last();
+                                        }
+                                        if (_os.Contains("CentOS"))
+                                        {
+                                            _os = _inv_file.FirstOrDefault(x => x.Contains("DAPP_Name")).Split('=').Last();
+                                        }
+                                        if (_os.Contains("Red Hat"))
+                                        {
+                                            _os = _inv_file.FirstOrDefault(x => x.Contains("DAPP_Name")).Split('=').Last();
+                                        }
+                                        string _display_version = _inv_file.FirstOrDefault(x => x.Contains("DAPP_DisplayVersion")).Split('=').Last();
+                                        if (!_os.Any(c => char.IsDigit(c)))
+                                        {
+                                            _os = _os + " " + _display_version;
+                                        }
+
+                                        string _arch = _inv_file.FirstOrDefault(x => x.Contains("DAPP_Architecture")).Split('=').Last();
+                                        string regex = "(\\[.*\\])|(\".*\")|('.*')|(\\(.*\\))";
+                                        string output = Regex.Replace(_os, regex, "");
+
+                                        _updated_workload.osedition = OSEditionSimplyfier.Simplyfier(String.Format("{0} {1}", output, _arch));
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Logger.log(String.Format("Error collecting Caption (OS Type) from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                                    }
+                                    //get system resources (hostname, CPU, speed, Memory)
+                                    var _temp_hostname = "";
+                                    try { _temp_hostname = _inv_file.FirstOrDefault(x => x.Contains("ISRV_HostName")).Split('=').Last(); } catch (Exception) { }
+
+                                    //check if we got the FQDN and only get the hostname
+                                    if (_temp_hostname.Contains("."))
+                                    {
+                                        _updated_workload.hostname = _temp_hostname.Split('.').First();
+                                    }
+                                    else
+                                    {
+                                        _updated_workload.hostname = _temp_hostname;
+                                    }
+
+                                    try { _updated_workload.vcpu = _inv_file.Count(x => x.Contains("<CPU>")); } catch (Exception) { }
+                                    try { _updated_workload.vcore = Int32.Parse(_inv_file.FirstOrDefault(x => x.Contains("DCPU_Cores")).Split('=').Last()); } catch (Exception) { }
+                                    String _string = _inv_file.FirstOrDefault(x => x.Contains("DCPU_RatedSpeed"));
+                                    try { _updated_workload.vcpu_speed = (int)Decimal.Parse(_string.Split('=').Last()); } catch (Exception) { }
+
+                                    try
+                                    {
+                                        decimal _vmemory_sum = 0;
+                                        foreach (string _memory_string in _inv_file.FindAll(x => x.Contains("DRAM_Size")))
+                                        {
+                                            _vmemory_sum += Int32.Parse(_memory_string.Split('=').Last());
+                                        }
+                                        _updated_workload.vmemory = (int)(_vmemory_sum / 1024);
+                                    }
+                                    catch (Exception) { }
+
+
+
+                                    //Process filesystems
+                                    for (var i = 0; i < _inv_file.Count; i++)
+                                    {
+                                        if (_inv_file[i] == "<FILESYS>")
+                                        {
+                                            bool _valid_fs = false;
+                                            MRPWorkloadVolumeType _volume = new MRPWorkloadVolumeType();
+
+                                            while (_inv_file[i] != "</FILESYS>")
+                                            {
+                                                i++;
+                                                if (_inv_file[i].Contains("ISFS_Device") && _inv_file[i].Contains("/dev/"))
+                                                {
+                                                    _volume.deviceid = _inv_file[i].Split('=').Last();
+                                                }
+                                                if (_inv_file[i].Contains("ISFS_Type"))
+                                                {
+                                                    _volume.filesystem_type = _inv_file[i].Split('=').Last();
+                                                    switch (_volume.filesystem_type.ToUpper())
+                                                    {
+                                                        case "EXT4":
+                                                            _valid_fs = true;
+                                                            break;
+                                                        case "EXT3":
+                                                            _valid_fs = true;
+                                                            break;
+                                                        case "EXT2":
+                                                            _valid_fs = true;
+                                                            break;
+                                                        case "ZFS":
+                                                            _valid_fs = true;
+                                                            break;
+                                                        case "XFS":
+                                                            _valid_fs = true;
+                                                            break;
+                                                    }
+                                                }
+                                                if (_inv_file[i].Contains("ISFS_Size"))
+                                                {
+                                                    _volume.volumesize = Int64.Parse(_inv_file[i].Split('=').Last());
+                                                    _volume.volumesize = _volume.volumesize / 1024;
+                                                }
+                                                if (_inv_file[i].Contains("ISFS_SpaceFree"))
+                                                {
+                                                    _volume.volumefreespace = Int64.Parse(_inv_file[i].Split('=').Last());
+                                                    _volume.volumefreespace = _volume.volumefreespace / 1024;
+                                                }
+                                                if (_inv_file[i].Contains("ISFS_Path"))
+                                                {
+                                                    _volume.driveletter = _inv_file[i].Split('=').Last();
+                                                }
+                                            }
+                                            if (_valid_fs)
+                                            {
+                                                if (_updated_workload.workloadvolumes_attributes == null)
+                                                {
+                                                    _updated_workload.workloadvolumes_attributes = new List<MRPWorkloadVolumeType>();
+                                                }
+                                                //if volume already exists in portal, just update it   
+                                                if (_workload.workloadvolumes_attributes.Exists(x => x.driveletter == _volume.driveletter))
+                                                {
+                                                    _volume.id = _workload.workloadvolumes_attributes.FirstOrDefault(x => x.driveletter == _volume.driveletter).id;
+                                                }
+                                                _updated_workload.workloadvolumes_attributes.Add(_volume);
+                                            }
+                                        }
+                                    }
+
+                                    //Process Network
+                                    for (var i = 0; i < _inv_file.Count; i++)
+                                    {
+                                        if (_inv_file[i] == "<NETWORK>")
+                                        {
+                                            bool _valid_net = false;
+                                            MRPWorkloadInterfaceType _interface = new MRPWorkloadInterfaceType();
+                                            while (_inv_file[i] != "</NETWORK>")
+                                            {
+                                                i++;
+                                                if (_inv_file[i].Contains("ISN_DeviceID"))
+                                                {
+                                                    try { _interface.connection_index = Int16.Parse(Regex.Replace(_inv_file[i].Split('=').Last(), "[^0-9]", "")); } catch (Exception) { }
+                                                }
+                                                if (_inv_file[i].Contains("ISN_MACAddress"))
+                                                {
+                                                    try { _interface.macaddress = _inv_file[i].Split('=').Last(); } catch (Exception) { }
+                                                    _valid_net = true;
+                                                }
+                                                if (_inv_file[i].Contains("ISN_SubnetMask"))
+                                                {
+                                                    try { _interface.netmask += _inv_file[i].Split('=').Last(); } catch (Exception) { }
+                                                }
+                                                if (_inv_file[i].Contains("ISN_IPAddress"))
+                                                {
+                                                    try { _interface.ipaddress = _inv_file[i].Split('=').Last(); } catch (Exception) { }
+                                                }
+                                            }
+                                            if (_valid_net)
+                                            {
+                                                if (_updated_workload.workloadinterfaces_attributes == null)
+                                                {
+                                                    _updated_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
+                                                }
+                                                _interface.ipassignment = "manual_ip";
+                                                if (_workload.workloadinterfaces_attributes.Any(x => x.connection_index == _interface.connection_index))
+                                                {
+                                                    _interface.id = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.connection_index == _interface.connection_index).id;
+                                                }
+                                                _updated_workload.workloadinterfaces_attributes.Add(_interface);
+                                            }
+                                        }
+                                    }
+                                    _updated_workload.ostype = "unix";
+                                    _updated_workload.provisioned = true;
+
+                                    using (MRMP_ApiClient _api = new MRMP_ApiClient())
+                                    {
+                                        _api.workload().updateworkload(_updated_workload);
+                                        _api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
+                                    }
                                 }
                                 else
                                 {
-                                    _updated_workload.hostname = _temp_hostname;
+                                    throw new Exception(String.Format("Inventory file {0} has a zero size. Please make sure the username has the correct permissions.",_file.FullName));
                                 }
-
-                                try { _updated_workload.vcpu = _inv_file.Count(x => x.Contains("<CPU>")); } catch (Exception) { }
-                                try { _updated_workload.vcore = Int32.Parse(_inv_file.FirstOrDefault(x => x.Contains("DCPU_Cores")).Split('=').Last()); } catch (Exception) { }
-                                String _string = _inv_file.FirstOrDefault(x => x.Contains("DCPU_RatedSpeed"));
-                                try { _updated_workload.vcpu_speed = (int)Decimal.Parse(_string.Split('=').Last()); } catch (Exception) { }
-
-                                try
-                                {
-                                    decimal _vmemory_sum = 0;
-                                    foreach (string _memory_string in _inv_file.FindAll(x => x.Contains("DRAM_Size")))
-                                    {
-                                        _vmemory_sum += Int32.Parse(_memory_string.Split('=').Last());
-                                    }
-                                    _updated_workload.vmemory = (int)(_vmemory_sum / 1024);
-                                }
-                                catch (Exception) { }
-
-
-
-                                //Process filesystems
-                                for (var i = 0; i < _inv_file.Count; i++)
-                                {
-                                    if (_inv_file[i] == "<FILESYS>")
-                                    {
-                                        bool _valid_fs = false;
-                                        MRPWorkloadVolumeType _volume = new MRPWorkloadVolumeType();
-
-                                        while (_inv_file[i] != "</FILESYS>")
-                                        {
-                                            i++;
-                                            if (_inv_file[i].Contains("ISFS_Device") && _inv_file[i].Contains("/dev/"))
-                                            {
-                                                _volume.deviceid = _inv_file[i].Split('=').Last();
-                                            }
-                                            if (_inv_file[i].Contains("ISFS_Type"))
-                                            {
-                                                _volume.filesystem_type = _inv_file[i].Split('=').Last();
-                                                switch (_volume.filesystem_type.ToUpper())
-                                                {
-                                                    case "EXT4":
-                                                        _valid_fs = true;
-                                                        break;
-                                                    case "EXT3":
-                                                        _valid_fs = true;
-                                                        break;
-                                                    case "EXT2":
-                                                        _valid_fs = true;
-                                                        break;
-                                                    case "ZFS":
-                                                        _valid_fs = true;
-                                                        break;
-                                                    case "XFS":
-                                                        _valid_fs = true;
-                                                        break;
-                                                }
-                                            }
-                                            if (_inv_file[i].Contains("ISFS_Size"))
-                                            {
-                                                _volume.volumesize = Int64.Parse(_inv_file[i].Split('=').Last());
-                                                _volume.volumesize = _volume.volumesize / 1024;
-                                            }
-                                            if (_inv_file[i].Contains("ISFS_SpaceFree"))
-                                            {
-                                                _volume.volumefreespace = Int64.Parse(_inv_file[i].Split('=').Last());
-                                                _volume.volumefreespace = _volume.volumefreespace / 1024;
-                                            }
-                                            if (_inv_file[i].Contains("ISFS_Path"))
-                                            {
-                                                _volume.driveletter = _inv_file[i].Split('=').Last();
-                                            }
-                                        }
-                                        if (_valid_fs)
-                                        {
-                                            if (_updated_workload.workloadvolumes_attributes == null)
-                                            {
-                                                _updated_workload.workloadvolumes_attributes = new List<MRPWorkloadVolumeType>();
-                                            }
-                                            //if volume already exists in portal, just update it   
-                                            if (_workload.workloadvolumes_attributes.Exists(x => x.driveletter == _volume.driveletter))
-                                            {
-                                                _volume.id = _workload.workloadvolumes_attributes.FirstOrDefault(x => x.driveletter == _volume.driveletter).id;
-                                            }
-                                            _updated_workload.workloadvolumes_attributes.Add(_volume);
-                                        }
-                                    }
-                                }
-
-                                //Process Network
-                                for (var i = 0; i < _inv_file.Count; i++)
-                                {
-                                    if (_inv_file[i] == "<NETWORK>")
-                                    {
-                                        bool _valid_net = false;
-                                        MRPWorkloadInterfaceType _interface = new MRPWorkloadInterfaceType();
-                                        while (_inv_file[i] != "</NETWORK>")
-                                        {
-                                            i++;
-                                            if (_inv_file[i].Contains("ISN_DeviceID"))
-                                            {
-                                                try { _interface.connection_index = Int16.Parse(Regex.Replace(_inv_file[i].Split('=').Last(), "[^0-9]", "")); } catch (Exception) { }
-                                            }
-                                            if (_inv_file[i].Contains("ISN_MACAddress"))
-                                            {
-                                                try { _interface.macaddress = _inv_file[i].Split('=').Last(); } catch (Exception) { }
-                                                _valid_net = true;
-                                            }
-                                            if (_inv_file[i].Contains("ISN_SubnetMask"))
-                                            {
-                                                try { _interface.netmask += _inv_file[i].Split('=').Last(); } catch (Exception) { }
-                                            }
-                                            if (_inv_file[i].Contains("ISN_IPAddress"))
-                                            {
-                                                try { _interface.ipaddress = _inv_file[i].Split('=').Last(); } catch (Exception) { }
-                                            }
-                                        }
-                                        if (_valid_net)
-                                        {
-                                            if (_updated_workload.workloadinterfaces_attributes == null)
-                                            {
-                                                _updated_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
-                                            }
-                                            _interface.ipassignment = "manual_ip";
-                                            if (_workload.workloadinterfaces_attributes.Any(x => x.connection_index == _interface.connection_index))
-                                            {
-                                                _interface.id = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.connection_index == _interface.connection_index).id;
-                                            }
-                                            _updated_workload.workloadinterfaces_attributes.Add(_interface);
-                                        }
-                                    }
-                                }
-                                //exit out of loop as we dont want o process more than one Inv file at a time.
-                                break;
                             }
                         }
 
@@ -341,14 +362,7 @@ namespace MRMPService.MRMPAPI.Classes
                 throw new ArgumentException(String.Format("Error collecting inventory information: {0}", ex.Message));
             }
 
-            _updated_workload.ostype = "unix";
-            _updated_workload.provisioned = true;
 
-            using (MRMP_ApiClient _api = new MRMP_ApiClient())
-            {
-                _api.workload().updateworkload(_updated_workload);
-                _api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
-            }
 
             Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 

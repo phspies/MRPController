@@ -201,7 +201,7 @@ namespace MRMPService.Tasks.MCP
                         MRPPlatformStorageTierType _disk_tier = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier;
                         if (deployedServer.disk.ToList().Exists(x => x.scsiId == _disk_index))
                         {
-                            if (deployedServer.disk.ToList().Find(x => x.scsiId == _disk_index).sizeGb < _disk_size)
+                            if (deployedServer.disk.ToList().FirstOrDefault(x => x.scsiId == _disk_index).sizeGb < _disk_size)
                             {
                                 String _disk_guid = deployedServer.disk.ToList().Find(x => x.scsiId == _disk_index).id;
                                 using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())

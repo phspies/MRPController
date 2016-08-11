@@ -441,14 +441,14 @@ do_os()
 			echo DAPP_MajorVersion=`uname -r | awk -F. '{print $1}'`
 			echo DAPP_MinorVersion=`uname -r | awk -F. '{print $2}'`
 			echo DAPP_PatchLevel=`uname -r | awk -F. '{print $3}'`
-        elif [ -r /etc/lsb-release ] ; then
-                echo DAPP_Producer=`lsb_release -d | awk '{print $2, $3, $4, $5}'`
-                DAPP=`cat /etc/issue | head -1`
-                echo DAPP_Name=`lsb_release -i | awk '{print $3}'`
-                echo DAPP_DisplayVersion=`lsb_release -r | awk '{print $2}'`
-                echo DAPP_MajorVersion=`uname -r | awk -F. '{print $1}'`
-                echo DAPP_MinorVersion=`uname -r | awk -F. '{print $2}'`
-                echo DAPP_PatchLevel=`uname -r | awk -F. '{print $3}'`
+                elif [ -r /etc/lsb-release ] ; then
+                        echo DAPP_Producer=`lsb_release -d | awk '{print $2, $3, $4, $5}'`
+                        DAPP=`cat /etc/issue | head -1`
+                        echo DAPP_Name=`lsb_release -i | awk '{print $3}'`
+                        echo DAPP_DisplayVersion=`lsb_release -r | awk '{print $2}'`
+                        echo DAPP_MajorVersion=`uname -r | awk -F. '{print $1}'`
+                        echo DAPP_MinorVersion=`uname -r | awk -F. '{print $2}'`
+                        echo DAPP_PatchLevel=`uname -r | awk -F. '{print $3}'`
 		elif [ -r /proc/vmware/version ] ; then
 			echo DAPP_Producer=VMWare, Inc.
 			DAPP=`cat /proc/vmware/version | head -1`
@@ -457,19 +457,13 @@ do_os()
 			echo DAPP_MajorVersion=`uname -r | awk -F. '{print $1}'`
 			echo DAPP_MinorVersion=`uname -r | awk -F. '{print $2}'`
 			echo DAPP_PatchLevel=`uname -r | awk -F. '{print $3}'`
-		elif [ -r /etc/centos-release ] ; then
-			echo DAPP_Producer=CentOS
-			if grep -q "CentOS" /etc/centos-release ; then
-				echo DAPP_Name=CentOS `sed "s/[^0-9.]*//g" /etc/centos-release`
-			else
-				echo DAPP_Name=`sed "s/release//g" /etc/redhat-centos`
-			fi
-			echo DAPP_MajorVersion=`uname -r | awk -F. '{print $1}'`
-			echo DAPP_MinorVersion=`uname -r | awk -F. '{print $2}'`
-			echo DAPP_PatchLevel=`uname -r | awk -F. '{print $3}'`
 		elif [ -r /etc/redhat-release ] ; then
 			echo DAPP_Producer=Red Hat
-			echo DAPP_Name=`sed "s/release//g" /etc/redhat-release`
+			if grep -q "Red Hat" /etc/redhat-release ; then
+				echo DAPP_Name=Red Hat `sed "s/Red Hat \(.*\) release/\1/" /etc/redhat-release`
+			else
+				echo DAPP_Name=`sed "s/release//g" /etc/redhat-release`
+			fi
 			echo DAPP_MajorVersion=`uname -r | awk -F. '{print $1}'`
 			echo DAPP_MinorVersion=`uname -r | awk -F. '{print $2}'`
 			echo DAPP_PatchLevel=`uname -r | awk -F. '{print $3}'`

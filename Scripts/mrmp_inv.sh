@@ -460,9 +460,9 @@ do_os()
 		elif [ -r /etc/redhat-release ] ; then
 			echo DAPP_Producer=Red Hat
 			if grep -q "Red Hat" /etc/redhat-release ; then
-				echo DAPP_Name=Red Hat `sed "s/Red Hat \(.*\) release.*/\1/" /etc/redhat-release`
+				echo DAPP_Name=Red Hat `sed "s/Red Hat \(.*\) release/\1/" /etc/redhat-release`
 			else
-				echo DAPP_Name=`sed "s/ release.*//g" /etc/redhat-release`
+				echo DAPP_Name=`sed "s/release//g" /etc/redhat-release`
 			fi
 			echo DAPP_MajorVersion=`uname -r | awk -F. '{print $1}'`
 			echo DAPP_MinorVersion=`uname -r | awk -F. '{print $2}'`

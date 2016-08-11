@@ -1,10 +1,13 @@
-﻿namespace MRMPService.Utilities
+﻿using System;
+using System.Linq;
+
+namespace MRMPService.Utilities
 {
     class OSEditionSimplyfier
     {
         public static string Simplyfier(string _longname)
         {
-            string _simple_osedition="";
+            string _simple_osedition = "";
             if (_longname.Contains("Windows"))
             {
                 _simple_osedition += "WIN";
@@ -46,52 +49,93 @@
             else if (_longname.Contains("SUSE"))
             {
                 _simple_osedition += "SUSE";
-                _simple_osedition += _longname.Split(' ')[4];
+                var _version = String.Join("", _longname.Where(c => Char.IsDigit(c) || c == '.'));
+                if (_version.Contains("."))
+                {
+                    _simple_osedition += _version.Split('.')[0];
+                }
+                else
+                {
+                    _simple_osedition += _version;
+                }
                 if (_longname.Contains("64"))
                 {
+                    _simple_osedition = _simple_osedition.Replace("64", "");
                     _simple_osedition += "/64";
                 }
                 else if (_longname.Contains("32"))
                 {
+                    _simple_osedition = _simple_osedition.Replace("32", "");
                     _simple_osedition += "/32";
                 }
             }
             else if (_longname.Contains("Red Hat"))
             {
                 _simple_osedition += "REDHAT";
-                _simple_osedition += _longname.Split(' ')[5].Split('.')[0];
+                var _version = String.Join("", _longname.Where(c => Char.IsDigit(c) || c == '.'));
+                if (_version.Contains("."))
+                {
+                    _simple_osedition += _version.Split('.')[0];
+                }
+                else
+                {
+                    _simple_osedition += _version;
+                }
+
                 if (_longname.Contains("64"))
                 {
+                    _simple_osedition = _simple_osedition.Replace("64", "");
                     _simple_osedition += "/64";
                 }
                 else if (_longname.Contains("32"))
                 {
+                    _simple_osedition = _simple_osedition.Replace("32", "");
                     _simple_osedition += "/32";
                 }
             }
             else if (_longname.Contains("CentOS"))
             {
                 _simple_osedition += "CENTOS";
-                _simple_osedition += _longname.Split(' ')[1].Split('.')[0];
+                var _version = String.Join("", _longname.Where(c => Char.IsDigit(c) || c == '.'));
+                if (_version.Contains("."))
+                {
+                    _simple_osedition += _version.Split('.')[0];
+                }
+                else
+                {
+                    _simple_osedition += _version;
+                }
                 if (_longname.Contains("64"))
                 {
+                    _simple_osedition = _simple_osedition.Replace("64", "");
                     _simple_osedition += "/64";
                 }
                 else if (_longname.Contains("32"))
                 {
+                    _simple_osedition = _simple_osedition.Replace("32", "");
                     _simple_osedition += "/32";
                 }
             }
             else if (_longname.Contains("Ubuntu"))
             {
                 _simple_osedition += "UBUNTU";
-                _simple_osedition += _longname.Split(' ')[1].Split('.')[0];
+                var _version = String.Join("", _longname.Where(c => Char.IsDigit(c) || c == '.'));
+                if (_version.Contains("."))
+                {
+                    _simple_osedition += _version.Split('.')[0];
+                }
+                else
+                {
+                    _simple_osedition += _version;
+                }
                 if (_longname.Contains("64"))
                 {
+                    _simple_osedition = _simple_osedition.Replace("64", "");
                     _simple_osedition += "/64";
                 }
                 else if (_longname.Contains("32"))
                 {
+                    _simple_osedition = _simple_osedition.Replace("32", "");
                     _simple_osedition += "/32";
                 }
             }

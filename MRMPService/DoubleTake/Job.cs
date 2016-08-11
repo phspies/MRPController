@@ -129,6 +129,16 @@ namespace MRMPService.MRMPDoubleTake
             var result = await jobApi.StartJobAsync(jobId);
             result.EnsureSuccessStatusCode();
         }
+        async public Task StopJob(Guid jobId)
+        {
+            var result = await jobApi.StopJobAsync(jobId);
+            result.EnsureSuccessStatusCode();
+        }
+        async public Task PauseJob(Guid jobId)
+        {
+            var result = await jobApi.PauseJobAsync(jobId);
+            result.EnsureSuccessStatusCode();
+        }
 
         async public Task DeleteJob(Guid jobId)
         {

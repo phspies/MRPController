@@ -33,7 +33,7 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                         {
                             _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from {0} for type MCP", _platform.url), 10);
                             _mrmp_datacenters = _mrp_api.platformdatacenter().list(_platform);
-                            _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 10);
+                            _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 11);
 
                             CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentail.username, _platform_credentail.encrypted_password));
                             CaaS.Login().Wait();
@@ -44,8 +44,6 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                             _mrp_api.task().failcomplete(payload, ex.ToString());
                             return;
                         }
-
-
 
                         List<DatacenterType> _mcp_datacenters = CaaS.Infrastructure.GetDataCenters().Result.ToList();
                         if (_mcp_datacenters != null)

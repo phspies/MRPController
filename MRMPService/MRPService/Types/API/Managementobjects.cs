@@ -52,6 +52,11 @@ namespace MRMPService.MRMPAPI.Types.API
         public MRPWorkloadType target_workload { get; set; }
         [JsonProperty("internal_state")]
         public string internal_state { get; set; }
+        [JsonProperty("replication_status")]
+        public string replication_status { get; set; }
+        [JsonProperty("mirror_status")]
+        public string mirror_status { get; set; }
+
         [JsonProperty("last_contact")]
         public DateTime? last_contact { get; set; }
         [JsonProperty("can_create_image_recovery")]
@@ -93,8 +98,8 @@ namespace MRMPService.MRMPAPI.Types.API
         }
         [JsonProperty("worker_hostname")]
         public string worker_hostname { get; set; }
-        [JsonProperty("moid")]
-        public string moid { get; set; }
+        [JsonProperty("managementobject_id")]
+        public string managementobject_id { get; set; }
     }
     public class MRPManagementobjectDTIDGETType
     {
