@@ -82,6 +82,12 @@ namespace MRMPService.DTPollerCollection
                     else
                     {
                         _mrmp.workload().DoubleTakeUpdateStatus(_target_workload, ex.Message, false);
+                        _mrmp.managementobject().updatemanagementobject(new MRPManagementobjectType()
+                        {
+                            id = _mrp_managementobject.id,
+                            internal_state = "unavailable",
+                            last_contact = DateTime.UtcNow
+                    });
                     }
                 }
 

@@ -22,21 +22,39 @@ namespace MRMPService.PortalTasks
             {
                 try
                 {
-                    MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 33, true);
-
-                    //refresh source and target workload objects from portal
-                    _source_workload = _mrp_portal.workload().get_by_id(_source_workload.id);
-                    _target_workload = _mrp_portal.workload().get_by_id(_target_workload.id);
-
-                    if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
+                    if (_target_workload.provisioned == false)
                     {
-                        Deploy.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
+                        MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 33, true);
+                        //refresh source and target workload objects from portal
+                        _source_workload = _mrp_portal.workload().get_by_id(_source_workload.id);
+                        _target_workload = _mrp_portal.workload().get_by_id(_target_workload.id);
+
+                        if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
+                        {
+                            Deploy.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
+                        }
+                        else if (_source_workload.ostype.ToLower() == "unix" && _target_workload.ostype.ToLower() == "unix")
+                        {
+                            Deploy.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
+                        }
+                        Migration.CreateServerMigrationJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99);
                     }
-                    else if (_source_workload.ostype.ToLower() == "unix" && _target_workload.ostype.ToLower() == "unix")
+                    else
                     {
-                        Deploy.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
+                        //refresh source and target workload objects from portal
+                        _source_workload = _mrp_portal.workload().get_by_id(_source_workload.id);
+                        _target_workload = _mrp_portal.workload().get_by_id(_target_workload.id);
+
+                        if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
+                        {
+                            Deploy.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 1, 50);
+                        }
+                        else if (_source_workload.ostype.ToLower() == "unix" && _target_workload.ostype.ToLower() == "unix")
+                        {
+                            Deploy.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 1, 50);
+                        }
+                        Migration.CreateServerMigrationJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 51, 99);
                     }
-                    Migration.CreateServerMigrationJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99);
                     _mrp_portal.task().successcomplete(_mrmp_task.id, "Successfully configured migration job");
                 }
                 catch (Exception ex)

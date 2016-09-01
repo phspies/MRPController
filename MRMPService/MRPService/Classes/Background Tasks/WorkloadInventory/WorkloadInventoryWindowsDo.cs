@@ -59,9 +59,12 @@ namespace MRMPService.MRMPAPI.Classes
             ConnectionOptions options = WMIHelper.ProcessConnectionOptions(domainuser, _credential.encrypted_password);
             ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
 
-            SelectQuery ComputerSystemQuery = new SelectQuery("SELECT Name, NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
+            SelectQuery ComputerSystemQuery = new SelectQuery("SELECT Manufacturer, Model, Name, NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
             SelectQuery OperatingSystemQuery = new SelectQuery("SELECT Caption, OSArchitecture FROM Win32_OperatingSystem");
             SelectQuery ProcessorQuery = new SelectQuery("SELECT NumberOfCores, CurrentClockSpeed FROM Win32_Processor");
+            SelectQuery BiosQuery = new SelectQuery("SELECT SerialNumber FROM Win32_BIOS");
+
+            
 
             //Get operating system type
             foreach (var item in new ManagementObjectSearcher(connectionScope, OperatingSystemQuery).Get())
@@ -77,11 +80,27 @@ namespace MRMPService.MRMPAPI.Classes
                     Logger.log(String.Format("Error collecting Caption (OS Type) from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
                 }
             }
-
+            //Get operating system type
+            foreach (var item in new ManagementObjectSearcher(connectionScope, BiosQuery).Get())
+            {
+                try
+                {
+                    _updated_workload.serialnumber = item["SerialNumber"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    Logger.log(String.Format("Error collecting Enclosure info from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                }
+            }
 
             //Get cpu, core and memory information from server
             foreach (var item in new ManagementObjectSearcher(connectionScope, ComputerSystemQuery).Get())
             {
+                try { _updated_workload.model = item["Manufacturer"].ToString() + " " + item["Model"].ToString(); }
+                catch (Exception ex)
+                {
+                    Logger.log(String.Format("Error collecting Model from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                }
                 try { _updated_workload.hostname = item["Name"].ToString(); }
                 catch (Exception ex)
                 {

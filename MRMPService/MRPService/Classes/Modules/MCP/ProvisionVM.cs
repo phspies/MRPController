@@ -14,6 +14,7 @@ using System.Threading;
 using MRMPService.Utilities;
 using MRMPService.PlatformInventory;
 using DD.CBU.Compute.Api.Contracts.General;
+using MRMPService.MRPService.Classes.Utilities;
 
 namespace MRMPService.Tasks.MCP
 {
@@ -134,8 +135,10 @@ namespace MRMPService.Tasks.MCP
                         {
                             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                             {
-                                Logger.log(String.Format("Error submitting workload creation task: {0} : {1}", ex.Message, _status.error), Logger.Severity.Error);
-                                throw new Exception(String.Format("Error submitting workload creation task: {0} : {1}", ex.Message, _status.error));
+                                String innerMessage = (ex.InnerException != null) ? ex.InnerException.Message : "";
+
+                                Logger.log(String.Format("Error submitting workload creation task after 3 tries: {0}", ExceptionExtensions.GetFullMessage(ex)), Logger.Severity.Error);
+                                throw new Exception(String.Format("Error submitting workload creation task after 3 tries: {0}", ExceptionExtensions.GetFullMessage(ex)));
                             }
                         }
                         else Thread.Sleep(5000);
@@ -170,7 +173,30 @@ namespace MRMPService.Tasks.MCP
                             var result = CaaS.ServerManagement.Server.CleanServer(_newvm_platform_guid).Result;
 
                             //redeploy the server
-                            _status = CaaS.ServerManagement.Server.DeployServer(_vm).Result;
+                            _deploy_retries = 3;
+                            while (true)
+                            {
+                                try
+                                {
+                                    _status = CaaS.ServerManagement.Server.DeployServer(_vm).Result;
+                                    break;
+                                }
+                                catch (Exception ex)
+                                {
+                                    if (--_deploy_retries == 0)
+                                    {
+                                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
+                                        {
+                                            String innerMessage = (ex.InnerException != null) ? ex.InnerException.Message : "";
+
+                                            Logger.log(String.Format("Error submitting workload creation task after 3 tries: {0}", ExceptionExtensions.GetFullMessage(ex)), Logger.Severity.Error);
+                                            throw new Exception(String.Format("Error submitting workload creation task after 3 tries: {0}", ExceptionExtensions.GetFullMessage(ex)));
+                                        }
+                                    }
+                                    else Thread.Sleep(5000);
+                                }
+                            }
+
                             serverInfo = _status.info.Single(info => info.name == "serverId");
                             _newvm_platform_guid = Guid.Parse(serverInfo.value);
                             deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;

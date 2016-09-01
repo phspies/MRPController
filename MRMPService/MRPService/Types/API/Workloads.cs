@@ -82,6 +82,10 @@ namespace MRMPService.MRMPAPI.Types.API
         public string platform_ostype { get; set; }
         [JsonProperty("osedition")]
         public string osedition { get; set; }
+        [JsonProperty("serialnumber")]
+        public string serialnumber { get; set; }
+        [JsonProperty("model")]
+        public string model { get; set; }
         [JsonProperty("failedover")]
         public bool? failedover { get; set; }
         [JsonProperty("enabled")]
