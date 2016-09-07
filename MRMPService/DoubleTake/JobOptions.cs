@@ -31,19 +31,16 @@ namespace MRMPService.MRMPDoubleTake
             else if (jobInfo.JobType == DT_JobTypes.DR_Full_Protection)
             {
                 _job_type = "Disaster Recovery";
-                jobInfo.JobOptions.ImageRecoveryOptions.ShutdownSourceServer = (bool)_protectiongroup.recoverypolicy.shutdown_source;
+                //jobInfo.JobOptions.ImageRecoveryOptions.ShutdownSourceServer = (bool)_protectiongroup.recoverypolicy.shutdown_source;
                 List<ImageVhdInfoModel> vhd = new List<ImageVhdInfoModel>();
                 int i = 0;
-                foreach (dynamic volume in _source_workload.workloadvolumes_attributes)
+                foreach (MRPWorkloadVolumeType volume in _source_workload.workloadvolumes_attributes)
                 {
                     String _repositorypath = _protectiongroup.recoverypolicy.repositorypath;
-                    String _servicestack = _protectiongroup.service;
-                    String _original_id = _source_workload.id;
-                    String _volume = volume.driveletter;
-                    Int16 _disksize = volume.disksize;
-                    Char _shortvolume = _volume[0];
-                    String _filename = _original_id + "_" + _shortvolume + ".vhdx";
-                    string absfilename = Path.Combine(_repositorypath, _servicestack.ToLower().Replace(" ", "_"), _original_id, _filename);
+                    long _disksize = volume.volumesize;
+                    Char _shortvolume = volume.driveletter[0];
+                    String _filename = _source_workload.id + "_" + _shortvolume + ".vhdx";
+                    string absfilename = Path.Combine(_repositorypath, _protectiongroup.id, _source_workload.id, _filename);
                     vhd.Add(new ImageVhdInfoModel() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = false, FilePath = absfilename, SizeInMB = (_disksize * 1024) });
                     using (MRMP_ApiClient _mrp_api = new MRMP_ApiClient())
                     {
@@ -54,7 +51,6 @@ namespace MRMPService.MRMPDoubleTake
                 jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
                 jobInfo.JobOptions.ImageProtectionOptions.ImageName = (String)_target_workload.id;
             }
-
             jobInfo.JobOptions.Name = String.Format("MRMP [{0}] {1} to {2}", _job_type, _source_workload.hostname, _target_workload.hostname);
 
             //Set snapshot ID when recovering from a snapshot
@@ -79,7 +75,7 @@ namespace MRMPService.MRMPDoubleTake
                 jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.CompressionLevel.Level = 1;
                 jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.CompressionLevel.Algorithm = 21;
             }
-            jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.MirrorParameters.ComparisonCriteria = MirrorComparisonCriteria.Newer;
+            jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.MirrorParameters.ComparisonCriteria = MirrorComparisonCriteria.Checksum;
 
             if ((bool)_protectiongroup.recoverypolicy.enablesnapshots)
             {

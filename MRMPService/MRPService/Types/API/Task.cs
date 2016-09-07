@@ -70,6 +70,8 @@ namespace MRMPService.MRMPService.Types.API
 
     public class MRPTaskSubmitpayloadType
     {
+        [JsonProperty("managementobjects")]
+        public List<MRPManagementobjectOrderType> managementobjects { get; set; }
         [JsonProperty("original")]
         public MRPWorkloadType original { get; set; }
         [JsonProperty("source")]
@@ -88,6 +90,13 @@ namespace MRMPService.MRMPService.Types.API
         public MRPManagementobjectType managementobject { get; set; }
         [JsonProperty("protectiongrouptree")]
         public MRPProtectiongrouptreeType protectiongrouptree { get; set; }
+    }
+    public class MRPManagementobjectOrderType
+    {
+        [JsonProperty("position")]
+        public int position { get; set;}
+        [JsonProperty("managementobject")]
+        public MRPManagementobjectType managementobject { get; set; }
     }
     public class MRPTaskJobType
     {

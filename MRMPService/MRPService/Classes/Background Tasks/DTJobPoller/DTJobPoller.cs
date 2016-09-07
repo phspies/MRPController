@@ -48,11 +48,25 @@ namespace MRMPService.DTPollerCollection
                     _dt_job = _dt.job().GetJob((Guid)_mrp_managementobject.moid).Result;
                     if (_dt_job.JobType == DT_JobTypes.DR_Data_Protection || _dt_job.JobType == DT_JobTypes.DR_Full_Protection)
                     {
-                        _dt_image_list = _dt.image().GetImages(_dt_job.Options.Name).Result;
+                        try
+                        {
+                            _dt_image_list = _dt.image().GetImages(_dt_job.Options.Name).Result;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.log(String.Format("Double-Take Images: Error collecting images from {0} : {1}", _mrp_managementobject.target_workload.hostname, ex.GetBaseException().Message), Logger.Severity.Info);
+                        }
                     }
-                    else if (_dt_job.JobType == DT_JobTypes.HA_Full_Failover || _dt_job.JobType == DT_JobTypes.HA_FilesFolders)
+                    if (_dt_job.JobType == DT_JobTypes.HA_Full_Failover || _dt_job.JobType == DT_JobTypes.HA_FilesFolders || _dt_job.JobType == DT_JobTypes.DR_Data_Protection || _dt_job.JobType == DT_JobTypes.DR_Full_Protection)
                     {
-                        _dt_snapshot_list = _dt.job().GetSnapShots(_dt_job.Id);
+                        try
+                        {
+                            _dt_snapshot_list = _dt.job().GetSnapShots(_dt_job.Id);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.log(String.Format("Double-Take Snapshots: Error collecting snapshots from {0} : {1}", _mrp_managementobject.target_workload.hostname, ex.GetBaseException().Message), Logger.Severity.Info);
+                        }
                     }
                     //now we try to get the job information we have. IF we can't, then we know the job has been deleted...
                     _can_connect = true;
@@ -87,7 +101,7 @@ namespace MRMPService.DTPollerCollection
                             id = _mrp_managementobject.id,
                             internal_state = "unavailable",
                             last_contact = DateTime.UtcNow
-                    });
+                        });
                     }
                 }
 
@@ -103,35 +117,35 @@ namespace MRMPService.DTPollerCollection
                 {
                     using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
                     {
-                        foreach (ImageInfoModel _dt_image in _dt_image_list)
-                        {
-                            foreach (SnapshotEntryModel _dt_snap in _dt_image.Snapshots.Where(x => x.States == TargetStates.Good))
-                            {
-                                MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                                if (_mrp_managementobject.managementobjectsnapshot_attributes.Exists(x => x.imagemoid == _dt_snap.Id))
-                                {
-                                    _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshot_attributes.FirstOrDefault(x => x.imagemoid == _dt_snap.Id).id;
-                                }
+                        //foreach (ImageInfoModel _dt_image in _dt_image_list)
+                        //{
+                        //    foreach (SnapshotEntryModel _dt_snap in _dt_image.Snapshots.Where(x => x.States == TargetStates.Good))
+                        //    {
+                        //        MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
+                        //        if (_mrp_managementobject.managementobjectsnapshot_attributes.Exists(x => x.imagemoid == _dt_snap.Id))
+                        //        {
+                        //            _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshot_attributes.FirstOrDefault(x => x.imagemoid == _dt_snap.Id).id;
+                        //        }
 
-                                _mrp_snapshot.imagemoid = _dt_snap.Id;
-                                _mrp_snapshot.reason = _dt_snap.Reason.ToString();
-                                _mrp_snapshot.state = _dt_snap.States;
-                                _mrp_snapshot.timestamp = _dt_snap.Timestamp.UtcDateTime;
-                                _mrp_snapshot.comment = _dt_snap.Comment;
+                        //        _mrp_snapshot.imagemoid = _dt_snap.Id;
+                        //        _mrp_snapshot.reason = _dt_snap.Reason.ToString();
+                        //        _mrp_snapshot.state = _dt_snap.States;
+                        //        _mrp_snapshot.timestamp = _dt_snap.Timestamp.UtcDateTime;
+                        //        _mrp_snapshot.comment = _dt_snap.Comment;
 
-                                if (_mrp_mo_update.managementobjectsnapshot_attributes == null)
-                                {
-                                    _mrp_mo_update.managementobjectsnapshot_attributes = new List<MRPManagementobjectSnapshotType>();
-                                }
-                                _mrp_mo_update.managementobjectsnapshot_attributes.Add(_mrp_snapshot);
-                            }
-                        }
-                        foreach (SnapshotEntryModel _dt_snap in _dt_snapshot_list.Where(x => x.States == TargetStates.Good))
+                        //        if (_mrp_mo_update.managementobjectsnapshot_attributes == null)
+                        //        {
+                        //            _mrp_mo_update.managementobjectsnapshot_attributes = new List<MRPManagementobjectSnapshotType>();
+                        //        }
+                        //        _mrp_mo_update.managementobjectsnapshot_attributes.Add(_mrp_snapshot);
+                        //    }
+                        //}
+                        foreach (SnapshotEntryModel _dt_snap in _dt_snapshot_list.Where(x => x.States == TargetStates.Good || x.States == TargetStates.SroImage))
                         {
                             MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                            if (_mrp_managementobject.managementobjectsnapshot_attributes.Exists(x => x.imagemoid == _dt_snap.Id))
+                            if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.imagemoid == _dt_snap.Id))
                             {
-                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshot_attributes.FirstOrDefault(x => x.imagemoid == _dt_snap.Id).id;
+                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots_attributes.FirstOrDefault(x => x.imagemoid == _dt_snap.Id).id;
                             }
 
                             _mrp_snapshot.imagemoid = _dt_snap.Id;
@@ -140,11 +154,11 @@ namespace MRMPService.DTPollerCollection
                             _mrp_snapshot.timestamp = _dt_snap.Timestamp.UtcDateTime;
                             _mrp_snapshot.comment = _dt_snap.Comment;
 
-                            if (_mrp_mo_update.managementobjectsnapshot_attributes == null)
+                            if (_mrp_mo_update.managementobjectsnapshots_attributes == null)
                             {
-                                _mrp_mo_update.managementobjectsnapshot_attributes = new List<MRPManagementobjectSnapshotType>();
+                                _mrp_mo_update.managementobjectsnapshots_attributes = new List<MRPManagementobjectSnapshotType>();
                             }
-                            _mrp_mo_update.managementobjectsnapshot_attributes.Add(_mrp_snapshot);
+                            _mrp_mo_update.managementobjectsnapshots_attributes.Add(_mrp_snapshot);
                         }
                         //Update job details
                         if (_dt_job.Statistics != null)

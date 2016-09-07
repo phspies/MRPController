@@ -1,0 +1,1026 @@
+2016/09/07 12:00:04 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:00:05 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:00:05 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:00:05 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:00:05 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:00:05 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:00:11 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:00:11 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:00:12 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:00:12 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:00:12 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:00:13 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:00:13 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:00:13 Info > Completed Double-Take collection for 5 jobs in 00:00:09.0880000 [next run at 9/7/2016 12:05:04 AM]
+2016/09/07 12:03:29 Info > Staring performance collection process with 10 threads
+2016/09/07 12:03:30 Info > Performance: Start performance collection for 10-1-1-18 using 2607:f480:111:1710:bf8:5ebb:5ac3:1810
+2016/09/07 12:03:30 Info > Performance: Start performance collection for 10-10-1-6 using 2607:f480:111:1710:3466:a8f2:ece:ddb0
+2016/09/07 12:03:30 Info > Performance: Start performance collection for 10-1-1-15 using 2607:f480:111:1710:6a7a:2970:9b72:17cb
+2016/09/07 12:03:30 Info > Performance: Start performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/09/07 12:03:32 Info > Performance: Start performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/09/07 12:03:33 Info > Performance: Start performance collection for 10-1-1-17 using 2607:f480:111:1710:3d8c:bd97:69b:6a4f
+2016/09/07 12:03:34 Info > Netstat: Staring netstat collection process with 10 threads
+2016/09/07 12:03:35 Info > Performance: Start performance collection for 10-10-1-4 using 2607:f480:111:1710:48e0:2d25:42fe:3690
+2016/09/07 12:03:35 Info > Netstat: Started netstat collection for 10-10-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:03:35 Info > Netstat: Started netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 12:03:36 Info > Performance: Completed performance collection for 10-1-1-18 using 2607:f480:111:1710:bf8:5ebb:5ac3:1810
+2016/09/07 12:03:36 Info > Performance: Start performance collection for 10-1-1-7 using 2607:f480:111:1710:166d:5a30:85cb:d3e8
+2016/09/07 12:03:36 Info > Performance: Completed performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/09/07 12:03:37 Info > Netstat: Started netstat collection for 10-1-1-18 : 2607-f480-111-1710-bf8-5ebb-5ac3-1810.ipv6-literal.net
+2016/09/07 12:03:37 Info > Performance: Start performance collection for 10-1-1-16 using 2607:f480:111:1710:48b7:af0f:f142:a2e7
+2016/09/07 12:03:37 Info > Performance: Completed performance collection for 10-1-1-15 using 2607:f480:111:1710:6a7a:2970:9b72:17cb
+2016/09/07 12:03:38 Info > Inventory: Completed netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 12:03:38 Info > Performance: Start performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/09/07 12:03:38 Info > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:03:39 Info > Performance: Start performance collection for 10-1-1-19 using 2607:f480:111:1710:5d12:35de:e843:e1d3
+2016/09/07 12:03:39 Info > Inventory: Completed netstat collection for 10-1-1-18 : 2607-f480-111-1710-bf8-5ebb-5ac3-1810.ipv6-literal.net
+2016/09/07 12:03:39 Info > Netstat: Started netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/09/07 12:03:41 Info > Netstat: Started netstat collection for 10-1-1-17 : 2607-f480-111-1710-3d8c-bd97-69b-6a4f.ipv6-literal.net
+2016/09/07 12:03:41 Info > Performance: Completed performance collection for 10-1-1-17 using 2607:f480:111:1710:3d8c:bd97:69b:6a4f
+2016/09/07 12:03:41 Info > Performance: Start performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/09/07 12:03:41 Info > Performance: Completed performance collection for 10-1-1-16 using 2607:f480:111:1710:48b7:af0f:f142:a2e7
+2016/09/07 12:03:42 Info > Netstat: Started netstat collection for 10-1-1-19 : 2607-f480-111-1710-5d12-35de-e843-e1d3.ipv6-literal.net
+2016/09/07 12:03:42 Info > Performance: Start performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/09/07 12:03:43 Info > Inventory: Completed netstat collection for 10-1-1-17 : 2607-f480-111-1710-3d8c-bd97-69b-6a4f.ipv6-literal.net
+2016/09/07 12:03:43 Info > Netstat: Started netstat collection for 10-10-1-4 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:03:44 Info > Inventory: Completed netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/09/07 12:03:44 Info > Netstat: Started netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:03:45 Info > Netstat: Started netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/09/07 12:03:45 Info > Inventory: Completed netstat collection for 10-1-1-19 : 2607-f480-111-1710-5d12-35de-e843-e1d3.ipv6-literal.net
+2016/09/07 12:03:45 Info > Netstat: Started netstat collection for 10-1-1-16 : 2607-f480-111-1710-48b7-af0f-f142-a2e7.ipv6-literal.net
+2016/09/07 12:03:45 Info > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/09/07 12:03:45 Error > Error collecting performance information from 10-1-1-11 with error System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.   at System.Data.Entity.Internal.InternalContext.SaveChanges()   at MRMPService.LocalDatabase.GenericRepository`1.Insert(TEntity entity) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Database\Classes\GenericDatabase.cs:line 58   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceWindowsDo(SyncronisedList`1 _workload_counters, SyncronisedList`1 _available_counters, MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs:line 158   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs:line 94
+2016/09/07 12:03:45 Info > Performance: Start performance collection for 10-1-1-15 using 2607:f480:111:1710:6a7a:2970:9b72:17cb
+2016/09/07 12:03:46 Info > Performance: Start performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/09/07 12:03:47 Info > Performance: Completed performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/09/07 12:03:47 Info > Inventory: Completed netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/09/07 12:03:47 Info > Netstat: Started netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/09/07 12:03:47 Info > Performance: Completed performance collection for 10-1-1-19 using 2607:f480:111:1710:5d12:35de:e843:e1d3
+2016/09/07 12:03:47 Info > Netstat: Started netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/09/07 12:03:47 Info > Performance: Start performance collection for 10-10-1-7 using 2607:f480:111:1711:7c2d:f357:c9a8:ee14
+2016/09/07 12:03:47 Info > Inventory: Completed netstat collection for 10-10-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:03:48 Info > Netstat: Started netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 12:03:48 Info > Inventory: Completed netstat collection for 10-1-1-16 : 2607-f480-111-1710-48b7-af0f-f142-a2e7.ipv6-literal.net
+2016/09/07 12:03:50 Info > Inventory: Completed netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/09/07 12:03:50 Info > Performance: Completed performance collection for 10-1-1-15 using 2607:f480:111:1710:6a7a:2970:9b72:17cb
+2016/09/07 12:03:50 Info > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/09/07 12:03:50 Info > Netstat: Started netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/09/07 12:03:50 Info > Inventory: Completed netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/09/07 12:03:50 Info > Performance: Start performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/09/07 12:03:51 Info > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:03:51 Info > Inventory: Completed netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 12:03:51 Info > Performance: Completed performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/09/07 12:03:53 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 12:03:53 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:03:53 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:03:53 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:03:53 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:03:54 Info > Performance: Completed performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/09/07 12:03:56 Info > Inventory: Completed netstat collection for 10-10-1-4 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:03:56 Info > Inventory: Completed netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/09/07 12:03:57 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:03:57 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:03:57 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:03:57 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:04:00 Error > Error collecting performance information from 10-1-1-14 with error System.ArgumentException: Error contacting workload   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceWindowsDo(SyncronisedList`1 _workload_counters, SyncronisedList`1 _available_counters, MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs:line 37   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs:line 94
+2016/09/07 12:04:02 Info > Inventory: Completed netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/09/07 12:04:03 Info > Inventory: Completed netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/09/07 12:04:07 Error > Netstat: Error collecting netstat information from 10-1-1-14 with error System.ArgumentException: Error contacting workload for workload 3d0a04d55b7f10dd80448951a14a2800a815fa65 10-1-1-14   at MRMPService.MRMPAPI.Classes.WorkloadNetstat.WorkloadNetstatWindowsDo(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs:line 40   at MRMPService.MRMPAPI.Classes.WorkloadNetstatThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs:line 39
+2016/09/07 12:04:17 Error > Error collecting performance information from 10-10-1-5 with error System.ArgumentException: Error contacting workload   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceWindowsDo(SyncronisedList`1 _workload_counters, SyncronisedList`1 _available_counters, MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs:line 37   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs:line 94
+2016/09/07 12:04:18 Error > Netstat: Error collecting netstat information from 10-10-1-5 with error System.ArgumentException: Error contacting workload for workload ebd1bc89fc51543924288ab58a6a489776d7304a 10-10-1-5   at MRMPService.MRMPAPI.Classes.WorkloadNetstat.WorkloadNetstatWindowsDo(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs:line 40   at MRMPService.MRMPAPI.Classes.WorkloadNetstatThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs:line 39
+2016/09/07 12:04:19 Info > Staring data upload process
+2016/09/07 12:04:19 Debug > Starting Performance Upload Thread
+2016/09/07 12:04:19 Debug > Starting Netstat Upload Thread
+2016/09/07 12:04:19 Debug > Starting Netflow Upload Thread
+2016/09/07 12:04:19 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:04:19 Debug > Completed Netflow Upload Thread in 00:00:00.0220000
+2016/09/07 12:04:20 Debug > Deleting uploaded Netstat records: 50
+2016/09/07 12:04:20 Debug > Took 00:00:00.1070000 to delete 50 performance records
+2016/09/07 12:04:20 Debug > Completed Nestat Upload Thread in 00:00:00.3640000
+2016/09/07 12:04:23 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 12:04:23 Info > Completed Double-Take Event collection for 5 workloads in 00:00:30 [next run at 9/7/2016 12:13:53 AM]
+2016/09/07 12:04:23 Debug > Deleting uploaded performance records: 966
+2016/09/07 12:04:24 Debug > Took 00:00:00.5390000 to delete 966 performance records
+2016/09/07 12:04:24 Debug > Completed Performance Upload Thread in 00:00:04.4740000
+2016/09/07 12:04:24 Info > Completed data upload process. Total Elapsed Time: 00:00:04.4880000
+2016/09/07 12:04:57 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Processor : The RPC server is too busy to complete this operation.
+2016/09/07 12:05:08 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:05:09 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:05:09 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:05:09 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:05:09 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:05:10 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:05:17 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:05:17 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:05:17 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:05:17 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:05:17 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:05:18 Info > Inventory: Completed netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:05:18 Info > Netstat: Completed netstat collection for 19 workloads in 00:01:43.1180000 [next run at 9/7/2016 12:33:34 AM]
+2016/09/07 12:05:18 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:05:19 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:05:19 Info > Completed Double-Take collection for 5 jobs in 00:00:10.2320000 [next run at 9/7/2016 12:10:08 AM]
+2016/09/07 12:05:19 Info > Performance: Completed performance collection for 10-10-1-6 using 2607:f480:111:1710:3466:a8f2:ece:ddb0
+2016/09/07 12:05:24 Info > Performance: Completed performance collection for 10-10-1-4 using 2607:f480:111:1710:48e0:2d25:42fe:3690
+2016/09/07 12:05:38 Info > Performance: Completed performance collection for 10-10-1-7 using 2607:f480:111:1711:7c2d:f357:c9a8:ee14
+2016/09/07 12:05:43 Info > Performance: Completed performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/09/07 12:05:45 Info > Performance: Completed performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/09/07 12:06:19 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Memory : The RPC server is too busy to complete this operation.
+2016/09/07 12:07:40 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : LogicalDisk : The RPC server is too busy to complete this operation.
+2016/09/07 12:09:01 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : PhysicalDisk : The RPC server is too busy to complete this operation.
+2016/09/07 12:09:24 Info > Staring data upload process
+2016/09/07 12:09:24 Debug > Starting Performance Upload Thread
+2016/09/07 12:09:24 Debug > Starting Netstat Upload Thread
+2016/09/07 12:09:24 Debug > Starting Netflow Upload Thread
+2016/09/07 12:09:24 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:09:24 Debug > Completed Netflow Upload Thread in 00:00:00.0380000
+2016/09/07 12:09:24 Debug > Deleting uploaded Netstat records: 5
+2016/09/07 12:09:24 Debug > Took 00:00:00.0870000 to delete 5 performance records
+2016/09/07 12:09:24 Debug > Completed Nestat Upload Thread in 00:00:00.2940000
+2016/09/07 12:09:26 Debug > Deleting uploaded performance records: 447
+2016/09/07 12:09:26 Debug > Took 00:00:00.2950000 to delete 447 performance records
+2016/09/07 12:09:26 Debug > Completed Performance Upload Thread in 00:00:02.5750000
+2016/09/07 12:09:26 Info > Completed data upload process. Total Elapsed Time: 00:00:02.6150000
+2016/09/07 12:10:09 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:10:09 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:10:09 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:10:09 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:10:09 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:10:10 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:10:15 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:10:15 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:10:16 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:10:17 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:10:18 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:10:19 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:10:19 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:10:19 Info > Completed Double-Take collection for 5 jobs in 00:00:10.3950000 [next run at 9/7/2016 12:15:09 AM]
+2016/09/07 12:10:24 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Network Interface : The RPC server is too busy to complete this operation.
+2016/09/07 12:11:45 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Double-Take Connection : The RPC server is too busy to complete this operation.
+2016/09/07 12:13:07 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Double-Take Kernel : The RPC server is too busy to complete this operation.
+2016/09/07 12:13:53 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 12:13:53 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:13:53 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:13:53 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:13:53 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:13:57 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:13:57 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:13:57 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:13:57 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:14:23 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 12:14:23 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.8620000 [next run at 9/7/2016 12:23:53 AM]
+2016/09/07 12:14:26 Info > Staring data upload process
+2016/09/07 12:14:26 Debug > Starting Performance Upload Thread
+2016/09/07 12:14:26 Debug > Starting Netstat Upload Thread
+2016/09/07 12:14:26 Debug > Starting Netflow Upload Thread
+2016/09/07 12:14:27 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:14:27 Debug > Completed Netflow Upload Thread in 00:00:00.0250000
+2016/09/07 12:14:27 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 12:14:27 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:14:27 Debug > Completed Nestat Upload Thread in 00:00:00.0470000
+2016/09/07 12:14:27 Debug > Deleting uploaded performance records: 0
+2016/09/07 12:14:27 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:14:27 Debug > Completed Performance Upload Thread in 00:00:00.8220000
+2016/09/07 12:14:27 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8360000
+2016/09/07 12:14:28 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Double-Take Source : The RPC server is too busy to complete this operation.
+2016/09/07 12:15:09 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:15:09 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:15:09 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:15:09 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:15:09 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:15:09 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:15:14 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:15:14 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:15:14 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:15:15 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:15:16 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:15:17 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:15:17 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:15:18 Info > Completed Double-Take collection for 5 jobs in 00:00:08.4440000 [next run at 9/7/2016 12:20:09 AM]
+2016/09/07 12:15:50 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Double-Take Target : The RPC server is too busy to complete this operation.
+2016/09/07 12:15:50 Info > Performance: Completed performance collection for 10-1-1-7 using 2607:f480:111:1710:166d:5a30:85cb:d3e8
+2016/09/07 12:15:50 Info > Completed performance collection for 19 workloads in 00:12:20.5090000 [next run at 9/7/2016 1:03:29 AM]
+2016/09/07 12:19:27 Info > Staring data upload process
+2016/09/07 12:19:27 Debug > Starting Performance Upload Thread
+2016/09/07 12:19:27 Debug > Starting Netstat Upload Thread
+2016/09/07 12:19:27 Debug > Starting Netflow Upload Thread
+2016/09/07 12:19:27 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 12:19:27 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:19:27 Debug > Completed Nestat Upload Thread in 00:00:00.0510000
+2016/09/07 12:19:27 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:19:27 Debug > Completed Netflow Upload Thread in 00:00:00.0440000
+2016/09/07 12:19:28 Debug > Deleting uploaded performance records: 0
+2016/09/07 12:19:28 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:19:28 Debug > Completed Performance Upload Thread in 00:00:00.7580000
+2016/09/07 12:19:28 Info > Completed data upload process. Total Elapsed Time: 00:00:00.7840000
+2016/09/07 12:20:13 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:20:13 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:20:13 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:20:13 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:20:13 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:20:13 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:20:20 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:20:21 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:20:21 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:20:22 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:20:22 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:20:22 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:20:23 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:20:23 Info > Completed Double-Take collection for 5 jobs in 00:00:10.2910000 [next run at 9/7/2016 12:25:13 AM]
+2016/09/07 12:23:58 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 12:23:58 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:23:58 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:23:58 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:23:58 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:24:03 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:24:04 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:24:04 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:24:04 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:24:28 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 12:24:28 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.9810000 [next run at 9/7/2016 12:33:58 AM]
+2016/09/07 12:24:28 Info > Staring data upload process
+2016/09/07 12:24:28 Debug > Starting Performance Upload Thread
+2016/09/07 12:24:28 Debug > Starting Netstat Upload Thread
+2016/09/07 12:24:28 Debug > Starting Netflow Upload Thread
+2016/09/07 12:24:28 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:24:28 Debug > Completed Netflow Upload Thread in 00:00:00.0270000
+2016/09/07 12:24:28 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 12:24:28 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:24:28 Debug > Completed Nestat Upload Thread in 00:00:00.0470000
+2016/09/07 12:24:29 Debug > Deleting uploaded performance records: 0
+2016/09/07 12:24:29 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:24:29 Debug > Completed Performance Upload Thread in 00:00:00.8390000
+2016/09/07 12:24:29 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8570000
+2016/09/07 12:25:13 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:25:13 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:25:13 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:25:13 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:25:13 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:25:13 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:25:20 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:25:21 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:25:21 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:25:22 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:25:22 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:25:22 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:25:23 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:25:23 Info > Completed Double-Take collection for 5 jobs in 00:00:10.4360000 [next run at 9/7/2016 12:30:13 AM]
+2016/09/07 12:29:29 Info > Staring data upload process
+2016/09/07 12:29:29 Debug > Starting Performance Upload Thread
+2016/09/07 12:29:29 Debug > Starting Netstat Upload Thread
+2016/09/07 12:29:29 Debug > Starting Netflow Upload Thread
+2016/09/07 12:29:29 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:29:29 Debug > Completed Netflow Upload Thread in 00:00:00.0250000
+2016/09/07 12:29:29 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 12:29:29 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:29:29 Debug > Completed Nestat Upload Thread in 00:00:00.0790000
+2016/09/07 12:29:30 Debug > Deleting uploaded performance records: 0
+2016/09/07 12:29:30 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:29:30 Debug > Completed Performance Upload Thread in 00:00:00.7960000
+2016/09/07 12:29:30 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8110000
+2016/09/07 12:30:13 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:30:14 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:30:14 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:30:14 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:30:14 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:30:14 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:30:18 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:30:18 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:30:18 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:30:19 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:30:19 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:30:20 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:30:20 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:30:20 Info > Completed Double-Take collection for 5 jobs in 00:00:06.7680000 [next run at 9/7/2016 12:35:13 AM]
+2016/09/07 12:33:38 Info > Netstat: Staring netstat collection process with 10 threads
+2016/09/07 12:33:38 Info > Netstat: Started netstat collection for 10-10-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:33:38 Info > Netstat: Started netstat collection for 10-1-1-18 : 2607-f480-111-1710-bf8-5ebb-5ac3-1810.ipv6-literal.net
+2016/09/07 12:33:38 Info > Netstat: Started netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 12:33:38 Info > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:33:40 Info > Netstat: Started netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/09/07 12:33:41 Info > Inventory: Completed netstat collection for 10-1-1-18 : 2607-f480-111-1710-bf8-5ebb-5ac3-1810.ipv6-literal.net
+2016/09/07 12:33:41 Info > Netstat: Started netstat collection for 10-1-1-17 : 2607-f480-111-1710-3d8c-bd97-69b-6a4f.ipv6-literal.net
+2016/09/07 12:33:41 Info > Inventory: Completed netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 12:33:41 Info > Netstat: Started netstat collection for 10-1-1-19 : 2607-f480-111-1710-5d12-35de-e843-e1d3.ipv6-literal.net
+2016/09/07 12:33:42 Info > Inventory: Completed netstat collection for 10-1-1-17 : 2607-f480-111-1710-3d8c-bd97-69b-6a4f.ipv6-literal.net
+2016/09/07 12:33:42 Info > Netstat: Started netstat collection for 10-10-1-4 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:33:43 Info > Netstat: Started netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:33:43 Info > Inventory: Completed netstat collection for 10-1-1-19 : 2607-f480-111-1710-5d12-35de-e843-e1d3.ipv6-literal.net
+2016/09/07 12:33:43 Info > Netstat: Started netstat collection for 10-1-1-16 : 2607-f480-111-1710-48b7-af0f-f142-a2e7.ipv6-literal.net
+2016/09/07 12:33:44 Info > Inventory: Completed netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/09/07 12:33:44 Info > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/09/07 12:33:44 Info > Netstat: Started netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/09/07 12:33:45 Info > Inventory: Completed netstat collection for 10-1-1-16 : 2607-f480-111-1710-48b7-af0f-f142-a2e7.ipv6-literal.net
+2016/09/07 12:33:46 Info > Netstat: Started netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 12:33:46 Info > Inventory: Completed netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/09/07 12:33:48 Info > Inventory: Completed netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 12:33:48 Info > Netstat: Started netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/09/07 12:33:49 Info > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:33:50 Info > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/09/07 12:33:50 Info > Inventory: Completed netstat collection for 10-10-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:33:53 Info > Netstat: Started netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/09/07 12:33:54 Info > Inventory: Completed netstat collection for 10-10-1-4 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:33:54 Info > Inventory: Completed netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/09/07 12:33:55 Info > Inventory: Completed netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/09/07 12:33:55 Info > Netstat: Started netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/09/07 12:33:57 Info > Inventory: Completed netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/09/07 12:33:58 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 12:33:58 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:33:58 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:33:58 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:33:58 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:33:59 Info > Inventory: Completed netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/09/07 12:34:01 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:34:01 Info > Inventory: Completed netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/09/07 12:34:02 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:34:02 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:34:02 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:34:08 Error > Netstat: Error collecting netstat information from 10-1-1-14 with error System.ArgumentException: Error contacting workload for workload 3d0a04d55b7f10dd80448951a14a2800a815fa65 10-1-1-14   at MRMPService.MRMPAPI.Classes.WorkloadNetstat.WorkloadNetstatWindowsDo(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs:line 40   at MRMPService.MRMPAPI.Classes.WorkloadNetstatThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs:line 39
+2016/09/07 12:34:16 Error > Netstat: Error collecting netstat information from 10-10-1-5 with error System.ArgumentException: Error contacting workload for workload ebd1bc89fc51543924288ab58a6a489776d7304a 10-10-1-5   at MRMPService.MRMPAPI.Classes.WorkloadNetstat.WorkloadNetstatWindowsDo(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs:line 40   at MRMPService.MRMPAPI.Classes.WorkloadNetstatThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs:line 39
+2016/09/07 12:34:28 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 12:34:28 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.9390000 [next run at 9/7/2016 12:43:58 AM]
+2016/09/07 12:34:30 Info > Staring data upload process
+2016/09/07 12:34:30 Debug > Starting Performance Upload Thread
+2016/09/07 12:34:30 Debug > Starting Netstat Upload Thread
+2016/09/07 12:34:30 Debug > Starting Netflow Upload Thread
+2016/09/07 12:34:30 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:34:30 Debug > Completed Netflow Upload Thread in 00:00:00.0510000
+2016/09/07 12:34:30 Debug > Deleting uploaded Netstat records: 58
+2016/09/07 12:34:30 Debug > Took 00:00:00.1140000 to delete 58 performance records
+2016/09/07 12:34:30 Debug > Completed Nestat Upload Thread in 00:00:00.3950000
+2016/09/07 12:34:31 Debug > Deleting uploaded performance records: 0
+2016/09/07 12:34:31 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:34:31 Debug > Completed Performance Upload Thread in 00:00:00.7540000
+2016/09/07 12:34:31 Info > Completed data upload process. Total Elapsed Time: 00:00:00.7760000
+2016/09/07 12:35:15 Info > Inventory: Completed netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:35:15 Info > Netstat: Completed netstat collection for 19 workloads in 00:01:37.2850000 [next run at 9/7/2016 1:03:38 AM]
+2016/09/07 12:35:15 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:35:15 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:35:15 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:35:15 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:35:15 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:35:15 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:35:25 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:35:25 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:35:25 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:35:27 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:35:27 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:35:28 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:35:28 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:35:29 Info > Completed Double-Take collection for 5 jobs in 00:00:13.4580000 [next run at 9/7/2016 12:40:15 AM]
+2016/09/07 12:39:31 Info > Staring data upload process
+2016/09/07 12:39:31 Debug > Starting Performance Upload Thread
+2016/09/07 12:39:31 Debug > Starting Netstat Upload Thread
+2016/09/07 12:39:31 Debug > Starting Netflow Upload Thread
+2016/09/07 12:39:31 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:39:31 Debug > Completed Netflow Upload Thread in 00:00:00.0280000
+2016/09/07 12:39:31 Debug > Deleting uploaded Netstat records: 4
+2016/09/07 12:39:31 Debug > Took 00:00:00.0970000 to delete 4 performance records
+2016/09/07 12:39:31 Debug > Completed Nestat Upload Thread in 00:00:00.3610000
+2016/09/07 12:39:31 Debug > Deleting uploaded performance records: 0
+2016/09/07 12:39:31 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:39:31 Debug > Completed Performance Upload Thread in 00:00:00.7970000
+2016/09/07 12:39:31 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8130000
+2016/09/07 12:40:19 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:40:19 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:40:19 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:40:19 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:40:19 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:40:19 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:40:23 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:40:23 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:40:23 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:40:24 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:40:24 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:40:24 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:40:25 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:40:25 Info > Completed Double-Take collection for 5 jobs in 00:00:06.2670000 [next run at 9/7/2016 12:45:19 AM]
+2016/09/07 12:44:03 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 12:44:03 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:44:03 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:44:03 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:44:03 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:44:07 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:44:07 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:44:08 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:44:08 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:44:31 Info > Staring data upload process
+2016/09/07 12:44:31 Debug > Starting Performance Upload Thread
+2016/09/07 12:44:32 Debug > Starting Netstat Upload Thread
+2016/09/07 12:44:32 Debug > Starting Netflow Upload Thread
+2016/09/07 12:44:32 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:44:32 Debug > Completed Netflow Upload Thread in 00:00:00.0270000
+2016/09/07 12:44:32 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 12:44:32 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:44:32 Debug > Completed Nestat Upload Thread in 00:00:00.0560000
+2016/09/07 12:44:32 Debug > Deleting uploaded performance records: 0
+2016/09/07 12:44:32 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:44:32 Debug > Completed Performance Upload Thread in 00:00:00.8350000
+2016/09/07 12:44:32 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8490000
+2016/09/07 12:44:33 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 12:44:33 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.9770000 [next run at 9/7/2016 12:54:03 AM]
+2016/09/07 12:45:20 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:45:20 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:45:20 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:45:20 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:45:20 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:45:25 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:45:25 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:45:26 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:45:27 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:45:27 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:45:28 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:45:28 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:45:28 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:45:28 Info > Completed Double-Take collection for 5 jobs in 00:00:08.6520000 [next run at 9/7/2016 12:50:20 AM]
+2016/09/07 12:49:32 Info > Staring data upload process
+2016/09/07 12:49:32 Debug > Starting Performance Upload Thread
+2016/09/07 12:49:32 Debug > Starting Netstat Upload Thread
+2016/09/07 12:49:32 Debug > Starting Netflow Upload Thread
+2016/09/07 12:49:32 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:49:32 Debug > Completed Netflow Upload Thread in 00:00:00.0330000
+2016/09/07 12:49:32 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 12:49:32 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:49:32 Debug > Completed Nestat Upload Thread in 00:00:00.0590000
+2016/09/07 12:49:33 Debug > Deleting uploaded performance records: 0
+2016/09/07 12:49:33 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:49:33 Debug > Completed Performance Upload Thread in 00:00:00.7620000
+2016/09/07 12:49:33 Info > Completed data upload process. Total Elapsed Time: 00:00:00.7890000
+2016/09/07 12:50:24 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:50:24 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:50:24 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:50:24 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:50:24 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:50:24 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:50:31 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:50:31 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:50:32 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:50:32 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:50:33 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:50:34 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:50:34 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:50:34 Info > Completed Double-Take collection for 5 jobs in 00:00:10.5000000 [next run at 9/7/2016 12:55:24 AM]
+2016/09/07 12:54:03 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 12:54:03 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:54:03 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:54:03 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:54:03 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:54:07 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:54:08 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:54:08 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:54:08 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:54:33 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 12:54:33 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.9570000 [next run at 9/7/2016 1:04:03 AM]
+2016/09/07 12:54:33 Info > Staring data upload process
+2016/09/07 12:54:33 Debug > Starting Performance Upload Thread
+2016/09/07 12:54:33 Debug > Starting Netflow Upload Thread
+2016/09/07 12:54:33 Debug > Starting Netstat Upload Thread
+2016/09/07 12:54:33 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 12:54:33 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:54:33 Debug > Completed Nestat Upload Thread in 00:00:00.0250000
+2016/09/07 12:54:33 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:54:33 Debug > Completed Netflow Upload Thread in 00:00:00.0430000
+2016/09/07 12:54:34 Debug > Deleting uploaded performance records: 0
+2016/09/07 12:54:34 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:54:34 Debug > Completed Performance Upload Thread in 00:00:00.7430000
+2016/09/07 12:54:34 Info > Completed data upload process. Total Elapsed Time: 00:00:00.7630000
+2016/09/07 12:55:24 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 12:55:24 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:55:24 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:55:24 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:55:24 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:55:24 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:55:29 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 12:55:30 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 12:55:30 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:55:30 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 12:55:31 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:55:31 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 12:55:31 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 12:55:31 Info > Completed Double-Take collection for 5 jobs in 00:00:07.2030000 [next run at 9/7/2016 1:00:24 AM]
+2016/09/07 12:59:34 Info > Staring data upload process
+2016/09/07 12:59:34 Debug > Starting Performance Upload Thread
+2016/09/07 12:59:34 Debug > Starting Netstat Upload Thread
+2016/09/07 12:59:34 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 12:59:34 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:59:34 Debug > Completed Nestat Upload Thread in 00:00:00.0470000
+2016/09/07 12:59:34 Debug > Starting Netflow Upload Thread
+2016/09/07 12:59:34 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 12:59:34 Debug > Completed Netflow Upload Thread in 00:00:00.0500000
+2016/09/07 12:59:35 Debug > Deleting uploaded performance records: 0
+2016/09/07 12:59:35 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 12:59:35 Debug > Completed Performance Upload Thread in 00:00:00.7600000
+2016/09/07 12:59:35 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8090000
+2016/09/07 01:00:26 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:00:26 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:00:26 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:00:26 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:00:26 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:00:26 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:00:29 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:00:29 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:00:29 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:00:29 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:00:29 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:00:29 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:00:29 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:00:30 Info > Completed Double-Take collection for 5 jobs in 00:00:03.2880000 [next run at 9/7/2016 1:05:26 AM]
+2016/09/07 01:03:30 Info > Staring performance collection process with 10 threads
+2016/09/07 01:03:31 Info > Performance: Start performance collection for 10-10-1-6 using 2607:f480:111:1710:3466:a8f2:ece:ddb0
+2016/09/07 01:03:31 Info > Performance: Start performance collection for 10-1-1-15 using 2607:f480:111:1710:6a7a:2970:9b72:17cb
+2016/09/07 01:03:31 Info > Performance: Start performance collection for 10-1-1-18 using 2607:f480:111:1710:bf8:5ebb:5ac3:1810
+2016/09/07 01:03:31 Info > Performance: Start performance collection for 10-1-1-11 using 2607:f480:111:1710:7874:b8dc:e9e2:c9bf
+2016/09/07 01:03:33 Info > Performance: Start performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/09/07 01:03:34 Info > Performance: Start performance collection for 10-1-1-17 using 2607:f480:111:1710:3d8c:bd97:69b:6a4f
+2016/09/07 01:03:34 Info > Performance: Completed performance collection for 10-1-1-15 using 2607:f480:111:1710:6a7a:2970:9b72:17cb
+2016/09/07 01:03:34 Info > Performance: Start performance collection for 10-1-1-19 using 2607:f480:111:1710:5d12:35de:e843:e1d3
+2016/09/07 01:03:34 Info > Performance: Completed performance collection for 10-1-1-18 using 2607:f480:111:1710:bf8:5ebb:5ac3:1810
+2016/09/07 01:03:34 Info > Performance: Start performance collection for 10-10-1-4 using 2607:f480:111:1710:48e0:2d25:42fe:3690
+2016/09/07 01:03:34 Info > Performance: Start performance collection for 10-1-1-7 using 2607:f480:111:1710:166d:5a30:85cb:d3e8
+2016/09/07 01:03:36 Info > Performance: Completed performance collection for 10-1-1-17 using 2607:f480:111:1710:3d8c:bd97:69b:6a4f
+2016/09/07 01:03:36 Info > Performance: Start performance collection for 10-1-1-16 using 2607:f480:111:1710:48b7:af0f:f142:a2e7
+2016/09/07 01:03:36 Info > Performance: Start performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/09/07 01:03:36 Error > Error collecting performance information from 10-1-1-11 with error System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.   at System.Data.Entity.Internal.InternalContext.SaveChanges()   at MRMPService.LocalDatabase.GenericRepository`1.Insert(TEntity entity) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Database\Classes\GenericDatabase.cs:line 58   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceWindowsDo(SyncronisedList`1 _workload_counters, SyncronisedList`1 _available_counters, MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs:line 158   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs:line 94
+2016/09/07 01:03:36 Info > Performance: Start performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/09/07 01:03:37 Info > Performance: Completed performance collection for 10-1-1-10 using 2607:f480:111:1710:66f4:63be:17d9:beff
+2016/09/07 01:03:37 Info > Performance: Start performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/09/07 01:03:39 Info > Performance: Completed performance collection for 10-1-1-19 using 2607:f480:111:1710:5d12:35de:e843:e1d3
+2016/09/07 01:03:39 Info > Performance: Start performance collection for 10-1-1-15 using 2607:f480:111:1710:6a7a:2970:9b72:17cb
+2016/09/07 01:03:39 Info > Performance: Completed performance collection for 10-1-1-16 using 2607:f480:111:1710:48b7:af0f:f142:a2e7
+2016/09/07 01:03:40 Info > Netstat: Staring netstat collection process with 10 threads
+2016/09/07 01:03:40 Info > Performance: Completed performance collection for 10-1-1-15 using 2607:f480:111:1710:6a7a:2970:9b72:17cb
+2016/09/07 01:03:40 Info > Performance: Start performance collection for 10-10-1-7 using 2607:f480:111:1711:7c2d:f357:c9a8:ee14
+2016/09/07 01:03:41 Info > Performance: Completed performance collection for 10-1-1-4 using 2607:f480:111:1710:7fcc:86d9:d525:d181
+2016/09/07 01:03:41 Info > Netstat: Started netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 01:03:41 Info > Netstat: Started netstat collection for 10-10-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:03:41 Info > Netstat: Started netstat collection for 10-1-1-18 : 2607-f480-111-1710-bf8-5ebb-5ac3-1810.ipv6-literal.net
+2016/09/07 01:03:41 Info > Performance: Completed performance collection for 10-1-1-9 using 2607:f480:111:1710:6733:20bf:9f33:91b9
+2016/09/07 01:03:41 Info > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:03:41 Info > Performance: Start performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/09/07 01:03:42 Info > Inventory: Completed netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 01:03:42 Info > Netstat: Started netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/09/07 01:03:42 Info > Netstat: Started netstat collection for 10-1-1-17 : 2607-f480-111-1710-3d8c-bd97-69b-6a4f.ipv6-literal.net
+2016/09/07 01:03:42 Info > Inventory: Completed netstat collection for 10-1-1-18 : 2607-f480-111-1710-bf8-5ebb-5ac3-1810.ipv6-literal.net
+2016/09/07 01:03:42 Info > Netstat: Started netstat collection for 10-1-1-19 : 2607-f480-111-1710-5d12-35de-e843-e1d3.ipv6-literal.net
+2016/09/07 01:03:44 Info > Inventory: Completed netstat collection for 10-1-1-17 : 2607-f480-111-1710-3d8c-bd97-69b-6a4f.ipv6-literal.net
+2016/09/07 01:03:44 Info > Netstat: Started netstat collection for 10-10-1-4 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:03:44 Info > Netstat: Started netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:03:45 Info > Inventory: Completed netstat collection for 10-1-1-19 : 2607-f480-111-1710-5d12-35de-e843-e1d3.ipv6-literal.net
+2016/09/07 01:03:45 Info > Netstat: Started netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/09/07 01:03:45 Info > Netstat: Started netstat collection for 10-1-1-16 : 2607-f480-111-1710-48b7-af0f-f142-a2e7.ipv6-literal.net
+2016/09/07 01:03:45 Info > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/09/07 01:03:45 Info > Performance: Start performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/09/07 01:03:45 Info > Inventory: Completed netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/09/07 01:03:45 Info > Netstat: Started netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/09/07 01:03:46 Info > Inventory: Completed netstat collection for 10-10-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:03:46 Info > Netstat: Started netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/09/07 01:03:46 Info > Inventory: Completed netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/09/07 01:03:46 Info > Netstat: Started netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 01:03:47 Info > Inventory: Completed netstat collection for 10-1-1-16 : 2607-f480-111-1710-48b7-af0f-f142-a2e7.ipv6-literal.net
+2016/09/07 01:03:48 Info > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:03:48 Info > Netstat: Started netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/09/07 01:03:48 Info > Inventory: Completed netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/09/07 01:03:48 Info > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/09/07 01:03:48 Info > Inventory: Completed netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/09/07 01:03:49 Info > Inventory: Completed netstat collection for 10-10-1-4 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:03:49 Info > Inventory: Completed netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/09/07 01:03:49 Info > Inventory: Completed netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 01:03:50 Info > Performance: Completed performance collection for 10-1-1-8 using 2607:f480:111:1710:27c4:4e40:61bc:1090
+2016/09/07 01:03:53 Info > Inventory: Completed netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/09/07 01:03:54 Info > Inventory: Completed netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/09/07 01:04:00 Error > Error collecting performance information from 10-1-1-14 with error System.ArgumentException: Error contacting workload   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceWindowsDo(SyncronisedList`1 _workload_counters, SyncronisedList`1 _available_counters, MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs:line 37   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs:line 94
+2016/09/07 01:04:08 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 01:04:08 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:04:08 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:04:08 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:04:08 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:04:09 Error > Error collecting performance information from 10-10-1-5 with error System.ArgumentException: Error contacting workload   at MRMPService.PerformanceCollection.WorkloadPerformance.WorkloadPerformanceWindowsDo(SyncronisedList`1 _workload_counters, SyncronisedList`1 _available_counters, MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs:line 37   at MRMPService.PerformanceCollection.WorkloadPerformanceThread.<>c.<Start>b__2_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceThread.cs:line 94
+2016/09/07 01:04:09 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:04:09 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:04:09 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:04:10 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:04:10 Error > Netstat: Error collecting netstat information from 10-1-1-14 with error System.ArgumentException: Error contacting workload for workload 3d0a04d55b7f10dd80448951a14a2800a815fa65 10-1-1-14   at MRMPService.MRMPAPI.Classes.WorkloadNetstat.WorkloadNetstatWindowsDo(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs:line 40   at MRMPService.MRMPAPI.Classes.WorkloadNetstatThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs:line 39
+2016/09/07 01:04:11 Info > Performance: Completed performance collection for 10-10-1-6 using 2607:f480:111:1710:3466:a8f2:ece:ddb0
+2016/09/07 01:04:15 Info > Performance: Completed performance collection for 10-10-1-4 using 2607:f480:111:1710:48e0:2d25:42fe:3690
+2016/09/07 01:04:17 Error > Netstat: Error collecting netstat information from 10-10-1-5 with error System.ArgumentException: Error contacting workload for workload ebd1bc89fc51543924288ab58a6a489776d7304a 10-10-1-5   at MRMPService.MRMPAPI.Classes.WorkloadNetstat.WorkloadNetstatWindowsDo(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs:line 40   at MRMPService.MRMPAPI.Classes.WorkloadNetstatThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs:line 39
+2016/09/07 01:04:23 Info > Performance: Completed performance collection for 10-10-1-7 using 2607:f480:111:1711:7c2d:f357:c9a8:ee14
+2016/09/07 01:04:24 Info > Performance: Completed performance collection for 10-1-1-12 using 2607:f480:111:1710:34cf:7506:cebd:258a
+2016/09/07 01:04:26 Info > Performance: Completed performance collection for 10-1-1-13 using 2607:f480:111:1710:5729:54c1:2686:e18d
+2016/09/07 01:04:35 Info > Staring data upload process
+2016/09/07 01:04:35 Debug > Starting Performance Upload Thread
+2016/09/07 01:04:35 Debug > Starting Netstat Upload Thread
+2016/09/07 01:04:35 Debug > Starting Netflow Upload Thread
+2016/09/07 01:04:35 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:04:35 Debug > Completed Netflow Upload Thread in 00:00:00.0330000
+2016/09/07 01:04:35 Debug > Deleting uploaded Netstat records: 46
+2016/09/07 01:04:35 Debug > Took 00:00:00.0950000 to delete 46 performance records
+2016/09/07 01:04:35 Debug > Completed Nestat Upload Thread in 00:00:00.3550000
+2016/09/07 01:04:38 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 01:04:38 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.9950000 [next run at 9/7/2016 1:14:08 AM]
+2016/09/07 01:04:40 Debug > Deleting uploaded performance records: 1490
+2016/09/07 01:04:41 Debug > Took 00:00:00.6460000 to delete 1490 performance records
+2016/09/07 01:04:41 Debug > Completed Performance Upload Thread in 00:00:06.1930000
+2016/09/07 01:04:41 Info > Completed data upload process. Total Elapsed Time: 00:00:06.2160000
+2016/09/07 01:04:56 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Processor : The RPC server is too busy to complete this operation.
+2016/09/07 01:05:14 Info > Inventory: Completed netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:05:14 Info > Netstat: Completed netstat collection for 19 workloads in 00:01:34.2690000 [next run at 9/7/2016 1:33:40 AM]
+2016/09/07 01:05:30 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:05:30 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:05:30 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:05:30 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:05:30 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:05:30 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:05:33 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:05:33 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:05:33 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:05:33 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:05:33 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:05:33 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:05:33 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:05:34 Info > Completed Double-Take collection for 5 jobs in 00:00:03.9950000 [next run at 9/7/2016 1:10:30 AM]
+2016/09/07 01:06:17 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Memory : The RPC server is too busy to complete this operation.
+2016/09/07 01:07:38 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : LogicalDisk : The RPC server is too busy to complete this operation.
+2016/09/07 01:08:59 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : PhysicalDisk : The RPC server is too busy to complete this operation.
+2016/09/07 01:09:36 Info > Staring data upload process
+2016/09/07 01:09:36 Debug > Starting Performance Upload Thread
+2016/09/07 01:09:36 Debug > Starting Netstat Upload Thread
+2016/09/07 01:09:36 Debug > Starting Netflow Upload Thread
+2016/09/07 01:09:36 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:09:36 Debug > Completed Netflow Upload Thread in 00:00:00.0410000
+2016/09/07 01:09:36 Debug > Deleting uploaded Netstat records: 4
+2016/09/07 01:09:36 Debug > Took 00:00:00.0920000 to delete 4 performance records
+2016/09/07 01:09:36 Debug > Completed Nestat Upload Thread in 00:00:00.2210000
+2016/09/07 01:09:37 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:09:37 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:09:37 Debug > Completed Performance Upload Thread in 00:00:00.7350000
+2016/09/07 01:09:37 Info > Completed data upload process. Total Elapsed Time: 00:00:00.7770000
+2016/09/07 01:10:21 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Network Interface : The RPC server is too busy to complete this operation.
+2016/09/07 01:10:34 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:10:34 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:10:34 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:10:34 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:10:34 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:10:35 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:10:37 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:10:37 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:10:37 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:10:37 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:10:38 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:10:38 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:10:38 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:10:38 Info > Completed Double-Take collection for 5 jobs in 00:00:04.5890000 [next run at 9/7/2016 1:15:34 AM]
+2016/09/07 01:11:42 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Double-Take Connection : The RPC server is too busy to complete this operation.
+2016/09/07 01:13:03 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Double-Take Kernel : The RPC server is too busy to complete this operation.
+2016/09/07 01:14:08 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 01:14:08 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:14:08 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:14:08 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:14:09 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:14:11 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:14:11 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:14:11 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:14:11 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:14:24 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Double-Take Source : The RPC server is too busy to complete this operation.
+2016/09/07 01:14:37 Info > Staring data upload process
+2016/09/07 01:14:37 Debug > Starting Performance Upload Thread
+2016/09/07 01:14:37 Debug > Starting Netstat Upload Thread
+2016/09/07 01:14:37 Debug > Starting Netflow Upload Thread
+2016/09/07 01:14:37 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:14:37 Debug > Completed Netflow Upload Thread in 00:00:00.0210000
+2016/09/07 01:14:37 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 01:14:37 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:14:37 Debug > Completed Nestat Upload Thread in 00:00:00.0400000
+2016/09/07 01:14:38 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:14:38 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:14:38 Debug > Completed Performance Upload Thread in 00:00:00.7850000
+2016/09/07 01:14:38 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8090000
+2016/09/07 01:14:38 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 01:14:38 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.9130000 [next run at 9/7/2016 1:24:08 AM]
+2016/09/07 01:15:38 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:15:38 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:15:38 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:15:38 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:15:38 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:15:40 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:15:43 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:15:43 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:15:43 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:15:43 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:15:44 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:15:45 Error > 2607:f480:111:1710:166d:5a30:85cb:d3e8 returned the following error while collecting performance data for counter : Double-Take Target : The RPC server is too busy to complete this operation.
+2016/09/07 01:15:45 Info > Performance: Completed performance collection for 10-1-1-7 using 2607:f480:111:1710:166d:5a30:85cb:d3e8
+2016/09/07 01:15:45 Info > Completed performance collection for 19 workloads in 00:12:14.5180000 [next run at 9/7/2016 2:03:30 AM]
+2016/09/07 01:15:48 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:15:48 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:15:49 Info > Completed Double-Take collection for 5 jobs in 00:00:10.3030000 [next run at 9/7/2016 1:20:38 AM]
+2016/09/07 01:19:38 Info > Staring data upload process
+2016/09/07 01:19:38 Debug > Starting Performance Upload Thread
+2016/09/07 01:19:38 Debug > Starting Netstat Upload Thread
+2016/09/07 01:19:38 Debug > Starting Netflow Upload Thread
+2016/09/07 01:19:38 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 01:19:38 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:19:38 Debug > Completed Nestat Upload Thread in 00:00:00.0690000
+2016/09/07 01:19:38 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:19:38 Debug > Completed Netflow Upload Thread in 00:00:00.0360000
+2016/09/07 01:19:39 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:19:39 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:19:39 Debug > Completed Performance Upload Thread in 00:00:00.8260000
+2016/09/07 01:19:39 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8680000
+2016/09/07 01:20:39 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:20:39 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:20:39 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:20:39 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:20:39 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:20:39 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:20:40 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:20:41 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:20:41 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:20:41 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:20:41 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:20:41 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:20:41 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:20:41 Info > Completed Double-Take collection for 5 jobs in 00:00:02.9660000 [next run at 9/7/2016 1:25:39 AM]
+2016/09/07 01:24:13 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 01:24:13 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:24:13 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:24:13 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:24:13 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:24:15 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:24:15 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:24:16 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:24:16 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:24:39 Info > Staring data upload process
+2016/09/07 01:24:39 Debug > Starting Performance Upload Thread
+2016/09/07 01:24:39 Debug > Starting Netstat Upload Thread
+2016/09/07 01:24:39 Debug > Starting Netflow Upload Thread
+2016/09/07 01:24:39 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:24:39 Debug > Completed Netflow Upload Thread in 00:00:00.0260000
+2016/09/07 01:24:39 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 01:24:39 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:24:39 Debug > Completed Nestat Upload Thread in 00:00:00.0530000
+2016/09/07 01:24:39 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:24:39 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:24:39 Debug > Completed Performance Upload Thread in 00:00:00.7940000
+2016/09/07 01:24:39 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8090000
+2016/09/07 01:24:43 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 01:24:43 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.9660000 [next run at 9/7/2016 1:34:13 AM]
+2016/09/07 01:25:42 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:25:42 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:25:42 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:25:42 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:25:42 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:25:42 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:25:45 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:25:45 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:25:45 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:25:45 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:25:46 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:25:46 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:25:46 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:25:46 Info > Completed Double-Take collection for 5 jobs in 00:00:04.6820000 [next run at 9/7/2016 1:30:42 AM]
+2016/09/07 01:29:39 Info > Staring data upload process
+2016/09/07 01:29:39 Debug > Starting Performance Upload Thread
+2016/09/07 01:29:39 Debug > Starting Netstat Upload Thread
+2016/09/07 01:29:39 Debug > Starting Netflow Upload Thread
+2016/09/07 01:29:39 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 01:29:39 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:29:39 Debug > Completed Nestat Upload Thread in 00:00:00.0800000
+2016/09/07 01:29:39 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:29:39 Debug > Completed Netflow Upload Thread in 00:00:00.0210000
+2016/09/07 01:29:40 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:29:40 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:29:40 Debug > Completed Performance Upload Thread in 00:00:00.7530000
+2016/09/07 01:29:40 Info > Completed data upload process. Total Elapsed Time: 00:00:00.7850000
+2016/09/07 01:30:46 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:30:46 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:30:46 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:30:46 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:30:46 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:30:46 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:30:50 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:30:50 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:30:50 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:30:50 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:30:50 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:30:51 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:30:51 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:30:51 Info > Completed Double-Take collection for 5 jobs in 00:00:04.6810000 [next run at 9/7/2016 1:35:46 AM]
+2016/09/07 01:33:44 Info > Netstat: Staring netstat collection process with 10 threads
+2016/09/07 01:33:45 Info > Netstat: Started netstat collection for 10-10-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:33:45 Info > Netstat: Started netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:33:45 Info > Netstat: Started netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 01:33:45 Info > Netstat: Started netstat collection for 10-1-1-18 : 2607-f480-111-1710-bf8-5ebb-5ac3-1810.ipv6-literal.net
+2016/09/07 01:33:45 Info > Netstat: Started netstat collection for 10-1-1-17 : 2607-f480-111-1710-3d8c-bd97-69b-6a4f.ipv6-literal.net
+2016/09/07 01:33:45 Info > Netstat: Started netstat collection for 10-1-1-19 : 2607-f480-111-1710-5d12-35de-e843-e1d3.ipv6-literal.net
+2016/09/07 01:33:45 Info > Netstat: Started netstat collection for 10-10-1-4 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:33:45 Info > Netstat: Started netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:33:46 Info > Inventory: Completed netstat collection for 10-1-1-17 : 2607-f480-111-1710-3d8c-bd97-69b-6a4f.ipv6-literal.net
+2016/09/07 01:33:46 Info > Netstat: Started netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/09/07 01:33:46 Info > Inventory: Completed netstat collection for 10-1-1-18 : 2607-f480-111-1710-bf8-5ebb-5ac3-1810.ipv6-literal.net
+2016/09/07 01:33:46 Info > Netstat: Started netstat collection for 10-1-1-16 : 2607-f480-111-1710-48b7-af0f-f142-a2e7.ipv6-literal.net
+2016/09/07 01:33:46 Info > Inventory: Completed netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 01:33:46 Info > Netstat: Started netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/09/07 01:33:47 Info > Inventory: Completed netstat collection for 10-1-1-19 : 2607-f480-111-1710-5d12-35de-e843-e1d3.ipv6-literal.net
+2016/09/07 01:33:47 Info > Netstat: Started netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/09/07 01:33:47 Info > Inventory: Completed netstat collection for 10-1-1-8 : 2607-f480-111-1710-27c4-4e40-61bc-1090.ipv6-literal.net
+2016/09/07 01:33:47 Info > Inventory: Completed netstat collection for 10-1-1-16 : 2607-f480-111-1710-48b7-af0f-f142-a2e7.ipv6-literal.net
+2016/09/07 01:33:47 Info > Netstat: Started netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 01:33:48 Info > Inventory: Completed netstat collection for 10-1-1-4 : 2607-f480-111-1710-7fcc-86d9-d525-d181.ipv6-literal.net
+2016/09/07 01:33:49 Info > Inventory: Completed netstat collection for 10-1-1-15 : 2607-f480-111-1710-6a7a-2970-9b72-17cb.ipv6-literal.net
+2016/09/07 01:33:49 Info > Netstat: Started netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/09/07 01:33:50 Info > Inventory: Completed netstat collection for 10-10-1-4 : 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:33:50 Info > Netstat: Started netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/09/07 01:33:51 Info > Inventory: Completed netstat collection for 10-10-1-6 : 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:33:52 Info > Inventory: Completed netstat collection for 10-1-1-11 : 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:33:52 Info > Inventory: Completed netstat collection for 10-1-1-13 : 2607-f480-111-1710-5729-54c1-2686-e18d.ipv6-literal.net
+2016/09/07 01:33:55 Info > Netstat: Started netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/09/07 01:33:56 Info > Inventory: Completed netstat collection for 10-10-1-7 : 2607-f480-111-1711-7c2d-f357-c9a8-ee14.ipv6-literal.net
+2016/09/07 01:33:56 Info > Inventory: Completed netstat collection for 10-1-1-10 : 2607-f480-111-1710-66f4-63be-17d9-beff.ipv6-literal.net
+2016/09/07 01:33:57 Info > Netstat: Started netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/09/07 01:33:58 Info > Inventory: Completed netstat collection for 10-1-1-9 : 2607-f480-111-1710-6733-20bf-9f33-91b9.ipv6-literal.net
+2016/09/07 01:33:58 Info > Inventory: Completed netstat collection for 10-1-1-12 : 2607-f480-111-1710-34cf-7506-cebd-258a.ipv6-literal.net
+2016/09/07 01:34:13 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 01:34:13 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:34:13 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:34:13 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:34:13 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:34:14 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:34:14 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:34:15 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:34:15 Error > Netstat: Error collecting netstat information from 10-1-1-14 with error System.ArgumentException: Error contacting workload for workload 3d0a04d55b7f10dd80448951a14a2800a815fa65 10-1-1-14   at MRMPService.MRMPAPI.Classes.WorkloadNetstat.WorkloadNetstatWindowsDo(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs:line 40   at MRMPService.MRMPAPI.Classes.WorkloadNetstatThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs:line 39
+2016/09/07 01:34:15 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:34:18 Error > Netstat: Error collecting netstat information from 10-10-1-5 with error System.ArgumentException: Error contacting workload for workload ebd1bc89fc51543924288ab58a6a489776d7304a 10-10-1-5   at MRMPService.MRMPAPI.Classes.WorkloadNetstat.WorkloadNetstatWindowsDo(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatWindowsDo.cs:line 40   at MRMPService.MRMPAPI.Classes.WorkloadNetstatThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatThread.cs:line 39
+2016/09/07 01:34:40 Info > Staring data upload process
+2016/09/07 01:34:40 Debug > Starting Performance Upload Thread
+2016/09/07 01:34:40 Debug > Starting Netstat Upload Thread
+2016/09/07 01:34:40 Debug > Starting Netflow Upload Thread
+2016/09/07 01:34:40 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:34:40 Debug > Completed Netflow Upload Thread in 00:00:00.0360000
+2016/09/07 01:34:40 Debug > Deleting uploaded Netstat records: 61
+2016/09/07 01:34:41 Debug > Took 00:00:00.1230000 to delete 61 performance records
+2016/09/07 01:34:41 Debug > Completed Nestat Upload Thread in 00:00:00.4080000
+2016/09/07 01:34:41 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:34:41 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:34:41 Debug > Completed Performance Upload Thread in 00:00:00.8010000
+2016/09/07 01:34:41 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8170000
+2016/09/07 01:34:43 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 01:34:43 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.9720000 [next run at 9/7/2016 1:44:13 AM]
+2016/09/07 01:35:12 Info > Inventory: Completed netstat collection for 10-1-1-7 : 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:35:12 Info > Netstat: Completed netstat collection for 19 workloads in 00:01:27.3940000 [next run at 9/7/2016 2:03:44 AM]
+2016/09/07 01:35:51 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:35:51 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:35:51 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:35:51 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:35:51 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:35:51 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:35:55 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:35:55 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:35:55 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:35:55 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:35:55 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:35:56 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:35:56 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:35:56 Info > Completed Double-Take collection for 5 jobs in 00:00:05.1620000 [next run at 9/7/2016 1:40:51 AM]
+2016/09/07 01:39:41 Info > Staring data upload process
+2016/09/07 01:39:41 Debug > Starting Performance Upload Thread
+2016/09/07 01:39:41 Debug > Starting Netstat Upload Thread
+2016/09/07 01:39:41 Debug > Starting Netflow Upload Thread
+2016/09/07 01:39:41 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:39:41 Debug > Completed Netflow Upload Thread in 00:00:00.0210000
+2016/09/07 01:39:41 Debug > Deleting uploaded Netstat records: 4
+2016/09/07 01:39:41 Debug > Took 00:00:00.0870000 to delete 4 performance records
+2016/09/07 01:39:41 Debug > Completed Nestat Upload Thread in 00:00:00.2240000
+2016/09/07 01:39:42 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:39:42 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:39:42 Debug > Completed Performance Upload Thread in 00:00:00.7990000
+2016/09/07 01:39:42 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8230000
+2016/09/07 01:40:51 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:40:51 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:40:51 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:40:51 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:40:51 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:40:51 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:40:54 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:40:54 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:40:55 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:40:55 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:40:55 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:40:55 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:40:55 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:40:56 Info > Completed Double-Take collection for 5 jobs in 00:00:04.3920000 [next run at 9/7/2016 1:45:51 AM]
+2016/09/07 01:44:13 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 01:44:13 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:44:13 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:44:13 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:44:13 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:44:15 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:44:15 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:44:15 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:44:15 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:44:42 Info > Staring data upload process
+2016/09/07 01:44:42 Debug > Starting Performance Upload Thread
+2016/09/07 01:44:42 Debug > Starting Netstat Upload Thread
+2016/09/07 01:44:42 Debug > Starting Netflow Upload Thread
+2016/09/07 01:44:42 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 01:44:42 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:44:42 Debug > Completed Nestat Upload Thread in 00:00:00.0310000
+2016/09/07 01:44:42 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:44:42 Debug > Completed Netflow Upload Thread in 00:00:00.0530000
+2016/09/07 01:44:43 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:44:43 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:44:43 Debug > Completed Performance Upload Thread in 00:00:00.8030000
+2016/09/07 01:44:43 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8200000
+2016/09/07 01:44:43 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 01:44:43 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.9550000 [next run at 9/7/2016 1:54:13 AM]
+2016/09/07 01:45:56 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:45:56 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:45:56 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:45:56 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:45:56 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:45:56 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:45:58 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:45:58 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:45:58 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:45:59 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:45:59 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:45:59 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:45:59 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:45:59 Info > Completed Double-Take collection for 5 jobs in 00:00:03.7400000 [next run at 9/7/2016 1:50:56 AM]
+2016/09/07 01:49:43 Info > Staring data upload process
+2016/09/07 01:49:43 Debug > Starting Performance Upload Thread
+2016/09/07 01:49:43 Debug > Starting Netstat Upload Thread
+2016/09/07 01:49:43 Debug > Starting Netflow Upload Thread
+2016/09/07 01:49:43 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:49:43 Debug > Completed Netflow Upload Thread in 00:00:00.0090000
+2016/09/07 01:49:43 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 01:49:43 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:49:43 Debug > Completed Nestat Upload Thread in 00:00:00.0490000
+2016/09/07 01:49:44 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:49:44 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:49:44 Debug > Completed Performance Upload Thread in 00:00:00.8230000
+2016/09/07 01:49:44 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8680000
+2016/09/07 01:50:59 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:51:00 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:51:00 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:51:00 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:51:00 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:51:00 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:51:03 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:51:03 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:51:03 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:51:03 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:51:03 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:51:03 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:51:03 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:51:03 Info > Completed Double-Take collection for 5 jobs in 00:00:04.1890000 [next run at 9/7/2016 1:55:59 AM]
+2016/09/07 01:54:13 Info > Staring Double-Take Event collection process with 5 threads
+2016/09/07 01:54:13 Info > Double-Take Event: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:54:13 Info > Double-Take Event: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:54:13 Info > Double-Take Event: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:54:13 Info > Double-Take Event: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:54:15 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:54:15 Info > Double-Take Event: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:54:15 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:54:15 Info > Double-Take Event: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:54:43 Error > Error collecting Double-Take Event information from 10-1-1-14 with error System.ArgumentException: Double-Take Event: Error contacting workload for workload 10-1-1-14   at MRMPService.DTEventPollerCollection.DTEventPollerDo.PollerDo(MRPWorkloadType _workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs:line 33   at MRMPService.DTEventPollerCollection.DTEventPollerThread.<>c.<Start>b__0_1(MRPWorkloadType workload) in C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs:line 34
+2016/09/07 01:54:43 Info > Completed Double-Take Event collection for 5 workloads in 00:00:29.9310000 [next run at 9/7/2016 2:04:13 AM]
+2016/09/07 01:54:44 Info > Staring data upload process
+2016/09/07 01:54:44 Debug > Starting Performance Upload Thread
+2016/09/07 01:54:44 Debug > Starting Netstat Upload Thread
+2016/09/07 01:54:44 Debug > Starting Netflow Upload Thread
+2016/09/07 01:54:44 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 01:54:44 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:54:44 Debug > Completed Nestat Upload Thread in 00:00:00.0370000
+2016/09/07 01:54:44 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:54:44 Debug > Completed Netflow Upload Thread in 00:00:00.0460000
+2016/09/07 01:54:44 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:54:44 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:54:44 Debug > Completed Performance Upload Thread in 00:00:00.7570000
+2016/09/07 01:54:44 Info > Completed data upload process. Total Elapsed Time: 00:00:00.7760000
+2016/09/07 01:56:03 Info > Staring Double-Take collection process with 10 threads
+2016/09/07 01:56:04 Info > Double-Take Job: Start Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:56:04 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:56:04 Info > Double-Take Job: Start Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:56:04 Info > Double-Take Job: Start Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:56:04 Info > Double-Take Job: Start Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:56:06 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-6 using 2607-f480-111-1710-3466-a8f2-ece-ddb0.ipv6-literal.net
+2016/09/07 01:56:06 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:56:06 Info > Double-Take Job: Completed Double-Take collection for 10-10-1-4 using 2607-f480-111-1710-48e0-2d25-42fe-3690.ipv6-literal.net
+2016/09/07 01:56:07 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-7 using 2607-f480-111-1710-166d-5a30-85cb-d3e8.ipv6-literal.net
+2016/09/07 01:56:07 Info > Double-Take Images: Error collecting images from 10-1-1-11 : Response status code does not indicate success: 400 (Unexpected Error).
+2016/09/07 01:56:07 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:56:07 Info > Double-Take Job: Completed Double-Take collection for 10-1-1-11 using 2607-f480-111-1710-7874-b8dc-e9e2-c9bf.ipv6-literal.net
+2016/09/07 01:56:07 Info > Completed Double-Take collection for 5 jobs in 00:00:03.6690000 [next run at 9/7/2016 2:01:03 AM]
+2016/09/07 01:59:44 Info > Staring data upload process
+2016/09/07 01:59:44 Debug > Starting Netstat Upload Thread
+2016/09/07 01:59:44 Debug > Starting Performance Upload Thread
+2016/09/07 01:59:44 Debug > Starting Netflow Upload Thread
+2016/09/07 01:59:44 Debug > Took 00:00:00 to delete 0 netflow records
+2016/09/07 01:59:44 Debug > Completed Netflow Upload Thread in 00:00:00.0280000
+2016/09/07 01:59:44 Debug > Deleting uploaded Netstat records: 0
+2016/09/07 01:59:44 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:59:44 Debug > Completed Nestat Upload Thread in 00:00:00.0470000
+2016/09/07 01:59:45 Debug > Deleting uploaded performance records: 0
+2016/09/07 01:59:45 Debug > Took 00:00:00 to delete 0 performance records
+2016/09/07 01:59:45 Debug > Completed Performance Upload Thread in 00:00:00.7920000
+2016/09/07 01:59:45 Info > Completed data upload process. Total Elapsed Time: 00:00:00.8230000

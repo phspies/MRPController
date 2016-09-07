@@ -1,20 +1,14 @@
-﻿using DoubleTake.Web.Models;
-using MRMPService.MRMPDoubleTake;
-using MRMPService.MRMPAPI.Types.API;
+﻿using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.Tasks.DoubleTake;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MRMPService.Tasks.MCP;
 
 namespace MRMPService.PortalTasks
 {
     partial class DRSServersDormant
     {
-        static public void SetupRecoveryJob(MRPTaskType _mrmp_task)
+        static public void SetupDormantRecoveryJob(MRPTaskType _mrmp_task)
         {
             MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
             MRPWorkloadType _source_workload = _payload.repository;

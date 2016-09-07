@@ -34,9 +34,13 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("response")]
         public string response { get; set; }
         [JsonProperty("source_subsystem")]
-        public int source_subsystem { get; set; }
+        public string source_subsystem { get; set; }
+        [JsonProperty("source_datamover")]
+        public string source_datamover { get; set; }
         [JsonProperty("eventnamefriendly")]
-        public string eventnamefriendly { get; set; }        
+        public string eventnamefriendly { get; set; }
+        [JsonProperty("eventname")]
+        public string eventname { get; set; }
     }
     public class MRPEventsCRUDType
     {

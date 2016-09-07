@@ -63,5 +63,7 @@ namespace MRMPService.MRMPAPI.Types.API
         public bool? deleted { get; set; }
         [JsonProperty("displayname")]
         public string displayname { get; set; }
+        [JsonProperty("target_drs_moid_list")]
+        public string target_drs_moid_list { get; set; }
     }
 }

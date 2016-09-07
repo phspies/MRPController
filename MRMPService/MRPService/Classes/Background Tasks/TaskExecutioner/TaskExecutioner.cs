@@ -37,11 +37,13 @@ namespace MRMPService.TaskExecutioner
                                 //drs_servers_dormant
                                 case "dr_servers_dormant_create_protection_job":
                                     ClaimTask(task);
-                                    Thread dr_servers_dormant_create_protection_job_Thread = new Thread(() => DRSServersDormant.SetupProtectionJob(task));
+                                    Thread dr_servers_dormant_create_protection_job_Thread = new Thread(() => DRSServersDormant.SetupDormantJob(task));
                                     dr_servers_dormant_create_protection_job_Thread.Name = task.target_id;
                                     dr_servers_dormant_create_protection_job_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = dr_servers_dormant_create_protection_job_Thread, target_id = task.target_id });
                                     break;
+
+
                                 //migrate
                                 case "migrate_create_job":
                                     ClaimTask(task);
@@ -57,8 +59,14 @@ namespace MRMPService.TaskExecutioner
                                     migrate_failover_job_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = migrate_failover_job_Thread, target_id = task.target_id });
                                     break;
+                                case "migrate_failover_group":
+                                    ClaimTask(task);
+                                    Thread migrate_failover_group_Thread = new Thread(() => Migrate.FailoverMigrateGroup(task));
+                                    migrate_failover_group_Thread.Name = task.target_id;
+                                    migrate_failover_group_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = migrate_failover_group_Thread, target_id = task.target_id });
+                                    break;
 
-                                    
 
                                 //DT common tasks 
                                 case "dt_stop_job":

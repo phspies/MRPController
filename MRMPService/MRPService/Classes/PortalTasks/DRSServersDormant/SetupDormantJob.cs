@@ -7,7 +7,7 @@ namespace MRMPService.PortalTasks
 {
     partial class DRSServersDormant
     {
-        static public void SetupProtectionJob(MRPTaskType _mrmp_task)
+        static public void SetupDormantJob(MRPTaskType _mrmp_task)
         {
             MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
             MRPWorkloadType _source_workload = _payload.source;

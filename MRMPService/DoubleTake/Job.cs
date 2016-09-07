@@ -80,22 +80,21 @@ namespace MRMPService.MRMPDoubleTake
             {
                 var result = jobApi.VerifyJobOptionsAsync(_job_type, jobCredentials, jobOptions, new Progress<VerificationStatusModel>()).Result;
                 result.EnsureSuccessStatusCode();
-                var stepsToFix = result.Content.Steps.Where(s => s.Status == VerificationStatus.Error).ToList();
-                if (stepsToFix.Any())
+                var stepsToFix = result.Content.Steps.ToList();
+                if (stepsToFix.Any(s => s.Status == VerificationStatus.Error && s.CanFix == false))
                 {
-                    var fixResponse = jobApi.FixRecommendedJobOptionsAsync(_job_type, jobCredentials, jobOptions, stepsToFix).Result;
+                    _errors = result.Content.Steps.Where(s => s.Status == VerificationStatus.Error && s.CanFix == false).ToList();
+                    _job_errorfree = false;
+                    break;
+                }
+                else if (stepsToFix.Any(s => s.Status == VerificationStatus.Error && s.CanFix == true))
+                {
+                    var fixResponse = jobApi.FixRecommendedJobOptionsAsync(_job_type, jobCredentials, jobOptions, stepsToFix.Where(s => s.Status == VerificationStatus.Error && s.CanFix == true)).Result;
                     fixResponse.EnsureSuccessStatusCode();
-                    var _fix_result = jobApi.VerifyJobOptionsAsync(_job_type, jobCredentials, fixResponse.Content.JobOptions, new Progress<VerificationStatusModel>()).Result;
-                    _fix_result.EnsureSuccessStatusCode();
 
-                    if (_fix_result.Content.Steps.Any(s => s.Status == VerificationStatus.Error))
-                    {
-                        _errors = result.Content.Steps.Where(s => s.Status == VerificationStatus.Error).ToList();
-                        break;
-                    }
-   
                     jobOptions = fixResponse.Content.JobOptions;
                     _job_errorfree = true;
+                    break;
                 }
                 else
                 {
@@ -142,7 +141,7 @@ namespace MRMPService.MRMPDoubleTake
 
         async public Task DeleteJob(Guid jobId)
         {
-            var result = await jobApi.DeleteJobAsync(jobId);
+            var result = await jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll );
             result.EnsureSuccessStatusCode();
         }
         async public Task DeleteJob_DeleteFiles(Guid jobId)

@@ -4,6 +4,667 @@
         <name>DD.CBU.Compute.Api.Contracts</name>
     </assembly>
     <members>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupSnapshotType">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupSnapshotType.createTimeOffset">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupSnapshotType.id">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupSnapshotType.createTime">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupSnapshotType.sizeKb">
+            
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroupSnapshots">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroupSnapshots.snapshot">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroupSnapshots.totalCount">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroupSnapshots.journalUsageGb">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroupSnapshots.protectionWindow">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroupSnapshots.predictedProtectionWindow">
+            
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.StopPreviewSnapshotType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.StopPreviewSnapshotType.consistencyGroupId">
+            
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.StartPreviewSnapshotType">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.StartPreviewSnapshotType.snapshotId">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.StartPreviewSnapshotType.consistencyGroupId">
+            
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.DrsServerType">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.DrsServerType.name">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.DrsServerType.id">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.DrsServerType.primaryNicIpv4">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.DrsServerType.primaryNicIpv6">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.DrsNetworkDomainType">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.DrsNetworkDomainType.networkDomainName">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.DrsNetworkDomainType.datacenterId">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.DrsNetworkDomainType.networkDomainId">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroups">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroups.consistencyGroup">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroups.pageNumber">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroups.pageNumberSpecified">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroups.pageCount">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroups.pageCountSpecified">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroups.totalCount">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroups.totalCountSpecified">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroups.pageSize">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroups.pageSizeSpecified">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.name">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.description">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.journal">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.source">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.target">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.serverPair">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.createTime">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.operationStatus">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.drsInfrastructureStatus">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.state">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.progress">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.id">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeJournal">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeJournal.sizeGb">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeJournal.extentCount">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeServerPair">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeServerPair.sourceServer">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeServerPair.targetServer">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeServerPair.id">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeServerPair.state">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.CreateConsistencyGroupType">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.CreateConsistencyGroupType.name">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.CreateConsistencyGroupType.description">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.CreateConsistencyGroupType.journalSizeGb">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.CreateConsistencyGroupType.serverPair">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.DrsServerPairType">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.DrsServerPairType.sourceServerId">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.DrsServerPairType.targetServerId">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.DeleteConsistencyGroupType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.DeleteConsistencyGroupType.id">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.InitiateFailoverType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.InitiateFailoverType.consistencyGroupId">
+            
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.VlanType">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Generic.IEntityStatusV2">
+            <summary>
+            An entity in the MCP2.0 API that has a status.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Generic.IEntityStatusV2.id">
+            <summary>
+            Entity ID
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Generic.IEntityStatusV2.state">
+            <summary>
+            Provisioned state
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.networkDomain">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.name">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.description">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.privateIpv4Range">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.gatewayAddressing">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.ipv4GatewayAddress">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.ipv6Range">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.ipv6GatewayAddress">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.createTime">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.state">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.progress">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.id">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.datacenterId">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.name">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.description">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.type">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.snatIpv4Address">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.createTime">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.state">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.progress">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.id">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.datacenterId">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.outsideTransitVlanIpv4Subnet">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.id">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.privateIpv4">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.networkId">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.networkName">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.macAddress">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.state">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType.serverSummary">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType.id">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType.state">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType.created">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType.datacenterId">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.name">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.description">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.ipVersion">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.ipAddress">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.childIpAddressList">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.state">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.createTime">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.id">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.Item">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.ItemElementName">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.internalIp">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.externalIp">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.externalIpAddressability">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.createTime">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.datacenterId">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.state">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.id">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.NodeType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.networkDomainId">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.name">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.description">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.Item">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.ItemElementName">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.state">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.status">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.healthMonitor">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.connectionLimit">
+            <remarks/>
+            [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.connectionRateLimit">
+            <remarks/>
+            [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.createTime">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.loggingEnabled">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.loggingEnabledSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.id">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.datacenterId">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.PoolType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.networkDomainId">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.name">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.description">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.loadBalanceMethod">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.healthMonitor">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.serviceDownAction">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.slowRampTime">
+            <remarks/>
+            [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.state">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.createTime">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.id">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.datacenterId">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.networkDomainId">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.pool">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.node">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.port">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.portSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.status">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.state">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.createTime">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.id">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.datacenterId">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.ServerType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.nic">
+            Note, server will have either nic or NetworkInfo
+            <summary>	Gets or sets the NIC. </summary>
+            <value>	The NIC. </value>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.networkInfo">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.name">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.description">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.operatingSystem">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.cpu">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.memoryGb">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.disk">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.Item">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.backup">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.monitoring">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.softwareLabel">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.sourceImageId">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.createTime">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.deployed">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.started">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.state">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.progress">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.vmwareTools">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.virtualHardware">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.id">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.datacenterId">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.drsEligible">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.consistencyGroup">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.networkDomainId">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.name">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.state">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.description">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.createTime">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.type">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.protocol">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.listenerIpAddress">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.listenerIpAddressability">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.port">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.portSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.enabled">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.connectionLimit">
+            <remarks/>
+            [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.connectionRateLimit">
+            <remarks/>
+            [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.sourcePortPreservation">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.pool">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.clientClonePool">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.persistenceProfile">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.fallbackPersistenceProfile">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.optimizationProfile">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.irule">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.id">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.datacenterId">
+            <remarks/>
+        </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.IpAndPortFilterType">
             <remarks/>
             <remarks/>
@@ -57,33 +718,6 @@
             <remarks/>
         </member>
         <member name="P:DD.CBU.Compute.Api.Contracts.Network20.createIpAddressList.childIpAddressListId">
-            <remarks/>
-        </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.name">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.description">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.ipVersion">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.ipAddress">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.childIpAddressList">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.state">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.createTime">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpAddressListType.id">
             <remarks/>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.ipAddressLists">
@@ -1019,6 +1653,24 @@
         <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkingType.maintenanceStatus">
             <remarks/>
         </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.DrsType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.DrsType.property">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.DrsType.targetDatacenters">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.DrsType.maintenanceStatus">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.IdListType">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IdListType.list">
+            <remarks/>
+        </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.DatacenterType">
             <remarks/>
         </member>
@@ -1053,6 +1705,9 @@
             <remarks/>
         </member>
         <member name="P:DD.CBU.Compute.Api.Contracts.Network20.DatacenterType.monitoring">
+            <remarks/>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.DatacenterType.drs">
             <remarks/>
         </member>
         <member name="P:DD.CBU.Compute.Api.Contracts.Network20.DatacenterType.id">
@@ -2862,58 +3517,31 @@
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.natRules">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.natRules.natRule">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.natRules.natRule">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageNumber">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageNumber">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageNumberSpecified">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageNumberSpecified">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageCount">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageCount">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageCountSpecified">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageCountSpecified">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.natRules.totalCount">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.natRules.totalCount">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.natRules.totalCountSpecified">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.natRules.totalCountSpecified">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageSize">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageSize">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageSizeSpecified">
-            <remarks/>
-        </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.Item">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.ItemElementName">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.internalIp">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.externalIp">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.createTime">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.state">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.id">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NatRuleType.datacenterId">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.natRules.pageSizeSpecified">
             <remarks/>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainIdOrNetworkIdChoiceType">
@@ -2928,55 +3556,22 @@
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.createNatRule">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.createNatRule.Item">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.createNatRule.Item">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.createNatRule.ItemElementName">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.createNatRule.ItemElementName">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.createNatRule.internalIp">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.createNatRule.internalIp">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.createNatRule.externalIp">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.createNatRule.externalIp">
             <remarks/>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.deleteNatRule">
             <remarks/>
         </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.deleteNatRule.id">
-            <remarks/>
-        </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.name">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.description">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.type">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.snatIpv4Address">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.createTime">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.state">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.progress">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.id">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.datacenterId">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NetworkDomainType.outsideTransitVlanIpv4Subnet">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.deleteNatRule.id">
             <remarks/>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.outsideTransitVlanIpv4Subnet">
@@ -3331,77 +3926,6 @@
             <remarks/>
         </member>
         <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NewNicType.networkAdapter">
-            <remarks/>
-        </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.ServerType">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.nic">
-            Note, server will have either nic or NetworkInfo
-            <summary>	Gets or sets the NIC. </summary>
-            <value>	The NIC. </value>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.networkInfo">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.name">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.description">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.operatingSystem">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.cpu">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.memoryGb">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.disk">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.Item">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.backup">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.monitoring">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.softwareLabel">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.sourceImageId">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.createTime">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.deployed">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.started">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.state">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.progress">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.vmwareTools">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.virtualHardware">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.id">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.ServerType.datacenterId">
             <remarks/>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.DeployServerType">
@@ -4395,6 +4919,127 @@
         <member name="F:DD.CBU.Compute.Api.Contracts.Network20.RemoveDiskType.id">
             <remarks/>
         </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.drsEligible">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.consistencyGroup">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.consistencyGroup.id">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.consistencyGroup.name">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.consistencyGroup.status">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Network20.consistencyGroup.serverRole">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.editServerMetadata">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.editServerMetadata.name">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.editServerMetadata.description">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.editServerMetadata.drsEligible">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.editServerMetadata.drsEligibleSpecified">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.editServerMetadata.descriptionSpecified">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.editServerMetadata.id">
+            
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupSnapshotListOptions">
+            <summary>
+            Filtering options for the Consistency Group Snapshot.
+            </summary>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest">
+            <summary>
+            The interface need to be implemented by requests which support filtering options.
+            </summary>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Requests.IFilterableRequest">
+            <summary>
+            The interface need to be implemented by requests which support filtering options.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.IFilterableRequest.Filters">
+            <summary>
+            Gets the filters.
+            </summary>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.GetFilter``1(System.String)">
+            <summary>
+            Gets the filter value.
+            </summary>
+            <typeparam name="T">The value type</typeparam>
+            <param name="field">The field name.</param>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.GetFilter``1(System.String,DD.CBU.Compute.Api.Contracts.Requests.FilterOperator)">
+            <summary>
+            Gets the filter value.
+            </summary>
+            <typeparam name="T">The value type</typeparam>
+            <param name="field">The field name.</param>
+            <param name="operator">The filter operator.</param>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.GetFilter``1(DD.CBU.Compute.Api.Contracts.Requests.Filter)">
+            <summary>
+            Gets the filter value.
+            </summary>
+            <typeparam name="T">The value type</typeparam>
+            <param name="filter">The filter.</param>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.SetFilter(System.String,System.Object)">
+            <summary>
+            Sets the filter value.
+            </summary>
+            <param name="field">The field name.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.SetFilter(System.String,DD.CBU.Compute.Api.Contracts.Requests.FilterOperator,System.Object)">
+            <summary>
+            Sets the filter value.
+            </summary>
+            <param name="field">The field name.</param>
+            <param name="operator">The filter operator.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.Filters">
+            <summary>
+            Gets the filters.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupSnapshotListOptions.IdField">
+            <summary>
+            The "consistencyGroupId" field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupSnapshotListOptions.CreateTimeField">
+            <summary>
+            The "createTime.MIN" field name.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupSnapshotListOptions.CreateTimeMax">
+            <summary>
+            Gets or sets the CreateTimeMax filter.
+            </summary>
+        </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Requests.Filter">
             <summary>
             A single request filter.
@@ -4464,68 +5109,6 @@
         <member name="F:DD.CBU.Compute.Api.Contracts.Requests.FilterOperator.NotNull">
             <summary>The not null.</summary>
         </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest">
-            <summary>
-            The interface need to be implemented by requests which support filtering options.
-            </summary>
-        </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Requests.IFilterableRequest">
-            <summary>
-            The interface need to be implemented by requests which support filtering options.
-            </summary>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.IFilterableRequest.Filters">
-            <summary>
-            Gets the filters.
-            </summary>
-        </member>
-        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest"/> class.
-            </summary>
-        </member>
-        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.GetFilter``1(System.String)">
-            <summary>
-            Gets the filter value.
-            </summary>
-            <typeparam name="T">The value type</typeparam>
-            <param name="field">The field name.</param>
-        </member>
-        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.GetFilter``1(System.String,DD.CBU.Compute.Api.Contracts.Requests.FilterOperator)">
-            <summary>
-            Gets the filter value.
-            </summary>
-            <typeparam name="T">The value type</typeparam>
-            <param name="field">The field name.</param>
-            <param name="operator">The filter operator.</param>
-        </member>
-        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.GetFilter``1(DD.CBU.Compute.Api.Contracts.Requests.Filter)">
-            <summary>
-            Gets the filter value.
-            </summary>
-            <typeparam name="T">The value type</typeparam>
-            <param name="filter">The filter.</param>
-        </member>
-        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.SetFilter(System.String,System.Object)">
-            <summary>
-            Sets the filter value.
-            </summary>
-            <param name="field">The field name.</param>
-            <param name="value">The value.</param>
-        </member>
-        <member name="M:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.SetFilter(System.String,DD.CBU.Compute.Api.Contracts.Requests.FilterOperator,System.Object)">
-            <summary>
-            Sets the filter value.
-            </summary>
-            <param name="field">The field name.</param>
-            <param name="operator">The filter operator.</param>
-            <param name="value">The value.</param>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.FilterableRequest.Filters">
-            <summary>
-            Gets the filters.
-            </summary>
-        </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Requests.Infrastructure.OperatingSystemListOptions">
             <summary>
             Filtering options for the operating system request.
@@ -4589,6 +5172,126 @@
             each fieldName will be in
             ascending order unless otherwise
             documented.. </summary>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions">
+            <summary>
+            Filtering options for the Consistency Group.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.IdField">
+            <summary>
+            The "id" field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.SourceDatacenterIdField">
+            <summary>
+            The "source datacenterId" field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.TargetDatacenterIdField">
+            <summary>
+            The "target datacenterId" field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.SourceNetworkDomainIdField">
+            <summary>
+            The "source source network domain id" field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.TargetNetworkDomainIdField">
+            <summary>
+            The "target network domain id" field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.SourceServerIdField">
+            <summary>
+            The source server id field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.TargetServerIdField">
+            <summary>
+            The "target server id" field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.OperationStatusField">
+            <summary>
+            The "operation status" field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.DrsInfrastructureStatusField">
+            <summary>
+            The DRS infrastructure status field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.NameField">
+            <summary>
+            The "name" field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.StateField">
+            <summary>
+            The "state" field name.
+            </summary>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.CreateTimeField">
+            <summary>
+            The "createTime" field name.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.Id">
+            <summary>
+            Gets or sets the id filter.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.SourceDatacenterId">
+            <summary>	
+            Identifies the source Data Center.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.TargetDatacenterId">
+            <summary>
+            Identifies the target Data Center.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.SourceNetworkDomainId">
+            <summary>
+            Identifies the source network domain id.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.TargetNetworkDomainId">
+            <summary>
+            Identifies the target network domain id.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.SourceServerId">
+            <summary>
+            Identifies the source server id.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.TargetServerId">
+            <summary>
+            Identifies the target server id.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.OperationStatus">
+            <summary>
+            Identifies the operation status.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.DrsInfrastructureStatus">
+            <summary>
+            The DRS infrastructure status field.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.Name">
+            <summary>	
+            Identifies consistency group by their name.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions.State">
+            <summary>
+            Gets or sets the State filter.
+            </summary>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Requests.Network20.ReservedIpv6ListOptions">
             <summary>The reserved ip v6 list options.</summary>
@@ -5727,6 +6430,11 @@
             The "privateIpv4" field name.
             </summary>
         </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Requests.Server20.ServerListOptions.DrsEligibleField">
+            <summary>
+            The "privateIpv4" field name.
+            </summary>
+        </member>
         <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Server20.ServerListOptions.Id">
             <summary>	
             Identifies an individual Virtual Listener.
@@ -5800,6 +6508,11 @@
         <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Server20.ServerListOptions.PrivateIpv4">
             <summary>
             Gets or sets the PrivateIpv4 filter.
+            </summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Requests.Server20.ServerListOptions.DrsEligible">
+            <summary>
+            Gets or sets the drsEligible filter.
             </summary>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Requests.Server.ServerListOptions">
@@ -6405,45 +7118,6 @@
             <remarks/>
         </member>
         <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNetworkInfo.networkDomainName">
-            <remarks/>
-        </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.id">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.privateIpv4">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.networkId">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.networkName">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.macAddress">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityNetworkInfoTypeNic.state">
-            <remarks/>
-        </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType.serverSummary">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType.id">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType.state">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType.created">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleType.datacenterId">
             <remarks/>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.AntiAffinityRuleTypeServerSummary">
@@ -8388,56 +9062,6 @@
         <member name="P:DD.CBU.Compute.Api.Contracts.Vip.NewServerFarmRealServer.port">
             <remarks/>
         </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.NodeType">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.networkDomainId">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.name">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.description">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.Item">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.ItemElementName">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.state">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.status">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.healthMonitor">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.connectionLimit">
-            <remarks/>
-            [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.connectionRateLimit">
-            <remarks/>
-            [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.createTime">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.loggingEnabled">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.loggingEnabledSpecified">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.id">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.NodeType.datacenterId">
-            <remarks/>
-        </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.IpItemChoiceType">
             <remarks/>
         </member>
@@ -8547,43 +9171,6 @@
         <member name="P:DD.CBU.Compute.Api.Contracts.Network20.DeleteNodeType.id">
             <remarks/>
         </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.PoolType">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.networkDomainId">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.name">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.description">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.loadBalanceMethod">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.healthMonitor">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.serviceDownAction">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.slowRampTime">
-            <remarks/>
-            [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.state">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.createTime">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.id">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolType.datacenterId">
-            <remarks/>
-        </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.pools">
             <remarks/>
         </member>
@@ -8665,39 +9252,6 @@
             [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
         </member>
         <member name="P:DD.CBU.Compute.Api.Contracts.Network20.EditPoolType.id">
-            <remarks/>
-        </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.networkDomainId">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.pool">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.node">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.port">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.portSpecified">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.status">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.state">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.createTime">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.id">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberType.datacenterId">
             <remarks/>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.PoolMemberTypeNode">
@@ -9099,48 +9653,6 @@
         <member name="P:DD.CBU.Compute.Api.Contracts.Network20.IpRangeCidrType.prefixSize">
             <remarks/>
         </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.VlanType">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.networkDomain">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.name">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.description">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.privateIpv4Range">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.gatewayAddressing">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.ipv4GatewayAddress">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.ipv6Range">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.ipv6GatewayAddress">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.createTime">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.state">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.progress">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.id">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VlanType.datacenterId">
-            <remarks/>
-        </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.VlanTypeNetworkDomain">
             <remarks/>
         </member>
@@ -9337,77 +9849,6 @@
             <remarks/>
         </member>
         <member name="P:DD.CBU.Compute.Api.Contracts.Network20.virtualListeners.pageSizeSpecified">
-            <remarks/>
-        </member>
-        <member name="T:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.networkDomainId">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.name">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.state">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.description">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.createTime">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.type">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.protocol">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.listenerIpAddress">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.port">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.portSpecified">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.enabled">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.connectionLimit">
-            <remarks/>
-            [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.connectionRateLimit">
-            <remarks/>
-            [System.Xml.Serialization.XmlElementAttribute(DataType = "nonNegativeInteger")]
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.sourcePortPreservation">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.pool">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.clientClonePool">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.persistenceProfile">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.fallbackPersistenceProfile">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.optimizationProfile">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.irule">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.id">
-            <remarks/>
-        </member>
-        <member name="P:DD.CBU.Compute.Api.Contracts.Network20.VirtualListenerType.datacenterId">
             <remarks/>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.DeleteVirtualListener">

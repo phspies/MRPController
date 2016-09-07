@@ -83,8 +83,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public bool? can_failover { get; set; }
         [JsonProperty("managementobjectstats_attributes")]
         public List<MRPManagementobjectStatType> managementobjectstats_attributes { get; set; }
-        [JsonProperty("Managementobjectimages_attributes")]
-        public List<MRPManagementobjectSnapshotType> managementobjectsnapshot_attributes { get; set; }
+        [JsonProperty("managementobjectsnapshots_attributes")]
+        public List<MRPManagementobjectSnapshotType> managementobjectsnapshots_attributes { get; set; }
     }
     public class MRPManagementobjectIDGETType
     {

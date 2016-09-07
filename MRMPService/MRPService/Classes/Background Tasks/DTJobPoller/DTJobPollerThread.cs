@@ -17,7 +17,7 @@ namespace MRMPService.DTPollerCollection
         {
             while (true)
             {
-                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(Global.dt_event_polling_interval);
+                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(Global.dt_job_polling_interval);
                 Stopwatch sw = Stopwatch.StartNew();
 
                 Logger.log(String.Format("Staring Double-Take collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
@@ -29,7 +29,7 @@ namespace MRMPService.DTPollerCollection
 
                 }
                 Parallel.ForEach(_jobs,
-                    new ParallelOptions { MaxDegreeOfParallelism = Global.dt_event_polling_concurrency },
+                    new ParallelOptions { MaxDegreeOfParallelism = Global.dt_job_polling_concurrency },
                     (Action<MRPManagementobjectType>)((job) =>
                     {
                         try

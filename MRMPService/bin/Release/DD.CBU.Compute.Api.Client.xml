@@ -939,6 +939,141 @@
             <param name="backupClientType"></param>
             <returns></returns>
         </member>
+        <member name="T:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor">
+            <summary>
+            The Consistency Group Accessor type.
+            </summary>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Client.Interfaces.Drs.IConsistencyGroupAccessor">
+            <summary>
+            The Consistency Group Interface.
+            </summary>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Drs.IConsistencyGroupAccessor.GetConsistencyGroups(DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions)">
+            <summary>
+            The Get Consistency Group method.
+            </summary>
+            <param name="filteringOptions">The filtering options.</param>
+            <returns>List of <see cref="T:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Drs.IConsistencyGroupAccessor.GetConsistencyGroupsPaginated(DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions,DD.CBU.Compute.Api.Contracts.Requests.PageableRequest)">
+            <summary>
+            The Get Consistency Group menthod.
+            </summary>
+            <param name="filteringOptions">The filtering options.</param>
+            <param name="pagingOptions">The pagination options.</param>
+            <returns>Paginated result of <see cref="T:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Drs.IConsistencyGroupAccessor.CreateConsistencyGroup(DD.CBU.Compute.Api.Contracts.Drs.CreateConsistencyGroupType)">
+            <summary>
+            The Create Consistency Group
+            </summary>
+            <param name="createConsistencyGroup">The create consistency group type.</param>
+            <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Drs.IConsistencyGroupAccessor.GetConsistencyGroupSnapshots(DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupSnapshotListOptions)">
+            <summary>
+            The Get Consistency Group Snapshots method.
+            </summary>
+            <returns>List of <see cref="T:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Drs.IConsistencyGroupAccessor.StopPreviewSnapshot(DD.CBU.Compute.Api.Contracts.Drs.StopPreviewSnapshotType)">
+            <summary>
+            The stop preview snapshot of a consistency group.
+            </summary>
+            <param name="stopPreviewSnapshotType">The stop preview snapshot type.</param>
+            <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Drs.IConsistencyGroupAccessor.StartPreviewSnapshot(DD.CBU.Compute.Api.Contracts.Drs.StartPreviewSnapshotType)">
+            <summary>
+            Start preview snapshot of a consistency group.
+            </summary>
+            <param name="startPreviewSnapshotType">The start preview snapshot type.</param>
+            <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Drs.IConsistencyGroupAccessor.DeleteConsistencyGroup(DD.CBU.Compute.Api.Contracts.Drs.DeleteConsistencyGroupType)">
+            <summary>
+            The Delete Consistency Group method.
+            </summary>
+            <param name="deleteConsistencyGroupType">The delete consistency group.</param>
+            <returns><see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Drs.IConsistencyGroupAccessor.InitiateFailoverForConsistencyGroup(DD.CBU.Compute.Api.Contracts.Drs.InitiateFailoverType)">
+            <summary>
+            The initiate failover for a consistency group.
+            </summary>
+            <param name="InitiateFailover">The Initiate failover type.</param>
+            <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor._apiClient">
+            <summary>
+            The _client.
+            </summary>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor.#ctor(DD.CBU.Compute.Api.Client.Interfaces.IWebApi)">
+            <summary>
+            	Initializes a new instance of the DD.CBU.Compute.Api.Client.Network20.NetworkDomain
+            	class.
+            </summary>
+            <param name="apiClient">	The client. </param>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor.GetConsistencyGroups(DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions)">
+            <summary>
+            The Get Consistency Group method.
+            </summary>
+            <param name="filteringOptions">The filtering options.</param>
+            <returns>List of <see cref="T:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor.GetConsistencyGroupsPaginated(DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupListOptions,DD.CBU.Compute.Api.Contracts.Requests.PageableRequest)">
+            <summary>
+            The Get Consistency Group menthod.
+            </summary>
+            <param name="filteringOptions">The filtering options.</param>
+            <param name="pagingOptions">The pagination options.</param>
+            <returns>Paginated result of <see cref="T:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor.CreateConsistencyGroup(DD.CBU.Compute.Api.Contracts.Drs.CreateConsistencyGroupType)">
+            <summary>
+            The Create Consistency Group
+            </summary>
+            <param name="createConsistencyGroup">The create consistency group type.</param>
+            <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor.GetConsistencyGroupSnapshots(DD.CBU.Compute.Api.Contracts.Requests.Drs.ConsistencyGroupSnapshotListOptions)">
+            <summary>
+            The Get Consistency Group Snapshot method.
+            </summary>
+            <param name="filteringOptions">The filtering options.</param>
+            <returns>List of <see cref="T:DD.CBU.Compute.Api.Contracts.Drs.consistencyGroupSnapshots"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor.StopPreviewSnapshot(DD.CBU.Compute.Api.Contracts.Drs.StopPreviewSnapshotType)">
+            <summary>
+            The stop preview snapshot of a consistency group.
+            </summary>
+            <param name="stopPreviewSnapshotType">The stop preview snapshot type.</param>
+            <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor.StartPreviewSnapshot(DD.CBU.Compute.Api.Contracts.Drs.StartPreviewSnapshotType)">
+            <summary>
+            Start preview snapshot of a consistency group.
+            </summary>
+            <param name="startPreviewSnapshotType">The start preview snapshot type.</param>
+            <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor.DeleteConsistencyGroup(DD.CBU.Compute.Api.Contracts.Drs.DeleteConsistencyGroupType)">
+            <summary>
+            The Delete Consistency Group method.
+            </summary>
+            <param name="deleteConsistencyGroupType">The delete consistency group.</param>
+            <returns><see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor.InitiateFailoverForConsistencyGroup(DD.CBU.Compute.Api.Contracts.Drs.InitiateFailoverType)">
+            <summary>
+            The initiate failover for a consistency group.
+            </summary>
+            <param name="InitiateFailover">The Initiate failover type.</param>
+            <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
         <member name="T:DD.CBU.Compute.Api.Client.ApiClientException">
             <summary>
             The base class for API client exceptions.
@@ -996,9 +1131,6 @@
         </member>
         <member name="F:DD.CBU.Compute.Api.Client.ApiUris.MCP1_0_PREFIX">
             <summary>	The MCP 1.0 prefix. </summary>
-        </member>
-        <member name="F:DD.CBU.Compute.Api.Client.ApiUris.MCP2_1_PREFIX">
-            <summary>	The MCP 2.0 prefix. </summary>
         </member>
         <member name="F:DD.CBU.Compute.Api.Client.ApiUris.MCP2_2_PREFIX">
             <summary>	The MCP 2.2 prefix. </summary>
@@ -1206,6 +1338,11 @@
             <param name="orgId">The organization id</param>
             <param name="serverId">The server id</param>
             <returns>Returns the relative URI of the REST request for a modify servers</returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.ApiUris.EditServerMetadata(System.Guid)">
+            <summary>Edit server metadata.</summary>
+            <param name="orgId">The organization id</param>
+            <returns>Returns the relative URI of the REST request for a Edit server metadata</returns>
         </member>
         <member name="M:DD.CBU.Compute.Api.Client.ApiUris.DeleteServer(System.Guid,System.String)">
             <summary>Deletes the server.
@@ -2076,6 +2213,13 @@
             <param name="endDate">The End Date</param>
             <returns>The <see cref="T:System.Uri"/>.</returns>
         </member>
+        <member name="M:DD.CBU.Compute.Api.Client.ApiUris.DrsPairsUsageReport(System.Guid,System.DateTime,System.DateTime)">
+            <summary>Returns the relative URI of the REST request for DRS Server Pairs usage report.</summary>
+            <param name="orgId">The organization id.</param>
+            <param name="startDate">The Start Date</param>
+            <param name="endDate">The End Date</param>
+            <returns>The <see cref="T:System.Uri"/>.</returns>
+        </member>
         <member name="M:DD.CBU.Compute.Api.Client.ApiUris.GetMcp2OsImages(System.Guid)">
             <summary>	Gets MCP 2 os images. </summary>
             <param name="orgId">	The organization Id. </param>
@@ -2296,6 +2440,41 @@
         <member name="M:DD.CBU.Compute.Api.Client.ApiUris.RemoveTag(System.Guid)">
             <summary>The remove tag.</summary>
             <param name="orgId">The org id.</param>
+            <returns>The <see cref="T:System.Uri"/>.</returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.ApiUris.GetConsistencyGroups(System.Guid)">
+            <summary>Returns the relative URI of the REST request for get consistency groups.</summary>
+            <param name="orgId">The organization id.</param>
+            <returns>The <see cref="T:System.Uri"/>.</returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.ApiUris.CreateConsistencyGroups(System.Guid)">
+            <summary>Returns the relative URI of the REST request for create consistency groups.</summary>
+            <param name="orgId">The organization id.</param>
+            <returns>The <see cref="T:System.Uri"/>.</returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.ApiUris.GetConsistencyGroupSnapshots(System.Guid)">
+            <summary>Returns the relative URI of the REST request for get consistency group snapshots.</summary>
+            <param name="orgId">The organization id.</param>
+            <returns>The <see cref="T:System.Uri"/>.</returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.ApiUris.StopPreviewSnapshot(System.Guid)">
+            <summary>Returns the relative URI of the REST request for stop preview snapshot of a consistency group.</summary>
+            <param name="orgId">The organization id.</param>
+            <returns>The <see cref="T:System.Uri"/>.</returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.ApiUris.StartPreviewSnapshot(System.Guid)">
+            <summary>Returns the relative URI of the REST request for start preview snapshot of a consistency group.</summary>
+            <param name="orgId">The organization id.</param>
+            <returns>The <see cref="T:System.Uri"/>.</returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.ApiUris.DeleteConsistencyGroup(System.Guid)">
+            <summary>Returns the relative URI of the REST request for delete consistency group.</summary>
+            <param name="orgId">The organization id.</param>
+            <returns>The <see cref="T:System.Uri"/>.</returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.ApiUris.InitiateFailover(System.Guid)">
+            <summary>Returns the relative URI of the REST request for initiate failover for a consistency group.</summary>
+            <param name="orgId">The organization id.</param>
             <returns>The <see cref="T:System.Uri"/>.</returns>
         </member>
         <member name="T:DD.CBU.Compute.Api.Client.Exceptions.ApiHostNotFoundException">
@@ -5554,6 +5733,14 @@
             <param name="endDate">The End Date</param>
             <returns>The CSV formatted result</returns>
         </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Reports.IReportAccessor.GetDrsPairsUsageReport(System.DateTime,System.DateTime)">
+            <summary>
+            Returns a report detailing the DRS server pairs that were in existance for the supplied organizationId during the specified date range.
+            </summary>
+            <param name="startDate">The Start Date</param>
+            <param name="endDate">The End Date</param>
+            <returns>The CSV formatted result</returns>
+        </member>
         <member name="T:DD.CBU.Compute.Api.Client.Interfaces.Server20.IServerImageAccessor">
             <summary>
             The ServerAccessor interface.
@@ -5741,6 +5928,11 @@
             <summary>The remove disk.</summary>
             <param name="removeDisk">The remove disk.</param>
             <returns>The <see cref="T:System.Threading.Tasks.Task"/>.</returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Server20.IServerAccessor.EditServerMetadata(DD.CBU.Compute.Api.Contracts.Network20.editServerMetadata)">
+            <summary>Edit metadata of the server</summary>
+            <param name="editServerMetadata">Server metadata change model.</param>
+            <returns>The async type of <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
         </member>
         <member name="T:DD.CBU.Compute.Api.Client.Interfaces.Server20.IServerManagementAccessor">
             <summary>
@@ -8087,6 +8279,14 @@
             <param name="endDate">The End Date</param>
             <returns>The CSV formatted result</returns>
         </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Reports.ReportAccessor.GetDrsPairsUsageReport(System.DateTime,System.DateTime)">
+            <summary>
+            Returns a report detailing the DRS server pairs that were in existance for the supplied organizationId during the specified date range.
+            </summary>
+            <param name="startDate">The Start Date</param>
+            <param name="endDate">The End Date</param>
+            <returns>The CSV formatted result</returns>
+        </member>
         <member name="T:DD.CBU.Compute.Api.Client.Server20.Server20Extensions">
             <summary>	A server 2.0 extensions methods. </summary>
         </member>
@@ -8416,6 +8616,11 @@
         <member name="M:DD.CBU.Compute.Api.Client.Server20.ServerAccessor.NotifyNicIpChange(DD.CBU.Compute.Api.Contracts.Network20.NotifyNicIpChangeType)">
             <summary>Updates the Cloud record to match the value set on the deployed server.</summary>
             <param name="notifyNicIpChange">The Notify NIC IP change model.</param>
+            <returns>The async type of <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Server20.ServerAccessor.EditServerMetadata(DD.CBU.Compute.Api.Contracts.Network20.editServerMetadata)">
+            <summary>Edit metadata of the server</summary>
+            <param name="editServerMetadata">Server metadata change model.</param>
             <returns>The async type of <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
         </member>
         <member name="M:DD.CBU.Compute.Api.Client.Server20.ServerAccessor.ReconfigureServer(DD.CBU.Compute.Api.Contracts.Network20.ReconfigureServerType)">
@@ -10024,6 +10229,11 @@
         <member name="P:DD.CBU.Compute.Api.Client.Interfaces.IComputeApiClient.Tagging">
             <summary>Gets the tagging.</summary>
         </member>
+        <member name="P:DD.CBU.Compute.Api.Client.Interfaces.IComputeApiClient.ConsistencyGroups">
+            <summary>
+            Gets the Consistency groups.
+            </summary>
+        </member>
         <member name="M:DD.CBU.Compute.Api.Client.ComputeApiClient.#ctor(System.String)">
             <summary>
             Initialises a new instance of the <see cref="T:DD.CBU.Compute.Api.Client.ComputeApiClient"/> class. 
@@ -10834,6 +11044,11 @@
         </member>
         <member name="P:DD.CBU.Compute.Api.Client.ComputeApiClient.Tagging">
             <summary>Gets the tagging.</summary>
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Client.ComputeApiClient.ConsistencyGroups">
+            <summary>
+            Gets the Consistency Groups.
+            </summary>
         </member>
         <member name="T:DD.CBU.Compute.Api.Client.StringExtensions">
             <summary>

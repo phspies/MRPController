@@ -80,12 +80,12 @@
     <ApplicationIcon>mrp.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.1.370.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.2.370\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.3.453.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.453\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.1.370.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.2.370\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.3.453.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.453\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DoubleTake.Core, Version=0.1.44.0, Culture=neutral, processorArchitecture=MSIL">
@@ -292,8 +292,9 @@
     <Compile Include="MRPService\Classes\PortalTasks\Common\PauseJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\StartJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\StopJob.cs" />
-    <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupRecoveryJob.cs" />
-    <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupProtectionJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupDormantRecoveryJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupDormantJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Migrate\FailoverMigrateGroup.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Migrate\FailoverMigrateJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Migrate\SetupMigrateJob.cs" />
     <Compile Include="MRPService\Classes\Utilities\CryptLib.cs" />

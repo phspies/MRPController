@@ -70,16 +70,24 @@ namespace MRMPService.DTEventPollerCollection
                         string event_hex = _event.InstanceId.ToString("X");
                         int _event_id = Convert.ToInt32(event_hex.Substring(event_hex.Length - 4, 4).ToString(), 16);
                         MRPInternalEventType _internal_event = _internal_events.FirstOrDefault(x => x.id == _event_id);
+                        string _friendlyname = null;
+                        if (_internal_event != null)
+                        {
+                            _friendlyname = String.Join(" ", _event.Source, new System.Globalization.CultureInfo("en-US", false).TextInfo.ToTitleCase(String.Join(" ", _internal_event.name.Split('_').Skip(1)).ToString()));
+                        }
+
                         _mrmp.@event().create(new MRMPEventType()
                         {
                             event_id = _event.Id,
-                            source_subsystem = MRMPEventTypes.DT,
+                            source_subsystem = String.Join(" ",_event.Source, _event.Category),
+                            source_datamover = "Double-Take",
                             message = _event.Message,
                             object_id = _workload.id,
                             timestamp = _event.TimeWritten.UtcDateTime,
                             response = (_internal_event == null) ? null : _internal_event.response,
                             severity = _event.EntryType.ToString(),
-                            eventnamefriendly = (_internal_event == null) ? null : _internal_event.name,
+                            eventname = (_internal_event == null) ? null : _internal_event.name,
+                            eventnamefriendly = (_friendlyname == null) ? null : _friendlyname
                         });
                     }
                 }

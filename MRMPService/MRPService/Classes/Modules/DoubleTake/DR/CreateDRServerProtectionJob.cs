@@ -1,4 +1,5 @@
 ﻿using DoubleTake.Web.Models;
+using MRMPService.DTPollerCollection;
 using MRMPService.MRMPAPI;
 using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPDoubleTake;
@@ -39,10 +40,11 @@ namespace MRMPService.Tasks.DoubleTake
 
                     _mrp_api.task().progress(_task_id, "Looking for DR Server jobs on target workload", ReportProgress.Progress(_start_progress, _end_progress, 11));
                     int _count = 1;
+
                     //This is a migration server migration job, so we need to remove all jobs from target server
-                    foreach (JobInfoModel _delete_job in _jobs.Where(x => x.JobType == DT_JobTypes.DR_Full_Protection))
+                    foreach (JobInfoModel _delete_job in _jobs.Where(x => x.SourceServer.Host.Contains(_source_workload.hostname) && x.TargetServer.Host.Contains(_target_workload.hostname)))
                     {
-                        _mrp_api.task().progress(_task_id, String.Format("{0} - Deleting existing DR Server job between {1} and {2}", _count, _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _count + 15));
+                        _mrp_api.task().progress(_task_id, String.Format("{0} - Deleting existing DR Server job between {1} and {2}", _count, _delete_job.SourceServer.Host, _delete_job.TargetServer.Host), ReportProgress.Progress(_start_progress, _end_progress, _count + 15));
                         _dt.job().DeleteJob(_delete_job.Id).Wait();
                         _count += 1;
                     }
@@ -119,6 +121,13 @@ namespace MRMPService.Tasks.DoubleTake
                     _mrp_api.task().progress(_task_id, String.Format("Sync process started at {0}", jobinfo.Statistics.CoreConnectionDetails.StartTime), 75);
 
                     _mrp_api.task().progress(_task_id, String.Format("Successfully created disaster recover protection job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
+
+                    MRPWorkloadType _update_workload = new MRPWorkloadType();
+                    _update_workload.id = _target_workload.id;
+                    _update_workload.dt_installed = true;
+                    _mrp_api.workload().updateworkload(_update_workload);
+
+                    DTJobPoller.PollerDo(_managementobject);
                 }
 
             }
