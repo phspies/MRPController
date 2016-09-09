@@ -18,7 +18,7 @@ namespace MRMPService.Utilities
         {
             ConnectionOptions options = new ConnectionOptions();
             options.Impersonation = ImpersonationLevel.Impersonate;
-            options.Authentication = AuthenticationLevel.Default;
+            options.Authentication = AuthenticationLevel.Packet;
             options.EnablePrivileges = true;
             options.Username = _username;
             options.Password = _password;

@@ -37,6 +37,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public string moid { get; set; }
         [JsonProperty("platformnetworks_attributes")]
         public List<MRPPlatformnetworkType> platformnetworks_attributes { get; set; }
+        [JsonProperty("deleted")]
+        public bool? deleted { get; set; }
 
     }
 }

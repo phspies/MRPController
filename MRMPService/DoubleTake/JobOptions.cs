@@ -11,27 +11,39 @@ namespace MRMPService.MRMPDoubleTake
 {
     public class SetOptions
     {
-        public static CreateOptionsModel set_job_options(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, CreateOptionsModel jobInfo, float _start_progress, float _end_progress)
+        public static CreateOptionsModel set_job_options(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, CreateOptionsModel jobInfo, float _start_progress, float _end_progress, MRPManagementobjectType _managementobject = null)
         {
 
-            //disable backup network connection
-            jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
+
 
             String _job_type = null;
             if (jobInfo.JobType == DT_JobTypes.HA_Full_Failover)
             {
                 _job_type = "Availability";
                 jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = (bool)_protectiongroup.recoverypolicy.shutdown_source;
+                //disable backup network connection
+                jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
+                //set change ports
+                jobInfo.JobOptions.SystemStateOptions.ApplyPorts = _protectiongroup.recoverypolicy.change_target_ports;
             }
             else if (jobInfo.JobType == DT_JobTypes.Move_Server_Migration)
             {
                 _job_type = "Move";
                 jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = (bool)_protectiongroup.recoverypolicy.shutdown_source;
+                //set change ports
+                jobInfo.JobOptions.SystemStateOptions.ApplyPorts = _protectiongroup.recoverypolicy.change_target_ports;
             }
             else if (jobInfo.JobType == DT_JobTypes.DR_Full_Protection)
             {
-                _job_type = "Disaster Recovery";
+                _job_type = "DR Protection";
                 //jobInfo.JobOptions.ImageRecoveryOptions.ShutdownSourceServer = (bool)_protectiongroup.recoverypolicy.shutdown_source;
+
+                //set change ports
+                jobInfo.JobOptions.SystemStateOptions.ApplyPorts = _protectiongroup.recoverypolicy.change_target_ports;
+
+                //disable backup network connection
+                jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
+
                 List<ImageVhdInfoModel> vhd = new List<ImageVhdInfoModel>();
                 int i = 0;
                 foreach (MRPWorkloadVolumeType volume in _source_workload.workloadvolumes_attributes)
@@ -51,6 +63,12 @@ namespace MRMPService.MRMPDoubleTake
                 jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
                 jobInfo.JobOptions.ImageProtectionOptions.ImageName = (String)_target_workload.id;
             }
+            else if (jobInfo.JobType == DT_JobTypes.DR_Full_Recovery)
+            {
+                _job_type = "DR Recovery";
+
+                jobInfo.JobOptions.ImageRecoveryOptions.ShutdownSourceServer = false;
+            }
             jobInfo.JobOptions.Name = String.Format("MRMP [{0}] {1} to {2}", _job_type, _source_workload.hostname, _target_workload.hostname);
 
             //Set snapshot ID when recovering from a snapshot
@@ -66,8 +84,7 @@ namespace MRMPService.MRMPDoubleTake
             //set retain network settings option
             jobInfo.JobOptions.SystemStateOptions.IsWanFailover = (bool)_protectiongroup.recoverypolicy.retain_network_configuration;
 
-            //set change ports
-            jobInfo.JobOptions.SystemStateOptions.ApplyPorts = _protectiongroup.recoverypolicy.change_target_ports;
+
 
             // level = 2 and algorithm = 31 Compression is enabled at high level
             if ((bool)_protectiongroup.recoverypolicy.enablecompression)
@@ -77,27 +94,29 @@ namespace MRMPService.MRMPDoubleTake
             }
             jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.MirrorParameters.ComparisonCriteria = MirrorComparisonCriteria.Checksum;
 
-            if ((bool)_protectiongroup.recoverypolicy.enablesnapshots)
+            if (!jobInfo.JobType.Contains("Recovery"))
             {
-                TimeSpan _snapshot_timespan = new TimeSpan();
-                switch (_protectiongroup.recoverypolicy.snapshotinterval)
+                if ((bool)_protectiongroup.recoverypolicy.enablesnapshots)
                 {
-                    case "Hours":
-                        _snapshot_timespan = new TimeSpan((int)_protectiongroup.recoverypolicy.snapshotincrement, 0, 0);
-                        break;
-                    case "Minutes":
-                        _snapshot_timespan = new TimeSpan(0, (int)_protectiongroup.recoverypolicy.snapshotincrement, 0);
-                        break;
+                    TimeSpan _snapshot_timespan = new TimeSpan();
+                    switch (_protectiongroup.recoverypolicy.snapshotinterval)
+                    {
+                        case "Hours":
+                            _snapshot_timespan = new TimeSpan((int)_protectiongroup.recoverypolicy.snapshotincrement, 0, 0);
+                            break;
+                        case "Minutes":
+                            _snapshot_timespan = new TimeSpan(0, (int)_protectiongroup.recoverypolicy.snapshotincrement, 0);
+                            break;
 
+                    }
+                    SnapshotScheduleModel _snapshot = new SnapshotScheduleModel();
+                    _snapshot.Interval = _snapshot_timespan;
+                    _snapshot.IsEnabled = true;
+                    _snapshot.MaxNumberOfSnapshots = _protectiongroup.recoverypolicy.snapshotcount;
+                    _snapshot.StartTime = new DateTime();
+                    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.SnapshotSchedule = _snapshot;
                 }
-                SnapshotScheduleModel _snapshot = new SnapshotScheduleModel();
-                _snapshot.Interval = _snapshot_timespan;
-                _snapshot.IsEnabled = true;
-                _snapshot.MaxNumberOfSnapshots = _protectiongroup.recoverypolicy.snapshotcount;
-                _snapshot.StartTime = new DateTime();
-                jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.SnapshotSchedule = _snapshot;
             }
-
 
             //set dns credentials with model to the DnsOptions
             if ((bool)_protectiongroup.recoverypolicy.dns_set_dns)

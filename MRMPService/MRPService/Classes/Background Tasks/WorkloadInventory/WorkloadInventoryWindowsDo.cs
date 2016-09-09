@@ -13,7 +13,7 @@ namespace MRMPService.MRMPAPI.Classes
 {
     partial class WorkloadInventory
     {
-        static public void  WorkloadInventoryWindowsDo(MRPWorkloadType _workload)
+        static public void WorkloadInventoryWindowsDo(MRPWorkloadType _workload)
         {
             MRPWorkloadType _updated_workload = new MRPWorkloadType() { id = _workload.id };
 
@@ -39,18 +39,7 @@ namespace MRMPService.MRMPAPI.Classes
             String domainuser;
             if (!String.IsNullOrWhiteSpace(_credential.domain))
             {
-                if (_credential.domain.Contains("."))
-                {
-                    domainuser = String.Join("", _credential.domain, '@', _credential.username);
-                }
-                else if (_credential.username.Contains(@"\"))
-                {
-                    domainuser = _credential.username;
-                }
-                else
-                {
-                    domainuser = (_credential.domain + @"\" + _credential.username);
-                }
+                domainuser = (_credential.domain + @"\" + _credential.username);
             }
             else
             {
@@ -63,8 +52,6 @@ namespace MRMPService.MRMPAPI.Classes
             SelectQuery OperatingSystemQuery = new SelectQuery("SELECT Caption, OSArchitecture FROM Win32_OperatingSystem");
             SelectQuery ProcessorQuery = new SelectQuery("SELECT NumberOfCores, CurrentClockSpeed FROM Win32_Processor");
             SelectQuery BiosQuery = new SelectQuery("SELECT SerialNumber FROM Win32_BIOS");
-
-            
 
             //Get operating system type
             foreach (var item in new ManagementObjectSearcher(connectionScope, OperatingSystemQuery).Get())

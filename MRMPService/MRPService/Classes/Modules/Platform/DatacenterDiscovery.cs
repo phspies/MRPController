@@ -64,7 +64,10 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                                 _platform_datacenter.city = _dc.city;
                                 _platform_datacenter.country = _dc.country;
                                 _platform_datacenter.displayname = _dc.displayName;
-                                _platform_datacenter.target_drs_moid_list = _dc.drs.targetDatacenters.list;
+                                if (_dc.drs != null)
+                                {
+                                    _platform_datacenter.target_drs_moid_list = _dc.drs.targetDatacenters.list;
+                                }
                                 _platform_datacenter.platform_id = _platform.id;
 
                                 if (_mrmp_datacenters.platformdatacenters.Exists(x => x.moid == _dc.id))

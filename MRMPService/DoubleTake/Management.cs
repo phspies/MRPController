@@ -195,9 +195,13 @@ namespace MRMPService.MRMPDoubleTake
                         {
                             _source_license_status = true;
                         }
+                        else
+                        {
+                            SetDTMUCode(111, _org_id, DT_WorkloadType.Source);
+                        }
                     }
                     //check target server
-                    ActivationCodeModel _target_recovery_dr_recovercode = GetLicenses(_target_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "DR") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_TARGET") && x.Attributes.Any(z => z.Name == "RecoveryTarget"));
+                    ActivationCodeModel _target_recovery_dr_recovercode = GetLicenses(_target_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "DR") && x.Attributes.Any(z => z.Name == "RecoveryTarget"));
                     if (_target_recovery_dr_recovercode == null)
                     {
                         InstallLicense(DT_WorkloadType.Target, "j3jy-h7ue-hd54-7uvh-g124-er66");
@@ -208,6 +212,10 @@ namespace MRMPService.MRMPDoubleTake
                         if (_target_recovery_dr_recovercode.IsValid)
                         {
                             _target_license_status = true;
+                        }
+                        else
+                        {
+                            InstallLicense(DT_WorkloadType.Target, "j3jy-h7ue-hd54-7uvh-g124-er66");
                         }
                     }
                     break;

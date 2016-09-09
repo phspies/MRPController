@@ -20,11 +20,31 @@ namespace MRMPService.MRMPDoubleTake
             response.EnsureSuccessStatusCode();
             return response.Content;
         }
-
+        public async Task<IEnumerable<ImageInfoModel>> GetAllImagesFromSource()
+        {
+            var api = new ImagesApi(_source_connection);
+            ApiResponse<IEnumerable<ImageInfoModel>> response = await api.GetImagesAsync();
+            response.EnsureSuccessStatusCode();
+            return response.Content;
+        }
+        public async Task<IEnumerable<ImageInfoModel>> GetImagesSource(String _source_hostname)
+        {
+            var api = new ImagesApi(_target_connection);
+            ApiResponse<IEnumerable<ImageInfoModel>> response = await api.GetImagesAsync("sourceName eq " + _source_hostname);
+            response.EnsureSuccessStatusCode();
+            return response.Content;
+        }
         public async Task<IEnumerable<ImageInfoModel>> GetImages(String _job_name)
         {
             var api = new ImagesApi(_target_connection);
             ApiResponse<IEnumerable<ImageInfoModel>> response = await api.GetImagesAsync("protectionJobName eq " + _job_name);
+            response.EnsureSuccessStatusCode();
+            return response.Content;
+        }
+        public async Task<IEnumerable<ImageInfoModel>> GetImages()
+        {
+            var api = new ImagesApi(_target_connection);
+            ApiResponse<IEnumerable<ImageInfoModel>> response = await api.GetImagesAsync();
             response.EnsureSuccessStatusCode();
             return response.Content;
         }

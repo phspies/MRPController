@@ -70,6 +70,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public List<MRPPlatformdomainType> platformdomains_attributes { get; set; }
         [JsonProperty("platformdatacenters_attributes")]
         public List<MRPPlatformdatacenterType> platformdatacenters_attributes { get; set; }
+        [JsonProperty("platformtemplates_attributes")]
+        public List<MRPPlatformtemplateType> platformtemplates_attributes { get; set; }
     }
 }
 

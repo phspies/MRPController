@@ -42,7 +42,13 @@ namespace MRMPService.TaskExecutioner
                                     dr_servers_dormant_create_protection_job_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = dr_servers_dormant_create_protection_job_Thread, target_id = task.target_id });
                                     break;
-
+                                case "dr_servers_dormant_create_firedrill_job":
+                                    ClaimTask(task);
+                                    Thread dr_servers_dormant_create_firedrill_job_Thread = new Thread(() => DRSServersDormant.SetupDormantRecoveryJob(task));
+                                    dr_servers_dormant_create_firedrill_job_Thread.Name = task.target_id;
+                                    dr_servers_dormant_create_firedrill_job_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = dr_servers_dormant_create_firedrill_job_Thread, target_id = task.target_id });
+                                    break;
 
                                 //migrate
                                 case "migrate_create_job":

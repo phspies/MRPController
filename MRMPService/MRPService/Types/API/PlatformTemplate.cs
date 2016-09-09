@@ -49,6 +49,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public string os_displayname { get; set; }
         [JsonProperty("os_type")]
         public string os_type { get; set; }
+        [JsonProperty("deleted")]
+        public bool? deleted { get; set; }
     }
 
 }

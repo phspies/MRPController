@@ -23,6 +23,18 @@ namespace MRMPService.MRMPDoubleTake
 
             return workloadResult.Content;
         }
+        async public Task<WorkloadModel> CreateWorkloadDRRecovery(Guid _image_id)
+        {
+            var workloadResult = await workloadApi.CreateWorkloadAsync(DT_JobTypes.DR_Full_Recovery, _image_id, Guid.Empty);
+            workloadResult.EnsureSuccessStatusCode();
+            return workloadResult.Content;
+        }
+        async public Task<WorkloadModel> CreateWorkloadDRRecovery(Guid _image_id, Guid _snap_id)
+        {
+            var workloadResult = await workloadApi.CreateWorkloadAsync(DT_JobTypes.DR_Full_Recovery, _image_id, _snap_id);
+            workloadResult.EnsureSuccessStatusCode();
+            return workloadResult.Content;
+        }
 
         async public Task<WorkloadModel> GetWorkload(Guid Id)
         {

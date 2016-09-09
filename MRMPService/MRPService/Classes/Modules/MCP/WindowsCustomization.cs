@@ -198,16 +198,15 @@ namespace MRMPService.Tasks.MCP
             {
                 _mrp_api.task().progress(_task_id, String.Format("Volume setup process on {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 80));
             }
-            ConnectionOptions connOptions = new ConnectionOptions() { EnablePrivileges = true, Username = "Administrator", Password = _target_workload.credential.encrypted_password };
-            connOptions.Impersonation = ImpersonationLevel.Impersonate;
-            connOptions.Authentication = AuthenticationLevel.Default;
-            ManagementScope scope = new ManagementScope(@"\\" + new_workload_ip + @"\root\CIMV2", connOptions);
+            ConnectionOptions connOptions = WMIHelper.ProcessConnectionOptions(@".\" + _target_workload.credential.username, _target_workload.credential.encrypted_password);
+            ManagementScope _diskpart_connectionScope = WMIHelper.ConnectionScope(new_workload_ip, options);
+
             int _connect_retries = 3;
             while (true)
             {
                 try
                 {
-                    scope.Connect();
+                    _diskpart_connectionScope.Connect();
                     break;
                 }
                 catch (Exception ex)
@@ -235,7 +234,7 @@ namespace MRMPService.Tasks.MCP
             ObjectGetOptions ogo = new ObjectGetOptions();
             ManagementBaseObject returnValue;
             int processId = 0;
-            using (ManagementClass mc = new ManagementClass(scope, wmiObjectPath, ogo))
+            using (ManagementClass mc = new ManagementClass(_diskpart_connectionScope, wmiObjectPath, ogo))
             {
                 ManagementBaseObject inparams = mc.GetMethodParameters("Create");
                 if (installCmdParams != null)

@@ -51,5 +51,7 @@ namespace MRMPService.MRMPAPI.Types.API
         public string networkdomain_moid { get; set; }
         [JsonProperty("networkdomain_name")]
         public string networkdomain_name { get; set; }
+        [JsonProperty("deleted")]
+        public bool? deleted { get; set; }
     }
 }

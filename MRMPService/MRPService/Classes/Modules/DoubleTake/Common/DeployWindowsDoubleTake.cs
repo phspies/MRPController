@@ -57,9 +57,16 @@ namespace MRMPService.Tasks.DoubleTake
                     }
                     if (_contactable_ip == null)
                     {
-                        _mrp_portal.task().failcomplete(_task_id, String.Format("Cannot contant workload {0}", _working_workload.hostname));
-                        server_type = dt_server_type.target;
-                        continue;
+                        _mrp_portal.task().failcomplete(_task_id, String.Format("Cannot contact workload {0}", _working_workload.hostname));
+                        if (server_type == dt_server_type.target)
+                        {
+                            throw new Exception(String.Format("Cannot contact workload {0}", _working_workload.hostname));
+                        }
+                        else if (server_type == dt_server_type.source)
+                        {
+                            server_type = dt_server_type.target;
+                            continue;
+                        }
                     }
 
                     _mrp_portal.task().progress(_task_id, "Get remote architecture", ReportProgress.Progress(_start_progress, _end_progress, _counter + 10));
@@ -81,8 +88,15 @@ namespace MRMPService.Tasks.DoubleTake
                             else
                             {
                                 _mrp_portal.task().progress(_task_id, String.Format("32Bit Workloads not supported {0} ", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 10));
-                                server_type = dt_server_type.target;
-                                continue;
+                                if (server_type == dt_server_type.target)
+                                {
+                                    throw new Exception(String.Format("32Bit Workloads not supported {0}", _working_workload.hostname));
+                                }
+                                else if (server_type == dt_server_type.source)
+                                {
+                                    server_type = dt_server_type.target;
+                                    continue;
+                                }
                             }
                         }
                         else

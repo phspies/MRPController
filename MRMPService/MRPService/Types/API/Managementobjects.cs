@@ -56,7 +56,6 @@ namespace MRMPService.MRMPAPI.Types.API
         public string replication_status { get; set; }
         [JsonProperty("mirror_status")]
         public string mirror_status { get; set; }
-
         [JsonProperty("last_contact")]
         public DateTime? last_contact { get; set; }
         [JsonProperty("can_create_image_recovery")]
@@ -85,6 +84,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public List<MRPManagementobjectStatType> managementobjectstats_attributes { get; set; }
         [JsonProperty("managementobjectsnapshots_attributes")]
         public List<MRPManagementobjectSnapshotType> managementobjectsnapshots_attributes { get; set; }
+        [JsonProperty("managementobjectsnapshot")]
+        public MRPManagementobjectSnapshotType managementobjectsnapshot { get; set; }
     }
     public class MRPManagementobjectIDGETType
     {

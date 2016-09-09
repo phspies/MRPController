@@ -19,7 +19,7 @@ namespace MRMPService.MRMPAPI
 
         public MRPPlatformType get_by_id(string _platform_id)
         {
-            endpoint = "/platforms/get_byid.json";
+            endpoint = "/platforms/get.json";
             MRPPlatformGETType worker = new MRPPlatformGETType()
             {
                 platform_id = _platform_id

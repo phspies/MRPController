@@ -12,7 +12,7 @@ namespace MRMPService.PlatformInventory
 {
     partial class PlatformInventoryWorkloadDo
     {
-        public static void UpdateMCPWorkload(String _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null, List<MRPPlatformdomainType> _mrp_domains = null, List<MRPPlatformnetworkType> _mrp_networks = null, List<MRPPlatformtemplateType> _mrp_templates = null)
+        public static void UpdateMCPWorkload(String _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null)
         {
             using (MRMP_ApiClient _cloud_movey = new MRMP_ApiClient())
             {
@@ -30,28 +30,13 @@ namespace MRMPService.PlatformInventory
                 }
                 Logger.log(String.Format("UpdateMCPWorkload: Inventory for {0} in {1} ", _caasworkload.name, _platform.moid), Logger.Severity.Info);
 
-                //Retrieve portal objects
                 if (_mrp_workloads == null)
                 {
-                    Logger.log(String.Format("UpdateMCPWorkload: Workload list empty, fecthing new list"), Logger.Severity.Info);
-                    _mrp_workloads = _cloud_movey.workload().list_by_platform(_platform).workloads.ToList();
+                    _mrp_workloads = _cloud_movey.workload().listworkloads().workloads;
                 }
-                if (_mrp_domains == null)
-                {
-                    Logger.log(String.Format("UpdateMCPWorkload: Network Domain list empty, fecthing new list"), Logger.Severity.Info);
-                    _mrp_domains = _cloud_movey.platformdomain().list_by_platform(_platform).platformdomains.ToList();
-                }
-                if (_mrp_networks == null)
-                {
-                    Logger.log(String.Format("UpdateMCPWorkload: Network VLAN list empty, fecthing new list"), Logger.Severity.Info);
-                    _mrp_networks = _cloud_movey.platformnetwork().list_by_platform(_platform).platformnetworks.ToList();
-                }
-                if (_mrp_templates == null)
-                {
-                    Logger.log(String.Format("UpdateMCPWorkload: Template list empty, fecthing new list"), Logger.Severity.Info);
-                    _mrp_templates = _cloud_movey.platformtemplate().list_by_platform(_platform).platformtemplates;
-                }
+                //get full platform inventory
 
+                _platform = _cloud_movey.platform().get_by_id(_platform.id);
 
                 MRPWorkloadType _mrmp_workload = new MRPWorkloadType();
                 MRPWorkloadType _current_mrmp_workload = new MRPWorkloadType();
@@ -73,7 +58,7 @@ namespace MRMPService.PlatformInventory
                 if (_current_mrmp_workload.osedition == null) _mrmp_workload.osedition = _caasworkload.operatingSystem.displayName;
 
                 //update workload source template id with portal template id
-                _mrmp_workload.platformtemplate_id = _mrp_templates.FirstOrDefault(x => x.image_moid == _caasworkload.sourceImageId).id;
+                _mrmp_workload.platformtemplate_id = _platform.platformtemplates_attributes.FirstOrDefault(x => x.image_moid == _caasworkload.sourceImageId).id;
 
                 //populate network interfaces for workload
                 _mrmp_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
@@ -103,7 +88,7 @@ namespace MRMPService.PlatformInventory
                         _logical_interface.ipaddress = _caasworkloadinterface.privateIpv4;
                         _logical_interface.moid = _caasworkloadinterface.id;
                         _logical_interface._destroy = false;
-                        _logical_interface.platformnetwork_id = _mrp_networks.FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id;
+                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks_attributes).FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id;
 
                         _mrmp_workload.workloadinterfaces_attributes.Add(_logical_interface);
                         nic_index += 1;
