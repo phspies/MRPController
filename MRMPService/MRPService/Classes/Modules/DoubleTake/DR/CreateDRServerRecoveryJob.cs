@@ -124,12 +124,24 @@ namespace MRMPService.Tasks.DoubleTake
                     _mrp_api.task().progress(_task_id, "Waiting for sync process to start", ReportProgress.Progress(_start_progress, _end_progress, 71));
 
                     JobInfoModel jobinfo = _dt.job().GetJob(jobId).Result;
-                    while (jobinfo.Statistics.CoreConnectionDetails.MirrorState != MirrorState.Mirror)
+                    while (true)
                     {
-                        Thread.Sleep(new TimeSpan(0, 0, 30));
-                        jobinfo = _dt.job().GetJob(jobId).Result;
+                        if (jobinfo.Statistics.CoreConnectionDetails != null)
+                        {
+                            while (jobinfo.Statistics.CoreConnectionDetails.MirrorState != MirrorState.Mirror)
+                            {
+                                Thread.Sleep(new TimeSpan(0, 0, 30));
+                                jobinfo = _dt.job().GetJob(jobId).Result;
+                            }
+                            break;
+                        }
+                        else
+                        {
+                            Thread.Sleep(5000);
+                            jobinfo = _dt.job().GetJob(jobId).Result;
+                            
+                        }
                     }
-
                     _mrp_api.task().progress(_task_id, String.Format("Sync process started at {0}", jobinfo.Statistics.CoreConnectionDetails.StartTime), 75);
 
                     _mrp_api.task().progress(_task_id, String.Format("Successfully created disaster recovery job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);

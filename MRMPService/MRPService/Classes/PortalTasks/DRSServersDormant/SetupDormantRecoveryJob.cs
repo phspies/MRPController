@@ -28,14 +28,14 @@ namespace MRMPService.PortalTasks
                     //update target workload
                     _target_workload = _mrp_portal.workload().get_by_id(_target_workload.id);
 
-                    Deploy.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 65);
+                    ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 65);
                     DisasterRecovery.CreateDRServerRecoveryJob(_mrmp_task.id, _source_workload, _target_workload, _original_workload, _protectiongroup, _managementobject, 66, 99);
 
                     _mrp_portal.task().successcomplete(_mrmp_task.id, "Successfully configured recovery job");
                 }
                 catch (Exception ex)
                 {
-                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
+                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.GetBaseException().Message);
                 }
             }
         }

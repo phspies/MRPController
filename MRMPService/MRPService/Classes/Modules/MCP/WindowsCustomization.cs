@@ -34,12 +34,14 @@ namespace MRMPService.Tasks.MCP
                     throw new ArgumentException(String.Format("Error contacting workwork {0} after 3 tries", _target_workload.hostname));
                 }
             }
+            ConnectionOptions connOptions = WMIHelper.ProcessConnectionOptions(@".\" + _target_workload.credential.username, _target_workload.credential.encrypted_password);
+            ManagementScope connectionScope = WMIHelper.ConnectionScope(new_workload_ip, connOptions);
 
             long _c_volume_actual_size = 0;
             long _c_volume_actual_free = 0;
             string _cdrom_drive_letter = "";
-            ConnectionOptions options = WMIHelper.ProcessConnectionOptions((String.IsNullOrWhiteSpace(_target_workload.credential.domain) ? (@".\" + _target_workload.credential.username) : (_target_workload.credential.domain + @"\" + _target_workload.credential.username)), _target_workload.credential.encrypted_password);
-            ManagementScope connectionScope = WMIHelper.ConnectionScope(new_workload_ip, options);
+
+
             SelectQuery VolumeQuery = new SelectQuery("SELECT Size, FreeSpace FROM Win32_LogicalDisk WHERE DeviceID = 'C:'");
             SelectQuery CdromQuery = new SelectQuery("SELECT Drive FROM Win32_CDROMDrive");
             foreach (var item in new ManagementObjectSearcher(connectionScope, CdromQuery).Get())
@@ -64,14 +66,11 @@ namespace MRMPService.Tasks.MCP
                 }
                 catch (Exception ex)
                 {
-                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
-                    {
-                        _mrp_api.task().failcomplete(_task_id, String.Format("Error collecting C: volume space information for {0}", _target_workload.hostname));
-                        throw new ArgumentException(String.Format("Error collecting C: volume space information for {0}", _target_workload.hostname));
-
-                    }
+                    throw new ArgumentException(String.Format("Error collecting C: volume space information for {0}", _target_workload.hostname));
                 }
             }
+
+
             MRPWorkloadVolumeType _c_volume_object = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.driveletter == "C");
             long _c_volume_to_add = 0;
             if (_c_volume_object != null)
@@ -80,11 +79,7 @@ namespace MRMPService.Tasks.MCP
             }
             else
             {
-                using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
-                {
-                    _mrp_api.task().failcomplete(_task_id, "Cannot find C: drive in volume list for partition mapping");
-                    throw new ArgumentException("Cannot find C: drive in volume list for partition mapping");
-                }
+                throw new ArgumentException("Cannot find C: drive in volume list for partition mapping");
             }
 
 
@@ -198,31 +193,6 @@ namespace MRMPService.Tasks.MCP
             {
                 _mrp_api.task().progress(_task_id, String.Format("Volume setup process on {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 80));
             }
-            ConnectionOptions connOptions = WMIHelper.ProcessConnectionOptions(@".\" + _target_workload.credential.username, _target_workload.credential.encrypted_password);
-            ManagementScope _diskpart_connectionScope = WMIHelper.ConnectionScope(new_workload_ip, options);
-
-            int _connect_retries = 3;
-            while (true)
-            {
-                try
-                {
-                    _diskpart_connectionScope.Connect();
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    if (--_connect_retries == 0)
-                    {
-                        Logger.log(String.Format("Error running diskpart on workload {0}: {1} : {2}", new_workload_ip, ex.Message, workloadPath), Logger.Severity.Info);
-                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
-                        {
-                            _mrp_api.task().failcomplete(_task_id, String.Format("Error running diskpart on workload: {0}", ex.Message));
-                            throw new ArgumentException(String.Format("Error running diskpart on workload: {0}", ex.Message));
-                        }
-                    }
-                    else Thread.Sleep(5000);
-                }
-            }
 
             string diskpartCmd = @"C:\diskpart.bat";
             Dictionary<string, string> installCmdParams = new Dictionary<string, string>();
@@ -234,7 +204,7 @@ namespace MRMPService.Tasks.MCP
             ObjectGetOptions ogo = new ObjectGetOptions();
             ManagementBaseObject returnValue;
             int processId = 0;
-            using (ManagementClass mc = new ManagementClass(_diskpart_connectionScope, wmiObjectPath, ogo))
+            using (ManagementClass mc = new ManagementClass(connectionScope, wmiObjectPath, ogo))
             {
                 ManagementBaseObject inparams = mc.GetMethodParameters("Create");
                 if (installCmdParams != null)

@@ -256,7 +256,7 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\FullServerImageProtectionJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\DR\CreateDRServerRecoveryJob.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Availability\FullServerBase.cs" />
-    <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\FailoverServerMigration.cs" />
+    <Compile Include="MRPService\Classes\Modules\DoubleTake\Common\FailoverJob.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\EVRAMoveJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\HVRAMoveJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\Move\MoveDataOnlyMigrationJobEx.cs" />
@@ -292,11 +292,13 @@
     <Compile Include="MRPService\Classes\PortalTasks\Common\PauseJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\StartJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\StopJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Deploy\DeployWorkload.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupDormantRecoveryJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupDormantJob.cs" />
-    <Compile Include="MRPService\Classes\PortalTasks\Migrate\FailoverMigrateGroup.cs" />
-    <Compile Include="MRPService\Classes\PortalTasks\Migrate\FailoverMigrateJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Common\FailoverGroup.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Common\FailoverJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Migrate\SetupMigrateJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Workload\DiscoverWorkload.cs" />
     <Compile Include="MRPService\Classes\Utilities\CryptLib.cs" />
     <Compile Include="MRPService\Classes\Utilities\Exception.cs" />
     <Compile Include="MRPService\Classes\Utilities\OSEditionSimplyfier.cs" />
@@ -487,7 +489,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MRPService\Classes\Modules\RP4VM\" />
-    <Folder Include="MRPService\Classes\PortalTasks\Deploy\" />
     <Folder Include="MRPService\Classes\PortalTasks\DRSMCP\" />
     <Folder Include="MRPService\Classes\PortalTasks\DRSServersLive\" />
     <Folder Include="MRPService\Classes\PortalTasks\DRSVMware\" />
@@ -525,7 +526,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

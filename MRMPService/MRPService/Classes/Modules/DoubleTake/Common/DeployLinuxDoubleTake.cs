@@ -12,7 +12,7 @@ using Renci.SshNet.Common;
 
 namespace MRMPService.Tasks.DoubleTake
 {
-    partial class Deploy
+    partial class ModuleCommon
     {
         static string _password;
         static private void HandleKeyEvent(object sender, AuthenticationPromptEventArgs e)

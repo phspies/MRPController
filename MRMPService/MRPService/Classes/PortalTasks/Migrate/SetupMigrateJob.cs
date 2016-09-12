@@ -31,11 +31,11 @@ namespace MRMPService.PortalTasks
 
                         if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
                         {
-                            Deploy.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
+                            ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
                         }
                         else if (_source_workload.ostype.ToLower() == "unix" && _target_workload.ostype.ToLower() == "unix")
                         {
-                            Deploy.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
+                            ModuleCommon.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
                         }
                         Migration.CreateServerMigrationJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99);
                     }
@@ -47,11 +47,11 @@ namespace MRMPService.PortalTasks
 
                         if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
                         {
-                            Deploy.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 1, 50);
+                            ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 1, 50);
                         }
                         else if (_source_workload.ostype.ToLower() == "unix" && _target_workload.ostype.ToLower() == "unix")
                         {
-                            Deploy.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 1, 50);
+                            ModuleCommon.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 1, 50);
                         }
                         Migration.CreateServerMigrationJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 51, 99);
                     }

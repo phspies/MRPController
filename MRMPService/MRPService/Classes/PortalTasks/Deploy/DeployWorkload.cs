@@ -6,19 +6,21 @@ using MRMPService.Tasks.MCP;
 
 namespace MRMPService.PortalTasks
 {
-    partial class Common
+    partial class Deploy
     {
-        static public void StartDoubleTakeJob(MRPTaskType _mrmp_task)
+        static public void DeployWorkload(MRPTaskType _mrmp_task)
         {
             MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
             MRPWorkloadType _target_workload = _payload.target;
-            MRPManagementobjectType _managementobject = _payload.managementobject;
+            MRPPlatformType _platform = _payload.platform;
+            MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;
             using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
             {
                 try
                 {
-                    ModuleCommon.StartJob(_mrmp_task.id, _target_workload, _managementobject, 1, 100);
 
+                    MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 99, true);
+                    _mrp_portal.task().successcomplete(_mrmp_task.id, "Successfully deployed workload");
                 }
                 catch (Exception ex)
                 {

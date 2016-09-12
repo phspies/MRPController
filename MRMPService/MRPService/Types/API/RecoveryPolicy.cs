@@ -27,6 +27,10 @@ namespace MRMPService.MRMPAPI.Types.API
         public bool? enablesnapshots { get; set; }
         [JsonProperty("snapshotincrement")]
         public int? snapshotincrement { get; set; }
+        [JsonProperty("snapshotstarttimestamp")]
+        public DateTime? snapshotstarttimestamp { get; set; }
+        [JsonProperty("snapshotmaxcount")]
+        public int? snapshotmaxcount { get; set; }
         [JsonProperty("snapshotinterval")]
         public string snapshotinterval { get; set; }
         [JsonProperty("enablecompression")]

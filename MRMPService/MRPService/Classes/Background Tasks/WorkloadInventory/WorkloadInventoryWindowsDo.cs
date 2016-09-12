@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using MRMPService.Utilities;
 using MRMPService.MRMPService.Log;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace MRMPService.MRMPAPI.Classes
 {
@@ -47,6 +48,8 @@ namespace MRMPService.MRMPAPI.Classes
             }
             ConnectionOptions options = WMIHelper.ProcessConnectionOptions(domainuser, _credential.encrypted_password);
             ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
+
+
 
             SelectQuery ComputerSystemQuery = new SelectQuery("SELECT Manufacturer, Model, Name, NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
             SelectQuery OperatingSystemQuery = new SelectQuery("SELECT Caption, OSArchitecture FROM Win32_OperatingSystem");

@@ -8,7 +8,7 @@ namespace MRMPService.PortalTasks
 {
     partial class Common
     {
-        static public void StopJob(MRPTaskType _mrmp_task)
+        static public void StopDoubleTakeJob(MRPTaskType _mrmp_task)
         {
             MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
             MRPWorkloadType _target_workload = _payload.target;
@@ -17,7 +17,7 @@ namespace MRMPService.PortalTasks
             {
                 try
                 {
-                    DT_Common.StopJob(_mrmp_task.id, _target_workload, _managementobject, 1, 100);
+                    ModuleCommon.StopJob(_mrmp_task.id, _target_workload, _managementobject, 1, 100);
 
                 }
                 catch (Exception ex)

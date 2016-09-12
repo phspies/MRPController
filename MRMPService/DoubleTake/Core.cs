@@ -16,6 +16,8 @@ namespace MRMPService.MRMPDoubleTake
 
         public Core(Doubletake _doubletake)
         {
+            
+
             if (_doubletake._target_workload == null)
             {
                 throw new System.ArgumentException("Target workload ID cannot be null");
@@ -37,6 +39,7 @@ namespace MRMPService.MRMPDoubleTake
             if (!_target_connection.CheckAuthorizationAsync().Result)
             {
                 _target_connection.AuthorizeAsync(_target_credentials.username, _target_credentials.encrypted_password).Wait();
+               
             }
 
             //source could be empty in certian instances

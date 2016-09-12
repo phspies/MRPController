@@ -36,7 +36,7 @@ namespace MRMPService.Tasks.MCP
 
             if (_target_workload.credential == null)
             {
-                throw new System.ArgumentException("Cannot find standalone credential for workload deployment");
+                throw new System.ArgumentException("Cannot find credential for workload deployment");
             }
 
             ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.encrypted_password));

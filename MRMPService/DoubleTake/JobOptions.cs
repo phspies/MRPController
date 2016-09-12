@@ -44,6 +44,15 @@ namespace MRMPService.MRMPDoubleTake
                 //disable backup network connection
                 jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
 
+                //if (!_target_workload.workloadvolumes_attributes.Exists(x => x.driveletter == _protectiongroup.recoverypolicy.repositorypath[0].ToString()))
+                //{
+                //    using (MRMP_ApiClient _mrp_api = new MRMP_ApiClient())
+                //    {
+                //        _mrp_api.task().progress(_task_id, String.Format("Warning: {0} volume not found on the repository server", _protectiongroup.recoverypolicy.repositorypath), ReportProgress.Progress(_start_progress, _end_progress, 10));
+                //    }
+                // }
+
+
                 List<ImageVhdInfoModel> vhd = new List<ImageVhdInfoModel>();
                 int i = 0;
                 foreach (MRPWorkloadVolumeType volume in _source_workload.workloadvolumes_attributes)
@@ -61,7 +70,7 @@ namespace MRMPService.MRMPDoubleTake
                     i += 1;
                 }
                 jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
-                jobInfo.JobOptions.ImageProtectionOptions.ImageName = (String)_target_workload.id;
+                jobInfo.JobOptions.ImageProtectionOptions.ImageName = String.Format("dr_dormant_{0}_image", _source_workload.hostname.ToLower());
             }
             else if (jobInfo.JobType == DT_JobTypes.DR_Full_Recovery)
             {
@@ -111,9 +120,13 @@ namespace MRMPService.MRMPDoubleTake
                     }
                     SnapshotScheduleModel _snapshot = new SnapshotScheduleModel();
                     _snapshot.Interval = _snapshot_timespan;
+                    
                     _snapshot.IsEnabled = true;
-                    _snapshot.MaxNumberOfSnapshots = _protectiongroup.recoverypolicy.snapshotcount;
-                    _snapshot.StartTime = new DateTime();
+                    _snapshot.MaxNumberOfSnapshots = (int)_protectiongroup.recoverypolicy.snapshotmaxcount;
+                    if (_protectiongroup.recoverypolicy.snapshotstarttimestamp != null)
+                    {
+                        _snapshot.StartTime = (DateTime)_protectiongroup.recoverypolicy.snapshotstarttimestamp;
+                    }
                     jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.SnapshotSchedule = _snapshot;
                 }
             }

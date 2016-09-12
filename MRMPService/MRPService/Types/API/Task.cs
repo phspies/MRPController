@@ -93,6 +93,10 @@ namespace MRMPService.MRMPService.Types.API
     }
     public class MRPManagementobjectOrderType
     {
+        [JsonProperty("firedrill")]
+        public bool? firedrill { get; set; }
+        [JsonProperty("original")]
+        public MRPWorkloadType original { get; set; }
         [JsonProperty("position")]
         public int position { get; set;}
         [JsonProperty("managementobject")]

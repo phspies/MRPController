@@ -8,22 +8,23 @@ using MRMPService.Utilities;
 
 namespace MRMPService.PortalTasks
 {
-    partial class Migrate
+    partial class Common
     {
-        static public void FailoverMigrateGroup(MRPTaskType _mrmp_task)
+        static public void FailoverDoubleTakeGroup(MRPTaskType _mrmp_task)
         {
             MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
             int _mo_count = _payload.managementobjects.Count;
             int _count = 1;
-            int _increment = (100 / _mo_count);
             try
             {
+                int _increment = (100 / _mo_count);
+
                 foreach (MRPManagementobjectOrderType _mo_order in _payload.managementobjects.OrderBy(x => x.position))
                 {
                     MRPManagementobjectType _managementobject = _mo_order.managementobject;
                     int _low = _count == 1 ? 1 : (_increment * (_count - 1) + 1);
                     int _high = _increment * _count;
-                    Migration.FailoverServerMigration(_mrmp_task.id, _managementobject.source_workload, _managementobject.target_workload, _managementobject, _low, _high,true);
+                    ModuleCommon.Failoverjob(_mrmp_task.id, _mo_order.original, _managementobject.target_workload, _managementobject, _low, _high,true, (bool)_mo_order.firedrill);
                     _count++;
                 }
                 using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())

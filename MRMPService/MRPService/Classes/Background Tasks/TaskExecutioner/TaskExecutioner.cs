@@ -58,46 +58,54 @@ namespace MRMPService.TaskExecutioner
                                     migrate_create_job_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = migrate_create_job_Thread, target_id = task.target_id });
                                     break;
-                                case "migrate_failover_job":
-                                    ClaimTask(task);
-                                    Thread migrate_failover_job_Thread = new Thread(() => Migrate.FailoverMigrateJob(task));
-                                    migrate_failover_job_Thread.Name = task.target_id;
-                                    migrate_failover_job_Thread.Start();
-                                    lstThreads.Add(new ThreadObject() { task = migrate_failover_job_Thread, target_id = task.target_id });
-                                    break;
-                                case "migrate_failover_group":
-                                    ClaimTask(task);
-                                    Thread migrate_failover_group_Thread = new Thread(() => Migrate.FailoverMigrateGroup(task));
-                                    migrate_failover_group_Thread.Name = task.target_id;
-                                    migrate_failover_group_Thread.Start();
-                                    lstThreads.Add(new ThreadObject() { task = migrate_failover_group_Thread, target_id = task.target_id });
-                                    break;
+
 
 
                                 //DT common tasks 
                                 case "dt_stop_job":
                                     ClaimTask(task);
-                                    Thread dt_stop_job_Thread = new Thread(() => Common.StopJob(task));
+                                    Thread dt_stop_job_Thread = new Thread(() => Common.StopDoubleTakeJob(task));
                                     dt_stop_job_Thread.Name = task.target_id;
                                     dt_stop_job_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = dt_stop_job_Thread, target_id = task.target_id });
                                     break;
                                 case "dt_pause_job":
                                     ClaimTask(task);
-                                    Thread dt_pause_job_Thread = new Thread(() => Common.PauseJob(task));
+                                    Thread dt_pause_job_Thread = new Thread(() => Common.PauseDoubleTakeJob(task));
                                     dt_pause_job_Thread.Name = task.target_id;
                                     dt_pause_job_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = dt_pause_job_Thread, target_id = task.target_id });
                                     break;
                                 case "dt_start_job":
                                     ClaimTask(task);
-                                    Thread dt_start_job_Thread = new Thread(() => Common.StartJob(task));
+                                    Thread dt_start_job_Thread = new Thread(() => Common.StartDoubleTakeJob(task));
                                     dt_start_job_Thread.Name = task.target_id;
                                     dt_start_job_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = dt_start_job_Thread, target_id = task.target_id });
                                     break;
+                                case "dt_failover_job":
+                                    ClaimTask(task);
+                                    Thread migrate_failover_job_Thread = new Thread(() => Common.FailoverDoubleTakeJob(task));
+                                    migrate_failover_job_Thread.Name = task.target_id;
+                                    migrate_failover_job_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = migrate_failover_job_Thread, target_id = task.target_id });
+                                    break;
+                                case "dt_failover_group":
+                                    ClaimTask(task);
+                                    Thread migrate_failover_group_Thread = new Thread(() => Common.FailoverDoubleTakeGroup(task));
+                                    migrate_failover_group_Thread.Name = task.target_id;
+                                    migrate_failover_group_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = migrate_failover_group_Thread, target_id = task.target_id });
+                                    break;
 
-
+                                //deploy only tasks
+                                case "deploy_workload":
+                                    ClaimTask(task);
+                                    Thread deploy_workload_Thread = new Thread(() => Deploy.DeployWorkload(task));
+                                    deploy_workload_Thread.Name = task.target_id;
+                                    deploy_workload_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = deploy_workload_Thread, target_id = task.target_id });
+                                    break;
 
                                 //platform
                                 case "discover_datacenters_method":
@@ -114,6 +122,16 @@ namespace MRMPService.TaskExecutioner
                                     discovery_method_Thread.Start();
                                     lstThreads.Add(new ThreadObject() { task = discovery_method_Thread, target_id = task.target_id });
                                     break;
+
+                                //workload
+                                case "discover_workload":
+                                    ClaimTask(task);
+                                    Thread discover_workload_Thread = new Thread(() => Workload.DiscoverWorkload(task));
+                                    discover_workload_Thread.Name = task.target_id;
+                                    discover_workload_Thread.Start();
+                                    lstThreads.Add(new ThreadObject() { task = discover_workload_Thread, target_id = task.target_id });
+                                    break;
+
                             }
                         }
                     }

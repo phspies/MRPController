@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace MRMPService.Tasks.DoubleTake
 {
-    partial class DT_Common
+    partial class ModuleCommon
     {
         public static void StopJob(string _task_id, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {

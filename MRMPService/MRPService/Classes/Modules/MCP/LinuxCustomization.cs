@@ -68,7 +68,7 @@ namespace MRMPService.Tasks.MCP
                     if (cmd.ExitStatus != 0)
                     {
                         sshclient.Disconnect();
-                        throw new ArgumentException(String.Format("Error while running unix setup script: %1", cmd.Result));
+                        throw new ArgumentException(String.Format("Error while running unix setup script: {0}", cmd.Error));
                     }
 
                     string[] lines = cmd.Result.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
