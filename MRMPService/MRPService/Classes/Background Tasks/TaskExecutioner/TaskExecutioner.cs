@@ -30,7 +30,7 @@ namespace MRMPService.TaskExecutioner
                     foreach (MRPTaskType task in tasklist.tasks)
                     {
                         //make sure new target task does not have an active task busy
-                        if ((lstThreads.FindAll(x => x.target_id == task.target_id).Count() == 0 && lstThreads.Count < Global.scheduler_concurrency) || task.hidden == true)
+                        if ((lstThreads.Exists(x => x.target_id == task.target_id) && lstThreads.Where(x => x.task.IsAlive == true).Count() < Global.scheduler_concurrency))
                         {
                             switch (task.task_type)
                             {
@@ -40,6 +40,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread dr_servers_dormant_create_protection_job_Thread = new Thread(() => DRSServersDormant.SetupDormantJob(task));
                                     dr_servers_dormant_create_protection_job_Thread.Name = task.target_id;
                                     dr_servers_dormant_create_protection_job_Thread.Start();
+                                    dr_servers_dormant_create_protection_job_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = dr_servers_dormant_create_protection_job_Thread, target_id = task.target_id });
                                     break;
                                 case "dr_servers_dormant_create_firedrill_job":
@@ -47,6 +48,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread dr_servers_dormant_create_firedrill_job_Thread = new Thread(() => DRSServersDormant.SetupDormantRecoveryJob(task));
                                     dr_servers_dormant_create_firedrill_job_Thread.Name = task.target_id;
                                     dr_servers_dormant_create_firedrill_job_Thread.Start();
+                                    dr_servers_dormant_create_firedrill_job_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = dr_servers_dormant_create_firedrill_job_Thread, target_id = task.target_id });
                                     break;
 
@@ -56,7 +58,18 @@ namespace MRMPService.TaskExecutioner
                                     Thread migrate_create_job_Thread = new Thread(() => Migrate.SetupMigrateJob(task));
                                     migrate_create_job_Thread.Name = task.target_id;
                                     migrate_create_job_Thread.Start();
+                                    migrate_create_job_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = migrate_create_job_Thread, target_id = task.target_id });
+                                    break;
+
+                                //live
+                                case "drs_servers_live_create_job":
+                                    ClaimTask(task);
+                                    Thread drs_servers_live_create_job_Thread = new Thread(() => DRSServersLive.SetupLiveJob(task));
+                                    drs_servers_live_create_job_Thread.Name = task.target_id;
+                                    drs_servers_live_create_job_Thread.Start();
+                                    drs_servers_live_create_job_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = drs_servers_live_create_job_Thread, target_id = task.target_id });
                                     break;
 
 
@@ -67,6 +80,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread dt_stop_job_Thread = new Thread(() => Common.StopDoubleTakeJob(task));
                                     dt_stop_job_Thread.Name = task.target_id;
                                     dt_stop_job_Thread.Start();
+                                    dt_stop_job_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = dt_stop_job_Thread, target_id = task.target_id });
                                     break;
                                 case "dt_pause_job":
@@ -74,6 +88,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread dt_pause_job_Thread = new Thread(() => Common.PauseDoubleTakeJob(task));
                                     dt_pause_job_Thread.Name = task.target_id;
                                     dt_pause_job_Thread.Start();
+                                    dt_pause_job_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = dt_pause_job_Thread, target_id = task.target_id });
                                     break;
                                 case "dt_start_job":
@@ -81,6 +96,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread dt_start_job_Thread = new Thread(() => Common.StartDoubleTakeJob(task));
                                     dt_start_job_Thread.Name = task.target_id;
                                     dt_start_job_Thread.Start();
+                                    dt_start_job_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = dt_start_job_Thread, target_id = task.target_id });
                                     break;
                                 case "dt_failover_job":
@@ -88,6 +104,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread migrate_failover_job_Thread = new Thread(() => Common.FailoverDoubleTakeJob(task));
                                     migrate_failover_job_Thread.Name = task.target_id;
                                     migrate_failover_job_Thread.Start();
+                                    migrate_failover_job_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = migrate_failover_job_Thread, target_id = task.target_id });
                                     break;
                                 case "dt_failover_group":
@@ -95,6 +112,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread migrate_failover_group_Thread = new Thread(() => Common.FailoverDoubleTakeGroup(task));
                                     migrate_failover_group_Thread.Name = task.target_id;
                                     migrate_failover_group_Thread.Start();
+                                    migrate_failover_group_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = migrate_failover_group_Thread, target_id = task.target_id });
                                     break;
 
@@ -104,6 +122,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread deploy_workload_Thread = new Thread(() => Deploy.DeployWorkload(task));
                                     deploy_workload_Thread.Name = task.target_id;
                                     deploy_workload_Thread.Start();
+                                    deploy_workload_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = deploy_workload_Thread, target_id = task.target_id });
                                     break;
 
@@ -113,6 +132,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread discover_datacenters_method_Thread = new Thread(() => DatacenterDiscovery.DatacenterDiscoveryDo(task));
                                     discover_datacenters_method_Thread.Name = task.target_id;
                                     discover_datacenters_method_Thread.Start();
+                                    discover_datacenters_method_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = discover_datacenters_method_Thread, target_id = task.target_id });
                                     break;
                                 case "discovery_method":
@@ -120,6 +140,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread discovery_method_Thread = new Thread(() => PlatformDiscovery.PlatformDiscoveryDo(task));
                                     discovery_method_Thread.Name = task.target_id;
                                     discovery_method_Thread.Start();
+                                    discovery_method_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = discovery_method_Thread, target_id = task.target_id });
                                     break;
 
@@ -129,6 +150,7 @@ namespace MRMPService.TaskExecutioner
                                     Thread discover_workload_Thread = new Thread(() => Workload.DiscoverWorkload(task));
                                     discover_workload_Thread.Name = task.target_id;
                                     discover_workload_Thread.Start();
+                                    discover_workload_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = discover_workload_Thread, target_id = task.target_id });
                                     break;
 

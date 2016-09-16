@@ -128,7 +128,7 @@ namespace MRMPService.MRMPAPI.Classes
                     {
                         if (tokens[3] == "ESTABLISHED" || tokens[3] == "CLOSE_WAIT")
                         {
-                            int _pid = tokens[1] == "UDP" ? Int16.Parse(tokens[3]) : Int16.Parse(tokens[4]);
+                            Int32 _pid = tokens[1] == "UDP" ? Int16.Parse(tokens[3]) : Int16.Parse(tokens[4]);
                             if (_processes.FirstOrDefault(x => x.pid == _pid) != null && tokens[2].Split(':')[0] != "0.0.0.0" && tokens[2].Split(':')[0].ToString() != "127.0.0.1")
                             {
                                 using (NetstatSet _netstat_db = new NetstatSet())

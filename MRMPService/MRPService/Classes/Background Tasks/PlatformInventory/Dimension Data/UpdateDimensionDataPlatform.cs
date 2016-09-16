@@ -205,7 +205,7 @@ namespace MRMPService.PlatformInventory
 
                 List<ServerType> _caas_workload_list = CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.moid, State = "NORMAL" }).Result.ToList();
                 //process deleted platform workloads
-                foreach (var _workload in _mrp_workloads.Where(x => x.platform_id == _platform.id))
+                foreach (var _workload in _mrp_workloads.Where(x => x.platform_id == _platform.id && x.workloadtype != "manager"))
                 {
                     if (!_caas_workload_list.Any(x => x.id == _workload.moid))
                     {

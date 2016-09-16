@@ -31,7 +31,13 @@ namespace MRMPService.LocalDatabase
             var factory = DbProviderFactories.GetFactory("System.Data.SqlServerCe.4.0");
             var connection = factory.CreateConnection();
             string dbfullpath = Path.Combine(dblocation, dbfilename);
-            connection.ConnectionString = "Data Source=" + dbfullpath + ";Persist Security Info=False;Max Database Size=4091;";
+            System.Data.SqlServerCe.SqlCeConnectionStringBuilder builder = new System.Data.SqlServerCe.SqlCeConnectionStringBuilder();
+            builder.DataSource = dbfullpath;
+            builder.MaxBufferSize = 2048;
+            builder.PersistSecurityInfo = false;
+            builder.MaxDatabaseSize = 4091;
+            builder.DefaultLockTimeout = 30000;
+            connection.ConnectionString = builder.ConnectionString;
             return connection;
         }
 

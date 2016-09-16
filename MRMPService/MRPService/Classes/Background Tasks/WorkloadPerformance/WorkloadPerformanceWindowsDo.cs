@@ -12,42 +12,51 @@ namespace MRMPService.PerformanceCollection
 {
     partial class WorkloadPerformance
     {
-        public static void WorkloadPerformanceWindowsDo(SyncronisedList<WorkloadCounters> _workload_counters, SyncronisedList<CollectionCounter> _available_counters, MRPWorkloadType workload)
+        public static void WorkloadPerformanceWindowsDo(SyncronisedList<WorkloadCounters> _workload_counters, SyncronisedList<CollectionCounter> _available_counters, MRPWorkloadType _workload)
         {
             #region load and check workload information
             //check for credentials
-            MRPCredentialType _credential = workload.credential;
-            if (_credential == null)
-            {
-                throw new ArgumentException(String.Format("Error finding credentials"));
-            }
+            MRPCredentialType _credential = _workload.credential;
+
 
             //check for working IP
             string workload_ip = null;
-            using (Connection _connection = new Connection())
+            if (_workload.workloadtype != "manager")
             {
-                workload_ip = _connection.FindConnection(workload.iplist, false);
+                if (_credential == null)
+                {
+                    throw new ArgumentException(String.Format("Error finding credentials"));
+                }
+                using (Connection _connection = new Connection())
+                {
+                    workload_ip = _connection.FindConnection(_workload.iplist, true);
+                }
+                if (workload_ip == null)
+                {
+                    throw new ArgumentException(String.Format("Error contacting workload"));
+                }
             }
-            if (workload_ip == null)
+            else
             {
-                throw new ArgumentException(String.Format("Error contacting workload"));
+                workload_ip = ".";
+
             }
             #endregion
 
-            Logger.log(String.Format("Performance: Start performance collection for {0} using {1}", workload.hostname, workload_ip), Logger.Severity.Info);
+            Logger.log(String.Format("Performance: Start performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
             //grab perfcounter tree from the list for this server and create one if it does not exists
             WorkloadCounters _this_workload_counters = new WorkloadCounters();
-            if (!_workload_counters.Any(x => x.workload_id == workload.id))
+            if (!_workload_counters.Any(x => x.workload_id == _workload.id))
             {
                 //create new workload object with counters and instances hives
-                WorkloadCounters _new_workload = new WorkloadCounters() { workload_id = workload.id, counters = new List<PerfCounter>() };
+                WorkloadCounters _new_workload = new WorkloadCounters() { workload_id = _workload.id, counters = new List<PerfCounter>() };
                 _workload_counters.Add(_new_workload);
             }
-            _this_workload_counters = _workload_counters.FirstOrDefault(x => x.workload_id == workload.id);
+            _this_workload_counters = _workload_counters.FirstOrDefault(x => x.workload_id == _workload.id);
 
             //Impersonate credentials before collection of information
-            using (new Impersonator(_credential.username, (String.IsNullOrEmpty(_credential.domain) ? "." : _credential.domain), _credential.encrypted_password))
+            using (new Impersonator((_workload.workloadtype == "manager" ? "." : _credential.username), (_workload.workloadtype == "manager" ? null : (String.IsNullOrEmpty(_credential.domain) ? "." : _credential.domain)), (_workload.workloadtype == "manager" ? null : _credential.encrypted_password)))
             {
                 //loop each counter in the available counter list
                 foreach (string _current_category in _available_counters.Select(x => x.category).Distinct())
@@ -146,7 +155,7 @@ namespace MRMPService.PerformanceCollection
                             _counterobject.s0 = _counterobject.s1;
 
                             Performance _perf = new Performance();
-                            _perf.workload_id = workload.id;
+                            _perf.workload_id = _workload.id;
                             _perf.timestamp = TimeCalculations.RoundDown(DateTime.UtcNow, TimeSpan.FromHours(1)); //_counterobject.timestamp;
                             _perf.category_name = _current_performance_counter.CategoryName;
                             _perf.counter_name = _current_performance_counter.CounterName;
@@ -159,17 +168,18 @@ namespace MRMPService.PerformanceCollection
                             }
 
                             //process custom counters
-                            
+
+
                             if (_current_performance_counter.CategoryName == "Memory" && _current_performance_counter.CounterName == "Available Bytes")
                             {
-                                long _workload_total_memory = (Convert.ToInt64(workload.vmemory) * 1024 * 1024 * 1024);
+                                long _workload_total_memory = (Convert.ToInt64(_workload.vmemory) * 1024 * 1024 * 1024);
 
                                 //memory: Used Bytes
                                 Double _memory_used_bytes = _workload_total_memory - _counterobject.value;
                                 String _memory_used_counter_name = "Used Bytes";
 
                                 _perf = new Performance();
-                                _perf.workload_id = workload.id;
+                                _perf.workload_id = _workload.id;
                                 _perf.timestamp = TimeCalculations.RoundDown(DateTime.UtcNow, TimeSpan.FromHours(1)); //_counterobject.timestamp;
                                 _perf.category_name = _current_performance_counter.CategoryName;
                                 _perf.counter_name = _memory_used_counter_name;
@@ -181,11 +191,11 @@ namespace MRMPService.PerformanceCollection
                                     performance_db_set.ModelRepository.Insert(_perf);
                                 }
                                 //memory: % used
-                                Double _percentage_memory_used = ((Convert.ToDouble(_memory_used_bytes) / Convert.ToDouble(_workload_total_memory))*100);
+                                Double _percentage_memory_used = ((Convert.ToDouble(_memory_used_bytes) / Convert.ToDouble(_workload_total_memory)) * 100);
                                 String _memory_counter_name = "% Used";
 
                                 _perf = new Performance();
-                                _perf.workload_id = workload.id;
+                                _perf.workload_id = _workload.id;
                                 _perf.timestamp = TimeCalculations.RoundDown(DateTime.UtcNow, TimeSpan.FromHours(1)); //_counterobject.timestamp;
                                 _perf.category_name = _current_performance_counter.CategoryName;
                                 _perf.counter_name = _memory_counter_name;
@@ -200,7 +210,7 @@ namespace MRMPService.PerformanceCollection
                         }
                     }
                 }
-                Logger.log(String.Format("Performance: Completed performance collection for {0} using {1}", workload.hostname, workload_ip), Logger.Severity.Info);
+                Logger.log(String.Format("Performance: Completed performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
             }
         }
     }

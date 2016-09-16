@@ -1,11 +1,10 @@
 ﻿using MRMPService.MRMPService.Log;
 using MRMPService.MRMPAPI.Types.API;
 using System;
-using System.Diagnostics;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using MRMPService.TaskExecutioner;
 
 namespace MRMPService.MRMPAPI.Classes
 {
@@ -18,7 +17,7 @@ namespace MRMPService.MRMPAPI.Classes
             while (true)
             {
                 DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(Global.os_inventory_interval);
-                Stopwatch sw = Stopwatch.StartNew();
+                System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
 
                 Logger.log(String.Format("Staring operating system inventory process with {0} threads", Global.os_inventory_concurrency), Logger.Severity.Info);
 
@@ -27,10 +26,16 @@ namespace MRMPService.MRMPAPI.Classes
                 {
                     workloads = _api.workload().listworkloads().workloads.Where(x => x.os_collection_enabled == true).ToList();
                 }
+                List<Thread> lstThreads = new List<Thread>();
+                foreach (var workload in workloads)
+                {
 
-                Parallel.ForEach(workloads,
-                    new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
-                    (workload) =>
+                    while (lstThreads.Count(x => x.IsAlive) > Global.os_inventory_concurrency - 1)
+                    {
+                        Thread.Sleep(1000);
+                    }
+
+                    Thread _inventory_thread = new Thread(delegate ()
                     {
                         try
                         {
@@ -58,6 +63,14 @@ namespace MRMPService.MRMPAPI.Classes
                             }
                         }
                     });
+                    lstThreads.Add(_inventory_thread);
+                    _inventory_thread.Start();
+                    Logger.log(String.Format("Workload Inventory Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                }
+                while (lstThreads.Any(x => x.IsAlive))
+                {
+
+                }
 
                 sw.Stop();
 

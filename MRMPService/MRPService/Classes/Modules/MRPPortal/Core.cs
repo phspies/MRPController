@@ -40,8 +40,10 @@ namespace MRMPService.MRMPAPI
             request.Method = _method;
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer.ContentType = "application/json; charset=utf-8";
+            request.AddHeader("Accept-Encoding", "gzip");
             request.JsonSerializer = new JsonSerializer();
             request.AddJsonBody(_object);
+            request.Timeout = (int)TimeSpan.FromSeconds(10).TotalMilliseconds;
 
             client.RemoveDefaultParameter("Accept");
             client.AddDefaultParameter("Accept", "application/json", ParameterType.HttpHeader);

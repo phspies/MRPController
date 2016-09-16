@@ -20,48 +20,59 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                 Stopwatch _sw = Stopwatch.StartNew();
                 using (MRMPAPI.MRMP_ApiClient _cloud_movey = new MRMPAPI.MRMP_ApiClient())
                 {
-                    using (MRPDatabase db = new MRPDatabase())
+                    while (true)
                     {
-                        List<NetworkFlow> _db_flows = db.NetworkFlows.AsEnumerable().ToList();                    
-
-                        //process netflows information
-                        List<MRPNetworkFlowCRUDType> _networkflow_list = new List<MRPNetworkFlowCRUDType>();
-                        foreach (NetworkFlow _db_flow in _db_flows)
+                        IEnumerable<NetworkFlow> _increment_records;
+                        using (MRPDatabase _db = new MRPDatabase())
                         {
-                            MRPNetworkFlowCRUDType _mrp_crud = new MRPNetworkFlowCRUDType();
-                            _mrp_crud.kbyte = _db_flow.kbyte;
-                            _mrp_crud.packets = _db_flow.packets;
-                            _mrp_crud.protocol = _db_flow.protocol;
-                            _mrp_crud.source_address = _db_flow.source_address;
-                            _mrp_crud.source_port = _db_flow.source_port;
-                            _mrp_crud.start_timestamp = _db_flow.start_timestamp;
-                            _mrp_crud.stop_timestamp = _db_flow.stop_timestamp;
-                            _mrp_crud.target_address = _db_flow.target_address;
-                            _mrp_crud.target_port = _db_flow.target_port;
-                            _mrp_crud.timestamp = _db_flow.timestamp;
-
-                            //add record to list
-                            _networkflow_list.Add(_mrp_crud);
-
-                            //process batch
-                            if (_networkflow_list.Count() > Global.portal_upload_netflow_page_size)
+                            _increment_records = _db.NetworkFlows.Take(500).AsEnumerable();
+                            if (_increment_records.Count() > 0)
                             {
-                                _cloud_movey.netflow().createnetworkflow(_networkflow_list);
-                                _networkflow_list.Clear();
+                                List<MRPNetworkFlowCRUDType> _netflow_list = new List<MRPNetworkFlowCRUDType>();
+                                foreach (NetworkFlow _db_flow in _increment_records)
+                                {
+                                    MRPNetworkFlowCRUDType _mrp_crud = new MRPNetworkFlowCRUDType();
+                                    _mrp_crud.kbyte = _db_flow.kbyte;
+                                    _mrp_crud.packets = _db_flow.packets;
+                                    _mrp_crud.protocol = _db_flow.protocol;
+                                    _mrp_crud.source_address = _db_flow.source_address;
+                                    _mrp_crud.source_port = _db_flow.source_port;
+                                    _mrp_crud.start_timestamp = _db_flow.start_timestamp;
+                                    _mrp_crud.stop_timestamp = _db_flow.stop_timestamp;
+                                    _mrp_crud.target_address = _db_flow.target_address;
+                                    _mrp_crud.target_port = _db_flow.target_port;
+                                    _mrp_crud.timestamp = _db_flow.timestamp;
+
+                                    _netflow_list.Add(_mrp_crud);
+
+                                    if (_netflow_list.Count > Global.portal_upload_performanceounter_page_size + 100)
+                                    {
+                                        Thread _upload_thread = new Thread(delegate ()
+                                        {
+                                            _cloud_movey.netflow().createnetworkflow(_netflow_list);
+                                            _netflow_list.Clear();
+                                        });
+                                        _upload_thread.Join();
+                                    }
+                                }
+                                //upload last remaining records
+                                if (_netflow_list.Count > 0)
+                                {
+                                    _cloud_movey.netflow().createnetworkflow(_netflow_list);
+                                }
+
+                                //remove all processed records from from local database
+                                Stopwatch _sw_delete = Stopwatch.StartNew();
+                                _db.NetworkFlows.RemoveRange(_increment_records);
+                                _db.SaveChanges();
+                                _sw_delete.Stop();
+                                Logger.log(String.Format("Took {0} to delete {1} netflow records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _increment_records.Count()), Logger.Severity.Debug);
+                            }
+                            else
+                            {
+                                break;
                             }
                         }
-                        //process any remaining records
-                        if (_networkflow_list.Count() > 0)
-                        {
-                            _cloud_movey.netflow().createnetworkflow(_networkflow_list);
-                        }
-                        //remove all processed records from from local database
-                        Stopwatch _sw_delete = Stopwatch.StartNew();
-                        db.NetworkFlows.RemoveRange(_db_flows);
-                        db.SaveChanges();
-                        _sw_delete.Stop();
-                        Logger.log(String.Format("Took {0} to delete {1} netflow records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _db_flows.Count()), Logger.Severity.Debug);
-
                     }
                 }
                 _sw.Stop();

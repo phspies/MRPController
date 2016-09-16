@@ -14,19 +14,19 @@ using System.Threading;
 
 namespace MRMPService.Tasks.DoubleTake
 {
-    partial class DisasterRecovery
+    partial class Availability
     {
-        public static void CreateDRServerProtectionJob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void CreateHAServerProtectionJob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress, String _job_type)
         {
             using (MRMP_ApiClient _mrp_api = new MRMP_ApiClient())
             {
                 using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
                 {
                     _mrp_api.task().progress(_task_id, "Verifying license status on both source and target workloads", ReportProgress.Progress(_start_progress, _end_progress, 2));
-                    if (!_dt.management().CheckLicense(DT_JobTypes.DR_Full_Protection, _protectiongroup.organization_id))
+                    if (!_dt.management().CheckLicense(_job_type.ToString(), _protectiongroup.organization_id))
                     {
                         _mrp_api.task().progress(_task_id, String.Format("Invalid license detected on workloads. Trying to fix the licenses."), 3);
-                        if (!_dt.management().CheckLicense(DT_JobTypes.DR_Full_Protection, _protectiongroup.organization_id))
+                        if (!_dt.management().CheckLicense(_job_type.ToString(), _protectiongroup.organization_id))
                         {
                             throw new Exception(String.Format("Invalid license detected on workloads after trying to fix licenses"));
                         }
@@ -52,7 +52,7 @@ namespace MRMPService.Tasks.DoubleTake
                     var workloadId = Guid.Empty;
                     WorkloadModel wkld = (WorkloadModel)null;
 
-                    workloadId = (_dt.workload().CreateWorkload(DT_JobTypes.DR_Full_Protection).Result).Id;
+                    workloadId = (_dt.workload().CreateWorkload(_job_type.ToString()).Result).Id;
                     wkld = _dt.workload().GetWorkload(workloadId).Result;
 
 
@@ -63,7 +63,7 @@ namespace MRMPService.Tasks.DoubleTake
                     CreateOptionsModel jobInfo = _dt.job().GetJobOptions(
                         wkld,
                         jobCreds,
-                        DT_JobTypes.DR_Full_Protection).Result;
+                        _job_type.ToString()).Result;
 
                     _mrp_api.task().progress(_task_id, "Setting job options", ReportProgress.Progress(_start_progress, _end_progress, 30));
                     jobInfo = SetOptions.set_job_options(_task_id, _source_workload, _target_workload, _protectiongroup, jobInfo, 40, 59);
@@ -71,7 +71,7 @@ namespace MRMPService.Tasks.DoubleTake
                     _mrp_api.task().progress(_task_id, "Verifying job options and settings", ReportProgress.Progress(_start_progress, _end_progress, 60));
 
                     JobOptionsModel _job_model = new JobOptionsModel();
-                    var _fix_result = _dt.job().VerifyAndFixJobOptions(jobCreds, jobInfo.JobOptions, DT_JobTypes.DR_Full_Protection);
+                    var _fix_result = _dt.job().VerifyAndFixJobOptions(jobCreds, jobInfo.JobOptions, _job_type.ToString());
                     if (_fix_result.Item1)
                     {
                         _job_model = _fix_result.Item2;
@@ -95,7 +95,7 @@ namespace MRMPService.Tasks.DoubleTake
                     {
                         JobOptions = _job_model,
                         JobCredentials = jobCreds,
-                        JobType = DT_JobTypes.DR_Full_Protection
+                        JobType = _job_type.ToString()
                     })).Result;
 
                     _mrp_api.task().progress(_task_id, String.Format("Job created. Starting job id {0}", jobId), ReportProgress.Progress(_start_progress, _end_progress, 66));
@@ -107,7 +107,7 @@ namespace MRMPService.Tasks.DoubleTake
                         id = _managementobject.id,
                         moid = jobId,
                         moname = jobInfo.JobOptions.Name,
-                        motype = DT_JobTypes.DR_Full_Protection
+                        motype = _job_type.ToString()
                     });
                     _mrp_api.task().progress(_task_id, "Waiting for sync process to start", ReportProgress.Progress(_start_progress, _end_progress, 71));
 

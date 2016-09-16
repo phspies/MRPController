@@ -15,7 +15,7 @@ namespace MRMPService.LocalDatabase
         public string category_name { get; set; }
         [StringLength(100)]
         public string counter_name { get; set; }
-        [StringLength(100)]
+        [StringLength(512)]
         public string instance { get; set; }
         public double value { get; set; }       
     }

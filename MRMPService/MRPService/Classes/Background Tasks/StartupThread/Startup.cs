@@ -72,7 +72,34 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             {
                 Logger.log(String.Format("Error verifying database: {0}", ex.Message), Logger.Severity.Error);
             }
+            int workerThreads;
+            int portThreads;
+            ThreadPool.GetMaxThreads(out workerThreads, out portThreads);
 
+
+            Logger.log(String.Format("Maximum allowed threads on this workload: [worker threads: {0}] [port threads: {1}]", workerThreads, portThreads), Logger.Severity.Info);
+
+            //int count = 0;
+            //using (MRPDatabase _mrmp_database = new MRPDatabase())
+            //{
+            //    while (true)
+            //    {
+            //        Test _test = new Test() { id = Objects.RamdomGuid() };
+
+            //        try
+            //        {
+            //            _mrmp_database.Test.Add(_test);
+            //            _mrmp_database.SaveChanges();
+            //            count++;
+            //            Console.WriteLine(count);
+            //        }
+            //        catch (Exception ex)
+            //        {
+            //            Console.WriteLine(ex.Message);
+            //        }
+            //    }
+
+            //}
             using (MRPDatabase db = new MRPDatabase())
             {
                 if (Global.debug)
@@ -113,6 +140,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
 
             Logger.log(String.Format("organization id: {0}", Global.organization_id), Logger.Severity.Debug);
 
+
             TaskWorker _scheduler = new TaskWorker();
             if (Global.debug) { Logger.log("Starting Scheduler Thread", Logger.Severity.Debug); };
             scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));
@@ -137,11 +165,12 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             _netflow_thread.IsBackground = true;
             _netflow_thread.Start();
 
-            PortalDataUploadWorker _dataupload = new PortalDataUploadWorker();
-            if (Global.debug) { Logger.log("Starting Data Upload Thread", Logger.Severity.Debug); };
-            _dataupload_thread = new Thread(new ThreadStart(_dataupload.Start));
-            _dataupload_thread.IsBackground = true;
-            _dataupload_thread.Start();
+            if (Global.debug) { Logger.log("Starting Data Upload Worker", Logger.Severity.Debug); };
+            PortalDataUploadWorker _upload = new PortalDataUploadWorker();
+            Thread _upload_thread = new Thread(new ThreadStart(_upload.Start));
+            _upload_thread.Name = "Data Upload Thread";
+            _upload_thread.Start();
+
 
             WorkloadInventoryThread _osinventory = new WorkloadInventoryThread();
             if (Global.debug) { Logger.log("Starting OS Inventory Thread", Logger.Severity.Debug); };

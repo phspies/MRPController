@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MRMPService.LocalDatabase
 {
@@ -19,7 +20,7 @@ namespace MRMPService.LocalDatabase
         public int target_port { get; set; }
         [StringLength(20)]
         public string state { get; set; }
-        public int pid { get; set; }
+        public Int32 pid { get; set; }
         [StringLength(255)]
         public string process { get; set; }
     }

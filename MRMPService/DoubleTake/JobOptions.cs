@@ -17,7 +17,7 @@ namespace MRMPService.MRMPDoubleTake
 
 
             String _job_type = null;
-            if (jobInfo.JobType == DT_JobTypes.HA_Full_Failover)
+            if (jobInfo.JobType == DT_JobTypes.HA_Full_Failover || jobInfo.JobType == DT_JobTypes.HA_Linux_FullFailover)
             {
                 _job_type = "Availability";
                 jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = (bool)_protectiongroup.recoverypolicy.shutdown_source;
@@ -122,7 +122,7 @@ namespace MRMPService.MRMPDoubleTake
                     _snapshot.Interval = _snapshot_timespan;
                     
                     _snapshot.IsEnabled = true;
-                    _snapshot.MaxNumberOfSnapshots = (int)_protectiongroup.recoverypolicy.snapshotmaxcount;
+                    _snapshot.MaxNumberOfSnapshots = _protectiongroup.recoverypolicy.snapshotmaxcount == null ? 0 : (int)_protectiongroup.recoverypolicy.snapshotmaxcount;
                     if (_protectiongroup.recoverypolicy.snapshotstarttimestamp != null)
                     {
                         _snapshot.StartTime = (DateTime)_protectiongroup.recoverypolicy.snapshotstarttimestamp;

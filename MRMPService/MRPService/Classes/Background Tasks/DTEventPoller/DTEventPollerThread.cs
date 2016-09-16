@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using MRMPService.MRMPAPI;
 using MRMPService.MRMPAPI.Types.API;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace MRMPService.DTEventPollerCollection
 {
     class DTEventPollerThread
-    { 
+    {
         public void Start()
         {
             while (true)
@@ -25,10 +26,20 @@ namespace MRMPService.DTEventPollerCollection
                 {
                     _dt_workloads = _mrmp.workload().list_dt_installed();
                 }
-                Parallel.ForEach(_dt_workloads.workloads.Where(x => x.dt_collection_enabled == true),
-                    new ParallelOptions { MaxDegreeOfParallelism = Global.dt_event_polling_concurrency },
-                    (workload) =>
+                List<Thread> lstThreads = new List<Thread>();
+                var splashStart = new ManualResetEvent(false);
+
+                foreach (var workload in _dt_workloads.workloads)
+                {
+
+                    while (lstThreads.Count(x => x.IsAlive) > Global.os_inventory_concurrency - 1)
                     {
+                        Thread.Sleep(1000);
+                    }
+
+                    Thread _inventory_thread = new Thread(delegate ()
+                    {
+                        splashStart.Set();
                         try
                         {
                             DTEventPollerDo.PollerDo(workload);
@@ -46,7 +57,15 @@ namespace MRMPService.DTEventPollerCollection
                             }
                         }
                     });
+                    lstThreads.Add(_inventory_thread);
+                    _inventory_thread.Start();
+                    splashStart.WaitOne();
+                    Logger.log(String.Format("DT Event Poller Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                }
+                while (lstThreads.Any(x => x.IsAlive))
+                {
 
+                }
                 sw.Stop();
 
                 Logger.log(String.Format("Completed Double-Take Event collection for {0} workloads in {1} [next run at {2}]",

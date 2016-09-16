@@ -18,28 +18,57 @@ namespace MRMPService.Tasks.DoubleTake
                 using (Doubletake _dt = new Doubletake(null, _target_workload))
                 {
 
-                    _mrp_api.task().progress(_task_id, "Initiating job move operation for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 10));
+                    _mrp_api.task().progress(_task_id, "Initiating failover operation for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 10));
                     FailoverOptionsModel _options = new FailoverOptionsModel();
 
                     _options.FailoverType = FailoverType.FullServer;
-                    _options.FailoverMode = FailoverMode.Live;
-                    _options.FailoverDataAction = FailoverDataAction.Apply;
-                    JobInfoModel jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString())).Result;
-                    if (jobinfo.Status.CanFailover)
+                    if(_managementobject.managementobjectsnapshot != null)
                     {
-                        _mrp_api.task().progress(_task_id, _managementobject.moname + " is able to migrate", ReportProgress.Progress(_start_progress, _end_progress, 20));
+                        _options.FailoverMode = FailoverMode.Snapshot;
+                        _options.SnapshotId = (Guid)_managementobject.managementobjectsnapshot.snapshotmoid;
+                        _mrp_api.task().progress(_task_id, String.Format("Failing over from snapshot created on {0}",_managementobject.managementobjectsnapshot.timestamp), ReportProgress.Progress(_start_progress, _end_progress, 12));
                     }
                     else
                     {
+                        _options.FailoverMode = FailoverMode.Live;
+                        _mrp_api.task().progress(_task_id, "Failing over from live replication stream", ReportProgress.Progress(_start_progress, _end_progress, 12));
+                    }
+                    _mrp_api.task().progress(_task_id, "Applying remaining datablocks to target server", ReportProgress.Progress(_start_progress, _end_progress, 13));
+                    _options.FailoverDataAction = FailoverDataAction.Apply;
+
+                    JobInfoModel jobinfo = null;
+                    try
+                    {
+                        jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString())).Result;
+                        if (jobinfo.Status.CanFailover)
+                        {
+                            _mrp_api.task().progress(_task_id, _managementobject.moname + " is able to failover", ReportProgress.Progress(_start_progress, _end_progress, 20));
+                        }
+                        else
+                        {
+                            if (_group_task)
+                            {
+                                _mrp_api.task().progress(_task_id, String.Format("{0} cannot be failed over: {1}", _managementobject.moname, jobinfo.Status.HighLevelState), ReportProgress.Progress(_start_progress, _end_progress, 20));
+                                return;
+                            }
+                            else
+                            {
+                                throw new Exception(String.Format("{0} cannot be failed over: {1}", _managementobject.moname, jobinfo.Status.HighLevelState));
+                            }
+                        }
+                    }
+                    catch(Exception ex)
+                    {
                         if (_group_task)
                         {
-                            _mrp_api.task().progress(_task_id, String.Format("{0} cannot be migrated: {1}", _managementobject.moname, jobinfo.Status.HighLevelState), ReportProgress.Progress(_start_progress, _end_progress, 20));
+                            _mrp_api.task().progress(_task_id, String.Format("{0} cannot be migrated: {1}", _managementobject.moname, ex.GetBaseException().Message), ReportProgress.Progress(_start_progress, _end_progress, 20));
                             return;
                         }
                         else
                         {
-                            throw new Exception(String.Format("{0} cannot be migrated: {1}", _managementobject.moname, jobinfo.Status.HighLevelState));
+                            throw new Exception(String.Format("{0} cannot be migrated: {1}", _managementobject.moname, ex.GetBaseException().Message));
                         }
+
                     }
 
                     ActivityStatusModel _status = _dt.job().FailoverJob((Guid)_managementobject.moid, _options);
@@ -57,9 +86,7 @@ namespace MRMPService.Tasks.DoubleTake
                     bool _switched_personalities = false;
 
                     //switched target workload
-                    MRPWorkloadType _new_target_workload = _target_workload;
-                    _new_target_workload.credential = _source_workload.credential;
-                    Doubletake _switched_dt = new Doubletake(null, _new_target_workload);
+
 
                     //the source might be switched off during the failover process, so we need exclude it from the connection object
                     Doubletake _temp_dt = new Doubletake(null, _target_workload);
@@ -99,6 +126,10 @@ namespace MRMPService.Tasks.DoubleTake
                             {
                                 if (_switched_personalities)
                                 {
+                                    MRPWorkloadType _new_target_workload = _target_workload;
+                                    _new_target_workload.credential = _source_workload.credential;
+                                    Doubletake _switched_dt = new Doubletake(null, _new_target_workload);
+                                    _switched_dt.management().UnAuthorizationAsync();
                                     jobinfo = _switched_dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString())).Result;
                                     _mrp_api.task().progress(_task_id, String.Format("{0} became available, finalizing failover", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 94));
                                 }

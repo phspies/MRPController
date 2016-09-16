@@ -11,8 +11,11 @@ namespace MRMPService.Utilities
             if (_longname.Contains("Windows"))
             {
                 _simple_osedition += "WIN";
-
-                if (_longname.Contains("2008"))
+                if (_longname.Contains("2003"))
+                {
+                    _simple_osedition += "2003";
+                }
+                else if (_longname.Contains("2008"))
                 {
                     _simple_osedition += "2008";
                 }

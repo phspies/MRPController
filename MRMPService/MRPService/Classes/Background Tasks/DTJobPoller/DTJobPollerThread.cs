@@ -28,10 +28,19 @@ namespace MRMPService.DTPollerCollection
                     _jobs = _mrmp.managementobject().listmanagementobjects().managementobjects.Where(x => x.target_workload.dt_collection_enabled == true).GroupBy(i => i.moid).Select(group => group.First()).ToList();
 
                 }
-                Parallel.ForEach(_jobs,
-                    new ParallelOptions { MaxDegreeOfParallelism = Global.dt_job_polling_concurrency },
-                    (Action<MRPManagementobjectType>)((job) =>
+                List<Thread> lstThreads = new List<Thread>();
+                var splashStart = new ManualResetEvent(false);
+
+                foreach (var job in _jobs)
+                {
+                    while (lstThreads.Count(x => x.IsAlive) > Global.os_inventory_concurrency)
                     {
+                        Thread.Sleep(1000);
+                    }
+
+                    Thread _inventory_thread = new Thread(delegate ()
+                    {
+                        splashStart.Set();
                         try
                         {
                             DTJobPoller.PollerDo((MRPManagementobjectType)job);
@@ -48,7 +57,18 @@ namespace MRMPService.DTPollerCollection
                                 _api.workload().DoubleTakeUpdateStatus(job.target_workload, ex.Message, false);
                             }
                         }
-                    }));
+                    });
+                    lstThreads.Add(_inventory_thread);
+                    _inventory_thread.Start();
+                    splashStart.WaitOne();
+                    Logger.log(String.Format("DT Job Poller Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                }
+                while (lstThreads.Any(x => x.IsAlive))
+                {
+
+                }
+
+
 
                 sw.Stop();
 

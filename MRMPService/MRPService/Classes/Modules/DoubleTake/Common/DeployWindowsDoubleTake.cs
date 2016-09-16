@@ -111,7 +111,6 @@ namespace MRMPService.Tasks.DoubleTake
                         {
                             remoteFileVersion = FileVersionInfo.GetVersionInfo(RemoteFilePath);
                             _mrp_portal.task().progress(_task_id, String.Format("Double-Take found on {0} : {1}", _working_workload.hostname, remoteFileVersion.ProductVersion), ReportProgress.Progress(_start_progress, _end_progress, _counter + 16));
-                            break;
                         }
                         catch (Exception ex)
                         {

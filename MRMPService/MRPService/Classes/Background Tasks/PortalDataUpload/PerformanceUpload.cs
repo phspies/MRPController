@@ -3,11 +3,10 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
-using MRMPService.Utilities;
 using MRMPService.MRMPAPI;
+using System.Threading;
 
 namespace MRMPService.MRMPService.Classes.Background_Classes
 {
@@ -34,91 +33,93 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     }
                     if (_mrp_workloads == null)
                     {
-                        throw new System.ArgumentException(String.Format("PerformanceUpload: Error connecting retrieving workloads"));
+                        throw new System.ArgumentException(String.Format("Performance Upload: Error connecting retrieving workloads"));
                     }
-                    List<Performance> _local_performance;
-                    using (MRPDatabase db = new MRPDatabase())
+
+                    while (true)
                     {
-                        _local_performance = db.Performance.AsEnumerable().ToList();
-                        //check if workload exists for performancecounter and remove if required
-
-                        var _workload_grouped = _local_performance.Select(x => x.workload_id).ToList().Distinct();
-                        foreach (var _workload in _workload_grouped)
+                        int _increment_record_count = 0;
+                        IEnumerable<Performance> _increment_records;
+                        IEnumerable<String> _workload_grouped;
+                        using (MRPDatabase _db = new MRPDatabase())
                         {
-                            if (!_mrp_workloads.Exists(x => x.id == _workload))
+                            _increment_records = _db.Performance.Take(500).AsEnumerable();
+                            _increment_record_count = _increment_records.Count();
+                            _workload_grouped = _increment_records.Select(x => x.workload_id).Distinct().ToList();
+
+                            if (_increment_record_count > 0)
                             {
-                                using (MRPDatabase _db = new MRPDatabase())
+                                //check if workload exists for performancecounter and remove if required
+                                foreach (var _workload in _workload_grouped)
                                 {
-                                    _db.Performance.RemoveRange(_db.Performance.Where(x => x.workload_id == _workload));
-                                    _db.SaveChanges();
+                                    if (!_mrp_workloads.Exists(x => x.id == _workload))
+                                    {
+                                        _db.Performance.RemoveRange(_db.Performance.Where(x => x.workload_id == _workload));
+                                        _db.SaveChanges();
+                                    }
                                 }
-                            }
-                        }
-                        //get an updated list form database
-                        _local_performance = db.Performance.AsEnumerable().ToList();
 
-                        //first ensure we have a list of the portal performance categories and add what is missing
-                        MRPPerformanceCategoryListType _categories = _cloud_movey.performancecategory().list();
-                        var _local_counterscategories = _local_performance.GroupBy(x => new { x.category_name, x.counter_name, x.workload_id }).Select(group => new countercategory() { category_name = group.Key.category_name, counter_name = group.Key.counter_name, workload_id = group.Key.workload_id }).ToList();
+                                //first ensure we have a list of the portal performance categories and add what is missing
+                                MRPPerformanceCategoryListType _categories = _cloud_movey.performancecategory().list();
+                                var _local_counterscategories = _increment_records.GroupBy(x => new { x.category_name, x.counter_name, x.workload_id }).Select(group => new countercategory() { category_name = group.Key.category_name, counter_name = group.Key.counter_name, workload_id = group.Key.workload_id }).ToList();
 
 
-                        bool counters_changed = false;
-                        foreach (countercategory _cat in _local_counterscategories)
-                        {
-                            bool _mutiple_instances = false;
-                            if (!_local_performance.Exists(x => x.category_name == _cat.category_name && x.counter_name == _cat.counter_name && x.instance == ""))
-                            {
-                                _mutiple_instances = true;
-                            }
-                            if (!_categories.performancecategories.Exists(x => x.category_name == _cat.category_name && x.counter_name == _cat.counter_name && x.workload_id == _cat.workload_id))
-                            {
-                                counters_changed = true;
-                                _cloud_movey.performancecategory().create(new MRPPerformanceCategoryCRUDType() { category_name = _cat.category_name, counter_name = _cat.counter_name, workload_id = _cat.workload_id, instances = _mutiple_instances });
-                            }
-                        }
-                        //get new categories if we add one... 
-                        if (counters_changed)
-                        {
-                            _categories = _cloud_movey.performancecategory().list();
-                        }
-                        if (_categories.performancecategories.Count > 0)
-                        {
-                            //process performancecounters
-                            List<MRPPerformanceCounterCRUDType> _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
-                            List<Performance> _delete_bucket = new List<Performance>();
-                            foreach (Performance _performance in _local_performance)
-                            {
-                                MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
-
-                                _performancecrud.instance = _performance.instance;
-                                _performancecrud.timestamp = _performance.timestamp;
-                                _performancecrud.value = _performance.value;
-                                _performancecrud.workload_id = _performance.workload_id;
-
-                                MRPPerformanceCategoryType _category = _categories.performancecategories.FirstOrDefault(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name && x.workload_id == _performance.workload_id);
-                                _performancecrud.performancecategory_id = _category.id;
-                                _performancecounters_list.Add(_performancecrud);
-
-                                if (_performancecounters_list.Count > Global.portal_upload_performanceounter_page_size)
+                                bool counters_changed = false;
+                                foreach (countercategory _cat in _local_counterscategories)
                                 {
-                                    _cloud_movey.performancecounter().create(_performancecounters_list);
-                                    _performancecounters_list.Clear();
+                                    if (!_categories.performancecategories.Exists(x => x.category_name == _cat.category_name && x.counter_name == _cat.counter_name && x.workload_id == _cat.workload_id))
+                                    {
+                                        counters_changed = true;
+                                        _cloud_movey.performancecategory().create(new MRPPerformanceCategoryCRUDType() { category_name = _cat.category_name, counter_name = _cat.counter_name, workload_id = _cat.workload_id, instances = true });
+                                    }
                                 }
+                                //get new categories if we add one... 
+                                if (counters_changed)
+                                {
+                                    _categories = _cloud_movey.performancecategory().list();
+                                }
+                                if (_categories.performancecategories.Count > 0)
+                                {
+                                    //process performancecounters
+                                    List<MRPPerformanceCounterCRUDType> _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
+                                    foreach (Performance _performance in _increment_records)
+                                    {
+                                        MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
+
+                                        _performancecrud.instance = _performance.instance;
+                                        _performancecrud.timestamp = _performance.timestamp;
+                                        _performancecrud.value = _performance.value;
+                                        _performancecrud.workload_id = _performance.workload_id;
+
+
+                                        MRPPerformanceCategoryType _category = _categories.performancecategories.FirstOrDefault(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name && x.workload_id == _performance.workload_id);
+                                        _performancecrud.performancecategory_id = _category.id;
+                                        _performancecounters_list.Add(_performancecrud);
+
+                                        if (_performancecounters_list.Count > Global.portal_upload_performanceounter_page_size + 100)
+                                        {
+                                            _cloud_movey.performancecounter().create(_performancecounters_list);
+                                            _performancecounters_list.Clear();
+                                        }
+                                    }
+                                    //upload last remaining records
+                                    if (_performancecounters_list.Count > 0)
+                                    {
+                                        _cloud_movey.performancecounter().create(_performancecounters_list);
+                                    }
+                                }
+
+                                //remove all processed records from from local database
+                                Stopwatch _sw_delete = Stopwatch.StartNew();
+                                _db.Performance.RemoveRange(_increment_records);
+                                _db.SaveChanges();
+                                _sw_delete.Stop();
+                                Logger.log(String.Format("Took {0} to delete {1} performance records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _increment_records.Count()), Logger.Severity.Debug);
                             }
-                            //upload last remaining records
-                            if (_performancecounters_list.Count > 0)
+                            else
                             {
-                                _cloud_movey.performancecounter().create(_performancecounters_list);
+                                break;
                             }
-
-                            //remove all processed records from from local database
-                            Logger.log(String.Format("Deleting uploaded performance records: {0}", _local_performance.Count()), Logger.Severity.Debug);
-                            Stopwatch _sw_delete = Stopwatch.StartNew();
-                            db.Performance.RemoveRange(_local_performance);
-                            db.SaveChanges();
-                            _sw_delete.Stop();
-
-                            Logger.log(String.Format("Took {0} to delete {1} performance records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _local_performance.Count()), Logger.Severity.Debug);
                         }
                     }
                 }

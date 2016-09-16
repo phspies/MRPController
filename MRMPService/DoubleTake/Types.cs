@@ -10,21 +10,21 @@ namespace MRMPService.MRMPDoubleTake
 
     public class DT_JobTypes
     {
-        public static string HA_FilesFolders = "FilesAndFolders";
-        public static string HA_Cluster_FilesFolders = "ClusterAwareFilesAndFolders";
-        public static string HA_Full_Failover = "FullServerFailover";
-        public static string HA_Linux_FullFailover = "LinuxFullServerFailover";
-        public static string HA_SQL_Failover = "Sql";
-        public static string HA_SQL_Cluster_Failover = "SqlClustered";
-        public static string HA_Exchange_Failover = "Exchange";
-        public static string HA_Exchange_Cluster_Failover = "ExchangeClustered";
-        public static string DR_Data_Protection = "DataOnlyImageProtection";
-        public static string DR_Data_Recovery = "DataOnlyImageRecovery";
-        public static string DR_Full_Protection = "FullServerImageProtection";
-        public static string DR_Full_Recovery = "FullServerImageRecovery";
-        public static string Move_Server_Migration = "MoveServerMigration";
-        public static string Move_DataOnly_Migration = "MoveDataOnlyMigration";
-        public static string Move_VRA_Migration = "VraMove";
+        public const string HA_FilesFolders = "FilesAndFolders";
+        public const string HA_Cluster_FilesFolders = "ClusterAwareFilesAndFolders";
+        public const string HA_Full_Failover = "FullServerFailover";
+        public const string HA_Linux_FullFailover = "LinuxFullServerFailover";
+        public const string HA_SQL_Failover = "Sql";
+        public const string HA_SQL_Cluster_Failover = "SqlClustered";
+        public const string HA_Exchange_Failover = "Exchange";
+        public const string HA_Exchange_Cluster_Failover = "ExchangeClustered";
+        public const string DR_Data_Protection = "DataOnlyImageProtection";
+        public const string DR_Data_Recovery = "DataOnlyImageRecovery";
+        public const string DR_Full_Protection = "FullServerImageProtection";
+        public const string DR_Full_Recovery = "FullServerImageRecovery";
+        public const string Move_Server_Migration = "MoveServerMigration";
+        public const string Move_DataOnly_Migration = "MoveDataOnlyMigration";
+        public const string Move_VRA_Migration = "VraMove";
     }
     public enum DT_WorkloadType { Source, Target};
 }

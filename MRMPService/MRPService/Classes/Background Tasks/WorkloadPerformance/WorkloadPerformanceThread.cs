@@ -2,7 +2,6 @@
 using MRMPService.LocalDatabase;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using static MRMPService.Utilities.SyncronizedList;
@@ -71,21 +70,32 @@ namespace MRMPService.PerformanceCollection
             while (true)
             {
                 DateTime _next_performance_run = DateTime.UtcNow.AddHours(1);
-                Stopwatch sw = Stopwatch.StartNew();
+                System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
                 int _processed_workloads = 0;
 
                 Logger.log(String.Format("Staring performance collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
 
                 List<MRPWorkloadType> workloads;
+
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
                     workloads = _api.workload().listworkloads().workloads.Where(x => x.perf_collection_enabled == true).ToList();
                 }
+
                 _processed_workloads = workloads.Count();
-                Parallel.ForEach(workloads,
-                    new ParallelOptions { MaxDegreeOfParallelism = Global.os_inventory_concurrency },
-                    (workload) =>
+
+
+                List<Thread> lstThreads = new List<Thread>();
+                foreach (var workload in workloads)
+                {
+                    while (lstThreads.Count(x => x.IsAlive) > Global.os_performance_concurrency - 1)
                     {
+                        Thread.Sleep(1000);
+                    }
+                    var splashStart = new ManualResetEvent(false);
+                    Thread _inventory_thread = new Thread(delegate ()
+                    {
+                        splashStart.Set();
                         try
                         {
                             switch (workload.ostype.ToUpper())
@@ -111,6 +121,16 @@ namespace MRMPService.PerformanceCollection
                             }
                         }
                     });
+                    lstThreads.Add(_inventory_thread);
+                    _inventory_thread.Start();
+                    splashStart.WaitOne();
+
+                    Logger.log(String.Format("Workload Performance Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                }
+                while (lstThreads.Any(x => x.IsAlive))
+                {
+
+                }
 
                 sw.Stop();
 

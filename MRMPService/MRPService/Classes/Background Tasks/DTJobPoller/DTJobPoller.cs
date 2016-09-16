@@ -182,11 +182,19 @@ namespace MRMPService.DTPollerCollection
                                     _managedobject_stat.replication_bytes_sent_compressed = _connection_details.ReplicationBytesTransmitted;
                                     _managedobject_stat.replication_disk_queue = _connection_details.DiskQueueBytes;
                                     _managedobject_stat.replication_queue = _connection_details.ReplicationBytesQueued;
-                                    _managedobject_stat.replication_status = _connection_details.ReplicationState.ToString();
+
+                                    if (_connection_details.ReplicationState == ReplicationState.Replicating)
+                                    {
+                                        _managedobject_stat.replication_status = String.Format("{0} ({1}%)", _connection_details.ReplicationState.ToString(), ((_connection_details.MirrorPermillage/1000)*100));
+                                    }
+                                    else
+                                    {
+                                        _managedobject_stat.replication_status = String.Format("{0}", _connection_details.ReplicationState.ToString());
+                                    }
+
 
                                     _mrp_mo_update.replication_status = _connection_details.ReplicationState.ToString();
                                     _mrp_mo_update.mirror_status = _connection_details.MirrorState.ToString();
-
                                     _managedobject_stat.mirror_remaining = _connection_details.MirrorBytesRemaining;
                                     _managedobject_stat.mirror_percent_complete = _connection_details.MirrorPermillage;
                                     _managedobject_stat.mirror_skipped = _connection_details.MirrorBytesSkipped;

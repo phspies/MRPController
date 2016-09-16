@@ -14,6 +14,10 @@ namespace MRMPService.MRMPDoubleTake
     {
         public Management(Doubletake doubletake) : base(doubletake) { }
 
+        public void UnAuthorizationAsync()
+        {
+            _target_connection.RevokeAuthorizationAsync();
+        }
         public bool CheckLicense(string _job_type, string _org_id, string _source_license_key = null, string _target_license_key = null)
         {
             bool _source_license_status = false;
@@ -118,16 +122,37 @@ namespace MRMPService.MRMPDoubleTake
                     ActivationCodeModel _source_ha_protectcode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "Availability") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_SOURCE"));
                     if (_source_ha_protectcode == null)
                     {
-                        InstallLicense(DT_WorkloadType.Source, "djb5-uqub-dz3r-edxx-1h8m-5mxx");
-                        InstallLicense(DT_WorkloadType.Source, "f960-16ad-6aa4-d3rj-t3rf-ag9m");
-                        InstallLicense(DT_WorkloadType.Source, "et8y-n1g8-6dth-tw2f-cdve-22yh");
-                        InstallLicense(DT_WorkloadType.Source, "4jfc-4x9f-cetr-0rpu-jqr5-jf25");
+                        String[] _licenses = new string[] { "djb5-uqub-dz3r-edxx-1h8m-5mxx", "f960-16ad-6aa4-d3rj-t3rf-ag9m", "et8y-n1g8-6dth-tw2f-cdve-22yh", "4jfc-4x9f-cetr-0rpu-jqr5-jf25" };
+                        foreach (string _license in _licenses)
+                        {
+                            InstallLicense(DT_WorkloadType.Source, _license);
+                            ActivationCodeModel _increment_source_ha_protectcode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "Availability") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_SOURCE"));
+                            if (_increment_source_ha_protectcode.IsValid)
+                            {
+                                _source_license_status = true;
+                                break;
+                            }
+                        }
                     }
                     else
                     {
                         if (_source_ha_protectcode.IsValid)
                         {
                             _source_license_status = true;
+                        }
+                        else
+                        {
+                            String[] _licenses = new string[] { "djb5-uqub-dz3r-edxx-1h8m-5mxx", "f960-16ad-6aa4-d3rj-t3rf-ag9m", "et8y-n1g8-6dth-tw2f-cdve-22yh", "4jfc-4x9f-cetr-0rpu-jqr5-jf25" };
+                            foreach (string _license in _licenses)
+                            {
+                                InstallLicense(DT_WorkloadType.Source, _license);
+                                ActivationCodeModel _increment_source_ha_protectcode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "Availability") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_SOURCE"));
+                                if (_increment_source_ha_protectcode.IsValid)
+                                {
+                                    _source_license_status = true;
+                                    break;
+                                }
+                            }
                         }
                     }
                     //check target server

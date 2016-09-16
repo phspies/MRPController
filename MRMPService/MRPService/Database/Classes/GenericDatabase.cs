@@ -1,7 +1,11 @@
-﻿using MRMPService.Utilities;
+﻿using MRMPService.MRMPService.Log;
+using MRMPService.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -54,27 +58,84 @@ namespace MRMPService.LocalDatabase
 
         public virtual void Insert(TEntity entity)
         {
-            dbSet.Add(entity);
-            context.SaveChanges();
+            try
+            {
+                dbSet.Add(entity);
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Logger.log(String.Format("Error adding record to database: {0} : {1} ({2})", validationError.PropertyName, validationError.ErrorMessage, JsonConvert.SerializeObject(entity)), Logger.Severity.Fatal);
+                        throw new Exception("Error adding record to database");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error adding record to database: {0} : {1}", ex.GetBaseException().Message, JsonConvert.SerializeObject(entity)),Logger.Severity.Fatal);
+                throw new Exception("Error adding record to database");
+            }
+
         }
 
         public virtual void Update(TEntity entity)
         {
-            dbSet.Attach(entity);
-            context.Entry(entity).State = EntityState.Modified;
-            context.SaveChanges();
-
+            try
+            {
+                dbSet.Attach(entity);
+                context.Entry(entity).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Logger.log(String.Format("Error updating database: {0} : {1} ({2})", validationError.PropertyName, validationError.ErrorMessage, JsonConvert.SerializeObject(entity)), Logger.Severity.Fatal);
+                        throw new Exception("Error updating database");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating database: {0} : {1}", ex.GetBaseException().Message, JsonConvert.SerializeObject(entity)), Logger.Severity.Fatal);
+                throw new Exception("Error updating database");
+            }
         }
 
         public virtual void Delete(object id)
         {
-            TEntity entityToDelete = dbSet.Find(id);
-            if (context.Entry(entityToDelete).State == EntityState.Detached)
+            try
             {
-                dbSet.Attach(entityToDelete);
+                TEntity entityToDelete = dbSet.Find(id);
+                if (context.Entry(entityToDelete).State == EntityState.Detached)
+                {
+                    dbSet.Attach(entityToDelete);
+                }
+                dbSet.Remove(entityToDelete);
+                context.SaveChanges();
             }
-            dbSet.Remove(entityToDelete);
-            context.SaveChanges();
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Logger.log(String.Format("Error deleting record form databasee: {0} : {1} ({2})", validationError.PropertyName, validationError.ErrorMessage, JsonConvert.SerializeObject(id)), Logger.Severity.Fatal);
+                        throw new Exception("Error deleting record form database");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error deleting record form database: {0} : {1}", ex.GetBaseException().Message, JsonConvert.SerializeObject(id)), Logger.Severity.Fatal);
+                throw new Exception("Error deleting record from database");
+            }
 
         }
     }

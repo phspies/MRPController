@@ -21,48 +21,64 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                 Stopwatch _sw = Stopwatch.StartNew();
                 using (MRMPAPI.MRMP_ApiClient _cloud_movey = new MRMPAPI.MRMP_ApiClient())
                 {
-                    using (MRPDatabase db = new MRPDatabase())
+
+                    while (true)
                     {
-                        List<MRPNetworkStatCRUDType> _netstat_list = new List<MRPNetworkStatCRUDType>();
-                        List<Netstat> _db_netstats = db.Netstat.AsEnumerable().ToList();
-
-                        foreach (Netstat _db_netstat_record in _db_netstats)
+                        int _increment_record_count = 0;
+                        IEnumerable<Netstat> _increment_records;
+                        using (MRPDatabase _db = new MRPDatabase())
                         {
-                            MRPNetworkStatCRUDType _netstatcrud = new MRPNetworkStatCRUDType();
-                            _netstatcrud.pid = _db_netstat_record.pid;
-                            _netstatcrud.process = _db_netstat_record.process;
-                            _netstatcrud.proto = _db_netstat_record.proto;
-                            _netstatcrud.source_ip = _db_netstat_record.source_ip;
-                            _netstatcrud.source_port = _db_netstat_record.source_port;
-                            _netstatcrud.state = _db_netstat_record.state;
-                            _netstatcrud.target_ip = _db_netstat_record.target_ip;
-                            _netstatcrud.target_port = _db_netstat_record.target_port;
-                            _netstatcrud.workload_id = _db_netstat_record.workload_id;
-
-                            _netstat_list.Add(_netstatcrud);
-                            if (_netstat_list.Count > Global.portal_upload_netstat_page_size)
+                            _increment_records = _db.Netstat.Take(500).AsEnumerable();
+                            _increment_record_count = _increment_records.Count();
+                            if (_increment_record_count > 0)
                             {
-                                _cloud_movey.netstat().create_bulk(_netstat_list);
-                                _netstat_list.Clear();
+
+                                //process performancecounters
+                                List<MRPNetworkStatCRUDType> _netstat_list = new List<MRPNetworkStatCRUDType>();
+                                foreach (Netstat _db_netstat_record in _increment_records)
+                                {
+                                    MRPNetworkStatCRUDType _netstatcrud = new MRPNetworkStatCRUDType();
+                                    _netstatcrud.pid = _db_netstat_record.pid;
+                                    _netstatcrud.process = _db_netstat_record.process;
+                                    _netstatcrud.proto = _db_netstat_record.proto;
+                                    _netstatcrud.source_ip = _db_netstat_record.source_ip;
+                                    _netstatcrud.source_port = _db_netstat_record.source_port;
+                                    _netstatcrud.state = _db_netstat_record.state;
+                                    _netstatcrud.target_ip = _db_netstat_record.target_ip;
+                                    _netstatcrud.target_port = _db_netstat_record.target_port;
+                                    _netstatcrud.workload_id = _db_netstat_record.workload_id;
+
+                                    _netstat_list.Add(_netstatcrud);
+
+                                    if (_netstat_list.Count > Global.portal_upload_performanceounter_page_size + 100)
+                                    {
+                                        _cloud_movey.netstat().create_bulk(_netstat_list);
+                                        _netstat_list.Clear();
+
+                                    }
+                                }
+                                //upload last remaining records
+                                if (_netstat_list.Count > 0)
+                                {
+                                    _cloud_movey.netstat().create_bulk(_netstat_list);
+                                }
+
+                                //remove all processed records from from local database
+                                Stopwatch _sw_delete = Stopwatch.StartNew();
+                                _db.Netstat.RemoveRange(_increment_records);
+                                _db.SaveChanges();
+                                _sw_delete.Stop();
+                                Logger.log(String.Format("Took {0} to delete {1} netstat records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _increment_records.Count()), Logger.Severity.Debug);
+                            }
+                            else
+                            {
+                                break;
                             }
                         }
-                        if (_netstat_list.Count > 0)
-                        {
-                            _cloud_movey.netstat().create_bulk(_netstat_list);
-                        }
-
-                        //remove all processed records from from local database
-                        Logger.log(String.Format("Deleting uploaded Netstat records: {0}", _db_netstats.Count()), Logger.Severity.Debug);
-                        Stopwatch _sw_delete = Stopwatch.StartNew();
-                        db.Netstat.RemoveRange(_db_netstats);
-                        db.SaveChanges();
-                        _sw_delete.Stop();
-                        Logger.log(String.Format("Took {0} to delete {1} performance records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _db_netstats.Count()), Logger.Severity.Debug);
-
                     }
                 }
                 _sw.Stop();
-                Logger.log(String.Format("Completed Nestat Upload Thread in {0}", TimeSpan.FromMilliseconds(_sw.Elapsed.TotalMilliseconds)), Logger.Severity.Debug);
+                Logger.log(String.Format("Completed Netstat Upload Thread in {0}", TimeSpan.FromMilliseconds(_sw.Elapsed.TotalMilliseconds)), Logger.Severity.Debug);
             }
             catch (Exception ex)
             {

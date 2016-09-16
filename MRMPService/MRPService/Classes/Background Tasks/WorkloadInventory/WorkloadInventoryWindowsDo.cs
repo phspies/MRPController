@@ -20,33 +20,54 @@ namespace MRMPService.MRMPAPI.Classes
 
             //check for credentials
             MRPCredentialType _credential = _workload.credential;
-            if (_credential == null)
-            {
-                throw new ArgumentException(String.Format("Error finding credentials"));
-            }
 
             string workload_ip = null;
-            using (Connection _connection = new Connection())
-            {
-                workload_ip = _connection.FindConnection(_workload.iplist, true);
-            }
-            if (workload_ip == null)
-            {
-                throw new ArgumentException(String.Format("Error contacting workload"));
-            }
-
             Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
-            String domainuser;
-            if (!String.IsNullOrWhiteSpace(_credential.domain))
+            String domainuser = null;
+            if (_workload.workloadtype != "manager")
             {
-                domainuser = (_credential.domain + @"\" + _credential.username);
+                if (_credential == null)
+                {
+                    throw new ArgumentException(String.Format("Error finding credentials"));
+                }
+
+                if (!String.IsNullOrWhiteSpace(_credential.domain))
+                {
+                    domainuser = (_credential.domain + @"\" + _credential.username);
+                }
+                else
+                {
+                    domainuser = @".\" + _credential.username;
+                }
+                using (Connection _connection = new Connection())
+                {
+                    workload_ip = _connection.FindConnection(_workload.iplist, true);
+                }
+                if (workload_ip == null)
+                {
+                    throw new ArgumentException(String.Format("Error contacting workload"));
+                }
             }
             else
             {
-                domainuser = @".\" + _credential.username;
+                if (String.IsNullOrEmpty(_workload.iplist))
+                {
+                    workload_ip = "127.0.0.1";
+                }
+                else
+                {
+                    using (Connection _connection = new Connection())
+                    {
+                        workload_ip = _connection.FindConnection(_workload.iplist, true);
+                    }
+                    if (workload_ip == null)
+                    {
+                        throw new ArgumentException(String.Format("Error contacting workload"));
+                    }
+                }
             }
-            ConnectionOptions options = WMIHelper.ProcessConnectionOptions(domainuser, _credential.encrypted_password);
+            ConnectionOptions options = WMIHelper.ProcessConnectionOptions(domainuser, (_workload.workloadtype == "manager" ? null : _credential.encrypted_password));
             ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
 
 
