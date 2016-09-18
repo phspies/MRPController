@@ -30,7 +30,7 @@ namespace MRMPService.TaskExecutioner
                     foreach (MRPTaskType task in tasklist.tasks)
                     {
                         //make sure new target task does not have an active task busy
-                        if ((lstThreads.Exists(x => x.target_id == task.target_id) && lstThreads.Where(x => x.task.IsAlive == true).Count() < Global.scheduler_concurrency))
+                        if ((!lstThreads.Exists(x => x.target_id == task.target_id) && lstThreads.Where(x => x.task.IsAlive == true).Count() < Global.scheduler_concurrency))
                         {
                             switch (task.task_type)
                             {

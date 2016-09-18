@@ -12,7 +12,7 @@ namespace MRMPService.PlatformInventory
 {
     partial class PlatformInventoryWorkloadDo
     {
-        public static void UpdateVMWareWorkload(string _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null, List<MRPPlatformdomainType> _mrp_domains = null, List<MRPPlatformnetworkType> _mrp_networks = null)
+        public static void UpdateVMWareWorkload(string _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null)
         {
 
             MRPCredentialType _platform_credential = _platform.credential;
@@ -22,7 +22,7 @@ namespace MRMPService.PlatformInventory
             try
             {
                 String username = String.Concat((String.IsNullOrEmpty(_platform_credential.domain) ? "" : (_platform_credential.domain + @"\")), _platform_credential.username);
-                _vim = new VimApiClient(_platform.url, username, _platform_credential.encrypted_password);
+                _vim = new VimApiClient(_platform.vmware_url, username, _platform_credential.encrypted_password);
             }
             catch (Exception ex)
             {
@@ -30,6 +30,11 @@ namespace MRMPService.PlatformInventory
             }
 
             VirtualMachine _vmware_workload = _vim.workload().GetWorkload(_workload_moid);
+            if (String.IsNullOrWhiteSpace(_vmware_workload.Guest.HostName) && String.IsNullOrWhiteSpace(_vmware_workload.Guest.IpAddress))
+            {
+                Logger.log(String.Format("Virtual Machine {0} ({1}) does not have a hostname or valid ip address", _vmware_workload.Config.Name, _vmware_workload.MoRef.Value), Logger.Severity.Error);
+                return;
+            }
 
             if (_mrp_workloads == null)
             {
@@ -39,40 +44,26 @@ namespace MRMPService.PlatformInventory
                     _mrp_workloads = _cloud_movey.workload().list_by_platform_all(_platform).workloads.ToList();
                 }
             }
-            if (_mrp_domains == null)
-            {
-                Logger.log(String.Format("UpdateVMwareWorkload: Network Domain list empty, fecthing new list"), Logger.Severity.Info);
-                using (MRMP_ApiClient _cloud_movey = new MRMP_ApiClient())
-                {
-                    _mrp_domains = _cloud_movey.platformdomain().list_by_platform(_platform).platformdomains.ToList();
-                }
-            }
-            if (_mrp_networks == null)
-            {
-                Logger.log(String.Format("UpdateVMwareWorkload: Network VLAN list empty, fecthing new list"), Logger.Severity.Info);
-                using (MRMP_ApiClient _cloud_movey = new MRMP_ApiClient())
-                {
-                    _mrp_networks = _cloud_movey.platformnetwork().list_by_platform(_platform).platformnetworks.ToList();
-                }
-            }
-
             //if workload is local, updated the local db record
             //User might use these servers later...
             MRPWorkloadType _mrp_workload = new MRPWorkloadType();
             if (_mrp_workloads.Exists(x => x.moid == _vmware_workload.MoRef.Value))
             {
-                _mrp_workload = _mrp_workloads.FirstOrDefault(x => x.moid == _vmware_workload.MoRef.Value);
+                _mrp_workload.id = _mrp_workloads.FirstOrDefault(x => x.moid == _vmware_workload.MoRef.Value).id;
+            }
+            else
+            {
+                _mrp_workload.vcpu = _vmware_workload.Config.Hardware.NumCPU; 
+                _mrp_workload.vcore = (int)_vmware_workload.Config.Hardware.NumCoresPerSocket;
+                _mrp_workload.vmemory = _vmware_workload.Config.Hardware.MemoryMB / 1024; 
+                _mrp_workload.iplist = _vmware_workload.Guest.IpAddress;
+                _mrp_workload.hostname = _vmware_workload.Guest.HostName;
+                _mrp_workload.ostype = _vmware_workload.Config.GuestFullName.Contains("Win") ? "WINDOWS" : "UNIX"; 
+                _mrp_workload.osedition = OSEditionSimplyfier.Simplyfier(_vmware_workload.Config.GuestFullName);
             }
 
-            _mrp_workload.vcpu = _vmware_workload.Config.Hardware.NumCPU;
-            _mrp_workload.vcore = (int)_vmware_workload.Config.Hardware.NumCoresPerSocket;
-            _mrp_workload.vmemory = _vmware_workload.Config.Hardware.MemoryMB / 1024;
-            _mrp_workload.iplist = _vmware_workload.Guest.IpAddress;
-            _mrp_workload.hostname = _vmware_workload.Guest.HostName;
             _mrp_workload.moid = _vmware_workload.MoRef.Value;
             _mrp_workload.platform_id = _platform.id;
-            _mrp_workload.ostype = _vmware_workload.Config.GuestFullName.Contains("Win") ? "WINDOWS" : "UNIX";
-            _mrp_workload.osedition = OSEditionSimplyfier.Simplyfier(_vmware_workload.Config.GuestFullName);
 
             //evaluate all virtual network interfaces for workload
             List<Type> _vmware_nic_types = new List<Type>() { typeof(VirtualE1000), typeof(VirtualE1000e), typeof(VirtualPCNet32), typeof(VirtualSriovEthernetCard), typeof(VirtualVmxnet), typeof(VirtualVmxnet3) };
@@ -87,17 +78,17 @@ namespace MRMPService.PlatformInventory
                 if (_workloadnic.Backing is VirtualEthernetCardNetworkBackingInfo)
                 {
                     VirtualEthernetCardNetworkBackingInfo _nic_backing = (VirtualEthernetCardNetworkBackingInfo)_workloadnic.Backing;
-                    if (_mrp_networks.Exists(x => x.moid == _nic_backing.Network.Value))
+                    if (_platform.platformdomains_attributes.SelectMany(x => x.platformnetworks_attributes).Any(y => y.moid == _nic_backing.Network.Value))
                     {
-                        _logical_interface.platformnetwork_id = _mrp_networks.FirstOrDefault(x => x.moid == _nic_backing.Network.Value).id;
+                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks_attributes).FirstOrDefault(y => y.moid == _nic_backing.Network.Value).id;
                     }
                 }
                 else if (_workloadnic.Backing is VirtualEthernetCardDistributedVirtualPortBackingInfo)
                 {
                     VirtualEthernetCardDistributedVirtualPortBackingInfo _nic_backing = (VirtualEthernetCardDistributedVirtualPortBackingInfo)_workloadnic.Backing;
-                    if (_mrp_networks.Exists(x => x.moid == _nic_backing.Port.PortgroupKey))
+                    if (_platform.platformdomains_attributes.SelectMany(x => x.platformnetworks_attributes).Any(y => y.moid == _nic_backing.Port.PortgroupKey))
                     {
-                        _logical_interface.platformnetwork_id = _mrp_networks.FirstOrDefault(x => x.moid == _nic_backing.Port.PortgroupKey).id;
+                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks_attributes).FirstOrDefault(y => y.moid == _nic_backing.Port.PortgroupKey).id;
                     }
                 }
                 else

@@ -5,7 +5,7 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 #pragma warning disable
-namespace MRMPService.RP4VM
+namespace MRMP.RP4VM
 {
     using System;
     using System.Diagnostics;

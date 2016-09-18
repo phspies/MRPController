@@ -79,7 +79,7 @@ namespace MRMPService.PerformanceCollection
 
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
-                    workloads = _api.workload().listworkloads().workloads.Where(x => x.perf_collection_enabled == true).ToList();
+                    workloads = _api.workload().listworkloads_perf_enabled().workloads;
                 }
 
                 _processed_workloads = workloads.Count();

@@ -80,12 +80,12 @@
     <ApplicationIcon>mrp.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.3.453.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.453\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.3.455.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.455\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.3.453.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.453\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.3.455.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.455\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DoubleTake.Core, Version=0.1.44.0, Culture=neutral, processorArchitecture=MSIL">
@@ -385,6 +385,8 @@
     <Compile Include="MRPService\Types\API\NetworkFlow.cs" />
     <Compile Include="MRPService\Types\API\PerformanceCategory.cs" />
     <Compile Include="MRPService\Types\API\PerformanceCounter.cs" />
+    <Compile Include="MRPService\Types\API\PlatformCluster.cs" />
+    <Compile Include="MRPService\Types\API\PlatformDatastore.cs" />
     <Compile Include="MRPService\Types\API\PlatformDomain.cs" />
     <Compile Include="MRPService\Types\API\PlatformDatacenter.cs" />
     <Compile Include="MRPService\Types\API\PlatformNetwork.cs" />
@@ -439,6 +441,7 @@
     <Compile Include="RP4VM\vCenterServers.cs" />
     <Compile Include="RP4VM\VirtualMachines.cs" />
     <Compile Include="RP4VM\RP4VMTypes.cs" />
+    <Compile Include="RP4VM\xsd.Designer.cs" />
     <Compile Include="VMWare\Core.cs" />
     <Compile Include="VMWare\Datastores.cs" />
     <Compile Include="VMWare\Networks.cs" />
@@ -476,7 +479,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="RP4VM\application.wadl" />
-    <None Include="RP4VM\xsd0.xsd">
+    <None Include="RP4VM\xsd.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

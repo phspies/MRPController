@@ -17,6 +17,14 @@ namespace MRMPService.RP4VMAPI
         {
             return new Arrays(this);
         } 
+        public Settings settings()
+        {
+            return new Settings(this);
+        }
+        public RP4VMSystem system()
+        {
+            return new RP4VMSystem(this);
+        }
         public Events events()
         {
             return new Events(this);

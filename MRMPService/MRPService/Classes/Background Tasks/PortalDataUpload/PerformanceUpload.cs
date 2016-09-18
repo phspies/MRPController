@@ -26,39 +26,19 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                 Stopwatch _sw = Stopwatch.StartNew();
                 using (MRMPAPI.MRMP_ApiClient _cloud_movey = new MRMPAPI.MRMP_ApiClient())
                 {
-                    List<MRPWorkloadType> _mrp_workloads;
-                    using (MRMP_ApiClient _api = new MRMP_ApiClient())
-                    {
-                        _mrp_workloads = _api.workload().listworkloads().workloads;
-                    }
-                    if (_mrp_workloads == null)
-                    {
-                        throw new System.ArgumentException(String.Format("Performance Upload: Error connecting retrieving workloads"));
-                    }
+
 
                     while (true)
                     {
-                        int _increment_record_count = 0;
                         IEnumerable<Performance> _increment_records;
                         IEnumerable<String> _workload_grouped;
                         using (MRPDatabase _db = new MRPDatabase())
                         {
                             _increment_records = _db.Performance.Take(500).AsEnumerable();
-                            _increment_record_count = _increment_records.Count();
                             _workload_grouped = _increment_records.Select(x => x.workload_id).Distinct().ToList();
 
-                            if (_increment_record_count > 0)
+                            if (_increment_records.Count() > 0)
                             {
-                                //check if workload exists for performancecounter and remove if required
-                                foreach (var _workload in _workload_grouped)
-                                {
-                                    if (!_mrp_workloads.Exists(x => x.id == _workload))
-                                    {
-                                        _db.Performance.RemoveRange(_db.Performance.Where(x => x.workload_id == _workload));
-                                        _db.SaveChanges();
-                                    }
-                                }
-
                                 //first ensure we have a list of the portal performance categories and add what is missing
                                 MRPPerformanceCategoryListType _categories = _cloud_movey.performancecategory().list();
                                 var _local_counterscategories = _increment_records.GroupBy(x => new { x.category_name, x.counter_name, x.workload_id }).Select(group => new countercategory() { category_name = group.Key.category_name, counter_name = group.Key.counter_name, workload_id = group.Key.workload_id }).ToList();
@@ -90,7 +70,6 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                                         _performancecrud.timestamp = _performance.timestamp;
                                         _performancecrud.value = _performance.value;
                                         _performancecrud.workload_id = _performance.workload_id;
-
 
                                         MRPPerformanceCategoryType _category = _categories.performancecategories.FirstOrDefault(x => x.category_name == _performance.category_name && x.counter_name == _performance.counter_name && x.workload_id == _performance.workload_id);
                                         _performancecrud.performancecategory_id = _category.id;

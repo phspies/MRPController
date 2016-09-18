@@ -92,7 +92,6 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\Renci.SshNet.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\Renci.SshNet.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\protobuf-net.dll
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.csprojResolveAssemblyReference.cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DD.CBU.Compute.Api.Client.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DD.CBU.Compute.Api.Contracts.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DD.CBU.Compute.Api.Client.pdb
@@ -104,3 +103,4 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPSer
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\DoubleTake.PowerShell.Contract.Data.xml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Management.Automation.dll
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\System.Reactive.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\obj\x64\Debug\MRMPService.csprojResolveAssemblyReference.cache

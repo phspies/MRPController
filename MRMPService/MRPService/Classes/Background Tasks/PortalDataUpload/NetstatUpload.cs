@@ -24,13 +24,11 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
 
                     while (true)
                     {
-                        int _increment_record_count = 0;
                         IEnumerable<Netstat> _increment_records;
                         using (MRPDatabase _db = new MRPDatabase())
                         {
                             _increment_records = _db.Netstat.Take(500).AsEnumerable();
-                            _increment_record_count = _increment_records.Count();
-                            if (_increment_record_count > 0)
+                            if (_increment_records.Count() > 0)
                             {
 
                                 //process performancecounters

@@ -8,6 +8,7 @@ using MRMPService.RP4VMAPI;
 using System.Collections.Generic;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MRMPService.RP4VM
 {
@@ -15,9 +16,9 @@ namespace MRMPService.RP4VM
     {
         private String _endpoint;
         private RP4VM_ApiClient _client;
-        static string api_prefix = "/";
+        static string api_prefix = "/fapi/rest/4_3";
         public string mediatype = "";
-        public List<KeyValuePair<string, string>> url_params;
+        public List<KeyValuePair<string, string>> url_params = new List<KeyValuePair<string, string>>();
 
         public Core(RP4VM_ApiClient _RP4VM)
         {
@@ -100,7 +101,11 @@ namespace MRMPService.RP4VM
                 {
                     try
                     {
-                        responseobject = JsonConvert.DeserializeObject<type>(response.Content);
+                        responseobject = JsonConvert.DeserializeObject<type>(response.Content, new JsonSerializerSettings
+                        {
+                            MissingMemberHandling = MissingMemberHandling.Ignore, NullValueHandling = NullValueHandling.Ignore,
+                             Error = HandleDeserializationError
+                        });
                     }
                     catch (Exception ex)
                     {
@@ -172,6 +177,11 @@ namespace MRMPService.RP4VM
                 this._endpoint = value;
             }
         }
-
+        public void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
+        {
+            var currentError = errorArgs.ErrorContext.Error.Message;
+            errorArgs.ErrorContext.Handled = true;
+        }
     }
+
 }

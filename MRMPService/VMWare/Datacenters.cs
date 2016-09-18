@@ -24,6 +24,25 @@ namespace MRMPService.VMWare
             ManagedObjectReference dcobj = new ManagedObjectReference() { Type = "Datacenter", Value = _dc_moref };
             return (Datacenter)_vmwarecontext.GetView(dcobj, null);
         }
+        public List<ComputeResource> ClusterList(Datacenter selectedDC = null)
+        {
+            ManagedObjectReference DcMoRef = new ManagedObjectReference();
+            List<ComputeResource> computeresources = new List<ComputeResource>();
+            if (selectedDC != null)
+            {
+                DcMoRef = selectedDC.MoRef;
+            }
+            else
+            {
+                DcMoRef = null;
+            }
+            foreach (EntityViewBase computeresource in _vmwarecontext.FindEntityViews(typeof(ComputeResource), DcMoRef, null, null))
+            {
+                ComputeResource cluster = computeresource as ComputeResource;
+                computeresources.Add(cluster);
+            }
+            return computeresources;
+        }
     }
 
 }

@@ -136,7 +136,10 @@
         <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.operationStatus">
             <remarks/>
         </member>
-        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.drsInfrastructureStatus">
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.drsInfrastructure">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.drsStatusCheckFailureCount">
             <remarks/>
         </member>
         <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupType.state">
@@ -170,6 +173,18 @@
             <remarks/>
         </member>
         <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeServerPair.state">
+            <remarks/>
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeDrsInfrastructure">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeDrsInfrastructure.enabled">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeDrsInfrastructure.status">
+            <remarks/>
+        </member>
+        <member name="F:DD.CBU.Compute.Api.Contracts.Drs.ConsistencyGroupTypeDrsInfrastructure.updateTime">
             <remarks/>
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Drs.CreateConsistencyGroupType">
@@ -206,6 +221,15 @@
             <remarks/>
         </member>
         <member name="P:DD.CBU.Compute.Api.Contracts.Drs.InitiateFailoverType.consistencyGroupId">
+            
+        </member>
+        <member name="T:DD.CBU.Compute.Api.Contracts.Drs.ExpandJournalType">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.ExpandJournalType.sizeGb">
+            
+        </member>
+        <member name="P:DD.CBU.Compute.Api.Contracts.Drs.ExpandJournalType.id">
             
         </member>
         <member name="T:DD.CBU.Compute.Api.Contracts.Network20.VlanType">

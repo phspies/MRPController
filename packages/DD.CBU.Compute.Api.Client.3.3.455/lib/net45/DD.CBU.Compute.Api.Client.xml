@@ -1005,6 +1005,13 @@
             <param name="InitiateFailover">The Initiate failover type.</param>
             <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
         </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Interfaces.Drs.IConsistencyGroupAccessor.ExpandJournal(DD.CBU.Compute.Api.Contracts.Drs.ExpandJournalType)">
+            <summary>
+            Expand journal
+            </summary>
+            <param name="expandJournalType">Expand journal type.</param>
+            <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
         <member name="F:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor._apiClient">
             <summary>
             The _client.
@@ -1072,6 +1079,13 @@
             The initiate failover for a consistency group.
             </summary>
             <param name="InitiateFailover">The Initiate failover type.</param>
+            <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.Drs.ConsistencyGroupAccessor.ExpandJournal(DD.CBU.Compute.Api.Contracts.Drs.ExpandJournalType)">
+            <summary>
+            Expand journal
+            </summary>
+            <param name="expandJournalType">Expand journal type.</param>
             <returns>The <see cref="T:DD.CBU.Compute.Api.Contracts.Network20.ResponseType"/></returns>
         </member>
         <member name="T:DD.CBU.Compute.Api.Client.ApiClientException">
@@ -2474,6 +2488,11 @@
         </member>
         <member name="M:DD.CBU.Compute.Api.Client.ApiUris.InitiateFailover(System.Guid)">
             <summary>Returns the relative URI of the REST request for initiate failover for a consistency group.</summary>
+            <param name="orgId">The organization id.</param>
+            <returns>The <see cref="T:System.Uri"/>.</returns>
+        </member>
+        <member name="M:DD.CBU.Compute.Api.Client.ApiUris.ExpandJournal(System.Guid)">
+            <summary>Returns the relative URI of the REST request for expand journal.</summary>
             <param name="orgId">The organization id.</param>
             <returns>The <see cref="T:System.Uri"/>.</returns>
         </member>

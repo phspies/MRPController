@@ -1,13 +1,7 @@
-﻿using MRMPService.MRMPAPI.Types.API;
-using System;
-using System.Linq;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics;
 using System.Threading;
-using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
-using MRMPService.Utilities;
-using System.Threading.Tasks;
 
 namespace MRMPService.MRMPService.Classes.Background_Classes
 {

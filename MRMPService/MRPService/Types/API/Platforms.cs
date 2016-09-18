@@ -54,6 +54,12 @@ namespace MRMPService.MRMPAPI.Types.API
         public string platformtype { get; set; }
         [JsonProperty("url")]
         public string url { get; set; }
+        [JsonProperty("vmware_url")]
+        public string vmware_url { get; set; }
+        [JsonProperty("hyperv_url")]
+        public string hyperv_url { get; set; }
+        [JsonProperty("rp4vm_url")]
+        public string rp4vm_url { get; set; }
         [JsonProperty("moid")]
         public string moid { get; set; }
         [JsonProperty("manager_id")]
@@ -72,6 +78,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public List<MRPPlatformdatacenterType> platformdatacenters_attributes { get; set; }
         [JsonProperty("platformtemplates_attributes")]
         public List<MRPPlatformtemplateType> platformtemplates_attributes { get; set; }
+        [JsonProperty("platformdatastores_attributes")]
+        public List<MRPPlatformdatastoreType> platformdatastores_attributes { get; set; }
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DD.CBU.Compute.Api.Contracts.Network20;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,14 +57,16 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("vpn_url")]
         public string vpn_url { get; set; }
         [JsonProperty("diskspeeds")]
-        public string diskspeeds { get; set; }
+        public DiskSpeedType[] diskspeeds { get; set; }
         [JsonProperty("cpuspeeds")]
-        public string cpuspeeds { get; set; }
+        public CpuSpeedType[] cpuspeeds { get; set; }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
         [JsonProperty("displayname")]
         public string displayname { get; set; }
         [JsonProperty("target_drs_moid_list")]
         public string target_drs_moid_list { get; set; }
+        [JsonProperty("platformclusters_attributes")]
+        public List<MRPPlatformclusterType> platformclusters_attributes { get; set; }
     }
 }

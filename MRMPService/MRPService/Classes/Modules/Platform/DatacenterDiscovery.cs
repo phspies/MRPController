@@ -2,6 +2,8 @@
 using DD.CBU.Compute.Api.Contracts.Network20;
 using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
+using MRMPService.RP4VM;
+using MRMPService.RP4VMAPI;
 using MRMPService.VMWare;
 using Newtonsoft.Json;
 using System;
@@ -58,8 +60,8 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                                 }
 
                                 _platform_datacenter.moid = _dc.id;
-                                _platform_datacenter.diskspeeds = JsonConvert.SerializeObject(_dc.hypervisor.diskSpeed).Replace("\\", "");
-                                _platform_datacenter.cpuspeeds = JsonConvert.SerializeObject(_dc.hypervisor.cpuSpeed).Replace("\\", "");
+                                _platform_datacenter.diskspeeds = _dc.hypervisor.diskSpeed;
+                                _platform_datacenter.cpuspeeds = _dc.hypervisor.cpuSpeed;
                                 _platform_datacenter.vpn_url = _dc.vpnUrl;
                                 _platform_datacenter.city = _dc.city;
                                 _platform_datacenter.country = _dc.country;
@@ -98,11 +100,11 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                     {
                         try
                         {
-                            _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from {0} for type VMWare", _platform.url), 10);
+                            _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from {0} for type VMWare", _platform.vmware_url), 10);
                             _mrmp_datacenters = _mrp_api.platformdatacenter().list(_platform);
-                            _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 10);
+                            _mrp_api.task().progress(payload, String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 15);
                             String username = String.Concat((String.IsNullOrEmpty(_platform_credentail.domain) ? "" : (_platform_credentail.domain + @"\")), _platform_credentail.username);
-                            _vim = new VimApiClient(_platform.url, username, _platform_credentail.encrypted_password);
+                            _vim = new VimApiClient(_platform.vmware_url, username, _platform_credentail.encrypted_password);
                             _vim.datacenter().DatacenterList();
                             
                         }
@@ -116,7 +118,7 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                         List<Datacenter> _vmware_datacenters = _vim.datacenter().DatacenterList();
                         if (_vmware_datacenters != null)
                         {
-                            _mrp_api.task().progress(payload, String.Format("Found {0} datacenters", _vmware_datacenters.Count), 15);
+                            _mrp_api.task().progress(payload, String.Format("Found {0} datacenters", _vmware_datacenters.Count), 20);
                             foreach (Datacenter _dc in _vmware_datacenters)
                             {
                                 MRPPlatformdatacenterType _platform_datacenter = new MRPPlatformdatacenterType();
@@ -137,16 +139,66 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                                     _mrp_api.platformdatacenter().create(_platform_datacenter);
                                 }
                             }
+                            _mrp_api.task().progress(payload, String.Format("Successfully created/updated {0} datacenter(s)", _vmware_datacenters.Count), 30);
+                            _mrp_api.task().successcomplete(payload, String.Format("Successfully created/updated {0} datacenter(s)", _vmware_datacenters.Count));
                         }
                         else
                         {
-                            _mrp_api.task().progress(payload, String.Format("Something went wrong, null based vmware server list"), 15);
+                            _mrp_api.task().progress(payload, String.Format("Something went wrong, null based vmware server list"), 30);
                             _mrp_api.task().failcomplete(payload, String.Format("Something went wrong, null based vmware server list"));
-                            return;
                         }
-                        _mrp_api.task().progress(payload, String.Format("Successfully created/updated {0} datacenter(s)", _vmware_datacenters.Count), 20);
-                        _mrp_api.task().successcomplete(payload, String.Format("Successfully created/updated {0} datacenter(s)", _vmware_datacenters.Count));
                     }
+                    break;
+                case "rp4vm":
+                    RP4VM_ApiClient _rp4vm;
+                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
+                    {
+                        SystemSettings _rp4vm_settings = null;
+                        try
+                        {
+                            _mrp_api.task().progress(payload, String.Format("Retrieving clusters from {0} for type EMC RP4VM", _platform.rp4vm_url), 10);
+                            _mrmp_datacenters = _mrp_api.platformdatacenter().list(_platform);
+                            _mrp_api.task().progress(payload, String.Format("Retrieving clusters from platform for {0}", _platform.platform), 15);
+                            String username = String.Concat((String.IsNullOrEmpty(_platform_credentail.domain) ? "" : (_platform_credentail.domain + @"\")), _platform_credentail.username);
+                            _rp4vm = new RP4VM_ApiClient(_platform.rp4vm_url, username, _platform_credentail.encrypted_password);
+                            _rp4vm_settings = _rp4vm.system().getSystemSettings_Method();
+
+                        }
+                        catch (Exception ex)
+                        {
+                            _mrp_api.task().progress(payload, String.Format("{0}", ex.GetBaseException().Message), 20);
+                        }
+                        if (_rp4vm_settings != null)
+                        {
+                            MRPPlatformType _update_platform = new MRPPlatformType() { id = _platform.id };
+                            _update_platform.platformdatacenters_attributes = new List<MRPPlatformdatacenterType>();
+                            foreach (var _cluster in _rp4vm_settings.clustersSettings)
+                            {
+                                MRPPlatformdatacenterType _datacenter = new MRPPlatformdatacenterType();
+                                if (_platform.platformdatacenters_attributes != null)
+                                {
+                                    if (_platform.platformdatacenters_attributes.Exists(x => x.moid == _cluster.clusterUID.id.ToString()))
+                                    {
+                                        _datacenter.id = _platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == _cluster.clusterUID.id.ToString()).id;
+                                    }
+                                }
+                                _datacenter.moid = _cluster.clusterUID.id.ToString();
+                                _datacenter.displayname = _cluster.clusterName;
+                                _update_platform.platformdatacenters_attributes.Add(_datacenter);
+                            }
+
+                            _mrp_api.platform().update(_update_platform);
+
+                            _mrp_api.task().progress(payload, String.Format("Successfully created/updated {0} RP4VM slusters(s)", _rp4vm_settings.clustersSettings.Count()), 30);
+                            _mrp_api.task().successcomplete(payload, String.Format("Successfully created/updated {0} RP4VM clusters(s)", _rp4vm_settings.clustersSettings.Count()));
+                        }
+                        else
+                        {
+                            _mrp_api.task().progress(payload, String.Format("Something went wrong, null based cluster list"), 30);
+                            _mrp_api.task().failcomplete(payload, String.Format("Something went wrong, null based cluster list"));
+                        }
+                    }
+
 
                     break;
             }

@@ -27,37 +27,88 @@ namespace MRMPService.PlatformInventory
             MRPCredentialType _vmware_credential = _platform.credential;
 
             String username = String.Concat((String.IsNullOrEmpty(_vmware_credential.domain) ? "" : (_vmware_credential.domain + @"\")), _vmware_credential.username);
-            VimApiClient _vim = new VimApiClient(_platform.url, username, _vmware_credential.encrypted_password);
+            VimApiClient _vim = new VimApiClient(_platform.vmware_url, username, _vmware_credential.encrypted_password);
 
 
             //update localdb platform information
             Datacenter dc = _vim.datacenter().GetDataCenter(_platform.moid);
             List<DistributedVirtualSwitch> networkdomain_list = _vim.networks().GetDVSwitches(dc);
+            List<Datastore> datastore_list = _vim.datastore().DatastoreList(dc);
+            List<ComputeResource> cluster_list = _vim.datacenter().ClusterList(dc);
+
             NameValueCollection filter = new NameValueCollection();
             List<VirtualMachine> _vmware_workload_list = _vim.workload().GetWorkloads(dc, filter).Where(x => x.Runtime.PowerState == VirtualMachinePowerState.poweredOn).ToList();
             List<Network> _vmware_vlan_list = _vim.networks().GetPortGroups(dc).ToList();
+            List<MRPPlatformdomainType> _mrp_domains = _platform.platformdomains_attributes;
 
-            int workloads;
-            workloads = 0;
+            MRPPlatformType _update_platform = new MRPPlatformType() { id = _platform.id };
 
-            List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().list_by_platform_all(_platform).workloads.ToList();
-            List<MRPPlatformdomainType> _mrp_domains = _cloud_movey.platformdomain().list_by_platform(_platform).platformdomains.ToList();
-            List<MRPPlatformnetworkType> _mrp_networks = _cloud_movey.platformnetwork().list_by_platform(_platform).platformnetworks.ToList();
+            _update_platform.platformdatacenters_attributes = new List<MRPPlatformdatacenterType>();
+            MRPPlatformdatacenterType _datacenter = new MRPPlatformdatacenterType();
+            _datacenter.platformclusters_attributes = new List<MRPPlatformclusterType>();
+            if (_platform.platformdatacenters_attributes.Exists(x => x.moid == dc.MoRef.Value))
+            {
+                _datacenter.id = _platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).id;
+            }
+            _datacenter.moid = dc.MoRef.Value;
+
+            _update_platform.platformdatacenters_attributes.Add(_datacenter);
+
+            foreach (ComputeResource _cluster in cluster_list)
+            {
+                MRPPlatformclusterType _mrp_cluster = new MRPPlatformclusterType();
+                if (_platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).platformclusters_attributes.Exists(x => x.moid == _cluster.MoRef.Value))
+                {
+                    _mrp_cluster.id = _platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).platformclusters_attributes.FirstOrDefault(x => x.moid == _cluster.MoRef.Value).id;
+                }
+                _mrp_cluster.moid = _cluster.MoRef.Value;
+                _mrp_cluster.cluster = _cluster.Name;
+                _mrp_cluster.networkcount = _cluster.Network.Count();
+                _mrp_cluster.hostcount = _cluster.Summary.NumHosts;
+                _mrp_cluster.totalcpu = _cluster.Summary.TotalCpu;
+                _mrp_cluster.totalmemory = _cluster.Summary.TotalMemory;
+
+                _datacenter.platformclusters_attributes.Add(_mrp_cluster);
+            }
+
+            _update_platform.platformdatastores_attributes = new List<MRPPlatformdatastoreType>();
+            foreach (Datastore _datastore in datastore_list)
+            {
+                MRPPlatformdatastoreType _platform_datastore = new MRPPlatformdatastoreType();
+                if (_platform.platformdatastores_attributes.Exists(x => x.moid == _datastore.MoRef.Value))
+                {
+                    _platform_datastore.id = _platform.platformdatastores_attributes.FirstOrDefault(x => x.moid == _datastore.MoRef.Value).id;
+                }
+                _platform_datastore.datastore = _datastore.Name;
+                _platform_datastore.moid = _datastore.MoRef.Value;
+                _platform_datastore.totalcapacity = _datastore.Summary.Capacity;
+                _platform_datastore.freecapacity = _datastore.Summary.FreeSpace;
+
+                _update_platform.platformdatastores_attributes.Add(_platform_datastore);
+            }
+
+            _update_platform.platformdomains_attributes = new List<MRPPlatformdomainType>();
 
             //Process standard port groups aka "VM Networks"
             MRPPlatformdomainType _std_platformdomain = new MRPPlatformdomainType();
+            if (_platform.platformdomains_attributes.Exists(x => x.moid == "std_pg"))
+            {
+                _std_platformdomain.id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == "std_pg").id;
+            }
             _std_platformdomain.platformnetworks_attributes = new List<MRPPlatformnetworkType>();
             _std_platformdomain.moid = "std_pg";
             _std_platformdomain.domain = "Network";
             _std_platformdomain.platform_id = _platform.id;
 
+            _update_platform.platformdomains_attributes.Add(_std_platformdomain);
+
             foreach (Network _vmware_network in _vim.networks().GetStandardPgs(dc))
             {
                 MRPPlatformnetworkType _platformnetwork = new MRPPlatformnetworkType();
 
-                if (_mrp_networks.Exists(x => x.moid == _vmware_network.MoRef.Value))
+                if (_mrp_domains.FirstOrDefault(x => x.moid == "std_pg").platformnetworks_attributes.Exists(x => x.moid == _vmware_network.MoRef.Value))
                 {
-                    _platformnetwork = _mrp_networks.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value);
+                    _platformnetwork.id = _mrp_domains.FirstOrDefault(x => x.moid == "std_pg").platformnetworks_attributes.FirstOrDefault(y => y.moid == _vmware_network.MoRef.Value).id;
                 }
 
                 _platformnetwork.moid = _vmware_network.MoRef.Value;
@@ -66,18 +117,6 @@ namespace MRMPService.PlatformInventory
                 _platformnetwork.provisioned = true;
 
                 _std_platformdomain.platformnetworks_attributes.Add(_platformnetwork);
-
-            }
-            if (_mrp_domains.Exists(x => x.moid == "std_pg"))
-            {
-                _std_platformdomain.id = _mrp_domains.FirstOrDefault(x => x.moid == "std_pg").id;
-                _cloud_movey.platformdomain().update(_std_platformdomain);
-                //_updated_platformnetworks += 1;
-            }
-            else
-            {
-                _cloud_movey.platformdomain().create(_std_platformdomain);
-                //_new_platformnetworks += 1;
             }
 
             //Process distributes switches
@@ -85,51 +124,46 @@ namespace MRMPService.PlatformInventory
             {
                 MRPPlatformdomainType _platformdomain = new MRPPlatformdomainType();
                 _platformdomain.platformnetworks_attributes = new List<MRPPlatformnetworkType>();
+                if (_platform.platformdomains_attributes.Exists(x => x.moid == _vmware_domain.MoRef.Value))
+                {
+                    _platformdomain.id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).id;
+                }
                 _platformdomain.moid = _vmware_domain.MoRef.Value;
                 _platformdomain.domain = _vmware_domain.Name;
                 _platformdomain.platform_id = _platform.id;
 
+                _update_platform.platformdomains_attributes.Add(_platformdomain);
+
                 foreach (DistributedVirtualPortgroup _vmware_network in _vim.networks().GetDVPortGroups(_vmware_domain))
                 {
                     MRPPlatformnetworkType _platformnetwork = new MRPPlatformnetworkType();
+                    if (_platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks_attributes.Any(x => x.moid == _vmware_network.MoRef.Value))
+                    {
+                        _platformnetwork.id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks_attributes.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value).id;
+                    }
                     _platformnetwork.moid = _vmware_network.MoRef.Value;
                     _platformnetwork.network = _vmware_network.Name;
                     _platformnetwork.platformdomain_id = _platformdomain.id;
                     _platformnetwork.networkdomain_moid = _vmware_domain.MoRef.Value;
                     _platformnetwork.provisioned = true;
-                    if (_mrp_networks.Exists(x => x.moid == _vmware_network.MoRef.Value))
-                    {
-                        _platformnetwork.id = _mrp_networks.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value).id;
-                        //_updated_platformnetworks += 1;
-                    }
-                    else
-                    {
-                        //_new_platformnetworks += 1;
-                    }
+
                     _platformdomain.platformnetworks_attributes.Add(_platformnetwork);
                 }
-                if (_mrp_domains.Exists(x => x.moid == _vmware_domain.MoRef.Value))
-                {
-                    _platformdomain.id = _mrp_domains.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).id;
-                    _cloud_movey.platformdomain().update(_platformdomain);
-                    //_updated_platformnetworks += 1;
-                }
-                else
-                {
-                    _cloud_movey.platformdomain().create(_platformdomain);
-                    //_new_platformnetworks += 1;
-                }
+            }
+            using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
+            {
+                _mrmp.platform().update(_update_platform);
             }
 
             if (full)
             {
                 //refresh domains and networks from portal
-                _mrp_domains = _cloud_movey.platformdomain().list_by_platform(_platform).platformdomains.ToList();
-                _mrp_networks = _cloud_movey.platformnetwork().list_by_platform(_platform).platformnetworks.ToList();
+                MRPPlatformType _refreshed_platfrom = _cloud_movey.platform().get_by_id(_platform.id);
+                List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().list_by_platform_all(_platform).workloads; 
 
                 foreach (VirtualMachine _vmware_workload in _vmware_workload_list)
                 {
-                    PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _platform, _mrp_workloads, _mrp_domains, _mrp_networks);
+                    PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _refreshed_platfrom, _mrp_workloads);
                 }
             }
             sw.Stop();

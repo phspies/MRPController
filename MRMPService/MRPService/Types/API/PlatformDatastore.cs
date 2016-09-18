@@ -1,0 +1,27 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MRMPService.MRMPAPI.Types.API
+{
+    public class MRPPlatformdatastoreType
+    {
+        [JsonProperty("id")]
+        public string id { get; set; }
+        [JsonProperty("platform_id")]
+        public string platform_id { get; set; }
+        [JsonProperty("datastore")]
+        public string datastore { get; set; }
+        [JsonProperty("moid")]
+        public string moid { get; set; }
+        [JsonProperty("totalcapacity")]
+        public long? totalcapacity { get; set; }
+        [JsonProperty("freecapacity")]
+        public long? freecapacity { get; set; }
+        [JsonProperty("deleted")]
+        public bool? deleted { get; set; }
+    }
+}
