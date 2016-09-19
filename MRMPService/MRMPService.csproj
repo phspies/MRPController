@@ -290,6 +290,7 @@
     <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Templates.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\PlatformDiscovery.cs" />
     <Compile Include="MRPService\Classes\Modules\Platform\DatacenterDiscovery.cs" />
+    <Compile Include="MRPService\Classes\Modules\RP4VM\CreateConsistencyGroup.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\PauseJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\StartJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\StopJob.cs" />
@@ -443,6 +444,7 @@
     <Compile Include="RP4VM\RP4VMTypes.cs" />
     <Compile Include="RP4VM\xsd.Designer.cs" />
     <Compile Include="VMWare\Core.cs" />
+    <Compile Include="VMWare\VCenter.cs" />
     <Compile Include="VMWare\Datastores.cs" />
     <Compile Include="VMWare\Networks.cs" />
     <Compile Include="VMWare\Workloads.cs" />
@@ -492,7 +494,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="MRPService\Classes\Modules\RP4VM\" />
     <Folder Include="MRPService\Classes\PortalTasks\DRSMCP\" />
     <Folder Include="MRPService\Classes\PortalTasks\DRSVMware\" />
   </ItemGroup>

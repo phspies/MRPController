@@ -129,6 +129,7 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                                 _platform_datacenter.moid = _dc.MoRef.Value;
                                 _platform_datacenter.displayname = _dc.Name;
                                 _platform_datacenter.platform_id = _platform.id;
+                                _platform_datacenter.virtualcenter_uid = _vim.vcenter().GetvCenterAbout().InstanceUuid;
 
                                 if (_mrmp_datacenters.platformdatacenters.Exists(x => x.moid == _dc.MoRef.Value))
                                 {
@@ -189,7 +190,7 @@ namespace MRMPService.Tasks.DiscoveryPlatform
 
                             _mrp_api.platform().update(_update_platform);
 
-                            _mrp_api.task().progress(payload, String.Format("Successfully created/updated {0} RP4VM slusters(s)", _rp4vm_settings.clustersSettings.Count()), 30);
+                            _mrp_api.task().progress(payload, String.Format("Successfully created/updated {0} RP4VM clusters(s)", _rp4vm_settings.clustersSettings.Count()), 30);
                             _mrp_api.task().successcomplete(payload, String.Format("Successfully created/updated {0} RP4VM clusters(s)", _rp4vm_settings.clustersSettings.Count()));
                         }
                         else

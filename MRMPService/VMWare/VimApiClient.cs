@@ -21,6 +21,10 @@ namespace MRMPService.VMWare
         {
             return new Datacenters(this);
         }
+        public vCenter vcenter()
+        {
+            return new vCenter(this);
+        }
         public Networks networks()
         {
             return new Networks(this);

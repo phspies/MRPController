@@ -9637,3 +9637,68 @@ Scan bad pages ... DONE.
 Parse SysObjects table ... DONE.
 Copy Tables ... DONE.
 
+Header checksum is valid.
+Source      : C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\Database\MRPController.sdf
+Destination : n/a
+Verifying - verMajor: 4, verMinor: 0, verBuild: 8876, verPoint: 1
+Time - 2016-18-09 12:14:06.650
+
+ All Pages have valid checksum.
+Parse the db file and build list of tables ... DONE.
+Cleanup Page list ... DONE.
+Scan bad pages ... DONE.
+Parse SysObjects table ... DONE.
+Copy Tables ... DONE.
+
+Header checksum is valid.
+Source      : C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\Database\MRPController.sdf
+Destination : n/a
+Verifying - verMajor: 4, verMinor: 0, verBuild: 8876, verPoint: 1
+Time - 2016-18-09 16:46:52.829
+
+ All Pages have valid checksum.
+Parse the db file and build list of tables ... DONE.
+Cleanup Page list ... DONE.
+Scan bad pages ... DONE.
+Parse SysObjects table ... DONE.
+Copy Tables ... DONE.
+
+Header checksum is valid.
+Source      : C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\Database\MRPController.sdf
+Destination : n/a
+Verifying - verMajor: 4, verMinor: 0, verBuild: 8876, verPoint: 1
+Time - 2016-18-09 16:52:49.563
+
+ All Pages have valid checksum.
+Parse the db file and build list of tables ... DONE.
+Cleanup Page list ... DONE.
+Scan bad pages ... DONE.
+Parse SysObjects table ... DONE.
+Copy Tables ... DONE.
+
+Header checksum is valid.
+Source      : C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\Database\MRPController.sdf
+Destination : n/a
+Verifying - verMajor: 4, verMinor: 0, verBuild: 8876, verPoint: 1
+Time - 2016-18-09 17:03:39.569
+
+ All Pages have valid checksum.
+Parse the db file and build list of tables ... DONE.
+Cleanup Page list ... DONE.
+Scan bad pages ... DONE.
+Parse SysObjects table ... DONE.
+Copy Tables ... DONE.
+
+Header checksum is valid.
+Source      : C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPService\bin\Debug\Database\MRPController.sdf
+Destination : n/a
+Verifying - verMajor: 4, verMinor: 0, verBuild: 8876, verPoint: 1
+Time - 2016-18-09 17:06:35.142
+
+ All Pages have valid checksum.
+Parse the db file and build list of tables ... DONE.
+Cleanup Page list ... DONE.
+Scan bad pages ... DONE.
+Parse SysObjects table ... DONE.
+Copy Tables ... DONE.
+

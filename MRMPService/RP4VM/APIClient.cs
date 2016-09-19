@@ -25,6 +25,10 @@ namespace MRMPService.RP4VMAPI
         {
             return new RP4VMSystem(this);
         }
+        public Groups groups()
+        {
+            return new Groups(this);
+        }
         public Events events()
         {
             return new Events(this);
