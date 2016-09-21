@@ -1,4 +1,4 @@
-﻿using MRMPService.RP4VM;
+﻿using MRMPService.RP4VMTypes;
 using System;
 
 namespace MRMPService.RP4VMAPI
@@ -16,7 +16,16 @@ namespace MRMPService.RP4VMAPI
         public Arrays arrays()
         {
             return new Arrays(this);
-        } 
+        }
+
+        public RepositoryVolumes reparrays()
+        {
+            return new RepositoryVolumes(this);
+        }
+        public vCenterServers vcenters()
+        {
+            return new vCenterServers(this);
+        }
         public Settings settings()
         {
             return new Settings(this);

@@ -229,6 +229,7 @@
     <Compile Include="MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\ProcessInfo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\WorkloadNetstatUnixDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\RP4VM\UpdateRP4VMPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\NetflowUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\PerformanceUpload.cs" />
@@ -442,7 +443,6 @@
     <Compile Include="RP4VM\vCenterServers.cs" />
     <Compile Include="RP4VM\VirtualMachines.cs" />
     <Compile Include="RP4VM\RP4VMTypes.cs" />
-    <Compile Include="RP4VM\xsd.Designer.cs" />
     <Compile Include="VMWare\Core.cs" />
     <Compile Include="VMWare\VCenter.cs" />
     <Compile Include="VMWare\Datastores.cs" />
@@ -530,7 +530,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

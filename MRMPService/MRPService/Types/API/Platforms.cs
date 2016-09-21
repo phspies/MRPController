@@ -64,14 +64,22 @@ namespace MRMPService.MRMPAPI.Types.API
         public string moid { get; set; }
         [JsonProperty("manager_id")]
         public string manager_id { get; set; }
+        [JsonProperty("parent_platform_id")]
+        public string parent_platform_id { get; set; }
+
         [JsonProperty("platform_version")]
         public string platform_version { get; set; }
+        [JsonProperty("vcenter_uuid")]
+        public string vcenter_uuid { get; set; }
+
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
         [JsonProperty("default_credential_id")]
         public string default_credential_id { get; set; }
         [JsonProperty("credential")]
         public MRPCredentialType credential { get; set; }
+        [JsonProperty("platformdatacenter")]
+        public MRPPlatformdatacenterType platformdatacenter { get; set; }
         [JsonProperty("platformdomains_attributes")]
         public List<MRPPlatformdomainType> platformdomains_attributes { get; set; }
         [JsonProperty("platformdatacenters_attributes")]

@@ -74,6 +74,24 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("windows_staging_path")]
         public string windows_staging_path { get; set; }
 
-
+        [JsonProperty("rp4vm_source_platform_id")]
+        public string rp4vm_source_platform_id { get; set; }
+        [JsonProperty("rp4vm_target_platform_id")]
+        public string rp4vm_target_platform_id { get; set; }
+        [JsonProperty("rp4vm_source_journal_platformdatastore_id")]
+        public string rp4vm_source_journal_platformdatastore_id { get; set; }
+        [JsonProperty("rp4vm_source_journal_size")]
+        public int? rp4vm_source_journal_size { get; set; }
+        [JsonProperty("rp4vm_target_journral_platformdatastore_id")]
+        public string rp4vm_target_journral_platformdatastore_id { get; set; }
+        [JsonProperty("rp4vm_target_journal_size")]
+        public int? rp4vm_target_journal_size { get; set; }
+        [JsonProperty("rp4vm_replicationmode")]
+        public string rp4vm_replicationmode { get; set; }
+        [JsonProperty("rp4vm_target_platformcluster_id")]
+        public string rp4vm_target_platformcluster_id { get; set; }
+        [JsonProperty("rp4vm_target_platformnetwork_id")]
+        public string rp4vm_target_platformnetwork_id { get; set; }
+        
     }
 }

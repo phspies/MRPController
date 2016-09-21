@@ -1,7 +1,7 @@
 ﻿using MRMPService.MRMPAPI;
 using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
-using MRMPService.RP4VM;
+using MRMPService.RP4VMTypes;
 using MRMPService.RP4VMAPI;
 using System.Collections.Generic;
 
@@ -10,7 +10,6 @@ namespace MRMPService.Tasks.RP4VM
     class CreateConsistencyGroup
     {
         public static void CreateServerMigrationJob(string _task_id, List<MRPWorkloadType> _source_workloads, MRPPlatformType _platform, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
-
         {
             using (MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
@@ -21,14 +20,21 @@ namespace MRMPService.Tasks.RP4VM
                     cgName = _protectiongroup.service,
                     productionCopy = new GlobalCopyUID()
                     {
-                        clusterUID = new ClusterUID() { id = 23452345234 },
+                        clusterUID = new ClusterUID()
+                        {
+                            id = 23452345234
+                        },
                         copyUID = 0
                     },
                     vmReplicationSets = new List<VMReplicationSetParam>() {
                         new VMReplicationSetParam() {
                             replicationSetVms = new List<ReplicatedVMParams>() {
                                 new ReplicatedVMParams() {
-                                    copyUID = new GlobalCopyUID() { clusterUID = new ClusterUID() { id = 1341234123 } },
+                                    copyUID = new GlobalCopyUID() {
+                                        clusterUID = new ClusterUID() {
+                                            id = 1341234123
+                                        }
+                                    },
                                     vmParam = new SourceVmParam() {
                                         clusterUID = new ClusterUID() {
                                             id = 341234
@@ -40,15 +46,22 @@ namespace MRMPService.Tasks.RP4VM
                                     },
                                 },
                             },
-                            virtualHardwareReplicationPolicy = new VirtualHardwareReplicationPolicy() { hwChangesPolicy = hardwareChangesPolicy.REPLICATE_HW_CHANGES, provisionPolicy = diskProvisionPolicy.SAME_AS_SOURCE },
+                            virtualHardwareReplicationPolicy = new VirtualHardwareReplicationPolicy() {
+                                hwChangesPolicy = hardwareChangesPolicy.REPLICATE_HW_CHANGES,
+                                provisionPolicy = diskProvisionPolicy.SAME_AS_SOURCE
+                            },
                             virtualDisksReplicationPolicy = new VirtualDisksReplicationPolicy() {
-                            autoReplicateNewVirtualDisks = true
+                                autoReplicateNewVirtualDisks = true
                             }
                         },
                         new VMReplicationSetParam() {
                             replicationSetVms = new List<ReplicatedVMParams>() {
                                 new ReplicatedVMParams() {
-                                    copyUID = new GlobalCopyUID() { clusterUID = new ClusterUID() { id = 1341234123 } },
+                                    copyUID = new GlobalCopyUID() {
+                                        clusterUID = new ClusterUID() {
+                                            id = 1341234123
+                                        }
+                                    },
                                     vmParam = new SourceVmParam() {
                                         clusterUID = new ClusterUID() {
                                             id = 341234
@@ -60,7 +73,10 @@ namespace MRMPService.Tasks.RP4VM
                                     },
                                 },
                             },
-                            virtualHardwareReplicationPolicy = new VirtualHardwareReplicationPolicy() { hwChangesPolicy = hardwareChangesPolicy.REPLICATE_HW_CHANGES, provisionPolicy = diskProvisionPolicy.SAME_AS_SOURCE },
+                            virtualHardwareReplicationPolicy = new VirtualHardwareReplicationPolicy() {
+                                hwChangesPolicy = hardwareChangesPolicy.REPLICATE_HW_CHANGES,
+                                provisionPolicy = diskProvisionPolicy.SAME_AS_SOURCE
+                            },
                             virtualDisksReplicationPolicy = new VirtualDisksReplicationPolicy() {
                             autoReplicateNewVirtualDisks = true
                             }
@@ -139,6 +155,30 @@ namespace MRMPService.Tasks.RP4VM
                            copyName = "copy-name....",
                             volumeCreationParams = new List<BaseVolumeParams>()
                             {
+                                new VolumeCreationParams()
+                                    {
+                                    volumeSize = new VolumeSize() {
+                                        sizeInBytes = 09809809
+                                    },
+
+                                    arrayUid = new ArrayUID() {
+                                        id = 0970998798,
+                                        clusterUID = new ClusterUID() {
+                                            id = 8798798798
+                                        }
+                                    },
+                                    poolUid = new ResourcePoolUID()
+                                    {
+                                        uuid = 9080980980,
+                                        storageResourcePoolId = "datatore-45",
+                                        arrayUid = new ArrayUID() {
+                                            clusterUID = new ClusterUID() {
+                                                id = 09809809
+                                            }
+                                        }
+                                    },
+                                    resourcePoolType = arrayResourcePoolType.VC_DATASTORE
+                                },
                               new VolumeCreationParams()
                               {
                                    volumeSize = new VolumeSize() { sizeInBytes = 09809809 },
@@ -151,6 +191,7 @@ namespace MRMPService.Tasks.RP4VM
                                     poolUid = new ResourcePoolUID()
                                     {
                                         uuid = 9080980980,
+                                        storageResourcePoolId = "datatore-45",
                                         arrayUid = new ArrayUID() {
                                             clusterUID = new ClusterUID() {
                                                 id = 09809809
@@ -158,35 +199,10 @@ namespace MRMPService.Tasks.RP4VM
                                         }
                                     },
                                     resourcePoolType = arrayResourcePoolType.VC_DATASTORE
-
-
-                              },
-                              new VolumeCreationParams()
-                              {
-                                   volumeSize = new VolumeSize() { sizeInBytes = 09809809 },
-                                   arrayUid = new ArrayUID() {
-                                       id = 0970998798,
-                                       clusterUID = new ClusterUID() {
-                                           id = 8798798798
-                                       }
-                                   },
-                                    poolUid = new ResourcePoolUID()
-                                    {
-                                        uuid = 9080980980,
-                                        arrayUid = new ArrayUID() {
-                                            clusterUID = new ClusterUID() {
-                                                id = 09809809
-                                            }
-                                        }
-                                    },
-                                    resourcePoolType = arrayResourcePoolType.VC_DATASTORE
-
-
-                              }
+                                }
                             }
-                     }
-                     }
-
+                        }
+                    }
                 };
                 ConsistencyGroupUID _cg = _rp4vm.groups().replicateVms_Method(_replicate_object);
             }

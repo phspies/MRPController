@@ -28,6 +28,9 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                         case "vmware":
                             PlatformVMwareInventoryDo.UpdateVMwarePlatform(_platform, true);
                             break;
+                        case "rp4vm":
+                            PlatformRP4VMInventoryDo.UpdateRP4VMPlatform(_platform, false);
+                            break;
                     }
                     _mrp_api.task().progress(payload, String.Format("Successfully refreshed platform resources"), 10);
                     _mrp_api.task().successcomplete(payload);

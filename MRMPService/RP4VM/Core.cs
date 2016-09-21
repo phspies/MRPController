@@ -10,7 +10,7 @@ using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace MRMPService.RP4VM
+namespace MRMPService.RP4VMTypes
 {
     public class Core
     {

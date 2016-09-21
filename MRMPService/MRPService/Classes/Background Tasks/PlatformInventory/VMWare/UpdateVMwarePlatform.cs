@@ -41,7 +41,10 @@ namespace MRMPService.PlatformInventory
             List<Network> _vmware_vlan_list = _vim.networks().GetPortGroups(dc).ToList();
             List<MRPPlatformdomainType> _mrp_domains = _platform.platformdomains_attributes;
 
-            MRPPlatformType _update_platform = new MRPPlatformType() { id = _platform.id };
+            MRPPlatformType _update_platform = new MRPPlatformType() {
+                id = _platform.id,
+                vcenter_uuid = _vim.vcenter().GetvCenterAbout().InstanceUuid
+            };
 
             _update_platform.platformdatacenters_attributes = new List<MRPPlatformdatacenterType>();
             MRPPlatformdatacenterType _datacenter = new MRPPlatformdatacenterType();

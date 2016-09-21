@@ -18,6 +18,9 @@ namespace MRMPService.PlatformInventory
                     case "vmware":
                         PlatformVMwareInventoryDo.UpdateVMwarePlatform(_platform, full);
                         break;
+                    case "rp4vm":
+                        PlatformRP4VMInventoryDo.UpdateRP4VMPlatform(_platform);
+                        break;
                 }
             }
             catch (Exception ex)

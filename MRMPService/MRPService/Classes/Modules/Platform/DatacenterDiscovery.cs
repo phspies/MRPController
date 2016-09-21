@@ -2,7 +2,7 @@
 using DD.CBU.Compute.Api.Contracts.Network20;
 using MRMPService.MRMPAPI.Types.API;
 using MRMPService.MRMPService.Types.API;
-using MRMPService.RP4VM;
+using MRMPService.RP4VMTypes;
 using MRMPService.RP4VMAPI;
 using MRMPService.VMWare;
 using Newtonsoft.Json;
@@ -106,14 +106,13 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                             String username = String.Concat((String.IsNullOrEmpty(_platform_credentail.domain) ? "" : (_platform_credentail.domain + @"\")), _platform_credentail.username);
                             _vim = new VimApiClient(_platform.vmware_url, username, _platform_credentail.encrypted_password);
                             _vim.datacenter().DatacenterList();
-                            
+
                         }
                         catch (Exception ex)
                         {
                             _mrp_api.task().failcomplete(payload, ex.ToString());
                             return;
                         }
-
 
                         List<Datacenter> _vmware_datacenters = _vim.datacenter().DatacenterList();
                         if (_vmware_datacenters != null)
@@ -129,7 +128,6 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                                 _platform_datacenter.moid = _dc.MoRef.Value;
                                 _platform_datacenter.displayname = _dc.Name;
                                 _platform_datacenter.platform_id = _platform.id;
-                                _platform_datacenter.virtualcenter_uid = _vim.vcenter().GetvCenterAbout().InstanceUuid;
 
                                 if (_mrmp_datacenters.platformdatacenters.Exists(x => x.moid == _dc.MoRef.Value))
                                 {
@@ -152,6 +150,7 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                     break;
                 case "rp4vm":
                     RP4VM_ApiClient _rp4vm;
+                    repositoryVolumeStateSet _repvolumes;
                     using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
                         SystemSettings _rp4vm_settings = null;
@@ -163,6 +162,8 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                             String username = String.Concat((String.IsNullOrEmpty(_platform_credentail.domain) ? "" : (_platform_credentail.domain + @"\")), _platform_credentail.username);
                             _rp4vm = new RP4VM_ApiClient(_platform.rp4vm_url, username, _platform_credentail.encrypted_password);
                             _rp4vm_settings = _rp4vm.system().getSystemSettings_Method();
+
+                            _repvolumes = _rp4vm.reparrays().getRepositoryVolumeStateFromAllClusters_Method();
 
                         }
                         catch (Exception ex)
@@ -199,11 +200,8 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                             _mrp_api.task().failcomplete(payload, String.Format("Something went wrong, null based cluster list"));
                         }
                     }
-
-
                     break;
             }
         }
     }
-
 }
