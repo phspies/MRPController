@@ -15,7 +15,8 @@ namespace MRMPService.RP4VMTypes
     using System.ComponentModel;
     using System.Xml;
     using System.Collections.Generic;
-
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
 
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ConsistencyGroupSetRecoveryActivity))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(ConsistencyGroupCopyRecoveryActivity))]
@@ -61,7 +62,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum imageAccessScenario
+    [JsonConverter(typeof(StringEnumConverter))]    public enum imageAccessScenario
     {
 
         /// <remarks/>
@@ -368,7 +369,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum groupSetTransferState
+    [JsonConverter(typeof(StringEnumConverter))]    public enum groupSetTransferState
     {
 
         /// <remarks/>
@@ -639,7 +640,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum recoveryActivityState
+    [JsonConverter(typeof(StringEnumConverter))]    public enum recoveryActivityState
     {
 
         /// <remarks/>
@@ -685,7 +686,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum pipeState
+    [JsonConverter(typeof(StringEnumConverter))]    public enum pipeState
     {
 
         /// <remarks/>
@@ -899,7 +900,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum licenseCapacityUnit
+    [JsonConverter(typeof(StringEnumConverter))]    public enum licenseCapacityUnit
     {
 
         /// <remarks/>
@@ -945,7 +946,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum recoverPointLicenseType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum recoverPointLicenseType
     {
 
         /// <remarks/>
@@ -1081,7 +1082,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum arrayType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum arrayType
     {
 
         /// <remarks/>
@@ -1223,7 +1224,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum licenseStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum licenseStatus
     {
 
         /// <remarks/>
@@ -1647,7 +1648,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum ipVersion
+    [JsonConverter(typeof(StringEnumConverter))]    public enum ipVersion
     {
 
         /// <remarks/>
@@ -1817,7 +1818,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum vplexCredentialsType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum vplexCredentialsType
     {
 
         /// <remarks/>
@@ -1911,7 +1912,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum clariionCredentialsType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum clariionCredentialsType
     {
 
         /// <remarks/>
@@ -1930,7 +1931,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum authenticationType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum authenticationType
     {
 
         /// <remarks/>
@@ -2031,7 +2032,10 @@ namespace MRMPService.RP4VMTypes
     [System.Xml.Serialization.XmlRootAttribute("consistencyGroupLinkPolicy", Namespace = "", IsNullable = false)]
     public partial class ConsistencyGroupLinkPolicy : BaseValidatablePolicyTemplateType
     {
-
+        public string JsonSubType
+        {
+            get { return "ConsistencyGroupLinkPolicy";  }
+        }
         private LinkProtectionPolicy _protectionPolicy;
 
         private LinkAdvancedPolicy _advancedPolicy;
@@ -2240,7 +2244,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum protectionMode
+    [JsonConverter(typeof(StringEnumConverter))]    public enum protectionMode
     {
 
         /// <remarks/>
@@ -2349,7 +2353,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum quantityType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum quantityType
     {
 
         /// <remarks/>
@@ -2449,7 +2453,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum rpoMinimizationType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum rpoMinimizationType
     {
 
         /// <remarks/>
@@ -2468,7 +2472,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum wanCompression
+    [JsonConverter(typeof(StringEnumConverter))]    public enum wanCompression
     {
 
         /// <remarks/>
@@ -2529,7 +2533,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum snapshotGranularity
+    [JsonConverter(typeof(StringEnumConverter))]    public enum snapshotGranularity
     {
 
         /// <remarks/>
@@ -2587,7 +2591,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum snapshotShippingMode
+    [JsonConverter(typeof(StringEnumConverter))]    public enum snapshotShippingMode
     {
 
         /// <remarks/>
@@ -2806,7 +2810,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum journalCompressionLevel
+    [JsonConverter(typeof(StringEnumConverter))]    public enum journalCompressionLevel
     {
 
         /// <remarks/>
@@ -2894,7 +2898,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum hostOS
+    [JsonConverter(typeof(StringEnumConverter))]    public enum hostOS
     {
 
         /// <remarks/>
@@ -3261,7 +3265,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum priority
+    [JsonConverter(typeof(StringEnumConverter))]    public enum priority
     {
 
         /// <remarks/>
@@ -3424,7 +3428,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum externalManagement
+    [JsonConverter(typeof(StringEnumConverter))]    public enum externalManagement
     {
 
         /// <remarks/>
@@ -3668,7 +3672,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum bookmarkConsolidationPolicy
+    [JsonConverter(typeof(StringEnumConverter))]    public enum bookmarkConsolidationPolicy
     {
 
         /// <remarks/>
@@ -3693,7 +3697,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum snapshotConsolidationType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum snapshotConsolidationType
     {
 
         /// <remarks/>
@@ -4508,7 +4512,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum splitterType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum splitterType
     {
 
         /// <remarks/>
@@ -5097,7 +5101,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum controllerType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum controllerType
     {
 
         /// <remarks/>
@@ -5545,7 +5549,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum eventLogLevel
+    [JsonConverter(typeof(StringEnumConverter))]    public enum eventLogLevel
     {
 
         /// <remarks/>
@@ -5579,7 +5583,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum eventLogScope
+    [JsonConverter(typeof(StringEnumConverter))]    public enum eventLogScope
     {
 
         /// <remarks/>
@@ -5598,7 +5602,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum eventLogTopic
+    [JsonConverter(typeof(StringEnumConverter))]    public enum eventLogTopic
     {
 
         /// <remarks/>
@@ -5626,7 +5630,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum snapshotConsistencyType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum snapshotConsistencyType
     {
 
         /// <remarks/>
@@ -5764,7 +5768,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum singleSplitterProcessorName
+    [JsonConverter(typeof(StringEnumConverter))]    public enum singleSplitterProcessorName
     {
 
         /// <remarks/>
@@ -5989,7 +5993,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum splitterCredentialsStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum splitterCredentialsStatus
     {
 
         /// <remarks/>
@@ -6062,7 +6066,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum clariionSplitterCredentialsType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum clariionSplitterCredentialsType
     {
 
         /// <remarks/>
@@ -6503,7 +6507,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum splitterStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum splitterStatus
     {
 
         /// <remarks/>
@@ -6609,7 +6613,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum clusterEntityType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum clusterEntityType
     {
 
         /// <remarks/>
@@ -6628,7 +6632,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum generalStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum generalStatus
     {
 
         /// <remarks/>
@@ -6749,7 +6753,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum volumeAccessStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum volumeAccessStatus
     {
 
         /// <remarks/>
@@ -7248,7 +7252,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum capability
+    [JsonConverter(typeof(StringEnumConverter))]    public enum capability
     {
 
         /// <remarks/>
@@ -7306,7 +7310,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum alertType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum alertType
     {
 
         /// <remarks/>
@@ -7346,7 +7350,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum arrayCapability
+    [JsonConverter(typeof(StringEnumConverter))]    public enum arrayCapability
     {
 
         /// <remarks/>
@@ -7422,7 +7426,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum arrayConnectivityStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum arrayConnectivityStatus
     {
 
         /// <remarks/>
@@ -7486,7 +7490,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum irThrottleType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum irThrottleType
     {
 
         /// <remarks/>
@@ -7898,7 +7902,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum arrayResourcePoolType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum arrayResourcePoolType
     {
 
         /// <remarks/>
@@ -7958,7 +7962,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum arrayResourcePoolSupportedTier
+    [JsonConverter(typeof(StringEnumConverter))]    public enum arrayResourcePoolSupportedTier
     {
 
         /// <remarks/>
@@ -8004,7 +8008,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum arrayManagementProviderType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum arrayManagementProviderType
     {
 
         /// <remarks/>
@@ -8203,7 +8207,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum rpSupportedArrayCapability
+    [JsonConverter(typeof(StringEnumConverter))]    public enum rpSupportedArrayCapability
     {
 
         /// <remarks/>
@@ -8420,7 +8424,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum monitoredParameterType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum monitoredParameterType
     {
 
         /// <remarks/>
@@ -9024,7 +9028,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum axxanaCopyStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum axxanaCopyStatus
     {
 
         /// <remarks/>
@@ -9380,7 +9384,10 @@ namespace MRMPService.RP4VMTypes
     [System.Xml.Serialization.XmlRootAttribute("volumeCreationParams", Namespace = "", IsNullable = false)]
     public partial class VolumeCreationParams : BaseVolumeParams
     {
-
+        public string JsonSubType
+        {
+            get { return "VolumeCreationParams"; }
+        }
         private VolumeSize _volumeSize;
 
         private ArrayUID _arrayUid;
@@ -9390,6 +9397,8 @@ namespace MRMPService.RP4VMTypes
         private ArrayResourcePoolTieringPolicy _tieringPolicy;
 
         private arrayResourcePoolType _resourcePoolType;
+
+        [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = true)]
 
         [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = true)]
         public VolumeSize volumeSize
@@ -9484,7 +9493,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum bottlenecksDetectionMode
+    [JsonConverter(typeof(StringEnumConverter))]    public enum bottlenecksDetectionMode
     {
 
         /// <remarks/>
@@ -9913,6 +9922,7 @@ namespace MRMPService.RP4VMTypes
         private List<BaseVolumeParams> _volumeCreationParams;
 
         private ActivationSettingsChangesParams _activationParams;
+
 
         [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public ConsistencyGroupCopyUID copyUID
@@ -10363,7 +10373,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum volumeStorageType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum volumeStorageType
     {
 
         /// <remarks/>
@@ -10490,7 +10500,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum vplexVolumeLocality
+    [JsonConverter(typeof(StringEnumConverter))]    public enum vplexVolumeLocality
     {
 
         /// <remarks/>
@@ -10575,7 +10585,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum virtualVolumeType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum virtualVolumeType
     {
 
         /// <remarks/>
@@ -11085,7 +11095,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum connectHomeMethod
+    [JsonConverter(typeof(StringEnumConverter))]    public enum connectHomeMethod
     {
 
         /// <remarks/>
@@ -11107,7 +11117,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum connectInMethod
+    [JsonConverter(typeof(StringEnumConverter))]    public enum connectInMethod
     {
 
         /// <remarks/>
@@ -11126,7 +11136,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum installationPerformingResource
+    [JsonConverter(typeof(StringEnumConverter))]    public enum installationPerformingResource
     {
 
         /// <remarks/>
@@ -11145,7 +11155,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum installationActivityType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum installationActivityType
     {
 
         /// <remarks/>
@@ -11675,7 +11685,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum networkInterface
+    [JsonConverter(typeof(StringEnumConverter))]    public enum networkInterface
     {
 
         /// <remarks/>
@@ -11918,7 +11928,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum connectionType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum connectionType
     {
 
         /// <remarks/>
@@ -12030,7 +12040,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum productType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum productType
     {
 
         /// <remarks/>
@@ -12178,7 +12188,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum clusterMaintenanceMode
+    [JsonConverter(typeof(StringEnumConverter))]    public enum clusterMaintenanceMode
     {
 
         /// <remarks/>
@@ -12665,7 +12675,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum rpaStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum rpaStatus
     {
 
         /// <remarks/>
@@ -12753,7 +12763,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum interfaceType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum interfaceType
     {
 
         /// <remarks/>
@@ -13074,7 +13084,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum rpaType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum rpaType
     {
 
         /// <remarks/>
@@ -13552,7 +13562,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum vCenterServerFilterType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum vCenterServerFilterType
     {
 
         /// <remarks/>
@@ -13709,7 +13719,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum volumeType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum volumeType
     {
 
         /// <remarks/>
@@ -14587,7 +14597,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum vCenterServerConnectionStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum vCenterServerConnectionStatus
     {
 
         /// <remarks/>
@@ -14954,7 +14964,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum vmProtectionStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum vmProtectionStatus
     {
 
         /// <remarks/>
@@ -16691,7 +16701,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum connectionStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum connectionStatus
     {
 
         /// <remarks/>
@@ -16782,7 +16792,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum consistencyGroupCopyRole
+    [JsonConverter(typeof(StringEnumConverter))]    public enum consistencyGroupCopyRole
     {
 
         /// <remarks/>
@@ -17146,7 +17156,7 @@ namespace MRMPService.RP4VMTypes
 
         private string _copyName;
 
-        private List<BaseVolumeParams> _volumeCreationParams;
+        private ConsistencyGroupCopyVolumeCreationParams _volumeCreationParams;
 
         [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         public GlobalCopyUID copyUID
@@ -17176,7 +17186,7 @@ namespace MRMPService.RP4VMTypes
 
         [System.Xml.Serialization.XmlArrayAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
         [System.Xml.Serialization.XmlArrayItemAttribute("volumeParams", Form = System.Xml.Schema.XmlSchemaForm.Unqualified)]
-        public List<BaseVolumeParams> volumeCreationParams
+        public ConsistencyGroupCopyVolumeCreationParams volumeCreationParams
         {
             get
             {
@@ -17333,7 +17343,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum protectionWindowStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum protectionWindowStatus
     {
 
         /// <remarks/>
@@ -17727,7 +17737,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum imageAccessMode
+    [JsonConverter(typeof(StringEnumConverter))]    public enum imageAccessMode
     {
 
         /// <remarks/>
@@ -17746,7 +17756,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum searchImageType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum searchImageType
     {
 
         /// <remarks/>
@@ -18428,7 +18438,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum storageAccessState
+    [JsonConverter(typeof(StringEnumConverter))]    public enum storageAccessState
     {
 
         /// <remarks/>
@@ -18477,7 +18487,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum splitVariant
+    [JsonConverter(typeof(StringEnumConverter))]    public enum splitVariant
     {
 
         /// <remarks/>
@@ -18496,7 +18506,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum journalState
+    [JsonConverter(typeof(StringEnumConverter))]    public enum journalState
     {
 
         /// <remarks/>
@@ -19520,7 +19530,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum replicationMode
+    [JsonConverter(typeof(StringEnumConverter))]    public enum replicationMode
     {
 
         /// <remarks/>
@@ -19917,7 +19927,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum reportType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum reportType
     {
 
         /// <remarks/>
@@ -19948,7 +19958,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum reportStatus
+    [JsonConverter(typeof(StringEnumConverter))]      public enum reportStatus
     {
 
         /// <remarks/>
@@ -20089,6 +20099,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum reportStepStatus
     {
 
@@ -20123,6 +20134,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum reportStepType
     {
 
@@ -21505,6 +21517,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum netBiosMode
     {
 
@@ -21784,6 +21797,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum diskProvisionPolicy
     {
 
@@ -21800,6 +21814,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum hardwareChangesPolicy
     {
 
@@ -22226,7 +22241,10 @@ namespace MRMPService.RP4VMTypes
     [System.Xml.Serialization.XmlRootAttribute("existingVMParam", Namespace = "", IsNullable = false)]
     public partial class ExistingVMParam : VMParam
     {
-
+        public string JsonSubType
+        {
+            get { return "ExistingVMParam"; }
+        }
         private VmUID _vmUID;
 
         [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = true)]
@@ -22250,7 +22268,10 @@ namespace MRMPService.RP4VMTypes
     [System.Xml.Serialization.XmlRootAttribute("sourceVmParam", Namespace = "", IsNullable = false)]
     public partial class SourceVmParam : ExistingVMParam
     {
-
+        public string JsonSubType
+        {
+            get { return "SourceVmParam"; }
+        }
         private ClusterUID _clusterUID;
 
         [System.Xml.Serialization.XmlElementAttribute(Form = System.Xml.Schema.XmlSchemaForm.Unqualified, IsNullable = true)]
@@ -22274,7 +22295,10 @@ namespace MRMPService.RP4VMTypes
     [System.Xml.Serialization.XmlRootAttribute("createVMParam", Namespace = "", IsNullable = false)]
     public partial class CreateVMParam : VMParam
     {
-
+        public string JsonSubType
+        {
+            get { return "CreateVMParam"; }
+        }
         private VirtualCenterUID _targetVirtualCenterUID;
 
         private CreateTargetVMResourcePlacementParam _targetResourcePlacementParam;
@@ -22339,6 +22363,10 @@ namespace MRMPService.RP4VMTypes
     [System.Xml.Serialization.XmlRootAttribute("createTargetVMManualResourcePlacementParam", Namespace = "", IsNullable = false)]
     public partial class CreateTargetVMManualResourcePlacementParam : CreateTargetVMResourcePlacementParam
     {
+        public string JsonSubType
+        {
+            get { return "CreateTargetVMManualResourcePlacementParam"; }
+        }
 
         private EsxUID _targetEsxUID;
 
@@ -22363,6 +22391,10 @@ namespace MRMPService.RP4VMTypes
     [System.Xml.Serialization.XmlRootAttribute("createTargetVMAutomaticResourcePlacementParam", Namespace = "", IsNullable = false)]
     public partial class CreateTargetVMAutomaticResourcePlacementParam : CreateTargetVMResourcePlacementParam
     {
+        public string JsonSubType
+        {
+            get { return "CreateTargetVMAutomaticResourcePlacementParam"; }
+        }
 
         private VirtualResourcePoolUUID _targetResourcePoolUID;
 
@@ -22575,7 +22607,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum vplexMetroLinkState
+    [JsonConverter(typeof(StringEnumConverter))]    public enum vplexMetroLinkState
     {
 
         /// <remarks/>
@@ -22816,7 +22848,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum transferState
+    [JsonConverter(typeof(StringEnumConverter))]    public enum transferState
     {
 
         /// <remarks/>
@@ -24471,7 +24503,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum executionState
+    [JsonConverter(typeof(StringEnumConverter))]    public enum executionState
     {
 
         /// <remarks/>
@@ -25506,7 +25538,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum permission
+    [JsonConverter(typeof(StringEnumConverter))]    public enum permission
     {
 
         /// <remarks/>
@@ -25654,7 +25686,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum recoverPointUserType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum recoverPointUserType
     {
 
         /// <remarks/>
@@ -25856,7 +25888,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum ldapProtocolType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum ldapProtocolType
     {
 
         /// <remarks/>
@@ -26172,7 +26204,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum systemReportTransferMethod
+    [JsonConverter(typeof(StringEnumConverter))]    public enum systemReportTransferMethod
     {
 
         /// <remarks/>
@@ -26452,7 +26484,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum systemSecurityLevel
+    [JsonConverter(typeof(StringEnumConverter))]    public enum systemSecurityLevel
     {
 
         /// <remarks/>
@@ -26537,7 +26569,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum syslogFacility
+    [JsonConverter(typeof(StringEnumConverter))]    public enum syslogFacility
     {
 
         /// <remarks/>
@@ -27137,7 +27169,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum phoenixClusterStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum phoenixClusterStatus
     {
 
         /// <remarks/>
@@ -27358,7 +27390,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum hostConnectivityStatus
+    [JsonConverter(typeof(StringEnumConverter))]    public enum hostConnectivityStatus
     {
 
         /// <remarks/>
@@ -27560,7 +27592,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum statisticsGranularity
+    [JsonConverter(typeof(StringEnumConverter))]    public enum statisticsGranularity
     {
 
         /// <remarks/>
@@ -27729,7 +27761,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum specificImageAccessType
+    [JsonConverter(typeof(StringEnumConverter))]    public enum specificImageAccessType
     {
 
         /// <remarks/>
@@ -27953,7 +27985,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum problemCategory
+    [JsonConverter(typeof(StringEnumConverter))]    public enum problemCategory
     {
 
         /// <remarks/>
@@ -28155,7 +28187,7 @@ namespace MRMPService.RP4VMTypes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
     [System.SerializableAttribute()]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public enum problemSeverity
+    [JsonConverter(typeof(StringEnumConverter))]    public enum problemSeverity
     {
 
         /// <remarks/>

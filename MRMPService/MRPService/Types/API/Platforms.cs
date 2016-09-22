@@ -67,6 +67,9 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("parent_platform_id")]
         public string parent_platform_id { get; set; }
 
+        [JsonProperty("parent_platform")]
+        public MRPPlatformType parent_platform { get; set; }
+
         [JsonProperty("platform_version")]
         public string platform_version { get; set; }
         [JsonProperty("vcenter_uuid")]

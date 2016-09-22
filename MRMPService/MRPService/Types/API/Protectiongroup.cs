@@ -12,8 +12,8 @@ namespace MRMPService.MRMPService.Types.API
     {
         [JsonProperty("id")]
         public string id { get; set; }
-        [JsonProperty("service")]
-        public string service { get; set; }
+        [JsonProperty("group")]
+        public string group { get; set; }
         [JsonProperty("supportservice_id")]
         public string supportservice_id { get; set; }
         [JsonProperty("position")]

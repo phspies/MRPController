@@ -17,6 +17,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public string cluster { get; set; }
         [JsonProperty("moid")]
         public string moid { get; set; }
+        [JsonProperty("resourcepool_moid")]
+        public string resourcepool_moid { get; set; }
         [JsonProperty("hostcount")]
         public int? hostcount { get; set; }
         [JsonProperty("networkcount")]

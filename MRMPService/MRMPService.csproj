@@ -301,6 +301,7 @@
     <Compile Include="MRPService\Classes\PortalTasks\Common\FailoverGroup.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\FailoverJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\DRSServersLive\SetupLiveJob.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\DRSVMware\SetupConsistencyGroup.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Migrate\SetupMigrateJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Workload\DiscoverWorkload.cs" />
     <Compile Include="MRPService\Classes\Utilities\CryptLib.cs" />
@@ -495,7 +496,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MRPService\Classes\PortalTasks\DRSMCP\" />
-    <Folder Include="MRPService\Classes\PortalTasks\DRSVMware\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -530,7 +530,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
+      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -92,7 +92,7 @@ namespace MRMPService.Tasks.MCP
                 _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier.shortname });
 
                 _vm.name = _target_workload.hostname;
-                _vm.description = String.Format("{0} MRMP : {1}", DateTime.UtcNow, _protectiongroup.service);
+                _vm.description = String.Format("{0} MRMP : {1}", DateTime.UtcNow, _protectiongroup.group);
                 DeployServerTypeNetwork _network = new DeployServerTypeNetwork();
                 _network.Item = _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid;
                 _network.ItemElementName = NetworkIdOrPrivateIpv4ChoiceType.networkId;

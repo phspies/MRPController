@@ -103,8 +103,9 @@ namespace MRMPService.RP4VMTypes
                     {
                         responseobject = JsonConvert.DeserializeObject<type>(response.Content, new JsonSerializerSettings
                         {
-                            MissingMemberHandling = MissingMemberHandling.Ignore, NullValueHandling = NullValueHandling.Ignore,
-                             Error = HandleDeserializationError
+                            MissingMemberHandling = MissingMemberHandling.Ignore,
+                            NullValueHandling = NullValueHandling.Ignore,
+                            Error = HandleDeserializationError
                         });
                     }
                     catch (Exception ex)
@@ -118,17 +119,9 @@ namespace MRMPService.RP4VMTypes
                 }
                 else if (response.StatusCode == HttpStatusCode.BadRequest)
                 {
-                    try
-                    {
-                        responseobject = JsonConvert.DeserializeObject<ResultType>(response.Content);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.log(ex.ToString(), Logger.Severity.Error);
-                        Logger.log(JsonConvert.SerializeObject(_object), Logger.Severity.Error);
-                        Logger.log(response.Content, Logger.Severity.Error);
-                        break;
-                    }
+                    Logger.log(JsonConvert.SerializeObject(_object), Logger.Severity.Error);
+                    Logger.log(response.Content, Logger.Severity.Error);
+                    throw new Exception(response.Content);
                 }
                 else if (response.StatusCode == HttpStatusCode.RequestTimeout)
                 {

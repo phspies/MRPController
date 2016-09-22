@@ -94,6 +94,10 @@ namespace MRMPService.MRMPAPI.Types.API
         public bool? active { get; set; }
         [JsonProperty("moid")]
         public string moid { get; set; }
+        [JsonProperty("vcenter_uuid")]
+        public string vcenter_uuid { get; set; }
+        
+
         [JsonProperty("credential_id")]
         public string credential_id { get; set; }
         [JsonProperty("workloadtype")]

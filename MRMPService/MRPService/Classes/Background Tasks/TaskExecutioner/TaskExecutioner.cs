@@ -72,6 +72,15 @@ namespace MRMPService.TaskExecutioner
                                     lstThreads.Add(new ThreadObject() { task = drs_servers_live_create_job_Thread, target_id = task.target_id });
                                     break;
 
+                                //vmware
+                                case "drs_vmware_create_cg":
+                                    ClaimTask(task);
+                                    Thread drs_vmware_create_cg_Thread = new Thread(() => DRSVMWare.SetupConsistencyGroup(task));
+                                    drs_vmware_create_cg_Thread.Name = task.target_id;
+                                    drs_vmware_create_cg_Thread.Start();
+                                    drs_vmware_create_cg_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = drs_vmware_create_cg_Thread, target_id = task.target_id });
+                                    break;
 
 
                                 //DT common tasks 

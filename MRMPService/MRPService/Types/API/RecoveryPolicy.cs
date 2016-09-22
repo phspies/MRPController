@@ -74,24 +74,28 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("windows_staging_path")]
         public string windows_staging_path { get; set; }
 
-        [JsonProperty("rp4vm_source_platform_id")]
-        public string rp4vm_source_platform_id { get; set; }
-        [JsonProperty("rp4vm_target_platform_id")]
-        public string rp4vm_target_platform_id { get; set; }
-        [JsonProperty("rp4vm_source_journal_platformdatastore_id")]
-        public string rp4vm_source_journal_platformdatastore_id { get; set; }
+        [JsonProperty("sourceplatform")]
+        public MRPPlatformType sourceplatform { get; set; }
+        [JsonProperty("targetplatform")]
+        public MRPPlatformType targetplatform { get; set; }
+        [JsonProperty("source_journal_datastore")]
+        public MRPPlatformdatastoreType source_journal_datastore { get; set; }
         [JsonProperty("rp4vm_source_journal_size")]
         public int? rp4vm_source_journal_size { get; set; }
-        [JsonProperty("rp4vm_target_journral_platformdatastore_id")]
-        public string rp4vm_target_journral_platformdatastore_id { get; set; }
+        [JsonProperty("target_journal_datastore")]
+        public MRPPlatformdatastoreType target_journal_datastore { get; set; }
+        [JsonProperty("target_datastore")]
+        public MRPPlatformdatastoreType target_datastore { get; set; }
         [JsonProperty("rp4vm_target_journal_size")]
         public int? rp4vm_target_journal_size { get; set; }
         [JsonProperty("rp4vm_replicationmode")]
         public string rp4vm_replicationmode { get; set; }
-        [JsonProperty("rp4vm_target_platformcluster_id")]
-        public string rp4vm_target_platformcluster_id { get; set; }
-        [JsonProperty("rp4vm_target_platformnetwork_id")]
-        public string rp4vm_target_platformnetwork_id { get; set; }
-        
+        [JsonProperty("firedrill_network")]
+        public MRPPlatformnetworkType firedrill_network { get; set; }
+        [JsonProperty("target_network")]
+        public MRPPlatformnetworkType target_network { get; set; }
+        [JsonProperty("target_cluster")]
+        public MRPPlatformclusterType target_cluster { get; set; }
+
     }
 }

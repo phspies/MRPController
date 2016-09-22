@@ -70,6 +70,7 @@ namespace MRMPService.PlatformInventory
                 _mrp_cluster.hostcount = _cluster.Summary.NumHosts;
                 _mrp_cluster.totalcpu = _cluster.Summary.TotalCpu;
                 _mrp_cluster.totalmemory = _cluster.Summary.TotalMemory;
+                _mrp_cluster.resourcepool_moid = _cluster.ResourcePool.Value;
 
                 _datacenter.platformclusters_attributes.Add(_mrp_cluster);
             }
