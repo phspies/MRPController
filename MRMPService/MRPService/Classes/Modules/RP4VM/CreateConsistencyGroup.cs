@@ -74,7 +74,8 @@ namespace MRMPService.Tasks.RP4VM
                                 clusterUID = new ClusterUID()
                                 {
                                     id = Int64.Parse(_target_platform.moid)
-                                }
+                                },
+                                copyUID = 1
                             },
                             vmParam = new CreateVMParam()
                             {
@@ -84,7 +85,7 @@ namespace MRMPService.Tasks.RP4VM
                                 {
                                     targetResourcePoolUID = new VirtualResourcePoolUUID()
                                     {
-                                        uuid = _target_cluster.moid
+                                        uuid = _target_cluster.resourcepool_moid
                                     }
                                 },
                             },
@@ -123,7 +124,8 @@ namespace MRMPService.Tasks.RP4VM
                                      clusterUID = new ClusterUID()
                                      {
                                          id = Int64.Parse(_target_platform.moid)
-                                     }
+                                     },
+                                     copyUID = 1
                                  }
                             },
                             linkPolicy = new ConsistencyGroupLinkPolicy() {
@@ -144,6 +146,21 @@ namespace MRMPService.Tasks.RP4VM
                                             value = 3000
                                         }
                                     },
+                                     syncReplicationThroughputThresholds = new SyncReplicationThreshold()
+                                     {
+                                          thresholdEnabled = false,
+                                           resumeSyncReplicationBelow = new Quantity()
+                                           {
+                                                type = quantityType.KB,
+                                                value = 35000
+                                           },
+                                            startAsyncReplicationAbove = new Quantity()
+                                            {
+                                                 type = quantityType.KB,
+                                                  value = 45000
+                                            }
+
+                                     },
                                     rpoPolicy = new RPOPolicy()
                                     {
                                          allowRegulation = false,
@@ -178,7 +195,8 @@ namespace MRMPService.Tasks.RP4VM
                                 clusterUID = new ClusterUID()
                                 {
                                     id = Int64.Parse(_source_platform.moid)
-                                }
+                                },
+                                 copyUID = 0
                             },
                             copyName = String.Format("{0}_primary_copy", _protectiongroup.group.Replace(" ", "_").ToLower()),
                             volumeCreationParams = new ConsistencyGroupCopyVolumeCreationParams() { volumeParams =  new List<BaseVolumeParams>() {
@@ -220,8 +238,9 @@ namespace MRMPService.Tasks.RP4VM
                           {
                                clusterUID = new ClusterUID()
                                {
-                                    id = Int64.Parse(_source_platform.moid)
-                               }
+                                    id = Int64.Parse(_target_platform.moid)
+                               },
+                               copyUID = 1
                           },
                            copyName = String.Format("{0}_secondary_copy", _protectiongroup.group.Replace(" ", "_").ToLower()),
                             volumeCreationParams = new ConsistencyGroupCopyVolumeCreationParams() { volumeParams =  new List<BaseVolumeParams>()

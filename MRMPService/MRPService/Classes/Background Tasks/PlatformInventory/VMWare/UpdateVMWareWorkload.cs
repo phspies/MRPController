@@ -64,7 +64,7 @@ namespace MRMPService.PlatformInventory
 
             _mrp_workload.moid = _vmware_workload.MoRef.Value;
             _mrp_workload.platform_id = _platform.id;
-            _mrp_workload.vcenter_uuid = _vmware_workload.Config.Uuid;
+            _mrp_workload.vcenter_uuid = _vmware_workload.Config.InstanceUuid;
 
             //evaluate all virtual network interfaces for workload
             List<Type> _vmware_nic_types = new List<Type>() { typeof(VirtualE1000), typeof(VirtualE1000e), typeof(VirtualPCNet32), typeof(VirtualSriovEthernetCard), typeof(VirtualVmxnet), typeof(VirtualVmxnet3) };
