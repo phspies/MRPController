@@ -37,6 +37,7 @@ namespace MRMPService.MRMPAPI
             RestRequest request = new RestRequest();
             client.FollowRedirects = false;
             request.Resource = endpoint;
+            request.Timeout = 30 * 1000;
             request.Method = _method;
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer.ContentType = "application/json; charset=utf-8";

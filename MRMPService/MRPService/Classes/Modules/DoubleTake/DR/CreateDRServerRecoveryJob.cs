@@ -54,7 +54,7 @@ namespace MRMPService.Tasks.DoubleTake
                     {
                         _mrp_api.task().progress(_task_id, String.Format("Recovering data from snapshot taken at {0}", _managementobject.managementobjectsnapshot.timestamp), ReportProgress.Progress(_start_progress, _end_progress, 19));
 
-                        wkld = _dt.workload().CreateWorkloadDRRecovery((Guid)_managementobject.managementobjectsnapshot.imagemoid, (Guid)_managementobject.managementobjectsnapshot.snapshotmoid).Result;
+                        wkld = _dt.workload().CreateWorkloadDRRecovery(Guid.Parse(_managementobject.managementobjectsnapshot.imagemoid), Guid.Parse(_managementobject.managementobjectsnapshot.snapshotmoid)).Result;
                     }
                     else
                     {
@@ -117,7 +117,7 @@ namespace MRMPService.Tasks.DoubleTake
                     _mrp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
                         id = _managementobject.id,
-                        moid = jobId,
+                        moid = jobId.ToString(),
                         moname = jobInfo.JobOptions.Name,
                         motype = DT_JobTypes.DR_Full_Recovery
                     });

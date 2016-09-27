@@ -31,10 +31,10 @@ namespace MRMPService.Tasks.DoubleTake
                 JobInfoModel _dt_job;
                 using (Doubletake _dt = new Doubletake(null, _target_workload))
                 {
-                    _dt_job = _dt.job().GetJob((Guid)_managementobject.moid).Result;
+                    _dt_job = _dt.job().GetJob(Guid.Parse(_managementobject.moid)).Result;
                     if (_dt_job.Status.CanStop)
                     {
-                        _dt.job().StopJob((Guid)_managementobject.moid).Wait();
+                        _dt.job().StopJob(Guid.Parse(_managementobject.moid)).Wait();
                     }
                     else
                     {
@@ -43,7 +43,7 @@ namespace MRMPService.Tasks.DoubleTake
                     int _retries = 5;
                     while (true)
                     {
-                        _dt_job = _dt.job().GetJob((Guid)_managementobject.moid).Result;
+                        _dt_job = _dt.job().GetJob(Guid.Parse(_managementobject.moid)).Result;
                         _mrp_portal.task().progress(_task_id, String.Format("Waiting for job to stop {0} : {1}", _managementobject.moname, _dt_job.Status.HighLevelState), ReportProgress.Progress(_start_progress, _end_progress, _retries + 21));
                         if (_dt_job.Status.HighLevelState != HighLevelState.Stopped)
                         {

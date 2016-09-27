@@ -25,7 +25,7 @@ namespace MRMPService.Tasks.DoubleTake
                     if(_managementobject.managementobjectsnapshot != null)
                     {
                         _options.FailoverMode = FailoverMode.Snapshot;
-                        _options.SnapshotId = (Guid)_managementobject.managementobjectsnapshot.snapshotmoid;
+                        _options.SnapshotId = Guid.Parse(_managementobject.managementobjectsnapshot.snapshotmoid);
                         _mrp_api.task().progress(_task_id, String.Format("Failing over from snapshot created on {0}",_managementobject.managementobjectsnapshot.timestamp), ReportProgress.Progress(_start_progress, _end_progress, 12));
                     }
                     else
@@ -71,7 +71,7 @@ namespace MRMPService.Tasks.DoubleTake
 
                     }
 
-                    ActivityStatusModel _status = _dt.job().FailoverJob((Guid)_managementobject.moid, _options);
+                    ActivityStatusModel _status = _dt.job().FailoverJob(Guid.Parse(_managementobject.moid), _options);
 
                     _mrp_api.task().progress(_task_id, "Move process started for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 25));
                     jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString())).Result;

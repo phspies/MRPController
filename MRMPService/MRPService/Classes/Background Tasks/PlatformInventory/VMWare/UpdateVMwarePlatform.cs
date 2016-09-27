@@ -110,7 +110,7 @@ namespace MRMPService.PlatformInventory
             {
                 MRPPlatformnetworkType _platformnetwork = new MRPPlatformnetworkType();
 
-                if (_mrp_domains.FirstOrDefault(x => x.moid == "std_pg").platformnetworks_attributes.Exists(x => x.moid == _vmware_network.MoRef.Value))
+                if (_mrp_domains.Exists(x => x.moid == "std_pg" && x.platformnetworks_attributes.Exists(y => y.moid == _vmware_network.MoRef.Value)))
                 {
                     _platformnetwork.id = _mrp_domains.FirstOrDefault(x => x.moid == "std_pg").platformnetworks_attributes.FirstOrDefault(y => y.moid == _vmware_network.MoRef.Value).id;
                 }

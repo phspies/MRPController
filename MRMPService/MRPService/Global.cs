@@ -36,6 +36,12 @@ namespace MRMPService
         public static int dt_event_polling_interval = (int)MRPRegistry.RegAccess("dt_event_polling_interval", 600, RegistryValueKind.DWord); //minutes
         public static int dt_event_polling_concurrency = (int)MRPRegistry.RegAccess("dt_event_polling_concurrency", 10, RegistryValueKind.DWord);
 
+        public static int rp4vm_event_polling_interval = (int)MRPRegistry.RegAccess("rp4vm_event_polling_interval", 300, RegistryValueKind.DWord); //minutes
+        public static int rp4vm_event_polling_concurrency = (int)MRPRegistry.RegAccess("rp4vm_event_polling_concurrency", 2, RegistryValueKind.DWord);
+
+        public static int rp4vm_group_polling_interval = (int)MRPRegistry.RegAccess("rp4vm_group_polling_interval", 300, RegistryValueKind.DWord); //minutes
+        public static int rp4vm_group_polling_concurrency = (int)MRPRegistry.RegAccess("rp4vm_group_polling_concurrency", 2, RegistryValueKind.DWord);
+
         public static int os_netstat_interval = (int)MRPRegistry.RegAccess("os_netstat_interval", 60, RegistryValueKind.DWord);  //minutes
         public static int os_netstat_concurrency = (int)MRPRegistry.RegAccess("os_netstat_concurrency", 10, RegistryValueKind.DWord);
 

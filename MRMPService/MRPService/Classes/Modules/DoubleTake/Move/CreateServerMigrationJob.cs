@@ -105,7 +105,7 @@ namespace MRMPService.Tasks.DoubleTake
                     _mrp_api.task().progress(_task_id, String.Format("Registering job {0} with portal", jobId), ReportProgress.Progress(_start_progress, _end_progress, 60));
                     _mrp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
-                        moid = jobId,
+                        moid = jobId.ToString(),
                         id = _managementobject.id,
                         moname = jobInfo.JobOptions.Name,
                         motype = DT_JobTypes.Move_Server_Migration

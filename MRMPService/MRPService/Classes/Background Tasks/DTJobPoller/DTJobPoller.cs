@@ -51,7 +51,7 @@ namespace MRMPService.DTPollerCollection
                 using (Doubletake _dt = new Doubletake(null, _target_workload))
                 {
                     ProductInfoModel _info = _dt.management().GetProductInfo().Result;
-                    _dt_job = _dt.job().GetJob((Guid)_mrp_managementobject.moid).Result;
+                    _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid)).Result;
                     if (_dt_job.JobType == DT_JobTypes.DR_Data_Protection || _dt_job.JobType == DT_JobTypes.DR_Full_Protection)
                     {
                         try
@@ -128,17 +128,17 @@ namespace MRMPService.DTPollerCollection
                             foreach (SnapshotEntryModel _dt_snap in _dt_image.Snapshots.Where(x => x.States == TargetStates.SroImage))
                             {
                                 MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                                if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id))
+                                if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
                                 {
-                                    _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots_attributes.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id).id;
+                                    _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots_attributes.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id.ToString()).id;
                                 }
 
-                                _mrp_snapshot.snapshotmoid = _dt_snap.Id;
+                                _mrp_snapshot.snapshotmoid = _dt_snap.Id.ToString();
                                 _mrp_snapshot.reason = _dt_snap.Reason.ToString();
                                 _mrp_snapshot.state = _dt_snap.States.ToString();
                                 _mrp_snapshot.timestamp = _dt_snap.Timestamp.UtcDateTime;
                                 _mrp_snapshot.comment = _dt_snap.Comment;
-                                _mrp_snapshot.imagemoid = _dt_image.Id;
+                                _mrp_snapshot.imagemoid = _dt_image.Id.ToString();
                                 _mrp_snapshot.imagename = _dt_image.ImageName;
                                 _mrp_snapshot.imagetype = _dt_image.ImageType.ToString();
                                 _mrp_snapshot.source_image_mount_location = _dt_image.SourceImageMountLocation;
@@ -153,12 +153,12 @@ namespace MRMPService.DTPollerCollection
                         foreach (SnapshotEntryModel _dt_snap in _dt_snapshot_list.Where(x => x.States == TargetStates.Good || x.States == TargetStates.SroImage))
                         {
                             MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                            if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id))
+                            if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
                             {
-                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots_attributes.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id).id;
+                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots_attributes.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id.ToString()).id;
                             }
 
-                            _mrp_snapshot.snapshotmoid = _dt_snap.Id;
+                            _mrp_snapshot.snapshotmoid = _dt_snap.Id.ToString();
                             _mrp_snapshot.reason = _dt_snap.Reason.ToString();
                             _mrp_snapshot.state = _dt_snap.States.ToString();
                             _mrp_snapshot.timestamp = _dt_snap.Timestamp.UtcDateTime;

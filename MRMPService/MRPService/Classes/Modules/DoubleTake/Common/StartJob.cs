@@ -31,10 +31,10 @@ namespace MRMPService.Tasks.DoubleTake
                 JobInfoModel _dt_job;
                 using (Doubletake _dt = new Doubletake(null, _target_workload))
                 {
-                    _dt_job = _dt.job().GetJob((Guid)_managementobject.moid).Result;
+                    _dt_job = _dt.job().GetJob(Guid.Parse(_managementobject.moid)).Result;
                     if (_dt_job.Status.CanStart)
                     {
-                        _dt.job().StartJob((Guid)_managementobject.moid).Wait();
+                        _dt.job().StartJob(Guid.Parse(_managementobject.moid)).Wait();
                     }
                     else
                     {

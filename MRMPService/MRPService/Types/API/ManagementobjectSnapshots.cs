@@ -37,9 +37,9 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("description")]
         public string description { get; set; }
         [JsonProperty("snapshotmoid")]
-        public Guid? snapshotmoid { get; set; }
+        public String snapshotmoid { get; set; }
         [JsonProperty("imagemoid")]
-        public Guid? imagemoid { get; set; }
+        public String imagemoid { get; set; }
         [JsonProperty("imagename")]
         public string imagename { get; set; }
         [JsonProperty("imagetype")]
@@ -62,6 +62,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public DateTime? timestamp { get; set; }
         [JsonProperty("connection_id")]
         public Guid? connection_id{ get; set; }
+        [JsonProperty("_destroy")]
+        public bool? _destroy { get; set; }
     }
     public class MRPManagementobjectSnapshotIDGETType
     {

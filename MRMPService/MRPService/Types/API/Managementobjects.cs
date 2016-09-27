@@ -39,7 +39,7 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("moname")]
         public string moname { get; set; }
         [JsonProperty("moid")]
-        public Guid? moid { get; set; }
+        public String moid { get; set; }
         [JsonProperty("organization_id")]
         public string organization_id { get; set; }
         [JsonProperty("state")]
@@ -50,6 +50,10 @@ namespace MRMPService.MRMPAPI.Types.API
         public MRPWorkloadType source_workload { get; set; }
         [JsonProperty("target_workload")]
         public MRPWorkloadType target_workload { get; set; }
+        [JsonProperty("source_platform")]
+        public MRPPlatformType source_platform { get; set; }
+        [JsonProperty("target_platform")]
+        public MRPPlatformType target_platform { get; set; }
         [JsonProperty("internal_state")]
         public string internal_state { get; set; }
         [JsonProperty("replication_status")]

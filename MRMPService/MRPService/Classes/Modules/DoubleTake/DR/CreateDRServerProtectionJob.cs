@@ -105,7 +105,7 @@ namespace MRMPService.Tasks.DoubleTake
                     _mrp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
                         id = _managementobject.id,
-                        moid = jobId,
+                        moid = jobId.ToString(),
                         moname = jobInfo.JobOptions.Name,
                         motype = DT_JobTypes.DR_Full_Protection
                     });
