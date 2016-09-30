@@ -208,12 +208,26 @@ namespace MRMPService.Tasks.DoubleTake
                         File.SetAttributes(setupFileOnWorkload, FileAttributes.Normal);
 
                     Thread.Sleep(TimeSpan.FromSeconds(1));
-                    File.Copy(localFilePath, setupFileOnWorkload, true);
+                    try
+                    {
+                        File.Copy(localFilePath, setupFileOnWorkload, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(String.Format("Error copying setup file {0} to workload {1} : {2}", localFilePath, _working_workload.hostname, ex.GetBaseException().Message));
+                    }
                     _mrp_portal.task().progress(_task_id, String.Format("Complete binaries copy process for {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 21));
 
                     _mrp_portal.task().progress(_task_id, String.Format("Copy configuration file to {0} on {1} ({2})", remoteTempLocation, _working_workload.hostname, systemArchitecture), ReportProgress.Progress(_start_progress, _end_progress, _counter + 25));
                     string configFileOnWorkload = @"\\" + _target_workload_temp_path + @"\DTSetup.ini";
-                    File.WriteAllLines(configFileOnWorkload, BuildINI.BuildINIFile(_working_workload.deploymentpolicy, server_type).ConvertAll(Convert.ToString));
+                    try
+                    {
+                        File.WriteAllLines(configFileOnWorkload, BuildINI.BuildINIFile(_working_workload.deploymentpolicy, server_type).ConvertAll(Convert.ToString));
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(String.Format("Error creating setup file {0} to workload {1} : {2}", configFileOnWorkload, _working_workload.hostname, ex.GetBaseException().Message));
+                    }
                     _mrp_portal.task().progress(_task_id, String.Format("Complete configuration copy process for {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 26));
 
                     #endregion

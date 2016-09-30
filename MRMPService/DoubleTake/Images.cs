@@ -55,5 +55,13 @@ namespace MRMPService.MRMPDoubleTake
             response.EnsureSuccessStatusCode();
             return response.Content;
         }
+
+        public async void DeleteSnapshotEntry(Guid id, Guid snapshot_id)
+        {
+            var api = new ImagesApi(_target_connection);
+            ApiResponse response = await api.DeleteImageSnapshotAsync(id, snapshot_id);
+            response.EnsureSuccessStatusCode();
+            return;
+        }
     }
 }

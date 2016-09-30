@@ -45,6 +45,9 @@ namespace MRMPService.DTPollerCollection
             IEnumerable<ImageInfoModel> _dt_image_list = new List<ImageInfoModel>();
             IEnumerable<SnapshotEntryModel> _dt_snapshot_list = new List<SnapshotEntryModel>();
 
+
+
+
             bool _can_connect = false;
             try
             {
@@ -142,6 +145,34 @@ namespace MRMPService.DTPollerCollection
                                 _mrp_snapshot.imagename = _dt_image.ImageName;
                                 _mrp_snapshot.imagetype = _dt_image.ImageType.ToString();
                                 _mrp_snapshot.source_image_mount_location = _dt_image.SourceImageMountLocation;
+                                //we need to delete snapshots manualy as DT does not honor maximum snapshot count on Windows
+                                if (_mrp_managementobject.protectiongroup != null)
+                                {
+                                    MRPRecoverypolicyType _recoverypolicy = _mrp_managementobject.protectiongroup.recoverypolicy;
+                                    if (_recoverypolicy.snapshotmaxcount != null)
+                                    {
+                                        if (_dt_snapshot_list.Count() > _recoverypolicy.snapshotmaxcount)
+                                        {
+                                            int _last_records = _dt_snapshot_list.Count() - (int)_recoverypolicy.snapshotmaxcount;
+                                            IEnumerable<SnapshotEntryModel> _delete_snapshots = _dt_snapshot_list.OrderBy(x => x.Timestamp).Reverse().Take(_last_records);
+                                            foreach (SnapshotEntryModel _snapshot in _delete_snapshots)
+                                            {
+                                                using (Doubletake _dt = new Doubletake(null, _target_workload))
+                                                {
+                                                    _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid)).Result;
+
+                                                    //_dt.image().DeleteSnapshotEntry(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId).Wait();
+                                                    //if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
+                                                    //{
+                                                    //    _mrp_snapshot._destroy = true;
+                                                    //    Logger.log(String.Format("Deleting Snapshot {0} for job {1}", _snapshot.Id, _dt_job.Options.Name), Logger.Severity.Info);
+                                                    //}
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
 
                                 if (_mrp_mo_update.managementobjectsnapshots_attributes == null)
                                 {
@@ -164,6 +195,35 @@ namespace MRMPService.DTPollerCollection
                             _mrp_snapshot.timestamp = _dt_snap.Timestamp.UtcDateTime;
                             _mrp_snapshot.comment = _dt_snap.Comment;
 
+                            //we need to delete snapshots manualy as DT does not honor maximum snapshot count on Windows
+                            if (_mrp_managementobject.protectiongroup != null)
+                            {
+                                MRPRecoverypolicyType _recoverypolicy = _mrp_managementobject.protectiongroup.recoverypolicy;
+                                if (_recoverypolicy.snapshotmaxcount != null)
+                                {
+                                    if (_dt_snapshot_list.Count() > _recoverypolicy.snapshotmaxcount)
+                                    {
+                                        int _last_records = _dt_snapshot_list.Count() - (int)_recoverypolicy.snapshotmaxcount;
+                                        IEnumerable<SnapshotEntryModel> _delete_snapshots = _dt_snapshot_list.OrderBy(x => x.Timestamp).Reverse().Take(_last_records);
+                                        foreach (SnapshotEntryModel _snapshot in _delete_snapshots)
+                                        {
+                                            using (Doubletake _dt = new Doubletake(null, _target_workload))
+                                            {
+                                                _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid)).Result;
+
+                                                _dt.job().DeleteSnapshot(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId).Wait();
+                                                if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
+                                                {
+                                                    _mrp_snapshot._destroy = true;
+                                                    Logger.log(String.Format("Deleting Snapshot {0} for job {1}", _snapshot.Id, _dt_job.Options.Name), Logger.Severity.Info);
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
                             if (_mrp_mo_update.managementobjectsnapshots_attributes == null)
                             {
                                 _mrp_mo_update.managementobjectsnapshots_attributes = new List<MRPManagementobjectSnapshotType>();
@@ -185,7 +245,7 @@ namespace MRMPService.DTPollerCollection
 
                                     if (_connection_details.ReplicationState == ReplicationState.Replicating)
                                     {
-                                        _managedobject_stat.replication_status = String.Format("{0} ({1}%)", _connection_details.ReplicationState.ToString(), ((_connection_details.MirrorPermillage/1000)*100));
+                                        _managedobject_stat.replication_status = String.Format("{0} ({1}%)", _connection_details.ReplicationState.ToString(), ((_connection_details.MirrorPermillage / 1000) * 100));
                                     }
                                     else
                                     {

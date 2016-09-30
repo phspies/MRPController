@@ -144,6 +144,11 @@ namespace MRMPService.MRMPDoubleTake
             var result = await jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll );
             result.EnsureSuccessStatusCode();
         }
+        async public Task DeleteSnapshot(Guid jobId, Guid snaphotId, Guid connectionId)
+        {
+            var result = await jobApi.DeleteSnapshotAsync(jobId, connectionId, snaphotId);
+            result.EnsureSuccessStatusCode();
+        }
         async public Task DeleteJob_DeleteFiles(Guid jobId)
         {
             var result = await jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll);

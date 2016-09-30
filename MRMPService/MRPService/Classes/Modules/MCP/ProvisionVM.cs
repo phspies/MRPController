@@ -15,6 +15,7 @@ using MRMPService.Utilities;
 using MRMPService.PlatformInventory;
 using DD.CBU.Compute.Api.Contracts.General;
 using MRMPService.MRPService.Classes.Utilities;
+using DD.CBU.Compute.Api.Contracts.Datacenter;
 
 namespace MRMPService.Tasks.MCP
 {
@@ -81,7 +82,7 @@ namespace MRMPService.Tasks.MCP
                 //deploy workload in platform
                 DataCenterListOptions _dc_options = new DataCenterListOptions();
                 _dc_options.Id = _platform.moid;
-                DatacenterType _dc = CaaS.Infrastructure.GetDataCenters(null, _dc_options).Result.FirstOrDefault();
+                DD.CBU.Compute.Api.Contracts.Network20.DatacenterType _dc = CaaS.Infrastructure.GetDataCenters(null, _dc_options).Result.FirstOrDefault();
 
                 DeployServerType _vm = new DeployServerType();
 
@@ -216,6 +217,54 @@ namespace MRMPService.Tasks.MCP
                         deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                         Thread.Sleep(5000);
                     }
+
+                    //create MCP tags
+                    //IEnumerable<TagKeyType> _mcp_tags = CaaS.Tagging.GetTagKeys().Result;
+                    //String _tag_id = null;
+                    //IEnumerable<Geo> _geos = CaaS.Account.GetListOfMultiGeographyRegions().Result;
+                    //Geo _home_geo = _geos.FirstOrDefault(x => x.isHome.ToLower() == "true");
+                    //using (ComputeApiClient _home_caas = ComputeApiClient.GetComputeApiClient(new Uri(_home_geo.cloudApiUrl), new NetworkCredential(_platform.credential.username, _platform.credential.encrypted_password)))
+                    //{
+                    //    if (_mcp_tags != null)
+                    //    {
+                    //        TagKeyType _protectiongroup_tag = _mcp_tags.FirstOrDefault(x => x.name == _protectiongroup.group);
+                    //        if (_protectiongroup_tag == null)
+                    //        {
+                    //            createTagKeyType _create_tag = new createTagKeyType();
+                    //            _create_tag.name = _protectiongroup.group;
+                    //            _create_tag.description = String.Format("DRS Protection Group {0}", _protectiongroup.group);
+                    //            _create_tag.displayOnReport = true;
+                    //            ResponseType _tag_response = _home_caas.Tagging.CreateTagKey(_create_tag).Result;
+                    //            _tag_id = _tag_response.info.First().value;
+                    //        }
+                    //        else
+                    //        {
+                    //            _tag_id = _protectiongroup_tag.id;
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        createTagKeyType _create_tag = new createTagKeyType();
+                    //        _create_tag.name = _protectiongroup.group;
+                    //        _create_tag.description = String.Format("DRS Protection Group {0}", _protectiongroup.group);
+                    //        _create_tag.displayOnReport = true;
+                    //        ResponseType _tag_response = _home_caas.Tagging.CreateTagKey(_create_tag).Result;
+                    //        _tag_id = _tag_response.info.First().value;
+                    //    }
+
+                    //    if (_tag_id != null)
+                    //    {
+                    //        applyTags _apply_tag = new applyTags();
+                    //        _apply_tag.assetId = deployedServer.id;
+                    //        _apply_tag.assetType = "SERVER";
+                    //        _apply_tag.tagById[0] = new ApplyTagByIdType() { tagKeyId = _tag_id };
+                    //        _home_caas.Login().Wait();
+
+                    //        _home_caas.Tagging.ApplyTags(_apply_tag);
+                    //    }
+                    //}
+
+                
 
                     //Expand C: drive and Add additional disks if required
                     int count = 0;
