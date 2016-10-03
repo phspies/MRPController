@@ -1,0 +1,15 @@
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\mcptags.exe.config
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\mcptags.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\mcptags.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\DD.CBU.Compute.Api.Client.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\DD.CBU.Compute.Api.Contracts.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\Newtonsoft.Json.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\System.Net.Http.Formatting.dll
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\DD.CBU.Compute.Api.Client.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\DD.CBU.Compute.Api.Client.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\DD.CBU.Compute.Api.Contracts.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\DD.CBU.Compute.Api.Contracts.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\Newtonsoft.Json.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\bin\Release\System.Net.Http.Formatting.xml
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\obj\Release\mcptags.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\mcptags\obj\Release\mcptags.pdb

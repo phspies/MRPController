@@ -72,24 +72,53 @@ namespace MRMPService.MRMPAPI.Classes
 
 
 
-            SelectQuery ComputerSystemQuery = new SelectQuery("SELECT Manufacturer, Model, Name, NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
-            SelectQuery OperatingSystemQuery = new SelectQuery("SELECT Caption, OSArchitecture FROM Win32_OperatingSystem");
-            SelectQuery ProcessorQuery = new SelectQuery("SELECT NumberOfCores, CurrentClockSpeed FROM Win32_Processor");
+            SelectQuery ComputerSystemQuery = new SelectQuery("SELECT Manufacturer, Model, Caption, NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
+            SelectQuery OperatingSystemQuery = new SelectQuery("SELECT Caption FROM Win32_OperatingSystem");
+            SelectQuery ProcessorQuery = new SelectQuery("SELECT NumberOfCores, AddressWidth, CurrentClockSpeed FROM Win32_Processor");
             SelectQuery BiosQuery = new SelectQuery("SELECT SerialNumber FROM Win32_BIOS");
+            string _arch = null;
+            try
+            {
+                foreach (var item in new ManagementObjectSearcher(connectionScope, ProcessorQuery).Get())
+                {
+                    try { _updated_workload.vcore = int.Parse(item["NumberOfCores"].ToString()); }
+                    catch (Exception ex)
+                    {
+                        Logger.log(String.Format("Error collecting NumberOfCores from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                    }
+                    try { _updated_workload.vcpu_speed = int.Parse(item["CurrentClockSpeed"].ToString()); } catch (Exception) { }
+                    try
+                    {
+                        _arch = String.Format("{0}bit", item["AddressWidth"].ToString());
+                    }
+                    catch (Exception) { }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error collecting information from Win32_Processor: {0}", ex.GetBaseException().Message), Logger.Severity.Error);
+            }
 
             //Get operating system type
-            foreach (var item in new ManagementObjectSearcher(connectionScope, OperatingSystemQuery).Get())
+            try
             {
-                try
+                foreach (var item in new ManagementObjectSearcher(connectionScope, OperatingSystemQuery).Get())
                 {
-                    String _caption = item["Caption"].ToString();
-                    string _arch = item["OSArchitecture"].ToString();
-                    _updated_workload.osedition = OSEditionSimplyfier.Simplyfier(String.Format("{0} {1}", _caption, _arch));
+                    try
+                    {
+                        String _caption = item["Caption"].ToString();
+                        _updated_workload.osedition = OSEditionSimplyfier.Simplyfier(String.Format("{0} {1}", _caption, _arch));
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.log(String.Format("Error collecting Caption (OS Type) from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                    }
                 }
-                catch (Exception ex)
-                {
-                    Logger.log(String.Format("Error collecting Caption (OS Type) from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
-                }
+            }
+
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error collecting information from Win32_OperatingSystem: {0}", ex.GetBaseException().Message), Logger.Severity.Error);
             }
             //Get operating system type
             foreach (var item in new ManagementObjectSearcher(connectionScope, BiosQuery).Get())
@@ -105,45 +134,44 @@ namespace MRMPService.MRMPAPI.Classes
             }
 
             //Get cpu, core and memory information from server
-            foreach (var item in new ManagementObjectSearcher(connectionScope, ComputerSystemQuery).Get())
+            try
             {
-                try { _updated_workload.model = item["Manufacturer"].ToString() + " " + item["Model"].ToString(); }
-                catch (Exception ex)
+                foreach (var item in new ManagementObjectSearcher(connectionScope, ComputerSystemQuery).Get())
                 {
-                    Logger.log(String.Format("Error collecting Model from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
-                }
-                try { _updated_workload.hostname = item["Name"].ToString(); }
-                catch (Exception ex)
-                {
-                    Logger.log(String.Format("Error collecting Name (Hostname) from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
-                }
-                try { _updated_workload.vcpu = int.Parse(item["NumberOfProcessors"].ToString()); }
-                catch (Exception ex)
-                {
-                    Logger.log(String.Format("Error collecting NumberOfProcessors from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
-                }
-                //convert to GB as WMi reports in Bytes
+                    try { _updated_workload.model = item["Manufacturer"].ToString() + " " + item["Model"].ToString(); }
+                    catch (Exception ex)
+                    {
+                        Logger.log(String.Format("Error collecting Model from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                    }
+                    try { _updated_workload.hostname = item["Caption"].ToString(); }
+                    catch (Exception ex)
+                    {
+                        Logger.log(String.Format("Error collecting Name (Hostname) from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                    }
+                    try { _updated_workload.vcpu = int.Parse(item["NumberOfProcessors"].ToString()); }
+                    catch (Exception ex)
+                    {
+                        Logger.log(String.Format("Error collecting NumberOfProcessors from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                    }
+                    //convert to GB as WMi reports in Bytes
 
-                try
-                {
-                    Decimal _long = Int64.Parse(item["TotalPhysicalMemory"].ToString());
-                    Decimal _decimal = (_long / 1024 / 1024 / 1024);
-                    _updated_workload.vmemory = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
-                }
-                catch (Exception ex)
-                {
-                    Logger.log(String.Format("Error collecting TotalPhysicalMemory from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                    try
+                    {
+                        Decimal _long = Int64.Parse(item["TotalPhysicalMemory"].ToString());
+                        Decimal _decimal = (_long / 1024 / 1024 / 1024);
+                        _updated_workload.vmemory = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.log(String.Format("Error collecting TotalPhysicalMemory from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                    }
                 }
             }
-            foreach (var item in new ManagementObjectSearcher(connectionScope, ProcessorQuery).Get())
+            catch (Exception ex)
             {
-                try { _updated_workload.vcore = int.Parse(item["NumberOfCores"].ToString()); }
-                catch (Exception ex)
-                {
-                    Logger.log(String.Format("Error collecting NumberOfCores from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
-                }
-                try { _updated_workload.vcpu_speed = int.Parse(item["CurrentClockSpeed"].ToString()); } catch (Exception) { }
+                Logger.log(String.Format("Error collecting information from Win32_ComputerSystem: {0}", ex.GetBaseException().Message), Logger.Severity.Error);
             }
+
 
             //process running workloadprocesses_attributes
             _updated_workload.workloadprocesses_attributes = new List<MRPWorkloadProcessType>();

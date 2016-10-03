@@ -35,7 +35,7 @@ namespace MRMPService.LocalDatabase
             builder.DataSource = dbfullpath;
             builder.MaxBufferSize = 2048;
             builder.PersistSecurityInfo = false;
-            builder.MaxDatabaseSize = 4091;
+            builder.MaxDatabaseSize = 4000;
             builder.DefaultLockTimeout = 30000;
             connection.ConnectionString = builder.ConnectionString;
             return connection;

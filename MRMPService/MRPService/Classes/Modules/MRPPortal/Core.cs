@@ -5,6 +5,7 @@ using System.Threading;
 using Newtonsoft.Json;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPAPI.Types.API;
+using Newtonsoft.Json.Serialization;
 
 namespace MRMPService.MRMPAPI
 {
@@ -33,6 +34,7 @@ namespace MRMPService.MRMPAPI
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true;
             var client = new RestClient();
             client.FollowRedirects = false;
+            client.Timeout = 30 * 1000;
             client.BaseUrl = new Uri("https://www.mrplatform.net");
             RestRequest request = new RestRequest();
             client.FollowRedirects = false;
@@ -55,7 +57,12 @@ namespace MRMPService.MRMPAPI
                 if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     try {
-                        responseobject = JsonConvert.DeserializeObject<type>(response.Content);    
+                        responseobject = JsonConvert.DeserializeObject<type>(response.Content, new JsonSerializerSettings
+                        {
+                            MissingMemberHandling = MissingMemberHandling.Ignore,
+                            NullValueHandling = NullValueHandling.Ignore,
+                            Error = HandleDeserializationError
+                        });
                     }
                     catch (Exception ex)
                     {
@@ -115,7 +122,11 @@ namespace MRMPService.MRMPAPI
             return responseobject;
 
         }
-
+        public void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
+        {
+            var currentError = errorArgs.ErrorContext.Error.Message;
+            errorArgs.ErrorContext.Handled = true;
+        }
         public String endpoint
         {
             get
