@@ -65,9 +65,17 @@ namespace MRMPService.Tasks.MCP
                     {
                         using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                         {
-                            _mrp_api.task().progress(_task_id, String.Format("Reusing available workload which was deployed {0}", _caas_server.createTime), ReportProgress.Progress(_start_progress, _end_progress, 11));
-                            _mrp_api.task().progress(_task_id, String.Format("Not rerunning Operating System Customization. Please make sure the server the network and storage components are configured correctly."), ReportProgress.Progress(_start_progress, _end_progress, 12));
-                            return;
+                            if (_caas_server.started)
+                            {
+                                _mrp_api.task().progress(_task_id, String.Format("Reusing available workload which was deployed {0}", _caas_server.createTime), ReportProgress.Progress(_start_progress, _end_progress, 11));
+                                _mrp_api.task().progress(_task_id, String.Format("Not rerunning Operating System Customization. Please make sure the server the network and storage components are configured correctly."), ReportProgress.Progress(_start_progress, _end_progress, 12));
+                                LinuxCustomization(_task_id, _platform, _target_workload, _protectiongroup, ReportProgress.Progress(_start_progress, _end_progress, 85), ReportProgress.Progress(_start_progress, _end_progress, 90));
+                                return;
+                            }
+                            else
+                            {
+                                _mrp_api.task().progress(_task_id, String.Format("Workload {0} is offline. New workload will be provisioned", _target_workload.moid), ReportProgress.Progress(_start_progress, _end_progress, 11));
+                            }
                         }
                     }
                     else
@@ -90,7 +98,7 @@ namespace MRMPService.Tasks.MCP
 
                 //Set Tier for first disk being deployed
                 MRPWorkloadVolumeType _first_disk = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.diskindex == 0);
-                _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier.shortname });
+                _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier_id });
 
                 _vm.name = _target_workload.hostname;
                 _vm.description = String.Format("{0} MRMP : {1}", DateTime.UtcNow, _protectiongroup.group);
@@ -266,14 +274,14 @@ namespace MRMPService.Tasks.MCP
 
                 
 
-                    //Expand C: drive and Add additional disks if required
+                    //Expand 0 drive and Add additional disks if required
                     int count = 0;
                     foreach (int _disk_index in _target_workload.workloadvolumes_attributes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
                     {
                         //increase disk by 5GB
                         long _disk_size = _target_workload.workloadvolumes_attributes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
 
-                        MRPPlatformStorageTierType _disk_tier = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier;
+                        String _disk_tier = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier_id;
                         if (deployedServer.disk.ToList().Exists(x => x.scsiId == _disk_index))
                         {
                             if (deployedServer.disk.ToList().FirstOrDefault(x => x.scsiId == _disk_index).sizeGb < _disk_size)
@@ -290,9 +298,9 @@ namespace MRMPService.Tasks.MCP
                         {
                             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                             {
-                                _mrp_api.task().progress(_task_id, String.Format("Adding storage: {0} : {1}GB on {2}", _disk_index, _disk_size, _disk_tier.storagetier), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                _mrp_api.task().progress(_task_id, String.Format("Adding storage: {0} : {1}GB on {2}", _disk_index, _disk_size, _disk_tier), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
                             }
-                            Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk_size.ToString(), _disk_tier.shortname).Result;
+                            Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk_size.ToString(), _disk_tier).Result;
                         }
                         deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                         while (deployedServer.state != "NORMAL" && deployedServer.started == false)

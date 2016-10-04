@@ -59,7 +59,7 @@ namespace MRMPService.PortalTasks
                 }
                 catch (Exception ex)
                 {
-                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
+                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.GetBaseException().Message);
 
                 }
             }

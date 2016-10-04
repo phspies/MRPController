@@ -35,7 +35,7 @@ namespace MRMPService.MRMPAPI.Types.API
         public string filesystem_type { get; set; }
         [JsonProperty("_destroy")]
         public bool _destroy { get; set; }
-        [JsonProperty("platformstoragetier")]
-        public MRPPlatformStorageTierType platformstoragetier { get; set; }
+        [JsonProperty("platformstoragetier_id")]
+        public String platformstoragetier_id { get; set; }
     }
 }

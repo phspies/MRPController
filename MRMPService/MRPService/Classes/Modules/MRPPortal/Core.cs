@@ -35,7 +35,7 @@ namespace MRMPService.MRMPAPI
             var client = new RestClient();
             client.FollowRedirects = false;
             client.Timeout = 30 * 1000;
-            client.BaseUrl = new Uri("https://www.mrplatform.net");
+            client.BaseUrl = new Uri("http://10.0.74.7:3000/");
             RestRequest request = new RestRequest();
             client.FollowRedirects = false;
             request.Resource = endpoint;
@@ -84,7 +84,7 @@ namespace MRMPService.MRMPAPI
                         Logger.log(ex.ToString(), Logger.Severity.Error);
                         Logger.log(JsonConvert.SerializeObject(_object), Logger.Severity.Error);
                         Logger.log(response.Content, Logger.Severity.Error);
-                        break;
+                        throw new Exception(String.Format("Error in API call: {0}", ex.GetBaseException().Message));
                     }
                 }
                 else if (response.StatusCode == HttpStatusCode.RequestTimeout)

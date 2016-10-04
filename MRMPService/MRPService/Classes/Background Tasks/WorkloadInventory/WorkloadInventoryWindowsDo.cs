@@ -312,21 +312,23 @@ namespace MRMPService.MRMPAPI.Classes
 
                     String[] addresses = (String[])searchNetInterfaceConfig["IPAddress"];
                     String[] netmask = (String[])searchNetInterfaceConfig["IPSubnet"];
-
-                    if (_network_adapters.Count == 1 && _workload.workloadinterfaces_attributes.Count == 1) //if we only have one adapter and the portal also only knows about one, the update the same adapter
+                    if (_workload.workloadinterfaces_attributes != null)
                     {
-                        _interface.id = _workload.workloadinterfaces_attributes.First().id;
-                    }
-                    else if (_workload.workloadinterfaces_attributes.Exists(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')))) //try to find the interface by means of the IP address
-                    {
-                        _interface.id = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.'))).id;
-                    }
-                    else if (_network_adapters.Count > 1) //if we have more than one adapter in the server, we need to switch to index numbers
-                    {
-                        //first check if the current workloadinterfaces_attributes uses connection_index information, and get that interface for this loop
-                        if (_workload.workloadinterfaces_attributes.Any(x => x.connection_index == _conn_index))
+                        if (_network_adapters.Count == 1 && _workload.workloadinterfaces_attributes.Count == 1) //if we only have one adapter and the portal also only knows about one, the update the same adapter
                         {
-                            _interface.id = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.connection_index == _conn_index).id;
+                            _interface.id = _workload.workloadinterfaces_attributes.First().id;
+                        }
+                        else if (_workload.workloadinterfaces_attributes.Exists(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')))) //try to find the interface by means of the IP address
+                        {
+                            _interface.id = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.'))).id;
+                        }
+                        else if (_network_adapters.Count > 1) //if we have more than one adapter in the server, we need to switch to index numbers
+                        {
+                            //first check if the current workloadinterfaces_attributes uses connection_index information, and get that interface for this loop
+                            if (_workload.workloadinterfaces_attributes.Any(x => x.connection_index == _conn_index))
+                            {
+                                _interface.id = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.connection_index == _conn_index).id;
+                            }
                         }
                     }
 
@@ -341,18 +343,19 @@ namespace MRMPService.MRMPAPI.Classes
                     _updated_workload.workloadinterfaces_attributes.Add(_interface);
 
                 }
-                _updated_workload.ostype = "windows";
-                _updated_workload.provisioned = true;
 
-                using (MRMP_ApiClient _api = new MRMP_ApiClient())
-                {
-                    _api.workload().updateworkload(_updated_workload);
-                    _api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
-                }
-
-                Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
             }
+            _updated_workload.ostype = "windows";
+            _updated_workload.provisioned = true;
+
+            using (MRMP_ApiClient _api = new MRMP_ApiClient())
+            {
+                _api.workload().updateworkload(_updated_workload);
+                _api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
+            }
+
+            Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
         }
 
         private static string TranslateMemoryUsage(string workingSet)
