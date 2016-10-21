@@ -7,15 +7,8 @@ using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    class MRPCommandManagerType
+    class MRPCommandManagerType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
+
     }
 }

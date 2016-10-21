@@ -9,17 +9,15 @@ namespace MRMPService.MRMPAPI
 
         public MRMP_ApiClient MRP = new MRMP_ApiClient();
 
-        public MRPWorkloadListType listworkloads()
+        public MRPWorkloadListType list_paged_filtered(MRPWorkloadFilterPagedType _paged_filter_settings)
         {
-            endpoint = "/workloads/list.json";
-            MRPCommandManagerType worker = new MRPCommandManagerType();
-            return post<MRPWorkloadListType>(worker);
+            endpoint = "/workloads/list_paged_filtered.json";
+            return post<MRPWorkloadListType>(_paged_filter_settings);
         }
-        public MRPWorkloadListType listworkloads_perf_enabled()
+        public MRPWorkloadListType list_paged_filtered_brief(MRPWorkloadFilterPagedType filter_settings)
         {
-            endpoint = "/workloads/list_perf_enabled.json";
-            MRPCommandManagerType worker = new MRPCommandManagerType();
-            return post<MRPWorkloadListType>(worker);
+            endpoint = "/workloads/list_paged_filtered_brief.json";
+            return post<MRPWorkloadListType>(filter_settings);
         }
         public MRPWorkloadType get_by_id(string _workload_id)
         {
@@ -29,31 +27,6 @@ namespace MRMPService.MRMPAPI
                 workload_id = _workload_id
             };
             return post<MRPWorkloadType>(_workload_get);
-        }
-        public MRPWorkloadListType list_dt_installed()
-        {
-            endpoint = "/workloads/list_dt_installed.json";
-            MRPCommandManagerType worker = new MRPCommandManagerType();
-            return post<MRPWorkloadListType>(worker);
-        }
-
-        public MRPWorkloadListType list_by_platform(MRPPlatformType _platform)
-        {
-            endpoint = "/workloads/list_by_platform.json";
-            MRPPlatformGETType _get_workloads_platform = new MRPPlatformGETType()
-            {
-                platform_id = _platform.id
-            };
-            return post<MRPWorkloadListType>(_get_workloads_platform);
-        }
-        public MRPWorkloadListType list_by_platform_all(MRPPlatformType _platform)
-        {
-            endpoint = "/workloads/list_by_platform_all.json";
-            MRPPlatformGETType _get_workloads_platform = new MRPPlatformGETType()
-            {
-                platform_id = _platform.id
-            };
-            return post<MRPWorkloadListType>(_get_workloads_platform);
         }
         public ResultType createworkload(MRPWorkloadType _workload)
         {

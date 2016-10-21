@@ -24,7 +24,10 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
         public void Start()
         {
             String _connection_string = MRPDatabase.GetConnection().ConnectionString;
+            Logger.log(String.Format("Data Connection String: {0}",_connection_string), Logger.Severity.Info);
+
             SqlCeEngine _engine = new SqlCeEngine(_connection_string);
+            _engine.LocalConnectionString = _connection_string;
             try
             {
                 Logger.log(String.Format("Verifying database"), Logger.Severity.Info);
@@ -144,25 +147,21 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             TaskWorker _scheduler = new TaskWorker();
             if (Global.debug) { Logger.log("Starting Scheduler Thread", Logger.Severity.Debug); };
             scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));
-            scheduler_thread.IsBackground = true;
             scheduler_thread.Start();
 
             PlatformInventoryThread _mirror = new PlatformInventoryThread();
             if (Global.debug) { Logger.log("Starting Mirror Thread", Logger.Severity.Debug); };
             mirror_thread = new Thread(new ThreadStart(_mirror.Start));
-            mirror_thread.IsBackground = true;
             mirror_thread.Start();
 
             WorkloadPerformanceThread _performance = new WorkloadPerformanceThread();
             if (Global.debug) { Logger.log("Starting Performance Collection Thread", Logger.Severity.Debug); };
             _performance_thread = new Thread(new ThreadStart(_performance.Start));
-            _performance_thread.IsBackground = true;
             _performance_thread.Start();
 
             NetflowWorker _netflow = new NetflowWorker();
             if (Global.debug) { Logger.log("Starting Netflow v5 Collection Thread", Logger.Severity.Debug); };
             _netflow_thread = new Thread(new ThreadStart(_netflow.Start));
-            _netflow_thread.IsBackground = true;
             _netflow_thread.Start();
 
             if (Global.debug) { Logger.log("Starting Data Upload Worker", Logger.Severity.Debug); };
@@ -171,29 +170,24 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             _upload_thread.Name = "Data Upload Thread";
             _upload_thread.Start();
 
-
             WorkloadInventoryThread _osinventory = new WorkloadInventoryThread();
             if (Global.debug) { Logger.log("Starting OS Inventory Thread", Logger.Severity.Debug); };
             _osinventody_thread = new Thread(new ThreadStart(_osinventory.Start));
-            _osinventody_thread.IsBackground = true;
             _osinventody_thread.Start();
 
             WorkloadNetstatThread _osnetstat = new WorkloadNetstatThread();
             if (Global.debug) { Logger.log("Starting OS Netstat Thread", Logger.Severity.Debug); };
             _osnetstat_thread = new Thread(new ThreadStart(_osnetstat.Start));
-            _osnetstat_thread.IsBackground = true;
             _osnetstat_thread.Start();
 
             DTJobPollerThread _dt_job_polling = new DTJobPollerThread();
             if (Global.debug) { Logger.log("Starting DT Job Polling Thread", Logger.Severity.Debug); };
             _dt_job_thread = new Thread(new ThreadStart(_dt_job_polling.Start));
-            _dt_job_thread.IsBackground = true;
             _dt_job_thread.Start();
 
             DTEventPollerThread _dt_event_polling = new DTEventPollerThread();
             if (Global.debug) { Logger.log("Starting DT Event Polling Thread", Logger.Severity.Debug); };
             _dt_event_thread = new Thread(new ThreadStart(_dt_event_polling.Start));
-            _dt_event_thread.IsBackground = true;
             _dt_event_thread.Start();
         }
     }

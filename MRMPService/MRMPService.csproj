@@ -237,7 +237,6 @@
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\NetflowUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\PerformanceUpload.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\NetstatUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\StartupThread\Startup.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\DTJobPoller\DTJobPoller.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\DTJobPoller\DTJobPollerThread.cs" />
@@ -275,8 +274,6 @@
     <Compile Include="MRPService\Classes\Modules\MCP\LinuxCustomization.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\WindowsCustomization.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Events.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\Images.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\Jobstats.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformDatacenters.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Protectiongrouptrees.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v10\Field.cs" />
@@ -331,12 +328,10 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\APIClient.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Core.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\JSONSerializer.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\Credentials.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Networkstats.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Networkflows.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PerformanceCategories.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PerformanceCounters.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformDomains.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformNetworks.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformTemplates.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Platforms.cs" />
@@ -388,6 +383,7 @@
     <Compile Include="MRPService\Types\API\ManagementobjectSnapshots.cs" />
     <Compile Include="MRPService\Types\API\ManagementobjectStats.cs" />
     <Compile Include="MRPService\Types\API\Managementobjects.cs" />
+    <Compile Include="MRPService\Types\API\Pagination.cs" />
     <Compile Include="MRPService\Types\API\NetworkStat.cs" />
     <Compile Include="MRPService\Types\API\NetworkFlow.cs" />
     <Compile Include="MRPService\Types\API\PerformanceCategory.cs" />
@@ -406,9 +402,7 @@
     <Compile Include="MRPService\Types\API\Protectiongroup.cs" />
     <Compile Include="MRPService\Types\API\Protectiongrouptrees.cs" />
     <Compile Include="MRPService\Types\API\Task.cs" />
-    <Compile Include="MRPService\Types\API\Windows.cs" />
     <Compile Include="MRPService\Types\API\Manager.cs" />
-    <Compile Include="MRPService\Types\API\Workloaddisks.cs" />
     <Compile Include="MRPService\Types\API\WorkloadInterfaces.cs" />
     <Compile Include="MRPService\Types\API\WorkloadProcesses.cs" />
     <Compile Include="MRPService\Types\API\Workloads.cs" />
@@ -534,7 +528,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
+      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -174,16 +174,8 @@ namespace MRMPService.MRMPService.Types.API
         public int status { set; get; }
     }
 
-    public class MRPProgressTaskUpdateType
+    public class MRPProgressTaskUpdateType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("task_id")]
         public string task_id { get; set; }
         [JsonProperty("attributes")]
@@ -196,16 +188,8 @@ namespace MRMPService.MRMPService.Types.API
         [JsonProperty("percentage")]
         public double percentage { set; get; }
     }
-    public class MRPCompleteTaskUpdateType
+    public class MRPCompleteTaskUpdateType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("task_id")]
         public string task_id { get; set; }
         [JsonProperty("attributes")]

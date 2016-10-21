@@ -26,27 +26,6 @@ namespace MRMPService.MRMPAPI
             };
             return post<MRPManagementobjectType>(Managementobject);
         }
-        public MRPManagementobjectType getmanagementobject_dt_id(string _moid)
-        {
-            endpoint = "/managementobjects/get_id.json";
-            MRPManagementobjectDTIDGETType Managementobject = new MRPManagementobjectDTIDGETType()
-            {
-                moid = _moid
-
-            };
-            return post<MRPManagementobjectType>(Managementobject);
-        }
-
-        public ResultType createmanagementobject(MRPManagementobjectType _Managementobject)
-        {
-            MRPManagementobjectsCRUDType Managementobject = new MRPManagementobjectsCRUDType()
-            {
-                managementobject = _Managementobject
-            };
-
-            endpoint = "/managementobjects/create.json";
-            return post<ResultType>(Managementobject);
-        }
         public ResultType updatemanagementobject(MRPManagementobjectType _Managementobject)
         {
             MRPManagementobjectsCRUDType Managementobject = new MRPManagementobjectsCRUDType()

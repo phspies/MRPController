@@ -69,7 +69,6 @@ namespace MRMPService.Tasks.MCP
                             {
                                 _mrp_api.task().progress(_task_id, String.Format("Reusing available workload which was deployed {0}", _caas_server.createTime), ReportProgress.Progress(_start_progress, _end_progress, 11));
                                 _mrp_api.task().progress(_task_id, String.Format("Not rerunning Operating System Customization. Please make sure the server the network and storage components are configured correctly."), ReportProgress.Progress(_start_progress, _end_progress, 12));
-                                LinuxCustomization(_task_id, _platform, _target_workload, _protectiongroup, ReportProgress.Progress(_start_progress, _end_progress, 85), ReportProgress.Progress(_start_progress, _end_progress, 90));
                                 return;
                             }
                             else

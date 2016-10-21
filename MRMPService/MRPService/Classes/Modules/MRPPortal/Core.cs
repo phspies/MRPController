@@ -34,12 +34,12 @@ namespace MRMPService.MRMPAPI
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true;
             var client = new RestClient();
             client.FollowRedirects = false;
-            client.Timeout = 30 * 1000;
-            client.BaseUrl = new Uri("http://10.0.74.7:3000/");
+            client.Timeout = 60 * 1000;
+            client.BaseUrl = new Uri("https://www.mrplatform.net/");
             RestRequest request = new RestRequest();
             client.FollowRedirects = false;
             request.Resource = endpoint;
-            request.Timeout = 30 * 1000;
+            request.Timeout = 60 * 1000;
             request.Method = _method;
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer.ContentType = "application/json; charset=utf-8";
@@ -53,6 +53,9 @@ namespace MRMPService.MRMPAPI
             object responseobject = null;
             while (true)
             {
+                CancellationTokenSource cts = new CancellationTokenSource();
+                cts.CancelAfter(TimeSpan.FromSeconds(10));
+
                 var response = client.Execute(request);
                 if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Unauthorized)
                 {

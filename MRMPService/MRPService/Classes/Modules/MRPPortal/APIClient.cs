@@ -9,14 +9,6 @@ namespace MRMPService.MRMPAPI
         {
             return new MRPTask(this);
         }
-        public MRPPlatformtemplate platformtemplate()
-        {
-            return new MRPPlatformtemplate(this);
-        }
-        public PortalCredential credential()
-        {
-            return new PortalCredential(this);
-        }
         public MRPManager manager()
         {
             return new MRPManager(this);
@@ -53,31 +45,12 @@ namespace MRMPService.MRMPAPI
         {
             return new PortalPlatformDatacenter(this);
         }
-        public MRPPlatformDomain platformdomain()
-        {
-            return new MRPPlatformDomain(this);
-        }
-        public MRPPlatformNetwork platformnetwork()
-        {
-            return new MRPPlatformNetwork(this);
-        }
+ 
         public MRPManagementobject managementobject()
         {
             return new MRPManagementobject(this);
         }
-        public MRPManagementobjectStat managementobjectstat()
-        {
-            return new MRPManagementobjectStat(this);
-        }
-        public MRPManagementobjectSnapshots jobimage()
-        {
-            return new MRPManagementobjectSnapshots(this);
-        }
-        public MRPProtectiongrouptree stacktree()
-        {
-            return new MRPProtectiongrouptree(this);
-        }
-
+ 
 
         private bool disposed = false;
 

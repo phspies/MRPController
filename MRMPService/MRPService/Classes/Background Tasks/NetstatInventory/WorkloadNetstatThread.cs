@@ -20,47 +20,62 @@ namespace MRMPService.MRMPAPI.Classes
 
                 Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", Global.os_netstat_concurrency), Logger.Severity.Info);
 
-                List<MRPWorkloadType> workloads;
+                MRPWorkloadListType _workload_paged;
+                MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { page=1, deleted=false, enabled=true, netstat_collection_enabled=true };
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
-                    workloads = _api.workload().listworkloads().workloads.Where(x => x.netstat_collection_enabled == true).ToList();
+                    _workload_paged = _api.workload().list_paged_filtered_brief(_filter);
                 }
-                _processed_workloads = workloads.Count;
+                _processed_workloads = (int)_workload_paged.pagination.total_entries;
 
                 List<Thread> lstThreads = new List<Thread>();
                 var splashStart = new ManualResetEvent(false);
-                foreach (var workload in workloads)
+                while (_workload_paged.pagination.page_size > 0)
                 {
-
-                    while (lstThreads.Count(x => x.IsAlive) > Global.os_netstat_concurrency - 1)
+                    foreach (var workload in _workload_paged.workloads)
                     {
-                        Thread.Sleep(1000);
-                    }
-
-                    Thread _inventory_thread = new Thread(delegate ()
-                    {
-                        splashStart.Set();
-                        try
+                        while (lstThreads.Count(x => x.IsAlive) > Global.os_netstat_concurrency - 1)
                         {
-                            switch (workload.ostype.ToUpper())
+                            Thread.Sleep(1000);
+                        }
+
+                        Thread _inventory_thread = new Thread(delegate ()
+                        {
+                            splashStart.Set();
+                            try
                             {
-                                case "WINDOWS":
-                                    WorkloadNetstat.WorkloadNetstatWindowsDo(workload);
-                                    break;
-                                case "UNIX":
-                                    WorkloadNetstat.WorkloadNetstatUnixDo(workload);
-                                    break;
+                                switch (workload.ostype.ToUpper())
+                                {
+                                    case "WINDOWS":
+                                        WorkloadNetstat.WorkloadNetstatWindowsDo(workload);
+                                        break;
+                                    case "UNIX":
+                                        WorkloadNetstat.WorkloadNetstatUnixDo(workload);
+                                        break;
+                                }
                             }
-                        }
-                        catch (Exception ex)
+                            catch (Exception ex)
+                            {
+                                Logger.log(String.Format("Netstat: Error collecting netstat information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
+                            }
+                        });
+                        lstThreads.Add(_inventory_thread);
+                        _inventory_thread.Start();
+                        splashStart.WaitOne();
+                        Logger.log(String.Format("Netstat Collection Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                    }
+                    if (_workload_paged.pagination.next_page > 0)
+                    {
+                        _filter.page = _workload_paged.pagination.next_page;
+                        using (MRMP_ApiClient _api = new MRMP_ApiClient())
                         {
-                            Logger.log(String.Format("Netstat: Error collecting netstat information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
+                            _workload_paged = _api.workload().list_paged_filtered_brief(_filter);
                         }
-                    });
-                    lstThreads.Add(_inventory_thread);
-                    _inventory_thread.Start();
-                    splashStart.WaitOne();
-                    Logger.log(String.Format("Netstat Collection Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 while (lstThreads.Any(x => x.IsAlive))
                 {

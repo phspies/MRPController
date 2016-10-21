@@ -1,18 +1,10 @@
 ﻿using Newtonsoft.Json;
 
-namespace MRMPService.MRMPService.Types.API
+namespace MRMPService.MRMPAPI.Types.API
 {
 
-    public class MRPProtectiongrouptreeCRUDType
+    public class MRPProtectiongrouptreeCRUDType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("protectiongrouptree")]
         public MRPProtectiongrouptreeType protectiongrouptree { get; set; }
     }

@@ -38,10 +38,23 @@ namespace MRMPService.PlatformInventory
 
             if (_mrp_workloads == null)
             {
-                Logger.log(String.Format("UpdateVMwareWorkload: Workload list empty, fecthing new list"), Logger.Severity.Info);
-                using (MRMP_ApiClient _cloud_movey = new MRMP_ApiClient())
+                _mrp_workloads = new List<MRPWorkloadType>();
+                using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
                 {
-                    _mrp_workloads = _cloud_movey.workload().list_by_platform_all(_platform).workloads.ToList();
+                    MRPWorkloadListType _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
+                    _mrp_workloads.AddRange(_paged_workload.workloads);
+                    while (_paged_workload.pagination.page_size > 0)
+                    {
+                        _mrp_workloads.AddRange(_paged_workload.workloads);
+                        if (_paged_workload.pagination.next_page > 0)
+                        {
+                            _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
             }
             //if workload is local, updated the local db record

@@ -41,7 +41,8 @@ namespace MRMPService.PlatformInventory
             List<Network> _vmware_vlan_list = _vim.networks().GetPortGroups(dc).ToList();
             List<MRPPlatformdomainType> _mrp_domains = _platform.platformdomains_attributes;
 
-            MRPPlatformType _update_platform = new MRPPlatformType() {
+            MRPPlatformType _update_platform = new MRPPlatformType()
+            {
                 id = _platform.id,
                 vcenter_uuid = _vim.vcenter().GetvCenterAbout().InstanceUuid
             };
@@ -163,7 +164,25 @@ namespace MRMPService.PlatformInventory
             {
                 //refresh domains and networks from portal
                 MRPPlatformType _refreshed_platfrom = _cloud_movey.platform().get_by_id(_platform.id);
-                List<MRPWorkloadType> _mrp_workloads = _cloud_movey.workload().list_by_platform_all(_platform).workloads; 
+
+                List<MRPWorkloadType> _mrp_workloads = new List<MRPWorkloadType>();
+                using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
+                {
+                    MRPWorkloadListType _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
+                    _mrp_workloads.AddRange(_paged_workload.workloads);
+                    while (_paged_workload.pagination.page_size > 0)
+                    {
+                        _mrp_workloads.AddRange(_paged_workload.workloads);
+                        if (_paged_workload.pagination.next_page > 0)
+                        {
+                            _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
 
                 foreach (VirtualMachine _vmware_workload in _vmware_workload_list)
                 {

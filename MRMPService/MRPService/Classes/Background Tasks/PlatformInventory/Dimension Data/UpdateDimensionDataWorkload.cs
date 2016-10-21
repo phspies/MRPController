@@ -14,7 +14,7 @@ namespace MRMPService.PlatformInventory
     {
         public static void UpdateMCPWorkload(String _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null)
         {
-            using (MRMP_ApiClient _cloud_movey = new MRMP_ApiClient())
+            using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
             {
                 //create dimension data mcp object
                 ServerType _caasworkload;
@@ -32,11 +32,25 @@ namespace MRMPService.PlatformInventory
 
                 if (_mrp_workloads == null)
                 {
-                    _mrp_workloads = _cloud_movey.workload().listworkloads().workloads;
+                    MRPWorkloadListType _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
+                    _mrp_workloads = new List<MRPWorkloadType>();
+                    _mrp_workloads.AddRange(_paged_workload.workloads);
+                    while (_paged_workload.pagination.page_size > 0)
+                    {
+                        _mrp_workloads.AddRange(_paged_workload.workloads);
+                        if (_paged_workload.pagination.next_page > 0)
+                        {
+                            _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
                 //get full platform inventory
 
-                _platform = _cloud_movey.platform().get_by_id(_platform.id);
+                _platform = _mrmp_api.platform().get_by_id(_platform.id);
 
                 MRPWorkloadType _mrmp_workload = new MRPWorkloadType();
                 MRPWorkloadType _current_mrmp_workload = new MRPWorkloadType();
@@ -102,12 +116,12 @@ namespace MRMPService.PlatformInventory
                 _mrmp_workload.provisioned = true;
                 if (_mrp_workloads.Exists(x => x.moid == _caasworkload.id))
                 {
-                    _cloud_movey.workload().updateworkload(_mrmp_workload);
+                    _mrmp_api.workload().updateworkload(_mrmp_workload);
                 }
                 else
                 {
                     _mrmp_workload.credential_id = _platform.default_credential_id;
-                    _cloud_movey.workload().createworkload(_mrmp_workload);
+                    _mrmp_api.workload().createworkload(_mrmp_workload);
                 }
             }
         }

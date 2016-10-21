@@ -10,15 +10,6 @@ namespace MRMPService.MRMPAPI
         public MRPNetworkstat(MRMP_ApiClient _MRP) : base(_MRP) {
         }
          
-        public void create(MRPNetworkStatCRUDType _networkstat)
-        {
-            MRPNetworkStatsCRUDType networkflow = new MRPNetworkStatsCRUDType()
-            {
-                networkstat = _networkstat
-            };
-            endpoint = "/networkstats/create.json";
-            post<ResultType>(networkflow);
-        }
         public void create_bulk(List<MRPNetworkStatCRUDType> _networkstats)
         {
             MRPNetworkStatsBulkCRUDType networkflow = new MRPNetworkStatsBulkCRUDType()

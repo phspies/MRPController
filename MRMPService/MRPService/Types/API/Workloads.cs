@@ -1,47 +1,42 @@
 ﻿using MRMPService.MRMPService.Types.API;
-using MRMPService.MRMPService.Types.API;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPWorkloadsCRUDType
+    public class MRPWorkloadsCRUDType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("workload")]
         public MRPWorkloadType workload { get; set; }
     }
-    public class MRPWorkloadGetIDType
+
+    public class MRPWorkloadFilterPagedType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
+        [JsonProperty("enabled")]
+        public bool? enabled { get; set; }
+        [JsonProperty("deleted")]
+        public bool? deleted { get; set; }
+        [JsonProperty("platform_id")]
+        public string platform_id { get; set; }
+        [JsonProperty("perf_collection_enabled")]
+        public bool? perf_collection_enabled { get; set; }
+        [JsonProperty("netstat_collection_enabled")]
+        public bool? netstat_collection_enabled { get; set; }
+        [JsonProperty("os_collection_enabled")]
+        public bool? os_collection_enabled { get; set; }
+        [JsonProperty("dt_installed")]
+        public bool? dt_installed { get; set; }
+        [JsonProperty("page")]
+        public int? page { get; set; }
+    }
+    public class MRPWorkloadGetIDType : MRPManagerIDType
+    {
         [JsonProperty("workload_id")]
         public String workload_id { get; set; }
     }
-    public class MRPWorkloadGetMOIDType
+    public class MRPWorkloadGetMOIDType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("moid_id")]
         public String moid_id { get; set; }
     }
@@ -50,6 +45,8 @@ namespace MRMPService.MRMPAPI.Types.API
     {
         [JsonProperty("workloads")]
         public List<MRPWorkloadType> workloads { get; set; }
+        [JsonProperty("pagination")]
+        public MRPPaginationType pagination { get; set; }
     }
     public class MRPWorkloadPairType
     {
@@ -95,9 +92,7 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("moid")]
         public string moid { get; set; }
         [JsonProperty("vcenter_uuid")]
-        public string vcenter_uuid { get; set; }
-        
-
+        public string vcenter_uuid { get; set; }      
         [JsonProperty("credential_id")]
         public string credential_id { get; set; }
         [JsonProperty("workloadtype")]

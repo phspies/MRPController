@@ -23,16 +23,12 @@ namespace MRMPService.MRMPAPI.Types.API
         public long? totalcapacity { get; set; }
         [JsonProperty("freecapacity")]
         public long? freecapacity { get; set; }
-
-
         [JsonProperty("rp4vm_clusterid")]
         public long? rp4vm_clusterid { get; set; }
         [JsonProperty("rp4vm_arrayid")]
         public long? rp4vm_arrayid { get; set; }
         [JsonProperty("rp4vm_resourcepoolid")]
         public long? rp4vm_resourcepoolid { get; set; }
-
-
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
     }

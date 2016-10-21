@@ -30,7 +30,7 @@ namespace MRMPService.TaskExecutioner
                     foreach (MRPTaskType task in tasklist.tasks)
                     {
                         //make sure new target task does not have an active task busy
-                        if ((!lstThreads.Exists(x => x.target_id == task.target_id) && lstThreads.Where(x => x.task.IsAlive == true).Count() < Global.scheduler_concurrency))
+                        if ((!lstThreads.Exists(x => x.target_id == task.target_id) && lstThreads.Where(x => x.task.IsAlive).Count() < Global.scheduler_concurrency))
                         {
                             switch (task.task_type)
                             {
@@ -172,7 +172,7 @@ namespace MRMPService.TaskExecutioner
                     Logger.log("Agent not associated to organization!", Logger.Severity.Warn);
                 }
 
-                lstThreads.RemoveAll(x => x.task.ThreadState != ThreadState.Running);
+                lstThreads.RemoveAll(x => !x.task.IsAlive);
                 Global.worker_queue_count = lstThreads.Count();
 
                 Thread.Sleep(new TimeSpan(0, 0, Global.scheduler_interval));

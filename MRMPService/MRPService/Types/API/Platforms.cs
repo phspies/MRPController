@@ -7,29 +7,13 @@ using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPPlatformGETType
+    public class MRPPlatformGETType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("platform_id")]
         public string platform_id { get; set; }
     }
-    public class MRPPlatformsCRUDType
+    public class MRPPlatformsCRUDType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("platform")]
         public MRPPlatformType platform { get; set; }
     }
@@ -66,15 +50,12 @@ namespace MRMPService.MRMPAPI.Types.API
         public string manager_id { get; set; }
         [JsonProperty("parent_platform_id")]
         public string parent_platform_id { get; set; }
-
         [JsonProperty("parent_platform")]
         public MRPPlatformType parent_platform { get; set; }
-
         [JsonProperty("platform_version")]
         public string platform_version { get; set; }
         [JsonProperty("vcenter_uuid")]
         public string vcenter_uuid { get; set; }
-
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
         [JsonProperty("default_credential_id")]

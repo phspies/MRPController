@@ -131,22 +131,20 @@ namespace MRMPService.MRMPAPI.Classes
                             Int32 _pid = tokens[1] == "UDP" ? Int16.Parse(tokens[3]) : Int16.Parse(tokens[4]);
                             if (_processes.FirstOrDefault(x => x.pid == _pid) != null && tokens[2].Split(':')[0] != "0.0.0.0" && tokens[2].Split(':')[0].ToString() != "127.0.0.1")
                             {
-                                using (NetstatSet _netstat_db = new NetstatSet())
+                                using (NetworkFlowSet _netstat_db = new NetworkFlowSet())
                                 {
                                     try
                                     {
-                                        _netstat_db.ModelRepository.Insert(new Netstat()
+                                        _netstat_db.ModelRepository.Insert(new NetworkFlow()
                                         {
                                             id = Objects.RamdomGuid(),
-                                            workload_id = workload.id,
-                                            proto = tokens[0],
-                                            pid = _pid,
-                                            process = _processes.FirstOrDefault(x => x.pid == _pid).name,
-                                            source_ip = IPSplit.Parse(tokens[1]).Address.ToString(),
+                                            source_address = IPSplit.Parse(tokens[1]).Address.ToString(),
                                             source_port = IPSplit.Parse(tokens[1]).Port,
-                                            target_ip = IPSplit.Parse(tokens[2]).Address.ToString(),
+                                            target_address = IPSplit.Parse(tokens[2]).Address.ToString(),
                                             target_port = IPSplit.Parse(tokens[2]).Port,
-                                            state = tokens[3]
+                                            start_timestamp = DateTime.UtcNow.Ticks,
+                                            stop_timestamp = DateTime.UtcNow.Ticks,
+                                            timestamp = DateTime.UtcNow,
                                         });
                                     }
                                     catch (Exception ex)

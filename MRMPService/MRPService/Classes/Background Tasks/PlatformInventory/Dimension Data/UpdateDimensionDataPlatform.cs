@@ -31,7 +31,23 @@ namespace MRMPService.PlatformInventory
                 MRPCredentialType _credential = _platform.credential;
                 MRPPlatformType _update_platform = new MRPPlatformType() { id = _platform.id };
 
-                List<MRPWorkloadType> _mrp_workloads = _mrp_api_endpoint.workload().list_by_platform_all(_platform).workloads;
+                List<MRPWorkloadType> _mrp_workloads = new List<MRPWorkloadType>();
+                using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
+                {
+                    MRPWorkloadListType _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id });
+                    while (_paged_workload.pagination.page_size > 0)
+                    {
+                        _mrp_workloads.AddRange(_paged_workload.workloads);
+                        if (_paged_workload.pagination.next_page > 0)
+                        {
+                            _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                }
 
                 ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_credential.username, _credential.encrypted_password));
                 try
@@ -207,7 +223,7 @@ namespace MRMPService.PlatformInventory
                 {
                     _caas_workload_list = _tmp_server_list.ToList();
                 }
-                    //process deleted platform workloads
+                //process deleted platform workloads
                 foreach (var _workload in _mrp_workloads.Where(x => x.platform_id == _platform.id && x.workloadtype != "manager"))
                 {
                     if (!_caas_workload_list.Any(x => x.id == _workload.moid))

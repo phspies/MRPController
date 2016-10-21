@@ -251,23 +251,12 @@ namespace MRMPService.Tasks.MCP
 
                         //create physical volume for new partition
                         cmd = sshclient.RunCommand(String.Format("lvcreate -L{0}G -n {1} {2}", _volume.volumesize, _volume_name, _volume_group));
-                        if (_part_fs_type == "xfs")
+                        if (_part_fs_type == "")
                         {
-                            cmd = sshclient.RunCommand(String.Format("mkfs.xfs /dev/{0}/{1}", _volume_group, _volume_name));
-                        }
-                        else if (_part_fs_type == "ext4")
-                        {
-                            cmd = sshclient.RunCommand(String.Format("mkfs.ext4 /dev/{0}/{1}", _volume_group, _volume_name));
-                        }
-                        else if (_part_fs_type == "ext3")
-                        {
-                            cmd = sshclient.RunCommand(String.Format("mkfs.ext3 /dev/{0}/{1}", _volume_group, _volume_name));
-                        }
-                        else
-                        {
-                            cmd = sshclient.RunCommand(String.Format("mkfs.ext4 /dev/{0}/{1}", _volume_group, _volume_name));
                             _part_fs_type = "ext4";
                         }
+                        cmd = sshclient.RunCommand(String.Format("mkfs.{2} /dev/{0}/{1}", _volume_group, _volume_name, _part_fs_type));
+
                         cmd = sshclient.RunCommand(String.Format("mkdir {0}", _volume.driveletter));
                         cmd = sshclient.RunCommand(String.Format("echo '/dev/{0}/{1} {2} {3} defaults 0 2' >> /etc/fstab",
                             _volume_group,

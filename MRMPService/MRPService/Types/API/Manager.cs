@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    class MRPManagerType
+    public class MRPManagerIDType
     {
         [JsonProperty("manager_id")]
         public string manager_id
@@ -13,6 +13,9 @@ namespace MRMPService.MRMPAPI.Types.API
                 return Global.manager_id;
             }
         }
+    }
+    public class MRPManagerType : MRPManagerIDType
+    {
         [JsonProperty("hostname")]
         public string hostname { get; set; }
         [JsonProperty("version")]

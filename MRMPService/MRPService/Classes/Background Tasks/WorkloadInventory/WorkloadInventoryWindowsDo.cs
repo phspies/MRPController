@@ -190,9 +190,12 @@ namespace MRMPService.MRMPAPI.Classes
                 }
 
                 //if procces already exists in portal, just update it   
-                if (_workload.workloadprocesses_attributes.Exists(x => x.caption == _process_name))
+                if (_workload.workloadprocesses_attributes != null)
                 {
-                    _process.id = _workload.workloadprocesses_attributes.FirstOrDefault(x => x.caption == item["Caption"].ToString()).id;
+                    if (_workload.workloadprocesses_attributes.Exists(x => x.caption == _process_name))
+                    {
+                        _process.id = _workload.workloadprocesses_attributes.FirstOrDefault(x => x.caption == item["Caption"].ToString()).id;
+                    }
                 }
 
                 try { _process.caption = item["Caption"].ToString(); } catch (Exception) { }
@@ -227,10 +230,12 @@ namespace MRMPService.MRMPAPI.Classes
                 {
                     continue;
                 }
-
-                if (_workload.workloadsoftwares_attributes.Exists(x => x.name == _software_name))
+                if (_workload.workloadsoftwares_attributes != null)
                 {
-                    _software.id = _workload.workloadsoftwares_attributes.FirstOrDefault(x => x.name == item["Name"].ToString()).id;
+                    if (_workload.workloadsoftwares_attributes.Exists(x => x.name == _software_name))
+                    {
+                        _software.id = _workload.workloadsoftwares_attributes.FirstOrDefault(x => x.name == item["Name"].ToString()).id;
+                    }
                 }
 
                 try { _software.name = item["Name"].ToString(); } catch (Exception) { }
@@ -261,11 +266,13 @@ namespace MRMPService.MRMPAPI.Classes
                             MRPWorkloadVolumeType _volume = new MRPWorkloadVolumeType();
 
                             //if volume already exists in portal, just update it   
-                            if (_workload.workloadvolumes_attributes.Exists(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()))
+                            if (_workload.workloadvolumes_attributes!= null)
                             {
-                                _volume.id = _workload.workloadvolumes_attributes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()).id;
+                                if (_workload.workloadvolumes_attributes.Exists(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()))
+                                {
+                                    _volume.id = _workload.workloadvolumes_attributes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()).id;
+                                }
                             }
-
                             Decimal _freespace = 0;
                             Decimal _size = 0;
                             Decimal _decimal;

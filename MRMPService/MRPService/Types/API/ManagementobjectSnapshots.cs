@@ -14,16 +14,8 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("ManagementobjectSnapshots")]
         public List<MRPManagementobjectSnapshotType> ManagementobjectSnapshots { get; set; }
     }
-    public class MRPManagementobjectSnapshotsCRUDType
+    public class MRPManagementobjectSnapshotsCRUDType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("managementobjectsnapshot")]
         public MRPManagementobjectSnapshotType ManagementobjectSnapshot { get; set; }
     }
@@ -65,31 +57,15 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("_destroy")]
         public bool? _destroy { get; set; }
     }
-    public class MRPManagementobjectSnapshotIDGETType
+    public class MRPManagementobjectSnapshotIDGETType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("worker_hostname")]
         public string worker_hostname { get; set; }
         [JsonProperty("image_id")]
         public string image_id { get; set; }
     }
-    public class MRPManagementobjectSnapshotMOIDGETType
+    public class MRPManagementobjectSnapshotMOIDGETType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("worker_hostname")]
         public string worker_hostname { get; set; }
         [JsonProperty("moid_id")]

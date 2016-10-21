@@ -42,16 +42,8 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("eventname")]
         public string eventname { get; set; }
     }
-    public class MRPEventsCRUDType
+    public class MRPEventsCRUDType : MRPManagerIDType
     {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
         [JsonProperty("event")]
         public MRMPEventType @event { get; set; }
     }

@@ -75,57 +75,71 @@ namespace MRMPService.PerformanceCollection
 
                 Logger.log(String.Format("Staring performance collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
 
-                List<MRPWorkloadType> workloads;
-
+                MRPWorkloadListType _workload_paged;
+                MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { page=1, deleted = false, enabled = true, perf_collection_enabled = true };
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
-                    workloads = _api.workload().listworkloads_perf_enabled().workloads;
+                    _workload_paged = _api.workload().list_paged_filtered(_filter);
                 }
-
-                _processed_workloads = workloads.Count();
+                _processed_workloads = (int)_workload_paged.pagination.total_entries;
 
 
                 List<Thread> lstThreads = new List<Thread>();
-                foreach (var workload in workloads)
+                while (_workload_paged.pagination.page_size > 0)
                 {
-                    while (lstThreads.Count(x => x.IsAlive) > Global.os_performance_concurrency - 1)
+                    foreach (var workload in _workload_paged.workloads)
                     {
-                        Thread.Sleep(1000);
-                    }
-                    var splashStart = new ManualResetEvent(false);
-                    Thread _inventory_thread = new Thread(delegate ()
-                    {
-                        splashStart.Set();
-                        try
+                        while (lstThreads.Count(x => x.IsAlive) > Global.os_performance_concurrency - 1)
                         {
-                            switch (workload.ostype.ToUpper())
-                            {
-                                case "WINDOWS":
-                                    WorkloadPerformance.WorkloadPerformanceWindowsDo(_workload_counters, _available_counters, workload);
-                                    break;
-                                case "UNIX":
-                                    WorkloadPerformance.WorkloadPerformanceUnixDo(workload);
-                                    break;
-                            }
-                            using (MRMP_ApiClient _api = new MRMP_ApiClient())
-                            {
-                                _api.workload().PeformanceUpdateStatus(workload, "Success", true);
-                            }
+                            Thread.Sleep(1000);
                         }
-                        catch (Exception ex)
+                        var splashStart = new ManualResetEvent(false);
+                        Thread _inventory_thread = new Thread(delegate ()
                         {
-                            Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
-                            using (MRMP_ApiClient _api = new MRMP_ApiClient())
+                            splashStart.Set();
+                            try
                             {
-                                _api.workload().PeformanceUpdateStatus(workload, ex.Message, false);
+                                switch (workload.ostype.ToUpper())
+                                {
+                                    case "WINDOWS":
+                                        WorkloadPerformance.WorkloadPerformanceWindowsDo(_workload_counters, _available_counters, workload);
+                                        break;
+                                    case "UNIX":
+                                        WorkloadPerformance.WorkloadPerformanceUnixDo(workload);
+                                        break;
+                                }
+                                using (MRMP_ApiClient _api = new MRMP_ApiClient())
+                                {
+                                    _api.workload().PeformanceUpdateStatus(workload, "Success", true);
+                                }
                             }
-                        }
-                    });
-                    lstThreads.Add(_inventory_thread);
-                    _inventory_thread.Start();
-                    splashStart.WaitOne();
+                            catch (Exception ex)
+                            {
+                                Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
+                                using (MRMP_ApiClient _api = new MRMP_ApiClient())
+                                {
+                                    _api.workload().PeformanceUpdateStatus(workload, ex.Message, false);
+                                }
+                            }
+                        });
+                        lstThreads.Add(_inventory_thread);
+                        _inventory_thread.Start();
+                        splashStart.WaitOne();
 
-                    Logger.log(String.Format("Workload Performance Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                        Logger.log(String.Format("Workload Performance Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                    }
+                    if (_workload_paged.pagination.next_page > 0)
+                    {
+                        _filter.page = _workload_paged.pagination.next_page;
+                        using (MRMP_ApiClient _api = new MRMP_ApiClient())
+                        {
+                            _workload_paged = _api.workload().list_paged_filtered_brief(_filter);
+                        }
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 while (lstThreads.Any(x => x.IsAlive))
                 {
