@@ -275,7 +275,6 @@
     <Compile Include="MRPService\Classes\Modules\MCP\WindowsCustomization.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Events.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformDatacenters.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\Protectiongrouptrees.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v10\Field.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v10\FieldType.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v10\FlowSet.cs" />
@@ -332,8 +331,6 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Networkflows.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PerformanceCategories.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PerformanceCounters.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformNetworks.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformTemplates.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Platforms.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Tasks.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Managers.cs" />
@@ -357,17 +354,19 @@
     <Compile Include="MRPService\Classes\Utilities\SSHHandleKeyboard.cs" />
     <Compile Include="MRPService\Classes\Utilities\SyncronizedList.cs" />
     <Compile Include="MRPService\Classes\Utilities\WMIHelper.cs" />
+    <Compile Include="MRPService\Database\Classes\PerfCounterSampleSet.cs" />
     <Compile Include="MRPService\Database\Classes\NetstatSet.cs" />
     <Compile Include="MRPService\Database\Classes\NetworkFlowSet.cs" />
     <Compile Include="MRPService\Database\Classes\GenericDatabase.cs" />
     <Compile Include="MRPService\Database\Classes\PerformanceSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\INetworkFlowSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IPerfCounterSampleSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\INetworkSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\IGenericDatabase.cs" />
     <Compile Include="MRPService\Database\Interfaces\IPerformanceSet.cs" />
     <Compile Include="MRPService\Database\Context\MRPDatabase.cs" />
     <Compile Include="MRPService\Classes\Utilities\SimpleEAS.cs" />
-    <Compile Include="MRPService\Database\Structures\Credential.cs" />
+    <Compile Include="MRPService\Database\Structures\PerfCounterSample.cs" />
     <Compile Include="MRPService\Database\Structures\Event.cs" />
     <Compile Include="MRPService\Database\Structures\Netstat.cs" />
     <Compile Include="MRPService\Database\Structures\NetworkFlow.cs" />
@@ -528,7 +527,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
