@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPNetworkFlowsCRUDType : MRPManagerIDType
+    public class MRPNetworkFlowsCRUDType
     {
         [JsonProperty("networkflows")]
         public List<MRPNetworkFlowCRUDType> networkflows { get; set; }

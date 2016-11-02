@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPPlatformtemplatesCRUDType : MRPManagerIDType
+    public class MRPPlatformtemplatesCRUDType
     {
         [JsonProperty("platformtemplate")]
         public MRPPlatformtemplateType platformtemplate { get; set; }

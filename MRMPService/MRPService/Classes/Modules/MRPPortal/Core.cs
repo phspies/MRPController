@@ -9,8 +9,37 @@ using Newtonsoft.Json.Serialization;
 
 namespace MRMPService.MRMPAPI
 {
-    class Core
+    class Core : IDisposable
     {
+        bool _disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~Core()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                // free other managed objects that implement
+                // IDisposable only
+            }
+
+            // release any unmanaged objects
+            // set the object references to null
+
+            _disposed = true;
+        }
         private String _endpoint;
         private MRMP_ApiClient _client;
         static string api_prefix = "/api/v1";
@@ -31,6 +60,9 @@ namespace MRMPService.MRMPAPI
 
         public object perform<type>(Method _method, Object _object) where type : new()
         {
+            ServicePointManager.Expect100Continue = false;
+            ServicePointManager.UseNagleAlgorithm = false;
+            ServicePointManager.DefaultConnectionLimit = 20;
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true;
             var client = new RestClient();
             client.FollowRedirects = false;
@@ -38,6 +70,7 @@ namespace MRMPService.MRMPAPI
             client.BaseUrl = new Uri("https://www.mrplatform.net/");
             RestRequest request = new RestRequest();
             client.FollowRedirects = false;
+            client.Proxy = null;
             request.Resource = endpoint;
             request.Timeout = 60 * 1000;
             request.Method = _method;
@@ -50,6 +83,9 @@ namespace MRMPService.MRMPAPI
 
             client.RemoveDefaultParameter("Accept");
             client.AddDefaultParameter("Accept", "application/json", ParameterType.HttpHeader);
+            client.AddDefaultParameter("MANAGERID", Global.manager_id, ParameterType.HttpHeader);
+            client.AddDefaultParameter("ORGANIZATIONID", Global.organization_id, ParameterType.HttpHeader);
+
             object responseobject = null;
             while (true)
             {
@@ -122,6 +158,8 @@ namespace MRMPService.MRMPAPI
                     Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
             }
+            client = null;
+            request = null;
             return responseobject;
 
         }

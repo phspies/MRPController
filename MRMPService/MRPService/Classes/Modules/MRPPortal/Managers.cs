@@ -8,8 +8,37 @@ using System.Diagnostics;
 
 namespace MRMPService.MRMPAPI
 {
-    class MRPManager : Core
+    class MRPManager : Core, IDisposable
     {
+        bool _disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~MRPManager()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                // free other managed objects that implement
+                // IDisposable only
+            }
+
+            // release any unmanaged objects
+            // set the object references to null
+
+            _disposed = true;
+        }
         MRPManagerType worker = new MRPManagerType();
         public MRPManager(MRMP_ApiClient _MRP) : base(_MRP)
         {
@@ -20,15 +49,15 @@ namespace MRMPService.MRMPAPI
         public bool confirm_controller()
         {
             endpoint = ("/managers/confirm.json");
-            MRPManagerConfirmType returnval = post<MRPManagerConfirmType>(worker);
+            ResultType returnval = post<ResultType>(worker);
 
-            while (returnval.manager.status == false)
+            while (returnval.result.status == false)
             {
                 Logger.log("Manager not registered with portal!", Logger.Severity.Warn);
                 Thread.Sleep(new TimeSpan(0, 0, 30));
-                returnval = post<MRPManagerConfirmType>(worker) as MRPManagerConfirmType;
+                returnval = post<ResultType>(worker) as ResultType;
             }
-            Global.organization_id = returnval.manager.organization_id;
+            Global.organization_id = returnval.result.organization_id;
             if (Global.organization_id == null)
             {
                 Logger.log("No Organization ID Detected! - Exiting!!!", Logger.Severity.Fatal);

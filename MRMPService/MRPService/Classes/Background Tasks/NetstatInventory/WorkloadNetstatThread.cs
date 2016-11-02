@@ -18,15 +18,17 @@ namespace MRMPService.MRMPAPI.Classes
                 System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
                 int _processed_workloads = 0;
 
-                Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", Global.os_netstat_concurrency), Logger.Severity.Info);
 
                 MRPWorkloadListType _workload_paged;
-                MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { page=1, deleted=false, enabled=true, netstat_collection_enabled=true };
+                MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { provisioned = true, page =1, deleted=false, enabled=true, netstat_collection_enabled=true };
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
                     _workload_paged = _api.workload().list_paged_filtered_brief(_filter);
                 }
                 _processed_workloads = (int)_workload_paged.pagination.total_entries;
+                double _multiplyer = Math.Ceiling((double)_workload_paged.pagination.total_entries / 200.00);
+
+                Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", (_multiplyer * Global.os_netstat_concurrency)), Logger.Severity.Info);
 
                 List<Thread> lstThreads = new List<Thread>();
                 var splashStart = new ManualResetEvent(false);
@@ -34,7 +36,7 @@ namespace MRMPService.MRMPAPI.Classes
                 {
                     foreach (var workload in _workload_paged.workloads)
                     {
-                        while (lstThreads.Count(x => x.IsAlive) > Global.os_netstat_concurrency - 1)
+                        while (lstThreads.Count(x => x.IsAlive) > (Global.os_netstat_concurrency * _multiplyer))
                         {
                             Thread.Sleep(1000);
                         }

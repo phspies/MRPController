@@ -14,7 +14,7 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("managementobjects")]
         public List<MRPManagementobjectType> managementobjects { get; set; }
     }
-    public class MRPManagementobjectsCRUDType : MRPManagerIDType
+    public class MRPManagementobjectsCRUDType
     {
         [JsonProperty("managementobject")]
         public MRPManagementobjectType managementobject { get; set; }
@@ -86,14 +86,14 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("protectiongroup")]
         public MRPProtectiongroupType protectiongroup { get; set; }
     }
-    public class MRPManagementobjectIDGETType : MRPManagerIDType
+    public class MRPManagementobjectIDGETType
     {
         [JsonProperty("worker_hostname")]
         public string worker_hostname { get; set; }
         [JsonProperty("managementobject_id")]
         public string managementobject_id { get; set; }
     }
-    public class MRPManagementobjectDTIDGETType : MRPManagerIDType
+    public class MRPManagementobjectDTIDGETType
     {
         [JsonProperty("worker_hostname")]
         public string worker_hostname { get; set; }

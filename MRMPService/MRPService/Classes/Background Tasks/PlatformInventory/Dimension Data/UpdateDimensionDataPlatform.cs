@@ -15,9 +15,37 @@ using DD.CBU.Compute.Api.Contracts.Requests.Network20;
 
 namespace MRMPService.PlatformInventory
 {
-    class PlatformDimensionDataMCP2InventoryDo
+    class PlatformDimensionDataMCP2InventoryDo : IDisposable
     {
+        bool _disposed;
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~PlatformDimensionDataMCP2InventoryDo()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                // free other managed objects that implement
+                // IDisposable only
+            }
+
+            // release any unmanaged objects
+            // set the object references to null
+
+            _disposed = true;
+        }
         public static void UpdateMCPPlatform(MRPPlatformType _platform, bool full = true)
         {
             using (MRMP_ApiClient _mrp_api_endpoint = new MRMP_ApiClient())
@@ -210,6 +238,11 @@ namespace MRMPService.PlatformInventory
                     }
 
                 }
+                //nullify all networks in domains where domain was deleted
+                _update_platform.platformdomains_attributes.Where(x => x.deleted == true).ForEach(x => x.platformnetworks_attributes = null);
+
+
+
                 if (_update_platform.platformdomains_attributes.Count == 0)
                 {
                     _update_platform.platformdomains_attributes = null;

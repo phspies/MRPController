@@ -14,8 +14,37 @@ using VMware.Vim;
 
 namespace MRMPService.Tasks.DiscoveryPlatform
 {
-    public class DatacenterDiscovery
+    public class DatacenterDiscovery : IDisposable
     {
+        bool _disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~DatacenterDiscovery()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                // free other managed objects that implement
+                // IDisposable only
+            }
+
+            // release any unmanaged objects
+            // set the object references to null
+
+            _disposed = true;
+        }
         public static void DatacenterDiscoveryDo(MRPTaskType payload)
         {
             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())

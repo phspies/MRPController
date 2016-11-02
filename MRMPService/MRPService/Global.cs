@@ -28,13 +28,13 @@ namespace MRMPService
         static String _manager_version = version;
 
         public static int os_inventory_interval = (int)MRPRegistry.RegAccess("os_inventory_interval",1440, RegistryValueKind.DWord); //minutes
-        public static int os_inventory_concurrency = (int)MRPRegistry.RegAccess("os_inventory_concurrency", 10, RegistryValueKind.DWord);
+        public static int os_inventory_concurrency = (int)MRPRegistry.RegAccess("os_inventory_concurrency", 20, RegistryValueKind.DWord);
 
         public static int dt_job_polling_interval = (int)MRPRegistry.RegAccess("dt_job_polling_interval", 900, RegistryValueKind.DWord); //minutes
-        public static int dt_job_polling_concurrency = (int)MRPRegistry.RegAccess("dt_job_polling_concurrency", 10, RegistryValueKind.DWord);
+        public static int dt_job_polling_concurrency = (int)MRPRegistry.RegAccess("dt_job_polling_concurrency", 20, RegistryValueKind.DWord);
 
         public static int dt_event_polling_interval = (int)MRPRegistry.RegAccess("dt_event_polling_interval", 600, RegistryValueKind.DWord); //minutes
-        public static int dt_event_polling_concurrency = (int)MRPRegistry.RegAccess("dt_event_polling_concurrency", 10, RegistryValueKind.DWord);
+        public static int dt_event_polling_concurrency = (int)MRPRegistry.RegAccess("dt_event_polling_concurrency", 20, RegistryValueKind.DWord);
 
         public static int rp4vm_event_polling_interval = (int)MRPRegistry.RegAccess("rp4vm_event_polling_interval", 300, RegistryValueKind.DWord); //minutes
         public static int rp4vm_event_polling_concurrency = (int)MRPRegistry.RegAccess("rp4vm_event_polling_concurrency", 2, RegistryValueKind.DWord);
@@ -43,17 +43,16 @@ namespace MRMPService
         public static int rp4vm_group_polling_concurrency = (int)MRPRegistry.RegAccess("rp4vm_group_polling_concurrency", 2, RegistryValueKind.DWord);
 
         public static int os_netstat_interval = (int)MRPRegistry.RegAccess("os_netstat_interval", 60, RegistryValueKind.DWord);  //minutes
-        public static int os_netstat_concurrency = (int)MRPRegistry.RegAccess("os_netstat_concurrency", 10, RegistryValueKind.DWord);
+        public static int os_netstat_concurrency = (int)MRPRegistry.RegAccess("os_netstat_concurrency", 20, RegistryValueKind.DWord);
 
         public static int platform_inventory_interval = (int)MRPRegistry.RegAccess("platform_inventory_interval", 1440, RegistryValueKind.DWord); //minutes
-        public static int platform_inventory_concurrency = (int)MRPRegistry.RegAccess("platform_inventory_concurrency", 10, RegistryValueKind.DWord);
+        public static int platform_inventory_concurrency = (int)MRPRegistry.RegAccess("platform_inventory_concurrency", 20, RegistryValueKind.DWord);
 
-        public static int os_performance_concurrency = (int)MRPRegistry.RegAccess("os_performance_concurrency", 10, RegistryValueKind.DWord);
+        public static int os_performance_concurrency = (int)MRPRegistry.RegAccess("os_performance_concurrency", 20, RegistryValueKind.DWord);
 
         public static int portal_upload_interval = (int)MRPRegistry.RegAccess("portal_upload_interval", 30, RegistryValueKind.DWord);//seconds
-        public static int portal_upload_netflow_page_size = (int)MRPRegistry.RegAccess("portal_upload_netflow_page_size", 100, RegistryValueKind.DWord); 
-        public static int portal_upload_netstat_page_size = (int)MRPRegistry.RegAccess("portal_upload_netstat_page_size", 100, RegistryValueKind.DWord); 
-        public static int portal_upload_performanceounter_page_size = (int)MRPRegistry.RegAccess("portal_upload_performanceounter_page_size", 100, RegistryValueKind.DWord);
+        public static int portal_upload_netflow_page_size = (int)MRPRegistry.RegAccess("portal_upload_netflow_page_size", 300, RegistryValueKind.DWord); 
+        public static int portal_upload_performanceounter_page_size = (int)MRPRegistry.RegAccess("portal_upload_performanceounter_page_size", 300, RegistryValueKind.DWord);
 
         public static int scheduler_interval = (int)MRPRegistry.RegAccess("scheduler_interval", 5, RegistryValueKind.DWord); //seconds
         public static int scheduler_concurrency = (int)MRPRegistry.RegAccess("scheduler_concurrency", 30, RegistryValueKind.DWord);
@@ -145,98 +144,5 @@ namespace MRMPService
         /// Global static field.
         /// </summary>
         public static bool GlobalBoolean;
-
-        public class TryLock : IDisposable
-        {
-            private object locked;
-
-            public bool HasLock { get; private set; }
-
-            public TryLock(object obj)
-            {
-                if (Monitor.TryEnter(obj))
-                {
-                    HasLock = true;
-                    locked = obj;
-                }
-            }
-
-            public void Dispose()
-            {
-                if (HasLock)
-                {
-                    Monitor.Exit(locked);
-                    locked = null;
-                    HasLock = false;
-                }
-            }
-        }
     }
-
-
-    [DataContract]
-    public class JobManagerRequest
-    {
-        [DataMember]
-        public CredentialsInfo credentials;
-
-        [DataMember]
-        public string jobtype;
-
-
-        [DataMember]
-        public Guid jobid;
-
-        [DataMember]
-        public String workloadname;
-
-        [DataMember]
-        public Guid imageid;
-    }
-
-    [DataContract]
-    public class CredentialsInfo
-    {
-        [DataMember]
-        public String sourceIPAddress;
-
-        [DataMember]
-        public String sourceUserDomain;
-
-        [DataMember]
-        public String sourceUserAccount;
-
-        [DataMember]
-        public String sourceUserPassword;
-
-        [DataMember]
-        public String targetIPAddress;
-
-        [DataMember]
-        public String targetUserDomain;
-
-        [DataMember]
-        public String targetUserAccount;
-
-        [DataMember]
-        public String targetUserPassword;
-    }
-
-
-    //subsystem
-    //objecttype
-    //command
-    //inputObject
-    //outputObject
-    public class InstructionAction
-    {
-        private String subsystemField;
-
-        public String subsystem
-        {
-            get { return subsystemField; }
-            set { subsystemField = value; }
-        }
-    }
-
 }

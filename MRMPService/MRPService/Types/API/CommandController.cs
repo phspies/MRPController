@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    class MRPCommandManagerType : MRPManagerIDType
+    class MRPCommandManagerType
     {
 
     }

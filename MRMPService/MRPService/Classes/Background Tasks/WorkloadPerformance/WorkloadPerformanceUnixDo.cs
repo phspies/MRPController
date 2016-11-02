@@ -12,7 +12,7 @@ using Renci.SshNet.Sftp;
 
 namespace MRMPService.PerformanceCollection
 {
-    partial class WorkloadPerformance
+    partial class WorkloadPerformance : IDisposable
     {
         static string _password;
         static private void HandleKeyEvent(object sender, AuthenticationPromptEventArgs e)

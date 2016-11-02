@@ -9,8 +9,37 @@ using MRMPService.RP4VMTypes;
 
 namespace MRMPService.DTPollerCollection
 {
-    class RPGroupPoller
+    class RPGroupPoller : IDisposable
     {
+        bool _disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~RPGroupPoller()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                // free other managed objects that implement
+                // IDisposable only
+            }
+
+            // release any unmanaged objects
+            // set the object references to null
+
+            _disposed = true;
+        }
         public static void PollerDo(MRPManagementobjectType _mrp_managementobject)
         {
             //refresh managementobject from portal

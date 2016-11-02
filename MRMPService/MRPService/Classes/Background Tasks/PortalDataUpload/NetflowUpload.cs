@@ -10,8 +10,37 @@ using MRMPService.Utilities;
 
 namespace MRMPService.MRMPService.Classes.Background_Classes
 {
-    class NetflowUpload
+    class NetflowUpload : IDisposable
     {
+        bool _disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~NetflowUpload()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                // free other managed objects that implement
+                // IDisposable only
+            }
+
+            // release any unmanaged objects
+            // set the object references to null
+
+            _disposed = true;
+        }
         public void Start()
         {
             try
@@ -45,14 +74,10 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
 
                                     _netflow_list.Add(_mrp_crud);
 
-                                    if (_netflow_list.Count > Global.portal_upload_performanceounter_page_size + 100)
+                                    if (_netflow_list.Count > Global.portal_upload_netflow_page_size)
                                     {
-                                        Thread _upload_thread = new Thread(delegate ()
-                                        {
-                                            _cloud_movey.netflow().createnetworkflow(_netflow_list);
-                                            _netflow_list.Clear();
-                                        });
-                                        _upload_thread.Join();
+                                        _cloud_movey.netflow().createnetworkflow(_netflow_list);
+                                        _netflow_list.Clear();
                                     }
                                 }
                                 //upload last remaining records

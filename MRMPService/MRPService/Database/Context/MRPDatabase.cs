@@ -19,11 +19,11 @@ namespace MRMPService.LocalDatabase
         public DbSet<NetworkFlow> NetworkFlows { get; set; }
         public DbSet<Netstat> Netstat { get; set; }
         public DbSet<Performance> Performance { get; set; }
-
+        public DbSet<PerfCounterSample> PerfCounterSample { get; set; }
         public static DbConnection GetConnection()
         {
             string dblocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string dbfilename = Path.Combine(dblocation,"Database","MRPController.sdf");
+            string dbfilename = Path.Combine(dblocation,"Database","MRMPManager.sdf");
             if (!Directory.Exists(Path.GetDirectoryName(dbfilename)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(dbfilename));

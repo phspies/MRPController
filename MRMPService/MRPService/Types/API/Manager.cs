@@ -3,18 +3,7 @@ using System.Runtime.Serialization;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPManagerIDType
-    {
-        [JsonProperty("manager_id")]
-        public string manager_id
-        {
-            get
-            {
-                return Global.manager_id;
-            }
-        }
-    }
-    public class MRPManagerType : MRPManagerIDType
+    public class MRPManagerType
     {
         [JsonProperty("hostname")]
         public string hostname { get; set; }
@@ -23,20 +12,4 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("ipaddress")]
         public string ipaddress { get; set; }
     }
-    public class MRPManagerConfirmType
-    {
-        [JsonProperty("manager")]
-        public Manager manager { get; set; }
-    }
-    public class Manager
-    {
-        [JsonProperty("organization_id")]
-        public string organization_id { get; set; }
-        [JsonProperty("message")]
-        public string message { get; set; }
-        [JsonProperty("status")]
-        public bool status { get; set; }
-    }
-
-
 }

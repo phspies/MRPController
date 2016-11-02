@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPPerformanceCategoriesCRUDType : MRPManagerIDType
+    public class MRPPerformanceCategoriesCRUDType
     {
         [JsonProperty("performancecategory")]
         public MRPPerformanceCategoryCRUDType performancecategory { get; set; }

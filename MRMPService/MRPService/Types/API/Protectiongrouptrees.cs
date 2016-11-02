@@ -3,7 +3,7 @@
 namespace MRMPService.MRMPAPI.Types.API
 {
 
-    public class MRPProtectiongrouptreeCRUDType : MRPManagerIDType
+    public class MRPProtectiongrouptreeCRUDType
     {
         [JsonProperty("protectiongrouptree")]
         public MRPProtectiongrouptreeType protectiongrouptree { get; set; }

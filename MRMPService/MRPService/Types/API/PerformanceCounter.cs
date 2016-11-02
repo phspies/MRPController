@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPPerformanceCountersCRUDType : MRPManagerIDType
+    public class MRPPerformanceCountersCRUDType
     {
         [JsonProperty("performancecounters")]
         public List<MRPPerformanceCounterCRUDType> performancecounters { get; set; }

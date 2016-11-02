@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPPlatformGETType : MRPManagerIDType
+    public class MRPPlatformGETType
     {
         [JsonProperty("platform_id")]
         public string platform_id { get; set; }
     }
-    public class MRPPlatformsCRUDType : MRPManagerIDType
+    public class MRPPlatformsCRUDType
     {
         [JsonProperty("platform")]
         public MRPPlatformType platform { get; set; }

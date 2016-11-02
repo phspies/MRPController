@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPNetworkStatsCRUDType : MRPManagerIDType
+    public class MRPNetworkStatsCRUDType
     {
         [JsonProperty("networkstat")]
         public MRPNetworkStatCRUDType networkstat { get; set; }
     }
-    public class MRPNetworkStatsBulkCRUDType : MRPManagerIDType
+    public class MRPNetworkStatsBulkCRUDType
     {
         [JsonProperty("networkstats")]
         public List<MRPNetworkStatCRUDType> networkstats { get; set; }

@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPWorkloadsCRUDType : MRPManagerIDType
+    public class MRPWorkloadsCRUDType
     {
         [JsonProperty("workload")]
         public MRPWorkloadType workload { get; set; }
     }
 
-    public class MRPWorkloadFilterPagedType : MRPManagerIDType
+    public class MRPWorkloadFilterPagedType
     {
         [JsonProperty("enabled")]
         public bool? enabled { get; set; }
@@ -29,13 +29,15 @@ namespace MRMPService.MRMPAPI.Types.API
         public bool? dt_installed { get; set; }
         [JsonProperty("page")]
         public int? page { get; set; }
+        [JsonProperty("provisioned")]
+        public bool? provisioned { get; set; }
     }
-    public class MRPWorkloadGetIDType : MRPManagerIDType
+    public class MRPWorkloadGetIDType
     {
         [JsonProperty("workload_id")]
         public String workload_id { get; set; }
     }
-    public class MRPWorkloadGetMOIDType : MRPManagerIDType
+    public class MRPWorkloadGetMOIDType
     {
         [JsonProperty("moid_id")]
         public String moid_id { get; set; }

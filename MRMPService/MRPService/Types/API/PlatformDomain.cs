@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
-    public class MRPPlatformdomainsCRUDType : MRPManagerIDType
+    public class MRPPlatformdomainsCRUDType
     {
         [JsonProperty("platformdomain")]
         public MRPPlatformdomainType platformdomain { get; set; }

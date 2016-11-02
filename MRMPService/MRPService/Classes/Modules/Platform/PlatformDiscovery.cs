@@ -6,8 +6,37 @@ using System;
 
 namespace MRMPService.Tasks.DiscoveryPlatform
 {
-    public class PlatformDiscovery
+    public class PlatformDiscovery : IDisposable
     {
+        bool _disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~PlatformDiscovery()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                // free other managed objects that implement
+                // IDisposable only
+            }
+
+            // release any unmanaged objects
+            // set the object references to null
+
+            _disposed = true;
+        }
         public static void PlatformDiscoveryDo(MRPTaskType payload)
         {
             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())

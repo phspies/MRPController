@@ -10,8 +10,37 @@ using MRMPService.MRMPService.Log;
 
 namespace MRMPService.PlatformInventory
 {
-    partial class PlatformInventoryWorkloadDo
+    partial class PlatformInventoryWorkloadDo : IDisposable
     {
+        bool _disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~PlatformInventoryWorkloadDo()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                // free other managed objects that implement
+                // IDisposable only
+            }
+
+            // release any unmanaged objects
+            // set the object references to null
+
+            _disposed = true;
+        }
         public static void UpdateVMWareWorkload(string _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null)
         {
 

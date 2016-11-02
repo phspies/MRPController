@@ -14,8 +14,37 @@ using MRMPService.MRMPAPI;
 
 namespace MRMPService.PlatformInventory
 {
-    class PlatformVMwareInventoryDo
+    class PlatformVMwareInventoryDo : IDisposable
     {
+        bool _disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        ~PlatformVMwareInventoryDo()
+        {
+            Dispose(false);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (_disposed)
+                return;
+
+            if (disposing)
+            {
+                // free other managed objects that implement
+                // IDisposable only
+            }
+
+            // release any unmanaged objects
+            // set the object references to null
+
+            _disposed = true;
+        }
         static public void UpdateVMwarePlatform(MRPPlatformType _platform, bool full = true)
         {
             MRMP_ApiClient _cloud_movey = new MRMP_ApiClient();

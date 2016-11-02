@@ -23,7 +23,7 @@ namespace MRMPService.MRMPAPI
             {
                 MissingMemberHandling = MissingMemberHandling.Ignore,
                 NullValueHandling = NullValueHandling.Ignore,
-                DefaultValueHandling = DefaultValueHandling.Include,
+                DefaultValueHandling = DefaultValueHandling.Include
             };
         }
 

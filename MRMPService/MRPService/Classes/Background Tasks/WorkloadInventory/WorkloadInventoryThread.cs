@@ -22,7 +22,7 @@ namespace MRMPService.MRMPAPI.Classes
                 Logger.log(String.Format("Staring operating system inventory process with {0} threads", Global.os_inventory_concurrency), Logger.Severity.Info);
 
                 MRPWorkloadListType _workload_paged;
-                MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { page = 1, deleted = false, enabled = true, perf_collection_enabled = true };
+                MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { provisioned=true, page = 1, deleted = false, enabled = true, perf_collection_enabled = true };
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
                     _workload_paged = _api.workload().list_paged_filtered(_filter);

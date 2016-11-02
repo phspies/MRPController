@@ -27,6 +27,7 @@ namespace MRMPService.DTEventPollerCollection
                     _workload_paged = _api.workload().list_paged_filtered_brief(_filter);
                 }
                 int _processed_workloads = (int)_workload_paged.pagination.total_entries;
+                double _multiplyer = Math.Ceiling((double)_workload_paged.pagination.total_entries / 200.00);
 
 
                 List<Thread> lstThreads = new List<Thread>();
@@ -36,7 +37,7 @@ namespace MRMPService.DTEventPollerCollection
                     foreach (var workload in _workload_paged.workloads)
                     {
 
-                        while (lstThreads.Count(x => x.IsAlive) > Global.os_inventory_concurrency - 1)
+                        while (lstThreads.Count(x => x.IsAlive) > (Global.dt_job_polling_concurrency * _multiplyer))
                         {
                             Thread.Sleep(1000);
                         }

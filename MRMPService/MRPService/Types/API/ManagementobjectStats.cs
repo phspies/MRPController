@@ -13,7 +13,7 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("ManagementobjectStats")]
         public List<MRPManagementobjectStatType> ManagementobjectStats { get; set; }
     }
-    public class MRPManagementobjectStatsCRUDType : MRPManagerIDType
+    public class MRPManagementobjectStatsCRUDType
     {
         [JsonProperty("ManagementobjectStat")]
         public MRPManagementobjectStatType ManagementobjectStat { get; set; }
@@ -49,14 +49,14 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("recovery_point_latency")]
         public long recovery_point_latency { get; set; }
     }
-    public class MRPManagementobjectStatIDGETType : MRPManagerIDType
+    public class MRPManagementobjectStatIDGETType
     {
         [JsonProperty("worker_hostname")]
         public string worker_hostname { get; set; }
         [JsonProperty("ManagementobjectStat_id")]
         public string managementobjectstat_id { get; set; }
     }
-    public class MRPManagementobjectStatDTIDGETType : MRPManagerIDType
+    public class MRPManagementobjectStatDTIDGETType
     {
         [JsonProperty("worker_hostname")]
         public string worker_hostname { get; set; }

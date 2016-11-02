@@ -9,9 +9,11 @@ namespace MRMPService.MRMPAPI.Types.API
     }
     public class ResultDetailType
     {
-        [JsonProperty("status")]
-        public bool status { get; set; }
+        [JsonProperty("organization_id")]
+        public string organization_id { get; set; }
         [JsonProperty("message")]
         public string message { get; set; }
+        [JsonProperty("status")]
+        public bool status { get; set; }
     }
 }
