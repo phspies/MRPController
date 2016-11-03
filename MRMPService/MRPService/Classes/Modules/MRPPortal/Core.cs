@@ -62,17 +62,18 @@ namespace MRMPService.MRMPAPI
         {
             ServicePointManager.Expect100Continue = false;
             ServicePointManager.UseNagleAlgorithm = false;
-            ServicePointManager.DefaultConnectionLimit = 20;
+            ServicePointManager.DefaultConnectionLimit = 12 * Environment.ProcessorCount;
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true;
             var client = new RestClient();
             client.FollowRedirects = false;
-            client.Timeout = 60 * 1000;
+            client.Timeout = 120 * 1000;
             client.BaseUrl = new Uri("https://www.mrplatform.net/");
             RestRequest request = new RestRequest();
             client.FollowRedirects = false;
             client.Proxy = null;
             request.Resource = endpoint;
-            request.Timeout = 60 * 1000;
+            
+            request.Timeout = 120 * 1000;
             request.Method = _method;
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer.ContentType = "application/json; charset=utf-8";

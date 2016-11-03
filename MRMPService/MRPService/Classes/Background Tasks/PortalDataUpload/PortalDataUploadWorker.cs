@@ -18,21 +18,13 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     Logger.log("Staring data upload process", Logger.Severity.Info);
                     Stopwatch sw = Stopwatch.StartNew();
 
-                    PerformanceUpload _performance = new PerformanceUpload();
-                    Thread performance_thread = new Thread(new ThreadStart(_performance.Start));
-                    performance_thread.Name = "Performance Upload Thread";
-                    performance_thread.Start();
-                    performance_thread.Priority = ThreadPriority.AboveNormal;
-
                     NetflowUpload _netflow = new NetflowUpload();
                     Thread netflow_thread = new Thread(new ThreadStart(_netflow.Start));
                     netflow_thread.Name = "Netflow Upload Thread";
                     netflow_thread.Start();
                     netflow_thread.Priority = ThreadPriority.AboveNormal;
 
-                    performance_thread.Join();
                     netflow_thread.Join();
-
 
                     sw.Stop();
 

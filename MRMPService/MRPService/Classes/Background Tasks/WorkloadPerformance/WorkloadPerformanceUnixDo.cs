@@ -12,8 +12,9 @@ using Renci.SshNet.Sftp;
 
 namespace MRMPService.PerformanceCollection
 {
-    partial class WorkloadPerformance : IDisposable
+    partial class WorkloadPerformance
     {
+
         static string _password;
         static private void HandleKeyEvent(object sender, AuthenticationPromptEventArgs e)
         {
@@ -27,6 +28,8 @@ namespace MRMPService.PerformanceCollection
         }
         public static void WorkloadPerformanceUnixDo(MRPWorkloadType _workload)
         {
+            List<PerformanceType> _workload_counters = new List<PerformanceType>();
+
             #region load and check workload information
             //check for credentials
             MRPCredentialType _credential = _workload.credential;
@@ -48,7 +51,7 @@ namespace MRMPService.PerformanceCollection
             }
             #endregion
 
-            Logger.log(String.Format("Performance: Start performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+            Logger.log(String.Format("PerformanceType: Start PerformanceType collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
             KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_credential.username);
             _keyboard_authentication.AuthenticationPrompt += new EventHandler<AuthenticationPromptEventArgs>(HandleKeyEvent);
             PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_credential.username, _password);
@@ -95,7 +98,7 @@ namespace MRMPService.PerformanceCollection
                                 {
                                     if (_perf_file[i] == "<PERF>")
                                     {
-                                        Performance _perf = new Performance();
+                                        PerformanceType _perf = new PerformanceType();
                                         bool _valid_perf = false;
                                         while (_perf_file[i] != "</PERF>")
                                         {
@@ -135,10 +138,8 @@ namespace MRMPService.PerformanceCollection
                                             {
                                                 _perf.counter_name = "Disk Read Bytes/sec";
                                             }
-                                            using (PerformanceSet performance_db_set = new PerformanceSet())
-                                            {
-                                                performance_db_set.ModelRepository.Insert(_perf);
-                                            }
+                                            _workload_counters.Add(_perf);
+
                                             if (_perf.category_name == "Memory" && _perf.counter_name == "Available Bytes")
                                             {
                                                 if (_workload.vmemory != null && _workload.vmemory != 0)
@@ -150,7 +151,7 @@ namespace MRMPService.PerformanceCollection
                                                     Double _memory_used_bytes = _workload_total_memory - _perf.value;
                                                     String _memory_used_counter_name = "Used Bytes";
 
-                                                    _perf = new Performance();
+                                                    _perf = new PerformanceType();
                                                     _perf.workload_id = _workload.id;
                                                     _perf.timestamp = _timestamp;
                                                     _perf.category_name = "Memory";
@@ -158,15 +159,13 @@ namespace MRMPService.PerformanceCollection
                                                     _perf.instance = "_Total";
                                                     _perf.value = _memory_used_bytes;
                                                     _perf.id = Objects.RamdomGuid();
-                                                    using (PerformanceSet performance_db_set = new PerformanceSet())
-                                                    {
-                                                        performance_db_set.ModelRepository.Insert(_perf);
-                                                    }
+                                                    _workload_counters.Add(_perf);
+
                                                     //memory: % used
                                                     Double _percentage_memory_used = ((Convert.ToDouble(_memory_used_bytes) / Convert.ToDouble(_workload_total_memory)) * 100);
                                                     String _memory_counter_name = "% Used";
 
-                                                    _perf = new Performance();
+                                                    _perf = new PerformanceType();
                                                     _perf.workload_id = _workload.id;
                                                     _perf.timestamp = _timestamp;
                                                     _perf.category_name = "Memory";
@@ -174,10 +173,8 @@ namespace MRMPService.PerformanceCollection
                                                     _perf.instance = "_Total";
                                                     _perf.value = _percentage_memory_used;
                                                     _perf.id = Objects.RamdomGuid();
-                                                    using (PerformanceSet performance_db_set = new PerformanceSet())
-                                                    {
-                                                        performance_db_set.ModelRepository.Insert(_perf);
-                                                    }
+                                                    _workload_counters.Add(_perf);
+
                                                 }
                                             }
                                         }
@@ -188,7 +185,9 @@ namespace MRMPService.PerformanceCollection
                     }
                 }
             }
-            Logger.log(String.Format("Performance: Completed performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+            WorkloadPerformanceUpload.Upload(_workload_counters, _workload);
+
+            Logger.log(String.Format("PerformanceType: Completed PerformanceType collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
         }
     }
 }

@@ -12,37 +12,8 @@ using Newtonsoft.Json.Linq;
 
 namespace MRMPService.PerformanceCollection
 {
-    partial class WorkloadPerformance : IDisposable
+    partial class WorkloadPerformance
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~WorkloadPerformance()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
         public static void WorkloadPerformanceWindowsDo(SyncronisedList<CollectionCounter> _available_counters, MRPWorkloadType _workload)
         {
             #region load and check workload information
@@ -74,7 +45,9 @@ namespace MRMPService.PerformanceCollection
             }
             #endregion
 
-            Logger.log(String.Format("Performance: Start performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+            List<PerformanceType> _workload_counters = new List<PerformanceType>();
+
+            Logger.log(String.Format("PerformanceType: Start PerformanceType collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
             //Impersonate credentials before collection of information
             using (new Impersonator((_workload.workloadtype == "manager" ? "." : _credential.username), (_workload.workloadtype == "manager" ? null : (String.IsNullOrEmpty(_credential.domain) ? "." : _credential.domain)), (_workload.workloadtype == "manager" ? null : _credential.encrypted_password)))
@@ -96,7 +69,7 @@ namespace MRMPService.PerformanceCollection
                     }
                     catch (Exception ex)
                     {
-                        Logger.log(String.Format("{0} returned the following error while collecting performance data for counter : {1} : {2}", workload_ip, _current_category, ex.Message), Logger.Severity.Error);
+                        Logger.log(String.Format("{0} returned the following error while collecting PerformanceType data for counter : {1} : {2}", workload_ip, _current_category, ex.Message), Logger.Severity.Error);
                         continue;
                     }
 
@@ -169,6 +142,10 @@ namespace MRMPService.PerformanceCollection
                                         _s0 = _counter.NextSample();
                                     }
                                 }
+                                else
+                                {
+                                    _s0 = _counter.NextSample();
+                                }
                             }
 
                             //get current current counter from server
@@ -201,7 +178,7 @@ namespace MRMPService.PerformanceCollection
                                 }
                             }
 
-                            Performance _perf = new Performance();
+                            PerformanceType _perf = new PerformanceType();
                             _perf.workload_id = _workload.id;
                             _perf.timestamp = TimeCalculations.RoundDown(DateTime.FromFileTimeUtc(_s1.TimeStamp100nSec), TimeSpan.FromHours(1)); //_counterobject.timestamp;
                             _perf.category_name = _this_workload_counter.category;
@@ -209,10 +186,8 @@ namespace MRMPService.PerformanceCollection
                             _perf.instance = _current_instance;
                             _perf.value = _value;
                             _perf.id = Objects.RamdomGuid();
-                            using (PerformanceSet performance_db_set = new PerformanceSet())
-                            {
-                                performance_db_set.ModelRepository.Insert(_perf);
-                            }
+                            _workload_counters.Add(_perf);
+
 
                             //process custom counters
 
@@ -225,7 +200,7 @@ namespace MRMPService.PerformanceCollection
                                 Double _memory_used_bytes = _workload_total_memory - _value;
                                 String _memory_used_counter_name = "Used Bytes";
 
-                                _perf = new Performance();
+                                _perf = new PerformanceType();
                                 _perf.workload_id = _workload.id;
                                 _perf.timestamp = TimeCalculations.RoundDown(DateTime.UtcNow, TimeSpan.FromHours(1)); //_counterobject.timestamp;
                                 _perf.category_name = _this_workload_counter.category;
@@ -233,15 +208,13 @@ namespace MRMPService.PerformanceCollection
                                 _perf.instance = _current_instance;
                                 _perf.value = _memory_used_bytes;
                                 _perf.id = Objects.RamdomGuid();
-                                using (PerformanceSet performance_db_set = new PerformanceSet())
-                                {
-                                    performance_db_set.ModelRepository.Insert(_perf);
-                                }
+                                _workload_counters.Add(_perf);
+
                                 //memory: % used
                                 Double _percentage_memory_used = ((Convert.ToDouble(_memory_used_bytes) / Convert.ToDouble(_workload_total_memory)) * 100);
                                 String _memory_counter_name = "% Used";
 
-                                _perf = new Performance();
+                                _perf = new PerformanceType();
                                 _perf.workload_id = _workload.id;
                                 _perf.timestamp = TimeCalculations.RoundDown(DateTime.UtcNow, TimeSpan.FromHours(1)); //_counterobject.timestamp;
                                 _perf.category_name = _this_workload_counter.category;
@@ -249,18 +222,17 @@ namespace MRMPService.PerformanceCollection
                                 _perf.instance = _current_instance;
                                 _perf.value = _percentage_memory_used;
                                 _perf.id = Objects.RamdomGuid();
-                                using (PerformanceSet performance_db_set = new PerformanceSet())
-                                {
-                                    performance_db_set.ModelRepository.Insert(_perf);
-                                }
+                                _workload_counters.Add(_perf);
                             }
 
                         }
 
                     }
                 }
-                Logger.log(String.Format("Performance: Completed performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
             }
+            WorkloadPerformanceUpload.Upload(_workload_counters, _workload);
+
+            Logger.log(String.Format("PerformanceType: Completed PerformanceType collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
         }
     }
 }

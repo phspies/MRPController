@@ -52,7 +52,6 @@ namespace MRMPService
 
         public static int portal_upload_interval = (int)MRPRegistry.RegAccess("portal_upload_interval", 30, RegistryValueKind.DWord);//seconds
         public static int portal_upload_netflow_page_size = (int)MRPRegistry.RegAccess("portal_upload_netflow_page_size", 300, RegistryValueKind.DWord); 
-        public static int portal_upload_performanceounter_page_size = (int)MRPRegistry.RegAccess("portal_upload_performanceounter_page_size", 300, RegistryValueKind.DWord);
 
         public static int scheduler_interval = (int)MRPRegistry.RegAccess("scheduler_interval", 5, RegistryValueKind.DWord); //seconds
         public static int scheduler_concurrency = (int)MRPRegistry.RegAccess("scheduler_concurrency", 30, RegistryValueKind.DWord);

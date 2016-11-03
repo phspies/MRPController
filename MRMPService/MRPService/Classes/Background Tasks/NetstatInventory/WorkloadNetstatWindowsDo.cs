@@ -10,14 +10,14 @@ using System.Diagnostics;
 using System.Threading;
 using MRMPService.MRMPService.Log;
 
-namespace MRMPService.MRMPAPI.Classes
+namespace MRMPService.NetstatCollection
 {
     partial class WorkloadNetstat
     {
 
-        public static void WorkloadNetstatWindowsDo(MRPWorkloadType workload)
+        public static void WorkloadNetstatWindowsDo(MRPWorkloadType _workload)
         {
-            MRPWorkloadType _workload = workload;
+            List<NetworkFlowType> _workload_netstats = new List<NetworkFlowType>();
             if (_workload == null)
             {
                 throw new ArgumentException("Inventory: Error finding workload in manager database");
@@ -131,31 +131,29 @@ namespace MRMPService.MRMPAPI.Classes
                             Int32 _pid = tokens[1] == "UDP" ? Int16.Parse(tokens[3]) : Int16.Parse(tokens[4]);
                             if (_processes.FirstOrDefault(x => x.pid == _pid) != null && tokens[2].Split(':')[0] != "0.0.0.0" && tokens[2].Split(':')[0].ToString() != "127.0.0.1")
                             {
-                                using (NetworkFlowSet _netstat_db = new NetworkFlowSet())
+                                try
                                 {
-                                    try
+                                    _workload_netstats.Add(new NetworkFlowType()
                                     {
-                                        _netstat_db.ModelRepository.Insert(new NetworkFlow()
-                                        {
-                                            id = Objects.RamdomGuid(),
-                                            source_address = IPSplit.Parse(tokens[1]).Address.ToString(),
-                                            source_port = IPSplit.Parse(tokens[1]).Port,
-                                            target_address = IPSplit.Parse(tokens[2]).Address.ToString(),
-                                            target_port = IPSplit.Parse(tokens[2]).Port,
-                                            start_timestamp = DateTime.UtcNow.Ticks,
-                                            stop_timestamp = DateTime.UtcNow.Ticks,
-                                            timestamp = DateTime.UtcNow,
-                                        });
-                                    }
-                                    catch (Exception ex)
-                                    { }
+                                        id = Objects.RamdomGuid(),
+                                        source_address = IPSplit.Parse(tokens[1]).Address.ToString(),
+                                        source_port = IPSplit.Parse(tokens[1]).Port,
+                                        target_address = IPSplit.Parse(tokens[2]).Address.ToString(),
+                                        target_port = IPSplit.Parse(tokens[2]).Port,
+                                        protocol = tokens[0].Equals("TCP") ? 6 : 17,
+                                        timestamp = DateTime.UtcNow,
+                                        process = _processes.FirstOrDefault(x => x.pid == _pid).name,
+                                        pid = _pid
+                                    });
                                 }
+                                catch (Exception ex)
+                                { }
                             }
                         }
                     }
                 }
+                NetstatUpload.Upload(_workload_netstats, _workload);
                 Logger.log(String.Format("Inventory: Completed netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
-
             }
         }
     }

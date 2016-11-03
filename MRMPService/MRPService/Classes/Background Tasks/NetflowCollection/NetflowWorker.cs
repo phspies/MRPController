@@ -9,7 +9,7 @@ using MRMPService.Utilities;
 using System.Net.NetFlowv9;
 using System.Net.NetFlowv10;
 
-namespace MRMPService.MRMPService.Classes.Background_Classes
+namespace MRMPService.NetflowCollection
 {
     class NetflowWorker
     {

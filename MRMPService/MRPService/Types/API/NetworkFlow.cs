@@ -31,10 +31,10 @@ namespace MRMPService.MRMPAPI.Types.API
         public int packets { get; set; }
         [JsonProperty("kbyte")]
         public int kbyte { get; set; }
-        [JsonProperty("source_workload_id")]
-        public string source_workload_id { get; set; }
-        [JsonProperty("target_workload_id")]
-        public string target_workload_id { get; set; }
+        [JsonProperty("process")]
+        public string process { get; set; }
+        [JsonProperty("pid")]
+        public int pid { get; set; }
     }
 
 }

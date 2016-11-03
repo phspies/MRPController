@@ -14,6 +14,8 @@ using System.ServiceModel.Description;
 using System.Threading;
 using MRMPService.WCF;
 using MRMPService.DTEventPollerCollection;
+using MRMPService.NetstatCollection;
+using MRMPService.NetflowCollection;
 
 namespace MRMPService.MRMPService.Classes.Background_Classes
 {
@@ -161,7 +163,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             _performance_thread.Start();
 
             NetflowWorker _netflow = new NetflowWorker();
-            if (Global.debug) { Logger.log("Starting Netflow v5 Collection Thread", Logger.Severity.Debug); };
+            if (Global.debug) { Logger.log("Starting Netflow Collection Thread", Logger.Severity.Debug); };
             _netflow_thread = new Thread(new ThreadStart(_netflow.Start));
             _netflow_thread.Priority = ThreadPriority.AboveNormal;
             _netflow_thread.Start();

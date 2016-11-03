@@ -21,7 +21,7 @@ namespace MRMPService.DTEventPollerCollection
 
                 Logger.log(String.Format("Staring Double-Take Event collection process with {0} threads", Global.dt_event_polling_concurrency), Logger.Severity.Info);
                 MRPWorkloadListType _workload_paged;
-                MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { page = 1, deleted = false, enabled = true, dt_installed = true };
+                MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { page = 1, deleted = false, enabled = true, dt_installed = true, dt_collection_enabled = true };
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
                     _workload_paged = _api.workload().list_paged_filtered_brief(_filter);

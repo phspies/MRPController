@@ -25,6 +25,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public bool? netstat_collection_enabled { get; set; }
         [JsonProperty("os_collection_enabled")]
         public bool? os_collection_enabled { get; set; }
+        [JsonProperty("dt_collection_enabled")]
+        public bool? dt_collection_enabled { get; set; }
         [JsonProperty("dt_installed")]
         public bool? dt_installed { get; set; }
         [JsonProperty("page")]

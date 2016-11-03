@@ -225,6 +225,8 @@
     <Compile Include="DoubleTake\Core.cs" />
     <Compile Include="DoubleTake\DoubleTake.cs" />
     <Compile Include="DoubleTake\Workload.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\NetstatUpload.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\NetworkFlowType.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\RPEventPoller\RPEventPollerDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\RPEventPoller\RPEventPollerThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs" />
@@ -236,11 +238,12 @@
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\RP4VM\UpdateRP4VMPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\PlatformInventoryDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\NetflowUpload.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\PerformanceUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\StartupThread\Startup.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\DTJobPoller\DTJobPoller.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\DTJobPoller\DTJobPollerThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadInventory\WorkloadInventoryUnixDo.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\PerformanceType.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\PerformanceUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\TimeCalculations.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadCounters.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceUnixDo.cs" />
@@ -527,7 +530,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
+      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
