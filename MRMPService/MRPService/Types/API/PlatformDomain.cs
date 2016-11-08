@@ -29,6 +29,14 @@ namespace MRMPService.MRMPAPI.Types.API
         public string moid { get; set; }
         [JsonProperty("platformnetworks_attributes")]
         public List<MRPPlatformnetworkType> platformnetworks_attributes { get; set; }
+        [JsonProperty("domainnatrules_attributes")]
+        public List<MRPDomainNATRuleType> domainnatrules_attributes { get; set; }
+        [JsonProperty("domainfwrules_attributes")]
+        public List<MRPDomainFWRuleType> domainfwrules_attributes { get; set; }
+        [JsonProperty("domainportlists_attributes")]
+        public List<MRPDomainPortType> domainportlists_attributes { get; set; }
+        [JsonProperty("domainiplists_attributes")]
+        public List<MRPDomainIPType> domainiplists_attributes { get; set; }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
 

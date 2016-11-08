@@ -49,11 +49,10 @@ namespace MRMPService.MRMPAPI
             post<MRPPerformanceCategoryType>(performance);
 
         }
-        public MRPPerformanceCategoryListType list()
+        public MRPPerformanceCategoryListType list(MRPPerformanceCategoryFilterType _filter = null)
         {
             endpoint = "/performancecategories/list.json";
-            MRPCommandManagerType worker = new MRPCommandManagerType();
-            return (MRPPerformanceCategoryListType)post<MRPPerformanceCategoryListType>(worker);
+            return (MRPPerformanceCategoryListType)post<MRPPerformanceCategoryListType>(_filter);
 
         }
 

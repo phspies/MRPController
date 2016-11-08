@@ -8,6 +8,11 @@ namespace MRMPService.MRMPAPI.Types.API
         [JsonProperty("performancecategory")]
         public MRPPerformanceCategoryCRUDType performancecategory { get; set; }
     }
+    public class MRPPerformanceCategoryFilterType
+    {
+        [JsonProperty("workload_id")]
+        public string workload_id { get; set; }
+    }
     public class MRPPerformanceCategoryCRUDType
     {
         [JsonProperty("category_name")]

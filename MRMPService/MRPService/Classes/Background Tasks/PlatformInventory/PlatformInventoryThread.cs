@@ -30,8 +30,7 @@ namespace MRMPService.PlatformInventory
                 try
                 {
                     //process platform independant items
-                    List<MRPPlatformType> _mrp_platforms = _cloud_movey.platform().list().platforms;
-
+                    List<MRPPlatformType> _mrp_platforms = _cloud_movey.platform().list_paged_filtered(new MRPPlatformFilterPagedType() { deleted = false, enabled = true, page = 1, page_size = 200 }).platforms;
                     //Process Platforms in paralel
                     Parallel.ForEach(_mrp_platforms, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_inventory_concurrency }, (platform) =>
                           {

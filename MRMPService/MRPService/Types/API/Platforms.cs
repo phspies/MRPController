@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI.Types.API
 {
+    public class MRPPlatformFilterPagedType
+    {
+        [JsonProperty("enabled")]
+        public bool? enabled { get; set; }
+        [JsonProperty("deleted")]
+        public bool? deleted { get; set; }
+        [JsonProperty("page")]
+        public int? page { get; set; }
+        [JsonProperty("page_size")]
+        public int? page_size { get; set; }
+    }
+
     public class MRPPlatformGETType
     {
         [JsonProperty("platform_id")]
@@ -21,6 +33,8 @@ namespace MRMPService.MRMPAPI.Types.API
     {
         [JsonProperty("platforms")]
         public List<MRPPlatformType> platforms { get; set; }
+        [JsonProperty("pagination")]
+        public MRPPaginationType pagination { get; set; }
     }
     public class MRPPlatformType
     {
@@ -72,6 +86,8 @@ namespace MRMPService.MRMPAPI.Types.API
         public List<MRPPlatformtemplateType> platformtemplates_attributes { get; set; }
         [JsonProperty("platformdatastores_attributes")]
         public List<MRPPlatformdatastoreType> platformdatastores_attributes { get; set; }
+        [JsonProperty("workloads")]
+        public List<MRPWorkloadType> workloads { get; set; }
     }
 }
 

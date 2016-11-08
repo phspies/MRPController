@@ -28,13 +28,13 @@ namespace MRMPService
         static String _manager_version = version;
 
         public static int os_inventory_interval = (int)MRPRegistry.RegAccess("os_inventory_interval",1440, RegistryValueKind.DWord); //minutes
-        public static int os_inventory_concurrency = (int)MRPRegistry.RegAccess("os_inventory_concurrency", 20, RegistryValueKind.DWord);
+        public static int os_inventory_concurrency = (int)MRPRegistry.RegAccess("os_inventory_concurrency", 10, RegistryValueKind.DWord);
 
         public static int dt_job_polling_interval = (int)MRPRegistry.RegAccess("dt_job_polling_interval", 900, RegistryValueKind.DWord); //minutes
-        public static int dt_job_polling_concurrency = (int)MRPRegistry.RegAccess("dt_job_polling_concurrency", 20, RegistryValueKind.DWord);
+        public static int dt_job_polling_concurrency = (int)MRPRegistry.RegAccess("dt_job_polling_concurrency", 10, RegistryValueKind.DWord);
 
         public static int dt_event_polling_interval = (int)MRPRegistry.RegAccess("dt_event_polling_interval", 600, RegistryValueKind.DWord); //minutes
-        public static int dt_event_polling_concurrency = (int)MRPRegistry.RegAccess("dt_event_polling_concurrency", 20, RegistryValueKind.DWord);
+        public static int dt_event_polling_concurrency = (int)MRPRegistry.RegAccess("dt_event_polling_concurrency", 10, RegistryValueKind.DWord);
 
         public static int rp4vm_event_polling_interval = (int)MRPRegistry.RegAccess("rp4vm_event_polling_interval", 300, RegistryValueKind.DWord); //minutes
         public static int rp4vm_event_polling_concurrency = (int)MRPRegistry.RegAccess("rp4vm_event_polling_concurrency", 2, RegistryValueKind.DWord);
@@ -46,12 +46,13 @@ namespace MRMPService
         public static int os_netstat_concurrency = (int)MRPRegistry.RegAccess("os_netstat_concurrency", 20, RegistryValueKind.DWord);
 
         public static int platform_inventory_interval = (int)MRPRegistry.RegAccess("platform_inventory_interval", 1440, RegistryValueKind.DWord); //minutes
-        public static int platform_inventory_concurrency = (int)MRPRegistry.RegAccess("platform_inventory_concurrency", 20, RegistryValueKind.DWord);
+        public static int platform_inventory_concurrency = (int)MRPRegistry.RegAccess("platform_inventory_concurrency", 10, RegistryValueKind.DWord);
 
-        public static int os_performance_concurrency = (int)MRPRegistry.RegAccess("os_performance_concurrency", 20, RegistryValueKind.DWord);
+        public static int os_performance_concurrency = (int)MRPRegistry.RegAccess("os_performance_concurrency", 10, RegistryValueKind.DWord);
 
         public static int portal_upload_interval = (int)MRPRegistry.RegAccess("portal_upload_interval", 30, RegistryValueKind.DWord);//seconds
-        public static int portal_upload_netflow_page_size = (int)MRPRegistry.RegAccess("portal_upload_netflow_page_size", 300, RegistryValueKind.DWord); 
+        public static int portal_upload_netflow_page_size = (int)MRPRegistry.RegAccess("portal_upload_netflow_page_size", 100, RegistryValueKind.DWord); 
+        public static int portal_upload_performanceounter_page_size = (int)MRPRegistry.RegAccess("portal_upload_performanceounter_page_size", 100, RegistryValueKind.DWord);
 
         public static int scheduler_interval = (int)MRPRegistry.RegAccess("scheduler_interval", 5, RegistryValueKind.DWord); //seconds
         public static int scheduler_concurrency = (int)MRPRegistry.RegAccess("scheduler_concurrency", 30, RegistryValueKind.DWord);

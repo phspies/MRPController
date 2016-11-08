@@ -380,6 +380,11 @@
     <Compile Include="MRPService\Types\API\CommandController.cs" />
     <Compile Include="MRPService\Types\API\Credentials.cs" />
     <Compile Include="MRPService\Types\API\DeploymentPolicy.cs" />
+    <Compile Include="MRPService\Types\API\DomainPortListPort.cs" />
+    <Compile Include="MRPService\Types\API\DomainIPListAddress.cs" />
+    <Compile Include="MRPService\Types\API\DomainPort.cs" />
+    <Compile Include="MRPService\Types\API\DomainIP.cs" />
+    <Compile Include="MRPService\Types\API\DomainNATRule.cs" />
     <Compile Include="MRPService\Types\API\Error.cs" />
     <Compile Include="MRPService\Types\API\Event.cs" />
     <Compile Include="MRPService\Types\API\ManagementobjectSnapshots.cs" />
@@ -392,6 +397,7 @@
     <Compile Include="MRPService\Types\API\PerformanceCounter.cs" />
     <Compile Include="MRPService\Types\API\PlatformCluster.cs" />
     <Compile Include="MRPService\Types\API\PlatformDatastore.cs" />
+    <Compile Include="MRPService\Types\API\DomainFWRule.cs" />
     <Compile Include="MRPService\Types\API\PlatformDomain.cs" />
     <Compile Include="MRPService\Types\API\PlatformDatacenter.cs" />
     <Compile Include="MRPService\Types\API\PlatformNetwork.cs" />

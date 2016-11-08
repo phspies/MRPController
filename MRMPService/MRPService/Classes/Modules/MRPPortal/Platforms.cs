@@ -45,6 +45,11 @@ namespace MRMPService.MRMPAPI
             MRPCommandManagerType worker = new MRPCommandManagerType();
             return (MRPPlatformListType)post<MRPPlatformListType>(worker);
         }
+        public MRPPlatformListType list_paged_filtered(MRPPlatformFilterPagedType _paged_filter_settings)
+        {
+            endpoint = "/platforms/list_paged_filtered.json";
+            return post<MRPPlatformListType>(_paged_filter_settings);
+        }
 
         public MRPPlatformType get_by_id(string _platform_id)
         {
