@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using MRMPService.Utilities;
 using static MRMPService.Utilities.SyncronizedList;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -184,7 +184,7 @@ namespace MRMPService.PerformanceCollection
                             _perf.category_name = _this_workload_counter.category;
                             _perf.counter_name = _this_workload_counter.counter;
                             _perf.instance = _current_instance;
-                            _perf.value = _value;
+                            _perf.value = Math.Round(_value,2);
                             _perf.id = Objects.RamdomGuid();
                             _workload_counters.Add(_perf);
 
@@ -206,7 +206,7 @@ namespace MRMPService.PerformanceCollection
                                 _perf.category_name = _this_workload_counter.category;
                                 _perf.counter_name = _memory_used_counter_name;
                                 _perf.instance = _current_instance;
-                                _perf.value = _memory_used_bytes;
+                                _perf.value = Math.Round(_memory_used_bytes);
                                 _perf.id = Objects.RamdomGuid();
                                 _workload_counters.Add(_perf);
 
@@ -220,7 +220,7 @@ namespace MRMPService.PerformanceCollection
                                 _perf.category_name = _this_workload_counter.category;
                                 _perf.counter_name = _memory_counter_name;
                                 _perf.instance = _current_instance;
-                                _perf.value = _percentage_memory_used;
+                                _perf.value = Math.Round(_percentage_memory_used);
                                 _perf.id = Objects.RamdomGuid();
                                 _workload_counters.Add(_perf);
                             }

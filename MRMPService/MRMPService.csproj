@@ -377,45 +377,45 @@
     <Compile Include="MRPService\Database\Structures\Platform.cs" />
     <Compile Include="MRPService\Database\Structures\Workload.cs" />
     <Compile Include="MRPService\Logging.cs" />
-    <Compile Include="MRPService\Types\API\CommandController.cs" />
-    <Compile Include="MRPService\Types\API\Credentials.cs" />
-    <Compile Include="MRPService\Types\API\DeploymentPolicy.cs" />
-    <Compile Include="MRPService\Types\API\DomainPortListPort.cs" />
-    <Compile Include="MRPService\Types\API\DomainIPListAddress.cs" />
-    <Compile Include="MRPService\Types\API\DomainPort.cs" />
-    <Compile Include="MRPService\Types\API\DomainIP.cs" />
-    <Compile Include="MRPService\Types\API\DomainNATRule.cs" />
-    <Compile Include="MRPService\Types\API\Error.cs" />
-    <Compile Include="MRPService\Types\API\Event.cs" />
-    <Compile Include="MRPService\Types\API\ManagementobjectSnapshots.cs" />
-    <Compile Include="MRPService\Types\API\ManagementobjectStats.cs" />
-    <Compile Include="MRPService\Types\API\Managementobjects.cs" />
-    <Compile Include="MRPService\Types\API\Pagination.cs" />
-    <Compile Include="MRPService\Types\API\NetworkStat.cs" />
-    <Compile Include="MRPService\Types\API\NetworkFlow.cs" />
-    <Compile Include="MRPService\Types\API\PerformanceCategory.cs" />
-    <Compile Include="MRPService\Types\API\PerformanceCounter.cs" />
-    <Compile Include="MRPService\Types\API\PlatformCluster.cs" />
-    <Compile Include="MRPService\Types\API\PlatformDatastore.cs" />
-    <Compile Include="MRPService\Types\API\DomainFWRule.cs" />
-    <Compile Include="MRPService\Types\API\PlatformDomain.cs" />
-    <Compile Include="MRPService\Types\API\PlatformDatacenter.cs" />
-    <Compile Include="MRPService\Types\API\PlatformNetwork.cs" />
-    <Compile Include="MRPService\Types\API\Platforms.cs" />
-    <Compile Include="MRPService\Types\API\PlatformStorageTier.cs" />
-    <Compile Include="MRPService\Types\API\PlatformTemplate.cs" />
-    <Compile Include="MRPService\Types\API\RecoveryJobTypes.cs" />
-    <Compile Include="MRPService\Types\API\RecoveryPolicy.cs" />
-    <Compile Include="MRPService\Types\API\ResultStatus.cs" />
-    <Compile Include="MRPService\Types\API\Protectiongroup.cs" />
-    <Compile Include="MRPService\Types\API\Protectiongrouptrees.cs" />
-    <Compile Include="MRPService\Types\API\Task.cs" />
-    <Compile Include="MRPService\Types\API\Manager.cs" />
-    <Compile Include="MRPService\Types\API\WorkloadInterfaces.cs" />
-    <Compile Include="MRPService\Types\API\WorkloadProcesses.cs" />
-    <Compile Include="MRPService\Types\API\Workloads.cs" />
-    <Compile Include="MRPService\Types\API\WorkloadSoftwares.cs" />
-    <Compile Include="MRPService\Types\API\WorkloadVolumes.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\CommandController.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Credentials.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DeploymentPolicy.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainPortListPort.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainIPListAddress.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainPort.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainIP.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainNATRule.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Error.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Event.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\ManagementobjectSnapshots.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\ManagementobjectStats.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Managementobjects.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Pagination.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\NetworkStat.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\NetworkFlow.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\PerformanceCategory.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\PerformanceCounter.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\PlatformCluster.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\PlatformDatastore.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainFWRule.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\PlatformDomain.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\PlatformDatacenter.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\PlatformNetwork.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Platforms.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\PlatformStorageTier.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\PlatformTemplate.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\RecoveryJobTypes.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\RecoveryPolicy.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\ResultStatus.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Protectiongroup.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Protectiongrouptrees.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Task.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Manager.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\WorkloadInterfaces.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\WorkloadProcesses.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Workloads.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\WorkloadSoftwares.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\WorkloadVolumes.cs" />
     <Compile Include="MRPService\WCF\MRPWCFService.cs" />
     <Compile Include="MRPService\WCF\IMRPWCFService.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\NetflowCommon.cs" />
@@ -536,7 +536,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

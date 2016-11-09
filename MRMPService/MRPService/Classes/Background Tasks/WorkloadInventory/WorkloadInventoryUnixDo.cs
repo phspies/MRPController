@@ -1,4 +1,4 @@
-﻿using MRMPService.MRMPAPI.Types.API;
+﻿using MRMPService.MRMPAPI.Contracts;
 using System;
 using System.IO;
 using System.Linq;

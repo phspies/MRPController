@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using static MRMPService.Utilities.SyncronizedList;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using MRMPService.MRMPAPI;
 
 namespace MRMPService.PerformanceCollection

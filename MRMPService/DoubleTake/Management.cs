@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Management.Automation;
 using System.IO;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 
 namespace MRMPService.MRMPDoubleTake
 {

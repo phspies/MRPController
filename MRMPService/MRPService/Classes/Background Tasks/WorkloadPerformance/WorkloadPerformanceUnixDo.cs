@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MRMPService.Utilities;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using Renci.SshNet.Common;
 using Renci.SshNet;
 using System.IO;

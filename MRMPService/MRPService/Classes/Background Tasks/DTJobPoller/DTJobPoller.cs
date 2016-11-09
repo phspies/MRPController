@@ -1,7 +1,7 @@
 ﻿using MRMPService.MRMPService.Log;
 using System;
 using MRMPService.Utilities;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using DoubleTake.Web.Models;
 using MRMPService.MRMPAPI;
 using System.Collections.Generic;

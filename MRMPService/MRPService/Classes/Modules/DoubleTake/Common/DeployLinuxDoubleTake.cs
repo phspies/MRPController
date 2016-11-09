@@ -5,7 +5,7 @@ using System.Threading;
 using MRMPService.Utilities;
 using DoubleTake.Web.Models;
 using MRMPService.MRMPDoubleTake;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using System.Linq;
 using Renci.SshNet;
 using Renci.SshNet.Common;

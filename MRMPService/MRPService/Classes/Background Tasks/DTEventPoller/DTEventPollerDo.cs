@@ -1,7 +1,7 @@
 ﻿using MRMPService.MRMPService.Log;
 using System;
 using MRMPService.Utilities;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using DoubleTake.Web.Models;
 using MRMPService.MRMPAPI;
 using System.Collections.Generic;
@@ -107,7 +107,7 @@ namespace MRMPService.DTEventPollerCollection
 
                         _mrmp.@event().create(new MRMPEventType()
                         {
-                            event_id = _event.Id,
+                            elementevent_id = _event.Id,
                             source_subsystem = String.Join(" ",_event.Source, _event.Category),
                             source_datamover = "Double-Take",
                             message = _event.Message,

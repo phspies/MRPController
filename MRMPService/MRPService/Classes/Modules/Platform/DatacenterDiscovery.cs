@@ -1,6 +1,6 @@
 ﻿using DD.CBU.Compute.Api.Client;
 using DD.CBU.Compute.Api.Contracts.Network20;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.RP4VMTypes;
 using MRMPService.RP4VMAPI;

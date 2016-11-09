@@ -1,6 +1,6 @@
 ﻿using MRMPService.MRMPService.Log;
 using System;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using MRMPService.MRMPAPI;
 using System.Collections.Generic;
 using System.Linq;

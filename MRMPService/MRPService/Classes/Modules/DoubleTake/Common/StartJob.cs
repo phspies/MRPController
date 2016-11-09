@@ -1,6 +1,6 @@
 ﻿using DoubleTake.Web.Models;
 using MRMPService.DTPollerCollection;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using MRMPService.MRMPDoubleTake;
 using MRMPService.Utilities;
 using System;

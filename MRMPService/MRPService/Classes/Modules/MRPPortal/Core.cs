@@ -4,7 +4,7 @@ using System.Net;
 using System.Threading;
 using Newtonsoft.Json;
 using MRMPService.MRMPService.Log;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using Newtonsoft.Json.Serialization;
 
 namespace MRMPService.MRMPAPI

@@ -22,7 +22,7 @@ namespace MRMPService.MRMPAPI
             _serializer = new Newtonsoft.Json.JsonSerializer
             {
                 MissingMemberHandling = MissingMemberHandling.Ignore,
-                NullValueHandling = NullValueHandling.Ignore,
+                NullValueHandling = NullValueHandling.Ignore,              
                 DefaultValueHandling = DefaultValueHandling.Include
             };
         }
@@ -47,9 +47,8 @@ namespace MRMPService.MRMPAPI
             {
                 using (var jsonTextWriter = new JsonTextWriter(stringWriter))
                 {
-                    jsonTextWriter.Formatting = Formatting.Indented;
+                    jsonTextWriter.Formatting = Formatting.Indented;               
                     jsonTextWriter.QuoteChar = '"';
-
                     _serializer.Serialize(jsonTextWriter, obj);
 
                     var result = stringWriter.ToString();

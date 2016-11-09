@@ -4,7 +4,7 @@ using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.MRMPAPI.Classes;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

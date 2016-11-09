@@ -1,4 +1,4 @@
-﻿using MRMPService.MRMPAPI.Types.API;
+﻿using MRMPService.MRMPAPI.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace MRMPService.PlatformInventory
 {
     partial class PlatformInventoryWorkloadDo
     {
-        public static void UpdateMCPWorkload(String _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null)
+        public static void UpdateMCPWorkload(String _workload_moid, MRPPlatformType _platform)
         {
             using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
             {
@@ -30,6 +30,7 @@ namespace MRMPService.PlatformInventory
                 }
                 Logger.log(String.Format("UpdateMCPWorkload: Inventory for {0} in {1} ", _caasworkload.name, _platform.moid), Logger.Severity.Info);
 
+                List<MRPWorkloadType> _mrp_workloads = _platform.workloads_attributes;
                 if (_mrp_workloads == null)
                 {
                     MRPWorkloadListType _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });

@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using System.Threading;
 using MRMPService.MRMPService.Log;
-using MRMPService.MRMPAPI.Types.API;
+using MRMPService.MRMPAPI.Contracts;
 using MRMPService.RP4VMAPI;
 using System.Collections.Generic;
 using RestSharp.Authenticators;
