@@ -1146,9 +1146,6 @@
         <member name="F:DD.CBU.Compute.Api.Client.ApiUris.MCP1_0_PREFIX">
             <summary>	The MCP 1.0 prefix. </summary>
         </member>
-        <member name="F:DD.CBU.Compute.Api.Client.ApiUris.MCP2_2_PREFIX">
-            <summary>	The MCP 2.2 prefix. </summary>
-        </member>
         <member name="F:DD.CBU.Compute.Api.Client.ApiUris.MCP2_3_PREFIX">
             <summary>	The MCP 2.3 prefix. </summary>
         </member>

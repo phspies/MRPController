@@ -19,5 +19,7 @@ namespace MRMPService.MRMPAPI.Contracts
         public int? end_port { get; set; }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
+        [JsonProperty("moid")]
+        public string moid { get; set; }
     }
 }

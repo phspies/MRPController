@@ -80,12 +80,12 @@
     <ApplicationIcon>mrp.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.3.455.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.455\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.3.475.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.475\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.3.455.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.455\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.3.475.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.475\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DoubleTake.Core, Version=0.1.44.0, Culture=neutral, processorArchitecture=MSIL">
@@ -346,7 +346,6 @@
     <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\PortalDataUploadWorker.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\TaskExecutioner\TaskExecutioner.cs" />
     <Compile Include="MRPService\Classes\Utilities\Connection.cs" />
-    <Compile Include="MRPService\Classes\Utilities\Events.cs" />
     <Compile Include="MRPService\Classes\Utilities\HashExtensions.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\ProvisionVM.cs" />
     <Compile Include="MRPService\Classes\Utilities\Impersonate.cs" />
@@ -358,24 +357,15 @@
     <Compile Include="MRPService\Classes\Utilities\SyncronizedList.cs" />
     <Compile Include="MRPService\Classes\Utilities\WMIHelper.cs" />
     <Compile Include="MRPService\Database\Classes\PerfCounterSampleSet.cs" />
-    <Compile Include="MRPService\Database\Classes\NetstatSet.cs" />
     <Compile Include="MRPService\Database\Classes\NetworkFlowSet.cs" />
     <Compile Include="MRPService\Database\Classes\GenericDatabase.cs" />
-    <Compile Include="MRPService\Database\Classes\PerformanceSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\INetworkFlowSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\IPerfCounterSampleSet.cs" />
-    <Compile Include="MRPService\Database\Interfaces\INetworkSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\IGenericDatabase.cs" />
-    <Compile Include="MRPService\Database\Interfaces\IPerformanceSet.cs" />
     <Compile Include="MRPService\Database\Context\MRPDatabase.cs" />
     <Compile Include="MRPService\Classes\Utilities\SimpleEAS.cs" />
     <Compile Include="MRPService\Database\Structures\PerfCounterSample.cs" />
-    <Compile Include="MRPService\Database\Structures\Event.cs" />
-    <Compile Include="MRPService\Database\Structures\Netstat.cs" />
     <Compile Include="MRPService\Database\Structures\NetworkFlow.cs" />
-    <Compile Include="MRPService\Database\Structures\Performance.cs" />
-    <Compile Include="MRPService\Database\Structures\Platform.cs" />
-    <Compile Include="MRPService\Database\Structures\Workload.cs" />
     <Compile Include="MRPService\Logging.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\CommandController.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Credentials.cs" />

@@ -28,6 +28,14 @@ namespace MRMPService.LocalDatabase
         /// <returns></returns>
         TEntity GetById(object id);
 
+
+        /// <summary>
+        /// tst existence of entity by filter
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        bool Exists(Expression<Func<TEntity, bool>> filter = null);
+
         /// <summary>
         /// Get first or default entity by filter
         /// </summary>

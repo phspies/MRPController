@@ -46,6 +46,11 @@ namespace MRMPService.LocalDatabase
             return dbSet.Find(id);
         }
 
+        public virtual bool Exists(Expression<Func<TEntity, bool>> filter = null)
+        {
+            return dbSet.Any(filter);
+        }
+
         public virtual TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includes)
         {
             IQueryable<TEntity> query = dbSet;

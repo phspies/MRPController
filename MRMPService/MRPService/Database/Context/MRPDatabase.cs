@@ -15,10 +15,7 @@ namespace MRMPService.LocalDatabase
             Database.SetInitializer<MRPDatabase>(new MRPDBInitializer());
         }
 
-        public DbSet<Event> Events { get; set; }
         public DbSet<NetworkFlow> NetworkFlows { get; set; }
-        public DbSet<Netstat> Netstat { get; set; }
-        public DbSet<Performance> Performance { get; set; }
         public DbSet<PerfCounterSample> PerfCounterSample { get; set; }
         public static DbConnection GetConnection()
         {

@@ -119,26 +119,27 @@ namespace MRMPService.PerformanceCollection
                             //check instance in the counter object list and create if required
                             using (PerfCounterSampleSet _db_perf = new PerfCounterSampleSet())
                             {
-                                if (_db_perf.ModelRepository.GetFirstOrDefault(y => y.workload_id == _workload.id && y.category == _current_category && y.counter == _counter.CounterName && y.instance == _current_instance) != null)
+                                if (_db_perf.ModelRepository.Exists(y => y.workload_id == _workload.id && y.category == _current_category && y.counter == _counter.CounterName && y.instance == _current_instance))
                                 {
                                     _found_record = true;
                                     _this_workload_counter = _db_perf.ModelRepository.GetFirstOrDefault(y => y.workload_id == _workload.id && y.category == _current_category && y.counter == _counter.CounterName && y.instance == _current_instance);
                                     try
                                     {
-                                        JToken _s0_token = JObject.Parse(_this_workload_counter.sample);
+                                        JToken _sample_token = JObject.Parse(_this_workload_counter.sample);
                                         _s0 = new CounterSample(
-                                            (long)_s0_token.SelectToken("RawValue"),
-                                            (long)_s0_token.SelectToken("BaseValue"),
-                                            (long)_s0_token.SelectToken("CounterFrequency"),
-                                            (long)_s0_token.SelectToken("SystemFrequency"),
-                                            (long)_s0_token.SelectToken("TimeStamp"),
-                                            (long)_s0_token.SelectToken("TimeStamp100nSec"),
-                                            (PerformanceCounterType)(int)_s0_token.SelectToken("CounterType"),
-                                            (long)_s0_token.SelectToken("CounterTimeStamp")
+                                            (long)_sample_token.SelectToken("RawValue"),
+                                            (long)_sample_token.SelectToken("BaseValue"),
+                                            (long)_sample_token.SelectToken("CounterFrequency"),
+                                            (long)_sample_token.SelectToken("SystemFrequency"),
+                                            (long)_sample_token.SelectToken("TimeStamp"),
+                                            (long)_sample_token.SelectToken("TimeStamp100nSec"),
+                                            (PerformanceCounterType)(int)_sample_token.SelectToken("CounterType"),
+                                            (long)_sample_token.SelectToken("CounterTimeStamp")
                                             );
                                     }
                                     catch (Exception ex)
                                     {
+                                        Logger.log(String.Format("Error deserialzing performance record: {0}", ex.GetBaseException().Message), Logger.Severity.Error);
                                         _s0 = _counter.NextSample();
                                     }
                                 }

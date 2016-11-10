@@ -25,5 +25,7 @@ namespace MRMPService.MRMPAPI.Contracts
         public bool? deleted { get; set; }
         [JsonProperty("moid")]
         public string moid { get; set; }
+        [JsonProperty("nattype")]
+        public string nattype { get; set; }
     }
 }
