@@ -317,7 +317,7 @@
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMwarePlatform.cs" />
-    <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\CollectionCounter.cs" />
+    <Compile Include="MRPService\Global\CollectionCounter.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\InstanceCounters.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\PerfCounter.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs" />
@@ -375,7 +375,6 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainPort.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainIP.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainNATRule.cs" />
-    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Error.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Event.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\ManagementobjectSnapshots.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\ManagementobjectStats.cs" />

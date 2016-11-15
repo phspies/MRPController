@@ -144,6 +144,47 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
 
             Logger.log(String.Format("organization id: {0}", Global.organization_id), Logger.Severity.Debug);
 
+            //Fill counters that needs to be collected from workloads
+            Global._available_counters.Add(new CollectionCounter() { category = "Processor", counter = "% Idle Time" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Processor", counter = "% User Time" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Processor", counter = "% Processor Time" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Processor", counter = "Interrupts/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Available Bytes" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Faults/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Reads/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Writes/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Free Space" });
+            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Disk Time" });
+            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Write Disk Time" });
+            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Read Disk Time" });
+            Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Reads/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Writes/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Read Bytes/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Write Bytes/sec" });
+            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Bytes/sec" });
+            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Split IO/sec" });
+            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Current Disk Queue Length" });
+            Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Disk Time" });
+            Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Write Disk Time" });
+            Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Read Disk Time" });
+            Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Reads/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Writes/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Read Bytes/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Write Bytes/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Bytes/sec" });
+            //Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Split IO/sec" });
+            //Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Current Disk Queue Length" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Bytes Received/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Bytes Sent/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Current Bandwidth" });
+            //Global._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Output Queue Length" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Packets Recieved/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Packets Sent/sec" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Double-Take Connection", counter = "*" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Double-Take Kernel", counter = "*" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Double-Take Source", counter = "*" });
+            Global._available_counters.Add(new CollectionCounter() { category = "Double-Take Target", counter = "*" });
+
             TaskWorker _scheduler = new TaskWorker();
             if (Global.debug) { Logger.log("Starting Scheduler Thread", Logger.Severity.Debug); };
             scheduler_thread = new Thread(new ThreadStart(_scheduler.Start));

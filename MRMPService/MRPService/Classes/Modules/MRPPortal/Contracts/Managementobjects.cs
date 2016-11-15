@@ -78,21 +78,21 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("can_failover")]
         public bool? can_failover { get; set; }
         [JsonProperty("managementobjectstats_attributes")]
-        public List<MRPManagementobjectStatType> managementobjectstats_attributes { get; set; }
+        public List<MRPManagementobjectStatType> managementobjectstats { get; set; }
         [JsonProperty("managementobjectsnapshots_attributes")]
-        public List<MRPManagementobjectSnapshotType> managementobjectsnapshots_attributes { get; set; }
+        public List<MRPManagementobjectSnapshotType> managementobjectsnapshots { get; set; }
         [JsonProperty("managementobjectsnapshot")]
         public MRPManagementobjectSnapshotType managementobjectsnapshot { get; set; }
         [JsonProperty("protectiongroup")]
         public MRPProtectiongroupType protectiongroup { get; set; }
 
-        public bool ShouldSerializemanagementobjectstats_attributes()
+        public bool ShouldSerializemanagementobjectstats()
         {
-            return (managementobjectstats_attributes == null || !managementobjectstats_attributes.Any()) ? false : true;
+            return (managementobjectstats == null || !managementobjectstats.Any()) ? false : true;
         }
-        public bool ShouldSerializemanagementobjectsnapshots_attributes()
+        public bool ShouldSerializemanagementobjectsnapshots()
         {
-            return (managementobjectsnapshots_attributes == null || !managementobjectsnapshots_attributes.Any()) ? false : true;
+            return (managementobjectsnapshots == null || !managementobjectsnapshots.Any()) ? false : true;
         }
     }
     public class MRPManagementobjectIDGETType

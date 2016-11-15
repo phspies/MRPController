@@ -1,6 +1,7 @@
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\bin\Release\MRMPNotifier.exe.config
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\bin\Release\MRMPNotifier.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\bin\Release\MRMPNotifier.pdb
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\MRMPNotifier.csprojResolveAssemblyReference.cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\Resources\DimensionData.baml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\Resources\logos.baml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\MainWindow.g.cs
@@ -14,4 +15,3 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPCon
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\MRMPNotifier.csproj.GenerateResource.Cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\MRMPNotifier.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\MRMPNotifier.pdb
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\MRMPNotifier.csprojResolveAssemblyReference.cache

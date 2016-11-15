@@ -71,32 +71,32 @@ namespace MRMPService.MRMPAPI
         {
             _workload.credential = null;
             _workload.platform = null;
-            if (_workload.workloadinterfaces_attributes != null)
+            if (_workload.workloadinterfaces != null)
             {
-                if (_workload.workloadinterfaces_attributes.Count == 0)
+                if (_workload.workloadinterfaces.Count == 0)
                 {
-                    _workload.workloadinterfaces_attributes = null;
+                    _workload.workloadinterfaces = null;
                 }
             }
-            if (_workload.workloadprocesses_attributes != null)
+            if (_workload.workloadprocesses != null)
             {
-                if (_workload.workloadprocesses_attributes.Count == 0)
+                if (_workload.workloadprocesses.Count == 0)
                 {
-                    _workload.workloadprocesses_attributes = null;
+                    _workload.workloadprocesses = null;
                 }
             }
-            if (_workload.workloadsoftwares_attributes != null)
+            if (_workload.workloadsoftwares != null)
             {
-                if (_workload.workloadsoftwares_attributes.Count == 0)
+                if (_workload.workloadsoftwares.Count == 0)
                 {
-                    _workload.workloadsoftwares_attributes = null;
+                    _workload.workloadsoftwares = null;
                 }
             }
-            if (_workload.workloadvolumes_attributes != null)
+            if (_workload.workloadvolumes != null)
             {
-                if (_workload.workloadvolumes_attributes.Count == 0)
+                if (_workload.workloadvolumes.Count == 0)
                 {
-                    _workload.workloadvolumes_attributes = null;
+                    _workload.workloadvolumes = null;
                 }
             }
 

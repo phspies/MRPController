@@ -121,17 +121,17 @@ namespace MRMPService.PlatformInventory
                 if (_workloadnic.Backing is VirtualEthernetCardNetworkBackingInfo)
                 {
                     VirtualEthernetCardNetworkBackingInfo _nic_backing = (VirtualEthernetCardNetworkBackingInfo)_workloadnic.Backing;
-                    if (_platform.platformdomains_attributes.SelectMany(x => x.platformnetworks_attributes).Any(y => y.moid == _nic_backing.Network.Value))
+                    if (_platform.platformdomains_attributes.SelectMany(x => x.platformnetworks).Any(y => y.moid == _nic_backing.Network.Value))
                     {
-                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks_attributes).FirstOrDefault(y => y.moid == _nic_backing.Network.Value).id;
+                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks).FirstOrDefault(y => y.moid == _nic_backing.Network.Value).id;
                     }
                 }
                 else if (_workloadnic.Backing is VirtualEthernetCardDistributedVirtualPortBackingInfo)
                 {
                     VirtualEthernetCardDistributedVirtualPortBackingInfo _nic_backing = (VirtualEthernetCardDistributedVirtualPortBackingInfo)_workloadnic.Backing;
-                    if (_platform.platformdomains_attributes.SelectMany(x => x.platformnetworks_attributes).Any(y => y.moid == _nic_backing.Port.PortgroupKey))
+                    if (_platform.platformdomains_attributes.SelectMany(x => x.platformnetworks).Any(y => y.moid == _nic_backing.Port.PortgroupKey))
                     {
-                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks_attributes).FirstOrDefault(y => y.moid == _nic_backing.Port.PortgroupKey).id;
+                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks).FirstOrDefault(y => y.moid == _nic_backing.Port.PortgroupKey).id;
                     }
                 }
                 else
@@ -139,17 +139,17 @@ namespace MRMPService.PlatformInventory
                     Logger.log(String.Format("UpdateVMwareWorkload: Could not determine workload network backing type"), Logger.Severity.Error);
                 }
 
-                if (_mrp_workloads.Exists((x => x.moid == _workload_moid && x.workloadinterfaces_attributes.Exists(y => y.macaddress == _workloadnic.MacAddress))))
+                if (_mrp_workloads.Exists((x => x.moid == _workload_moid && x.workloadinterfaces.Exists(y => y.macaddress == _workloadnic.MacAddress))))
                 {
-                    _logical_interface = _mrp_workloads.FirstOrDefault(x => x.moid == _workload_moid).workloadinterfaces_attributes.FirstOrDefault(y => y.macaddress == _workloadnic.MacAddress);
+                    _logical_interface = _mrp_workloads.FirstOrDefault(x => x.moid == _workload_moid).workloadinterfaces.FirstOrDefault(y => y.macaddress == _workloadnic.MacAddress);
                 }
                 else
                 {
-                    if (_mrp_workload.workloadinterfaces_attributes == null)
+                    if (_mrp_workload.workloadinterfaces == null)
                     {
-                        _mrp_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
+                        _mrp_workload.workloadinterfaces = new List<MRPWorkloadInterfaceType>();
                     }
-                    _mrp_workload.workloadinterfaces_attributes.Add(_logical_interface);
+                    _mrp_workload.workloadinterfaces.Add(_logical_interface);
                 }
                 //populate interface object
                 _logical_interface.vnic = _index;

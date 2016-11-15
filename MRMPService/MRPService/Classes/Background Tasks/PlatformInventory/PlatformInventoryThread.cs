@@ -36,10 +36,7 @@ namespace MRMPService.PlatformInventory
                           {
                               try
                               {
-                                  using (PlatformDoInventory _inventoryclass = new PlatformDoInventory())
-                                  {
-                                      _inventoryclass.PlatformInventoryDo(platform);
-                                  }
+                                  PlatformDoInventory.PlatformInventoryDo(platform);
                               }
                               catch (Exception ex)
                               {

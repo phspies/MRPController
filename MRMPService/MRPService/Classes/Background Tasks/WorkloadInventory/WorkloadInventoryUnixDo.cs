@@ -307,16 +307,16 @@ namespace MRMPService.MRMPAPI.Classes
                                             }
                                             if (_valid_fs)
                                             {
-                                                if (_updated_workload.workloadvolumes_attributes == null)
+                                                if (_updated_workload.workloadvolumes == null)
                                                 {
-                                                    _updated_workload.workloadvolumes_attributes = new List<MRPWorkloadVolumeType>();
+                                                    _updated_workload.workloadvolumes = new List<MRPWorkloadVolumeType>();
                                                 }
                                                 //if volume already exists in portal, just update it   
-                                                if (_workload.workloadvolumes_attributes.Exists(x => x.driveletter == _volume.driveletter))
+                                                if (_workload.workloadvolumes.Exists(x => x.driveletter == _volume.driveletter))
                                                 {
-                                                    _volume.id = _workload.workloadvolumes_attributes.FirstOrDefault(x => x.driveletter == _volume.driveletter).id;
+                                                    _volume.id = _workload.workloadvolumes.FirstOrDefault(x => x.driveletter == _volume.driveletter).id;
                                                 }
-                                                _updated_workload.workloadvolumes_attributes.Add(_volume);
+                                                _updated_workload.workloadvolumes.Add(_volume);
                                             }
                                         }
                                     }
@@ -351,16 +351,16 @@ namespace MRMPService.MRMPAPI.Classes
                                             }
                                             if (_valid_net)
                                             {
-                                                if (_updated_workload.workloadinterfaces_attributes == null)
+                                                if (_updated_workload.workloadinterfaces == null)
                                                 {
-                                                    _updated_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
+                                                    _updated_workload.workloadinterfaces = new List<MRPWorkloadInterfaceType>();
                                                 }
                                                 _interface.ipassignment = "manual_ip";
-                                                if (_workload.workloadinterfaces_attributes.Any(x => x.connection_index == _interface.connection_index))
+                                                if (_workload.workloadinterfaces.Any(x => x.connection_index == _interface.connection_index))
                                                 {
-                                                    _interface.id = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.connection_index == _interface.connection_index).id;
+                                                    _interface.id = _workload.workloadinterfaces.FirstOrDefault(x => x.connection_index == _interface.connection_index).id;
                                                 }
-                                                _updated_workload.workloadinterfaces_attributes.Add(_interface);
+                                                _updated_workload.workloadinterfaces.Add(_interface);
                                             }
                                         }
                                     }

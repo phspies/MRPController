@@ -11,40 +11,12 @@ using VMware.Vim;
 using MRMPService.VMWare;
 using System.Collections.Specialized;
 using MRMPService.MRMPAPI;
+using System.Threading.Tasks;
 
 namespace MRMPService.PlatformInventory
 {
-    class PlatformVMwareInventoryDo : IDisposable
+    class PlatformVMwareInventoryDo
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~PlatformVMwareInventoryDo()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
         static public void UpdateVMwarePlatform(MRPPlatformType _platform, bool full = true)
         {
             MRMP_ApiClient _cloud_movey = new MRMP_ApiClient();
@@ -78,7 +50,7 @@ namespace MRMPService.PlatformInventory
 
             _update_platform.platformdatacenters_attributes = new List<MRPPlatformdatacenterType>();
             MRPPlatformdatacenterType _datacenter = new MRPPlatformdatacenterType();
-            _datacenter.platformclusters_attributes = new List<MRPPlatformclusterType>();
+            _datacenter.platformclusters = new List<MRPPlatformclusterType>();
             if (_platform.platformdatacenters_attributes.Exists(x => x.moid == dc.MoRef.Value))
             {
                 _datacenter.id = _platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).id;
@@ -90,9 +62,9 @@ namespace MRMPService.PlatformInventory
             foreach (ComputeResource _cluster in cluster_list)
             {
                 MRPPlatformclusterType _mrp_cluster = new MRPPlatformclusterType();
-                if (_platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).platformclusters_attributes.Exists(x => x.moid == _cluster.MoRef.Value))
+                if (_platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).platformclusters.Exists(x => x.moid == _cluster.MoRef.Value))
                 {
-                    _mrp_cluster.id = _platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).platformclusters_attributes.FirstOrDefault(x => x.moid == _cluster.MoRef.Value).id;
+                    _mrp_cluster.id = _platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).platformclusters.FirstOrDefault(x => x.moid == _cluster.MoRef.Value).id;
                 }
                 _mrp_cluster.moid = _cluster.MoRef.Value;
                 _mrp_cluster.cluster = _cluster.Name;
@@ -102,7 +74,7 @@ namespace MRMPService.PlatformInventory
                 _mrp_cluster.totalmemory = _cluster.Summary.TotalMemory;
                 _mrp_cluster.resourcepool_moid = _cluster.ResourcePool.Value;
 
-                _datacenter.platformclusters_attributes.Add(_mrp_cluster);
+                _datacenter.platformclusters.Add(_mrp_cluster);
             }
 
             _update_platform.platformdatastores_attributes = new List<MRPPlatformdatastoreType>();
@@ -129,7 +101,7 @@ namespace MRMPService.PlatformInventory
             {
                 _std_platformdomain.id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == "std_pg").id;
             }
-            _std_platformdomain.platformnetworks_attributes = new List<MRPPlatformnetworkType>();
+            _std_platformdomain.platformnetworks = new List<MRPPlatformnetworkType>();
             _std_platformdomain.moid = "std_pg";
             _std_platformdomain.domain = "Network";
             _std_platformdomain.platform_id = _platform.id;
@@ -140,9 +112,9 @@ namespace MRMPService.PlatformInventory
             {
                 MRPPlatformnetworkType _platformnetwork = new MRPPlatformnetworkType();
 
-                if (_mrp_domains.Exists(x => x.moid == "std_pg" && x.platformnetworks_attributes.Exists(y => y.moid == _vmware_network.MoRef.Value)))
+                if (_mrp_domains.Exists(x => x.moid == "std_pg" && x.platformnetworks.Exists(y => y.moid == _vmware_network.MoRef.Value)))
                 {
-                    _platformnetwork.id = _mrp_domains.FirstOrDefault(x => x.moid == "std_pg").platformnetworks_attributes.FirstOrDefault(y => y.moid == _vmware_network.MoRef.Value).id;
+                    _platformnetwork.id = _mrp_domains.FirstOrDefault(x => x.moid == "std_pg").platformnetworks.FirstOrDefault(y => y.moid == _vmware_network.MoRef.Value).id;
                 }
 
                 _platformnetwork.moid = _vmware_network.MoRef.Value;
@@ -150,14 +122,14 @@ namespace MRMPService.PlatformInventory
                 _platformnetwork.networkdomain_moid = "std_pg";
                 _platformnetwork.provisioned = true;
 
-                _std_platformdomain.platformnetworks_attributes.Add(_platformnetwork);
+                _std_platformdomain.platformnetworks.Add(_platformnetwork);
             }
 
             //Process distributes switches
             foreach (DistributedVirtualSwitch _vmware_domain in _vim.networks().GetDVSwitches(dc))
             {
                 MRPPlatformdomainType _platformdomain = new MRPPlatformdomainType();
-                _platformdomain.platformnetworks_attributes = new List<MRPPlatformnetworkType>();
+                _platformdomain.platformnetworks = new List<MRPPlatformnetworkType>();
                 if (_platform.platformdomains_attributes.Exists(x => x.moid == _vmware_domain.MoRef.Value))
                 {
                     _platformdomain.id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).id;
@@ -171,9 +143,9 @@ namespace MRMPService.PlatformInventory
                 foreach (DistributedVirtualPortgroup _vmware_network in _vim.networks().GetDVPortGroups(_vmware_domain))
                 {
                     MRPPlatformnetworkType _platformnetwork = new MRPPlatformnetworkType();
-                    if (_platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks_attributes.Any(x => x.moid == _vmware_network.MoRef.Value))
+                    if (_platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks.Any(x => x.moid == _vmware_network.MoRef.Value))
                     {
-                        _platformnetwork.id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks_attributes.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value).id;
+                        _platformnetwork.id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value).id;
                     }
                     _platformnetwork.moid = _vmware_network.MoRef.Value;
                     _platformnetwork.network = _vmware_network.Name;
@@ -181,7 +153,7 @@ namespace MRMPService.PlatformInventory
                     _platformnetwork.networkdomain_moid = _vmware_domain.MoRef.Value;
                     _platformnetwork.provisioned = true;
 
-                    _platformdomain.platformnetworks_attributes.Add(_platformnetwork);
+                    _platformdomain.platformnetworks.Add(_platformnetwork);
                 }
             }
             using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
@@ -212,11 +184,19 @@ namespace MRMPService.PlatformInventory
                         }
                     }
                 }
-
-                foreach (VirtualMachine _vmware_workload in _vmware_workload_list)
+                Parallel.ForEach(_vmware_workload_list, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_workload_inventory_concurrency }, (_vmware_workload) =>
                 {
-                    PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _refreshed_platfrom, _mrp_workloads);
-                }
+                    try
+                    {
+                        //update lists before we start the workload inventory process
+                        PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _refreshed_platfrom, _mrp_workloads);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.log(String.Format("Error collecting inventory information from VMware workload {0} with error {1}", _vmware_workload.Config.GuestFullName, ex.GetBaseException().Message), Logger.Severity.Error);
+                    }
+                });
+
             }
             sw.Stop();
 

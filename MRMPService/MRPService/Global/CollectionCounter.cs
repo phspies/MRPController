@@ -1,6 +1,6 @@
-﻿namespace MRMPService.PerformanceCollection
+﻿
+namespace MRMPService
 {
-
 
     public class CollectionCounter
     {

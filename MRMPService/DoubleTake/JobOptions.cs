@@ -55,7 +55,7 @@ namespace MRMPService.MRMPDoubleTake
 
                 List<ImageVhdInfoModel> vhd = new List<ImageVhdInfoModel>();
                 int i = 0;
-                foreach (MRPWorkloadVolumeType volume in _source_workload.workloadvolumes_attributes)
+                foreach (MRPWorkloadVolumeType volume in _source_workload.workloadvolumes)
                 {
                     String _repositorypath = _protectiongroup.recoverypolicy.repositorypath;
                     long _disksize = volume.volumesize;

@@ -27,10 +27,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public DateTime? created_time { get; set; }
         [JsonProperty("porttype")]
         public string porttype { get; set; }
-        [JsonProperty("domainportlist")]
-        public List<MRPDomainPortType> domainportlist { get; set; }
         [JsonProperty("domainportlistports_attributes")]
-        public List<MRPPortListPortType> domainportlistports_attributes { get; set; }
+        public List<MRPPortListPortType> domainportlistports { get; set; }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
 

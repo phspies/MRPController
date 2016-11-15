@@ -160,9 +160,9 @@ namespace MRMPService.DTPollerCollection
                             foreach (SnapshotEntryModel _dt_snap in _dt_image.Snapshots.Where(x => x.States == TargetStates.SroImage))
                             {
                                 MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                                if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
+                                if (_mrp_managementobject.managementobjectsnapshots.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
                                 {
-                                    _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots_attributes.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id.ToString()).id;
+                                    _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id.ToString()).id;
                                 }
 
                                 _mrp_snapshot.snapshotmoid = _dt_snap.Id.ToString();
@@ -203,19 +203,19 @@ namespace MRMPService.DTPollerCollection
                                     }
                                 }
 
-                                if (_mrp_mo_update.managementobjectsnapshots_attributes == null)
+                                if (_mrp_mo_update.managementobjectsnapshots == null)
                                 {
-                                    _mrp_mo_update.managementobjectsnapshots_attributes = new List<MRPManagementobjectSnapshotType>();
+                                    _mrp_mo_update.managementobjectsnapshots = new List<MRPManagementobjectSnapshotType>();
                                 }
-                                _mrp_mo_update.managementobjectsnapshots_attributes.Add(_mrp_snapshot);
+                                _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
                             }
                         }
                         foreach (SnapshotEntryModel _dt_snap in _dt_snapshot_list.Where(x => x.States == TargetStates.Good || x.States == TargetStates.SroImage))
                         {
                             MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                            if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
+                            if (_mrp_managementobject.managementobjectsnapshots.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
                             {
-                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots_attributes.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id.ToString()).id;
+                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id.ToString()).id;
                             }
 
                             _mrp_snapshot.snapshotmoid = _dt_snap.Id.ToString();
@@ -241,7 +241,7 @@ namespace MRMPService.DTPollerCollection
                                                 _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid)).Result;
 
                                                 _dt.job().DeleteSnapshot(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId).Wait();
-                                                if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
+                                                if (_mrp_managementobject.managementobjectsnapshots.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
                                                 {
                                                     _mrp_snapshot._destroy = true;
                                                     Logger.log(String.Format("Deleting Snapshot {0} for job {1}", _snapshot.Id, _dt_job.Options.Name), Logger.Severity.Info);
@@ -253,11 +253,11 @@ namespace MRMPService.DTPollerCollection
                                 }
                             }
 
-                            if (_mrp_mo_update.managementobjectsnapshots_attributes == null)
+                            if (_mrp_mo_update.managementobjectsnapshots == null)
                             {
-                                _mrp_mo_update.managementobjectsnapshots_attributes = new List<MRPManagementobjectSnapshotType>();
+                                _mrp_mo_update.managementobjectsnapshots = new List<MRPManagementobjectSnapshotType>();
                             }
-                            _mrp_mo_update.managementobjectsnapshots_attributes.Add(_mrp_snapshot);
+                            _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
                         }
                         //Update job details
                         if (_dt_job.Statistics != null)
@@ -292,11 +292,11 @@ namespace MRMPService.DTPollerCollection
                                     _managedobject_stat.recovery_point_objective = _connection_details.SourceRecoveryPointTime.UtcDateTime;
                                     _managedobject_stat.recovery_point_latency = _connection_details.SourceRecoveryPointLatency;
 
-                                    if (_mrp_mo_update.managementobjectstats_attributes == null)
+                                    if (_mrp_mo_update.managementobjectstats == null)
                                     {
-                                        _mrp_mo_update.managementobjectstats_attributes = new List<MRPManagementobjectStatType>();
+                                        _mrp_mo_update.managementobjectstats = new List<MRPManagementobjectStatType>();
                                     }
-                                    _mrp_mo_update.managementobjectstats_attributes.Add(_managedobject_stat);
+                                    _mrp_mo_update.managementobjectstats.Add(_managedobject_stat);
                                 }
                                 else
                                 {

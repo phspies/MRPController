@@ -157,13 +157,13 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("platformtemplate_id")]
         public string platformtemplate_id { get; set; }
         [JsonProperty("workloadvolumes_attributes")]
-        public List<MRPWorkloadVolumeType> workloadvolumes_attributes { get; set; }
+        public List<MRPWorkloadVolumeType> workloadvolumes { get; set; }
         [JsonProperty("workloadinterfaces_attributes")]
-        public List<MRPWorkloadInterfaceType> workloadinterfaces_attributes { get; set; }
+        public List<MRPWorkloadInterfaceType> workloadinterfaces { get; set; }
         [JsonProperty("workloadprocesses_attributes")]
-        public List<MRPWorkloadProcessType> workloadprocesses_attributes { get; set; }
+        public List<MRPWorkloadProcessType> workloadprocesses { get; set; }
         [JsonProperty("workloadsoftwares_attributes")]
-        public List<MRPWorkloadSoftwareType> workloadsoftwares_attributes { get; set; }
+        public List<MRPWorkloadSoftwareType> workloadsoftwares { get; set; }
         [JsonProperty("credential")]
         public MRPCredentialType credential { get; set; }
         [JsonProperty("deleted")]
@@ -184,21 +184,21 @@ namespace MRMPService.MRMPAPI.Contracts
         public string timezone { get; set; }
 
 
-        public bool ShouldSerializeworkloadvolumes_attributes()
+        public bool ShouldSerializeworkloadvolumes()
         {
-            return (workloadvolumes_attributes == null || !workloadvolumes_attributes.Any()) ? false : true;
+            return (workloadvolumes == null || !workloadvolumes.Any()) ? false : true;
         }
-        public bool ShouldSerializeworkloadinterfaces_attributes()
+        public bool ShouldSerializeworkloadinterfaces()
         {
-            return (workloadinterfaces_attributes == null || !workloadinterfaces_attributes.Any()) ? false : true;
+            return (workloadinterfaces == null || !workloadinterfaces.Any()) ? false : true;
         }
-        public bool ShouldSerializeworkloadprocesses_attributes()
+        public bool ShouldSerializeworkloadprocesses()
         {
-            return (workloadprocesses_attributes == null || !workloadprocesses_attributes.Any()) ? false : true;
+            return (workloadprocesses == null || !workloadprocesses.Any()) ? false : true;
         }
-        public bool ShouldSerializeworkloadsoftwares_attributes()
+        public bool ShouldSerializeworkloadsoftwares()
         {
-            return (workloadsoftwares_attributes == null || !workloadsoftwares_attributes.Any()) ? false : true;
+            return (workloadsoftwares == null || !workloadsoftwares.Any()) ? false : true;
         }
     }
 }

@@ -76,13 +76,13 @@ namespace MRMPService.PlatformInventory
                 _mrmp_workload.platformtemplate_id = _platform.platformtemplates_attributes.FirstOrDefault(x => x.image_moid == _caasworkload.sourceImageId).id;
 
                 //populate network interfaces for workload
-                _mrmp_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
+                _mrmp_workload.workloadinterfaces = new List<MRPWorkloadInterfaceType>();
                 MRPWorkloadInterfaceType _primary_logical_interface = new MRPWorkloadInterfaceType() { vnic = 0, ipassignment = "manual_ip", ipv6address = _caasworkload.networkInfo.primaryNic.ipv6, ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4, moid = _caasworkload.networkInfo.primaryNic.id };
-                if (_mrp_workloads.Any(x => x.workloadinterfaces_attributes.Exists(y => x.moid == _caasworkload.id && y.moid == _caasworkload.networkInfo.primaryNic.id)))
+                if (_mrp_workloads.Any(x => x.workloadinterfaces.Exists(y => x.moid == _caasworkload.id && y.moid == _caasworkload.networkInfo.primaryNic.id)))
                 {
-                    _primary_logical_interface.id = _mrp_workloads.FirstOrDefault(x => x.moid == _caasworkload.id).workloadinterfaces_attributes.FirstOrDefault(y => y.moid == _caasworkload.networkInfo.primaryNic.id).id;
+                    _primary_logical_interface.id = _mrp_workloads.FirstOrDefault(x => x.moid == _caasworkload.id).workloadinterfaces.FirstOrDefault(y => y.moid == _caasworkload.networkInfo.primaryNic.id).id;
                 }
-                _mrmp_workload.workloadinterfaces_attributes.Add(_primary_logical_interface);
+                _mrmp_workload.workloadinterfaces.Add(_primary_logical_interface);
                 int nic_index = 1;
                 if (_caasworkload.networkInfo.additionalNic != null)
                 {
@@ -91,9 +91,9 @@ namespace MRMPService.PlatformInventory
                         MRPWorkloadInterfaceType _logical_interface = new MRPWorkloadInterfaceType();
                         if (_mrp_workloads.Exists(x => x.moid == _caasworkload.id))
                         {
-                            if (_mrp_workloads.FirstOrDefault(x => x.moid == _caasworkload.id).workloadinterfaces_attributes.Any((y => y.moid == _caasworkloadinterface.id)))
+                            if (_mrp_workloads.FirstOrDefault(x => x.moid == _caasworkload.id).workloadinterfaces.Any((y => y.moid == _caasworkloadinterface.id)))
                             {
-                                _logical_interface.id = _mrp_workloads.FirstOrDefault(x => x.moid == _caasworkload.id).workloadinterfaces_attributes.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
+                                _logical_interface.id = _mrp_workloads.FirstOrDefault(x => x.moid == _caasworkload.id).workloadinterfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id).id;
                             }
                         }
 
@@ -103,9 +103,9 @@ namespace MRMPService.PlatformInventory
                         _logical_interface.ipaddress = _caasworkloadinterface.privateIpv4;
                         _logical_interface.moid = _caasworkloadinterface.id;
                         _logical_interface._destroy = false;
-                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks_attributes).FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id;
+                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks).FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id;
 
-                        _mrmp_workload.workloadinterfaces_attributes.Add(_logical_interface);
+                        _mrmp_workload.workloadinterfaces.Add(_logical_interface);
                         nic_index += 1;
                     }
                 }

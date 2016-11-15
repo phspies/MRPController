@@ -9,37 +9,8 @@ using Newtonsoft.Json.Serialization;
 
 namespace MRMPService.MRMPAPI
 {
-    class Core : IDisposable
+    class Core
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~Core()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
         private String _endpoint;
         private MRMP_ApiClient _client;
         static string api_prefix = "/api/v1";
@@ -115,16 +86,30 @@ namespace MRMPService.MRMPAPI
                 }
                 else if (response.StatusCode == HttpStatusCode.BadRequest)
                 {
+                    ResultType _result = new ResultType();
                     try
                     {
-                        responseobject = JsonConvert.DeserializeObject<ResultType>(response.Content);
+                        _result = JsonConvert.DeserializeObject<ResultType>(response.Content);
                     }
                     catch (Exception ex)
                     {
                         Logger.log(ex.ToString(), Logger.Severity.Error);
-                        Logger.log(JsonConvert.SerializeObject(_object), Logger.Severity.Error);
                         Logger.log(response.Content, Logger.Severity.Error);
-                        throw new Exception(String.Format("Error in API call: {0}", ex.GetBaseException().Message));
+                        throw new Exception(String.Format("Error in API call: {0} : {1}", ex.GetBaseException().Message, _result.result.message.ToString()));
+                    }
+                }
+                else if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    ResultType _result = new ResultType();
+                    try
+                    {
+                        _result = JsonConvert.DeserializeObject<ResultType>(response.Content);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.log(ex.ToString(), Logger.Severity.Error);
+                        Logger.log(response.Content, Logger.Severity.Error);
+                        throw new Exception(String.Format("Error in API call: {0} : {1}", ex.GetBaseException().Message, _result.result.message.ToString()));
                     }
                 }
                 else if (response.StatusCode == HttpStatusCode.RequestTimeout)
@@ -137,21 +122,6 @@ namespace MRMPService.MRMPAPI
                     Logger.log(String.Format("Unexpected error connecting to {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), Logger.Severity.Error);
 
                     Thread.Sleep(new TimeSpan(0, 0, 30));
-                }
-                else if (response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    try
-                    {
-                        responseobject = JsonConvert.DeserializeObject<ResultType>(response.Content);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.log(ex.ToString(), Logger.Severity.Error);
-                        Logger.log(JsonConvert.SerializeObject(_object), Logger.Severity.Error);
-                        Logger.log(response.Content, Logger.Severity.Error);
-                        break;
-                    }
-                    throw new System.ArgumentException(((ResultType)responseobject).result.message);
                 }
                 else
                 {

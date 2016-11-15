@@ -14,7 +14,7 @@ namespace MRMPService.PerformanceCollection
 {
     partial class WorkloadPerformance
     {
-        public static void WorkloadPerformanceWindowsDo(SyncronisedList<CollectionCounter> _available_counters, MRPWorkloadType _workload)
+        public static void WorkloadPerformanceWindowsDo(MRPWorkloadType _workload)
         {
             #region load and check workload information
             //check for credentials
@@ -53,7 +53,7 @@ namespace MRMPService.PerformanceCollection
             using (new Impersonator((_workload.workloadtype == "manager" ? "." : _credential.username), (_workload.workloadtype == "manager" ? null : (String.IsNullOrEmpty(_credential.domain) ? "." : _credential.domain)), (_workload.workloadtype == "manager" ? null : _credential.encrypted_password)))
             {
                 //loop each counter in the available counter list
-                foreach (string _current_category in _available_counters.Select(x => x.category).Distinct())
+                foreach (string _current_category in Global._available_counters.Select(x => x.category).Distinct())
                 {
                     //test if counter exists and only process those we can collect
                     try
@@ -107,7 +107,7 @@ namespace MRMPService.PerformanceCollection
                         foreach (var _counter in _counters)
                         {
                             //only collect info for specified counters or evenrything within the category
-                            if (_available_counters.FirstOrDefault(x => x.category == _current_category).counter != "*" && !_available_counters.Any(x => x.counter == _counter.CounterName))
+                            if (Global._available_counters.FirstOrDefault(x => x.category == _current_category).counter != "*" && !Global._available_counters.Any(x => x.counter == _counter.CounterName))
                             {
                                 continue;
                             }

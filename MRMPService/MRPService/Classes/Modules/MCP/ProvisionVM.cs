@@ -96,22 +96,22 @@ namespace MRMPService.Tasks.MCP
                 List<DeployServerTypeDisk> _disks = new List<DeployServerTypeDisk>();
 
                 //Set Tier for first disk being deployed
-                MRPWorkloadVolumeType _first_disk = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.diskindex == 0);
+                MRPWorkloadVolumeType _first_disk = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == 0);
                 _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier_id });
 
                 _vm.name = _target_workload.hostname;
                 _vm.description = String.Format("{0} MRMP : {1}", DateTime.UtcNow, _protectiongroup.group);
                 DeployServerTypeNetwork _network = new DeployServerTypeNetwork();
-                _network.Item = _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid;
+                _network.Item = _target_workload.workloadinterfaces[0].platformnetwork.moid;
                 _network.ItemElementName = NetworkIdOrPrivateIpv4ChoiceType.networkId;
-                _network.networkId = _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid;
+                _network.networkId = _target_workload.workloadinterfaces[0].platformnetwork.moid;
                 DeployServerTypeNetworkInfo _networkInfo = new DeployServerTypeNetworkInfo();
-                _networkInfo.networkDomainId = _target_workload.workloadinterfaces_attributes[0].platformnetwork.networkdomain_moid;
+                _networkInfo.networkDomainId = _target_workload.workloadinterfaces[0].platformnetwork.networkdomain_moid;
                 _networkInfo.primaryNic = new NewNicType()
                 {
-                    ItemElementName = _target_workload.workloadinterfaces_attributes[0].ipassignment == "auto_ip" ? PrivateIpv4OrVlanIdChoiceType.vlanId : PrivateIpv4OrVlanIdChoiceType.privateIpv4,
-                    vlanId = _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid != null ? _target_workload.workloadinterfaces_attributes[0].platformnetwork.moid : null,
-                    privateIpv4 = _target_workload.workloadinterfaces_attributes[0].ipassignment != "auto_ip" ? _target_workload.workloadinterfaces_attributes[0].ipaddress : null
+                    ItemElementName = _target_workload.workloadinterfaces[0].ipassignment == "auto_ip" ? PrivateIpv4OrVlanIdChoiceType.vlanId : PrivateIpv4OrVlanIdChoiceType.privateIpv4,
+                    vlanId = _target_workload.workloadinterfaces[0].platformnetwork.moid != null ? _target_workload.workloadinterfaces[0].platformnetwork.moid : null,
+                    privateIpv4 = _target_workload.workloadinterfaces[0].ipassignment != "auto_ip" ? _target_workload.workloadinterfaces[0].ipaddress : null
                 };
 
                 _vm.network = _network;
@@ -275,12 +275,12 @@ namespace MRMPService.Tasks.MCP
 
                     //Expand 0 drive and Add additional disks if required
                     int count = 0;
-                    foreach (int _disk_index in _target_workload.workloadvolumes_attributes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
+                    foreach (int _disk_index in _target_workload.workloadvolumes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
                     {
                         //increase disk by 5GB
-                        long _disk_size = _target_workload.workloadvolumes_attributes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
+                        long _disk_size = _target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
 
-                        String _disk_tier = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier_id;
+                        String _disk_tier = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier_id;
                         if (deployedServer.disk.ToList().Exists(x => x.scsiId == _disk_index))
                         {
                             if (deployedServer.disk.ToList().FirstOrDefault(x => x.scsiId == _disk_index).sizeGb < _disk_size)
@@ -342,14 +342,14 @@ namespace MRMPService.Tasks.MCP
                     _update_workload.iplist = String.Join(",", deployedServer.networkInfo.primaryNic.ipv6, deployedServer.networkInfo.primaryNic.privateIpv4);
 
                     //update first network interface with the newly provisioned server's information
-                    _update_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
+                    _update_workload.workloadinterfaces = new List<MRPWorkloadInterfaceType>();
                     var _interface = new MRPWorkloadInterfaceType();
-                    _interface.id = _target_workload.workloadinterfaces_attributes.FirstOrDefault(x => x.vnic == 0).id;
+                    _interface.id = _target_workload.workloadinterfaces.FirstOrDefault(x => x.vnic == 0).id;
                     _interface.moid = deployedServer.networkInfo.primaryNic.id;
                     _interface.ipaddress = deployedServer.networkInfo.primaryNic.privateIpv4;
                     _interface.ipassignment = "manual_ip";
                     _interface.ipv6address = deployedServer.networkInfo.primaryNic.ipv6;
-                    _update_workload.workloadinterfaces_attributes.Add(_interface);
+                    _update_workload.workloadinterfaces.Add(_interface);
 
                     using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {

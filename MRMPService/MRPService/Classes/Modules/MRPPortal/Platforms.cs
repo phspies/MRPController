@@ -48,7 +48,7 @@ namespace MRMPService.MRMPAPI
         public MRPPlatformListType list_paged_filtered(MRPPlatformFilterPagedType _paged_filter_settings)
         {
             endpoint = "/platforms/list_paged_filtered.json";
-            return post<MRPPlatformListType>(_paged_filter_settings);
+            return post<MRPPlatformListType>(_paged_filter_settings) as MRPPlatformListType;
         }
 
         public MRPPlatformType get_by_id(string _platform_id)
@@ -58,7 +58,7 @@ namespace MRMPService.MRMPAPI
             {
                 platform_id = _platform_id
             };
-            return post<MRPPlatformType>(worker);
+            return post<MRPPlatformType>(worker) as MRPPlatformType;
         }
 
         public MRPPlatformType create(MRPPlatformType _platform)
@@ -79,7 +79,7 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/platforms/update.json";
-            return (MRPPlatformType)put<MRPPlatformType>(platform);
+            return put<MRPPlatformType>(platform);
         }
     }
 }

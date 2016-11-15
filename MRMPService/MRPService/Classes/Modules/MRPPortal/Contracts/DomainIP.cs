@@ -23,6 +23,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string begin_address { get; set; }
         [JsonProperty("end_address")]
         public string end_address { get; set; }
+        [JsonProperty("ipversion")]
+        public string ipversion { get; set; }
         [JsonProperty("prefix_size")]
         public int? prefix_size { get; set; }
         [JsonProperty("created_time")]
@@ -32,7 +34,7 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("domainiplist")]
         public List<MRPDomainIPType> domainiplist { get; set; }
         [JsonProperty("domainiplistaddresses_attributes")]
-        public List<MRPIPListAddressType> domainiplistaddresses_attributes { get; set; }
+        public List<MRPIPListAddressType> domainiplistaddresses { get; set; }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
     }

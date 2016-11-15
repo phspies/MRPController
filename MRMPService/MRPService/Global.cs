@@ -1,9 +1,11 @@
 ﻿using Microsoft.Win32;
 using MRMPService.Utilities;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Threading;
+using static MRMPService.Utilities.SyncronizedList;
 
 namespace MRMPService
 {
@@ -27,6 +29,9 @@ namespace MRMPService
 
         static String _manager_version = version;
 
+        public static SyncronisedList<CollectionCounter> _available_counters = new SyncronisedList<CollectionCounter>(new List<CollectionCounter>());
+
+
         public static int os_inventory_interval = (int)MRPRegistry.RegAccess("os_inventory_interval",1440, RegistryValueKind.DWord); //minutes
         public static int os_inventory_concurrency = (int)MRPRegistry.RegAccess("os_inventory_concurrency", 10, RegistryValueKind.DWord);
 
@@ -47,6 +52,7 @@ namespace MRMPService
 
         public static int platform_inventory_interval = (int)MRPRegistry.RegAccess("platform_inventory_interval", 1440, RegistryValueKind.DWord); //minutes
         public static int platform_inventory_concurrency = (int)MRPRegistry.RegAccess("platform_inventory_concurrency", 10, RegistryValueKind.DWord);
+        public static int platform_workload_inventory_concurrency = (int)MRPRegistry.RegAccess("platform_workload_inventory_concurrency", 10, RegistryValueKind.DWord);
 
         public static int os_performance_concurrency = (int)MRPRegistry.RegAccess("os_performance_concurrency", 10, RegistryValueKind.DWord);
 
@@ -61,7 +67,7 @@ namespace MRMPService
         static String _organization_id;
         static int _worker_queue_count;
         static EventLog _eventLog;
-     
+    
         public static int worker_queue_count
         {
             

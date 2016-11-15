@@ -12,57 +12,9 @@ namespace MRMPService.PerformanceCollection
     class WorkloadPerformanceThread
     {
         //create syncronized lists to work in the threaded environment
-        private static SyncronisedList<CollectionCounter> _available_counters = new SyncronisedList<CollectionCounter>(new List<CollectionCounter>());
 
         public void Start()
         {
-            //Fill counters that needs to be collected from workloads
-            _available_counters.Add(new CollectionCounter() { category = "Processor", counter = "% Idle Time" });
-            _available_counters.Add(new CollectionCounter() { category = "Processor", counter = "% User Time" });
-            _available_counters.Add(new CollectionCounter() { category = "Processor", counter = "% Processor Time" });
-            _available_counters.Add(new CollectionCounter() { category = "Processor", counter = "Interrupts/sec" });
-
-            _available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Available Bytes" });
-            _available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Faults/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Reads/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Writes/sec" });
-
-            _available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Free Space" });
-            //_available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Disk Time" });
-            //_available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Write Disk Time" });
-            //_available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Read Disk Time" });
-            _available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Reads/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Writes/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Read Bytes/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Write Bytes/sec" });
-            //_available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Bytes/sec" });
-            //_available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Split IO/sec" });
-            //_available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Current Disk Queue Length" });
-
-            _available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Disk Time" });
-            _available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Write Disk Time" });
-            _available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Read Disk Time" });
-            _available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Reads/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Writes/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Read Bytes/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Write Bytes/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Bytes/sec" });
-            //_available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Split IO/sec" });
-            //_available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Current Disk Queue Length" });
-
-            _available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Bytes Received/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Bytes Sent/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Current Bandwidth" });
-            //_available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Output Queue Length" });
-            _available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Packets Recieved/sec" });
-            _available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Packets Sent/sec" });
-
-
-            _available_counters.Add(new CollectionCounter() { category = "Double-Take Connection", counter = "*" });
-            _available_counters.Add(new CollectionCounter() { category = "Double-Take Kernel", counter = "*" });
-            _available_counters.Add(new CollectionCounter() { category = "Double-Take Source", counter = "*" });
-            _available_counters.Add(new CollectionCounter() { category = "Double-Take Target", counter = "*" });
-
             while (true)
             {
                 DateTime _next_performance_run = DateTime.UtcNow.AddHours(1);
@@ -101,7 +53,7 @@ namespace MRMPService.PerformanceCollection
                                 switch (workload.ostype.ToUpper())
                                 {
                                     case "WINDOWS":
-                                        WorkloadPerformance.WorkloadPerformanceWindowsDo(_available_counters, workload);
+                                        WorkloadPerformance.WorkloadPerformanceWindowsDo(workload);
                                         break;
                                     case "UNIX":
                                         WorkloadPerformance.WorkloadPerformanceUnixDo(workload);

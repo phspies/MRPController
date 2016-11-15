@@ -59,11 +59,11 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("target_drs_moid_list")]
         public string target_drs_moid_list { get; set; }
         [JsonProperty("platformclusters_attributes")]
-        public List<MRPPlatformclusterType> platformclusters_attributes { get; set; }
+        public List<MRPPlatformclusterType> platformclusters { get; set; }
 
-        public bool ShouldSerializeplatformclusters_attributes()
+        public bool ShouldSerializeplatformclusters()
         {
-            return (platformclusters_attributes == null || !platformclusters_attributes.Any()) ? false : true;
+            return (platformclusters == null || !platformclusters.Any()) ? false : true;
         }
     }
 }

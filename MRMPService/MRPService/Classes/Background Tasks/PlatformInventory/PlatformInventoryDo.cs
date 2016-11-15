@@ -4,38 +4,9 @@ using System;
 
 namespace MRMPService.PlatformInventory
 {
-    public class PlatformDoInventory : IDisposable
+    public class PlatformDoInventory
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~PlatformDoInventory()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
-        public void PlatformInventoryDo(MRPPlatformType _platform, bool full = true)
+        static public void PlatformInventoryDo(MRPPlatformType _platform, bool full = true)
         {
             try
             {
@@ -58,6 +29,5 @@ namespace MRMPService.PlatformInventory
             }
 
         }
-
     }
 }

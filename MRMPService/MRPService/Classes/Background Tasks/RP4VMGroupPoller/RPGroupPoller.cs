@@ -124,13 +124,13 @@ namespace MRMPService.DTPollerCollection
                         foreach (Snapshot _rp_snapshot in _group_snapshot_list.copiesSnapshots.First().snapshots)
                         {
                             MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                            if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()))
+                            if (_mrp_managementobject.managementobjectsnapshots.Exists(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()))
                             {
-                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots_attributes.FirstOrDefault(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()).id;
+                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()).id;
                             }
                             else
                             {
-                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots_attributes.FirstOrDefault(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()).id;
+                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()).id;
                                 _mrp_snapshot._destroy = true;
                             }
 
@@ -140,11 +140,11 @@ namespace MRMPService.DTPollerCollection
                             //_mrp_snapshot.timestamp = TimeSpan.FromMilliseconds(_rp_snapshot.closingTimeStamp.timeInMicroSeconds).;
                             _mrp_snapshot.comment = _rp_snapshot.userSnapshot == true ? "User Snapshot" : "System Snapshot";
 
-                            if (_mrp_mo_update.managementobjectsnapshots_attributes == null)
+                            if (_mrp_mo_update.managementobjectsnapshots == null)
                             {
-                                _mrp_mo_update.managementobjectsnapshots_attributes = new List<MRPManagementobjectSnapshotType>();
+                                _mrp_mo_update.managementobjectsnapshots = new List<MRPManagementobjectSnapshotType>();
                             }
-                            _mrp_mo_update.managementobjectsnapshots_attributes.Add(_mrp_snapshot);
+                            _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
                         }
                         //Update job details
                         if (_group_stats != null)
@@ -168,11 +168,11 @@ namespace MRMPService.DTPollerCollection
                                     _managedobject_stat.recovery_point_objective = Convert.ToDateTime(TimeSpan.FromMilliseconds(_link_stats.pipeStatistics.lag.timeCounter));
                                     _managedobject_stat.recovery_point_latency = _link_stats.pipeStatistics.lag.timeCounter;
 
-                                    if (_mrp_mo_update.managementobjectstats_attributes == null)
+                                    if (_mrp_mo_update.managementobjectstats == null)
                                     {
-                                        _mrp_mo_update.managementobjectstats_attributes = new List<MRPManagementobjectStatType>();
+                                        _mrp_mo_update.managementobjectstats = new List<MRPManagementobjectStatType>();
                                     }
-                                    _mrp_mo_update.managementobjectstats_attributes.Add(_managedobject_stat);
+                                    _mrp_mo_update.managementobjectstats.Add(_managedobject_stat);
                                 }
                                 else
                                 {

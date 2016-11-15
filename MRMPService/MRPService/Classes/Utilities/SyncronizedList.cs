@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace MRMPService.Utilities
 {
-    class SyncronizedList
+    public class SyncronizedList
     {
         public class SyncronisedList<T> : IList<T>
         {

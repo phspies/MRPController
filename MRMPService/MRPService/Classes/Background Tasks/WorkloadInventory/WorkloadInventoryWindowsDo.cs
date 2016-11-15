@@ -174,7 +174,7 @@ namespace MRMPService.MRMPAPI.Classes
 
 
             //process running workloadprocesses_attributes
-            _updated_workload.workloadprocesses_attributes = new List<MRPWorkloadProcessType>();
+            _updated_workload.workloadprocesses = new List<MRPWorkloadProcessType>();
             SelectQuery msProcessQuery = new SelectQuery("SELECT * FROM Win32_Process");
             foreach (ManagementObject item in new ManagementObjectSearcher(connectionScope, msProcessQuery).Get())
             {
@@ -190,11 +190,11 @@ namespace MRMPService.MRMPAPI.Classes
                 }
 
                 //if procces already exists in portal, just update it   
-                if (_workload.workloadprocesses_attributes != null)
+                if (_workload.workloadprocesses != null)
                 {
-                    if (_workload.workloadprocesses_attributes.Exists(x => x.caption == _process_name))
+                    if (_workload.workloadprocesses.Exists(x => x.caption == _process_name))
                     {
-                        _process.id = _workload.workloadprocesses_attributes.FirstOrDefault(x => x.caption == item["Caption"].ToString()).id;
+                        _process.id = _workload.workloadprocesses.FirstOrDefault(x => x.caption == item["Caption"].ToString()).id;
                     }
                 }
 
@@ -209,12 +209,12 @@ namespace MRMPService.MRMPAPI.Classes
                 try { _process.threadcount = Int32.Parse(item["ThreadCount"].ToString()); } catch (Exception) { }
                 try { _process.virtualsize = Int64.Parse(item["VirtualSize"].ToString()); } catch (Exception) { }
 
-                _updated_workload.workloadprocesses_attributes.Add(_process);
+                _updated_workload.workloadprocesses.Add(_process);
 
             }
 
             //process installed software
-            _updated_workload.workloadsoftwares_attributes = new List<MRPWorkloadSoftwareType>();
+            _updated_workload.workloadsoftwares = new List<MRPWorkloadSoftwareType>();
             SelectQuery msSoftwareQuery = new SelectQuery("SELECT * FROM Win32_Product");
             foreach (ManagementObject item in new ManagementObjectSearcher(connectionScope, msSoftwareQuery).Get())
             {
@@ -230,11 +230,11 @@ namespace MRMPService.MRMPAPI.Classes
                 {
                     continue;
                 }
-                if (_workload.workloadsoftwares_attributes != null)
+                if (_workload.workloadsoftwares != null)
                 {
-                    if (_workload.workloadsoftwares_attributes.Exists(x => x.name == _software_name))
+                    if (_workload.workloadsoftwares.Exists(x => x.name == _software_name))
                     {
-                        _software.id = _workload.workloadsoftwares_attributes.FirstOrDefault(x => x.name == item["Name"].ToString()).id;
+                        _software.id = _workload.workloadsoftwares.FirstOrDefault(x => x.name == item["Name"].ToString()).id;
                     }
                 }
 
@@ -246,12 +246,12 @@ namespace MRMPService.MRMPAPI.Classes
                 try { _software.vendor = item["Vendor"].ToString(); } catch (Exception) { }
                 try { _software.version = item["Version"].ToString(); } catch (Exception) { }
 
-                _updated_workload.workloadsoftwares_attributes.Add(_software);
+                _updated_workload.workloadsoftwares.Add(_software);
 
             }
 
             //process logical workloadvolumes_attributes
-            _updated_workload.workloadvolumes_attributes = new List<MRPWorkloadVolumeType>();
+            _updated_workload.workloadvolumes = new List<MRPWorkloadVolumeType>();
             SelectQuery wmiDiskDrives = new SelectQuery("SELECT * FROM Win32_DiskDrive");
             foreach (ManagementObject wmiDiskDrive in new ManagementObjectSearcher(connectionScope, wmiDiskDrives).Get())
             {
@@ -266,11 +266,11 @@ namespace MRMPService.MRMPAPI.Classes
                             MRPWorkloadVolumeType _volume = new MRPWorkloadVolumeType();
 
                             //if volume already exists in portal, just update it   
-                            if (_workload.workloadvolumes_attributes!= null)
+                            if (_workload.workloadvolumes!= null)
                             {
-                                if (_workload.workloadvolumes_attributes.Exists(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()))
+                                if (_workload.workloadvolumes.Exists(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()))
                                 {
-                                    _volume.id = _workload.workloadvolumes_attributes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()).id;
+                                    _volume.id = _workload.workloadvolumes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString()).id;
                                 }
                             }
                             Decimal _freespace = 0;
@@ -297,7 +297,7 @@ namespace MRMPService.MRMPAPI.Classes
                                 _volume.volumesize = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
                             }
 
-                            _updated_workload.workloadvolumes_attributes.Add(_volume);
+                            _updated_workload.workloadvolumes.Add(_volume);
 
                         }
                     }
@@ -305,7 +305,7 @@ namespace MRMPService.MRMPAPI.Classes
             }
 
             //process network workloadinterfaces_attributes that has IP address configured
-            _updated_workload.workloadinterfaces_attributes = new List<MRPWorkloadInterfaceType>();
+            _updated_workload.workloadinterfaces = new List<MRPWorkloadInterfaceType>();
             SelectQuery wmiNetInterfaces = new SelectQuery("select * from Win32_NetworkAdapterConfiguration where IPEnabled = 'True'");
             ManagementObjectCollection _network_adapters = new ManagementObjectSearcher(connectionScope, wmiNetInterfaces).Get();
 
@@ -319,22 +319,22 @@ namespace MRMPService.MRMPAPI.Classes
 
                     String[] addresses = (String[])searchNetInterfaceConfig["IPAddress"];
                     String[] netmask = (String[])searchNetInterfaceConfig["IPSubnet"];
-                    if (_workload.workloadinterfaces_attributes != null)
+                    if (_workload.workloadinterfaces != null)
                     {
-                        if (_network_adapters.Count == 1 && _workload.workloadinterfaces_attributes.Count == 1) //if we only have one adapter and the portal also only knows about one, the update the same adapter
+                        if (_network_adapters.Count == 1 && _workload.workloadinterfaces.Count == 1) //if we only have one adapter and the portal also only knows about one, the update the same adapter
                         {
-                            _interface.id = _workload.workloadinterfaces_attributes.First().id;
+                            _interface.id = _workload.workloadinterfaces.First().id;
                         }
-                        else if (_workload.workloadinterfaces_attributes.Exists(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')))) //try to find the interface by means of the IP address
+                        else if (_workload.workloadinterfaces.Exists(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')))) //try to find the interface by means of the IP address
                         {
-                            _interface.id = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.'))).id;
+                            _interface.id = _workload.workloadinterfaces.FirstOrDefault(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.'))).id;
                         }
                         else if (_network_adapters.Count > 1) //if we have more than one adapter in the server, we need to switch to index numbers
                         {
                             //first check if the current workloadinterfaces_attributes uses connection_index information, and get that interface for this loop
-                            if (_workload.workloadinterfaces_attributes.Any(x => x.connection_index == _conn_index))
+                            if (_workload.workloadinterfaces.Any(x => x.connection_index == _conn_index))
                             {
-                                _interface.id = _workload.workloadinterfaces_attributes.FirstOrDefault(x => x.connection_index == _conn_index).id;
+                                _interface.id = _workload.workloadinterfaces.FirstOrDefault(x => x.connection_index == _conn_index).id;
                             }
                         }
                     }
@@ -347,7 +347,7 @@ namespace MRMPService.MRMPAPI.Classes
                     try { _interface.connection_id = searchNetInterface["NetConnectionID"].ToString(); } catch (Exception) { }
                     try { _interface.macaddress = searchNetInterface["MACAddress"].ToString(); } catch (Exception) { }
 
-                    _updated_workload.workloadinterfaces_attributes.Add(_interface);
+                    _updated_workload.workloadinterfaces.Add(_interface);
 
                 }
 

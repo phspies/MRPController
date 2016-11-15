@@ -71,7 +71,7 @@ namespace MRMPService.Tasks.MCP
             }
 
 
-            MRPWorkloadVolumeType _c_volume_object = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.driveletter == "C");
+            MRPWorkloadVolumeType _c_volume_object = _target_workload.workloadvolumes.FirstOrDefault(x => x.driveletter == "C");
             long _c_volume_to_add = 0;
             if (_c_volume_object != null)
             {
@@ -83,7 +83,7 @@ namespace MRMPService.Tasks.MCP
             }
 
 
-            List<String> _used_drive_letters = _target_workload.workloadvolumes_attributes.Select(x => x.driveletter.Substring(0, 1)).ToList();
+            List<String> _used_drive_letters = _target_workload.workloadvolumes.Select(x => x.driveletter.Substring(0, 1)).ToList();
             List<String> _systemdriveletters = new List<String>();
             _systemdriveletters.AddRange("DEFGHIJKLMNOPQRSTUVWXYZ".Select(d => d.ToString()));
             List<String> _availabledriveletters = _systemdriveletters.Except(_used_drive_letters).ToList<String>();
@@ -106,7 +106,7 @@ namespace MRMPService.Tasks.MCP
                 _diskpart_struct.Add(String.Format("assign letter={0} noerr", _availabledriveletters.Last()));
                 _diskpart_struct.Add("");
             }
-            foreach (int _disk_index in _target_workload.workloadvolumes_attributes.Select(x => x.diskindex).Distinct())
+            foreach (int _disk_index in _target_workload.workloadvolumes.Select(x => x.diskindex).Distinct())
             {
                 if (_disk_index != 0)
                 {
@@ -123,7 +123,7 @@ namespace MRMPService.Tasks.MCP
                 {
                     _vol_index = 1;
                 }
-                foreach (MRPWorkloadVolumeType _volume in _target_workload.workloadvolumes_attributes.ToList().Where(x => x.diskindex == _disk_index && !x.driveletter.Contains("C")).OrderBy(x => x.driveletter))
+                foreach (MRPWorkloadVolumeType _volume in _target_workload.workloadvolumes.ToList().Where(x => x.diskindex == _disk_index && !x.driveletter.Contains("C")).OrderBy(x => x.driveletter))
                 {
                     string _driveletter = _volume.driveletter.Substring(0, 1);
                     _diskpart_struct.Add("clean");

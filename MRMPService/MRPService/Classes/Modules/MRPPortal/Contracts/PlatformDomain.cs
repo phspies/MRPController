@@ -28,37 +28,37 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("moid")]
         public string moid { get; set; }
         [JsonProperty("platformnetworks_attributes")]
-        public List<MRPPlatformnetworkType> platformnetworks_attributes { get; set; }
+        public List<MRPPlatformnetworkType> platformnetworks { get; set; }
         [JsonProperty("domainnatrules_attributes")]
-        public List<MRPDomainNATRuleType> domainnatrules_attributes { get; set; }
+        public List<MRPDomainNATRuleType> domainnatrules { get; set; }
         [JsonProperty("domainfwrules_attributes")]
-        public List<MRPDomainFWRuleType> domainfwrules_attributes { get; set; }
+        public List<MRPDomainFWRuleType> domainfwrules { get; set; }
         [JsonProperty("domainportlists_attributes")]
-        public List<MRPDomainPortType> domainportlists_attributes { get; set; }
+        public List<MRPDomainPortType> domainportlists { get; set; }
         [JsonProperty("domainiplists_attributes")]
-        public List<MRPDomainIPType> domainiplists_attributes { get; set; }
+        public List<MRPDomainIPType> domainiplists { get; set; }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
 
-        public bool ShouldSerializeplatformnetworks_attributes()
+        public bool ShouldSerializeplatformnetworks()
         {
-            return (platformnetworks_attributes == null || !platformnetworks_attributes.Any()) ? false : true;
+            return (platformnetworks == null || !platformnetworks.Any()) ? false : true;
         }
-        public bool ShouldSerializedomainnatrules_attributes()
+        public bool ShouldSerializedomainnatrules()
         {
-            return (domainnatrules_attributes == null || !domainnatrules_attributes.Any()) ? false : true;
+            return (domainnatrules == null || !domainnatrules.Any()) ? false : true;
         }
-        public bool ShouldSerializedomainportlists_attributes()
+        public bool ShouldSerializedomainportlists()
         {
-            return (domainportlists_attributes == null || !domainportlists_attributes.Any()) ? false : true;
+            return (domainportlists == null || !domainportlists.Any()) ? false : true;
         }
-        public bool ShouldSerializedomainiplists_attributes()
+        public bool ShouldSerializedomainiplists()
         {
-            return (domainiplists_attributes == null || !domainiplists_attributes.Any()) ? false : true;
+            return (domainiplists == null || !domainiplists.Any()) ? false : true;
         }
-        public bool ShouldSerializedomainfwrules_attributes()
+        public bool ShouldSerializedomainfwrules()
         {
-            return (domainfwrules_attributes == null || !domainfwrules_attributes.Any()) ? false : true;
+            return (domainfwrules == null || !domainfwrules.Any()) ? false : true;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace MRMPService.Tasks.MCP
         {
             MRPCredentialType _credential = _target_workload.credential;
 
-            MRPWorkloadVolumeType _root_volume_object = _target_workload.workloadvolumes_attributes.FirstOrDefault(x => x.driveletter == "/");
+            MRPWorkloadVolumeType _root_volume_object = _target_workload.workloadvolumes.FirstOrDefault(x => x.driveletter == "/");
 
             string workload_ip = null;
             using (Connection _connection = new Connection())
@@ -231,7 +231,7 @@ namespace MRMPService.Tasks.MCP
                 //create partitions for all the other volumes if they exist
                 string[] _disk_id = new string[] { "a", "b", "c", "d", "e", "f", "h", "k", "l", "m", "n" };
 
-                foreach (int _disk_index in _target_workload.workloadvolumes_attributes.Where(x => x.diskindex > 0).Select(x => x.diskindex).Distinct())
+                foreach (int _disk_index in _target_workload.workloadvolumes.Where(x => x.diskindex > 0).Select(x => x.diskindex).Distinct())
                 {
 
                     cmd = sshclient.RunCommand(String.Format("echo -e 'n\np\n1\n\n\nw' | fdisk /dev/sd{0}", _disk_id[_disk_index]));
@@ -239,7 +239,7 @@ namespace MRMPService.Tasks.MCP
                     cmd = sshclient.RunCommand(String.Format("pvcreate /dev/sd{0}1", _disk_id[_disk_index]));
                     cmd = sshclient.RunCommand(String.Format("vgcreate {0} /dev/sd{1}1", String.Format("vg-{0}", _disk_id[_disk_index]), _disk_id[_disk_index]));
 
-                    foreach (MRPWorkloadVolumeType _volume in _target_workload.workloadvolumes_attributes.ToList().Where(x => x.diskindex == _disk_index).OrderBy(x => x.driveletter))
+                    foreach (MRPWorkloadVolumeType _volume in _target_workload.workloadvolumes.ToList().Where(x => x.diskindex == _disk_index).OrderBy(x => x.driveletter))
                     {
 
                         String _volume_group = String.Format("vg-{0}", _disk_id[_disk_index]);

@@ -19,7 +19,13 @@ namespace MRMPService.MRMPAPI.Contracts
         public string end_address { get; set; }
         [JsonProperty("prefix_size")]
         public int? prefix_size { get; set; }
+        [JsonProperty("ipversion")]
+        public string ipversion { get; set; }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
+        [JsonProperty("moid")]
+        public string moid { get; set; }
+        [JsonProperty("iptype")]
+        public string iptype { get; set; }
     }
 }
