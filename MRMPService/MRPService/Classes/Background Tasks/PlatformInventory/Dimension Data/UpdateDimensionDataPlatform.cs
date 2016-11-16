@@ -59,6 +59,42 @@ namespace MRMPService.PlatformInventory
                 {
                     throw new System.ArgumentException(String.Format("Error connecting to MCP Endpoint {0}", ex.ToString()));
                 }
+
+                //first update organization tags
+                var _dcs = await CaaS.Account.GetDataCentersWithMaintenanceStatuses();
+                var _caas_tags = await CaaS.Tagging.GetTags();
+
+                var _mrmp_org = _mrp_api_endpoint.organization().get();
+                MRPOrganizationCRUDType _update_org = new MRPOrganizationCRUDType() { organization = new MRPOrganizationType() { id = Global.organization_id, organizationtags = _mrmp_org.organizationtags } };
+
+                if (_caas_tags != null)
+                {
+                    foreach (var _caas_tag in _caas_tags)
+                    {
+                        MRPOrganizationTagType _mrp_tag = new MRPOrganizationTagType();
+                        if (_update_org.organization.organizationtags.Exists(x => x.tagkeyid == _caas_tag.tagKeyId))
+                        {
+                            _mrp_tag = _update_org.organization.organizationtags.FirstOrDefault(x => x.tagkeyid == _caas_tag.tagKeyId);
+                        }
+                        else
+                        {
+                            _mrp_tag.tagtype = "platform";
+                            _update_org.organization.organizationtags.Add(_mrp_tag);
+                        }
+                        _mrp_tag.tagdisplayreport = _caas_tag.displayOnReport;
+                        _mrp_tag.tagkeyid = _caas_tag.tagKeyId;
+                        _mrp_tag.tagkeyname = _caas_tag.tagKeyName;
+                        if (_caas_tag.valueSpecified)
+                        {
+                            _mrp_tag.tagvalue = _caas_tag.value;
+                        }
+                        _mrp_tag.tagvaluerequired = _caas_tag.valueRequired;
+                        _mrp_tag.deleted = false;
+                    }
+                }
+                //update organization
+                _mrp_api_endpoint.organization().update(_update_org);
+
                 //update datacenters for this platform
                 List<DatacenterType> _mcp_datacenters = CaaS.Infrastructure.GetDataCenters().Result.ToList();
                 _update_platform.platformdatacenters_attributes = _platform.platformdatacenters_attributes;
@@ -516,14 +552,45 @@ namespace MRMPService.PlatformInventory
                         _update_platform.platformdomains_attributes = new List<MRPPlatformdomainType>();
                         _update_platform.platformdomains_attributes.Add(_mrmp_update_domain);
                         _update_platform.platformdomains_attributes.ForEach(x => x.domainfwrules.ForEach(y => y.deleted = true));
+                        _update_platform.platformdomains_attributes.ForEach(x => x.domainaffinityrules.ForEach(y => y.deleted = true));
+
 
                         var _firewall_filter = new FirewallRuleListOptions();
                         _firewall_filter.NetworkDomainId = Guid.Parse(_caas_domain.id);
                         var _firewall_rules = await CaaS.Networking.FirewallRule.GetFirewallRules(_firewall_filter);
 
-
                         _update_platform.platformdomains_attributes.ForEach(x => x.domainnatrules.ForEach(y => y.deleted = true));
                         var _nat_rules = await CaaS.Networking.Nat.GetNatRules(Guid.Parse(_caas_domain.id));
+
+                        var _affinity_rules = await CaaS.ServerManagement.AntiAffinityRule.GetAntiAffinityRulesForNetworkDomain(Guid.Parse(_caas_domain.id));
+
+                        if (_affinity_rules != null)
+                        {
+                            foreach (var _affinity_rule in _affinity_rules)
+                            {
+                                MRPDomainAffinityRuleType _mrp_affinityrule = new MRPDomainAffinityRuleType();
+                                if (_mrmp_update_domain.domainaffinityrules.Exists(x => x.moid == _affinity_rule.id))
+                                {
+                                    _mrp_affinityrule = _mrmp_update_domain.domainaffinityrules.FirstOrDefault(x => x.moid == _affinity_rule.id);
+                                }
+                                else
+                                {
+                                    _mrp_affinityrule.affinitytype = "platform";
+                                    if (_platform.workloads_attributes.Exists(x => x.moid == _affinity_rule.serverSummary[0].id) && _platform.workloads_attributes.Exists(x => x.moid == _affinity_rule.serverSummary[1].id))
+                                    {
+                                        _mrmp_update_domain.domainaffinityrules.Add(_mrp_affinityrule);
+                                    }
+                                    else
+                                    {
+                                        continue;
+                                    }
+                                }
+                                _mrp_affinityrule.deleted = false;
+                                _mrp_affinityrule.moid = _affinity_rule.id;
+                                _mrp_affinityrule.server1_id = _platform.workloads_attributes.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[0].id).id;
+                                _mrp_affinityrule.server2_id = _platform.workloads_attributes.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[1].id).id;
+                            }
+                        }
 
                         if (_nat_rules != null)
                         {

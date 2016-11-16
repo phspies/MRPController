@@ -34,6 +34,10 @@ namespace MRMPService.MRMPAPI
 
             _disposed = true;
         }
+        public MRPOrganization organization()
+        {
+            return new MRPOrganization(this);
+        }
         public MRPTask task()
         {
             return new MRPTask(this);

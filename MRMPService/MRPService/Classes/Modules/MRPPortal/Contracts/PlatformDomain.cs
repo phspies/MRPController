@@ -37,9 +37,16 @@ namespace MRMPService.MRMPAPI.Contracts
         public List<MRPDomainPortType> domainportlists { get; set; }
         [JsonProperty("domainiplists_attributes")]
         public List<MRPDomainIPType> domainiplists { get; set; }
+        [JsonProperty("domainaffinityrules_attributes")]
+        public List<MRPDomainAffinityRuleType> domainaffinityrules { get; set; }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
 
+
+        public bool ShouldSerializedomainaffinityrules()
+        {
+            return (domainaffinityrules == null || !domainaffinityrules.Any()) ? false : true;
+        }
         public bool ShouldSerializeplatformnetworks()
         {
             return (platformnetworks == null || !platformnetworks.Any()) ? false : true;

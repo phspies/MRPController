@@ -164,6 +164,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public List<MRPWorkloadProcessType> workloadprocesses { get; set; }
         [JsonProperty("workloadsoftwares_attributes")]
         public List<MRPWorkloadSoftwareType> workloadsoftwares { get; set; }
+        [JsonProperty("workloadtags_attributes")]
+        public List<MRPWorkloadTagType> workloadtags { get; set; }
         [JsonProperty("credential")]
         public MRPCredentialType credential { get; set; }
         [JsonProperty("deleted")]
@@ -184,6 +186,10 @@ namespace MRMPService.MRMPAPI.Contracts
         public string timezone { get; set; }
 
 
+        public bool ShouldSerializeworkloadtags()
+        {
+            return (workloadtags == null || !workloadtags.Any()) ? false : true;
+        }
         public bool ShouldSerializeworkloadvolumes()
         {
             return (workloadvolumes == null || !workloadvolumes.Any()) ? false : true;

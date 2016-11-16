@@ -276,8 +276,13 @@
     <Compile Include="MRPService\Classes\Modules\MCP\TimeZones.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\LinuxCustomization.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\WindowsCustomization.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainAffinityRule.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Organization.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\OrganizationTag.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\WorkloadTags.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Events.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformDatacenters.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Organization.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v10\Field.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v10\FieldType.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v10\FlowSet.cs" />
@@ -317,6 +322,8 @@
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataPlatform.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\Dimension Data\UpdateDimensionDataWorkload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMwarePlatform.cs" />
+    <Compile Include="MRPService\Classes\Utilities\UpdateDNS.cs" />
+    <Compile Include="MRPService\Classes\Utilities\UpdateIP.cs" />
     <Compile Include="MRPService\Global\CollectionCounter.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\InstanceCounters.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\PerfCounter.cs" />
