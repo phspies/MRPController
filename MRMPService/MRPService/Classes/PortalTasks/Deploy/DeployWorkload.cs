@@ -10,9 +10,9 @@ namespace MRMPService.PortalTasks
     {
         static public void DeployWorkload(MRPTaskType _mrmp_task)
         {
-            MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
-            MRPWorkloadType _target_workload = _payload.target;
-            MRPPlatformType _platform = _payload.platform;
+            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
+            MRPWorkloadType _target_workload = _payload.target_workload;
+            MRPPlatformType _platform = _payload.target_platform;
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;
             using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
             {

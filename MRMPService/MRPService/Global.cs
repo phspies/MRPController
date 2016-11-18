@@ -21,13 +21,10 @@ namespace MRMPService
 
         static bool _debug;
         static String _manager_id;
-        static String _api_base;
 
         static System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
         static FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-        static string version = fvi.FileVersion;
-
-        static String _manager_version = version;
+        static string _manager_version = fvi.FileVersion;
 
         public static SyncronisedList<CollectionCounter> _available_counters = new SyncronisedList<CollectionCounter>(new List<CollectionCounter>());
 
@@ -63,6 +60,7 @@ namespace MRMPService
         public static int scheduler_interval = (int)MRPRegistry.RegAccess("scheduler_interval", 5, RegistryValueKind.DWord); //seconds
         public static int scheduler_concurrency = (int)MRPRegistry.RegAccess("scheduler_concurrency", 30, RegistryValueKind.DWord);
 
+        public static string api_url = (string)MRPRegistry.RegAccess("api_url", null, RegistryValueKind.String);
 
         static String _organization_id;
         static int _worker_queue_count;
@@ -101,11 +99,7 @@ namespace MRMPService
         {
             get
             {
-                return _api_base;
-            }
-            set
-            {
-                _api_base = value;
+                return api_url == null ? "https://mrmp.dimensiondata.com" : api_url;
             }
         }
         public static String manager_id

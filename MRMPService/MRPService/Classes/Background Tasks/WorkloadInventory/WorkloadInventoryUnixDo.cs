@@ -13,37 +13,8 @@ using System.Threading;
 
 namespace MRMPService.MRMPAPI.Classes
 {
-    partial class WorkloadInventory : IDisposable
+    partial class WorkloadInventory
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~WorkloadInventory()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
         static string _password;
         static private void HandleKeyEvent(object sender, AuthenticationPromptEventArgs e)
         {
@@ -57,7 +28,15 @@ namespace MRMPService.MRMPAPI.Classes
         }
         static public void WorkloadInventoryLinuxDo(MRPWorkloadType _workload)
         {
-            MRPWorkloadType _updated_workload = new MRPWorkloadType() { id = _workload.id };
+            MRPWorkloadType _updated_workload = new MRPWorkloadType() {
+                id = _workload.id,
+                workloadinterfaces = _workload.workloadinterfaces,
+                workloadvolumes = _workload.workloadvolumes,
+                workloaddisks = _workload.workloaddisks
+            };
+            _updated_workload.workloaddisks.ForEach(x => x._destroy = true);
+            _updated_workload.workloadvolumes.ForEach(x => x._destroy = true);
+            _updated_workload.workloadinterfaces.ForEach(x => x._destroy = true);
 
             //check for credentials
             MRPCredentialType _credential = _workload.credential;
@@ -251,7 +230,45 @@ namespace MRMPService.MRMPAPI.Classes
                                     }
                                     catch (Exception) { }
 
+                                    //Process disks
+                                    for (var i = 0; i < _inv_file.Count; i++)
+                                    {
+                                        if (_inv_file[i] == "<DISKINFO>")
+                                        {
+                                            bool _valid_net = false;
+                                            MRPWorkloadDiskType _tmpdisk = new MRPWorkloadDiskType();
+                                            while (_inv_file[i] != "</DISKINFO>")
+                                            {
+                                                i++;
+                                                if (_inv_file[i].Contains("ISDR_DeviceId"))
+                                                {
+                                                    try { _tmpdisk.diskindex = Int16.Parse(Regex.Replace(_inv_file[i].Split('=').Last(), "[^0-9]", "")); _tmpdisk.diskindex -= 1; } catch (Exception) { }
+                                                }
+                                                if (_inv_file[i].Contains("ISDR_Space"))
+                                                {
+                                                    try { _tmpdisk.disksize = Int16.Parse(_inv_file[i].Split('=').Last()); _tmpdisk.disksize = _tmpdisk.disksize / 1024; } catch (Exception) { }
+                                                    _valid_net = true;
+                                                }
+                                            }
+                                            if (_valid_net)
+                                            {
+                                                MRPWorkloadDiskType _disk = new MRPWorkloadDiskType();
 
+                                                if (_updated_workload.workloaddisks.Any(x => x.diskindex == _tmpdisk.diskindex))
+                                                {
+                                                    _disk = _updated_workload.workloaddisks.FirstOrDefault(x => x.diskindex == _tmpdisk.diskindex);
+                                                }
+                                                else
+                                                {
+                                                    _updated_workload.workloaddisks.Add(_disk);
+                                                }
+                                                _disk._destroy = false;
+                                                _disk.diskindex = _tmpdisk.diskindex;
+                                                _disk.disksize = _tmpdisk.disksize;
+
+                                            }
+                                        }
+                                    }
 
                                     //Process filesystems
                                     for (var i = 0; i < _inv_file.Count; i++)
@@ -259,64 +276,65 @@ namespace MRMPService.MRMPAPI.Classes
                                         if (_inv_file[i] == "<FILESYS>")
                                         {
                                             bool _valid_fs = false;
-                                            MRPWorkloadVolumeType _volume = new MRPWorkloadVolumeType();
+                                            MRPWorkloadVolumeType _tmpvolume = new MRPWorkloadVolumeType();
+
+                                            _updated_workload.workloadvolumes = _workload.workloadvolumes;
+
 
                                             while (_inv_file[i] != "</FILESYS>")
                                             {
                                                 i++;
                                                 if (_inv_file[i].Contains("ISFS_Device") && _inv_file[i].Contains("/dev/"))
                                                 {
-                                                    _volume.deviceid = _inv_file[i].Split('=').Last();
+                                                    _tmpvolume.deviceid = _inv_file[i].Split('=').Last();
                                                 }
                                                 if (_inv_file[i].Contains("ISFS_Type"))
                                                 {
-                                                    _volume.filesystem_type = _inv_file[i].Split('=').Last();
-                                                    switch (_volume.filesystem_type.ToUpper())
+                                                    _tmpvolume.filesystem_type = _inv_file[i].Split('=').Last();
+                                                    string[] _fs_types = new string[] { "EXT4", "EXT3", "EXT2", "XFS", "ZFS" }; 
+                                                    if (_fs_types.Any(x => x == _tmpvolume.filesystem_type.ToUpper()))
                                                     {
-                                                        case "EXT4":
                                                             _valid_fs = true;
-                                                            break;
-                                                        case "EXT3":
-                                                            _valid_fs = true;
-                                                            break;
-                                                        case "EXT2":
-                                                            _valid_fs = true;
-                                                            break;
-                                                        case "ZFS":
-                                                            _valid_fs = true;
-                                                            break;
-                                                        case "XFS":
-                                                            _valid_fs = true;
-                                                            break;
                                                     }
                                                 }
                                                 if (_inv_file[i].Contains("ISFS_Size"))
                                                 {
-                                                    _volume.volumesize = Int64.Parse(_inv_file[i].Split('=').Last());
-                                                    _volume.volumesize = _volume.volumesize / 1024;
+                                                    _tmpvolume.volumesize = Int64.Parse(_inv_file[i].Split('=').Last());
+                                                    _tmpvolume.volumesize = _tmpvolume.volumesize / 1024;
                                                 }
                                                 if (_inv_file[i].Contains("ISFS_SpaceFree"))
                                                 {
-                                                    _volume.volumefreespace = Int64.Parse(_inv_file[i].Split('=').Last());
-                                                    _volume.volumefreespace = _volume.volumefreespace / 1024;
+                                                    _tmpvolume.volumefreespace = Int64.Parse(_inv_file[i].Split('=').Last());
+                                                    _tmpvolume.volumefreespace = _tmpvolume.volumefreespace / 1024;
                                                 }
                                                 if (_inv_file[i].Contains("ISFS_Path"))
                                                 {
-                                                    _volume.driveletter = _inv_file[i].Split('=').Last();
+                                                    _tmpvolume.driveletter = _inv_file[i].Split('=').Last();
                                                 }
                                             }
                                             if (_valid_fs)
                                             {
-                                                if (_updated_workload.workloadvolumes == null)
+                                                //if volume already exists in portal, just update it  
+                                                MRPWorkloadVolumeType _volume = new MRPWorkloadVolumeType();
+                                                if (_updated_workload.workloadvolumes.Exists(x => x.driveletter == _tmpvolume.driveletter))
                                                 {
-                                                    _updated_workload.workloadvolumes = new List<MRPWorkloadVolumeType>();
+                                                    _volume = _updated_workload.workloadvolumes.FirstOrDefault(x => x.driveletter == _tmpvolume.driveletter);
                                                 }
-                                                //if volume already exists in portal, just update it   
-                                                if (_workload.workloadvolumes.Exists(x => x.driveletter == _volume.driveletter))
+                                                else
                                                 {
-                                                    _volume.id = _workload.workloadvolumes.FirstOrDefault(x => x.driveletter == _volume.driveletter).id;
+                                                    _updated_workload.workloadvolumes.Add(_volume);
                                                 }
-                                                _updated_workload.workloadvolumes.Add(_volume);
+                                                _volume.blocksize = _tmpvolume.blocksize;
+                                                _volume.deviceid = _tmpvolume.deviceid;
+                                                _volume.diskindex = _tmpvolume.diskindex;
+                                                _volume.driveletter = _tmpvolume.driveletter;
+                                                _volume.filesystem_type = _tmpvolume.filesystem_type;
+                                                _volume.provisioned = true;
+                                                _volume.serialnumber = _tmpvolume.serialnumber;
+                                                _volume.volumefreespace = _tmpvolume.volumefreespace;
+                                                _volume.volumename = _tmpvolume.volumename;
+                                                _volume.volumesize = _tmpvolume.volumesize;
+                                                _volume._destroy = false;
                                             }
                                         }
                                     }
@@ -327,40 +345,47 @@ namespace MRMPService.MRMPAPI.Classes
                                         if (_inv_file[i] == "<NETWORK>")
                                         {
                                             bool _valid_net = false;
-                                            MRPWorkloadInterfaceType _interface = new MRPWorkloadInterfaceType();
+                                            MRPWorkloadInterfaceType _tmpinterface = new MRPWorkloadInterfaceType();
                                             while (_inv_file[i] != "</NETWORK>")
                                             {
                                                 i++;
                                                 if (_inv_file[i].Contains("ISN_DeviceID"))
                                                 {
-                                                    try { _interface.connection_index = Int16.Parse(Regex.Replace(_inv_file[i].Split('=').Last(), "[^0-9]", "")); } catch (Exception) { }
+                                                    try { _tmpinterface.connection_index = Int16.Parse(Regex.Replace(_inv_file[i].Split('=').Last(), "[^0-9]", "")); } catch (Exception) { }
                                                 }
                                                 if (_inv_file[i].Contains("ISN_MACAddress"))
                                                 {
-                                                    try { _interface.macaddress = _inv_file[i].Split('=').Last(); } catch (Exception) { }
+                                                    try { _tmpinterface.macaddress = _inv_file[i].Split('=').Last(); } catch (Exception) { }
                                                     _valid_net = true;
                                                 }
                                                 if (_inv_file[i].Contains("ISN_SubnetMask"))
                                                 {
-                                                    try { _interface.netmask += _inv_file[i].Split('=').Last(); } catch (Exception) { }
+                                                    try { _tmpinterface.netmask += _inv_file[i].Split('=').Last(); } catch (Exception) { }
                                                 }
                                                 if (_inv_file[i].Contains("ISN_IPAddress"))
                                                 {
-                                                    try { _interface.ipaddress = _inv_file[i].Split('=').Last(); } catch (Exception) { }
+                                                    try { _tmpinterface.ipaddress = _inv_file[i].Split('=').Last(); } catch (Exception) { }
                                                 }
                                             }
                                             if (_valid_net)
                                             {
-                                                if (_updated_workload.workloadinterfaces == null)
+                                                MRPWorkloadInterfaceType _interface = new MRPWorkloadInterfaceType();
+
+                                                if (_updated_workload.workloadinterfaces.Any(x => x.connection_index == _tmpinterface.connection_index))
                                                 {
-                                                    _updated_workload.workloadinterfaces = new List<MRPWorkloadInterfaceType>();
+                                                    _interface = _updated_workload.workloadinterfaces.FirstOrDefault(x => x.connection_index == _tmpinterface.connection_index);
+                                                }
+                                                else
+                                                {
+                                                    _updated_workload.workloadinterfaces.Add(_interface);
                                                 }
                                                 _interface.ipassignment = "manual_ip";
-                                                if (_workload.workloadinterfaces.Any(x => x.connection_index == _interface.connection_index))
-                                                {
-                                                    _interface.id = _workload.workloadinterfaces.FirstOrDefault(x => x.connection_index == _interface.connection_index).id;
-                                                }
-                                                _updated_workload.workloadinterfaces.Add(_interface);
+                                                _interface.connection_index = _tmpinterface.connection_index;
+                                                _interface.macaddress = _tmpinterface.macaddress;
+                                                _interface.ipaddress = _tmpinterface.ipaddress;
+                                                _interface.netmask = _tmpinterface.netmask;
+                                                _interface._destroy = false;
+
                                             }
                                         }
                                     }
@@ -375,7 +400,7 @@ namespace MRMPService.MRMPAPI.Classes
                                 }
                                 else
                                 {
-                                    throw new Exception(String.Format("Inventory file {0} has a zero size. Please make sure the username has the correct permissions.",_file.FullName));
+                                    throw new Exception(String.Format("Inventory file {0} has a zero size. Please make sure the username has the correct permissions.", _file.FullName));
                                 }
                             }
                         }

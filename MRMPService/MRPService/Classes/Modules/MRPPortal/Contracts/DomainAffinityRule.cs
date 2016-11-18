@@ -8,10 +8,10 @@ namespace MRMPService.MRMPAPI.Contracts
         public string id { get; set; }
         [JsonProperty("platformdomain_id")]
         public string platformdomain_id { get; set; }
-        [JsonProperty("server1_id")]
-        public string server1_id { get; set; }
-        [JsonProperty("server2_id")]
-        public string server2_id { get; set; }
+        [JsonProperty("workload1_id")]
+        public string workload1_id { get; set; }
+        [JsonProperty("workload2_id")]
+        public string workload2_id { get; set; }
         [JsonProperty("moid")]
         public string moid { get; set; }
         [JsonProperty("deleted")]

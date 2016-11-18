@@ -57,6 +57,12 @@ namespace MRMPService.MRMPAPI
             MRPCommandManagerType worker = new MRPCommandManagerType();
             return post<MRPTaskListType>(worker);
         }
+        public MRPTaskType get(string _task_id)
+        {
+            var _get_task = new MRPTaskGetType() { task_id = _task_id };
+            endpoint = "/tasks/get.json";
+            return get<MRPTaskType>(_get_task);
+        }
         public ResultType successcomplete(String _task_id, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()

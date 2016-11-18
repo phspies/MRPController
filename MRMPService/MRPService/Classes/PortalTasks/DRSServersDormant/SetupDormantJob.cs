@@ -9,8 +9,8 @@ namespace MRMPService.PortalTasks
     {
         static public void SetupDormantJob(MRPTaskType _mrmp_task)
         {
-            MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
-            MRPWorkloadType _source_workload = _payload.source;
+            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
+            MRPWorkloadType _source_workload = _payload.source_workload;
             MRPWorkloadType _target_workload = _payload.repository;
             MRPRecoverypolicyType _recovery_policy = _payload.protectiongroup.recoverypolicy;
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;

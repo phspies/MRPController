@@ -51,7 +51,7 @@ namespace MRMPService.Tasks.DiscoveryPlatform
             {
                 _mrp_api.task().progress(payload, String.Format("Starting datacenter discovering process"), 5);
             }
-            MRPPlatformType _platform = payload.submitpayload.platform;
+            MRPPlatformType _platform = payload.taskdetail.target_platform;
             MRPCredentialType _platform_credentail = _platform.credential;
             switch (_platform.platformtype)
             {

@@ -28,6 +28,10 @@ namespace MRMPService.MRMPAPI
         {
             return (type)perform<type>(Method.PUT, _object);
         }
+        public type get<type>(Object _object) where type : new()
+        {
+            return (type)perform<type>(Method.GET, _object);
+        }
 
         public object perform<type>(Method _method, Object _object) where type : new()
         {
@@ -37,21 +41,27 @@ namespace MRMPService.MRMPAPI
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true;
             var client = new RestClient();
             client.FollowRedirects = false;
-            client.Timeout = 120 * 1000;
-            client.BaseUrl = new Uri("https://www.mrplatform.net/");
+            client.BaseUrl = new Uri(Global.api_base);
             RestRequest request = new RestRequest();
             client.FollowRedirects = false;
             client.Proxy = null;
             request.Resource = endpoint;
             
-            request.Timeout = 120 * 1000;
             request.Method = _method;
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer.ContentType = "application/json; charset=utf-8";
             request.AddHeader("Accept-Encoding", "gzip");
             request.JsonSerializer = new JsonSerializer();
-            request.AddJsonBody(_object);
-            request.Timeout = (int)TimeSpan.FromSeconds(10).TotalMilliseconds;
+            if (_method == Method.GET)
+            {
+                request.AddObject(_object);
+            }
+            else
+            {
+                request.AddJsonBody(_object);
+            }
+            request.Timeout = (int)TimeSpan.FromSeconds(30).TotalMilliseconds;
+            client.Timeout = (int)TimeSpan.FromSeconds(30).TotalMilliseconds;
 
             client.RemoveDefaultParameter("Accept");
             client.AddDefaultParameter("Accept", "application/json", ParameterType.HttpHeader);
@@ -62,7 +72,7 @@ namespace MRMPService.MRMPAPI
             while (true)
             {
                 CancellationTokenSource cts = new CancellationTokenSource();
-                cts.CancelAfter(TimeSpan.FromSeconds(10));
+                cts.CancelAfter(TimeSpan.FromSeconds(30));
 
                 var response = client.Execute(request);
                 if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Unauthorized)

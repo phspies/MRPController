@@ -15,77 +15,41 @@ namespace MRMPService.MRMPService.Types.API
         [JsonProperty("tasks")]
         public List<MRPTaskType> tasks { get; set; }
     }
-
+    public class MRPTaskGetType
+    {
+        [JsonProperty("task_id")]
+        public string task_id { get; set; }
+    }
     public class MRPTaskType
     {
         [JsonProperty("id")]
         public string id { get; set; }
-        [JsonProperty("target")]
-        public string target { get; set; }
         [JsonProperty("target_id")]
         public string target_id { get; set; }
-        [JsonProperty("source_id")]
-        public object source_id { get; set; }
-        [JsonProperty("user_id")]
-        public string user_id { get; set; }
-        [JsonProperty("organization_id")]
-        public string organization_id { get; set; }
-        [JsonProperty("task")]
-        public string task { get; set; }
-        [JsonProperty("status")]
-        public string status { get; set; }
-        [JsonProperty("starttimestamp")]
-        public string starttimestamp { get; set; }
-        [JsonProperty("endtimestamp")]
-        public object endtimestamp { get; set; }
-        [JsonProperty("submitpayload")]
-        public MRPTaskSubmitpayloadType submitpayload { get; set; }
-        [JsonProperty("returnpayload")]
-        public object returnpayload { get; set; }
+        [JsonProperty("taskdetail")]
+        public MRPTaskDetailType taskdetail { get; set; }
         [JsonProperty("target_type")]
         public string target_type { get; set; }
-        [JsonProperty("percentage")]
-        public string percentage { get; set; }
-        [JsonProperty("step")]
-        public string step { get; set; }
-        [JsonProperty("source")]
-        public object source { get; set; }
-        [JsonProperty("name")]
-        public object name { get; set; }
-        [JsonProperty("manager_id")]
-        public string manager_id { get; set; }
         [JsonProperty("task_type")]
         public string task_type { get; set; }
-        [JsonProperty("hidden")]
-        public bool hidden { get; set; }
-        [JsonProperty("locked")]
-        public bool locked { get; set; }
-        [JsonProperty("locked_worker")]
-        public object locked_worker { get; set; }
-        [JsonProperty("internal_complete")]
-        public bool internal_complete { get; set; }
-        [JsonProperty("blocking")]
-        public bool blocking { get; set; }
     }
 
-    public class MRPTaskSubmitpayloadType
+    public class MRPTaskDetailType
     {
         [JsonProperty("managementobjects")]
         public List<MRPManagementobjectOrderType> managementobjects { get; set; }
         [JsonProperty("original")]
         public MRPWorkloadType original { get; set; }
-        [JsonProperty("source")]
-        public MRPWorkloadType source { get; set; }
-        [JsonProperty("target")]
-        public MRPWorkloadType target { get; set; }
+        [JsonProperty("source_workload")]
+        public MRPWorkloadType source_workload { get; set; }
+        [JsonProperty("target_workload")]
+        public MRPWorkloadType target_workload { get; set; }
         [JsonProperty("workload_pairs")]
         public List<MRPWorkloadPairType> workload_pairs { get; set; }
         [JsonProperty("repository")]
         public MRPWorkloadType repository { get; set; }
         [JsonProperty("protectiongroup")]
         public MRPProtectiongroupType protectiongroup { get; set; }
-        [JsonProperty("platform")]
-        public MRPPlatformType platform { get; set; }
         [JsonProperty("source_platform")]
         public MRPPlatformType source_platform { get; set; }
         [JsonProperty("target_platform")]

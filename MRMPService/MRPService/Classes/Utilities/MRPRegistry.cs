@@ -27,7 +27,7 @@ namespace MRMPService.Utilities
                 }
 
                 //if default value is set but it does not exist in registry
-                if (rkSubKey.GetValue(key) == null)
+                if (rkSubKey.GetValue(key) == null && defaultvalue != null)
                 {
                     rkSubKey.SetValue(key, defaultvalue, (RegistryValueKind)regkind);
                 }

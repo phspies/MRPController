@@ -33,5 +33,7 @@ namespace MRMPService.MRMPAPI.Contracts
         public Int64 readoperationcount { get; set; }
         [JsonProperty("readtransfercount")]
         public Int64 readtransfercount { get; set; }
+        [JsonProperty("_destroy")]
+        public bool? _destroy { get; set; }
     }
 }

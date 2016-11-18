@@ -10,14 +10,14 @@ namespace MRMPService.PortalTasks
     {
         static public void SetupDormantRecoveryJob(MRPTaskType _mrmp_task)
         {
-            MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
-            MRPWorkloadType _source_workload = _payload.source;
-            MRPWorkloadType _target_workload = _payload.target;
+            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
+            MRPWorkloadType _source_workload = _payload.source_workload;
+            MRPWorkloadType _target_workload = _payload.target_workload;
             MRPWorkloadType _original_workload = _payload.original;
             MRPRecoverypolicyType _recovery_policy = _payload.protectiongroup.recoverypolicy;
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;
             MRPProtectiongrouptreeType _protectiongrouptree = _payload.protectiongrouptree;
-            MRPPlatformType _platform = _payload.platform;
+            MRPPlatformType _platform = _payload.target_platform;
             MRPManagementobjectType _managementobject = _payload.managementobject;
             using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
             {

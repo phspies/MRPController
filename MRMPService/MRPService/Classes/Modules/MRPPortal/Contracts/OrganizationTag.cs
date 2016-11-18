@@ -17,8 +17,6 @@ namespace MRMPService.MRMPAPI.Contracts
         public string tagkeyid { get; set; }
         [JsonProperty("tagkeyname")]
         public string tagkeyname { get; set; }
-        [JsonProperty("tagvalue")]
-        public string tagvalue { get; set; }
         [JsonProperty("tagdisplayreport")]
         public bool? tagdisplayreport { get; set; }
         [JsonProperty("tagvaluerequired")]

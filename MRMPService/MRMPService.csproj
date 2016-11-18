@@ -280,6 +280,7 @@
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Organization.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\OrganizationTag.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\WorkloadTags.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\WorkloadDisk.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Events.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\PlatformDatacenters.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Organization.cs" />
@@ -532,7 +533,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
+      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -44,15 +44,36 @@ namespace MRMPService.PlatformInventory
                     _existing_workload = true;
                     _current_workload = _platform.workloads_attributes.FirstOrDefault(x => x.moid == _caasworkload.id);
                     _update_workload.id = _current_workload.id;
+                    _update_workload.workloaddisks = _current_workload.workloaddisks;
                     _update_workload.workloadinterfaces = _current_workload.workloadinterfaces;
                     _update_workload.workloadtags = _current_workload.workloadtags;
                     _update_workload.workloadtags.ForEach(x => x._destroy = true);
                     _update_workload.workloadinterfaces.ForEach(x => x._destroy = true);
+                    _update_workload.workloaddisks.ForEach(x => x._destroy = true);
                 }
                 else
                 {
                     _update_workload.workloadinterfaces = new List<MRPWorkloadInterfaceType>();
                     _update_workload.workloadtags = new List<MRPWorkloadTagType>();
+                    _update_workload.workloaddisks = new List<MRPWorkloadDiskType>();
+                }
+                foreach (var _caas_disk in _caasworkload.disk.Where(x => x.state == "NORMAL"))
+                {
+                    MRPWorkloadDiskType _mrmp_disk = new MRPWorkloadDiskType();
+                    if (_update_workload.workloaddisks.Exists(x => x.moid == _caas_disk.id))
+                    {
+                        _mrmp_disk = _update_workload.workloaddisks.FirstOrDefault(x => x.moid == _caas_disk.id);
+                    }
+                    else
+                    {
+                        _update_workload.workloaddisks.Add(_mrmp_disk);
+                    }
+                    _mrmp_disk.moid = _caas_disk.id;
+                    _mrmp_disk.diskindex = _caas_disk.scsiId;
+                    _mrmp_disk.platformstoragetier_id = _caas_disk.speed;
+                    _mrmp_disk.provisioned = true;
+                    _mrmp_disk._destroy = false;
+                    _mrmp_disk.disksize = _caas_disk.sizeGb;
                 }
 
 
@@ -69,6 +90,7 @@ namespace MRMPService.PlatformInventory
 
                 //update workload source template id with portal template id
                 _update_workload.platformtemplate_id = _platform.platformtemplates_attributes.FirstOrDefault(x => x.image_moid == _caasworkload.sourceImageId).id;
+                _update_workload.platformdomain_id = _platform.platformdomains_attributes.SelectMany(y => y.platformnetworks).FirstOrDefault(x => x.moid == _caasworkload.networkInfo.primaryNic.vlanId).platformdomain_id;
 
                 //populate network interfaces for workload
                 MRPWorkloadInterfaceType _primary_logical_interface = new MRPWorkloadInterfaceType();
@@ -124,22 +146,29 @@ namespace MRMPService.PlatformInventory
                 //update workload tags
                 if (_caas_tags != null)
                 {
-                    foreach (var _caas_tag in _caas_tags)
+                    if (_org_tags.organizationtags != null)
                     {
-                        MRPWorkloadTagType _workload_tag = new MRPWorkloadTagType();
-                        if (_org_tags.organizationtags.Exists(x => x.tagkeyid == _caas_tag.tagKeyId))
+                        foreach (var _caas_tag in _caas_tags)
                         {
-                            MRPOrganizationTagType _tag = _org_tags.organizationtags.FirstOrDefault(x => x.tagkeyid == _caas_tag.tagKeyId);
-                            if (_update_workload.workloadtags.Exists(x => x.organizationtag_id == _tag.id))
+                            MRPWorkloadTagType _workload_tag = new MRPWorkloadTagType();
+                            if (_org_tags.organizationtags.Exists(x => x.tagkeyid == _caas_tag.tagKeyId))
                             {
-                                _workload_tag = _update_workload.workloadtags.FirstOrDefault(x => x.organizationtag_id == _tag.id);
+                                MRPOrganizationTagType _tag = _org_tags.organizationtags.FirstOrDefault(x => x.tagkeyid == _caas_tag.tagKeyId);
+                                if (_update_workload.workloadtags.Exists(x => x.organizationtag_id == _tag.id))
+                                {
+                                    _workload_tag = _update_workload.workloadtags.FirstOrDefault(x => x.organizationtag_id == _tag.id);
+                                }
+                                else
+                                {
+                                    _update_workload.workloadtags.Add(_workload_tag);
+                                }
+                                _workload_tag.organizationtag_id = _tag.id;
+                                if (_caas_tag.valueSpecified)
+                                {
+                                    _workload_tag.tagvalue = _caas_tag.value;
+                                }
+                                _workload_tag._destroy = false;
                             }
-                            else
-                            {
-                                _update_workload.workloadtags.Add(_workload_tag);
-                            }
-                            _workload_tag.organizationtag_id = _tag.id;
-                            _workload_tag._destroy = false;
                         }
                     }
                 }

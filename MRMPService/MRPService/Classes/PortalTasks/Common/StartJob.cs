@@ -10,8 +10,8 @@ namespace MRMPService.PortalTasks
     {
         static public void StartDoubleTakeJob(MRPTaskType _mrmp_task)
         {
-            MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
-            MRPWorkloadType _target_workload = _payload.target;
+            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
+            MRPWorkloadType _target_workload = _payload.target_workload;
             MRPManagementobjectType _managementobject = _payload.managementobject;
             using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
             {

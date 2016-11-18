@@ -12,7 +12,7 @@ namespace MRMPService.PortalTasks
     {
         static public void FailoverDoubleTakeGroup(MRPTaskType _mrmp_task)
         {
-            MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
+            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
 
             try
             {

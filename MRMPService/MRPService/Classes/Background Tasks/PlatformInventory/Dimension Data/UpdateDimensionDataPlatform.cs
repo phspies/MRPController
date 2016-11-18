@@ -84,10 +84,6 @@ namespace MRMPService.PlatformInventory
                         _mrp_tag.tagdisplayreport = _caas_tag.displayOnReport;
                         _mrp_tag.tagkeyid = _caas_tag.tagKeyId;
                         _mrp_tag.tagkeyname = _caas_tag.tagKeyName;
-                        if (_caas_tag.valueSpecified)
-                        {
-                            _mrp_tag.tagvalue = _caas_tag.value;
-                        }
                         _mrp_tag.tagvaluerequired = _caas_tag.valueRequired;
                         _mrp_tag.deleted = false;
                     }
@@ -587,8 +583,8 @@ namespace MRMPService.PlatformInventory
                                 }
                                 _mrp_affinityrule.deleted = false;
                                 _mrp_affinityrule.moid = _affinity_rule.id;
-                                _mrp_affinityrule.server1_id = _platform.workloads_attributes.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[0].id).id;
-                                _mrp_affinityrule.server2_id = _platform.workloads_attributes.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[1].id).id;
+                                _mrp_affinityrule.workload1_id = _platform.workloads_attributes.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[0].id).id;
+                                _mrp_affinityrule.workload2_id = _platform.workloads_attributes.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[1].id).id;
                             }
                         }
 
@@ -737,8 +733,8 @@ namespace MRMPService.PlatformInventory
                                 }
 
                             }
-                            _mrp_api_endpoint.platform().update(_update_platform);
                         }
+                        _mrp_api_endpoint.platform().update(_update_platform);
                     }
                 }
 

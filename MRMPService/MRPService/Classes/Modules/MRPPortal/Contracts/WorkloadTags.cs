@@ -15,6 +15,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string workload_id { get; set; }
         [JsonProperty("organizationtag_id")]
         public string organizationtag_id { get; set; }
+        [JsonProperty("tagvalue")]
+        public string tagvalue { get; set; }
         [JsonProperty("_destroy")]
         public bool? _destroy { get; set; }
         

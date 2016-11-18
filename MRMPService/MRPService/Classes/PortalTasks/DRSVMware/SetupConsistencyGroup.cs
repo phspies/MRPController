@@ -12,7 +12,7 @@ namespace MRMPService.PortalTasks
     {
         static public void SetupConsistencyGroup(MRPTaskType _mrmp_task)
         {
-            MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
+            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
             MRPPlatformType _source_platform = _payload.source_platform;
             MRPPlatformType _target_platform = _payload.target_platform;
 

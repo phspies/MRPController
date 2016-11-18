@@ -66,6 +66,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string id { get; set; }
         [JsonProperty("platform_id")]
         public string platform_id { get; set; }
+        [JsonProperty("platformdomain_id")]
+        public string platformdomain_id { get; set; }
         [JsonProperty("hostname")]
         public string hostname { get; set; }
         [JsonProperty("iplist")]
@@ -166,6 +168,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public List<MRPWorkloadSoftwareType> workloadsoftwares { get; set; }
         [JsonProperty("workloadtags_attributes")]
         public List<MRPWorkloadTagType> workloadtags { get; set; }
+        [JsonProperty("workloaddisks_attributes")]
+        public List<MRPWorkloadDiskType> workloaddisks { get; set; }
         [JsonProperty("credential")]
         public MRPCredentialType credential { get; set; }
         [JsonProperty("deleted")]
@@ -184,7 +188,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public String secondary_dns { get; set; }
         [JsonProperty("timezone")]
         public string timezone { get; set; }
-
+        [JsonProperty("_destroy")]
+        public bool? _destroy { get; set; }
 
         public bool ShouldSerializeworkloadtags()
         {

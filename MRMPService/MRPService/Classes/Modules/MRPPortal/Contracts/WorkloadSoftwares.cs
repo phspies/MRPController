@@ -27,5 +27,7 @@ namespace MRMPService.MRMPAPI.Contracts
         public string vendor { get; set; }
         [JsonProperty("version")]
         public string version { get; set; }
+        [JsonProperty("_destroy")]
+        public bool? _destroy { get; set; }
     }
 }

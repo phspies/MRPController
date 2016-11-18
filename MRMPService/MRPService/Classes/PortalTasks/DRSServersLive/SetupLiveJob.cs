@@ -11,12 +11,12 @@ namespace MRMPService.PortalTasks
     {
         static public void SetupLiveJob(MRPTaskType _mrmp_task)
         {
-            MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
-            MRPWorkloadType _source_workload = _payload.source;
-            MRPWorkloadType _target_workload = _payload.target;
+            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
+            MRPWorkloadType _source_workload = _payload.source_workload;
+            MRPWorkloadType _target_workload = _payload.target_workload;
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;
             MRPManagementobjectType _managementobject = _payload.managementobject;
-            MRPPlatformType _platform = _payload.platform;
+            MRPPlatformType _platform = _payload.target_platform;
             using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
             {
                 try

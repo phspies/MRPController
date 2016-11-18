@@ -4,6 +4,7 @@ using MRMPService.Tasks.DoubleTake;
 using System;
 using MRMPService.Tasks.MCP;
 using MRMPService.MRMPAPI.Classes;
+using MRMPService.MRMPService.Log;
 
 namespace MRMPService.PortalTasks
 {
@@ -11,8 +12,7 @@ namespace MRMPService.PortalTasks
     {
         static public void DiscoverWorkload(MRPTaskType _mrmp_task)
         {
-            MRPTaskSubmitpayloadType _payload = _mrmp_task.submitpayload;
-            MRPWorkloadType _target_workload = _payload.target;
+            MRPWorkloadType _target_workload = _mrmp_task.taskdetail.target_workload;
             using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
             {
                 try
@@ -31,6 +31,7 @@ namespace MRMPService.PortalTasks
                 catch (Exception ex)
                 {
                     _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
+                    Logger.log(ex.ToString(), Logger.Severity.Fatal);
                 }
             }
         }
