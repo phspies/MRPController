@@ -61,7 +61,7 @@ namespace MRMPService.MRMPAPI
         {
             var _get_task = new MRPTaskGetType() { task_id = _task_id };
             endpoint = "/tasks/get.json";
-            return get<MRPTaskType>(_get_task);
+            return post<MRPTaskType>(_get_task);
         }
         public ResultType successcomplete(String _task_id, string returnpayload)
         {
