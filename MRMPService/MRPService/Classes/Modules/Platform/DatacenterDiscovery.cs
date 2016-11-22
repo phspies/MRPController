@@ -202,20 +202,20 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                         if (_rp4vm_settings != null)
                         {
                             MRPPlatformType _update_platform = new MRPPlatformType() { id = _platform.id };
-                            _update_platform.platformdatacenters_attributes = new List<MRPPlatformdatacenterType>();
+                            _update_platform.platformdatacenters = new List<MRPPlatformdatacenterType>();
                             foreach (var _cluster in _rp4vm_settings.clustersSettings)
                             {
                                 MRPPlatformdatacenterType _datacenter = new MRPPlatformdatacenterType();
-                                if (_platform.platformdatacenters_attributes != null)
+                                if (_platform.platformdatacenters != null)
                                 {
-                                    if (_platform.platformdatacenters_attributes.Exists(x => x.moid == _cluster.clusterUID.id.ToString()))
+                                    if (_platform.platformdatacenters.Exists(x => x.moid == _cluster.clusterUID.id.ToString()))
                                     {
-                                        _datacenter.id = _platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == _cluster.clusterUID.id.ToString()).id;
+                                        _datacenter.id = _platform.platformdatacenters.FirstOrDefault(x => x.moid == _cluster.clusterUID.id.ToString()).id;
                                     }
                                 }
                                 _datacenter.moid = _cluster.clusterUID.id.ToString();
                                 _datacenter.displayname = _cluster.clusterName;
-                                _update_platform.platformdatacenters_attributes.Add(_datacenter);
+                                _update_platform.platformdatacenters.Add(_datacenter);
                             }
 
                             _mrp_api.platform().update(_update_platform);

@@ -1,8 +1,6 @@
 ﻿using MRMPService.MRMPAPI.Contracts;
 using MRMPService.MRMPService.Types.API;
-using MRMPService.Tasks.DoubleTake;
 using System;
-using MRMPService.Tasks.MCP;
 using MRMPService.MRMPAPI.Classes;
 using MRMPService.MRMPService.Log;
 
@@ -30,8 +28,8 @@ namespace MRMPService.PortalTasks
                 }
                 catch (Exception ex)
                 {
-                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
                     Logger.log(ex.ToString(), Logger.Severity.Fatal);
+                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
                 }
             }
         }

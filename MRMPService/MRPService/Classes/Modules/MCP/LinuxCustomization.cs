@@ -124,8 +124,8 @@ namespace MRMPService.Tasks.MCP
             //calculate capacity shortfall
             if (_can_do_root)
             {
-                double _0_shortfall = Math.Ceiling(_root_volume_object.volumesize - root_lvm_size - root_disk_free);
-                _0_volumeshortfall = Math.Ceiling(_root_volume_object.volumesize - root_lvm_size);
+                double _0_shortfall = Math.Ceiling((long)_root_volume_object.volumesize - root_lvm_size - root_disk_free);
+                _0_volumeshortfall = Math.Ceiling((long)_root_volume_object.volumesize - root_lvm_size);
                 //if we need to expand disk 0, lets do that first...
                 if (_0_shortfall > 0)
                 {

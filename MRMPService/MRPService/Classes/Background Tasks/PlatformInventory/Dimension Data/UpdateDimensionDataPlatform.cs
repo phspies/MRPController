@@ -93,20 +93,20 @@ namespace MRMPService.PlatformInventory
 
                 //update datacenters for this platform
                 List<DatacenterType> _mcp_datacenters = CaaS.Infrastructure.GetDataCenters().Result.ToList();
-                _update_platform.platformdatacenters_attributes = _platform.platformdatacenters_attributes;
-                _update_platform.platformdatacenters_attributes.ForEach(x => { x.deleted = true; x.platformclusters.ForEach(y => y.deleted = true); });
+                _update_platform.platformdatacenters = _platform.platformdatacenters;
+                _update_platform.platformdatacenters.ForEach(x => { x.deleted = true; x.platformclusters.ForEach(y => y.deleted = true); });
                 if (_mcp_datacenters != null)
                 {
                     foreach (DatacenterType _dc in _mcp_datacenters)
                     {
                         MRPPlatformdatacenterType _platform_datacenter = new MRPPlatformdatacenterType();
-                        if (_platform.platformdatacenters_attributes.Exists(x => x.moid == _dc.id))
+                        if (_platform.platformdatacenters.Exists(x => x.moid == _dc.id))
                         {
-                            _platform_datacenter = _platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == _dc.id);
+                            _platform_datacenter = _platform.platformdatacenters.FirstOrDefault(x => x.moid == _dc.id);
                         }
                         else
                         {
-                            _platform.platformdatacenters_attributes.Add(_platform_datacenter);
+                            _platform.platformdatacenters.Add(_platform_datacenter);
                         }
 
                         _platform_datacenter.moid = _dc.id;
@@ -121,6 +121,7 @@ namespace MRMPService.PlatformInventory
                             _platform_datacenter.target_drs_moid_list = _dc.drs.targetDatacenters.list;
                         }
                         _platform_datacenter.platform_id = _platform.id;
+                        _platform_datacenter.deleted = false;
                     }
                 }
 
@@ -128,19 +129,19 @@ namespace MRMPService.PlatformInventory
                 List<OsImageType> _caas_templates = CaaS.ServerManagement.ServerImage.GetOsImages(new ServerOsImageListOptions() { DatacenterId = _platform.moid }, new PageableRequest() { PageSize = 250 }).Result.items.ToList();
 
                 //preload all templates and mark them as deleted
-                _update_platform.platformtemplates_attributes = _platform.platformtemplates_attributes;
-                _update_platform.platformtemplates_attributes.ForEach(x => x.deleted = true);
+                _update_platform.platformtemplates = _platform.platformtemplates;
+                _update_platform.platformtemplates.ForEach(x => x.deleted = true);
 
                 foreach (OsImageType _caas_template in _caas_templates)
                 {
                     MRPPlatformtemplateType _mrp_template = new MRPPlatformtemplateType();
-                    if (_update_platform.platformtemplates_attributes.Exists(x => x.image_moid == _caas_template.id))
+                    if (_update_platform.platformtemplates.Exists(x => x.image_moid == _caas_template.id))
                     {
-                        _mrp_template = _update_platform.platformtemplates_attributes.FirstOrDefault(x => x.image_moid == _caas_template.id);
+                        _mrp_template = _update_platform.platformtemplates.FirstOrDefault(x => x.image_moid == _caas_template.id);
                     }
                     else
                     {
-                        _update_platform.platformtemplates_attributes.Add(_mrp_template);
+                        _update_platform.platformtemplates.Add(_mrp_template);
                     }
 
                     _mrp_template.image_type = _caas_template.softwareLabel == null ? "os" : "software";
@@ -156,19 +157,19 @@ namespace MRMPService.PlatformInventory
                 }
 
                 //process customer images
-                PagedResponse<CustomerImageType> _customer_templates = CaaS.ServerManagement.ServerImage.GetCustomerImages(new ServerCustomerImageListOptions() { DatacenterId = _platform.moid }, new PageableRequest() { PageSize = 250 }).Result;
+                PagedResponse<CustomerImageType> _customer_templates = await CaaS.ServerManagement.ServerImage.GetCustomerImages(new ServerCustomerImageListOptions() { DatacenterId = _platform.moid }, new PageableRequest() { PageSize = 250 });
                 if (_customer_templates.totalCount > 0)
                 {
                     foreach (var _caas_template in _customer_templates.items)
                     {
                         MRPPlatformtemplateType _mrp_template = new MRPPlatformtemplateType();
-                        if (_update_platform.platformtemplates_attributes.Exists(x => x.image_moid == _caas_template.id))
+                        if (_update_platform.platformtemplates.Exists(x => x.image_moid == _caas_template.id))
                         {
-                            _mrp_template = _update_platform.platformtemplates_attributes.FirstOrDefault(x => x.image_moid == _caas_template.id);
+                            _mrp_template = _update_platform.platformtemplates.FirstOrDefault(x => x.image_moid == _caas_template.id);
                         }
                         else
                         {
-                            _update_platform.platformtemplates_attributes.Add(_mrp_template);
+                            _update_platform.platformtemplates.Add(_mrp_template);
                         }
 
                         _mrp_template.image_type = "os";
@@ -184,143 +185,92 @@ namespace MRMPService.PlatformInventory
                     }
                 }
 
-                _update_platform.platformdomains_attributes = _platform.platformdomains_attributes;
-                _update_platform.platformdomains_attributes.ForEach(x => { x.domainiplists = null; x.domainportlists = null; });
-                _update_platform.platformdomains_attributes.ForEach(x => x.deleted = true);
-                _update_platform.platformdomains_attributes.ForEach(x => x.platformnetworks.ForEach(y => y.deleted = true));
+                _update_platform.platformdomains = _platform.platformdomains;
+                _update_platform.platformdomains.ForEach(x => { x.domainiplists = null; x.domainportlists = null; });
+                _update_platform.platformdomains.ForEach(x => x.deleted = true);
+                _update_platform.platformdomains.ForEach(x => x.platformnetworks.ForEach(y => y.deleted = true));
 
                 IEnumerable<NetworkDomainType> _caas_networkdomain_list = CaaS.Networking.NetworkDomain.GetNetworkDomains(new NetworkDomainListOptions() { DatacenterId = _platform.moid }).Result;
-
                 IEnumerable<VlanType> _caas_vlan_list = CaaS.Networking.Vlan.GetVlans(new VlanListOptions() { DatacenterId = _platform.moid }).Result;
 
                 if (_caas_networkdomain_list != null)
                 {
                     foreach (NetworkDomainType _caas_domain in _caas_networkdomain_list)
                     {
-                        if (_platform.platformdomains_attributes.Exists(x => x.moid == _caas_domain.id))
+
+                        MRPPlatformdomainType _mrp_domain = new MRPPlatformdomainType() { platformnetworks = new List<MRPPlatformnetworkType>() } ;
+                        if (_update_platform.platformdomains.Exists(x => x.moid == _caas_domain.id))
                         {
-                            MRPPlatformdomainType _mrp_domain = new MRPPlatformdomainType();
-                            if (_update_platform.platformdomains_attributes.Exists(x => x.moid == _caas_domain.id))
+                            _mrp_domain = _update_platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id);
+                        }
+                        else
+                        {
+                            _update_platform.platformdomains.Add(_mrp_domain);
+                        }
+
+                        _mrp_domain.moid = _caas_domain.id;
+                        _mrp_domain.domain = _caas_domain.name;
+                        _mrp_domain.platform_id = _platform.id;
+                        _mrp_domain.deleted = false;
+
+                        VlanListOptions _vlan_options = new VlanListOptions() { DatacenterId = _platform.moid };
+                        IEnumerable<VlanType> _vlans = CaaS.Networking.Vlan.GetVlans(_vlan_options).Result;
+                        foreach (VlanType _caas_network in _vlans.Where(x => x.networkDomain.id == _caas_domain.id))
+                        {
+                            MRPPlatformnetworkType _mrp_network = new MRPPlatformnetworkType();
+                            if (_mrp_domain.platformnetworks.Any(y => y.moid == _caas_network.id))
                             {
-                                _mrp_domain = _update_platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _caas_domain.id);
+                                _mrp_network = _mrp_domain.platformnetworks.FirstOrDefault(y => y.moid == _caas_network.id);
                             }
                             else
                             {
-                                _update_platform.platformdomains_attributes.Add(_mrp_domain);
+                                _mrp_domain.platformnetworks.Add(_mrp_network);
                             }
-
-                            if (_mrp_domain.platformnetworks == null)
-                            {
-                                _mrp_domain.platformnetworks = new List<MRPPlatformnetworkType>();
-                            }
-
-                            _mrp_domain.moid = _caas_domain.id;
-                            _mrp_domain.domain = _caas_domain.name;
-                            _mrp_domain.platform_id = _platform.id;
-                            _mrp_domain.deleted = false;
-
-                            VlanListOptions _vlan_options = new VlanListOptions() { DatacenterId = _platform.moid };
-                            IEnumerable<VlanType> _vlans = CaaS.Networking.Vlan.GetVlans(_vlan_options).Result;
-                            foreach (VlanType _caas_network in _vlans.Where(x => x.networkDomain.id == _caas_domain.id))
-                            {
-                                MRPPlatformnetworkType _mrp_network = new MRPPlatformnetworkType();
-                                if (_mrp_domain.platformnetworks.Any(y => y.moid == _caas_network.id))
-                                {
-                                    _mrp_network = _mrp_domain.platformnetworks.FirstOrDefault(y => y.moid == _caas_network.id);
-                                }
-                                else
-                                {
-                                    _mrp_domain.platformnetworks.Add(_mrp_network);
-                                }
-                                _mrp_network.moid = _caas_network.id;
-                                _mrp_network.network = _caas_network.name;
-                                _mrp_network.description = _caas_network.description;
-                                _mrp_network.platformdomain_id = _mrp_domain.id;
-                                _mrp_network.ipv4subnet = _caas_network.privateIpv4Range.address;
-                                _mrp_network.ipv4netmask = _caas_network.privateIpv4Range.prefixSize;
-                                _mrp_network.ipv6subnet = _caas_network.ipv6Range.address;
-                                _mrp_network.ipv6netmask = _caas_network.ipv6Range.prefixSize;
-                                _mrp_network.networkdomain_moid = _caas_network.networkDomain.id;
-                                _mrp_network.provisioned = true;
-                                _mrp_network.deleted = false;
-                            }
+                            _mrp_network.moid = _caas_network.id;
+                            _mrp_network.network = _caas_network.name;
+                            _mrp_network.description = _caas_network.description;
+                            _mrp_network.platformdomain_id = _mrp_domain.id;
+                            _mrp_network.ipv4subnet = _caas_network.privateIpv4Range.address;
+                            _mrp_network.ipv4netmask = _caas_network.privateIpv4Range.prefixSize;
+                            _mrp_network.ipv6subnet = _caas_network.ipv6Range.address;
+                            _mrp_network.ipv6netmask = _caas_network.ipv6Range.prefixSize;
+                            _mrp_network.networkdomain_moid = _caas_network.networkDomain.id;
+                            _mrp_network.provisioned = true;
+                            _mrp_network.deleted = false;
                         }
+
                     }
                 }
-                //nullify all networks in domains where domain was deleted
-                _update_platform.platformdomains_attributes.Where(x => x.deleted == true).ForEach(x => x.platformnetworks = null);
-
-                //update platform with nested object lists
                 _mrp_api_endpoint.platform().update(_update_platform);
 
-                var _tmp_server_list = CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.moid, State = "NORMAL" }).Result;
-                List<ServerType> _caas_workload_list = new List<ServerType>();
-                if (_tmp_server_list != null)
-                {
-                    _caas_workload_list = _tmp_server_list.ToList();
-                }
-                //process deleted platform workloads
-                _update_platform = new MRPPlatformType() { id = _platform.id };
-                _update_platform.workloads_attributes = new List<MRPWorkloadType>();
-                foreach (var _workload in _mrp_workloads.Where(x => x.platform_id == _platform.id && x.workloadtype != "manager"))
-                {
-                    MRPWorkloadType _mrp_workload = new MRPWorkloadType() { id = _workload.id };
-                    if (!_caas_workload_list.Any(x => x.id == _workload.moid))
-                    {
-                        _mrp_workload.deleted = true;
-                        _mrp_workload.enabled = false;
-                    }
-                    else
-                    {
-                        _mrp_workload.deleted = false;
-                    }
-                    _update_platform.workloads_attributes.Add(_mrp_workload);
-                }
-                //update workloads in platform
-                _mrp_api_endpoint.platform().update(_update_platform);
-
-                //refresh platform from portal
-                using (MRMP_ApiClient _api = new MRMP_ApiClient())
-                {
-                    _platform = _api.platform().get_by_id(_platform.id);
-                }
-
-                if (_caas_workload_list.Count() > 0)
-                {
-                    if (full)
-                    {
-                        Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_workload_inventory_concurrency }, (_caasworkload) =>
-                        {
-                            try
-                            {
-                                //update lists before we start the workload inventory process
-                                PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform);
-                            }
-                            catch (Exception ex)
-                            {
-                                Logger.log(String.Format("Error collecting inventory information from CaaS workload {0} with error {1}", _caasworkload.name, ex.GetBaseException().Message), Logger.Severity.Error);
-                            }
-                        });
-
-                    }
-                }
                 //refresh platform from portal
                 _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
-                _update_platform = new MRPPlatformType() { id = _platform.id };
+                _update_platform = new MRPPlatformType() { id = _platform.id, platformdomains = _platform.platformdomains };
                 //update IP and Port Lists
                 if (_caas_networkdomain_list != null)
                 {
                     foreach (NetworkDomainType _caas_domain in _caas_networkdomain_list)
                     {
 
-                        MRPPlatformdomainType _mrmp_update_domain = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _caas_domain.id);
-                        _update_platform.platformdomains_attributes = new List<MRPPlatformdomainType>();
-                        _update_platform.platformdomains_attributes.Add(_mrmp_update_domain);
-
-                        _mrmp_update_domain.domainfwrules.Where(x => x.fwtype == "platform").ForEach(x => x.deleted = true);
-                        _mrmp_update_domain.domainiplists.Where(x => x.iptype == "platform").ForEach(x => { x.deleted = true; x.domainiplistaddresses.ForEach(y => y.deleted = true); });
-                        _mrmp_update_domain.domainnatrules.Where(x => x.nattype == "platform").ForEach(x => x.deleted = true);
-                        _mrmp_update_domain.domainportlists.Where(x => x.porttype == "platform").ForEach(x => { x.deleted = true; x.domainportlistports.ForEach(y => y.deleted = true); });
+                        MRPPlatformdomainType _mrmp_update_domain = new MRPPlatformdomainType();
+                        if (_update_platform.platformdomains.Exists(x => x.moid == _caas_domain.id))
+                        {
+                            _mrmp_update_domain = _update_platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id);
+                            _mrmp_update_domain.domainiplists.Where(x => x.iptype == "platform").ForEach(x => { x.deleted = true; x.domainiplistaddresses.ForEach(y => y.deleted = true); });
+                            _mrmp_update_domain.domainfwrules.Where(x => x.fwtype == "platform").ForEach(x => x.deleted = true);
+                            _mrmp_update_domain.domainnatrules.Where(x => x.nattype == "platform").ForEach(x => x.deleted = true);
+                            _mrmp_update_domain.domainaffinityrules.Where(x => x.affinitytype == "platform").ForEach(x => x.deleted = true);
+                            _mrmp_update_domain.domainportlists.Where(x => x.porttype == "platform").ForEach(x => { x.deleted = true; x.domainportlistports.ForEach(y => y.deleted = true); });
+                        }
+                        else
+                        {
+                            _mrmp_update_domain.domainfwrules = new List<MRPDomainFWRuleType>();
+                            _mrmp_update_domain.domainiplists = new List<MRPDomainIPType>();
+                            _mrmp_update_domain.domainnatrules = new List<MRPDomainNATRuleType>();
+                            _mrmp_update_domain.domainportlists = new List<MRPDomainPortType>();
+                            _mrmp_update_domain.domainaffinityrules = new List<MRPDomainAffinityRuleType>();
+                            _update_platform.platformdomains.Add(_mrmp_update_domain);
+                        }
 
                         var _iplist = await CaaS.Networking.FirewallRule.GetIpAddressLists(Guid.Parse(_caas_domain.id));
                         if (_iplist != null)
@@ -536,28 +486,63 @@ namespace MRMPService.PlatformInventory
                                 }
                             }
                         }
+                        _mrp_api_endpoint.platform().update(_update_platform);
+                        _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
+                        _update_platform = new MRPPlatformType() { id = _platform.id, workloads = new List<MRPWorkloadType>() };
 
-                        //update platform object
+                        var _tmp_server_list = CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.moid, State = "NORMAL" }).Result;
+                        List<ServerType> _caas_workload_list = new List<ServerType>();
+                        if (_tmp_server_list != null)
+                        {
+                            _caas_workload_list = _tmp_server_list.ToList();
+                        }
+                        //process deleted platform workloads
+                        foreach (var _workload in _mrp_workloads.Where(x => x.platform_id == _platform.id && x.workloadtype != "manager"))
+                        {
+                            MRPWorkloadType _mrp_workload = new MRPWorkloadType() { id = _workload.id };
+                            if (!_caas_workload_list.Any(x => x.id == _workload.moid))
+                            {
+                                _mrp_workload.deleted = true;
+                                _mrp_workload.enabled = false;
+                            }
+                            else
+                            {
+                                _mrp_workload.deleted = false;
+                            }
+                            _update_platform.workloads.Add(_mrp_workload);
+                        }
+
                         _mrp_api_endpoint.platform().update(_update_platform);
 
-                        //populate update objects
                         _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
-                        _update_platform = new MRPPlatformType() { id = _platform.id };
 
-                        _mrmp_update_domain = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _caas_domain.id);
-                        _update_platform.platformdomains_attributes = new List<MRPPlatformdomainType>();
-                        _update_platform.platformdomains_attributes.Add(_mrmp_update_domain);
-                        _update_platform.platformdomains_attributes.ForEach(x => x.domainfwrules.ForEach(y => y.deleted = true));
-                        _update_platform.platformdomains_attributes.ForEach(x => x.domainaffinityrules.ForEach(y => y.deleted = true));
+                        if (_caas_workload_list.Count() > 0)
+                        {
+                            if (full)
+                            {
+                                Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_workload_inventory_concurrency }, (_caasworkload) =>
+                                {
+                                    try
+                                    {
+                                        //update lists before we start the workload inventory process
+                                        PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Logger.log(String.Format("Error collecting inventory information from CaaS workload {0} with error {1}", _caasworkload.name, ex.GetBaseException().Message), Logger.Severity.Error);
+                                    }
+                                });
 
+                            }
+                        }
 
-                        var _firewall_filter = new FirewallRuleListOptions();
-                        _firewall_filter.NetworkDomainId = Guid.Parse(_caas_domain.id);
-                        var _firewall_rules = await CaaS.Networking.FirewallRule.GetFirewallRules(_firewall_filter);
+                        _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
+                        _update_platform = new MRPPlatformType() { id = _platform.id, platformdomains = new List<MRPPlatformdomainType>() };
 
-                        _update_platform.platformdomains_attributes.ForEach(x => x.domainnatrules.ForEach(y => y.deleted = true));
+                        _update_platform.platformdomains.Add(_platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id));
+
+                        var _firewall_rules = await CaaS.Networking.FirewallRule.GetFirewallRules(new FirewallRuleListOptions() { NetworkDomainId = Guid.Parse(_caas_domain.id) });
                         var _nat_rules = await CaaS.Networking.Nat.GetNatRules(Guid.Parse(_caas_domain.id));
-
                         var _affinity_rules = await CaaS.ServerManagement.AntiAffinityRule.GetAntiAffinityRulesForNetworkDomain(Guid.Parse(_caas_domain.id));
 
                         if (_affinity_rules != null)
@@ -572,7 +557,7 @@ namespace MRMPService.PlatformInventory
                                 else
                                 {
                                     _mrp_affinityrule.affinitytype = "platform";
-                                    if (_platform.workloads_attributes.Exists(x => x.moid == _affinity_rule.serverSummary[0].id) && _platform.workloads_attributes.Exists(x => x.moid == _affinity_rule.serverSummary[1].id))
+                                    if (_platform.workloads.Exists(x => x.moid == _affinity_rule.serverSummary[0].id) && _platform.workloads.Exists(x => x.moid == _affinity_rule.serverSummary[1].id))
                                     {
                                         _mrmp_update_domain.domainaffinityrules.Add(_mrp_affinityrule);
                                     }
@@ -583,8 +568,8 @@ namespace MRMPService.PlatformInventory
                                 }
                                 _mrp_affinityrule.deleted = false;
                                 _mrp_affinityrule.moid = _affinity_rule.id;
-                                _mrp_affinityrule.workload1_id = _platform.workloads_attributes.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[0].id).id;
-                                _mrp_affinityrule.workload2_id = _platform.workloads_attributes.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[1].id).id;
+                                _mrp_affinityrule.workload1_id = _platform.workloads.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[0].id).id;
+                                _mrp_affinityrule.workload2_id = _platform.workloads.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[1].id).id;
                             }
                         }
 
@@ -608,9 +593,9 @@ namespace MRMPService.PlatformInventory
                                 _mrmpnatrule.rulename = String.Format("{0} NAT Rule", _natrule.internalIp);
                                 _mrmpnatrule.internal_ip = _natrule.internalIp;
                                 _mrmpnatrule.external_ip = _natrule.externalIp;
-                                if (_platform.workloads_attributes.Exists(x => x.iplist.Contains(_natrule.internalIp)))
+                                if (_platform.workloads.Exists(x => x.iplist.Contains(_natrule.internalIp)))
                                 {
-                                    _mrmpnatrule.workload_id = _platform.workloads_attributes.FirstOrDefault(x => x.iplist.Contains(_natrule.internalIp)).id;
+                                    _mrmpnatrule.workload_id = _platform.workloads.FirstOrDefault(x => x.iplist.Contains(_natrule.internalIp)).id;
                                 }
                             }
                         }
@@ -637,7 +622,7 @@ namespace MRMPService.PlatformInventory
                                 _mrmpfirewallrule.ipversion = _firewallrule.ipVersion.ToUpper();
                                 // _mrmpfirewallrule.placement = _firewallrule.
                                 _mrmpfirewallrule.enabled = _firewallrule.enabled;
-                                _mrmpfirewallrule.platformdomain_id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _firewallrule.networkDomainId).id;
+                                _mrmpfirewallrule.platformdomain_id = _platform.platformdomains.FirstOrDefault(x => x.moid == _firewallrule.networkDomainId).id;
                                 _mrmpfirewallrule.protocol = _firewallrule.protocol;
                                 _mrmpfirewallrule.rulename = _firewallrule.name;
                                 _mrmpfirewallrule.moid = _firewallrule.id;
@@ -734,8 +719,8 @@ namespace MRMPService.PlatformInventory
 
                             }
                         }
-                        _mrp_api_endpoint.platform().update(_update_platform);
                     }
+
                 }
 
 

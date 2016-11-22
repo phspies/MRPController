@@ -24,7 +24,14 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     netflow_thread.Start();
                     netflow_thread.Priority = ThreadPriority.AboveNormal;
 
+                    ManagerEventUpload _managerevents = new ManagerEventUpload();
+                    Thread managerevents_thread = new Thread(new ThreadStart(_managerevents.Start));
+                    managerevents_thread.Name = "Manager Event Upload Thread";
+                    managerevents_thread.Start();
+                    managerevents_thread.Priority = ThreadPriority.AboveNormal;
+
                     netflow_thread.Join();
+                    managerevents_thread.Join();
 
                     sw.Stop();
 

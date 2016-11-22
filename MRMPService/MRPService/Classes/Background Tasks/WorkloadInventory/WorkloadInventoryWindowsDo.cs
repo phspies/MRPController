@@ -1,5 +1,4 @@
-﻿using MRMPService.LocalDatabase;
-using MRMPService.MRMPAPI.Contracts;
+﻿using MRMPService.MRMPAPI.Contracts;
 using System;
 using System.IO;
 using System.Linq;
@@ -7,8 +6,6 @@ using System.Management;
 using System.Runtime.Serialization.Formatters.Binary;
 using MRMPService.Utilities;
 using MRMPService.MRMPService.Log;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace MRMPService.MRMPAPI.Classes
 {
@@ -29,10 +26,11 @@ namespace MRMPService.MRMPAPI.Classes
                 workloadinterfaces = _workload.workloadinterfaces,
                 workloaddisks = _workload.workloaddisks
             };
-            _updated_workload.workloadvolumes.ForEach(x => x._destroy = true);
-            _updated_workload.workloaddisks.ForEach(x => x._destroy = true);
+            _updated_workload.workloadvolumes.ForEach(x => x.deleted = true);
+            _updated_workload.workloaddisks.ForEach(x => x.deleted = true);
             _updated_workload.workloadprocesses.ForEach(x => x._destroy = true);
-            _updated_workload.workloadinterfaces.ForEach(x => x._destroy = true);
+            _updated_workload.workloadinterfaces.ForEach(x => x.deleted = true);
+
             _updated_workload.workloadsoftwares.ForEach(x => x._destroy = true);
             //check for credentials
             MRPCredentialType _credential = _workload.credential;
@@ -269,25 +267,45 @@ namespace MRMPService.MRMPAPI.Classes
             SelectQuery wmiDiskDrives = new SelectQuery("SELECT * FROM Win32_DiskDrive where InterfaceType != 'USB'");
             foreach (ManagementObject wmiDiskDrive in new ManagementObjectSearcher(connectionScope, wmiDiskDrives).Get())
             {
-                MRPWorkloadDiskType _disk = new MRPWorkloadDiskType();
-
-                if (_updated_workload.workloaddisks.Exists(x => x.diskindex == Int16.Parse(wmiDiskDrive["Index"].ToString())))
-                {
-                    _disk = _updated_workload.workloaddisks.FirstOrDefault(x => x.diskindex == Int16.Parse(wmiDiskDrive["Index"].ToString()));
-                }
-                else
-                {
-                    _updated_workload.workloaddisks.Add(_disk);
-                }
                 Decimal _freespace = 0;
                 Decimal _size = 0;
                 Decimal _decimal;
-                try { _size = Int64.Parse(wmiDiskDrive["Size"].ToString()); } catch (Exception) { }
+                MRPWorkloadDiskType _disk = new MRPWorkloadDiskType();
+                int? _disk_index = null;
+                try
+                {
+                    _disk_index = Int16.Parse(wmiDiskDrive["Index"].ToString());
+                }
+                catch (Exception ex)
+                {
+                    Logger.log(String.Format("Error determining disk index {0} : {1}", _workload.hostname, ex.GetBaseException().Message), Logger.Severity.Error);
+                }
+                if (_disk_index != null)
+                {
+                    if (_updated_workload.workloaddisks.Exists(x => x.diskindex == _disk_index))
+                    {
+                        _disk = _updated_workload.workloaddisks.FirstOrDefault(x => x.diskindex == _disk_index);
+                    }
+                    else
+                    {
+                        _updated_workload.workloaddisks.Add(_disk);
+                    }
 
-                _decimal = (_size / 1024 / 1024 / 1024);
-                _disk.disksize = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
-                _disk.diskindex = Int16.Parse(wmiDiskDrive["Index"].ToString());
-                _disk._destroy = false;
+                    try
+                    {
+                        _size = Int64.Parse(wmiDiskDrive["Size"].ToString());
+
+                        _decimal = (_size / 1024 / 1024 / 1024);
+                        _disk.disksize = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
+                        _disk.diskindex = _disk_index;
+                        _disk.deleted = false;
+                        _disk.provisioned = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.log(String.Format("Error determining disk size {0} [{1}] : {2}", _workload.hostname, _disk_index, ex.GetBaseException().Message), Logger.Severity.Error);
+                    }
+                }
 
                 foreach (ManagementObject wmiPartitionDrive in wmiDiskDrive.GetRelated("Win32_DiskPartition"))
                 {
@@ -313,7 +331,7 @@ namespace MRMPService.MRMPAPI.Classes
                             _size = 0;
 
                             try { _volume.filesystem_type = wmiVolume["FileSystem"].ToString(); } catch (Exception) { }
-                            try { _volume.diskindex = Int16.Parse(wmiDiskDrive["Index"].ToString()); } catch (Exception) { }
+                            _volume.diskindex = (int)_disk_index;
                             try { _volume.driveletter = wmiVolume["DriveLetter"].ToString().Substring(0, 1); } catch (Exception) { }
                             try { _volume.serialnumber = wmiVolume["SerialNumber"].ToString(); } catch (Exception) { }
                             try { _volume.blocksize = Int16.Parse(wmiVolume["BlockSize"].ToString()); } catch (Exception) { }
@@ -332,7 +350,7 @@ namespace MRMPService.MRMPAPI.Classes
                                 _decimal = (_size / 1024 / 1024 / 1024);
                                 _volume.volumesize = (int)Math.Round(_decimal, MidpointRounding.AwayFromZero);
                             }
-                            _volume._destroy = false;
+                            _volume.deleted = false;
                         }
                     }
                 }
@@ -383,7 +401,7 @@ namespace MRMPService.MRMPAPI.Classes
                     _interface.connection_index = (int)_conn_index;
                     try { _interface.connection_id = searchNetInterface["NetConnectionID"].ToString(); } catch (Exception) { }
                     try { _interface.macaddress = searchNetInterface["MACAddress"].ToString(); } catch (Exception) { }
-                    _interface._destroy = false;
+                    _interface.deleted = false;
 
                 }
 

@@ -40,7 +40,7 @@ namespace MRMPService.PlatformInventory
             NameValueCollection filter = new NameValueCollection();
             List<VirtualMachine> _vmware_workload_list = _vim.workload().GetWorkloads(dc, filter).Where(x => x.Runtime.PowerState == VirtualMachinePowerState.poweredOn).ToList();
             List<Network> _vmware_vlan_list = _vim.networks().GetPortGroups(dc).ToList();
-            List<MRPPlatformdomainType> _mrp_domains = _platform.platformdomains_attributes;
+            List<MRPPlatformdomainType> _mrp_domains = _platform.platformdomains;
 
             MRPPlatformType _update_platform = new MRPPlatformType()
             {
@@ -48,23 +48,23 @@ namespace MRMPService.PlatformInventory
                 vcenter_uuid = _vim.vcenter().GetvCenterAbout().InstanceUuid
             };
 
-            _update_platform.platformdatacenters_attributes = new List<MRPPlatformdatacenterType>();
+            _update_platform.platformdatacenters = new List<MRPPlatformdatacenterType>();
             MRPPlatformdatacenterType _datacenter = new MRPPlatformdatacenterType();
             _datacenter.platformclusters = new List<MRPPlatformclusterType>();
-            if (_platform.platformdatacenters_attributes.Exists(x => x.moid == dc.MoRef.Value))
+            if (_platform.platformdatacenters.Exists(x => x.moid == dc.MoRef.Value))
             {
-                _datacenter.id = _platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).id;
+                _datacenter.id = _platform.platformdatacenters.FirstOrDefault(x => x.moid == dc.MoRef.Value).id;
             }
             _datacenter.moid = dc.MoRef.Value;
 
-            _update_platform.platformdatacenters_attributes.Add(_datacenter);
+            _update_platform.platformdatacenters.Add(_datacenter);
 
             foreach (ComputeResource _cluster in cluster_list)
             {
                 MRPPlatformclusterType _mrp_cluster = new MRPPlatformclusterType();
-                if (_platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).platformclusters.Exists(x => x.moid == _cluster.MoRef.Value))
+                if (_platform.platformdatacenters.FirstOrDefault(x => x.moid == dc.MoRef.Value).platformclusters.Exists(x => x.moid == _cluster.MoRef.Value))
                 {
-                    _mrp_cluster.id = _platform.platformdatacenters_attributes.FirstOrDefault(x => x.moid == dc.MoRef.Value).platformclusters.FirstOrDefault(x => x.moid == _cluster.MoRef.Value).id;
+                    _mrp_cluster.id = _platform.platformdatacenters.FirstOrDefault(x => x.moid == dc.MoRef.Value).platformclusters.FirstOrDefault(x => x.moid == _cluster.MoRef.Value).id;
                 }
                 _mrp_cluster.moid = _cluster.MoRef.Value;
                 _mrp_cluster.cluster = _cluster.Name;
@@ -77,36 +77,36 @@ namespace MRMPService.PlatformInventory
                 _datacenter.platformclusters.Add(_mrp_cluster);
             }
 
-            _update_platform.platformdatastores_attributes = new List<MRPPlatformdatastoreType>();
+            _update_platform.platformdatastores = new List<MRPPlatformdatastoreType>();
             foreach (Datastore _datastore in datastore_list)
             {
                 MRPPlatformdatastoreType _platform_datastore = new MRPPlatformdatastoreType();
-                if (_platform.platformdatastores_attributes.Exists(x => x.moid == _datastore.MoRef.Value))
+                if (_platform.platformdatastores.Exists(x => x.moid == _datastore.MoRef.Value))
                 {
-                    _platform_datastore.id = _platform.platformdatastores_attributes.FirstOrDefault(x => x.moid == _datastore.MoRef.Value).id;
+                    _platform_datastore.id = _platform.platformdatastores.FirstOrDefault(x => x.moid == _datastore.MoRef.Value).id;
                 }
                 _platform_datastore.datastore = _datastore.Name;
                 _platform_datastore.moid = _datastore.MoRef.Value;
                 _platform_datastore.totalcapacity = _datastore.Summary.Capacity;
                 _platform_datastore.freecapacity = _datastore.Summary.FreeSpace;
 
-                _update_platform.platformdatastores_attributes.Add(_platform_datastore);
+                _update_platform.platformdatastores.Add(_platform_datastore);
             }
 
-            _update_platform.platformdomains_attributes = new List<MRPPlatformdomainType>();
+            _update_platform.platformdomains = new List<MRPPlatformdomainType>();
 
             //Process standard port groups aka "VM Networks"
             MRPPlatformdomainType _std_platformdomain = new MRPPlatformdomainType();
-            if (_platform.platformdomains_attributes.Exists(x => x.moid == "std_pg"))
+            if (_platform.platformdomains.Exists(x => x.moid == "std_pg"))
             {
-                _std_platformdomain.id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == "std_pg").id;
+                _std_platformdomain.id = _platform.platformdomains.FirstOrDefault(x => x.moid == "std_pg").id;
             }
             _std_platformdomain.platformnetworks = new List<MRPPlatformnetworkType>();
             _std_platformdomain.moid = "std_pg";
             _std_platformdomain.domain = "Network";
             _std_platformdomain.platform_id = _platform.id;
 
-            _update_platform.platformdomains_attributes.Add(_std_platformdomain);
+            _update_platform.platformdomains.Add(_std_platformdomain);
 
             foreach (Network _vmware_network in _vim.networks().GetStandardPgs(dc))
             {
@@ -130,22 +130,22 @@ namespace MRMPService.PlatformInventory
             {
                 MRPPlatformdomainType _platformdomain = new MRPPlatformdomainType();
                 _platformdomain.platformnetworks = new List<MRPPlatformnetworkType>();
-                if (_platform.platformdomains_attributes.Exists(x => x.moid == _vmware_domain.MoRef.Value))
+                if (_platform.platformdomains.Exists(x => x.moid == _vmware_domain.MoRef.Value))
                 {
-                    _platformdomain.id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).id;
+                    _platformdomain.id = _platform.platformdomains.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).id;
                 }
                 _platformdomain.moid = _vmware_domain.MoRef.Value;
                 _platformdomain.domain = _vmware_domain.Name;
                 _platformdomain.platform_id = _platform.id;
 
-                _update_platform.platformdomains_attributes.Add(_platformdomain);
+                _update_platform.platformdomains.Add(_platformdomain);
 
                 foreach (DistributedVirtualPortgroup _vmware_network in _vim.networks().GetDVPortGroups(_vmware_domain))
                 {
                     MRPPlatformnetworkType _platformnetwork = new MRPPlatformnetworkType();
-                    if (_platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks.Any(x => x.moid == _vmware_network.MoRef.Value))
+                    if (_platform.platformdomains.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks.Any(x => x.moid == _vmware_network.MoRef.Value))
                     {
-                        _platformnetwork.id = _platform.platformdomains_attributes.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value).id;
+                        _platformnetwork.id = _platform.platformdomains.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value).id;
                     }
                     _platformnetwork.moid = _vmware_network.MoRef.Value;
                     _platformnetwork.network = _vmware_network.Name;

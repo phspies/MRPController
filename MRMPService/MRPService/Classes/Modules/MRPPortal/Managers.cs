@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace MRMPService.MRMPAPI
 {
@@ -16,6 +17,18 @@ namespace MRMPService.MRMPAPI
             worker.hostname = Environment.MachineName;
             worker.version = Global.manager_version;
             worker.ipaddress = String.Join(",", Dns.GetHostEntry(Dns.GetHostName()).AddressList.Select(x => x.ToString()).Where(x => x.ToString().Contains(".")));
+        }
+        public ResultType update_managerevents(List<MRPManagerEventType> _events)
+        {
+            MRManagerCRUDType _manager_type = new MRManagerCRUDType()
+            {
+                workload = new MRPManagerType()
+                {
+                    managerevents = _events
+                }
+            };
+            endpoint = "/managers/update.json";
+            return post<ResultType>(_manager_type);
         }
         public bool confirm_controller()
         {

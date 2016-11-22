@@ -80,12 +80,12 @@
     <ApplicationIcon>mrp.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.3.475.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.475\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.3.478.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.478\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.3.475.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.475\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.3.478.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.478\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DoubleTake.Core, Version=0.1.44.0, Culture=neutral, processorArchitecture=MSIL">
@@ -227,6 +227,7 @@
     <Compile Include="DoubleTake\Workload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\NetstatUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\NetstatInventory\NetworkFlowType.cs" />
+    <Compile Include="MRPService\Classes\Background Tasks\PortalDataUpload\ManagerEventUpload.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\RPEventPoller\RPEventPollerDo.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\RPEventPoller\RPEventPollerThread.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\DTEventPoller\DTEventPollerDo.cs" />
@@ -277,6 +278,7 @@
     <Compile Include="MRPService\Classes\Modules\MCP\LinuxCustomization.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\WindowsCustomization.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\DomainAffinityRule.cs" />
+    <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\ManagerEvent.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\Organization.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\OrganizationTag.cs" />
     <Compile Include="MRPService\Classes\Modules\MRPPortal\Contracts\WorkloadTags.cs" />
@@ -325,6 +327,9 @@
     <Compile Include="MRPService\Classes\Background Tasks\PlatformInventory\VMWare\UpdateVMwarePlatform.cs" />
     <Compile Include="MRPService\Classes\Utilities\UpdateDNS.cs" />
     <Compile Include="MRPService\Classes\Utilities\UpdateIP.cs" />
+    <Compile Include="MRPService\Database\Classes\ManagerEventSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IManagerEvents.cs" />
+    <Compile Include="MRPService\Database\Structures\ManagerEvent.cs" />
     <Compile Include="MRPService\Global\CollectionCounter.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\InstanceCounters.cs" />
     <Compile Include="MRPService\Classes\Background Tasks\WorkloadPerformance\PerfCounter.cs" />

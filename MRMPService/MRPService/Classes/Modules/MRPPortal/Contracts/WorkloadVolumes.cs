@@ -14,15 +14,15 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("workload_id")]
         public string workload_id { get; set; }
         [JsonProperty("diskindex")]
-        public int diskindex { get; set; }
+        public int? diskindex { get; set; }
         [JsonProperty("driveletter")]
         public string driveletter { get; set; }
         [JsonProperty("volumesize")]
-        public Int64 volumesize { get; set; }
+        public Int64? volumesize { get; set; }
         [JsonProperty("volumefreespace")]
-        public Int64 volumefreespace { get; set; }
+        public Int64? volumefreespace { get; set; }
         [JsonProperty("provisioned")]
-        public bool provisioned { get; set; }
+        public bool? provisioned { get; set; }
         [JsonProperty("serialnumber")]
         public string serialnumber { get; set; }
         [JsonProperty("volumename")]
@@ -30,11 +30,11 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("deviceid")]
         public string deviceid { get; set; }
         [JsonProperty("blocksize")]
-        public Int64 blocksize { get; set; }
+        public Int64? blocksize { get; set; }
         [JsonProperty("filesystem_type")]
         public string filesystem_type { get; set; }
-        [JsonProperty("_destroy")]
-        public bool _destroy { get; set; }
+        [JsonProperty("deleted")]
+        public bool? deleted { get; set; }
         [JsonProperty("platformstoragetier_id")]
         public String platformstoragetier_id { get; set; }
     }

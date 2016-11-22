@@ -121,17 +121,17 @@ namespace MRMPService.PlatformInventory
                 if (_workloadnic.Backing is VirtualEthernetCardNetworkBackingInfo)
                 {
                     VirtualEthernetCardNetworkBackingInfo _nic_backing = (VirtualEthernetCardNetworkBackingInfo)_workloadnic.Backing;
-                    if (_platform.platformdomains_attributes.SelectMany(x => x.platformnetworks).Any(y => y.moid == _nic_backing.Network.Value))
+                    if (_platform.platformdomains.SelectMany(x => x.platformnetworks).Any(y => y.moid == _nic_backing.Network.Value))
                     {
-                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks).FirstOrDefault(y => y.moid == _nic_backing.Network.Value).id;
+                        _logical_interface.platformnetwork_id = _platform.platformdomains.SelectMany(x => x.platformnetworks).FirstOrDefault(y => y.moid == _nic_backing.Network.Value).id;
                     }
                 }
                 else if (_workloadnic.Backing is VirtualEthernetCardDistributedVirtualPortBackingInfo)
                 {
                     VirtualEthernetCardDistributedVirtualPortBackingInfo _nic_backing = (VirtualEthernetCardDistributedVirtualPortBackingInfo)_workloadnic.Backing;
-                    if (_platform.platformdomains_attributes.SelectMany(x => x.platformnetworks).Any(y => y.moid == _nic_backing.Port.PortgroupKey))
+                    if (_platform.platformdomains.SelectMany(x => x.platformnetworks).Any(y => y.moid == _nic_backing.Port.PortgroupKey))
                     {
-                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks).FirstOrDefault(y => y.moid == _nic_backing.Port.PortgroupKey).id;
+                        _logical_interface.platformnetwork_id = _platform.platformdomains.SelectMany(x => x.platformnetworks).FirstOrDefault(y => y.moid == _nic_backing.Port.PortgroupKey).id;
                     }
                 }
                 else
@@ -155,7 +155,7 @@ namespace MRMPService.PlatformInventory
                 _logical_interface.vnic = _index;
                 _logical_interface.ipassignment = "manual_ip";
                 _logical_interface.macaddress = _workloadnic.MacAddress;
-                _logical_interface._destroy = false;
+                _logical_interface.deleted = false;
             }
 
             _mrp_workload.provisioned = true;

@@ -68,6 +68,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string platform_id { get; set; }
         [JsonProperty("platformdomain_id")]
         public string platformdomain_id { get; set; }
+        [JsonProperty("protectiongroup_id")]
+        public string protectiongroup_id { get; set; }
         [JsonProperty("hostname")]
         public string hostname { get; set; }
         [JsonProperty("iplist")]
@@ -180,6 +182,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public MRPDeploymentpolicyType deploymentpolicy { get; set; }
         [JsonProperty("platformtemplate")]
         public MRPPlatformtemplateType platformtemplate { get; set; }
+        [JsonProperty("protectiongroup")]
+        public MRPProtectiongroupType protectiongroup { get; set; }
         [JsonProperty("platform")]
         public MRPPlatformType platform { get; set; }
         [JsonProperty("primary_dns")]

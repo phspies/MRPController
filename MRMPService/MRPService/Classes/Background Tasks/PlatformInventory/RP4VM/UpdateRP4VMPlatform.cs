@@ -71,16 +71,16 @@ namespace MRMPService.PlatformInventory
                         MRPPlatformType _update_platform = new MRPPlatformType() { id = _parent_platform.id };
                         foreach (ArraySettings _array_settings in _rp4vm_settings.clustersSettings.SelectMany(a => a.ampsSettings).SelectMany(x => x.managedArrays).Where(x => x.serialNumber == _parent_platform.vcenter_uuid))
                         {
-                            foreach (MRPPlatformdatastoreType _datastore in _parent_platform.platformdatastores_attributes)
+                            foreach (MRPPlatformdatastoreType _datastore in _parent_platform.platformdatastores)
                             {
                                 if (_array_settings.resourcePools.Exists(x => x.resourcePoolUID.storageResourcePoolId == _datastore.moid))
                                 {
                                     var _resource_pool = _array_settings.resourcePools.FirstOrDefault(x => x.resourcePoolUID.storageResourcePoolId == _datastore.moid);
-                                    if (_update_platform.platformdatastores_attributes == null)
+                                    if (_update_platform.platformdatastores == null)
                                     {
-                                        _update_platform.platformdatastores_attributes = new List<MRPPlatformdatastoreType>();
+                                        _update_platform.platformdatastores = new List<MRPPlatformdatastoreType>();
                                     }
-                                    _update_platform.platformdatastores_attributes.Add(new MRPPlatformdatastoreType()
+                                    _update_platform.platformdatastores.Add(new MRPPlatformdatastoreType()
                                     {
                                         id = _datastore.id,
                                         rp4vm_arrayid = _array_settings.arrayUID.id,

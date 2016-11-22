@@ -58,7 +58,7 @@ namespace MRMPService.MRMPDoubleTake
                 foreach (MRPWorkloadVolumeType volume in _source_workload.workloadvolumes)
                 {
                     String _repositorypath = _protectiongroup.recoverypolicy.repositorypath;
-                    long _disksize = volume.volumesize;
+                    long _disksize = (long)volume.volumesize;
                     Char _shortvolume = volume.driveletter[0];
                     String _filename = _source_workload.id + "_" + _shortvolume + ".vhdx";
                     string absfilename = Path.Combine(_repositorypath, _protectiongroup.id, _source_workload.id, _filename);

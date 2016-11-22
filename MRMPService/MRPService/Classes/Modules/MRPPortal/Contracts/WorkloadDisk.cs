@@ -18,8 +18,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string moid { get; set; }
         [JsonProperty("provisioned")]
         public bool? provisioned { get; set; }
-        [JsonProperty("_destroy")]
-        public bool? _destroy { get; set; }
+        [JsonProperty("deleted")]
+        public bool? deleted { get; set; }
         
 
     }

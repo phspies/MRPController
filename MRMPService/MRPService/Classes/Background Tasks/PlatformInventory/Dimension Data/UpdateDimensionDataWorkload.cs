@@ -39,17 +39,17 @@ namespace MRMPService.PlatformInventory
                 MRPWorkloadType _current_workload = new MRPWorkloadType();
 
                 bool _existing_workload = false;
-                if (_platform.workloads_attributes.Exists(x => x.moid == _caasworkload.id))
+                if (_platform.workloads.Exists(x => x.moid == _caasworkload.id))
                 {
                     _existing_workload = true;
-                    _current_workload = _platform.workloads_attributes.FirstOrDefault(x => x.moid == _caasworkload.id);
+                    _current_workload = _platform.workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
                     _update_workload.id = _current_workload.id;
                     _update_workload.workloaddisks = _current_workload.workloaddisks;
                     _update_workload.workloadinterfaces = _current_workload.workloadinterfaces;
                     _update_workload.workloadtags = _current_workload.workloadtags;
-                    _update_workload.workloadtags.ForEach(x => x._destroy = true);
-                    _update_workload.workloadinterfaces.ForEach(x => x._destroy = true);
-                    _update_workload.workloaddisks.ForEach(x => x._destroy = true);
+                    _update_workload.workloadtags.ForEach(x => x.deleted = true);
+                    _update_workload.workloadinterfaces.ForEach(x => x.deleted = true);
+                    _update_workload.workloaddisks.ForEach(x => x.deleted = true);
                 }
                 else
                 {
@@ -64,6 +64,10 @@ namespace MRMPService.PlatformInventory
                     {
                         _mrmp_disk = _update_workload.workloaddisks.FirstOrDefault(x => x.moid == _caas_disk.id);
                     }
+                    else if (_update_workload.workloaddisks.Exists(x => x.diskindex == _caas_disk.scsiId))
+                    {
+                        _mrmp_disk = _update_workload.workloaddisks.FirstOrDefault(x => x.diskindex == _caas_disk.scsiId);
+                    }
                     else
                     {
                         _update_workload.workloaddisks.Add(_mrmp_disk);
@@ -72,7 +76,7 @@ namespace MRMPService.PlatformInventory
                     _mrmp_disk.diskindex = _caas_disk.scsiId;
                     _mrmp_disk.platformstoragetier_id = _caas_disk.speed;
                     _mrmp_disk.provisioned = true;
-                    _mrmp_disk._destroy = false;
+                    _mrmp_disk.deleted = false;
                     _mrmp_disk.disksize = _caas_disk.sizeGb;
                 }
 
@@ -89,8 +93,11 @@ namespace MRMPService.PlatformInventory
                 if (_current_workload.osedition == null) _update_workload.osedition = _caasworkload.operatingSystem.displayName;
 
                 //update workload source template id with portal template id
-                _update_workload.platformtemplate_id = _platform.platformtemplates_attributes.FirstOrDefault(x => x.image_moid == _caasworkload.sourceImageId).id;
-                _update_workload.platformdomain_id = _platform.platformdomains_attributes.SelectMany(y => y.platformnetworks).FirstOrDefault(x => x.moid == _caasworkload.networkInfo.primaryNic.vlanId).platformdomain_id;
+                if (_platform.platformtemplates.Exists(x => x.image_moid == _caasworkload.sourceImageId))
+                {
+                    _update_workload.platformtemplate_id = _platform.platformtemplates.FirstOrDefault(x => x.image_moid == _caasworkload.sourceImageId).id;
+                }
+                _update_workload.platformdomain_id = _platform.platformdomains.SelectMany(y => y.platformnetworks).FirstOrDefault(x => x.moid == _caasworkload.networkInfo.primaryNic.vlanId).platformdomain_id;
 
                 //populate network interfaces for workload
                 MRPWorkloadInterfaceType _primary_logical_interface = new MRPWorkloadInterfaceType();
@@ -107,7 +114,7 @@ namespace MRMPService.PlatformInventory
                 _primary_logical_interface.ipv6address = _caasworkload.networkInfo.primaryNic.ipv6;
                 _primary_logical_interface.ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4;
                 _primary_logical_interface.moid = _caasworkload.networkInfo.primaryNic.id;
-                _primary_logical_interface._destroy = false;
+                _primary_logical_interface.deleted = false;
 
                 int nic_index = 1;
                 if (_caasworkload.networkInfo.additionalNic != null)
@@ -130,8 +137,8 @@ namespace MRMPService.PlatformInventory
                         _logical_interface.ipv6address = _caasworkloadinterface.ipv6;
                         _logical_interface.ipaddress = _caasworkloadinterface.privateIpv4;
                         _logical_interface.moid = _caasworkloadinterface.id;
-                        _logical_interface._destroy = false;
-                        _logical_interface.platformnetwork_id = _platform.platformdomains_attributes.SelectMany(x => x.platformnetworks).FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id;
+                        _logical_interface.deleted = false;
+                        _logical_interface.platformnetwork_id = _platform.platformdomains.SelectMany(x => x.platformnetworks).FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id;
 
                         nic_index += 1;
                     }
@@ -167,7 +174,7 @@ namespace MRMPService.PlatformInventory
                                 {
                                     _workload_tag.tagvalue = _caas_tag.value;
                                 }
-                                _workload_tag._destroy = false;
+                                _workload_tag.deleted = false;
                             }
                         }
                     }

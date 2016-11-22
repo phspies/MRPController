@@ -17,6 +17,7 @@ namespace MRMPService.LocalDatabase
 
         public DbSet<NetworkFlow> NetworkFlows { get; set; }
         public DbSet<PerfCounterSample> PerfCounterSample { get; set; }
+        public DbSet<ManagerEvent> ManagerEvents { get; set; }
         public static DbConnection GetConnection()
         {
             string dblocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);

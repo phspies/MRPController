@@ -34,9 +34,9 @@ namespace MRMPService.MRMPAPI.Classes
                 workloadvolumes = _workload.workloadvolumes,
                 workloaddisks = _workload.workloaddisks
             };
-            _updated_workload.workloaddisks.ForEach(x => x._destroy = true);
-            _updated_workload.workloadvolumes.ForEach(x => x._destroy = true);
-            _updated_workload.workloadinterfaces.ForEach(x => x._destroy = true);
+            _updated_workload.workloaddisks.ForEach(x => x.deleted = true);
+            _updated_workload.workloadvolumes.ForEach(x => x.deleted = true);
+            _updated_workload.workloadinterfaces.ForEach(x => x.deleted = true);
 
             //check for credentials
             MRPCredentialType _credential = _workload.credential;
@@ -262,7 +262,7 @@ namespace MRMPService.MRMPAPI.Classes
                                                 {
                                                     _updated_workload.workloaddisks.Add(_disk);
                                                 }
-                                                _disk._destroy = false;
+                                                _disk.deleted = false;
                                                 _disk.diskindex = _tmpdisk.diskindex;
                                                 _disk.disksize = _tmpdisk.disksize;
 
@@ -334,7 +334,7 @@ namespace MRMPService.MRMPAPI.Classes
                                                 _volume.volumefreespace = _tmpvolume.volumefreespace;
                                                 _volume.volumename = _tmpvolume.volumename;
                                                 _volume.volumesize = _tmpvolume.volumesize;
-                                                _volume._destroy = false;
+                                                _volume.deleted = false;
                                             }
                                         }
                                     }
@@ -384,7 +384,7 @@ namespace MRMPService.MRMPAPI.Classes
                                                 _interface.macaddress = _tmpinterface.macaddress;
                                                 _interface.ipaddress = _tmpinterface.ipaddress;
                                                 _interface.netmask = _tmpinterface.netmask;
-                                                _interface._destroy = false;
+                                                _interface.deleted = false;
 
                                             }
                                         }
@@ -418,7 +418,7 @@ namespace MRMPService.MRMPAPI.Classes
 
 
 
-            Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+            Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Debug);
 
         }
     }

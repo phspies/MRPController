@@ -17,8 +17,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string organizationtag_id { get; set; }
         [JsonProperty("tagvalue")]
         public string tagvalue { get; set; }
-        [JsonProperty("_destroy")]
-        public bool? _destroy { get; set; }
-        
+        [JsonProperty("deleted")]
+        public bool? deleted { get; set; }
+
     }
 }

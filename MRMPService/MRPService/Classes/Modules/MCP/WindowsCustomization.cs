@@ -75,7 +75,7 @@ namespace MRMPService.Tasks.MCP
             long _c_volume_to_add = 0;
             if (_c_volume_object != null)
             {
-                _c_volume_to_add = (_c_volume_object.volumesize * 1024 * 1024 * 1024) - _c_volume_actual_size;
+                _c_volume_to_add = (long)(_c_volume_object.volumesize * 1024 * 1024 * 1024) - _c_volume_actual_size;
             }
             else
             {
@@ -126,7 +126,10 @@ namespace MRMPService.Tasks.MCP
                 foreach (MRPWorkloadVolumeType _volume in _target_workload.workloadvolumes.ToList().Where(x => x.diskindex == _disk_index && !x.driveletter.Contains("C")).OrderBy(x => x.driveletter))
                 {
                     string _driveletter = _volume.driveletter.Substring(0, 1);
-                    _diskpart_struct.Add("clean");
+                    if (_target_workload.osedition.Contains("2008"))
+                    {
+                        _diskpart_struct.Add("clean");
+                    }
                     _diskpart_struct.Add(String.Format("create partition primary size={0} noerr", _volume.volumesize * 1024));
                     _diskpart_struct.Add(String.Format("select partition {0}", _vol_index));
                     _diskpart_struct.Add("format fs=ntfs quick");

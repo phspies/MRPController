@@ -31,6 +31,9 @@ namespace MRMPService.Tasks.MCP
                 //update target workload with updated iplist and moid information
                 MRPWorkloadType _temp_workload = _mrp_api.workload().get_by_id(_target_workload.id);
 
+                //update platform from portal
+                _platform = _mrp_api.platform().get_by_id(_platform.id);
+
                 _target_workload.moid = _temp_workload.moid;
                 _target_workload.iplist = _temp_workload.iplist;
             }
@@ -278,7 +281,7 @@ namespace MRMPService.Tasks.MCP
                     foreach (int _disk_index in _target_workload.workloadvolumes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
                     {
                         //increase disk by 5GB
-                        long _disk_size = _target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
+                        long _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
 
                         String _disk_tier = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier_id;
                         if (deployedServer.disk.ToList().Exists(x => x.scsiId == _disk_index))

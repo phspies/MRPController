@@ -35,8 +35,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string connection_id { get; set; }
         [JsonProperty("macaddress")]
         public string macaddress { get; set; }
-        [JsonProperty("_destroy")]
-        public bool _destroy { get; set; }
+        [JsonProperty("deleted")]
+        public bool? deleted { get; set; }
         [JsonProperty("platformnetwork")]
         public MRPPlatformnetworkType platformnetwork { get; set; }
     }

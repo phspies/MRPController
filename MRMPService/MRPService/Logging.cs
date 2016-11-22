@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MRMPService.LocalDatabase;
+using System;
 using System.IO;
 using System.Threading;
 
@@ -33,6 +34,16 @@ namespace MRMPService.MRMPService.Log
                     {
                         sw.WriteLine(datet.ToString("yyyy/MM/dd hh:mm:ss") + " " + _severity + " > " + message);
                         sw.Close();
+                        if (_severity != Severity.Info)
+                        {
+                            using (ManagerEventSet _event = new ManagerEventSet())
+                            {
+                                ManagerEvent _new_event = new ManagerEvent();
+                                _new_event.message = message;
+                                _new_event.timestamp = DateTime.UtcNow;
+                                _event.ModelRepository.Insert(_new_event);
+                            }
+                        }
 
                     }
                     break;

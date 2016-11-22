@@ -79,32 +79,35 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("platformdatacenter")]
         public MRPPlatformdatacenterType platformdatacenter { get; set; }
         [JsonProperty("platformdomains_attributes")]
-        public List<MRPPlatformdomainType> platformdomains_attributes { get; set; }
+        public List<MRPPlatformdomainType> platformdomains { get; set; }
         [JsonProperty("platformdatacenters_attributes")]
-        public List<MRPPlatformdatacenterType> platformdatacenters_attributes { get; set; }
+        public List<MRPPlatformdatacenterType> platformdatacenters { get; set; }
         [JsonProperty("platformtemplates_attributes")]
-        public List<MRPPlatformtemplateType> platformtemplates_attributes { get; set; }
+        public List<MRPPlatformtemplateType> platformtemplates { get; set; }
         [JsonProperty("platformdatastores_attributes")]
-        public List<MRPPlatformdatastoreType> platformdatastores_attributes { get; set; }
+        public List<MRPPlatformdatastoreType> platformdatastores { get; set; }
         [JsonProperty("workloads_attributes")]
-        public List<MRPWorkloadType> workloads_attributes { get; set; }
+        public List<MRPWorkloadType> workloads { get; set; }
 
-
-        public bool ShouldSerializeplatformdomains_attributes()
+        public bool ShouldSerializeworkloads()
         {
-            return (platformdomains_attributes == null || !platformdomains_attributes.Any()) ? false : true;
+            return (workloads == null || !workloads.Any()) ? false : true;
         }
-        public bool ShouldSerializeplatformdatacenters_attributes()
+        public bool ShouldSerializeplatformdomains()
         {
-            return (platformdatacenters_attributes == null || !platformdatacenters_attributes.Any()) ? false : true;
+            return (platformdomains == null || !platformdomains.Any()) ? false : true;
         }
-        public bool ShouldSerializeplatformtemplates_attributes()
+        public bool ShouldSerializeplatformdatacenters()
         {
-            return (platformtemplates_attributes == null || !platformtemplates_attributes.Any()) ? false : true;
+            return (platformdatacenters == null || !platformdatacenters.Any()) ? false : true;
         }
-        public bool ShouldSerializeplatformdatastores_attributes()
+        public bool ShouldSerializeplatformtemplates()
         {
-            return (platformdatastores_attributes == null || !platformdatastores_attributes.Any()) ? false : true;
+            return (platformtemplates == null || !platformtemplates.Any()) ? false : true;
+        }
+        public bool ShouldSerializeplatformdatastores()
+        {
+            return (platformdatastores == null || !platformdatastores.Any()) ? false : true;
         }
     }
 }
