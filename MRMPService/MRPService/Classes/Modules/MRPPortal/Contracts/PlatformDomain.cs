@@ -27,6 +27,10 @@ namespace MRMPService.MRMPAPI.Contracts
         public string domain { get; set; }
         [JsonProperty("moid")]
         public string moid { get; set; }
+        [JsonProperty("domaintype")]
+        public string domaintype { get; set; }
+        [JsonProperty("snatip4address")]
+        public string snatip4address { get; set; }
         [JsonProperty("platformnetworks_attributes")]
         public List<MRPPlatformnetworkType> platformnetworks { get; set; }
         [JsonProperty("domainnatrules_attributes")]

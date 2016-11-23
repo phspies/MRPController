@@ -207,7 +207,9 @@ namespace MRMPService.PlatformInventory
                         {
                             _update_platform.platformdomains.Add(_mrp_domain);
                         }
-
+                     
+                        _mrp_domain.snatip4address = _caas_domain.snatIpv4Address;
+                        _mrp_domain.domaintype = _caas_domain.type;
                         _mrp_domain.moid = _caas_domain.id;
                         _mrp_domain.domain = _caas_domain.name;
                         _mrp_domain.platform_id = _platform.id;
