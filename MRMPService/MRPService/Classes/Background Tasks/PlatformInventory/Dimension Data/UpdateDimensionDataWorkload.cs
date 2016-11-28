@@ -23,7 +23,7 @@ namespace MRMPService.PlatformInventory
                 try
                 {
                     ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.encrypted_password));
-                    CaaS.Login().Wait();
+                    await CaaS.Login();
                     _caasworkload = await CaaS.ServerManagement.Server.GetServer(Guid.Parse(_workload_moid));
                     _caas_tags = await CaaS.Tagging.GetTags(new DD.CBU.Compute.Api.Contracts.Requests.Tagging.TagListOptions() { AssetId = _caasworkload.id, AssetType = "SERVER" });
                 }
@@ -31,9 +31,7 @@ namespace MRMPService.PlatformInventory
                 {
                     throw new System.ArgumentException(String.Format("UpdateMCPWorkload: Error connecting to Dimension Data MCP {0}", ex.Message));
                 }
-                Logger.log(String.Format("UpdateMCPWorkload: Inventory for {0} in {1} ", _caasworkload.name, _platform.moid), Logger.Severity.Info);
-
-
+                Logger.log(String.Format("UpdateMCPWorkload: Inventory for {0} in {1} ", _caasworkload.name, _platform.platformdatacenter.moid), Logger.Severity.Info);
 
                 MRPWorkloadType _update_workload = new MRPWorkloadType();
                 MRPWorkloadType _current_workload = new MRPWorkloadType();
@@ -49,6 +47,7 @@ namespace MRMPService.PlatformInventory
                     _update_workload.workloadtags = _current_workload.workloadtags;
                     _update_workload.workloadtags.ForEach(x => x.deleted = true);
                     _update_workload.workloadinterfaces.ForEach(x => x.deleted = true);
+                    _update_workload.workloadinterfaces.ForEach(x => x.platformnetwork = null);
                     _update_workload.workloaddisks.ForEach(x => x.deleted = true);
                 }
                 else
@@ -91,7 +90,19 @@ namespace MRMPService.PlatformInventory
                 if (_current_workload.platform_id == null) _update_workload.platform_id = _platform.id;
                 if (_current_workload.ostype == null) _update_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
                 if (_current_workload.osedition == null) _update_workload.osedition = _caasworkload.operatingSystem.displayName;
-
+                if (_current_workload.hardwaretype == null) _update_workload.hardwaretype = "virtual";
+                if (_caasworkload.drsEligible is drsEligible || _caasworkload.consistencyGroup != null)
+                {
+                    _update_workload.drs_eligible = true;
+                }
+                else
+                {
+                    _update_workload.drs_eligible = true;
+                }
+                if (_caasworkload.consistencyGroup != null)
+                {
+                    _update_workload.consistency_group_moid = _caasworkload.consistencyGroup.id;
+                }
                 //update workload source template id with portal template id
                 if (_platform.platformtemplates.Exists(x => x.image_moid == _caasworkload.sourceImageId))
                 {

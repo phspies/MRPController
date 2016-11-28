@@ -29,6 +29,40 @@ namespace DD.CBU.Compute.Api.Contracts.Network20
         private PrivateIpv4OrVlanIdChoiceType itemElementNameField;
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("privateIpv4", typeof (string), Order = 1)]
+        [System.Xml.Serialization.XmlElementAttribute("vlanId", typeof (string), Order = 1)]
+        [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
+        public string Item
+        {
+            get { return this.itemField; }
+            set { this.itemField = value; }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public PrivateIpv4OrVlanIdChoiceType ItemElementName
+        {
+            get { return this.itemElementNameField; }
+            set { this.itemElementNameField = value; }
+        }
+    }    
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.81.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
+    public partial class NewNicType
+    {
+
+        private string itemField;
+
+        private string networkAdapterField;
+
+        private PrivateIpv4OrVlanIdChoiceType itemElementNameField;
+
+        /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("privateIpv4", typeof (string))]
         [System.Xml.Serialization.XmlElementAttribute("vlanId", typeof (string))]
         [System.Xml.Serialization.XmlChoiceIdentifierAttribute("ItemElementName")]
@@ -44,6 +78,13 @@ namespace DD.CBU.Compute.Api.Contracts.Network20
         {
             get { return this.itemElementNameField; }
             set { this.itemElementNameField = value; }
+        }
+
+        /// <remarks/>
+        public string networkAdapter
+        {
+            get { return this.networkAdapterField; }
+            set { this.networkAdapterField = value; }
         }
     }
 
@@ -192,8 +233,12 @@ namespace DD.CBU.Compute.Api.Contracts.Network20
 
         private string datacenterIdField;
 
-        /// <remarks/>
-        public string name
+        private drsEligible drsEligibleField;
+
+	    private consistencyGroup consistencyGroupField;
+
+		/// <remarks/>
+		public string name
         {
             get { return this.nameField; }
             set { this.nameField = value; }
@@ -337,6 +382,20 @@ namespace DD.CBU.Compute.Api.Contracts.Network20
             get { return this.datacenterIdField; }
             set { this.datacenterIdField = value; }
         }
+
+        /// <remarks/>
+        public drsEligible drsEligible
+        {
+            get { return this.drsEligibleField; }
+            set { this.drsEligibleField = value; }
+        }
+
+		/// <remarks/>
+		public consistencyGroup consistencyGroup
+	    {
+			get { return this.consistencyGroupField; }
+			set { this.consistencyGroupField = value; }
+		}
     }
 
     /// <remarks/>
@@ -722,6 +781,8 @@ namespace DD.CBU.Compute.Api.Contracts.Network20
 
         private string secondaryDnsField;
 
+        private string ipv4GatewayField;
+
         private DeployServerTypeDisk[] diskField;
 
         private string microsoftTimeZoneField;
@@ -804,6 +865,13 @@ namespace DD.CBU.Compute.Api.Contracts.Network20
         {
             get { return this.secondaryDnsField; }
             set { this.secondaryDnsField = value; }
+        }
+        
+        /// <remarks/>
+        public string ipv4Gateway
+        {
+            get { return this.ipv4GatewayField; }
+            set { this.ipv4GatewayField = value; }
         }
 
         /// <remarks/>
@@ -937,14 +1005,14 @@ namespace DD.CBU.Compute.Api.Contracts.Network20
     public partial class DeployServerTypeNetworkInfo
     {
 
-        private VlanIdOrPrivateIpType primaryNicField;
+        private NewNicType primaryNicField;
 
-        private VlanIdOrPrivateIpType[] additionalNicField;
+        private NewNicType[] additionalNicField;
 
         private string networkDomainIdField;
 
         /// <remarks/>
-        public VlanIdOrPrivateIpType primaryNic
+        public NewNicType primaryNic
         {
             get { return this.primaryNicField; }
             set { this.primaryNicField = value; }
@@ -952,7 +1020,7 @@ namespace DD.CBU.Compute.Api.Contracts.Network20
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("additionalNic")]
-        public VlanIdOrPrivateIpType[] additionalNic
+        public NewNicType[] additionalNic
         {
             get { return this.additionalNicField; }
             set { this.additionalNicField = value; }
@@ -1981,4 +2049,134 @@ namespace DD.CBU.Compute.Api.Contracts.Network20
         [System.Xml.Serialization.XmlAttributeAttribute()]
         public string id;
     }
+
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
+    [System.Xml.Serialization.XmlRootAttribute("drsEligible", Namespace = "urn:didata.com:api:cloud:types")]
+    public partial class drsEligible
+    {
+    }
+
+	/// <remarks/>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.6.1055.0")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
+	[System.Xml.Serialization.XmlRootAttribute("consistencyGroup", Namespace = "urn:didata.com:api:cloud:types")]
+	public partial class consistencyGroup
+	{
+		/// <remarks/>
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		public string id;
+
+		/// <remarks/>
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		public string name;
+
+		/// <remarks/>
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		public string status;
+
+		/// <remarks/>
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		public string serverRole;
+	}
+
+	/// 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.0.30319.34283")]
+	[System.SerializableAttribute()]
+	[System.Diagnostics.DebuggerStepThroughAttribute()]
+	[System.ComponentModel.DesignerCategoryAttribute("code")]
+	[System.Xml.Serialization.XmlTypeAttribute(Namespace = "urn:didata.com:api:cloud:types")]
+	[System.Xml.Serialization.XmlRootAttribute("editServerMetadata", Namespace = "urn:didata.com:api:cloud:types", IsNullable = true)]
+	public partial class editServerMetadata
+	{
+		private string nameField;
+		private string descriptionField;
+		private bool drsEligibleField;
+		private bool descriptionFieldSpecified;
+		private bool drsEligibleFieldSpecified;
+		private string idField;
+		/// 
+		public string name
+		{
+			get
+			{
+				return this.nameField;
+			}
+			set
+			{
+				this.nameField = value;
+			}
+		}
+		/// 
+		[System.Xml.Serialization.XmlElementAttribute(IsNullable = true)]
+		public string description
+		{
+			get
+			{
+				return this.descriptionField;
+			}
+			set
+			{
+				this.descriptionField = value;
+			}
+		}
+		/// 
+		public bool drsEligible
+		{
+			get
+			{
+				return this.drsEligibleField;
+			}
+			set
+			{
+				this.drsEligibleField = value;
+			}
+		}
+		/// 
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		public bool drsEligibleSpecified
+		{
+			get
+			{
+				return this.drsEligibleFieldSpecified;
+			}
+			set
+			{
+				this.drsEligibleFieldSpecified = value;
+			}
+		}
+		/// 
+		[System.Xml.Serialization.XmlIgnoreAttribute()]
+		public bool descriptionSpecified
+		{
+			get
+			{
+				return this.descriptionFieldSpecified;
+			}
+			set
+			{
+				this.descriptionFieldSpecified = value;
+			}
+		}
+		/// 
+		[System.Xml.Serialization.XmlAttributeAttribute()]
+		public string id
+		{
+			get
+			{
+				return this.idField;
+			}
+			set
+			{
+				this.idField = value;
+			}
+		}
+	}
 }

@@ -48,6 +48,11 @@ namespace MRMPService.MRMPAPI.Contracts
         public DateTime recovery_point_objective { get; set; }
         [JsonProperty("recovery_point_latency")]
         public long recovery_point_latency { get; set; }
+
+        [JsonProperty("journal_size")]
+        public long journal_size { get; set; }
+        [JsonProperty("journal_used")]
+        public double journal_used { get; set; }
     }
     public class MRPManagementobjectStatIDGETType
     {

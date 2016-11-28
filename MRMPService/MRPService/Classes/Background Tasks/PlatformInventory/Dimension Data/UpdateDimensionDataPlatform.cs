@@ -13,6 +13,7 @@ using DD.CBU.Compute.Api.Contracts.General;
 using MRMPService.MRMPAPI;
 using DD.CBU.Compute.Api.Contracts.Requests.Network20;
 using System.Threading.Tasks;
+using DD.CBU.Compute.Api.Contracts.Directory;
 
 namespace MRMPService.PlatformInventory
 {
@@ -22,7 +23,7 @@ namespace MRMPService.PlatformInventory
         {
             using (MRMP_ApiClient _mrp_api_endpoint = new MRMP_ApiClient())
             {
-                Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.moid), Logger.Severity.Info);
+                Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.platformdatacenter.moid), Logger.Severity.Info);
                 Stopwatch sw = Stopwatch.StartNew();
                 int _new_credentials, _new_platforms, _new_platformnetworks, _new_workloads, _updated_credentials, _updated_platforms, _updated_platformnetworks, _updated_workloads, _removed_workloads;
                 _new_credentials = _new_platforms = _new_platformnetworks = _new_workloads = _updated_credentials = _updated_platformnetworks = _updated_platforms = _updated_workloads = _removed_workloads = 0;
@@ -51,9 +52,10 @@ namespace MRMPService.PlatformInventory
                 }
 
                 ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_credential.username, _credential.encrypted_password));
+                IAccount _caas_account;
                 try
                 {
-                    CaaS.Login().Wait();
+                    _caas_account = await CaaS.Login();
                 }
                 catch (Exception ex)
                 {
@@ -126,7 +128,7 @@ namespace MRMPService.PlatformInventory
                 }
 
                 //mirror platorm templates for this platform
-                List<OsImageType> _caas_templates = CaaS.ServerManagement.ServerImage.GetOsImages(new ServerOsImageListOptions() { DatacenterId = _platform.moid }, new PageableRequest() { PageSize = 250 }).Result.items.ToList();
+                List<OsImageType> _caas_templates = CaaS.ServerManagement.ServerImage.GetOsImages(new ServerOsImageListOptions() { DatacenterId = _platform.platformdatacenter.moid }, new PageableRequest() { PageSize = 250 }).Result.items.ToList();
 
                 //preload all templates and mark them as deleted
                 _update_platform.platformtemplates = _platform.platformtemplates;
@@ -152,12 +154,12 @@ namespace MRMPService.PlatformInventory
                     _mrp_template.os_displayname = _caas_template.operatingSystem.displayName;
                     _mrp_template.os_id = _caas_template.operatingSystem.id;
                     _mrp_template.os_type = _caas_template.operatingSystem.family;
-                    _mrp_template.platform_moid = _platform.moid;
+                    _mrp_template.platform_moid = _platform.platformdatacenter.moid;
                     _mrp_template.deleted = false;
                 }
 
                 //process customer images
-                PagedResponse<CustomerImageType> _customer_templates = await CaaS.ServerManagement.ServerImage.GetCustomerImages(new ServerCustomerImageListOptions() { DatacenterId = _platform.moid }, new PageableRequest() { PageSize = 250 });
+                PagedResponse<CustomerImageType> _customer_templates = await CaaS.ServerManagement.ServerImage.GetCustomerImages(new ServerCustomerImageListOptions() { DatacenterId = _platform.platformdatacenter.moid }, new PageableRequest() { PageSize = 250 });
                 if (_customer_templates.totalCount > 0)
                 {
                     foreach (var _caas_template in _customer_templates.items)
@@ -180,7 +182,7 @@ namespace MRMPService.PlatformInventory
                         _mrp_template.os_displayname = _caas_template.operatingSystem.displayName;
                         _mrp_template.os_id = _caas_template.operatingSystem.id;
                         _mrp_template.os_type = _caas_template.operatingSystem.family;
-                        _mrp_template.platform_moid = _platform.moid;
+                        _mrp_template.platform_moid = _platform.platformdatacenter.moid;
                         _mrp_template.deleted = false;
                     }
                 }
@@ -190,15 +192,15 @@ namespace MRMPService.PlatformInventory
                 _update_platform.platformdomains.ForEach(x => x.deleted = true);
                 _update_platform.platformdomains.ForEach(x => x.platformnetworks.ForEach(y => y.deleted = true));
 
-                IEnumerable<NetworkDomainType> _caas_networkdomain_list = CaaS.Networking.NetworkDomain.GetNetworkDomains(new NetworkDomainListOptions() { DatacenterId = _platform.moid }).Result;
-                IEnumerable<VlanType> _caas_vlan_list = CaaS.Networking.Vlan.GetVlans(new VlanListOptions() { DatacenterId = _platform.moid }).Result;
+                IEnumerable<NetworkDomainType> _caas_networkdomain_list = CaaS.Networking.NetworkDomain.GetNetworkDomains(new NetworkDomainListOptions() { DatacenterId = _platform.platformdatacenter.moid }).Result;
+                IEnumerable<VlanType> _caas_vlan_list = CaaS.Networking.Vlan.GetVlans(new VlanListOptions() { DatacenterId = _platform.platformdatacenter.moid }).Result;
 
                 if (_caas_networkdomain_list != null)
                 {
                     foreach (NetworkDomainType _caas_domain in _caas_networkdomain_list)
                     {
 
-                        MRPPlatformdomainType _mrp_domain = new MRPPlatformdomainType() { platformnetworks = new List<MRPPlatformnetworkType>() } ;
+                        MRPPlatformdomainType _mrp_domain = new MRPPlatformdomainType() { platformnetworks = new List<MRPPlatformnetworkType>() };
                         if (_update_platform.platformdomains.Exists(x => x.moid == _caas_domain.id))
                         {
                             _mrp_domain = _update_platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id);
@@ -207,7 +209,7 @@ namespace MRMPService.PlatformInventory
                         {
                             _update_platform.platformdomains.Add(_mrp_domain);
                         }
-                     
+
                         _mrp_domain.snatip4address = _caas_domain.snatIpv4Address;
                         _mrp_domain.domaintype = _caas_domain.type;
                         _mrp_domain.moid = _caas_domain.id;
@@ -215,7 +217,7 @@ namespace MRMPService.PlatformInventory
                         _mrp_domain.platform_id = _platform.id;
                         _mrp_domain.deleted = false;
 
-                        VlanListOptions _vlan_options = new VlanListOptions() { DatacenterId = _platform.moid };
+                        VlanListOptions _vlan_options = new VlanListOptions() { DatacenterId = _platform.platformdatacenter.moid };
                         IEnumerable<VlanType> _vlans = CaaS.Networking.Vlan.GetVlans(_vlan_options).Result;
                         foreach (VlanType _caas_network in _vlans.Where(x => x.networkDomain.id == _caas_domain.id))
                         {
@@ -489,250 +491,270 @@ namespace MRMPService.PlatformInventory
                             }
                         }
                         _mrp_api_endpoint.platform().update(_update_platform);
-                        _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
-                        _update_platform = new MRPPlatformType() { id = _platform.id, workloads = new List<MRPWorkloadType>() };
+                    }
+                    _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
+                    _update_platform = new MRPPlatformType() { id = _platform.id, workloads = new List<MRPWorkloadType>() };
 
-                        var _tmp_server_list = CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.moid, State = "NORMAL" }).Result;
-                        List<ServerType> _caas_workload_list = new List<ServerType>();
-                        if (_tmp_server_list != null)
+                    IEnumerable<ServerType> _caas_workload_list = await CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.platformdatacenter.moid, State = "NORMAL" });
+                    //process deleted platform workloads
+                    foreach (var _workload in _platform.workloads.Where(x => x.workloadtype != "manager"))
+                    {
+                        MRPWorkloadType _mrp_workload = new MRPWorkloadType() { id = _workload.id };
+                        if (!_caas_workload_list.Any(x => x.id == _workload.moid))
                         {
-                            _caas_workload_list = _tmp_server_list.ToList();
+                            _mrp_workload.deleted = true;
+                            _mrp_workload.enabled = false;
                         }
-                        //process deleted platform workloads
-                        foreach (var _workload in _mrp_workloads.Where(x => x.platform_id == _platform.id && x.workloadtype != "manager"))
+                        else
                         {
-                            MRPWorkloadType _mrp_workload = new MRPWorkloadType() { id = _workload.id };
-                            if (!_caas_workload_list.Any(x => x.id == _workload.moid))
-                            {
-                                _mrp_workload.deleted = true;
-                                _mrp_workload.enabled = false;
-                            }
-                            else
-                            {
-                                _mrp_workload.deleted = false;
-                            }
-                            _update_platform.workloads.Add(_mrp_workload);
+                            _mrp_workload.deleted = false;
                         }
+                        _update_platform.workloads.Add(_mrp_workload);
+                    }
 
-                        _mrp_api_endpoint.platform().update(_update_platform);
+                    _mrp_api_endpoint.platform().update(_update_platform);
 
-                        _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
+                    _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
 
-                        if (_caas_workload_list.Count() > 0)
+                    if (_caas_workload_list.Count() > 0)
+                    {
+                        if (full)
                         {
-                            if (full)
+                            Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_workload_inventory_concurrency }, (_caasworkload) =>
                             {
-                                Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_workload_inventory_concurrency }, (_caasworkload) =>
+                                try
                                 {
-                                    try
-                                    {
-                                        //update lists before we start the workload inventory process
-                                        PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        Logger.log(String.Format("Error collecting inventory information from CaaS workload {0} with error {1}", _caasworkload.name, ex.GetBaseException().Message), Logger.Severity.Error);
-                                    }
-                                });
-
-                            }
-                        }
-
-                        _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
-                        _update_platform = new MRPPlatformType() { id = _platform.id, platformdomains = new List<MRPPlatformdomainType>() };
-
-                        _update_platform.platformdomains.Add(_platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id));
-
-                        var _firewall_rules = await CaaS.Networking.FirewallRule.GetFirewallRules(new FirewallRuleListOptions() { NetworkDomainId = Guid.Parse(_caas_domain.id) });
-                        var _nat_rules = await CaaS.Networking.Nat.GetNatRules(Guid.Parse(_caas_domain.id));
-                        var _affinity_rules = await CaaS.ServerManagement.AntiAffinityRule.GetAntiAffinityRulesForNetworkDomain(Guid.Parse(_caas_domain.id));
-
-                        if (_affinity_rules != null)
-                        {
-                            foreach (var _affinity_rule in _affinity_rules)
-                            {
-                                MRPDomainAffinityRuleType _mrp_affinityrule = new MRPDomainAffinityRuleType();
-                                if (_mrmp_update_domain.domainaffinityrules.Exists(x => x.moid == _affinity_rule.id))
-                                {
-                                    _mrp_affinityrule = _mrmp_update_domain.domainaffinityrules.FirstOrDefault(x => x.moid == _affinity_rule.id);
+                                    //update lists before we start the workload inventory process
+                                    PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform);
                                 }
-                                else
+                                catch (Exception ex)
                                 {
-                                    _mrp_affinityrule.affinitytype = "platform";
-                                    if (_platform.workloads.Exists(x => x.moid == _affinity_rule.serverSummary[0].id) && _platform.workloads.Exists(x => x.moid == _affinity_rule.serverSummary[1].id))
-                                    {
-                                        _mrmp_update_domain.domainaffinityrules.Add(_mrp_affinityrule);
-                                    }
-                                    else
-                                    {
-                                        continue;
-                                    }
+                                    Logger.log(String.Format("Error collecting inventory information from CaaS workload {0} with error {1}", _caasworkload.name, ex.GetBaseException().Message), Logger.Severity.Error);
                                 }
-                                _mrp_affinityrule.deleted = false;
-                                _mrp_affinityrule.moid = _affinity_rule.id;
-                                _mrp_affinityrule.workload1_id = _platform.workloads.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[0].id).id;
-                                _mrp_affinityrule.workload2_id = _platform.workloads.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[1].id).id;
-                            }
-                        }
+                            });
 
-                        if (_nat_rules != null)
-                        {
-                            foreach (var _natrule in _nat_rules)
-                            {
-                                MRPDomainNATRuleType _mrmpnatrule = new MRPDomainNATRuleType();
-                                if (_mrmp_update_domain.domainnatrules.Exists(x => x.moid == _natrule.id))
-                                {
-                                    _mrmpnatrule = _mrmp_update_domain.domainnatrules.FirstOrDefault(x => x.moid == _natrule.id);
-                                }
-                                else
-                                {
-                                    _mrmpnatrule.nattype = "platform";
-                                    _mrmp_update_domain.domainnatrules.Add(_mrmpnatrule);
-                                }
-                                _mrmpnatrule.deleted = false;
-                                _mrmpnatrule.moid = _natrule.id;
-                                _mrmpnatrule.platformdomain_id = _mrmp_update_domain.id;
-                                _mrmpnatrule.rulename = String.Format("{0} NAT Rule", _natrule.internalIp);
-                                _mrmpnatrule.internal_ip = _natrule.internalIp;
-                                _mrmpnatrule.external_ip = _natrule.externalIp;
-                                if (_platform.workloads.Exists(x => x.iplist.Contains(_natrule.internalIp)))
-                                {
-                                    _mrmpnatrule.workload_id = _platform.workloads.FirstOrDefault(x => x.iplist.Contains(_natrule.internalIp)).id;
-                                }
-                            }
-                        }
-
-                        if (_firewall_rules != null)
-                        {
-                            //loop firewall rules
-                            foreach (var _firewallrule in _firewall_rules.Where(x => x.ruleType != "DEFAULT_RULE"))
-                            {
-                                MRPDomainFWRuleType _mrmpfirewallrule = new MRPDomainFWRuleType();
-
-                                if (_mrmp_update_domain.domainfwrules.Any(y => y.moid == _firewallrule.id))
-                                {
-                                    _mrmpfirewallrule = _mrmp_update_domain.domainfwrules.FirstOrDefault(y => y.moid == _firewallrule.id);
-                                }
-                                else
-                                {
-                                    _mrmpfirewallrule.fwtype = "platform";
-                                    _mrmp_update_domain.domainfwrules.Add(_mrmpfirewallrule);
-                                }
-
-                                _mrmpfirewallrule.deleted = false;
-                                _mrmpfirewallrule.action = _firewallrule.action.ToUpper();
-                                _mrmpfirewallrule.ipversion = _firewallrule.ipVersion.ToUpper();
-                                // _mrmpfirewallrule.placement = _firewallrule.
-                                _mrmpfirewallrule.enabled = _firewallrule.enabled;
-                                _mrmpfirewallrule.platformdomain_id = _platform.platformdomains.FirstOrDefault(x => x.moid == _firewallrule.networkDomainId).id;
-                                _mrmpfirewallrule.protocol = _firewallrule.protocol;
-                                _mrmpfirewallrule.rulename = _firewallrule.name;
-                                _mrmpfirewallrule.moid = _firewallrule.id;
-
-                                //source ip
-                                if (_firewallrule.source.IpAddress != null)
-                                {
-                                    if (_firewallrule.source.IpAddress.prefixSizeSpecified) //This is a subnet
-                                    {
-                                        _mrmpfirewallrule.source_ip_type = "subnet";
-                                        _mrmpfirewallrule.source_subnet = _firewallrule.source.IpAddress.address;
-                                        _mrmpfirewallrule.source_subnet_prefix = _firewallrule.source.IpAddress.prefixSize;
-                                    }
-                                    else
-                                    {
-                                        _mrmpfirewallrule.source_ip_type = "address";
-                                        _mrmpfirewallrule.source_ip = _firewallrule.source.IpAddress.address;
-                                    }
-                                }
-                                else if (_firewallrule.source.IpAddressList != null)
-                                {
-                                    _mrmpfirewallrule.source_ip_type = "address_list";
-                                    if (_mrmp_update_domain.domainiplists != null)
-                                    {
-                                        _mrmpfirewallrule.source_domainiplist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.source.IpAddressList.id).id;
-                                    }
-                                }
-
-                                //source port
-                                if (_firewallrule.source.PortRange != null)
-                                {
-                                    _mrmpfirewallrule.source_port_type = "single_port";
-                                    _mrmpfirewallrule.source_begin_port = _firewallrule.source.PortRange.begin;
-                                    if (_firewallrule.source.PortRange.endSpecified)
-                                    {
-                                        _mrmpfirewallrule.source_port_type = "port_range";
-                                        _mrmpfirewallrule.source_end_port = _firewallrule.source.PortRange.end;
-                                    }
-                                }
-                                else if (_firewallrule.source.PortList != null)
-                                {
-                                    _mrmpfirewallrule.source_port_type = "port_list";
-                                    if (_mrmp_update_domain.domainportlists != null)
-                                    {
-                                        _mrmpfirewallrule.source_domainportlist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.source.IpAddressList.id).id;
-                                    }
-                                }
-
-
-
-                                //target ip
-                                if (_firewallrule.destination.IpAddress != null)
-                                {
-                                    if (_firewallrule.destination.IpAddress.prefixSizeSpecified) //This is a subnet
-                                    {
-                                        _mrmpfirewallrule.target_ip_type = "subnet";
-                                        _mrmpfirewallrule.target_subnet = _firewallrule.destination.IpAddress.address;
-                                        _mrmpfirewallrule.target_subnet_prefix = _firewallrule.destination.IpAddress.prefixSize;
-                                    }
-                                    else
-                                    {
-                                        _mrmpfirewallrule.target_ip_type = "address";
-                                        _mrmpfirewallrule.target_ip = _firewallrule.destination.IpAddress.address;
-                                    }
-                                }
-                                else if (_firewallrule.destination.IpAddressList != null)
-                                {
-                                    _mrmpfirewallrule.target_ip_type = "address_list";
-                                    if (_mrmp_update_domain.domainiplists != null)
-                                    {
-                                        _mrmpfirewallrule.target_domainiplist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.destination.IpAddressList.id).id;
-                                    }
-                                }
-
-                                //target port
-                                if (_firewallrule.destination.PortRange != null)
-                                {
-                                    _mrmpfirewallrule.target_port_type = "single_port";
-                                    _mrmpfirewallrule.target_begin_port = _firewallrule.destination.PortRange.begin;
-                                    if (_firewallrule.destination.PortRange.endSpecified)
-                                    {
-                                        _mrmpfirewallrule.target_port_type = "port_range";
-                                        _mrmpfirewallrule.target_end_port = _firewallrule.destination.PortRange.end;
-                                    }
-                                }
-                                else if (_firewallrule.destination.PortList != null)
-                                {
-                                    _mrmpfirewallrule.target_port_type = "port_list";
-                                    if (_mrmp_update_domain.domainportlists != null)
-                                    {
-                                        _mrmpfirewallrule.target_domainportlist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.destination.IpAddressList.id).id;
-                                    }
-                                }
-
-                            }
                         }
                     }
 
+                    _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
+                    if (_caas_networkdomain_list != null)
+                    {
+                        foreach (NetworkDomainType _caas_domain in _caas_networkdomain_list)
+                        {
+                            _update_platform = new MRPPlatformType() { id = _platform.id, platformdomains = new List<MRPPlatformdomainType>() };
+                            MRPPlatformdomainType _mrmp_update_domain = new MRPPlatformdomainType();
+                            if (_update_platform.platformdomains.Exists(x => x.moid == _caas_domain.id))
+                            {
+                                _mrmp_update_domain = _update_platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id);
+                                _mrmp_update_domain.domainiplists.Where(x => x.iptype == "platform").ForEach(x => { x.deleted = true; x.domainiplistaddresses.ForEach(y => y.deleted = true); });
+                                _mrmp_update_domain.domainfwrules.Where(x => x.fwtype == "platform").ForEach(x => x.deleted = true);
+                                _mrmp_update_domain.domainnatrules.Where(x => x.nattype == "platform").ForEach(x => x.deleted = true);
+                                _mrmp_update_domain.domainaffinityrules.Where(x => x.affinitytype == "platform").ForEach(x => x.deleted = true);
+                                _mrmp_update_domain.domainportlists.Where(x => x.porttype == "platform").ForEach(x => { x.deleted = true; x.domainportlistports.ForEach(y => y.deleted = true); });
+                            }
+                            else
+                            {
+                                _mrmp_update_domain.domainfwrules = new List<MRPDomainFWRuleType>();
+                                _mrmp_update_domain.domainiplists = new List<MRPDomainIPType>();
+                                _mrmp_update_domain.domainnatrules = new List<MRPDomainNATRuleType>();
+                                _mrmp_update_domain.domainportlists = new List<MRPDomainPortType>();
+                                _mrmp_update_domain.domainaffinityrules = new List<MRPDomainAffinityRuleType>();
+                                _update_platform.platformdomains.Add(_mrmp_update_domain);
+                            }
+
+                            _update_platform.platformdomains.Add(_platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id));
+
+                            var _firewall_rules = await CaaS.Networking.FirewallRule.GetFirewallRules(new FirewallRuleListOptions() { NetworkDomainId = Guid.Parse(_caas_domain.id) });
+                            var _nat_rules = await CaaS.Networking.Nat.GetNatRules(Guid.Parse(_caas_domain.id));
+                            var _affinity_rules = await CaaS.ServerManagement.AntiAffinityRule.GetAntiAffinityRulesForNetworkDomain(Guid.Parse(_caas_domain.id));
+
+                            if (_affinity_rules != null)
+                            {
+                                foreach (var _affinity_rule in _affinity_rules)
+                                {
+                                    MRPDomainAffinityRuleType _mrp_affinityrule = new MRPDomainAffinityRuleType();
+                                    if (_mrmp_update_domain.domainaffinityrules.Exists(x => x.moid == _affinity_rule.id))
+                                    {
+                                        _mrp_affinityrule = _mrmp_update_domain.domainaffinityrules.FirstOrDefault(x => x.moid == _affinity_rule.id);
+                                    }
+                                    else
+                                    {
+                                        _mrp_affinityrule.affinitytype = "platform";
+                                        if (_platform.workloads.Exists(x => x.moid == _affinity_rule.serverSummary[0].id) && _platform.workloads.Exists(x => x.moid == _affinity_rule.serverSummary[1].id))
+                                        {
+                                            _mrmp_update_domain.domainaffinityrules.Add(_mrp_affinityrule);
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                    _mrp_affinityrule.deleted = false;
+                                    _mrp_affinityrule.moid = _affinity_rule.id;
+                                    _mrp_affinityrule.workload1_id = _platform.workloads.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[0].id).id;
+                                    _mrp_affinityrule.workload2_id = _platform.workloads.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[1].id).id;
+                                }
+                            }
+
+                            if (_nat_rules != null)
+                            {
+                                foreach (var _natrule in _nat_rules)
+                                {
+                                    MRPDomainNATRuleType _mrmpnatrule = new MRPDomainNATRuleType();
+                                    if (_mrmp_update_domain.domainnatrules.Exists(x => x.moid == _natrule.id))
+                                    {
+                                        _mrmpnatrule = _mrmp_update_domain.domainnatrules.FirstOrDefault(x => x.moid == _natrule.id);
+                                    }
+                                    else
+                                    {
+                                        _mrmpnatrule.nattype = "platform";
+                                        _mrmp_update_domain.domainnatrules.Add(_mrmpnatrule);
+                                    }
+                                    _mrmpnatrule.deleted = false;
+                                    _mrmpnatrule.moid = _natrule.id;
+                                    _mrmpnatrule.platformdomain_id = _mrmp_update_domain.id;
+                                    _mrmpnatrule.rulename = String.Format("{0} NAT Rule", _natrule.internalIp);
+                                    _mrmpnatrule.internal_ip = _natrule.internalIp;
+                                    _mrmpnatrule.external_ip = _natrule.externalIp;
+                                    if (_platform.workloads.Exists(x => x.iplist.Contains(_natrule.internalIp)))
+                                    {
+                                        _mrmpnatrule.workload_id = _platform.workloads.FirstOrDefault(x => x.iplist.Contains(_natrule.internalIp)).id;
+                                    }
+                                }
+                            }
+
+                            if (_firewall_rules != null)
+                            {
+                                //loop firewall rules
+                                foreach (var _firewallrule in _firewall_rules.Where(x => x.ruleType != "DEFAULT_RULE"))
+                                {
+                                    MRPDomainFWRuleType _mrmpfirewallrule = new MRPDomainFWRuleType();
+
+                                    if (_mrmp_update_domain.domainfwrules.Any(y => y.moid == _firewallrule.id))
+                                    {
+                                        _mrmpfirewallrule = _mrmp_update_domain.domainfwrules.FirstOrDefault(y => y.moid == _firewallrule.id);
+                                    }
+                                    else
+                                    {
+                                        _mrmpfirewallrule.fwtype = "platform";
+                                        _mrmp_update_domain.domainfwrules.Add(_mrmpfirewallrule);
+                                    }
+
+                                    _mrmpfirewallrule.deleted = false;
+                                    _mrmpfirewallrule.action = _firewallrule.action.ToUpper();
+                                    _mrmpfirewallrule.ipversion = _firewallrule.ipVersion.ToUpper();
+                                    // _mrmpfirewallrule.placement = _firewallrule.
+                                    _mrmpfirewallrule.enabled = _firewallrule.enabled;
+                                    _mrmpfirewallrule.platformdomain_id = _platform.platformdomains.FirstOrDefault(x => x.moid == _firewallrule.networkDomainId).id;
+                                    _mrmpfirewallrule.protocol = _firewallrule.protocol;
+                                    _mrmpfirewallrule.rulename = _firewallrule.name;
+                                    _mrmpfirewallrule.moid = _firewallrule.id;
+
+                                    //source ip
+                                    if (_firewallrule.source.IpAddress != null)
+                                    {
+                                        if (_firewallrule.source.IpAddress.prefixSizeSpecified) //This is a subnet
+                                        {
+                                            _mrmpfirewallrule.source_ip_type = "subnet";
+                                            _mrmpfirewallrule.source_subnet = _firewallrule.source.IpAddress.address;
+                                            _mrmpfirewallrule.source_subnet_prefix = _firewallrule.source.IpAddress.prefixSize;
+                                        }
+                                        else
+                                        {
+                                            _mrmpfirewallrule.source_ip_type = "address";
+                                            _mrmpfirewallrule.source_ip = _firewallrule.source.IpAddress.address;
+                                        }
+                                    }
+                                    else if (_firewallrule.source.IpAddressList != null)
+                                    {
+                                        _mrmpfirewallrule.source_ip_type = "address_list";
+                                        if (_mrmp_update_domain.domainiplists != null)
+                                        {
+                                            _mrmpfirewallrule.source_domainiplist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.source.IpAddressList.id).id;
+                                        }
+                                    }
+
+                                    //source port
+                                    if (_firewallrule.source.PortRange != null)
+                                    {
+                                        _mrmpfirewallrule.source_port_type = "single_port";
+                                        _mrmpfirewallrule.source_begin_port = _firewallrule.source.PortRange.begin;
+                                        if (_firewallrule.source.PortRange.endSpecified)
+                                        {
+                                            _mrmpfirewallrule.source_port_type = "port_range";
+                                            _mrmpfirewallrule.source_end_port = _firewallrule.source.PortRange.end;
+                                        }
+                                    }
+                                    else if (_firewallrule.source.PortList != null)
+                                    {
+                                        _mrmpfirewallrule.source_port_type = "port_list";
+                                        if (_mrmp_update_domain.domainportlists != null)
+                                        {
+                                            _mrmpfirewallrule.source_domainportlist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.source.IpAddressList.id).id;
+                                        }
+                                    }
+
+
+
+                                    //target ip
+                                    if (_firewallrule.destination.IpAddress != null)
+                                    {
+                                        if (_firewallrule.destination.IpAddress.prefixSizeSpecified) //This is a subnet
+                                        {
+                                            _mrmpfirewallrule.target_ip_type = "subnet";
+                                            _mrmpfirewallrule.target_subnet = _firewallrule.destination.IpAddress.address;
+                                            _mrmpfirewallrule.target_subnet_prefix = _firewallrule.destination.IpAddress.prefixSize;
+                                        }
+                                        else
+                                        {
+                                            _mrmpfirewallrule.target_ip_type = "address";
+                                            _mrmpfirewallrule.target_ip = _firewallrule.destination.IpAddress.address;
+                                        }
+                                    }
+                                    else if (_firewallrule.destination.IpAddressList != null)
+                                    {
+                                        _mrmpfirewallrule.target_ip_type = "address_list";
+                                        if (_mrmp_update_domain.domainiplists != null)
+                                        {
+                                            _mrmpfirewallrule.target_domainiplist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.destination.IpAddressList.id).id;
+                                        }
+                                    }
+
+                                    //target port
+                                    if (_firewallrule.destination.PortRange != null)
+                                    {
+                                        _mrmpfirewallrule.target_port_type = "single_port";
+                                        _mrmpfirewallrule.target_begin_port = _firewallrule.destination.PortRange.begin;
+                                        if (_firewallrule.destination.PortRange.endSpecified)
+                                        {
+                                            _mrmpfirewallrule.target_port_type = "port_range";
+                                            _mrmpfirewallrule.target_end_port = _firewallrule.destination.PortRange.end;
+                                        }
+                                    }
+                                    else if (_firewallrule.destination.PortList != null)
+                                    {
+                                        _mrmpfirewallrule.target_port_type = "port_list";
+                                        if (_mrmp_update_domain.domainportlists != null)
+                                        {
+                                            _mrmpfirewallrule.target_domainportlist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.destination.IpAddressList.id).id;
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+
+                    }
+
+
+                    sw.Stop();
+
+                    Logger.log(
+                        String.Format("Completed inventory process for {5} - {0} new workloads - {1} updated platform networks - {2} updated workloads - {3} removed workloads = Total Execute Time: {4}",
+                        _new_workloads, _updated_platforms, _updated_workloads, _removed_workloads,
+                         TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), (_platform.platformtype + " : " + _platform.platformdatacenter.moid)
+                        ), Logger.Severity.Info);
                 }
-
-
-                sw.Stop();
-
-                Logger.log(
-                    String.Format("Completed inventory process for {5} - {0} new workloads - {1} updated platform networks - {2} updated workloads - {3} removed workloads = Total Execute Time: {4}",
-                    _new_workloads, _updated_platforms, _updated_workloads, _removed_workloads,
-                     TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), (_platform.platformtype + " : " + _platform.moid)
-                    ), Logger.Severity.Info);
             }
         }
     }

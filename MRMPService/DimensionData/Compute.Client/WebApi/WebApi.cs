@@ -151,21 +151,29 @@ namespace DD.CBU.Compute.Api.Client.WebApi
                 relativeOperationUri = pagingOptions.AppendToUri(relativeOperationUri);
             }
 
-            using (HttpResponseMessage response = await _httpClient.GetAsync(relativeOperationUri))
+            try
             {
-				if (!response.IsSuccessStatusCode)
-				{
-					await HandleApiRequestErrors(response, relativeOperationUri);		
-				}
+                using (HttpResponseMessage response = await _httpClient.GetAsync(relativeOperationUri))
+                {
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        await HandleApiRequestErrors(response);
+                    }
 
-                if (typeof (TResult) == typeof (string))
-                {
-                    return (TResult) (object) (await response.Content.ReadAsStringAsync());
+                    if (typeof (TResult) == typeof (string))
+                    {
+                        return (TResult) (object) (await response.Content.ReadAsStringAsync());
+                    }
+                    else
+                    {
+                        return await ReadResponseAsync<TResult>(response.Content);
+                    }
                 }
-                else
-                {
-                    return await ReadResponseAsync<TResult>(response.Content);
-                }
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new ComputeApiHttpException(new Uri(_httpClient.BaseAddress, relativeOperationUri), HttpMethod.Get,
+                    ex);
             }
 		}
 
@@ -190,55 +198,71 @@ namespace DD.CBU.Compute.Api.Client.WebApi
 		public async Task<TResult> PostAsync<TObject, TResult>(Uri relativeOperationUri, TObject content)
 		{
 			ObjectContent<TObject> objectContent = new ObjectContent<TObject>(content, _mediaTypeFormatters.XmlFormatter);
-			using (
-				HttpResponseMessage response =
-					await
-						_httpClient.PostAsync(relativeOperationUri, objectContent))
-			{				
-				if (!response.IsSuccessStatusCode)
-				{
-					await HandleApiRequestErrors(response, relativeOperationUri);
-				}
-				
-				return await ReadResponseAsync<TResult>(response.Content);
-			}
+		    try
+		    {
+		        using (
+		            HttpResponseMessage response =
+		                await
+		                    _httpClient.PostAsync(relativeOperationUri, objectContent))
+		        {
+		            if (!response.IsSuccessStatusCode)
+		            {
+		                await HandleApiRequestErrors(response);
+		            }
+
+		            return await ReadResponseAsync<TResult>(response.Content);
+		        }
+		    }
+		    catch (HttpRequestException ex)
+		    {
+		        throw new ComputeApiHttpException(new Uri(_httpClient.BaseAddress, relativeOperationUri), HttpMethod.Post,
+		            ex);
+		    }
 		}
 
-		/// <summary>
-		/// Invoke a CaaS API operation using a HTTP POST request.
-		/// </summary>
-		/// <typeparam name="TResult">
-		/// The XML-serialisable data contract type into which the response will be deserialised.
-		/// </typeparam>
-		/// <param name="relativeOperationUri">
-		/// The operation URI (relative to the CaaS API's base URI).
-		/// </param>
-		/// <param name="content">
-		/// The content that will be deserialised and passed in the body of the POST request.
-		/// </param>
-		/// <returns>
-		/// The operation result.
-		/// </returns>
-		public async Task<TResult> PostAsync<TResult>(Uri relativeOperationUri, string content)
-		{
-			var textformatter = new TextMediaTypeFormatter();
-			var objectContent = new ObjectContent<string>(
-				content, 
-				textformatter, 
-				"application/x-www-form-urlencoded");
-			using (
-				HttpResponseMessage response =
-					await
-						_httpClient.PostAsync(relativeOperationUri, objectContent))
-			{
-				if (!response.IsSuccessStatusCode)
-					await HandleApiRequestErrors(response, relativeOperationUri);
-				
-				return await ReadResponseAsync<TResult>(response.Content);
-			}
-		}
+	    /// <summary>
+	    /// Invoke a CaaS API operation using a HTTP POST request.
+	    /// </summary>
+	    /// <typeparam name="TResult">
+	    /// The XML-serialisable data contract type into which the response will be deserialised.
+	    /// </typeparam>
+	    /// <param name="relativeOperationUri">
+	    /// The operation URI (relative to the CaaS API's base URI).
+	    /// </param>
+	    /// <param name="content">
+	    /// The content that will be deserialised and passed in the body of the POST request.
+	    /// </param>
+	    /// <returns>
+	    /// The operation result.
+	    /// </returns>
+	    public async Task<TResult> PostAsync<TResult>(Uri relativeOperationUri, string content)
+	    {
+	        var textformatter = new TextMediaTypeFormatter();
+	        var objectContent = new ObjectContent<string>(
+	            content,
+	            textformatter,
+	            "application/x-www-form-urlencoded");
+	        try
+	        {
+	            using (
+	                HttpResponseMessage response =
+	                    await
+	                        _httpClient.PostAsync(relativeOperationUri, objectContent))
+	            {
+	                if (!response.IsSuccessStatusCode)
+	                    await HandleApiRequestErrors(response);
 
-		/// <summary>
+	                return await ReadResponseAsync<TResult>(response.Content);
+	            }
+	        }
+	        catch (HttpRequestException ex)
+	        {
+	            throw new ComputeApiHttpException(new Uri(_httpClient.BaseAddress, relativeOperationUri), HttpMethod.Post,
+	                ex);
+	        }
+	    }
+
+	    /// <summary>
 		/// Dispose of resources being used by the CaaS API client.
 		/// </summary>
 		/// <param name="disposing">
@@ -261,10 +285,7 @@ namespace DD.CBU.Compute.Api.Client.WebApi
 		/// </summary>
 		/// <param name="response">
 		/// The response.
-		/// </param>
-		/// <param name="uri">
-		/// The uri.
-		/// </param>
+		/// </param>		
 		/// <returns>
 		/// The <see cref="Task"/>.
 		/// </returns>
@@ -274,40 +295,117 @@ namespace DD.CBU.Compute.Api.Client.WebApi
 		/// </exception>
 		/// <exception cref="HttpRequestException">
 		/// </exception>
-		private async Task HandleApiRequestErrors(HttpResponseMessage response, Uri uri)
+		private async Task HandleApiRequestErrors(HttpResponseMessage response)
 		{
-			switch (response.StatusCode)
-			{
-				case HttpStatusCode.Unauthorized:
-					{
-						throw new InvalidCredentialsException(uri);
-					}
-
-				case HttpStatusCode.BadRequest:
-					{
-						// Handle specific CaaS Status response when posting a bad request
-						if (uri.ToString().StartsWith(ApiUris.MCP1_0_PREFIX))
-						{
-							Status status = await response.Content.ReadAsAsync<Status>(_mediaTypeFormatters);
-							throw new BadRequestException(status, uri);
-						}
-					    ResponseType responseMessage = await ReadResponseAsync<ResponseType>(response.Content);                        
-						throw new BadRequestException(responseMessage, uri);
-					}
-
-				default:
-					{
-						throw new HttpRequestException(
-							string.Format(
-								"CaaS API returned HTTP status code {0} ({1}) when performing {2} {3} on '{4}'.",
-								(int)response.StatusCode,
-								response.StatusCode,
-                                response.RequestMessage.RequestUri.Scheme,
-                                response.RequestMessage.Method,
-								response.RequestMessage.RequestUri));
-					}
-			}
+		    switch (response.StatusCode)
+		    {
+		        case HttpStatusCode.Unauthorized:
+		        {
+		            throw new InvalidCredentialsException(response.RequestMessage.RequestUri);
+		        }
+                // Maintenance Window Exception                
+                case HttpStatusCode.ServiceUnavailable:
+		        {
+		            // Maintenance Window Exception                             
+		            // Handle specific CaaS Status response when posting a bad request		            
+		            throw new ServiceUnavailableException(response.RequestMessage.RequestUri);
+		        }
+		        case HttpStatusCode.Forbidden:
+		        case HttpStatusCode.BadRequest:
+                    throw await HandleApiRequestErrorsWithResponse(response, response.RequestMessage.RequestUri);
+                // Compute Api should handle Internal Server Error
+                case HttpStatusCode.InternalServerError:
+		        {
+		            var respone = await SafeReadContentAsync(response);
+                    throw new InternalServerErrorException(response.RequestMessage.RequestUri, respone);
+		        }
+                // Typically this happens when the Region is undergoing maintenance
+                case HttpStatusCode.NotFound:
+		        {
+		            throw new ComputeApiMethodNotFoundException(response.RequestMessage.RequestUri);
+		        }
+		        // Getting rid of HttpException, instead throwing ComputeApiHttpException, as the consumer can distinctly figure out the error came from Compute Api
+		        default:
+		        {
+		            var respone = await SafeReadContentAsync(response);
+		            throw new ComputeApiHttpException(response.RequestMessage.RequestUri, response.RequestMessage.Method, response.StatusCode, respone);
+		        }
+		    }
 		}
+
+        /// <summary>
+        /// ReadContent From Response
+        /// </summary>     
+        /// <param name="response">Http Response Object</param>        
+        /// <returns>Task for writing the log</returns>
+        private static async Task<string> SafeReadContentAsync(HttpResponseMessage response)
+        {
+            try
+            {
+                return response != null &&  response.Content != null
+                    ? await response.Content.ReadAsStringAsync()
+                    : string.Empty;
+            }
+            catch
+            {
+                // ignored
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Handle Http Exceptions with Response details
+        /// </summary>
+        /// <param name="response">Http Response</param>
+        /// <param name="uri">Request Uri</param>
+        /// <returns></returns>
+	    private async Task<ComputeApiException> HandleApiRequestErrorsWithResponse(HttpResponseMessage response, Uri uri)
+	    {
+	        Status status = null;
+	        ResponseType responseMessage = null;
+            string rawResponse = string.Empty; 
+                    
+	        if (uri.ToString().Contains(ApiUris.MCP1_0_PREFIX))
+	        {	         
+                status = await SafeReadResponseAsync<Status>(response.Content);
+            }
+	        else
+	        {
+	            responseMessage = await SafeReadResponseAsync<ResponseType>(response.Content);	             
+	        }
+
+            if (responseMessage == null && status == null)
+            {
+                rawResponse = await SafeReadContentAsync(response);
+            }
+
+            switch (response.StatusCode)
+	        {
+	            case HttpStatusCode.Forbidden:
+	            {
+	                if (status != null)
+	                    return new PermissionDeniedException(status, uri);
+	                else if (responseMessage != null)
+	                    return new PermissionDeniedException(responseMessage, uri);
+	                else
+	                    return new PermissionDeniedException(rawResponse, uri);
+	            }
+	            case HttpStatusCode.BadRequest:
+	            {
+                        // Handle specific CaaS Status response when posting a bad request
+                        if (status != null)
+                            return new BadRequestException(status, uri);
+                        else if (responseMessage != null)
+                            return new BadRequestException(responseMessage, uri);
+                        else
+                            return new BadRequestException(rawResponse, uri);                      
+	            }	           
+                default:
+	            {	                
+	                return new ComputeApiHttpException(uri, response.RequestMessage.Method, response.StatusCode, rawResponse);
+	            }
+	        }
+	    }
 
         /// <summary>
         /// Read response with utf-8 encoding workaround
@@ -315,7 +413,27 @@ namespace DD.CBU.Compute.Api.Client.WebApi
         /// <typeparam name="TResult">Result type</typeparam>
         /// <param name="content">Http content</param>
         /// <returns>Response task</returns>
-	    private async Task<TResult> ReadResponseAsync<TResult>(HttpContent content)
+	    private async Task<TResult> SafeReadResponseAsync<TResult>(HttpContent content)
+        {
+            try
+            {
+                return await ReadResponseAsync<TResult>(content);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+            return await Task.FromResult(default(TResult));
+        }
+
+
+        /// <summary>
+        /// Read response with utf-8 encoding workaround
+        /// </summary>
+        /// <typeparam name="TResult">Result type</typeparam>
+        /// <param name="content">Http content</param>
+        /// <returns>Response task</returns>
+        private async Task<TResult> ReadResponseAsync<TResult>(HttpContent content)
 	    {
             Exception originalException = null;
             try

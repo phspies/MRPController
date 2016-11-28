@@ -21,7 +21,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
 {
     public class Startup
     {
-        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _osinventody_thread, _osnetstat_thread, _dt_job_thread, _dt_event_thread;
+        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _osinventody_thread, _osnetstat_thread, _dt_job_thread, _dt_event_thread, _mcp_cg_thread;
 
         public void Start()
         {
@@ -238,6 +238,13 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
             _dt_event_thread = new Thread(new ThreadStart(_dt_event_polling.Start));
             _dt_event_thread.Priority = ThreadPriority.AboveNormal;
             _dt_event_thread.Start();
+
+            MCPCGPollerThread _mcp_cg_polling = new MCPCGPollerThread();
+            if (Global.debug) { Logger.log("Starting MCP CG Polling Thread", Logger.Severity.Debug); };
+            _mcp_cg_thread = new Thread(new ThreadStart(_mcp_cg_polling.Start));
+            _mcp_cg_thread.Priority = ThreadPriority.AboveNormal;
+            _mcp_cg_thread.Start();
+            
         }
     }
 }

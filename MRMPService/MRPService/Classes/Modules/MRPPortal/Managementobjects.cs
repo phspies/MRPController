@@ -5,37 +5,8 @@ using System.Net;
 
 namespace MRMPService.MRMPAPI
 {
-    class MRPManagementobject : Core, IDisposable
+    class MRPManagementobject : Core
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~MRPManagementobject()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
         public MRPManagementobject(MRMP_ApiClient _MRP) : base(_MRP) { }
 
         public MRPManagementobjectListType listmanagementobjects()
@@ -44,7 +15,11 @@ namespace MRMPService.MRMPAPI
             MRPCommandManagerType worker = new MRPCommandManagerType();
             return (MRPManagementobjectListType)post<MRPManagementobjectListType>(worker);
         }
-
+        public MRPManagementobjectListType list_filtered(MRManagementobjectFilterType filter_settings)
+        {
+            endpoint = "/managementobjects/list.json";
+            return post<MRPManagementobjectListType>(filter_settings);
+        }
         public MRPManagementobjectType getmanagementobject_id(string _managementobject_id)
         {
             endpoint = "/managementobjects/get_id.json";

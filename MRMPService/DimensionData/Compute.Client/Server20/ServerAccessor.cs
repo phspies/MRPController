@@ -1,4 +1,6 @@
-﻿namespace DD.CBU.Compute.Api.Client.Server20
+﻿using DD.CBU.Compute.Api.Contracts.Server;
+
+namespace DD.CBU.Compute.Api.Client.Server20
 {
     using System;
     using System.Collections.Generic;
@@ -191,23 +193,36 @@
         /// <param name="serverId">The server id.</param>
         /// <param name="vlanId">The VLAN id</param>
         /// <param name="privateIpv4">The Private IP v4 address</param>
+        /// <param name="networkAdapter">The optional network adapter type (E1000 or VMXNET3)</param>
         /// <returns>The <see cref="Task"/>.</returns>
-        public async Task<ResponseType> AddNic(Guid serverId, Guid? vlanId, string privateIpv4)
+        public async Task<ResponseType> AddNic(Guid serverId, Guid? vlanId, string privateIpv4, string networkAdapter = null)
         {
             if (vlanId == null && string.IsNullOrEmpty(privateIpv4))
             {
                 throw new ArgumentNullException("vlanId");
             }
 
-            AddNicType addNicType = new AddNicType {serverId = serverId.ToString(), nic = new VlanIdOrPrivateIpType()};
+            var nic = new VlanIdOrPrivateIpType
+            {
+                networkAdapter = networkAdapter
+            };
+
+            // Private IP takes priority over vlanId
+            // As Setting VlanId will make the api allocate the ip automatically ignoring the privateIp
             if (!string.IsNullOrEmpty(privateIpv4))
             {
-                addNicType.nic.privateIpv4 = privateIpv4;
+                nic.privateIpv4 = privateIpv4;
             }
-            else if (vlanId != null)
+            else
             {
-                addNicType.nic.vlanId = vlanId.ToString();
+                nic.vlanId = vlanId != null ? vlanId.ToString() : null;
             }
+
+            AddNicType addNicType = new AddNicType
+            {
+                serverId = serverId.ToString(),
+                nic = nic
+            };           
 
             return await _apiClient.PostAsync<AddNicType, ResponseType>(ApiUris.AddNic(_apiClient.OrganizationId), addNicType);
         }
@@ -261,10 +276,18 @@
                         ApiUris.NotifyNicIpChange(_apiClient.OrganizationId), notifyNicIpChange);
         }
 
-        /// <summary>Updates compute resource properties of a Server </summary>
-        /// <param name="reconfigureServer">Details of the server to be updated</param>
-        /// <returns>	A standard CaaS response </returns>
-        public async Task<ResponseType> ReconfigureServer(ReconfigureServerType reconfigureServer)
+		/// <summary>Edit metadata of the server</summary>
+		/// <param name="editServerMetadata">Server metadata change model.</param>
+		/// <returns>The async type of <see cref="ResponseType"/></returns>
+		public async Task<ResponseType> EditServerMetadata(editServerMetadata editServerMetadata)
+		{
+			return await _apiClient.PostAsync<editServerMetadata, ResponseType>(ApiUris.EditServerMetadata(_apiClient.OrganizationId), editServerMetadata);
+		}
+
+		/// <summary>Updates compute resource properties of a Server </summary>
+		/// <param name="reconfigureServer">Details of the server to be updated</param>
+		/// <returns>	A standard CaaS response </returns>
+		public async Task<ResponseType> ReconfigureServer(ReconfigureServerType reconfigureServer)
         {
             return await _apiClient.PostAsync<ReconfigureServerType, ResponseType>(
                 ApiUris.ReconfigureServer(_apiClient.OrganizationId), 

@@ -17,7 +17,7 @@ namespace MRMPService.DTPollerCollection
         {
             while (true)
             {
-                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(Global.rp4vm_group_polling_interval);
+                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(Global.rp4vm_cg_polling_interval);
                 Stopwatch sw = Stopwatch.StartNew();
 
                 Logger.log(String.Format("Staring RP4VM collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
@@ -32,7 +32,7 @@ namespace MRMPService.DTPollerCollection
 
                 foreach (var _rp4vm in _rp4vms)
                 {
-                    while (lstThreads.Count(x => x.IsAlive) > Global.rp4vm_group_polling_concurrency)
+                    while (lstThreads.Count(x => x.IsAlive) > Global.rp4vm_cg_polling_concurrency)
                     {
                         Thread.Sleep(1000);
                     }

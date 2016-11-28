@@ -27,7 +27,7 @@ namespace MRMPService.Tasks.MCP
             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
                 _mrp_api.task().progress(_task_id, String.Format("Starting provisioning process"), ReportProgress.Progress(_start_progress, _end_progress, 1));
-                
+
                 //update target workload with updated iplist and moid information
                 MRPWorkloadType _temp_workload = _mrp_api.workload().get_by_id(_target_workload.id);
 
@@ -71,7 +71,10 @@ namespace MRMPService.Tasks.MCP
                             if (_caas_server.started)
                             {
                                 _mrp_api.task().progress(_task_id, String.Format("Reusing available workload which was deployed {0}", _caas_server.createTime), ReportProgress.Progress(_start_progress, _end_progress, 11));
-                                _mrp_api.task().progress(_task_id, String.Format("Not rerunning Operating System Customization. Please make sure the server the network and storage components are configured correctly."), ReportProgress.Progress(_start_progress, _end_progress, 12));
+                                if (_os_customization)
+                                {
+                                    _mrp_api.task().progress(_task_id, String.Format("Not rerunning Operating System Customization. Please make sure the server the network and storage components are configured correctly."), ReportProgress.Progress(_start_progress, _end_progress, 12));
+                                }
                                 return;
                             }
                             else
@@ -99,8 +102,18 @@ namespace MRMPService.Tasks.MCP
                 List<DeployServerTypeDisk> _disks = new List<DeployServerTypeDisk>();
 
                 //Set Tier for first disk being deployed
-                MRPWorkloadVolumeType _first_disk = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == 0);
-                _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier_id });
+
+                if (_os_customization)
+                {
+                    var _first_disk = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == 0);
+                    _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier_id });
+
+                }
+                else
+                {
+                    var _first_disk = _target_workload.workloaddisks.FirstOrDefault(x => x.diskindex == 0);
+                    _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier_id });
+                }
 
                 _vm.name = _target_workload.hostname;
                 _vm.description = String.Format("{0} MRMP : {1}", DateTime.UtcNow, _protectiongroup.group);
@@ -274,15 +287,22 @@ namespace MRMPService.Tasks.MCP
                     //    }
                     //}
 
-                
+
 
                     //Expand 0 drive and Add additional disks if required
                     int count = 0;
                     foreach (int _disk_index in _target_workload.workloadvolumes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
                     {
                         //increase disk by 5GB
-                        long _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
-
+                        long _disk_size = 0;
+                        if (_os_customization)
+                        {
+                            _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
+                        }
+                        else
+                        {
+                            _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize);
+                        }
                         String _disk_tier = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier_id;
                         if (deployedServer.disk.ToList().Exists(x => x.scsiId == _disk_index))
                         {
@@ -362,7 +382,7 @@ namespace MRMPService.Tasks.MCP
                     //update Platform inventory for server
                     using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                     {
-                        _mrp_api.task().progress(_task_id, String.Format("Updating platform information for {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 80));                     
+                        _mrp_api.task().progress(_task_id, String.Format("Updating platform information for {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 80));
                     }
                     PlatformInventoryWorkloadDo.UpdateMCPWorkload(_newvm_platform_guid.ToString(), _platform);
 

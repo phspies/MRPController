@@ -24,7 +24,7 @@ namespace MRMPService.PortalTasks
             {
                 try
                 {
-                    RP4VM.CreateConsistencyGroup(_mrmp_task.id, _payload.workload_pairs.Select(x => x.source).ToList(), _protectiongroup, _mo, 1, 99);
+                    RP4VM.CreateConsistencyGroup(_mrmp_task.id, _payload.workloadpairs.Select(x => x.source_workload).ToList(), _protectiongroup, _mo, 1, 99);
                     _mrp_portal.task().successcomplete(_mrmp_task.id, "Successfully configured consistency group");
                 }
                 catch (Exception ex)

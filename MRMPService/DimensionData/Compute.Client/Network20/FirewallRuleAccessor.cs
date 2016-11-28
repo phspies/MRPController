@@ -111,9 +111,9 @@
 	    /// </summary>
 	    /// <param name="createIpAddressList">The ip address list details.</param>
 	    /// <returns>The response details.</returns>
-	    public async Task<ResponseType> CreateIpAddressList(CreateIpAddressList createIpAddressList)
+	    public async Task<ResponseType> CreateIpAddressList(createIpAddressList createIpAddressList)
 	    {
-            return await _api.PostAsync<CreateIpAddressList, ResponseType>(
+            return await _api.PostAsync<createIpAddressList, ResponseType>(
                 ApiUris.CreateIpAddressList(_api.OrganizationId),
                 createIpAddressList);
         }
@@ -140,7 +140,7 @@
 	    /// <returns>The async task of <see cref="PagedResponse{IpAddressListType}"/></returns>
 	    public async Task<PagedResponse<IpAddressListType>> GetIpAddressListsPaginated(Guid networkDomainId, IpAddressListOptions options = null, PageableRequest pagingOptions = null)
         {
-            var response = await _api.GetAsync<IpAddressLists>(ApiUris.ListIpAddressList(_api.OrganizationId, networkDomainId), pagingOptions, options);
+            var response = await _api.GetAsync<ipAddressLists>(ApiUris.ListIpAddressList(_api.OrganizationId, networkDomainId), pagingOptions, options);
             return new PagedResponse<IpAddressListType>
             {
                 items = response.ipAddressList,
@@ -166,9 +166,22 @@
 	    /// </summary>
 	    /// <param name="editIpAddressList">The ip address list details.</param>
 	    /// <returns>The response details.</returns>
-	    public async Task<ResponseType> EditIpAddressList(EditIpAddressList editIpAddressList)
+	    public async Task<ResponseType> EditIpAddressList(editIpAddressList editIpAddressList)
         {
-            return await _api.PostAsync<EditIpAddressList, ResponseType>(
+			if (editIpAddressList.childIpAddressListIdSpecified && (editIpAddressList.childIpAddressListId == null || editIpAddressList.childIpAddressListId.Length == 0))
+			{
+				editIpAddressList.childIpAddressListId = new string[] { null };
+			}
+
+			if (editIpAddressList.ipAddressSpecified && (editIpAddressList.ipAddress == null || editIpAddressList.ipAddress.Length == 0))
+			{
+				editIpAddressList.ipAddress = new editIpAddressListIpAddress[] { null };
+			}
+
+            if (!string.IsNullOrWhiteSpace(editIpAddressList.description))
+                editIpAddressList.descriptionSpecified = true;
+
+            return await _api.PostAsync<editIpAddressList, ResponseType>(
                 ApiUris.EditIpAddressList(_api.OrganizationId),
                 editIpAddressList);
         }
@@ -178,9 +191,9 @@
 	    /// </summary>
 	    /// <param name="deleteIpAddressList">The ip address list id to be deleted.</param>
 	    /// <returns>The response details.</returns>
-	    public async Task<ResponseType> DeleteIpAddressList(DeleteIpAddressListType deleteIpAddressList)
+	    public async Task<ResponseType> DeleteIpAddressList(deleteIpAddressList deleteIpAddressList)
         {
-            return await _api.PostAsync<DeleteIpAddressListType, ResponseType>(
+            return await _api.PostAsync<deleteIpAddressList, ResponseType>(
                 ApiUris.DeleteIpAddressList(_api.OrganizationId),
                 deleteIpAddressList);
         }
@@ -190,13 +203,12 @@
 	    /// </summary>
 	    /// <param name="createPortList">The ip address list details.</param>
 	    /// <returns>The response details.</returns>
-	    public async Task<ResponseType> CreatePortList(CreatePortList createPortList)
+	    public async Task<ResponseType> CreatePortList(createPortList createPortList)
         {
-            return await _api.PostAsync<CreatePortList, ResponseType>(
+            return await _api.PostAsync<createPortList, ResponseType>(
                 ApiUris.CreatePortList(_api.OrganizationId),
                 createPortList);
         }
-
 
         /// <summary>
         /// Lists all ip address list.
@@ -219,7 +231,7 @@
         /// <returns>The async task of <see cref="PagedResponse{PortListType}"/></returns>
         public async Task<PagedResponse<PortListType>> GetPortListsPaginated(Guid networkDomainId, PortListOptions options = null, PageableRequest pagingOptions = null)
         {
-            var response = await _api.GetAsync<PortLists>(ApiUris.ListPortList(_api.OrganizationId, networkDomainId), pagingOptions, options);
+            var response = await _api.GetAsync<portLists>(ApiUris.ListPortList(_api.OrganizationId, networkDomainId), pagingOptions, options);
             return new PagedResponse<PortListType>
             {
                 items = response.portList,
@@ -233,11 +245,11 @@
         /// <summary>
         /// Gets the ip address list.
         /// </summary>
-        /// <param name="PortListId">The ip address list id.</param>
+        /// <param name="portListId">The ip address list id.</param>
         /// <returns>The collection of matching ip address list.</returns>
-        public async Task<PortListType> GetPortList(Guid PortListId)
+        public async Task<PortListType> GetPortList(Guid portListId)
         {
-            return await _api.GetAsync<PortListType>(ApiUris.GetPortList(_api.OrganizationId, PortListId));
+            return await _api.GetAsync<PortListType>(ApiUris.GetPortList(_api.OrganizationId, portListId));
         }
 
         /// <summary>
@@ -245,9 +257,22 @@
 	    /// </summary>
 	    /// <param name="editPortList">The ip address list details.</param>
 	    /// <returns>The response details.</returns>
-	    public async Task<ResponseType> EditPortList(EditPortList editPortList)
+	    public async Task<ResponseType> EditPortList(editPortList editPortList)
         {
-            return await _api.PostAsync<EditPortList, ResponseType>(
+            if (editPortList.portSpecified && (editPortList.port == null || editPortList.port.Length == 0))
+            {
+                editPortList.port = new EditPortListPort[] { null };
+            }
+
+            if (editPortList.childPortListIdSpecified && (editPortList.childPortListId == null || editPortList.childPortListId.Length == 0))
+            {
+                editPortList.childPortListId = new string[] { null };
+            }
+
+            if (!string.IsNullOrWhiteSpace(editPortList.description))
+                editPortList.descriptionSpecified = true;
+
+            return await _api.PostAsync<editPortList, ResponseType>(
                 ApiUris.EditPortList(_api.OrganizationId),
                 editPortList);
         }

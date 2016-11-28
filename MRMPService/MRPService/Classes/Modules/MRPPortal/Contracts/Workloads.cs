@@ -55,10 +55,10 @@ namespace MRMPService.MRMPAPI.Contracts
     }
     public class MRPWorkloadPairType
     {
-        [JsonProperty("source")]
-        public MRPWorkloadType source { get; set; }
-        [JsonProperty("target")]
-        public MRPWorkloadType target { get; set; }
+        [JsonProperty("source_workload")]
+        public MRPWorkloadType source_workload { get; set; }
+        [JsonProperty("target_workload")]
+        public MRPWorkloadType target_workload { get; set; }
     }
     public class MRPWorkloadType
     {
@@ -76,6 +76,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string iplist { get; set; }
         [JsonProperty("vcpu")]
         public int? vcpu { get; set; }
+        [JsonProperty("hardwaretype")]
+        public string hardwaretype { get; set; }     
         [JsonProperty("vcpu_speed")]
         public int? vcpu_speed { get; set; }
         [JsonProperty("vmemory")]
@@ -192,6 +194,10 @@ namespace MRMPService.MRMPAPI.Contracts
         public String secondary_dns { get; set; }
         [JsonProperty("timezone")]
         public string timezone { get; set; }
+        [JsonProperty("drs_eligible")]
+        public bool? drs_eligible { get; set; }
+        [JsonProperty("consistency_group_moid")]
+        public string consistency_group_moid { get; set; }
         [JsonProperty("_destroy")]
         public bool? _destroy { get; set; }
 

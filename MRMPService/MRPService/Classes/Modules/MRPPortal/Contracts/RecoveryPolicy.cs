@@ -90,6 +90,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public int? rp4vm_target_journal_size { get; set; }
         [JsonProperty("rp4vm_replicationmode")]
         public string rp4vm_replicationmode { get; set; }
+        [JsonProperty("mcp_journal_size")]
+        public int? mcp_journal_size { get; set; }
         [JsonProperty("firedrill_network")]
         public MRPPlatformnetworkType firedrill_network { get; set; }
         [JsonProperty("target_network")]

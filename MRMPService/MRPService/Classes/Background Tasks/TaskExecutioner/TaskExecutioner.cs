@@ -35,6 +35,16 @@ namespace MRMPService.TaskExecutioner
                             MRPTaskType _current_task = new MRPTaskType();
                             switch (task.task_type)
                             {
+                                //MCP
+                                case "drs_mcp_create_cg":
+                                    _current_task = ClaimTask(task);
+                                    Thread create_mcp_cg_Thread = new Thread(() => DRSMCP.SetupCG(_current_task));
+                                    create_mcp_cg_Thread.Name = task.target_id;
+                                    create_mcp_cg_Thread.Start();
+                                    create_mcp_cg_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = create_mcp_cg_Thread, target_id = task.target_id });
+                                    break;
+
                                 //drs_servers_dormant
                                 case "dr_servers_dormant_create_protection_job":
                                     _current_task = ClaimTask(task);

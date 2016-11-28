@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MRMPService.MRMPService.Types.API
+namespace MRMPService.MRMPAPI.Contracts
 {
     public class MRPProtectiongroupType
     {

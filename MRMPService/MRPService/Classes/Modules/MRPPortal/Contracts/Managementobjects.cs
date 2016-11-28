@@ -19,6 +19,13 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("managementobject")]
         public MRPManagementobjectType managementobject { get; set; }
     }
+    public class MRManagementobjectFilterType
+    {
+        [JsonProperty("motype")]
+        public string motype { get; set; }
+        [JsonProperty("entitytype")]
+        public int? entitytype { get; set; }
+    }
     public class MRPManagementobjectType
     {
         [JsonProperty("id")]

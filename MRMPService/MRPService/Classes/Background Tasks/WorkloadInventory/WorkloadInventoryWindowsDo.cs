@@ -28,9 +28,8 @@ namespace MRMPService.MRMPAPI.Classes
             };
             _updated_workload.workloadvolumes.ForEach(x => x.deleted = true);
             _updated_workload.workloaddisks.ForEach(x => x.deleted = true);
-            _updated_workload.workloadprocesses.ForEach(x => x._destroy = true);
             _updated_workload.workloadinterfaces.ForEach(x => x.deleted = true);
-
+            _updated_workload.workloadprocesses.ForEach(x => x._destroy = true);
             _updated_workload.workloadsoftwares.ForEach(x => x._destroy = true);
             //check for credentials
             MRPCredentialType _credential = _workload.credential;
@@ -152,7 +151,12 @@ namespace MRMPService.MRMPAPI.Classes
             {
                 foreach (var item in new ManagementObjectSearcher(connectionScope, ComputerSystemQuery).Get())
                 {
-                    try { _updated_workload.model = item["Manufacturer"].ToString() + " " + item["Model"].ToString(); }
+                    try
+                    {
+                        _updated_workload.model = item["Manufacturer"].ToString() + " " + item["Model"].ToString();
+                        _updated_workload.hardwaretype = _updated_workload.model.Contains("Virtual") ? "virtual" : "physical";
+                    }
+
                     catch (Exception ex)
                     {
                         Logger.log(String.Format("Error collecting Model from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
@@ -201,7 +205,7 @@ namespace MRMPService.MRMPAPI.Classes
                     {
                         if (_updated_workload.workloadprocesses.Exists(x => x.caption == _process_name))
                         {
-                            _process = _updated_workload.workloadprocesses.FirstOrDefault(x => x.caption == item["Caption"].ToString());
+                            _process = _updated_workload.workloadprocesses.FirstOrDefault(x => x.caption == _process_name);
                         }
                         else
                         {

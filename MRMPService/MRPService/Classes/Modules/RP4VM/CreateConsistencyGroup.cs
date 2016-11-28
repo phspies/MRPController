@@ -226,8 +226,6 @@ namespace MRMPService.Tasks.RP4VM
                                     },
                                     resourcePoolType = arrayResourcePoolType.VC_DATASTORE
                                 },
-
-
                             }
 
                             }
