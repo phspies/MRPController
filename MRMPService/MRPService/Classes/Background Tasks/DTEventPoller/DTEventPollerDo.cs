@@ -6,12 +6,13 @@ using DoubleTake.Web.Models;
 using MRMPService.MRMPAPI;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MRMPService.DTEventPollerCollection
 {
     class DTEventPollerDo
     {
-        public static void PollerDo(MRPWorkloadType _workload)
+        public static async Task PollerDo(MRPWorkloadType _workload)
         {
             //check for credentials
 
@@ -37,7 +38,7 @@ namespace MRMPService.DTEventPollerCollection
             {
                 using (MRMPDoubleTake.Doubletake _dt = new MRMPDoubleTake.Doubletake(null, _workload))
                 {
-                    ProductInfoModel _dt_info = _dt.management().GetProductInfo().Result;
+                    ProductInfoModel _dt_info = await _dt.management().GetProductInfo();
                 }
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                 {
@@ -61,7 +62,7 @@ namespace MRMPService.DTEventPollerCollection
             {
                 using (MRMPDoubleTake.Doubletake _dt = new MRMPDoubleTake.Doubletake(null, _workload))
                 {
-                    _dt_events = _dt.events().GetDoubleTakeEntries(_workload.last_dt_event_id).Result;
+                    _dt_events = await _dt.events().GetDoubleTakeEntries(_workload.last_dt_event_id);
                 }
                 using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
                 {
@@ -79,7 +80,7 @@ namespace MRMPService.DTEventPollerCollection
                         _mrmp.@event().create(new MRMPEventType()
                         {
                             elementevent_id = _event.Id,
-                            source_subsystem = String.Join(" ",_event.Source, _event.Category),
+                            source_subsystem = String.Join(" ", _event.Source, _event.Category),
                             source_datamover = "Double-Take",
                             message = _event.Message,
                             object_id = _workload.id,

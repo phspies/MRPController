@@ -31,19 +31,19 @@ namespace MRMPService.DTPollerCollection
                 List<Thread> lstThreads = new List<Thread>();
                 var splashStart = new ManualResetEvent(false);
 
-                foreach (var job in _jobs)
+                foreach (MRPManagementobjectType job in _jobs)
                 {
                     while (lstThreads.Count(x => x.IsAlive) > Global.os_inventory_concurrency)
                     {
                         Thread.Sleep(1000);
                     }
 
-                    Thread _inventory_thread = new Thread(delegate ()
+                    Thread _inventory_thread = new Thread(async delegate ()
                     {
                         splashStart.Set();
                         try
                         {
-                            DTJobPoller.PollerDo((MRPManagementobjectType)job);
+                            await DTJobPoller.PollerDo(job);
                             using (MRMP_ApiClient _api = new MRMP_ApiClient())
                             {
                                 _api.workload().DoubleTakeUpdateStatus(job.target_workload, "Success", true);

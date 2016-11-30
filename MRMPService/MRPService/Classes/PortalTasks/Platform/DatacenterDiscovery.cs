@@ -5,7 +5,6 @@ using MRMPService.MRMPService.Types.API;
 using MRMPService.RP4VMTypes;
 using MRMPService.RP4VMAPI;
 using MRMPService.VMWare;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,37 +13,9 @@ using VMware.Vim;
 
 namespace MRMPService.Tasks.DiscoveryPlatform
 {
-    public class DatacenterDiscovery : IDisposable
+    public class DatacenterDiscovery 
     {
-        bool _disposed;
 
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~DatacenterDiscovery()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
         public static void DatacenterDiscoveryDo(MRPTaskType payload)
         {
             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())

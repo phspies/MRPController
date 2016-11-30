@@ -14,12 +14,13 @@ using MRMPService.Utilities;
 using MRMPService.PlatformInventory;
 using DD.CBU.Compute.Api.Contracts.General;
 using MRMPService.MRPService.Classes.Utilities;
+using System.Threading.Tasks;
 
 namespace MRMPService.Tasks.MCP
 {
-    partial class MCP_Platform
+    public partial class MCP_Platform
     {
-        public static void ProvisionVM(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress, bool _os_customization = false)
+        public static async Task ProvisionVM(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress, bool _os_customization = false)
         {
             //Get workload object from portal to perform updates once provisioned
             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())

@@ -19,7 +19,7 @@ namespace MRMPService.PlatformInventory
 {
     class PlatformDimensionDataMCP2InventoryDo
     {
-        public static async void UpdateMCPPlatform(MRPPlatformType _platform, bool full = true)
+        public static async Task UpdateMCPPlatform(MRPPlatformType _platform, bool full = true)
         {
             using (MRMP_ApiClient _mrp_api_endpoint = new MRMP_ApiClient())
             {
@@ -522,12 +522,12 @@ namespace MRMPService.PlatformInventory
                     {
                         if (full)
                         {
-                            Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_workload_inventory_concurrency }, (_caasworkload) =>
+                            Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_workload_inventory_concurrency }, async (_caasworkload) =>
                             {
                                 try
                                 {
                                     //update lists before we start the workload inventory process
-                                    PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform);
+                                    await PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform);
                                 }
                                 catch (Exception ex)
                                 {

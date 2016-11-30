@@ -6,38 +6,9 @@ using System;
 
 namespace MRMPService.Tasks.DiscoveryPlatform
 {
-    public class PlatformDiscovery : IDisposable
+    public class PlatformDiscovery
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~PlatformDiscovery()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
-        public static void PlatformDiscoveryDo(MRPTaskType payload)
+        public static async void PlatformDiscoveryDo(MRPTaskType payload)
         {
             using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
             {
@@ -50,15 +21,15 @@ namespace MRMPService.Tasks.DiscoveryPlatform
                     switch (_platform.platformtype)
                     {
                         case "dimension_data":
-                            PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(_platform, true);
+                            await PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(_platform, true);
                             break;
                         case "hyperv":
                             break;
                         case "vmware":
-                            PlatformVMwareInventoryDo.UpdateVMwarePlatform(_platform, true);
+                            await PlatformVMwareInventoryDo.UpdateVMwarePlatform(_platform, true);
                             break;
                         case "rp4vm":
-                            PlatformRP4VMInventoryDo.UpdateRP4VMPlatform(_platform, false);
+                            await PlatformRP4VMInventoryDo.UpdateRP4VMPlatform(_platform, false);
                             break;
                     }
                     _mrp_api.task().progress(payload, String.Format("Successfully refreshed platform resources"), 10);

@@ -7,12 +7,13 @@ using System.Net;
 using DD.CBU.Compute.Api.Contracts.Network20;
 using MRMPService.MRMPAPI;
 using MRMPService.MRMPService.Log;
+using System.Threading.Tasks;
 
 namespace MRMPService.PlatformInventory
 {
     partial class PlatformInventoryWorkloadDo
     {
-        public static async void UpdateMCPWorkload(String _workload_moid, MRPPlatformType _platform)
+        public static async Task UpdateMCPWorkload(String _workload_moid, MRPPlatformType _platform)
         {
             using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
             {

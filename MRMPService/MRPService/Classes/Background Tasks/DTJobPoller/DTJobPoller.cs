@@ -10,38 +10,9 @@ using MRMPService.MRMPDoubleTake;
 
 namespace MRMPService.DTPollerCollection
 {
-    class DTJobPoller : IDisposable
+    class DTJobPoller
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~DTJobPoller()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
-        public static void PollerDo(MRPManagementobjectType _mrp_managementobject)
+        public static async System.Threading.Tasks.Task PollerDo(MRPManagementobjectType _mrp_managementobject)
         {
             //refresh managementobject from portal
             using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
@@ -82,13 +53,13 @@ namespace MRMPService.DTPollerCollection
             {
                 using (Doubletake _dt = new Doubletake(null, _target_workload))
                 {
-                    ProductInfoModel _info = _dt.management().GetProductInfo().Result;
-                    _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid)).Result;
+                    ProductInfoModel _info = await _dt.management().GetProductInfo();
+                    _dt_job = await _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
                     if (_dt_job.JobType == DT_JobTypes.DR_Data_Protection || _dt_job.JobType == DT_JobTypes.DR_Full_Protection)
                     {
                         try
                         {
-                            _dt_image_list = _dt.image().GetImagesSource(_mrp_managementobject.source_workload.hostname).Result;
+                            _dt_image_list = await _dt.image().GetImagesSource(_mrp_managementobject.source_workload.hostname);
                         }
                         catch (Exception ex)
                         {
@@ -188,7 +159,7 @@ namespace MRMPService.DTPollerCollection
                                             {
                                                 using (Doubletake _dt = new Doubletake(null, _target_workload))
                                                 {
-                                                    _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid)).Result;
+                                                    _dt_job = await _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
 
                                                     //_dt.image().DeleteSnapshotEntry(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId).Wait();
                                                     //if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
@@ -238,9 +209,9 @@ namespace MRMPService.DTPollerCollection
                                         {
                                             using (Doubletake _dt = new Doubletake(null, _target_workload))
                                             {
-                                                _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid)).Result;
+                                                _dt_job = await _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
 
-                                                _dt.job().DeleteSnapshot(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId).Wait();
+                                                await _dt.job().DeleteSnapshot(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId);
                                                 if (_mrp_managementobject.managementobjectsnapshots.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
                                                 {
                                                     _mrp_snapshot._destroy = true;

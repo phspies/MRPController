@@ -36,15 +36,15 @@ namespace MRMPService.DTPollerCollection
                 {
                     while (lstThreads.Count(x => x.IsAlive) > Global.mcp_cg_polling_concurrency)
                     {
-                        Thread.Sleep(1000);
+                        Task.Delay(TimeSpan.FromSeconds(1));
                     }
 
-                    Thread _inventory_thread = new Thread(delegate ()
+                    Thread _inventory_thread = new Thread(async delegate ()
                     {
                         splashStart.Set();
                         try
                         {
-                            MCPCGPoller.PollerDo(_mcp_mo);
+                            await MCPCGPoller.PollerDo(_mcp_mo);
                         }
                         catch (Exception ex)
                         {

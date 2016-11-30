@@ -42,12 +42,12 @@ namespace MRMPService.DTEventPollerCollection
                             Thread.Sleep(1000);
                         }
 
-                        Thread _inventory_thread = new Thread(delegate ()
+                        Thread _inventory_thread = new Thread(async delegate ()
                         {
                             splashStart.Set();
                             try
                             {
-                                DTEventPollerDo.PollerDo(workload);
+                                await DTEventPollerDo.PollerDo(workload);
                                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
                                 {
                                     _api.workload().DoubleTakeUpdateStatus(workload, "Success", true);

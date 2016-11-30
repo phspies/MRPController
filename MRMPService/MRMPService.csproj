@@ -309,8 +309,8 @@
     <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Packet.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Template.cs" />
     <Compile Include="MRPService\Classes\Modules\NetFlow\v9\Templates.cs" />
-    <Compile Include="MRPService\Classes\Modules\Platform\PlatformDiscovery.cs" />
-    <Compile Include="MRPService\Classes\Modules\Platform\DatacenterDiscovery.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Platform\PlatformDiscovery.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\Platform\DatacenterDiscovery.cs" />
     <Compile Include="MRPService\Classes\Modules\RP4VM\CreateConsistencyGroup.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\PauseJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\StartJob.cs" />
@@ -551,7 +551,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
+      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

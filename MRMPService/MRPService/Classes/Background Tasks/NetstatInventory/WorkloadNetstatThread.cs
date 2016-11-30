@@ -2,7 +2,6 @@
 using MRMPService.MRMPAPI.Contracts;
 using System;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using MRMPService.MRMPAPI;
@@ -42,7 +41,7 @@ namespace MRMPService.NetstatCollection
                             Thread.Sleep(1000);
                         }
 
-                        Thread _inventory_thread = new Thread(delegate ()
+                        Thread _inventory_thread = new Thread(async delegate ()
                         {
                             splashStart.Set();
                             try
@@ -50,10 +49,10 @@ namespace MRMPService.NetstatCollection
                                 switch (workload.ostype.ToUpper())
                                 {
                                     case "WINDOWS":
-                                        WorkloadNetstat.WorkloadNetstatWindowsDo(workload);
+                                        await WorkloadNetstat.WorkloadNetstatWindowsDo(workload);
                                         break;
                                     case "UNIX":
-                                        WorkloadNetstat.WorkloadNetstatUnixDo(workload);
+                                        await WorkloadNetstat.WorkloadNetstatUnixDo(workload);
                                         break;
                                 }
                             }
