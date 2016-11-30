@@ -1,10 +1,14 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using RestSharp.Serializers;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
+
 namespace MRMPService.MRMPAPI
 {
-
-
     /// <summary>
     /// Default JSON serializer for request bodies
     /// Doesn't currently use the SerializeAs attribute, defers to Newtonsoft's attributes
@@ -22,8 +26,9 @@ namespace MRMPService.MRMPAPI
             _serializer = new Newtonsoft.Json.JsonSerializer
             {
                 MissingMemberHandling = MissingMemberHandling.Ignore,
-                NullValueHandling = NullValueHandling.Ignore,              
-                DefaultValueHandling = DefaultValueHandling.Include
+                NullValueHandling = NullValueHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Include,
+                ContractResolver = new SkipEmptyContractResolver()
             };
         }
 
@@ -43,18 +48,11 @@ namespace MRMPService.MRMPAPI
         /// <returns>JSON as String</returns>
         public string Serialize(object obj)
         {
-            using (var stringWriter = new StringWriter())
-            {
-                using (var jsonTextWriter = new JsonTextWriter(stringWriter))
-                {
-                    jsonTextWriter.Formatting = Formatting.Indented;               
-                    jsonTextWriter.QuoteChar = '"';
-                    _serializer.Serialize(jsonTextWriter, obj);
-
-                    var result = stringWriter.ToString();
-                    return result;
-                }
-            }
+            return JsonConvert.SerializeObject(obj, new JsonSerializerSettings() {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore,
+                ContractResolver = new SkipEmptyContractResolver()
+            } );
         }
 
         /// <summary>
@@ -74,4 +72,32 @@ namespace MRMPService.MRMPAPI
         /// </summary>
         public string ContentType { get; set; }
     }
+    public class SkipEmptyContractResolver : DefaultContractResolver
+    {
+        public SkipEmptyContractResolver(bool shareCache = false) : base(shareCache) { }
+        protected override JsonProperty CreateProperty(MemberInfo member,
+                MemberSerialization memberSerialization)
+        {
+            JsonProperty property = base.CreateProperty(member, memberSerialization);
+            bool isDefaultValueIgnored =
+                ((property.DefaultValueHandling ?? DefaultValueHandling.Ignore)
+                    & DefaultValueHandling.Ignore) != 0;
+            if (isDefaultValueIgnored
+                    && !typeof(string).IsAssignableFrom(property.PropertyType)
+                    && typeof(IEnumerable).IsAssignableFrom(property.PropertyType))
+            {
+                Predicate<object> newShouldSerialize = obj =>
+                {
+                    var collection = property.ValueProvider.GetValue(obj) as ICollection;
+                    return collection == null || collection.Count != 0;
+                };
+                Predicate<object> oldShouldSerialize = property.ShouldSerialize;
+                property.ShouldSerialize = oldShouldSerialize != null
+                    ? o => oldShouldSerialize(o) && newShouldSerialize(o)
+                    : newShouldSerialize;
+            }
+            return property;
+        }
+    }
+
 }

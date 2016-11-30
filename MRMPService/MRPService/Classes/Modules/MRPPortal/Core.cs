@@ -6,6 +6,9 @@ using Newtonsoft.Json;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPAPI.Contracts;
 using Newtonsoft.Json.Serialization;
+using System.Reflection;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace MRMPService.MRMPAPI
 {
@@ -46,7 +49,7 @@ namespace MRMPService.MRMPAPI
             client.FollowRedirects = false;
             client.Proxy = null;
             request.Resource = endpoint;
-            
+
             request.Method = _method;
             request.RequestFormat = DataFormat.Json;
             request.JsonSerializer.ContentType = "application/json; charset=utf-8";
@@ -77,7 +80,8 @@ namespace MRMPService.MRMPAPI
                 var response = client.Execute(request);
                 if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Unauthorized)
                 {
-                    try {
+                    try
+                    {
                         responseobject = JsonConvert.DeserializeObject<type>(response.Content, new JsonSerializerSettings
                         {
                             MissingMemberHandling = MissingMemberHandling.Ignore,
@@ -125,7 +129,7 @@ namespace MRMPService.MRMPAPI
                 else if (response.StatusCode == HttpStatusCode.RequestTimeout)
                 {
                     Logger.log(String.Format("Connection timeout to {0}", client.BuildUri(request).ToString()), Logger.Severity.Error);
-                    Thread.Sleep(new TimeSpan(0,0,30));
+                    Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
                 else if (response.StatusCode == 0)
                 {
@@ -149,6 +153,7 @@ namespace MRMPService.MRMPAPI
             var currentError = errorArgs.ErrorContext.Error.Message;
             errorArgs.ErrorContext.Handled = true;
         }
+
         public String endpoint
         {
             get

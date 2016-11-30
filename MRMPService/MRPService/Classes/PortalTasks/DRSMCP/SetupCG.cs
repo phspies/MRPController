@@ -1,16 +1,18 @@
 ﻿using MRMPService.MRMPAPI.Contracts;
 using MRMPService.MRMPDoubleTake;
+using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.Tasks.DoubleTake;
 using MRMPService.Tasks.MCP;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MRMPService.PortalTasks
 {
     partial class DRSMCP
     {
-        static public void SetupCG(MRPTaskType _mrmp_task)
+        static public async void SetupCG(MRPTaskType _mrmp_task)
         {
             MRPTaskDetailType _payload = _mrmp_task.taskdetail;
             List<MRPWorkloadPairType> _workload_pairs = _payload.workloadpairs;
@@ -34,15 +36,16 @@ namespace MRMPService.PortalTasks
                         }
                         else
                         {
-                            _start_progress = _increment * (_index - 1 );
+                            _start_progress = _increment * (_index - 1);
                             _end_progress = _increment * (_index) - 1;
                         }
                         MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _vm_pair.target_workload, _protectiongroup, _start_progress, _end_progress, false);
                     }
-                    MCP_Platform.CreateCG(_mrmp_task.id, _platform, _protectiongroup, _managementobject, _workload_pairs, 51, 99);
+                    await MCP_Platform.CreateCG(_mrmp_task.id, _platform, _protectiongroup, _managementobject, _workload_pairs, 51, 99);
                 }
                 catch (Exception ex)
                 {
+                    Logger.log(ex.ToString(), Logger.Severity.Fatal);
                     _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
 
                 }

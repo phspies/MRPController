@@ -55,7 +55,9 @@ namespace MRMPService.MRMPService.Types.API
         [JsonProperty("target_platform")]
         public MRPPlatformType target_platform { get; set; }
         [JsonProperty("managementobject")]
-        public MRPManagementobjectType managementobject { get; set; }   
+        public MRPManagementobjectType managementobject { get; set; }
+        [JsonProperty("managementobjectsnapshot")]
+        public MRPManagementobjectSnapshotType managementobjectsnapshot { get; set; }
         [JsonProperty("protectiongrouptree")]
         public MRPProtectiongrouptreeType protectiongrouptree { get; set; }
     }

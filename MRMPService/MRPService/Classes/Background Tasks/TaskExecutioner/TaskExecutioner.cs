@@ -44,7 +44,55 @@ namespace MRMPService.TaskExecutioner
                                     create_mcp_cg_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = create_mcp_cg_Thread, target_id = task.target_id });
                                     break;
-
+                                case "drs_mcp_firedrill_cg":
+                                    _current_task = ClaimTask(task);
+                                    Thread drs_mcp_firedrill_cg_Thread = new Thread(() => DRSMCP.PreviewCG(_current_task));
+                                    drs_mcp_firedrill_cg_Thread.Name = task.target_id;
+                                    drs_mcp_firedrill_cg_Thread.Start();
+                                    drs_mcp_firedrill_cg_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = drs_mcp_firedrill_cg_Thread, target_id = task.target_id });
+                                    break;
+                                case "drs_mcp_stop_firedrill_cg":
+                                    _current_task = ClaimTask(task);
+                                    Thread drs_mcp_stop_firedrill_cg_Thread = new Thread(() => DRSMCP.StopPreviewCG(_current_task));
+                                    drs_mcp_stop_firedrill_cg_Thread.Name = task.target_id;
+                                    drs_mcp_stop_firedrill_cg_Thread.Start();
+                                    drs_mcp_stop_firedrill_cg_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = drs_mcp_stop_firedrill_cg_Thread, target_id = task.target_id });
+                                    break;
+                                case "drs_mcp_setup_failover_cg":
+                                    _current_task = ClaimTask(task);
+                                    Thread drs_mcp_setup_failover_cg_Thread = new Thread(() => DRSMCP.SetupFailoverCG(_current_task));
+                                    drs_mcp_setup_failover_cg_Thread.Name = task.target_id;
+                                    drs_mcp_setup_failover_cg_Thread.Start();
+                                    drs_mcp_setup_failover_cg_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = drs_mcp_setup_failover_cg_Thread, target_id = task.target_id });
+                                    break;
+                                case "drs_mcp_stop_failover_cg":
+                                    _current_task = ClaimTask(task);
+                                    Thread drs_mcp_stop_failover_cg_Thread = new Thread(() => DRSMCP.StopPreviewCG(_current_task));
+                                    drs_mcp_stop_failover_cg_Thread.Name = task.target_id;
+                                    drs_mcp_stop_failover_cg_Thread.Start();
+                                    drs_mcp_stop_failover_cg_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = drs_mcp_stop_failover_cg_Thread, target_id = task.target_id });
+                                    break;
+                                case "drs_mcp_failover_cg":
+                                    _current_task = ClaimTask(task);
+                                    Thread drs_mcp_failover_cg_Thread = new Thread(() => DRSMCP.FailoverCG(_current_task));
+                                    drs_mcp_failover_cg_Thread.Name = task.target_id;
+                                    drs_mcp_failover_cg_Thread.Start();
+                                    drs_mcp_failover_cg_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = drs_mcp_failover_cg_Thread, target_id = task.target_id });
+                                    break;
+                                case "drs_mcp_apply_meta":
+                                    _current_task = ClaimTask(task);
+                                    Thread drs_mcp_apply_meta_Thread = new Thread(() => DRSMCP.ApplyMetaInformation(_current_task));
+                                    drs_mcp_apply_meta_Thread.Name = task.target_id;
+                                    drs_mcp_apply_meta_Thread.Start();
+                                    drs_mcp_apply_meta_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = drs_mcp_apply_meta_Thread, target_id = task.target_id });
+                                    break;
+                                    
                                 //drs_servers_dormant
                                 case "dr_servers_dormant_create_protection_job":
                                     _current_task = ClaimTask(task);

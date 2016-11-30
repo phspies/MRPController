@@ -239,6 +239,8 @@ namespace MRMPService.PlatformInventory
                             _mrp_network.ipv6subnet = _caas_network.ipv6Range.address;
                             _mrp_network.ipv6netmask = _caas_network.ipv6Range.prefixSize;
                             _mrp_network.networkdomain_moid = _caas_network.networkDomain.id;
+                            _mrp_network.ipv4gateway = _caas_network.ipv4GatewayAddress;
+                            _mrp_network.ipv6gateway = _caas_network.ipv6GatewayAddress;
                             _mrp_network.provisioned = true;
                             _mrp_network.deleted = false;
                         }
@@ -249,7 +251,7 @@ namespace MRMPService.PlatformInventory
 
                 //refresh platform from portal
                 _platform = _mrp_api_endpoint.platform().get_by_id(_platform.id);
-                _update_platform = new MRPPlatformType() { id = _platform.id, platformdomains = _platform.platformdomains };
+                _update_platform = new MRPPlatformType() { id = _platform.id };
                 //update IP and Port Lists
                 if (_caas_networkdomain_list != null)
                 {
@@ -257,9 +259,9 @@ namespace MRMPService.PlatformInventory
                     {
 
                         MRPPlatformdomainType _mrmp_update_domain = new MRPPlatformdomainType();
-                        if (_update_platform.platformdomains.Exists(x => x.moid == _caas_domain.id))
+                        if (_platform.platformdomains.Exists(x => x.moid == _caas_domain.id))
                         {
-                            _mrmp_update_domain = _update_platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id);
+                            _mrmp_update_domain = _platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id);
                             _mrmp_update_domain.domainiplists.Where(x => x.iptype == "platform").ForEach(x => { x.deleted = true; x.domainiplistaddresses.ForEach(y => y.deleted = true); });
                             _mrmp_update_domain.domainfwrules.Where(x => x.fwtype == "platform").ForEach(x => x.deleted = true);
                             _mrmp_update_domain.domainnatrules.Where(x => x.nattype == "platform").ForEach(x => x.deleted = true);
@@ -541,7 +543,7 @@ namespace MRMPService.PlatformInventory
                     {
                         foreach (NetworkDomainType _caas_domain in _caas_networkdomain_list)
                         {
-                            _update_platform = new MRPPlatformType() { id = _platform.id, platformdomains = new List<MRPPlatformdomainType>() };
+                            _update_platform = new MRPPlatformType() { id = _platform.id, platformdomains = _platform.platformdomains.Where(x => x.moid == _caas_domain.id).ToList() };
                             MRPPlatformdomainType _mrmp_update_domain = new MRPPlatformdomainType();
                             if (_update_platform.platformdomains.Exists(x => x.moid == _caas_domain.id))
                             {
@@ -562,8 +564,6 @@ namespace MRMPService.PlatformInventory
                                 _update_platform.platformdomains.Add(_mrmp_update_domain);
                             }
 
-                            _update_platform.platformdomains.Add(_platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id));
-
                             var _firewall_rules = await CaaS.Networking.FirewallRule.GetFirewallRules(new FirewallRuleListOptions() { NetworkDomainId = Guid.Parse(_caas_domain.id) });
                             var _nat_rules = await CaaS.Networking.Nat.GetNatRules(Guid.Parse(_caas_domain.id));
                             var _affinity_rules = await CaaS.ServerManagement.AntiAffinityRule.GetAntiAffinityRulesForNetworkDomain(Guid.Parse(_caas_domain.id));
@@ -579,15 +579,8 @@ namespace MRMPService.PlatformInventory
                                     }
                                     else
                                     {
-                                        _mrp_affinityrule.affinitytype = "platform";
-                                        if (_platform.workloads.Exists(x => x.moid == _affinity_rule.serverSummary[0].id) && _platform.workloads.Exists(x => x.moid == _affinity_rule.serverSummary[1].id))
-                                        {
-                                            _mrmp_update_domain.domainaffinityrules.Add(_mrp_affinityrule);
-                                        }
-                                        else
-                                        {
-                                            continue;
-                                        }
+   
+                                        _mrmp_update_domain.domainaffinityrules.Add(_mrp_affinityrule);
                                     }
                                     _mrp_affinityrule.deleted = false;
                                     _mrp_affinityrule.moid = _affinity_rule.id;
@@ -742,8 +735,9 @@ namespace MRMPService.PlatformInventory
 
                                 }
                             }
-                        }
+                            _mrp_api_endpoint.platform().update(_update_platform);
 
+                        }
                     }
 
 

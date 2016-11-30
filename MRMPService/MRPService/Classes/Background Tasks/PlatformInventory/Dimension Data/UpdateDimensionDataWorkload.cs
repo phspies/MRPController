@@ -126,6 +126,8 @@ namespace MRMPService.PlatformInventory
                 _primary_logical_interface.ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4;
                 _primary_logical_interface.moid = _caasworkload.networkInfo.primaryNic.id;
                 _primary_logical_interface.deleted = false;
+                _primary_logical_interface.platformnetwork_id = _platform.platformdomains.SelectMany(x => x.platformnetworks).FirstOrDefault(x => x.moid == _caasworkload.networkInfo.primaryNic.vlanId).id;
+                _primary_logical_interface.platformnetwork = null;
 
                 int nic_index = 1;
                 if (_caasworkload.networkInfo.additionalNic != null)
@@ -150,7 +152,7 @@ namespace MRMPService.PlatformInventory
                         _logical_interface.moid = _caasworkloadinterface.id;
                         _logical_interface.deleted = false;
                         _logical_interface.platformnetwork_id = _platform.platformdomains.SelectMany(x => x.platformnetworks).FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id;
-
+                        _logical_interface.platformnetwork = null;
                         nic_index += 1;
                     }
                 }

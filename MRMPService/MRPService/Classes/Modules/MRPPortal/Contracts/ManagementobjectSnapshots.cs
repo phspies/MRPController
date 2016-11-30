@@ -55,7 +55,7 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("connection_id")]
         public Guid? connection_id{ get; set; }
         [JsonProperty("snapshot_size")]
-        public long? snapshot_size { get; set; }
+        public double? snapshot_size { get; set; }
         [JsonProperty("_destroy")]
         public bool? _destroy { get; set; }
     }

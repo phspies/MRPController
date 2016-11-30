@@ -112,14 +112,18 @@ namespace MRMPService.MRMPAPI.Contracts
         public string configuration { get; set; }
         [JsonProperty("provisioned")]
         public bool? provisioned { get; set; }
+        [JsonProperty("sync_fw_rules")]
+        public bool? sync_fw_rules { get; set; }
+        [JsonProperty("sync_tag_rules")]
+        public bool? sync_tag_rules { get; set; }
+        [JsonProperty("sync_affinity_rules")]
+        public bool? sync_affinity_rules { get; set; }
         [JsonProperty("dt_installed")]
         public bool? dt_installed { get; set; }
         [JsonProperty("dt_version")]
         public string dt_version { get; set; }
         [JsonProperty("deploymentpolicy_id")]
         public string deploymentpolicy_id { get; set; }
-        [JsonProperty("ipaddress")]
-        public string ipaddress { get; set; }
         [JsonProperty("hash_value")]
         public string hash_value { get; set; }
         [JsonProperty("perf_collection_enabled")]
@@ -201,25 +205,6 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("_destroy")]
         public bool? _destroy { get; set; }
 
-        public bool ShouldSerializeworkloadtags()
-        {
-            return (workloadtags == null || !workloadtags.Any()) ? false : true;
-        }
-        public bool ShouldSerializeworkloadvolumes()
-        {
-            return (workloadvolumes == null || !workloadvolumes.Any()) ? false : true;
-        }
-        public bool ShouldSerializeworkloadinterfaces()
-        {
-            return (workloadinterfaces == null || !workloadinterfaces.Any()) ? false : true;
-        }
-        public bool ShouldSerializeworkloadprocesses()
-        {
-            return (workloadprocesses == null || !workloadprocesses.Any()) ? false : true;
-        }
-        public bool ShouldSerializeworkloadsoftwares()
-        {
-            return (workloadsoftwares == null || !workloadsoftwares.Any()) ? false : true;
-        }
+
     }
 }

@@ -88,27 +88,6 @@ namespace MRMPService.MRMPAPI.Contracts
         public List<MRPPlatformdatastoreType> platformdatastores { get; set; }
         [JsonProperty("workloads_attributes")]
         public List<MRPWorkloadType> workloads { get; set; }
-
-        public bool ShouldSerializeworkloads()
-        {
-            return (workloads == null || !workloads.Any()) ? false : true;
-        }
-        public bool ShouldSerializeplatformdomains()
-        {
-            return (platformdomains == null || !platformdomains.Any()) ? false : true;
-        }
-        public bool ShouldSerializeplatformdatacenters()
-        {
-            return (platformdatacenters == null || !platformdatacenters.Any()) ? false : true;
-        }
-        public bool ShouldSerializeplatformtemplates()
-        {
-            return (platformtemplates == null || !platformtemplates.Any()) ? false : true;
-        }
-        public bool ShouldSerializeplatformdatastores()
-        {
-            return (platformdatastores == null || !platformdatastores.Any()) ? false : true;
-        }
     }
 }
 

@@ -234,7 +234,7 @@ namespace MRMPService.MRMPAPI.Classes
             }
 
             //process installed software
-            SelectQuery msSoftwareQuery = new SelectQuery("SELECT * FROM Win32_Product");
+            SelectQuery msSoftwareQuery = new SelectQuery("SELECT Name,Caption,Description,InstallLocation,InstallState,Vendor,Version  FROM Win32_Product");
             foreach (ManagementObject item in new ManagementObjectSearcher(connectionScope, msSoftwareQuery).Get())
             {
                 MRPWorkloadSoftwareType _software = new MRPWorkloadSoftwareType(); ;
@@ -243,14 +243,14 @@ namespace MRMPService.MRMPAPI.Classes
                     String _software_name = item["Name"].ToString();
                     if (_updated_workload.workloadsoftwares.Exists(x => x.name == _software_name))
                     {
-                        _software = _updated_workload.workloadsoftwares.FirstOrDefault(x => x.name == item["Name"].ToString());
+                        _software = _updated_workload.workloadsoftwares.FirstOrDefault(x => x.name == _software_name);
                     }
                     else
                     {
                         _updated_workload.workloadsoftwares.Add(_software);
                     }
 
-                    try { _software.name = item["Name"].ToString(); } catch (Exception) { }
+                    _software.name = _software_name;
                     try { _software.caption = item["Caption"].ToString(); } catch (Exception) { }
                     try { _software.description = item["Description"].ToString(); } catch (Exception) { }
                     try { _software.installlocation = item["InstallLocation"].ToString(); } catch (Exception) { }
@@ -403,6 +403,7 @@ namespace MRMPService.MRMPAPI.Classes
                     _interface.netmask = netmask.FirstOrDefault(s => s.Contains('.'));
                     _interface.ipv6netmask = netmask.FirstOrDefault(s => s.Contains(':'));
                     _interface.connection_index = (int)_conn_index;
+                    try { _interface.caption = searchNetInterface["Caption"].ToString(); } catch (Exception) { }
                     try { _interface.connection_id = searchNetInterface["NetConnectionID"].ToString(); } catch (Exception) { }
                     try { _interface.macaddress = searchNetInterface["MACAddress"].ToString(); } catch (Exception) { }
                     _interface.deleted = false;

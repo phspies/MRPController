@@ -45,31 +45,5 @@ namespace MRMPService.MRMPAPI.Contracts
         public List<MRPDomainAffinityRuleType> domainaffinityrules { get; set; }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
-
-
-        public bool ShouldSerializedomainaffinityrules()
-        {
-            return (domainaffinityrules == null || !domainaffinityrules.Any()) ? false : true;
-        }
-        public bool ShouldSerializeplatformnetworks()
-        {
-            return (platformnetworks == null || !platformnetworks.Any()) ? false : true;
-        }
-        public bool ShouldSerializedomainnatrules()
-        {
-            return (domainnatrules == null || !domainnatrules.Any()) ? false : true;
-        }
-        public bool ShouldSerializedomainportlists()
-        {
-            return (domainportlists == null || !domainportlists.Any()) ? false : true;
-        }
-        public bool ShouldSerializedomainiplists()
-        {
-            return (domainiplists == null || !domainiplists.Any()) ? false : true;
-        }
-        public bool ShouldSerializedomainfwrules()
-        {
-            return (domainfwrules == null || !domainfwrules.Any()) ? false : true;
-        }
     }
 }

@@ -96,27 +96,29 @@ namespace MRMPService.MCPCGCollection
                     {
                         _mrp_mo_update.managementobjectsnapshots = _mrp_managementobject.managementobjectsnapshots;
                         _mrp_mo_update.managementobjectsnapshots.ForEach(x => x._destroy = true);
-                        foreach (ConsistencyGroupSnapshotType _mcp_snapshot in _group_snapshot_list.snapshot)
+                        if (_group_snapshot_list != null)
                         {
-                            MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                            if (_mrp_mo_update.managementobjectsnapshots.Exists(x => x.snapshotmoid == _mcp_snapshot.id))
+                            foreach (ConsistencyGroupSnapshotType _mcp_snapshot in _group_snapshot_list.snapshot)
                             {
-                                _mrp_snapshot = _mrp_mo_update.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _mcp_snapshot.id);
-                            }
-                            else
-                            {
-                                _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
-                            }
+                                MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
+                                if (_mrp_mo_update.managementobjectsnapshots.Exists(x => x.snapshotmoid == _mcp_snapshot.id))
+                                {
+                                    _mrp_snapshot = _mrp_mo_update.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _mcp_snapshot.id);
+                                }
+                                else
+                                {
+                                    _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
+                                }
 
-                            _mrp_snapshot.snapshotmoid = _mcp_snapshot.id;
-                            _mrp_snapshot.state = _group_stats.First().state;
-                            _mrp_snapshot.snapshot_size = _mcp_snapshot.sizeKb;
-                            _mrp_snapshot.timestamp = DateTime.Parse(_mcp_snapshot.createTime);
-                            _mrp_snapshot.comment = "";
-                            _mrp_snapshot._destroy = false;
-                            
+                                _mrp_snapshot.snapshotmoid = _mcp_snapshot.id;
+                                _mrp_snapshot.state = _group_stats.First().state;
+                                _mrp_snapshot.snapshot_size = _mcp_snapshot.sizeKb;
+                                _mrp_snapshot.timestamp = DateTime.Parse(_mcp_snapshot.createTime);
+                                _mrp_snapshot.comment = "";
+                                _mrp_snapshot._destroy = false;
+
+                            }
                         }
-                        //Update job details
 
                         MRPManagementobjectStatType _managedobject_stat = new MRPManagementobjectStatType();
                         {

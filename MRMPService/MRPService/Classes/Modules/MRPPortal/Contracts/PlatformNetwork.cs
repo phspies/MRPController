@@ -31,6 +31,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string ipv4subnet { get; set; }
         [JsonProperty("ipv4netmask")]
         public int ipv4netmask { get; set; }
+        [JsonProperty("ipv4gateway")]
+        public string ipv4gateway { get; set; }
         [JsonProperty("moid")]
         public string moid { get; set; }
         [JsonProperty("provisioned")]
@@ -39,6 +41,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string ipv6subnet { get; set; }
         [JsonProperty("ipv6netmask")]
         public int ipv6netmask { get; set; }
+        [JsonProperty("ipv6gateway")]
+        public string ipv6gateway { get; set; }
         [JsonProperty("networkdomain_moid")]
         public string networkdomain_moid { get; set; }
         [JsonProperty("networkdomain_name")]

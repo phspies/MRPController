@@ -29,6 +29,8 @@ namespace MRMPService.MRMPAPI.Contracts
         public string ipassignment { get; set; }
         [JsonProperty("moid")]
         public string moid { get; set; }
+        [JsonProperty("caption")]
+        public string caption { get; set; }
         [JsonProperty("connection_index")]
         public int connection_index { get; set; }
         [JsonProperty("connection_id")]

@@ -31,6 +31,12 @@ namespace MRMPService.MRMPAPI
         }
         public ResultType createworkload(MRPWorkloadType _workload)
         {
+            _workload.credential = null;
+            _workload.platform = null;
+            if (_workload.workloadinterfaces != null)
+            {
+                _workload.workloadinterfaces.ForEach(x => x.platformnetwork = null);
+            }
             MRPWorkloadsCRUDType platform = new MRPWorkloadsCRUDType()
             {
                 workload = _workload
@@ -45,31 +51,7 @@ namespace MRMPService.MRMPAPI
             _workload.platform = null;
             if (_workload.workloadinterfaces != null)
             {
-                if (_workload.workloadinterfaces.Count == 0)
-                {
-                    _workload.workloadinterfaces = null;
-                }
-            }
-            if (_workload.workloadprocesses != null)
-            {
-                if (_workload.workloadprocesses.Count == 0)
-                {
-                    _workload.workloadprocesses = null;
-                }
-            }
-            if (_workload.workloadsoftwares != null)
-            {
-                if (_workload.workloadsoftwares.Count == 0)
-                {
-                    _workload.workloadsoftwares = null;
-                }
-            }
-            if (_workload.workloadvolumes != null)
-            {
-                if (_workload.workloadvolumes.Count == 0)
-                {
-                    _workload.workloadvolumes = null;
-                }
+                _workload.workloadinterfaces.ForEach(x => x.platformnetwork = null);
             }
 
             MRPWorkloadsCRUDType workload = new MRPWorkloadsCRUDType()

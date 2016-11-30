@@ -276,6 +276,12 @@
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\EVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\HVRAJobEx.cs" />
     <Compile Include="MRPService\Classes\Modules\DoubleTake\VRA\LVRAJobEx.cs" />
+    <Compile Include="MRPService\Classes\Modules\MCP\ConsistencyGroupsListOptions.cs" />
+    <Compile Include="MRPService\Classes\Modules\MCP\FailoverCG.cs" />
+    <Compile Include="MRPService\Classes\Modules\MCP\ApplyMetaInformation.cs" />
+    <Compile Include="MRPService\Classes\Modules\MCP\SetupFailoverCG.cs" />
+    <Compile Include="MRPService\Classes\Modules\MCP\StopPreviewCG.cs" />
+    <Compile Include="MRPService\Classes\Modules\MCP\PreviewCG.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\CreateCG.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\TimeZones.cs" />
     <Compile Include="MRPService\Classes\Modules\MCP\LinuxCustomization.cs" />
@@ -310,6 +316,11 @@
     <Compile Include="MRPService\Classes\PortalTasks\Common\StartJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Common\StopJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\Deploy\DeployWorkload.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\DRSMCP\FailoverCG.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\DRSMCP\ApplyMetaInformation.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\DRSMCP\SetupFailoverCG.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\DRSMCP\StopPreviewCG.cs" />
+    <Compile Include="MRPService\Classes\PortalTasks\DRSMCP\PreviewCG.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\DRSMCP\SetupCG.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupDormantRecoveryJob.cs" />
     <Compile Include="MRPService\Classes\PortalTasks\DRSServersDormant\SetupDormantJob.cs" />

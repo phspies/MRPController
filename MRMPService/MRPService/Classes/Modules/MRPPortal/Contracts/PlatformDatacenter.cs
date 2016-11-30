@@ -61,9 +61,5 @@ namespace MRMPService.MRMPAPI.Contracts
         [JsonProperty("platformclusters_attributes")]
         public List<MRPPlatformclusterType> platformclusters { get; set; }
 
-        public bool ShouldSerializeplatformclusters()
-        {
-            return (platformclusters == null || !platformclusters.Any()) ? false : true;
-        }
     }
 }

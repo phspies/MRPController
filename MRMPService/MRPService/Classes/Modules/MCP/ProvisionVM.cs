@@ -2,7 +2,6 @@
 using DD.CBU.Compute.Api.Contracts.Network20;
 using DD.CBU.Compute.Api.Contracts.Requests.Infrastructure;
 using MRMPService.MRMPService.Log;
-using MRMPService.MRMPService.Types.API;
 using MRMPService.MRMPAPI.Classes;
 using MRMPService.MRMPAPI.Contracts;
 using Newtonsoft.Json;
@@ -15,7 +14,6 @@ using MRMPService.Utilities;
 using MRMPService.PlatformInventory;
 using DD.CBU.Compute.Api.Contracts.General;
 using MRMPService.MRPService.Classes.Utilities;
-using DD.CBU.Compute.Api.Contracts.Datacenter;
 
 namespace MRMPService.Tasks.MCP
 {
@@ -79,7 +77,9 @@ namespace MRMPService.Tasks.MCP
                             }
                             else
                             {
-                                _mrp_api.task().progress(_task_id, String.Format("Workload {0} is offline. New workload will be provisioned", _target_workload.moid), ReportProgress.Progress(_start_progress, _end_progress, 11));
+                                _mrp_api.task().progress(_task_id, String.Format("Workload {0} is offline. Starting workload.", _target_workload.moid), ReportProgress.Progress(_start_progress, _end_progress, 11));
+                                CaaS.ServerManagement.Server.StartServer(new Guid(_target_workload.moid));
+                                return;
                             }
                         }
                     }
@@ -291,46 +291,82 @@ namespace MRMPService.Tasks.MCP
 
                     //Expand 0 drive and Add additional disks if required
                     int count = 0;
-                    foreach (int _disk_index in _target_workload.workloadvolumes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
+                    if (_os_customization)
                     {
-                        //increase disk by 5GB
-                        long _disk_size = 0;
-                        if (_os_customization)
+                        foreach (int _disk_index in _target_workload.workloadvolumes.OrderBy(x => x.diskindex).Select(x => x.diskindex).Distinct())
                         {
-                            _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
-                        }
-                        else
-                        {
-                            _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize);
-                        }
-                        String _disk_tier = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier_id;
-                        if (deployedServer.disk.ToList().Exists(x => x.scsiId == _disk_index))
-                        {
-                            if (deployedServer.disk.ToList().FirstOrDefault(x => x.scsiId == _disk_index).sizeGb < _disk_size)
+                            //increase disk by 5GB
+                            long _disk_size = 0;
+                            if (_os_customization)
                             {
-                                String _disk_guid = deployedServer.disk.ToList().Find(x => x.scsiId == _disk_index).id;
+                                _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
+                            }
+                            else
+                            {
+                                _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize);
+                            }
+                            String _disk_tier = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier_id;
+                            if (deployedServer.disk.ToList().Exists(x => x.scsiId == _disk_index))
+                            {
+                                if (deployedServer.disk.ToList().FirstOrDefault(x => x.scsiId == _disk_index).sizeGb < _disk_size)
+                                {
+                                    String _disk_guid = deployedServer.disk.ToList().Find(x => x.scsiId == _disk_index).id;
+                                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
+                                    {
+                                        _mrp_api.task().progress(_task_id, String.Format("Extending storage: {0} : {1}GB", _disk_index, _disk_size), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                    }
+                                    Status _create_status = CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _disk_guid, _disk_size.ToString()).Result;
+                                }
+                            }
+                            else
+                            {
                                 using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
                                 {
-                                    _mrp_api.task().progress(_task_id, String.Format("Extending storage: {0} : {1}GB", _disk_index, _disk_size), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                    _mrp_api.task().progress(_task_id, String.Format("Adding storage: {0} : {1}GB on {2}", _disk_index, _disk_size, _disk_tier), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
                                 }
-                                Status _create_status = CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _disk_guid, _disk_size.ToString()).Result;
+                                Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk_size.ToString(), _disk_tier).Result;
                             }
-                        }
-                        else
-                        {
-                            using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
-                            {
-                                _mrp_api.task().progress(_task_id, String.Format("Adding storage: {0} : {1}GB on {2}", _disk_index, _disk_size, _disk_tier), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
-                            }
-                            Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk_size.ToString(), _disk_tier).Result;
-                        }
-                        deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
-                        while (deployedServer.state != "NORMAL" && deployedServer.started == false)
-                        {
                             deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
-                            Thread.Sleep(5000);
+                            while (deployedServer.state != "NORMAL" && deployedServer.started == false)
+                            {
+                                deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
+                                Thread.Sleep(5000);
+                            }
+                            count += 1;
                         }
-                        count += 1;
+                    }
+                    else
+                    {
+                        foreach (MRPWorkloadDiskType _disk in _target_workload.workloaddisks)
+                        {
+                            if (deployedServer.disk.ToList().Exists(x => x.scsiId == _disk.diskindex))
+                            {
+                                if (deployedServer.disk.ToList().FirstOrDefault(x => x.scsiId == _disk.diskindex).sizeGb < _disk.disksize)
+                                {
+                                    String _disk_guid = deployedServer.disk.ToList().Find(x => x.scsiId == _disk.diskindex).id;
+                                    using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
+                                    {
+                                        _mrp_api.task().progress(_task_id, String.Format("Extending storage: {0} : {1}GB", _disk.diskindex, _disk.disksize), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                    }
+                                    Status _create_status = CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _disk_guid, _disk.disksize.ToString()).Result;
+                                }
+                            }
+                            else
+                            {
+                                using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
+                                {
+                                    _mrp_api.task().progress(_task_id, String.Format("Adding storage: {0} : {1}GB on {2}", _disk.diskindex, _disk.disksize, _disk.platformstoragetier_id), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                }
+                                Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk.disksize.ToString(), _disk.platformstoragetier_id).Result;
+                            }
+                            deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
+                            while (deployedServer.state != "NORMAL" && deployedServer.started == false)
+                            {
+                                deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
+                                Thread.Sleep(5000);
+                            }
+                            count += 1;
+                        }
                     }
 
                     //Start Workload
