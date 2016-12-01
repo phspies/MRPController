@@ -9,7 +9,7 @@ namespace MRMPService.PortalTasks
 {
     partial class DRSServersLive
     {
-        static public void SetupLiveJob(MRPTaskType _mrmp_task)
+        static public async void SetupLiveJob(MRPTaskType _mrmp_task)
         {
             MRPTaskDetailType _payload = _mrmp_task.taskdetail;
             MRPWorkloadType _source_workload = _payload.source_workload;
@@ -17,34 +17,32 @@ namespace MRMPService.PortalTasks
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;
             MRPManagementobjectType _managementobject = _payload.managementobject;
             MRPPlatformType _platform = _payload.target_platform;
-            using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
+
+            try
             {
-                try
+                await MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 33, true);
+
+                //update target workload
+                _target_workload = await MRMPServiceBase._mrmp_api_endpoint.workload().get_by_id(_target_workload.id);
+
+
+                if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
                 {
-                    MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 33, true);
-
-                    //update target workload
-                    _target_workload = _mrp_portal.workload().get_by_id(_target_workload.id);
-
-
-                    if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
-                    {
-                        ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
-                        Availability.CreateHAServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99, DT_JobTypes.HA_Full_Failover);
-                    }
-                    else
-                    {
-                        ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
-                        Availability.CreateHAServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99, DT_JobTypes.HA_Linux_FullFailover);
-                    }
-                    _mrp_portal.task().successcomplete(_mrmp_task.id, "Successfully configured protection job");
-
+                    ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
+                    Availability.CreateHAServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99, DT_JobTypes.HA_Full_Failover);
                 }
-                catch (Exception ex)
+                else
                 {
-                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
-
+                    ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
+                    Availability.CreateHAServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99, DT_JobTypes.HA_Linux_FullFailover);
                 }
+                await MRMPServiceBase._mrmp_api_endpoint.task().successcomplete(_mrmp_task.id, "Successfully configured protection job");
+
+            }
+            catch (Exception ex)
+            {
+                await MRMPServiceBase._mrmp_api_endpoint.task().failcomplete(_mrmp_task.id, ex.Message);
+
             }
         }
     }

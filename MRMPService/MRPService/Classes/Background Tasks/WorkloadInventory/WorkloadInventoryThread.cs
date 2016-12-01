@@ -15,10 +15,10 @@ namespace MRMPService.MRMPAPI.Classes
 
             while (true)
             {
-                DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(Global.os_inventory_interval);
+                DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(MRMPServiceBase.os_inventory_interval);
                 System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
 
-                Logger.log(String.Format("Staring operating system inventory process with {0} threads", Global.os_inventory_concurrency), Logger.Severity.Info);
+                Logger.log(String.Format("Staring operating system inventory process with {0} threads", MRMPServiceBase.os_inventory_concurrency), Logger.Severity.Info);
 
                 MRPWorkloadListType _workload_paged;
                 MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { provisioned=true, page = 1, deleted = false, enabled = true, os_collection_enabled = true };
@@ -33,7 +33,7 @@ namespace MRMPService.MRMPAPI.Classes
                 {
                     foreach (var workload in _workload_paged.workloads)
                     {
-                        while (lstThreads.Count(x => x.IsAlive) > Global.os_inventory_concurrency - 1)
+                        while (lstThreads.Count(x => x.IsAlive) > MRMPServiceBase.os_inventory_concurrency - 1)
                         {
                             Thread.Sleep(1000);
                         }

@@ -12,7 +12,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
         {
             while (true)
             {                                                                                   
-                DateTime _next_upload_run = DateTime.UtcNow.AddMinutes(Global.portal_upload_interval);
+                DateTime _next_upload_run = DateTime.UtcNow.AddMinutes(MRMPServiceBase.portal_upload_interval);
                 try
                 {
                     Logger.log("Staring data upload process", Logger.Severity.Info);

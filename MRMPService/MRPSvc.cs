@@ -20,7 +20,7 @@ namespace MRMPService
         {
             try
             {
-                Global.event_log = MRPLog1;
+                MRMPServiceBase.event_log = MRPLog1;
 
                 Startup _startup = new Startup();
                 Logger.log("Starting Manager Service", Logger.Severity.Debug);

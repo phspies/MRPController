@@ -14,7 +14,7 @@ namespace MRMPService.NetstatCollection
         {
             while (true)
             {
-                DateTime _next_netstat_run = DateTime.UtcNow.AddMinutes(Global.os_netstat_interval);
+                DateTime _next_netstat_run = DateTime.UtcNow.AddMinutes(MRMPServiceBase.os_netstat_interval);
                 System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
                 int _processed_workloads = 0;
 
@@ -28,7 +28,7 @@ namespace MRMPService.NetstatCollection
                 _processed_workloads = (int)_workload_paged.pagination.total_entries;
                 double _multiplyer = Math.Ceiling((double)_workload_paged.pagination.total_entries / 200.00);
 
-                Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", (_multiplyer * Global.os_netstat_concurrency)), Logger.Severity.Info);
+                Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", (_multiplyer * MRMPServiceBase.os_netstat_concurrency)), Logger.Severity.Info);
 
                 List<Thread> lstThreads = new List<Thread>();
                 var splashStart = new ManualResetEvent(false);
@@ -36,7 +36,7 @@ namespace MRMPService.NetstatCollection
                 {
                     foreach (var workload in _workload_paged.workloads)
                     {
-                        while (lstThreads.Count(x => x.IsAlive) > (Global.os_netstat_concurrency * _multiplyer))
+                        while (lstThreads.Count(x => x.IsAlive) > (MRMPServiceBase.os_netstat_concurrency * _multiplyer))
                         {
                             Thread.Sleep(1000);
                         }

@@ -18,10 +18,10 @@ namespace MRMPService.DTPollerCollection
         {
             while (true)
             {
-                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(Global.mcp_cg_polling_interval);
+                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(MRMPServiceBase.mcp_cg_polling_interval);
                 Stopwatch sw = Stopwatch.StartNew();
 
-                Logger.log(String.Format("Staring MCP CG collection process with {0} threads", Global.mcp_cg_polling_concurrency), Logger.Severity.Info);
+                Logger.log(String.Format("Staring MCP CG collection process with {0} threads", MRMPServiceBase.mcp_cg_polling_concurrency), Logger.Severity.Info);
 
                 List<MRPManagementobjectType> _mcp_mos;
                 using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
@@ -34,7 +34,7 @@ namespace MRMPService.DTPollerCollection
 
                 foreach (MRPManagementobjectType _mcp_mo in _mcp_mos)
                 {
-                    while (lstThreads.Count(x => x.IsAlive) > Global.mcp_cg_polling_concurrency)
+                    while (lstThreads.Count(x => x.IsAlive) > MRMPServiceBase.mcp_cg_polling_concurrency)
                     {
                         Task.Delay(TimeSpan.FromSeconds(1));
                     }

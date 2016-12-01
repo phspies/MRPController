@@ -3,8 +3,6 @@ using Newtonsoft.Json.Serialization;
 using RestSharp.Serializers;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 
 namespace MRMPService.MRMPAPI

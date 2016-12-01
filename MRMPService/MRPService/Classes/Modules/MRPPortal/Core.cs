@@ -6,37 +6,35 @@ using Newtonsoft.Json;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPAPI.Contracts;
 using Newtonsoft.Json.Serialization;
-using System.Reflection;
-using System.Collections;
-using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI
 {
-    class Core
+    public class Core
     {
-        private String _endpoint;
-        private MRMP_ApiClient _client;
-        static string api_prefix = "/api/v1";
+        static private String _endpoint;
+        static private MRMP_ApiClient _client;
+        static private string api_prefix = "/api/v1";
 
-        public Core(MRMP_ApiClient _MRP)
+        public Core(MRMP_ApiClient _mrmp_base)
         {
-            _client = _MRP;
-        }
-
-        public type post<type>(Object _object) where type : new()
-        {
-            return (type)perform<type>(Method.POST, _object);
-        }
-        public type put<type>(Object _object) where type : new()
-        {
-            return (type)perform<type>(Method.PUT, _object);
-        }
-        public type get<type>(Object _object) where type : new()
-        {
-            return (type)perform<type>(Method.GET, _object);
+            _client = _mrmp_base;
         }
 
-        public object perform<type>(Method _method, Object _object) where type : new()
+        public static async Task<type> post<type>(Object _object) where type : new()
+        {
+            return (type)await perform<object>(Method.POST, _object);
+        }
+        public static async Task<type> put<type>(Object _object) where type : new()
+        {
+            return (type)await perform<object>(Method.PUT, _object);
+        }
+        public static async Task<type> get<type>(Object _object) where type : new()
+        {
+            return (type)await perform<object>(Method.GET, _object);
+        }
+
+        public static async Task<object> perform<type>(Method _method, Object _object) where type : new()
         {
             ServicePointManager.Expect100Continue = false;
             ServicePointManager.UseNagleAlgorithm = false;
@@ -44,7 +42,7 @@ namespace MRMPService.MRMPAPI
             ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) => true;
             var client = new RestClient();
             client.FollowRedirects = false;
-            client.BaseUrl = new Uri(Global.api_base);
+            client.BaseUrl = new Uri(MRMPServiceBase.api_base);
             RestRequest request = new RestRequest();
             client.FollowRedirects = false;
             client.Proxy = null;
@@ -68,21 +66,21 @@ namespace MRMPService.MRMPAPI
 
             client.RemoveDefaultParameter("Accept");
             client.AddDefaultParameter("Accept", "application/json", ParameterType.HttpHeader);
-            client.AddDefaultParameter("MANAGERID", Global.manager_id, ParameterType.HttpHeader);
-            client.AddDefaultParameter("ORGANIZATIONID", Global.organization_id, ParameterType.HttpHeader);
+            client.AddDefaultParameter("MANAGERID", MRMPServiceBase.manager_id, ParameterType.HttpHeader);
+            client.AddDefaultParameter("ORGANIZATIONID", MRMPServiceBase.organization_id, ParameterType.HttpHeader);
 
             object responseobject = null;
             while (true)
             {
-                CancellationTokenSource cts = new CancellationTokenSource();
-                cts.CancelAfter(TimeSpan.FromSeconds(30));
+                var cancellationTokenSource = new CancellationTokenSource();
+                cancellationTokenSource.CancelAfter(TimeSpan.FromSeconds(30));
+                var restResponse = await client.ExecuteTaskAsync(request, cancellationTokenSource.Token);
 
-                var response = client.Execute(request);
-                if (response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Unauthorized)
+                if (restResponse.StatusCode == HttpStatusCode.OK || restResponse.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     try
                     {
-                        responseobject = JsonConvert.DeserializeObject<type>(response.Content, new JsonSerializerSettings
+                        responseobject = JsonConvert.DeserializeObject<type>(restResponse.Content, new JsonSerializerSettings
                         {
                             MissingMemberHandling = MissingMemberHandling.Ignore,
                             NullValueHandling = NullValueHandling.Ignore,
@@ -93,53 +91,53 @@ namespace MRMPService.MRMPAPI
                     {
                         Logger.log(ex.ToString(), Logger.Severity.Error);
                         Logger.log(JsonConvert.SerializeObject(_object), Logger.Severity.Error);
-                        Logger.log(response.Content, Logger.Severity.Error);
+                        Logger.log(restResponse.Content, Logger.Severity.Error);
                         break;
                     }
                     break;
                 }
-                else if (response.StatusCode == HttpStatusCode.BadRequest)
+                else if (restResponse.StatusCode == HttpStatusCode.BadRequest)
                 {
                     ResultType _result = new ResultType();
                     try
                     {
-                        _result = JsonConvert.DeserializeObject<ResultType>(response.Content);
+                        _result = JsonConvert.DeserializeObject<ResultType>(restResponse.Content);
                     }
                     catch (Exception ex)
                     {
                         Logger.log(ex.ToString(), Logger.Severity.Error);
-                        Logger.log(response.Content, Logger.Severity.Error);
+                        Logger.log(restResponse.Content, Logger.Severity.Error);
                         throw new Exception(String.Format("Error in API call: {0} : {1}", ex.GetBaseException().Message, _result.result.message.ToString()));
                     }
                 }
-                else if (response.StatusCode == HttpStatusCode.NotFound)
+                else if (restResponse.StatusCode == HttpStatusCode.NotFound)
                 {
                     ResultType _result = new ResultType();
                     try
                     {
-                        _result = JsonConvert.DeserializeObject<ResultType>(response.Content);
+                        _result = JsonConvert.DeserializeObject<ResultType>(restResponse.Content);
                     }
                     catch (Exception ex)
                     {
                         Logger.log(ex.ToString(), Logger.Severity.Error);
-                        Logger.log(response.Content, Logger.Severity.Error);
+                        Logger.log(restResponse.Content, Logger.Severity.Error);
                         throw new Exception(String.Format("Error in API call: {0} : {1}", ex.GetBaseException().Message, _result.result.message.ToString()));
                     }
                 }
-                else if (response.StatusCode == HttpStatusCode.RequestTimeout)
+                else if (restResponse.StatusCode == HttpStatusCode.RequestTimeout)
                 {
                     Logger.log(String.Format("Connection timeout to {0}", client.BuildUri(request).ToString()), Logger.Severity.Error);
                     Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
-                else if (response.StatusCode == 0)
+                else if (restResponse.StatusCode == 0)
                 {
-                    Logger.log(String.Format("Unexpected error connecting to {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), Logger.Severity.Error);
+                    Logger.log(String.Format("Unexpected error connecting to {0} with error ({1})", client.BuildUri(request).ToString(), restResponse.ErrorMessage), Logger.Severity.Error);
 
                     Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
                 else
                 {
-                    Logger.log(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), response.ErrorMessage), Logger.Severity.Error);
+                    Logger.log(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), restResponse.ErrorMessage), Logger.Severity.Error);
                     Thread.Sleep(new TimeSpan(0, 0, 30));
                 }
             }
@@ -148,21 +146,21 @@ namespace MRMPService.MRMPAPI
             return responseobject;
 
         }
-        public void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
+        public static void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
         {
             var currentError = errorArgs.ErrorContext.Error.Message;
             errorArgs.ErrorContext.Handled = true;
         }
 
-        public String endpoint
+        public static String endpoint
         {
             get
             {
-                return api_prefix + this._endpoint;
+                return api_prefix + _endpoint;
             }
             set
             {
-                this._endpoint = value;
+                _endpoint = value;
             }
         }
     }

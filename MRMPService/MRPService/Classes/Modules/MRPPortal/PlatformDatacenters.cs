@@ -1,53 +1,22 @@
 ﻿using MRMPService.MRMPAPI.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Net;
+using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI
 {
-    class PortalPlatformDatacenter : Core, IDisposable
+    public class PortalPlatformDatacenter : Core
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~PortalPlatformDatacenter()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
         public PortalPlatformDatacenter(MRMP_ApiClient _MRP) : base(_MRP) {
         }
          
-        public MRPPlatformdatacenterListType list(MRPPlatformType _platform)
+        public async Task<MRPPlatformdatacenterListType> list(MRPPlatformType _platform)
         {
             endpoint = "/platformdatacenters/list.json";
             MRPPlatformGETType _platform_filter = new MRPPlatformGETType();
             _platform_filter.platform_id = _platform.id;
-            return post<MRPPlatformdatacenterListType>(_platform_filter);
+            return await post<MRPPlatformdatacenterListType>(_platform_filter);
         }
 
-        public MRPPlatformdatacenterType create(MRPPlatformdatacenterType _platform_datacenter)
+        public async Task<ResultType> create(MRPPlatformdatacenterType _platform_datacenter)
         {
             MRPPlatformdatacenterCRUDType datacenter = new MRPPlatformdatacenterCRUDType()
             {
@@ -55,9 +24,9 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/platformdatacenters/create.json";
-            return post<MRPPlatformdatacenterType>(datacenter);
+            return await post<ResultType>(datacenter);
         }
-        public MRPPlatformdatacenterType update(MRPPlatformdatacenterType _platform_datacenter)
+        public async Task<ResultType> update(MRPPlatformdatacenterType _platform_datacenter)
         {
             MRPPlatformdatacenterCRUDType datacenter = new MRPPlatformdatacenterCRUDType()
             {
@@ -65,7 +34,7 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/platformdatacenters/update.json";
-            return (put<MRPPlatformdatacenterType>(datacenter));
+            return await put<ResultType>(datacenter);
         }
     }
 }

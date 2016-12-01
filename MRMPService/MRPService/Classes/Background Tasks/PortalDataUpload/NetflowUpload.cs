@@ -43,7 +43,7 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
 
                                     _netflow_list.Add(_mrp_crud);
 
-                                    if (_netflow_list.Count > Global.portal_upload_netflow_page_size)
+                                    if (_netflow_list.Count > MRMPServiceBase.portal_upload_netflow_page_size)
                                     {
                                         _cloud_movey.netflow().createnetworkflow(_netflow_list);
                                         _netflow_list.Clear();

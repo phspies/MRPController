@@ -1,23 +1,24 @@
 ﻿using MRMPService.MRMPAPI.Contracts;
 using System;
+using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI
 {
-    class MRPOrganization : Core
+    public class MRPOrganization : Core
     {
         public MRPOrganization(MRMP_ApiClient _MRP) : base(_MRP) { }
 
         public MRMP_ApiClient MRP = new MRMP_ApiClient();
 
-        public MRPOrganizationType get()
+        static public async Task<MRPOrganizationType> get()
         {
             endpoint = "/organization/get.json";
-            return post<MRPOrganizationType>(null);
+            return await post<MRPOrganizationType>(null);
         }
-        public ResultType update(MRPOrganizationCRUDType _organization)
+        public async Task<ResultType> update(MRPOrganizationCRUDType _organization)
         {
             endpoint = "/organization/update.json";
-            return put<ResultType>(_organization);
+            return await put<ResultType>(_organization);
         }
 
     }

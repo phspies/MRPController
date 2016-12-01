@@ -8,7 +8,7 @@ namespace MRMPService.MRMPAPI.Contracts
     public class MRPManagerType
     {
         [JsonProperty("id")]
-        public string id { get { return Global.manager_id; } set { } }
+        public string id { get { return MRMPServiceBase.manager_id; } set { } }
         [JsonProperty("hostname")]
         public string hostname { get; set; }
         [JsonProperty("version")]

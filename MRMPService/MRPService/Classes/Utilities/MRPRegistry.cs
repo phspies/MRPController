@@ -21,7 +21,7 @@ namespace MRMPService.Utilities
                 {
                     Logger.log("Creating Registry Hive", Logger.Severity.Info);
                     RegistryKey regkey = Registry.LocalMachine.CreateSubKey(_registry);
-                    Global.debug = false;
+                    MRMPServiceBase.debug = false;
                     regkey.Close();
                     rkSubKey = Registry.LocalMachine.OpenSubKey(_registry, true);
                 }

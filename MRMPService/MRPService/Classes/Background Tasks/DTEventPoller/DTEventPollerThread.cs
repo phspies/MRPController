@@ -16,10 +16,10 @@ namespace MRMPService.DTEventPollerCollection
         {
             while (true)
             {
-                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(Global.dt_event_polling_interval);
+                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(MRMPServiceBase.dt_event_polling_interval);
                 Stopwatch sw = Stopwatch.StartNew();
 
-                Logger.log(String.Format("Staring Double-Take Event collection process with {0} threads", Global.dt_event_polling_concurrency), Logger.Severity.Info);
+                Logger.log(String.Format("Staring Double-Take Event collection process with {0} threads", MRMPServiceBase.dt_event_polling_concurrency), Logger.Severity.Info);
                 MRPWorkloadListType _workload_paged;
                 MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { page = 1, deleted = false, enabled = true, dt_installed = true, dt_collection_enabled = true };
                 using (MRMP_ApiClient _api = new MRMP_ApiClient())
@@ -37,7 +37,7 @@ namespace MRMPService.DTEventPollerCollection
                     foreach (var workload in _workload_paged.workloads)
                     {
 
-                        while (lstThreads.Count(x => x.IsAlive) > (Global.dt_job_polling_concurrency * _multiplyer))
+                        while (lstThreads.Count(x => x.IsAlive) > (MRMPServiceBase.dt_job_polling_concurrency * _multiplyer))
                         {
                             Thread.Sleep(1000);
                         }

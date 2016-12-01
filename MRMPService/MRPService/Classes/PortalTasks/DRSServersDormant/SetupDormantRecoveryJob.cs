@@ -8,7 +8,7 @@ namespace MRMPService.PortalTasks
 {
     partial class DRSServersDormant
     {
-        static public void SetupDormantRecoveryJob(MRPTaskType _mrmp_task)
+        static public async void SetupDormantRecoveryJob(MRPTaskType _mrmp_task)
         {
             MRPTaskDetailType _payload = _mrmp_task.taskdetail;
             MRPWorkloadType _source_workload = _payload.source_workload;
@@ -19,24 +19,22 @@ namespace MRMPService.PortalTasks
             MRPProtectiongrouptreeType _protectiongrouptree = _payload.protectiongrouptree;
             MRPPlatformType _platform = _payload.target_platform;
             MRPManagementobjectType _managementobject = _payload.managementobject;
-            using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
+
+            try
             {
-                try
-                {
-                    MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 33, true);
+                await MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 33, true);
 
-                    //update target workload
-                    _target_workload = _mrp_portal.workload().get_by_id(_target_workload.id);
+                //update target workload
+                _target_workload = await MRMPServiceBase._mrmp_api_endpoint.workload().get_by_id(_target_workload.id);
 
-                    ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 65);
-                    DisasterRecovery.CreateDRServerRecoveryJob(_mrmp_task.id, _source_workload, _target_workload, _original_workload, _protectiongroup, _managementobject, 66, 99);
+                ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 65);
+                DisasterRecovery.CreateDRServerRecoveryJob(_mrmp_task.id, _source_workload, _target_workload, _original_workload, _protectiongroup, _managementobject, 66, 99);
 
-                    _mrp_portal.task().successcomplete(_mrmp_task.id, "Successfully configured recovery job");
-                }
-                catch (Exception ex)
-                {
-                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.GetBaseException().Message);
-                }
+                await MRMPServiceBase._mrmp_api_endpoint.task().successcomplete(_mrmp_task.id, "Successfully configured recovery job");
+            }
+            catch (Exception ex)
+            {
+                await MRMPServiceBase._mrmp_api_endpoint.task().failcomplete(_mrmp_task.id, ex.GetBaseException().Message);
             }
         }
     }

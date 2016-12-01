@@ -273,9 +273,9 @@ namespace MRMPService.WCF
         public workerInformation CollectionInformation()
         {
             workerInformation _notifier = new workerInformation();
-            _notifier.agentId = Global.manager_id;
-            _notifier.versionNumber = Global.manager_version;
-            _notifier.currentJobs = Global.worker_queue_count;
+            _notifier.agentId = MRMPServiceBase.manager_id;
+            _notifier.versionNumber = MRMPServiceBase.manager_version;
+            _notifier.currentJobs = MRMPServiceBase.worker_queue_count;
             return _notifier;
         }
 

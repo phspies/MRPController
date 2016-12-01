@@ -11,7 +11,7 @@ namespace MRMPService.MRMPDoubleTake
 {
     public class SetOptions
     {
-        public static CreateOptionsModel set_job_options(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, CreateOptionsModel jobInfo, float _start_progress, float _end_progress, MRPManagementobjectType _managementobject = null)
+        public static async System.Threading.Tasks.Task<CreateOptionsModel> set_job_options(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, CreateOptionsModel jobInfo, float _start_progress, float _end_progress, MRPManagementobjectType _managementobject = null)
         {
 
 
@@ -63,10 +63,8 @@ namespace MRMPService.MRMPDoubleTake
                     String _filename = _source_workload.id + "_" + _shortvolume + ".vhdx";
                     string absfilename = Path.Combine(_repositorypath, _protectiongroup.id, _source_workload.id, _filename);
                     vhd.Add(new ImageVhdInfoModel() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = false, FilePath = absfilename, SizeInMB = (_disksize * 1024) });
-                    using (MRMP_ApiClient _mrp_api = new MRMP_ApiClient())
-                    {
-                        _mrp_api.task().progress(_task_id, String.Format("Volume {0} being synced to {1} on repository server", _shortvolume.ToString(), absfilename), ReportProgress.Progress(_start_progress, _end_progress, 51 + i));
-                    }
+
+                    await MRMPServiceBase._mrmp_api_endpoint.task().progress(_task_id, String.Format("Volume {0} being synced to {1} on repository server", _shortvolume.ToString(), absfilename), ReportProgress.Progress(_start_progress, _end_progress, 51 + i));
                     i += 1;
                 }
                 jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
@@ -120,7 +118,7 @@ namespace MRMPService.MRMPDoubleTake
                     }
                     SnapshotScheduleModel _snapshot = new SnapshotScheduleModel();
                     _snapshot.Interval = _snapshot_timespan;
-                    
+
                     _snapshot.IsEnabled = true;
                     _snapshot.MaxNumberOfSnapshots = _protectiongroup.recoverypolicy.snapshotmaxcount == null ? 0 : (int)_protectiongroup.recoverypolicy.snapshotmaxcount;
                     if (_protectiongroup.recoverypolicy.snapshotstarttimestamp != null)

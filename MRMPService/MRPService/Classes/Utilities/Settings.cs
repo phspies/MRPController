@@ -15,8 +15,8 @@ namespace MRMPService.Utilities
 
         static public void SetupController()
         {
-            Global.debug = Convert.ToBoolean((int)MRPRegistry.RegAccess("debug", 1, RegistryValueKind.DWord));
-            if (Global.debug)
+            MRMPServiceBase.debug = Convert.ToBoolean((int)MRPRegistry.RegAccess("debug", 1, RegistryValueKind.DWord));
+            if (MRMPServiceBase.debug)
             {
                 Logger.log("Debug Enabled!", Logger.Severity.Info);
             }
@@ -24,22 +24,22 @@ namespace MRMPService.Utilities
             {
                 Logger.log("Debug Disabled!", Logger.Severity.Info);
             }
-            MRPRegistry.RegAccess("manager_version", Global.manager_version, RegistryValueKind.String);
+            MRPRegistry.RegAccess("manager_version", MRMPServiceBase.manager_version, RegistryValueKind.String);
 
 
             //check if agent Id exists
             String _agentId = MRPRegistry.RegAccess("manager_id") as String;
             if (String.IsNullOrEmpty(_agentId))
             {
-                Global.manager_id = Guid.NewGuid().ToString().Replace("-", "");
-                MRPRegistry.RegAccess("manager_id", Global.manager_id, RegistryValueKind.String);
+                MRMPServiceBase.manager_id = Guid.NewGuid().ToString().Replace("-", "");
+                MRPRegistry.RegAccess("manager_id", MRMPServiceBase.manager_id, RegistryValueKind.String);
             }
             else
             {
-                Global.manager_id = _agentId.ToString();
+                MRMPServiceBase.manager_id = _agentId.ToString();
             }
 
-            if (Global.debug) { Logger.log("MRP Manager ID:" + Global.manager_id, Logger.Severity.Info); };
+            if (MRMPServiceBase.debug) { Logger.log("MRP Manager ID:" + MRMPServiceBase.manager_id, Logger.Severity.Info); };
 
         }
     }

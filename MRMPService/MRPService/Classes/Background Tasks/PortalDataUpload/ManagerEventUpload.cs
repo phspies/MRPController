@@ -34,11 +34,11 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                                     MRPManagerEventType _mrp_crud = new MRPManagerEventType();
                                     _mrp_crud.message = _db_flow.message;
                                     _mrp_crud.timestamp = _db_flow.timestamp;
-                                    _mrp_crud.manager_id = Global.manager_id;
+                                    _mrp_crud.manager_id = MRMPServiceBase.manager_id;
 
                                     _event_crud_list.Add(_mrp_crud);
 
-                                    if (_event_crud_list.Count > Global.portal_upload_managerevent_page_size)
+                                    if (_event_crud_list.Count > MRMPServiceBase.portal_upload_managerevent_page_size)
                                     {
                                         _cloud_movey.manager().update_managerevents(_event_crud_list);
                                         _event_crud_list.Clear();

@@ -184,7 +184,7 @@ namespace MRMPService.PlatformInventory
                             }
                         }
                     }
-                    System.Threading.Tasks.Parallel.ForEach(_vmware_workload_list, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = Global.platform_workload_inventory_concurrency }, (_vmware_workload) =>
+                    System.Threading.Tasks.Parallel.ForEach(_vmware_workload_list, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, (_vmware_workload) =>
                     {
                         try
                         {

@@ -33,7 +33,7 @@ namespace MRMPService.NetstatCollection
                         process = _workload_netstat.process,
                     });
 
-                    if (_netflow_list.Count > Global.portal_upload_netflow_page_size)
+                    if (_netflow_list.Count > MRMPServiceBase.portal_upload_netflow_page_size)
                     {
                         using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
                         {

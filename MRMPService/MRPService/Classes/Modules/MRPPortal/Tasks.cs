@@ -1,9 +1,7 @@
-﻿using MRMPService.MRMPService.Log;
-using MRMPService.MRMPService.Types.API;
+﻿using MRMPService.MRMPService.Types.API;
 using MRMPService.MRMPAPI.Contracts;
 using System;
-using System.Diagnostics;
-using System.Net;
+using System.Threading.Tasks;
 
 namespace MRMPService.MRMPAPI
 {
@@ -15,7 +13,7 @@ namespace MRMPService.MRMPAPI
         public const int Failed = 3;
         public const int InternalComplete = 4;
         }
-    class MRPTask : Core
+    public class MRPTask : Core
     {
        
         public MRPTask(MRMP_ApiClient _MRP) : base(_MRP)
@@ -23,19 +21,19 @@ namespace MRMPService.MRMPAPI
         }
         public MRMP_ApiClient MRP = new MRMP_ApiClient();
 
-        public MRPTaskListType tasks()
+        public async Task<MRPTaskListType> tasks()
         {
             endpoint = "/tasks/list.json";
             MRPCommandManagerType worker = new MRPCommandManagerType();
-            return post<MRPTaskListType>(worker);
+            return (MRPTaskListType)await post<MRPTaskListType>(worker);
         }
-        public MRPTaskType get(string _task_id)
+        public async Task<MRPTaskType> get(string _task_id)
         {
             var _get_task = new MRPTaskGetType() { task_id = _task_id };
             endpoint = "/tasks/get.json";
-            return post<MRPTaskType>(_get_task);
+            return (MRPTaskType)await post<MRPTaskType>(_get_task);
         }
-        public ResultType successcomplete(String _task_id, string returnpayload)
+        public async Task<ResultType> successcomplete(String _task_id, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -49,9 +47,9 @@ namespace MRMPService.MRMPAPI
                 }
             };
             endpoint = "/tasks/update.json";
-            return put<ResultType>(task);
+            return (ResultType)await put<ResultType>(task);
         }
-        public ResultType successcomplete(MRPTaskType payload, string returnpayload)
+        public async Task<ResultType> successcomplete(MRPTaskType payload, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -65,9 +63,9 @@ namespace MRMPService.MRMPAPI
                 }
             };
             endpoint = "/tasks/update.json";
-            return put<ResultType>(task);
+            return (ResultType)await put<ResultType>(task);
         }
-        public ResultType successcomplete(String _task_id)
+        public async Task<ResultType> successcomplete(String _task_id)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -82,9 +80,9 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/tasks/update.json";
-            return put<ResultType>(task);
+            return (ResultType)await put<ResultType>(task);
         }
-        public ResultType successcomplete(MRPTaskType payload)
+        public async Task<ResultType> successcomplete(MRPTaskType payload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -99,9 +97,9 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/tasks/update.json";
-            return put<ResultType>(task);
+            return (ResultType)await put<ResultType>(task);
         }
-        public ResultType failcomplete(String _task_id, string returnpayload)
+        public async Task<ResultType> failcomplete(String _task_id, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -115,9 +113,9 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/tasks/update.json";
-            return put<ResultType>(task);
+            return (ResultType)await put<ResultType>(task);
         }
-        public ResultType failcomplete(MRPTaskType payload, string returnpayload)
+        public async Task<ResultType> failcomplete(MRPTaskType payload, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -131,9 +129,9 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/tasks/update.json";
-            return put<ResultType>(task);
+            return (ResultType)await put<ResultType>(task);
         }
-        public ResultType progress(String _task_id, string _step, double _progress)
+        public async Task<ResultType> progress(String _task_id, string _step, double _progress)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -146,9 +144,9 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/tasks/update.json";
-            return put<ResultType>(task);
+            return (ResultType)await put<ResultType>(task);
         }
-        public ResultType progress(MRPTaskType payload, string _step, double _progress)
+        public async Task<ResultType> progress(MRPTaskType payload, string _step, double _progress)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -161,9 +159,9 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/tasks/update.json";
-            return put<ResultType>(task);
+            return (ResultType)await put<ResultType>(task);
         }
-        public ResultType progress(String _task_id, string _step)
+        public async Task<ResultType> progress(String _task_id, string _step)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -175,9 +173,9 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/tasks/update.json";
-            return put<ResultType>(task);
+            return (ResultType)await put<ResultType>(task);
         }
-        public ResultType progress(MRPTaskType payload, string _step)
+        public async Task<ResultType> progress(MRPTaskType payload, string _step)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -189,14 +187,13 @@ namespace MRMPService.MRMPAPI
             };
 
             endpoint = "/tasks/update.json";
-            return put<ResultType>(task);
+            return (ResultType)await put<ResultType>(task);
         }
-        public ResultType update(MRPTaskType _object)
+        public async Task<ResultType> update(MRPTaskType _object)
         {
             endpoint = "/tasks/update.json";
-            return put<ResultType>(_object);
+            return (ResultType)await put<ResultType>(_object);
         }
-
     }
 }
 

@@ -96,7 +96,7 @@ namespace MRMPService.Tasks.MCP
                                 {
                                     organization = new MRPOrganizationType()
                                     {
-                                        id = Global.organization_id,
+                                        id = MRMPServiceBase.organization_id,
                                         organizationtags = new List<MRPOrganizationTagType>() {
                                             new MRPOrganizationTagType() {
                                                 id = _org_tag.id,

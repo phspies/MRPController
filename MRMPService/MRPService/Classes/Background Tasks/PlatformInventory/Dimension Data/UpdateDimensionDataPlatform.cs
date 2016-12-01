@@ -67,7 +67,7 @@ namespace MRMPService.PlatformInventory
                 var _caas_tags = await CaaS.Tagging.GetTags();
 
                 var _mrmp_org = _mrp_api_endpoint.organization().get();
-                MRPOrganizationCRUDType _update_org = new MRPOrganizationCRUDType() { organization = new MRPOrganizationType() { id = Global.organization_id, organizationtags = _mrmp_org.organizationtags } };
+                MRPOrganizationCRUDType _update_org = new MRPOrganizationCRUDType() { organization = new MRPOrganizationType() { id = MRMPServiceBase.organization_id, organizationtags = _mrmp_org.organizationtags } };
 
                 if (_caas_tags != null)
                 {
@@ -522,7 +522,7 @@ namespace MRMPService.PlatformInventory
                     {
                         if (full)
                         {
-                            Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_workload_inventory_concurrency }, async (_caasworkload) =>
+                            Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, async (_caasworkload) =>
                             {
                                 try
                                 {

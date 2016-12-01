@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using MRMPService.MRMPAPI;
 using MRMPService.Utilities;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,14 @@ using static MRMPService.Utilities.SyncronizedList;
 
 namespace MRMPService
 {
-    public static class Global
+    public static class MRMPServiceBase
     {
 
         /// <summary>
         /// Static value protected by access routine.
         /// </summary>
         /// 
+        public static MRMP_ApiClient _mrmp_api_endpoint = new MRMP_ApiClient();
 
         public static object mcp_exec = new object();
 

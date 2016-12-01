@@ -16,10 +16,10 @@ namespace MRMPService.RPEventPollerCollection
         {
             while (true)
             {
-                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(Global.rp4vm_cg_polling_interval);
+                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(MRMPServiceBase.rp4vm_cg_polling_interval);
                 Stopwatch sw = Stopwatch.StartNew();
 
-                Logger.log(String.Format("Staring RP4VM collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
+                Logger.log(String.Format("Staring RP4VM collection process with {0} threads", MRMPServiceBase.os_performance_concurrency), Logger.Severity.Info);
 
                 List<MRPManagementobjectType> _rp4vms;
                 using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
@@ -31,7 +31,7 @@ namespace MRMPService.RPEventPollerCollection
 
                 foreach (var _rp4vm in _rp4vms)
                 {
-                    while (lstThreads.Count(x => x.IsAlive) > Global.rp4vm_cg_polling_concurrency)
+                    while (lstThreads.Count(x => x.IsAlive) > MRMPServiceBase.rp4vm_cg_polling_concurrency)
                     {
                         Thread.Sleep(1000);
                     }

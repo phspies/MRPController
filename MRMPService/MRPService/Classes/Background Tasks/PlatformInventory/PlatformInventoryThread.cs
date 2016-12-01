@@ -19,8 +19,8 @@ namespace MRMPService.PlatformInventory
         {
             while (true)
             {
-                DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(Global.platform_inventory_interval);
-                Logger.log(String.Format("Staring platform inventory process with {0} threads", Global.platform_inventory_concurrency), Logger.Severity.Info);
+                DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(MRMPServiceBase.platform_inventory_interval);
+                Logger.log(String.Format("Staring platform inventory process with {0} threads", MRMPServiceBase.platform_inventory_concurrency), Logger.Severity.Info);
                 MRMP_ApiClient _cloud_movey = new MRMP_ApiClient();
 
                 Stopwatch sw = Stopwatch.StartNew();
@@ -30,9 +30,9 @@ namespace MRMPService.PlatformInventory
                 try
                 {
                     //process platform independant items
-                    List<MRPPlatformType> _mrp_platforms = _cloud_movey.platform().list_paged_filtered(new MRPPlatformFilterPagedType() { deleted = false, enabled = true, page = 1, page_size = 200 }).platforms;
+                    List<MRPPlatformType> _mrp_platforms = _cloud_movey.platform().list(new MRPPlatformFilterPagedType() { deleted = false, enabled = true, page = 1, page_size = 200 }).platforms;
                     //Process Platforms in paralel
-                    Parallel.ForEach(_mrp_platforms, new ParallelOptions { MaxDegreeOfParallelism = Global.platform_inventory_concurrency }, async (platform) =>
+                    Parallel.ForEach(_mrp_platforms, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_inventory_concurrency }, async (platform) =>
                           {
                               try
                               {

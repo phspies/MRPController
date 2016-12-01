@@ -17,10 +17,10 @@ namespace MRMPService.DTPollerCollection
         {
             while (true)
             {
-                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(Global.dt_job_polling_interval);
+                DateTime _next_poller_run = DateTime.UtcNow.AddSeconds(MRMPServiceBase.dt_job_polling_interval);
                 Stopwatch sw = Stopwatch.StartNew();
 
-                Logger.log(String.Format("Staring Double-Take collection process with {0} threads", Global.os_performance_concurrency), Logger.Severity.Info);
+                Logger.log(String.Format("Staring Double-Take collection process with {0} threads", MRMPServiceBase.os_performance_concurrency), Logger.Severity.Info);
 
                 List<MRPManagementobjectType> _jobs;
                 using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
@@ -33,7 +33,7 @@ namespace MRMPService.DTPollerCollection
 
                 foreach (MRPManagementobjectType job in _jobs)
                 {
-                    while (lstThreads.Count(x => x.IsAlive) > Global.os_inventory_concurrency)
+                    while (lstThreads.Count(x => x.IsAlive) > MRMPServiceBase.os_inventory_concurrency)
                     {
                         Thread.Sleep(1000);
                     }

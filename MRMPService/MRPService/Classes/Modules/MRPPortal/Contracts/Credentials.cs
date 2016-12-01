@@ -35,7 +35,7 @@ namespace MRMPService.MRMPAPI.Contracts
                 {
                     CryptLib _crypt = new CryptLib();
                     byte[] data = Convert.FromBase64String(_encrypted_password);
-                    string decodedString = _crypt.decrypt(data, Global.organization_id, password);
+                    string decodedString = _crypt.decrypt(data, MRMPServiceBase.organization_id, password);
                     return decodedString;
                 }
                 else

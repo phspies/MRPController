@@ -31,7 +31,7 @@ namespace MRMPService.PerformanceCollection
                 _processed_workloads = (int)_workload_paged.pagination.total_entries;
                 double _multiplyer = Math.Ceiling((double)_workload_paged.pagination.total_entries / 100.00);
 
-                Logger.log(String.Format("Staring performance collection process with {0} threads", (Global.os_performance_concurrency * _multiplyer)), Logger.Severity.Info);
+                Logger.log(String.Format("Staring performance collection process with {0} threads", (MRMPServiceBase.os_performance_concurrency * _multiplyer)), Logger.Severity.Info);
 
 
 
@@ -40,7 +40,7 @@ namespace MRMPService.PerformanceCollection
                 {
                     foreach (var workload in _workload_paged.workloads)
                     {
-                        while (lstThreads.Count(x => x.IsAlive) > (Global.os_performance_concurrency * _multiplyer))
+                        while (lstThreads.Count(x => x.IsAlive) > (MRMPServiceBase.os_performance_concurrency * _multiplyer))
                         {
                             Thread.Sleep(1000);
                         }

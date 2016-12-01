@@ -1,11 +1,7 @@
 ﻿using MRMPService.MRMPAPI.Contracts;
-using MRMPService.MRMPService.Types.API;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MRMPService.MRMPService.Types.API
 {
@@ -32,6 +28,10 @@ namespace MRMPService.MRMPService.Types.API
         public string target_type { get; set; }
         [JsonProperty("task_type")]
         public string task_type { get; set; }
+        public async void progress(string _step)
+        {
+            await MRMPServiceBase._mrmp_api_endpoint.task().progress(this.id, _step);
+        }
     }
 
     public class MRPTaskDetailType

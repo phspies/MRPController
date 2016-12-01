@@ -68,7 +68,7 @@ namespace MRMPService.PerformanceCollection
                         _performancecrud.performancecategory_id = _category.id;
                         _performancecounters_list.Add(_performancecrud);
 
-                        if (_performancecounters_list.Count > Global.portal_upload_performanceounter_page_size)
+                        if (_performancecounters_list.Count > MRMPServiceBase.portal_upload_performanceounter_page_size)
                         {
                             using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
                             {
