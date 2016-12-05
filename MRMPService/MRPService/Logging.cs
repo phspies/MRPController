@@ -48,7 +48,7 @@ namespace MRMPService.MRMPService.Log
                     }
                     break;
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
                 }
                 finally

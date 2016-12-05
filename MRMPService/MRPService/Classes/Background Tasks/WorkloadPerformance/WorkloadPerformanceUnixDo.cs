@@ -9,6 +9,7 @@ using Renci.SshNet.Common;
 using Renci.SshNet;
 using System.IO;
 using Renci.SshNet.Sftp;
+using System.Threading.Tasks;
 
 namespace MRMPService.PerformanceCollection
 {
@@ -26,7 +27,7 @@ namespace MRMPService.PerformanceCollection
                 }
             }
         }
-        public static void WorkloadPerformanceUnixDo(MRPWorkloadType _workload)
+        public static async Task WorkloadPerformanceUnixDo(MRPWorkloadType _workload)
         {
             List<PerformanceType> _workload_counters = new List<PerformanceType>();
 
@@ -51,7 +52,7 @@ namespace MRMPService.PerformanceCollection
             }
             #endregion
 
-            Logger.log(String.Format("PerformanceType: Start PerformanceType collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+            Logger.log(String.Format("Performance: Start PerformanceType collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
             KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_credential.username);
             _keyboard_authentication.AuthenticationPrompt += new EventHandler<AuthenticationPromptEventArgs>(HandleKeyEvent);
             PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_credential.username, _password);
@@ -185,7 +186,7 @@ namespace MRMPService.PerformanceCollection
                     }
                 }
             }
-            WorkloadPerformanceUpload.Upload(_workload_counters, _workload);
+            await WorkloadPerformanceUpload.Upload(_workload_counters, _workload);
 
             Logger.log(String.Format("PerformanceType: Completed PerformanceType collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
         }

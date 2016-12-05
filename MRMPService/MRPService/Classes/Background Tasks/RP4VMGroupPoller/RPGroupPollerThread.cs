@@ -13,7 +13,7 @@ namespace MRMPService.DTPollerCollection
 {
     class RPGroupPollerThread
     {
-        public void Start()
+        public async void Start()
         {
             while (true)
             {
@@ -23,10 +23,8 @@ namespace MRMPService.DTPollerCollection
                 Logger.log(String.Format("Staring RP4VM collection process with {0} threads", MRMPServiceBase.os_performance_concurrency), Logger.Severity.Info);
 
                 List<MRPManagementobjectType> _rp4vms;
-                using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
-                {
-                    _rp4vms = _mrmp.managementobject().listmanagementobjects().managementobjects.Where(x => x.target_platform.enabled == true).ToList();
-                }
+
+                _rp4vms = (await MRMPServiceBase._mrmp_api.managementobject().listmanagementobjects()).managementobjects.Where(x => x.target_platform.enabled == true).ToList();
                 List<Thread> lstThreads = new List<Thread>();
                 var splashStart = new ManualResetEvent(false);
 
@@ -37,12 +35,12 @@ namespace MRMPService.DTPollerCollection
                         Thread.Sleep(1000);
                     }
 
-                    Thread _inventory_thread = new Thread(delegate ()
+                    Thread _inventory_thread = new Thread(async delegate ()
                     {
                         splashStart.Set();
                         try
                         {
-                            DTJobPoller.PollerDo((MRPManagementobjectType)_rp4vm);
+                            await DTJobPoller.PollerDo((MRPManagementobjectType)_rp4vm);
                         }
                         catch (Exception ex)
                         {
@@ -58,7 +56,6 @@ namespace MRMPService.DTPollerCollection
                 {
 
                 }
-
 
 
                 sw.Stop();

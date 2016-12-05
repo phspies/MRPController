@@ -13,7 +13,7 @@ namespace MRMPService.DTPollerCollection
 {
     class DTJobPollerThread
     {
-        public void Start()
+        public async void Start()
         {
             while (true)
             {
@@ -23,11 +23,9 @@ namespace MRMPService.DTPollerCollection
                 Logger.log(String.Format("Staring Double-Take collection process with {0} threads", MRMPServiceBase.os_performance_concurrency), Logger.Severity.Info);
 
                 List<MRPManagementobjectType> _jobs;
-                using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
-                {
-                    MRManagementobjectFilterType _filter = new MRManagementobjectFilterType() { entitytype = 0 };
-                    _jobs = _mrmp.managementobject().list_filtered(_filter).managementobjects.Where(x => x.target_workload.dt_collection_enabled == true && x.target_workload.provisioned == true).GroupBy(i => i.moid).Select(group => group.First()).ToList();
-                }
+
+                MRManagementobjectFilterType _filter = new MRManagementobjectFilterType() { entitytype = 0 };
+                _jobs = (await MRMPServiceBase._mrmp_api.managementobject().list_filtered(_filter)).managementobjects.Where(x => x.target_workload.dt_collection_enabled == true && x.target_workload.provisioned == true).GroupBy(i => i.moid).Select(group => group.First()).ToList();
                 List<Thread> lstThreads = new List<Thread>();
                 var splashStart = new ManualResetEvent(false);
 
@@ -44,18 +42,12 @@ namespace MRMPService.DTPollerCollection
                         try
                         {
                             await DTJobPoller.PollerDo(job);
-                            using (MRMP_ApiClient _api = new MRMP_ApiClient())
-                            {
-                                _api.workload().DoubleTakeUpdateStatus(job.target_workload, "Success", true);
-                            }
+                            await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(job.target_workload, "Success", true);
                         }
                         catch (Exception ex)
                         {
                             Logger.log(string.Format("Error collecting Double-Take information from {0} with error {1}", job.target_workload.hostname, ex.ToString()), Logger.Severity.Error);
-                            using (MRMP_ApiClient _api = new MRMP_ApiClient())
-                            {
-                                _api.workload().DoubleTakeUpdateStatus(job.target_workload, ex.Message, false);
-                            }
+                            await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(job.target_workload, ex.Message, false);
                         }
                     });
                     lstThreads.Add(_inventory_thread);
@@ -65,10 +57,8 @@ namespace MRMPService.DTPollerCollection
                 }
                 while (lstThreads.Any(x => x.IsAlive))
                 {
-
+                    await Task.Delay(new TimeSpan(0, 0, 5));
                 }
-
-
 
                 sw.Stop();
 
@@ -78,7 +68,7 @@ namespace MRMPService.DTPollerCollection
                 //Wait for next run
                 while (_next_poller_run > DateTime.UtcNow)
                 {
-                    Thread.Sleep(new TimeSpan(0, 0, 5));
+                    await Task.Delay(new TimeSpan(0, 0, 5));
                 }
             }
         }

@@ -3,28 +3,27 @@ using MRMPService.MRMPService.Types.API;
 using MRMPService.Tasks.DoubleTake;
 using System;
 using MRMPService.Tasks.MCP;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.PortalTasks
 {
     partial class Common
     {
-        static public void PauseDoubleTakeJob(MRPTaskType _mrmp_task)
+        static public async void PauseDoubleTakeJob(MRPTaskType _mrmp_task)
         {
             MRPTaskDetailType _payload = _mrmp_task.taskdetail;
             MRPWorkloadType _target_workload = _payload.target_workload;
             MRPManagementobjectType _managementobject = _payload.managementobject;
-            using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
+
+            try
             {
-                try
-                {
-                    ModuleCommon.PauseJob(_mrmp_task.id, _target_workload, _managementobject, 1, 100);
+                await ModuleCommon.PauseJob(_mrmp_task.id, _target_workload, _managementobject, 1, 100);
 
-                }
-                catch (Exception ex)
-                {
-                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
 
-                }
             }
         }
     }

@@ -5,12 +5,13 @@ using System;
 using MRMPService.Tasks.MCP;
 using MRMPService.Tasks.RP4VM;
 using System.Linq;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.PortalTasks
 {
     partial class DRSVMWare
     {
-        static public void SetupConsistencyGroup(MRPTaskType _mrmp_task)
+        static public async void SetupConsistencyGroup(MRPTaskType _mrmp_task)
         {
             MRPTaskDetailType _payload = _mrmp_task.taskdetail;
             MRPPlatformType _source_platform = _payload.source_platform;
@@ -19,19 +20,15 @@ namespace MRMPService.PortalTasks
             MRPManagementobjectType _mo = _payload.managementobject;
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;
 
-
-            using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
+            try
             {
-                try
-                {
-                    RP4VM.CreateConsistencyGroup(_mrmp_task.id, _payload.workloadpairs.Select(x => x.source_workload).ToList(), _protectiongroup, _mo, 1, 99);
-                    _mrp_portal.task().successcomplete(_mrmp_task.id, "Successfully configured consistency group");
-                }
-                catch (Exception ex)
-                {
-                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
+                await RP4VM.CreateConsistencyGroup(_mrmp_task.id, _payload.workloadpairs.Select(x => x.source_workload).ToList(), _protectiongroup, _mo, 1, 99);
+                await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully configured consistency group");
+            }
+            catch (Exception ex)
+            {
+                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
 
-                }
             }
         }
     }

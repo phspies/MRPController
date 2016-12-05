@@ -9,12 +9,13 @@ using static MRMPService.Utilities.SyncronizedList;
 using MRMPService.MRMPAPI.Contracts;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace MRMPService.PerformanceCollection
 {
     partial class WorkloadPerformance
     {
-        public static void WorkloadPerformanceWindowsDo(MRPWorkloadType _workload)
+        public static async Task WorkloadPerformanceWindowsDo(MRPWorkloadType _workload)
         {
             #region load and check workload information
             //check for credentials
@@ -185,7 +186,7 @@ namespace MRMPService.PerformanceCollection
                             _perf.category_name = _this_workload_counter.category;
                             _perf.counter_name = _this_workload_counter.counter;
                             _perf.instance = _current_instance;
-                            _perf.value = Math.Round(_value,2);
+                            _perf.value = Math.Round(_value, 2);
                             _perf.id = Objects.RamdomGuid();
                             _workload_counters.Add(_perf);
 
@@ -231,7 +232,7 @@ namespace MRMPService.PerformanceCollection
                     }
                 }
             }
-            WorkloadPerformanceUpload.Upload(_workload_counters, _workload);
+            await WorkloadPerformanceUpload.Upload(_workload_counters, _workload);
 
             Logger.log(String.Format("PerformanceType: Completed PerformanceType collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
         }

@@ -1,50 +1,20 @@
 ﻿using MRMPService.MRMPService.Log;
 using System;
 using MRMPService.MRMPAPI.Contracts;
-using MRMPService.MRMPAPI;
 using MRMPService.RP4VMTypes;
 using MRMPService.RP4VMAPI;
+using System.Threading.Tasks;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.RPEventPollerCollection
 {
-    class RPEventPollerDo : IDisposable
+    class RPEventPollerDo
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~RPEventPollerDo()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
-        public static void PollerDo(MRPManagementobjectType _mrp_managementobject)
+        public static async Task PollerDo(MRPManagementobjectType _mrp_managementobject)
         {
             //refresh managementobject from portal
-            using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
-            {
-                _mrp_managementobject = _mrmp.managementobject().getmanagementobject_id(_mrp_managementobject.id);
-            }
+
+            _mrp_managementobject = await MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
 
             //check for credentials
             MRPPlatformType _target_platform = _mrp_managementobject.target_platform;
@@ -73,11 +43,12 @@ namespace MRMPService.RPEventPollerCollection
                     //now we try to get the snapshot information we have. IF we can't, then we know the group has been deleted...
                     //_group_stats = _rp4vm.events().get(Int64.Parse(_mrp_managementobject.moid));
                     _group_events = _rp4vm.events().getEventLogsByFilter_Method(
-                        new UserEventLogsFilter() {
+                        new UserEventLogsFilter()
+                        {
                             topics = new System.Collections.Generic.List<eventLogTopic>() {
                                 eventLogTopic.CONSISTENCY_GROUP
                             }
-                            
+
                         });
 
                 }
@@ -86,50 +57,6 @@ namespace MRMPService.RPEventPollerCollection
             {
                 Logger.log(String.Format("RP4VM Group: Error collecting information from {0} : {1}", _target_platform.rp4vm_url, ex.ToString()), Logger.Severity.Info);
             }
-            //now collect job information from target workload
-            //IEnumerable<EventLogModel> _dt_events;
-            //List<MRPInternalEventType> _internal_events = (new MRPInternalEvents()).internal_events;
-            //try
-            //{
-            //    _group_snapshot_list.
-            //    using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
-            //    {
-            //        foreach (EventLogModel _event in _dt_events)
-            //        {
-            //            string event_hex = _event.InstanceId.ToString("X");
-            //            int _event_id = Convert.ToInt32(event_hex.Substring(event_hex.Length - 4, 4).ToString(), 16);
-            //            MRPInternalEventType _internal_event = _internal_events.FirstOrDefault(x => x.id == _event_id);
-            //            string _friendlyname = null;
-            //            if (_internal_event != null)
-            //            {
-            //                _friendlyname = String.Join(" ", _event.Source, new System.Globalization.CultureInfo("en-US", false).TextInfo.ToTitleCase(String.Join(" ", _internal_event.name.Split('_').Skip(1)).ToString()));
-            //            }
-
-            //            _mrmp.@event().create(new MRMPEventType()
-            //            {
-            //                event_id = _event.Id,
-            //                source_subsystem = String.Join(" ",_event.Source, _event.Category),
-            //                source_datamover = "Double-Take",
-            //                message = _event.Message,
-            //                object_id = _workload.id,
-            //                timestamp = _event.TimeWritten.UtcDateTime,
-            //                response = (_internal_event == null) ? null : _internal_event.response,
-            //                severity = _event.EntryType.ToString(),
-            //                eventname = (_internal_event == null) ? null : _internal_event.name,
-            //                eventnamefriendly = (_friendlyname == null) ? null : _friendlyname
-            //            });
-            //        }
-            //    }
-            //}
-            ////When we get an exception from collecting the job informationwe assume the job no longer exists and needs to be marked as being deleted on the portal
-            //catch (Exception ex)
-            //{
-            //    Logger.log(String.Format("Double-Take Event: Error collecting event information from {0} : {1}", _workload.hostname, ex.ToString()), Logger.Severity.Info);
-
-            //    return;
-            //}
-
-            //Logger.log(String.Format("Double-Take Event: Completed Double-Take collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
         }
     }
 }

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading;
 using MRMPService.Utilities;
 using Renci.SshNet;
-using MRMPService.MRMPService.Types.API;
 using DD.CBU.Compute.Api.Client;
 using System.Net;
 using DD.CBU.Compute.Api.Contracts.Network20;
 using Renci.SshNet.Common;
+using System.Threading.Tasks;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.Tasks.MCP
 {
@@ -25,7 +26,7 @@ namespace MRMPService.Tasks.MCP
                 }
             }
         }
-        static public void LinuxCustomization(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress)
+        static public async Task LinuxCustomization(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress)
         {
             MRPCredentialType _credential = _target_workload.credential;
 
@@ -38,11 +39,8 @@ namespace MRMPService.Tasks.MCP
             }
             if (workload_ip == null)
             {
-                using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
-                {
-                    _mrp_api.task().failcomplete(_task_id, String.Format("Error contacting workwork {0} after 3 tries", _target_workload.hostname));
-                    throw new ArgumentException(String.Format("Error contacting workwork {0} after 3 tries", _target_workload.hostname));
-                }
+                await MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, String.Format("Error contacting workwork {0} after 3 tries", _target_workload.hostname));
+                throw new ArgumentException(String.Format("Error contacting workwork {0} after 3 tries", _target_workload.hostname));
             }
             _password = _credential.encrypted_password;
 
@@ -69,10 +67,8 @@ namespace MRMPService.Tasks.MCP
                     {
                         _can_do_root = false;
                         sshclient.Disconnect();
-                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
-                        {
-                            _mrp_api.task().progress(_task_id, String.Format("Error expanding 0 disk : {0}", cmd.Error), ReportProgress.Progress(_start_progress, _end_progress, 10));
-                        }
+
+                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error expanding 0 disk : {0}", cmd.Error), ReportProgress.Progress(_start_progress, _end_progress, 10));
                     }
 
                     if (_can_do_root)
@@ -111,10 +107,8 @@ namespace MRMPService.Tasks.MCP
                     else
                     {
                         _can_do_root = false;
-                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
-                        {
-                            _mrp_api.task().progress(_task_id, String.Format("Error running parted : {0}", _diskfree_cmd.Error), ReportProgress.Progress(_start_progress, _end_progress, 11));
-                        }
+
+                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error running parted : {0}", _diskfree_cmd.Error), ReportProgress.Progress(_start_progress, _end_progress, 11));
                     }
 
                     sshclient.Disconnect();
@@ -159,7 +153,7 @@ namespace MRMPService.Tasks.MCP
                         sshclient.Connect();
                         break;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         Thread.Sleep(new TimeSpan(0, 0, 30));
                     }
@@ -244,10 +238,8 @@ namespace MRMPService.Tasks.MCP
 
                         String _volume_group = String.Format("vg-{0}", _disk_id[_disk_index]);
                         String _volume_name = String.Format("logical_vol{0}", _volume.driveletter.Replace("/", "_"));
-                        using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
-                        {
-                            _mrp_api.task().progress(_task_id, String.Format("Creating volume /dev/{0}/{1}", _volume_group, _volume_name), ReportProgress.Progress(_start_progress, _end_progress, 20 + _disk_index));
-                        }
+
+                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Creating volume /dev/{0}/{1}", _volume_group, _volume_name), ReportProgress.Progress(_start_progress, _end_progress, 20 + _disk_index));
 
                         //create physical volume for new partition
                         cmd = sshclient.RunCommand(String.Format("lvcreate -L{0}G -n {1} {2}", _volume.volumesize, _volume_name, _volume_group));

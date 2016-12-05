@@ -15,22 +15,22 @@ namespace MRMPService.PlatformInventory
     partial class PlatformInventoryThread
     {
 
-        public void Start()
+        public async void Start()
         {
             while (true)
             {
-                DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(MRMPServiceBase.platform_inventory_interval);
-                Logger.log(String.Format("Staring platform inventory process with {0} threads", MRMPServiceBase.platform_inventory_concurrency), Logger.Severity.Info);
-                MRMP_ApiClient _cloud_movey = new MRMP_ApiClient();
-
-                Stopwatch sw = Stopwatch.StartNew();
-                int _new_platforms, _updated_platforms;
-                _new_platforms = _updated_platforms = 0;
-
                 try
                 {
+                    DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(MRMPServiceBase.platform_inventory_interval);
+                    Logger.log(String.Format("Staring platform inventory process with {0} threads", MRMPServiceBase.platform_inventory_concurrency), Logger.Severity.Info);
+
+                    Stopwatch sw = Stopwatch.StartNew();
+                    int _new_platforms, _updated_platforms;
+                    _new_platforms = _updated_platforms = 0;
+
+
                     //process platform independant items
-                    List<MRPPlatformType> _mrp_platforms = _cloud_movey.platform().list(new MRPPlatformFilterPagedType() { deleted = false, enabled = true, page = 1, page_size = 200 }).platforms;
+                    List<MRPPlatformType> _mrp_platforms = (await MRMPServiceBase._mrmp_api.platform().list(new MRPPlatformFilterPagedType() { deleted = false, enabled = true, page = 1, page_size = 200 })).platforms;
                     //Process Platforms in paralel
                     Parallel.ForEach(_mrp_platforms, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_inventory_concurrency }, async (platform) =>
                           {
@@ -46,18 +46,20 @@ namespace MRMPService.PlatformInventory
 
                     sw.Stop();
 
+
+                    Logger.log(String.Format("Completed platform inventory for {0} platforms in {1} [next run at {2}]", (_updated_platforms + _new_platforms),
+                        TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_inventory_run), Logger.Severity.Info);
+
+                    //Wait for next run
+                    while (_next_inventory_run > DateTime.UtcNow)
+                    {
+                        Thread.Sleep(new TimeSpan(0, 0, 5));
+                    }
+
                 }
                 catch (Exception ex)
                 {
                     Logger.log(String.Format("Error in mirror task: {0}", ex.ToString()), Logger.Severity.Error);
-                }
-                Logger.log(String.Format("Completed platform inventory for {0} platforms in {1} [next run at {2}]", (_updated_platforms + _new_platforms),
-                    TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_inventory_run), Logger.Severity.Info);
-
-                //Wait for next run
-                while (_next_inventory_run > DateTime.UtcNow)
-                {
-                    Thread.Sleep(new TimeSpan(0, 0, 5));
                 }
             }
         }

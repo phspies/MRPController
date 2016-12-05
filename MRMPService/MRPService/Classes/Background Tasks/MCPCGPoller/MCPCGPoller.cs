@@ -19,10 +19,8 @@ namespace MRMPService.MCPCGCollection
         public static async Task PollerDo(MRPManagementobjectType _mrp_managementobject)
         {
             //refresh managementobject from portal
-            using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
-            {
-                _mrp_managementobject = _mrmp.managementobject().getmanagementobject_id(_mrp_managementobject.id);
-            }
+
+            _mrp_managementobject = await MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
 
             //check for credentials
             MRPPlatformType _target_platform = _mrp_managementobject.target_platform;
@@ -59,27 +57,25 @@ namespace MRMPService.MCPCGCollection
             catch (Exception ex)
             {
                 //Mark the job as being unavailable because the system can't be reached
-                using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
-                {
-                    if (_can_connect)
-                    {
-                        Logger.log(String.Format("MCP CG: Error collecting information from {0} : {1}", _target_platform.rp4vm_url, ex.ToString()), Logger.Severity.Info);
 
-                        _mrmp.managementobject().updatemanagementobject(new MRPManagementobjectType()
-                        {
-                            id = _mrp_managementobject.id,
-                            internal_state = "deleted",
-                        });
-                    }
-                    else
+                if (_can_connect)
+                {
+                    Logger.log(String.Format("MCP CG: Error collecting information from {0} : {1}", _target_platform.rp4vm_url, ex.ToString()), Logger.Severity.Info);
+
+                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
-                        _mrmp.managementobject().updatemanagementobject(new MRPManagementobjectType()
-                        {
-                            id = _mrp_managementobject.id,
-                            internal_state = "unavailable",
-                            last_contact = DateTime.UtcNow
-                        });
-                    }
+                        id = _mrp_managementobject.id,
+                        internal_state = "deleted",
+                    });
+                }
+                else
+                {
+                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
+                    {
+                        id = _mrp_managementobject.id,
+                        internal_state = "unavailable",
+                        last_contact = DateTime.UtcNow
+                    });
                 }
 
                 Logger.log(String.Format("MCP CG: Error contacting {0} : {1}", _target_platform.rp4vm_url, ex.ToString()), Logger.Severity.Info);
@@ -145,11 +141,7 @@ namespace MRMPService.MCPCGCollection
                     _mrp_mo_update.state = "Active";
                     _mrp_mo_update.internal_state = "active";
                     _mrp_mo_update.last_contact = DateTime.UtcNow;
-
-                    using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
-                    {
-                        _mrmp.managementobject().updatemanagementobject(_mrp_mo_update);
-                    }
+                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(_mrp_mo_update);
                 }
                 catch (Exception ex)
                 {

@@ -5,12 +5,13 @@ using System.Diagnostics;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPAPI;
+using System.Threading.Tasks;
 
 namespace MRMPService.NetstatCollection
 {
     class NetstatUpload
     {
-        static public void Upload(List<NetworkFlowType> _workload_netstats, MRPWorkloadType _workload)
+        static public async Task Upload(List<NetworkFlowType> _workload_netstats, MRPWorkloadType _workload)
         {
             try
             {
@@ -35,20 +36,16 @@ namespace MRMPService.NetstatCollection
 
                     if (_netflow_list.Count > MRMPServiceBase.portal_upload_netflow_page_size)
                     {
-                        using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
-                        {
-                            _mrmp_api.netflow().createnetworkflow(_netflow_list);
-                        }
+
+                        await MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list);
                         _netflow_list.Clear();
                     }
                 }
                 //upload last remaining records
                 if (_netflow_list.Count > 0)
                 {
-                    using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
-                    {
-                        _mrmp_api.netflow().createnetworkflow(_netflow_list);
-                    }
+
+                    await MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list);
                 }
 
                 _sw.Stop();

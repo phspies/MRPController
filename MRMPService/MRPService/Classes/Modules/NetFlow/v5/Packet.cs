@@ -24,11 +24,11 @@ namespace MRMPService.NetFlow.v5
                                   /*	for non-TCP flows */
         private byte _prot;       /* IP Protocol, e.g., 6=TCP, 17=UDP, ... */
         private byte _tos;        /* IP Type-of-Service */
-        private ushort _dst_as;       /* originating AS of destination address */
-        private ushort _src_as;       /* originating AS of source address */
-        private byte _dst_mask;   /* destination address prefix mask bits */
-        private byte _src_mask;   /* source address prefix mask bits */
-        private ushort _reserved;
+        //private ushort _dst_as;       /* originating AS of destination address */
+        //private ushort _src_as;       /* originating AS of source address */
+        //private byte _dst_mask;   /* destination address prefix mask bits */
+        //private byte _src_mask;   /* source address prefix mask bits */
+        //private ushort _reserved;
 
         private V5Header _header;
         private Byte[] _bytes;
@@ -48,10 +48,10 @@ namespace MRMPService.NetFlow.v5
         public uint TcpFlags { get { return this._tcp_flags; } }
         public uint Prot { get { return this._prot; } }
         public uint TOS { get { return this._tos; } }
-        public uint DstAS { get { return this._dst_as; } }
-        public uint SrcAS { get { return this._src_as; } }
-        public uint DstMask { get { return this._dst_mask; } }
-        public uint SrcMask { get { return this._src_mask; } }
+        //public uint DstAS { get { return this._dst_as; } }
+        //public uint SrcAS { get { return this._src_as; } }
+        //public uint DstMask { get { return this._dst_mask; } }
+        //public uint SrcMask { get { return this._src_mask; } }
 
 
         public V5Header Header { get { return this._header; } }

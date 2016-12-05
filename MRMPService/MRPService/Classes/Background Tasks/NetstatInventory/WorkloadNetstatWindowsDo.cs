@@ -18,7 +18,7 @@ namespace MRMPService.NetstatCollection
 
         public static async Task WorkloadNetstatWindowsDo(MRPWorkloadType _workload)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
              {
                  List<NetworkFlowType> _workload_netstats = new List<NetworkFlowType>();
                  if (_workload == null)
@@ -82,8 +82,8 @@ namespace MRMPService.NetstatCollection
                      {
                          throw new ArgumentException(String.Format("Error running netstat on {0} {1}", _workload.id, _workload.hostname));
                      }
-                    //Wait for the process to complete
-                    Process process = new Process();
+                     //Wait for the process to complete
+                     Process process = new Process();
 
                      while (true)
                      {
@@ -115,12 +115,12 @@ namespace MRMPService.NetstatCollection
                              int pid = Int16.Parse(queryObj["ProcessId"].ToString());
                              _processes.Add(new ProcessInfo() { name = name, command = command, pid = pid });
                          }
-                         catch (Exception ex) { }
+                         catch (Exception) { }
                      }
 
 
-                    //get remote netstat file
-                    List<String> netstatList;
+                     //get remote netstat file
+                     List<String> netstatList;
                      var logFile = File.ReadAllLines(remoteFile);
                      netstatList = new List<String>(logFile);
 
@@ -149,13 +149,13 @@ namespace MRMPService.NetstatCollection
                                              pid = _pid
                                          });
                                      }
-                                     catch (Exception ex)
+                                     catch (Exception)
                                      { }
                                  }
                              }
                          }
                      }
-                     NetstatUpload.Upload(_workload_netstats, _workload);
+                     await NetstatUpload.Upload(_workload_netstats, _workload);
                      Logger.log(String.Format("Inventory: Completed netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
                  }
              });

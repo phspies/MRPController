@@ -7,6 +7,7 @@ using System.Threading;
 using MRMPService.Tasks.DiscoveryPlatform;
 using MRMPService.PortalTasks;
 using System.Threading.Tasks;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.TaskExecutioner
 {
@@ -23,7 +24,7 @@ namespace MRMPService.TaskExecutioner
 
                 try
                 {
-                    tasklist = await MRMPServiceBase._mrmp_api_endpoint.task().tasks();
+                    tasklist = await MRMPServiceBase._mrmp_api.task().tasks();
                 }
                 catch (Exception ex)
                 {
@@ -245,10 +246,10 @@ namespace MRMPService.TaskExecutioner
         static private async Task<MRPTaskType> ClaimTask(MRPTaskType _task)
         {
             MRPTaskType _task_details = new MRPTaskType();
-            await MRMPServiceBase._mrmp_api_endpoint.task().progress(_task.id, String.Format("Task claimed by {0}", System.Environment.MachineName), 1);
+            await MRMPServiceBase._mrmp_api.task().progress(_task.id, String.Format("Task claimed by {0}", System.Environment.MachineName), 1);
             try
             {
-                _task_details = await MRMPServiceBase._mrmp_api_endpoint.task().get(_task.id);
+                _task_details = await MRMPServiceBase._mrmp_api.task().get(_task.id);
                 return _task_details;
             }
             catch (Exception ex)

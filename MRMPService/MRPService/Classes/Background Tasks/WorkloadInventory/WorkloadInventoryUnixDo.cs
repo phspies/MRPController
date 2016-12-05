@@ -29,7 +29,7 @@ namespace MRMPService.MRMPAPI.Classes
         }
         static public async Task WorkloadInventoryLinuxDo(MRPWorkloadType _workload)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 MRPWorkloadType _updated_workload = new MRPWorkloadType()
                 {
@@ -396,11 +396,8 @@ namespace MRMPService.MRMPAPI.Classes
                                         _updated_workload.ostype = "unix";
                                         _updated_workload.provisioned = true;
 
-                                        using (MRMP_ApiClient _api = new MRMP_ApiClient())
-                                        {
-                                            _api.workload().updateworkload(_updated_workload);
-                                            _api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
-                                        }
+                                        await MRMPServiceBase._mrmp_api.workload().updateworkload(_updated_workload);
+                                        await MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
                                     }
                                     else
                                     {

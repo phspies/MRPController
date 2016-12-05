@@ -1,14 +1,16 @@
-﻿using MRMPService.MRMPAPI.Contracts;
+﻿using MRMPService.MRMPAPI;
+using MRMPService.MRMPAPI.Contracts;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.Tasks.DoubleTake;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MRMPService.PortalTasks
 {
     partial class Common
     {
-        static public void FailoverDoubleTakeGroup(MRPTaskType _mrmp_task)
+        static public async void FailoverDoubleTakeGroup(MRPTaskType _mrmp_task)
         {
             MRPTaskDetailType _payload = _mrmp_task.taskdetail;
 
@@ -16,11 +18,9 @@ namespace MRMPService.PortalTasks
             {
                 if (_payload.managementobjects.Count() == 0)
                 {
-                    using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
-                    {
-                        _mrp_portal.task().progress(_mrmp_task.id, String.Format("No failover operations found"), 99);
-                        _mrp_portal.task().successcomplete(_mrmp_task.id);
-                    }
+
+                    await MRMPServiceBase._mrmp_api.task().progress(_mrmp_task.id, String.Format("No failover operations found"), 99);
+                    await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id);
                 }
                 else
                 {
@@ -35,19 +35,15 @@ namespace MRMPService.PortalTasks
                         ModuleCommon.Failoverjob(_mrmp_task.id, _mo_order.original, _managementobject.target_workload, _managementobject, _low, _high, true, (bool)_mo_order.firedrill);
                         _count++;
                     }
-                    using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
-                    {
-                        _mrp_portal.task().progress(_mrmp_task.id, String.Format("Successfully migrated group"), 99);
-                        _mrp_portal.task().successcomplete(_mrmp_task.id);
-                    }
+
+                    await MRMPServiceBase._mrmp_api.task().progress(_mrmp_task.id, String.Format("Successfully migrated group"), 99);
+                    await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id);
                 }
             }
             catch (Exception ex)
             {
-                using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
-                {
-                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
-                }
+
+                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
             }
 
         }

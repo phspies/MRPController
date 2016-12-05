@@ -10,7 +10,7 @@ namespace MRMPService.MRMPDoubleTake
 {
     class Workload : Core
     {
-        WorkloadsApi workloadApi;
+        new WorkloadsApi workloadApi;
         public Workload(Doubletake doubletake) : base(doubletake)
         {
             workloadApi = new WorkloadsApi(_source_connection);

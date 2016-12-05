@@ -25,13 +25,13 @@ namespace MRMPService.MRMPAPI
         {
             endpoint = "/tasks/list.json";
             MRPCommandManagerType worker = new MRPCommandManagerType();
-            return (MRPTaskListType)await post<MRPTaskListType>(worker);
+            return await post<MRPTaskListType>(worker);
         }
         public async Task<MRPTaskType> get(string _task_id)
         {
             var _get_task = new MRPTaskGetType() { task_id = _task_id };
             endpoint = "/tasks/get.json";
-            return (MRPTaskType)await post<MRPTaskType>(_get_task);
+            return await post<MRPTaskType>(_get_task);
         }
         public async Task<ResultType> successcomplete(String _task_id, string returnpayload)
         {

@@ -3,10 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MRMPService.Utilities;
-using MRMPService.MRMPAPI;
 using MRMPService.VMWare;
 using VMware.Vim;
 using MRMPService.MRMPService.Log;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.PlatformInventory
 {
@@ -14,7 +14,7 @@ namespace MRMPService.PlatformInventory
     {
         public static async System.Threading.Tasks.Task UpdateVMWareWorkload(string _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null)
         {
-            await System.Threading.Tasks.Task.Run(() =>
+            await System.Threading.Tasks.Task.Run(async () =>
             {
                 MRPCredentialType _platform_credential = _platform.credential;
 
@@ -40,21 +40,19 @@ namespace MRMPService.PlatformInventory
                 if (_mrp_workloads == null)
                 {
                     _mrp_workloads = new List<MRPWorkloadType>();
-                    using (MRMP_ApiClient _mrmp_api = new MRMP_ApiClient())
+
+                    MRPWorkloadListType _paged_workload = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
+                    _mrp_workloads.AddRange(_paged_workload.workloads);
+                    while (_paged_workload.pagination.page_size > 0)
                     {
-                        MRPWorkloadListType _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
                         _mrp_workloads.AddRange(_paged_workload.workloads);
-                        while (_paged_workload.pagination.page_size > 0)
+                        if (_paged_workload.pagination.next_page > 0)
                         {
-                            _mrp_workloads.AddRange(_paged_workload.workloads);
-                            if (_paged_workload.pagination.next_page > 0)
-                            {
-                                _paged_workload = _mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
-                            }
-                            else
-                            {
-                                break;
-                            }
+                            _paged_workload = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
+                        }
+                        else
+                        {
+                            break;
                         }
                     }
                 }
@@ -133,17 +131,15 @@ namespace MRMPService.PlatformInventory
                 _mrp_workload.provisioned = true;
 
                 //Update if the portal has this workload and create if it's new to the portal....
-                using (MRMP_ApiClient _cloud_movey = new MRMP_ApiClient())
+
+                if (_mrp_workloads.Exists(x => x.moid == _mrp_workload.moid))
                 {
-                    if (_mrp_workloads.Exists(x => x.moid == _mrp_workload.moid))
-                    {
-                        _cloud_movey.workload().updateworkload(_mrp_workload);
-                    }
-                    else
-                    {
-                        _mrp_workload.credential_id = _platform.default_credential_id;
-                        _cloud_movey.workload().createworkload(_mrp_workload);
-                    }
+                    await MRMPServiceBase._mrmp_api.workload().updateworkload(_mrp_workload);
+                }
+                else
+                {
+                    _mrp_workload.credential_id = _platform.default_credential_id;
+                    await MRMPServiceBase._mrmp_api.workload().createworkload(_mrp_workload);
                 }
             });
         }

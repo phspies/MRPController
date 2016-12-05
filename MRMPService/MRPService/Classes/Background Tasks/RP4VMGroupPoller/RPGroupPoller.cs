@@ -1,52 +1,21 @@
 ﻿using MRMPService.MRMPService.Log;
 using System;
 using MRMPService.MRMPAPI.Contracts;
-using MRMPService.MRMPAPI;
 using System.Collections.Generic;
 using System.Linq;
 using MRMPService.RP4VMAPI;
 using MRMPService.RP4VMTypes;
+using System.Threading.Tasks;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.DTPollerCollection
 {
-    class RPGroupPoller : IDisposable
+    class RPGroupPoller 
     {
-        bool _disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~RPGroupPoller()
-        {
-            Dispose(false);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (_disposed)
-                return;
-
-            if (disposing)
-            {
-                // free other managed objects that implement
-                // IDisposable only
-            }
-
-            // release any unmanaged objects
-            // set the object references to null
-
-            _disposed = true;
-        }
-        public static void PollerDo(MRPManagementobjectType _mrp_managementobject)
+        public static async Task PollerDo(MRPManagementobjectType _mrp_managementobject)
         {
             //refresh managementobject from portal
-            using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
-            {
-                _mrp_managementobject = _mrmp.managementobject().getmanagementobject_id(_mrp_managementobject.id);
-            }
+            _mrp_managementobject = await MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
 
             //check for credentials
             MRPPlatformType _target_platform = _mrp_managementobject.target_platform;
@@ -87,28 +56,27 @@ namespace MRMPService.DTPollerCollection
             catch (Exception ex)
             {
                 //Mark the job as being unavailable because the system can't be reached
-                using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
-                {
-                    if (_can_connect)
-                    {
-                        Logger.log(String.Format("RP4VM Group: Error collecting information from {0} : {1}", _target_platform.rp4vm_url, ex.ToString()), Logger.Severity.Info);
 
-                        _mrmp.managementobject().updatemanagementobject(new MRPManagementobjectType()
-                        {
-                            id = _mrp_managementobject.id,
-                            internal_state = "deleted",
-                        });
-                    }
-                    else
+                if (_can_connect)
+                {
+                    Logger.log(String.Format("RP4VM Group: Error collecting information from {0} : {1}", _target_platform.rp4vm_url, ex.ToString()), Logger.Severity.Info);
+
+                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
-                        _mrmp.managementobject().updatemanagementobject(new MRPManagementobjectType()
-                        {
-                            id = _mrp_managementobject.id,
-                            internal_state = "unavailable",
-                            last_contact = DateTime.UtcNow
-                        });
-                    }
+                        id = _mrp_managementobject.id,
+                        internal_state = "deleted",
+                    });
                 }
+                else
+                {
+                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
+                    {
+                        id = _mrp_managementobject.id,
+                        internal_state = "unavailable",
+                        last_contact = DateTime.UtcNow
+                    });
+                }
+
 
                 Logger.log(String.Format("RP4VM Group: Error contacting {0} : {1}", _target_platform.rp4vm_url, ex.ToString()), Logger.Severity.Info);
             }
@@ -119,76 +87,75 @@ namespace MRMPService.DTPollerCollection
                 MRPManagementobjectType _mrp_mo_update = new MRPManagementobjectType() { id = _mrp_managementobject.id };
                 try
                 {
-                    using (MRMP_ApiClient _mrmp = new MRMP_ApiClient())
+
+                    foreach (Snapshot _rp_snapshot in _group_snapshot_list.copiesSnapshots.First().snapshots)
                     {
-                        foreach (Snapshot _rp_snapshot in _group_snapshot_list.copiesSnapshots.First().snapshots)
+                        MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
+                        if (_mrp_managementobject.managementobjectsnapshots.Exists(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()))
                         {
-                            MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                            if (_mrp_managementobject.managementobjectsnapshots.Exists(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()))
+                            _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()).id;
+                        }
+                        else
+                        {
+                            _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()).id;
+                            _mrp_snapshot._destroy = true;
+                        }
+
+                        _mrp_snapshot.snapshotmoid = _rp_snapshot.snapshotUID.id.ToString();
+                        _mrp_snapshot.reason = _rp_snapshot.description;
+                        _mrp_snapshot.state = _rp_snapshot.consolidationInfo.consolidationPolicy.ToString();
+                        //_mrp_snapshot.timestamp = TimeSpan.FromMilliseconds(_rp_snapshot.closingTimeStamp.timeInMicroSeconds).;
+                        _mrp_snapshot.comment = _rp_snapshot.userSnapshot == true ? "User Snapshot" : "System Snapshot";
+
+                        if (_mrp_mo_update.managementobjectsnapshots == null)
+                        {
+                            _mrp_mo_update.managementobjectsnapshots = new List<MRPManagementobjectSnapshotType>();
+                        }
+                        _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
+                    }
+                    //Update job details
+                    if (_group_stats != null)
+                    {
+                        MRPManagementobjectStatType _managedobject_stat = new MRPManagementobjectStatType();
+                        {
+                            if (_group_stats != null)
                             {
-                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()).id;
+                                var _link_stats = _group_stats.consistencyGroupLinkStatistics.First();
+                                _managedobject_stat.replication_bytes_sent = _link_stats.pipeStatistics.outgoingThroughput;
+                                _managedobject_stat.replication_bytes_sent_compressed = 0;
+                                _managedobject_stat.replication_disk_queue = _link_stats.pipeStatistics.lag.dataCounter;
+                                _managedobject_stat.replication_queue = _link_stats.pipeStatistics.lag.dataCounter;
+
+                                _managedobject_stat.replication_status = _link_stats.pipeStatistics.replicationMode.ToString();
+
+
+                                _mrp_mo_update.replication_status = _link_stats.pipeStatistics.replicationMode.ToString();
+
+                                _mrp_mo_update.mirror_status = "";
+                                _managedobject_stat.recovery_point_objective = Convert.ToDateTime(TimeSpan.FromMilliseconds(_link_stats.pipeStatistics.lag.timeCounter));
+                                _managedobject_stat.recovery_point_latency = _link_stats.pipeStatistics.lag.timeCounter;
+
+                                if (_mrp_mo_update.managementobjectstats == null)
+                                {
+                                    _mrp_mo_update.managementobjectstats = new List<MRPManagementobjectStatType>();
+                                }
+                                _mrp_mo_update.managementobjectstats.Add(_managedobject_stat);
                             }
                             else
                             {
-                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _rp_snapshot.snapshotUID.id.ToString()).id;
-                                _mrp_snapshot._destroy = true;
-                            }
-
-                            _mrp_snapshot.snapshotmoid = _rp_snapshot.snapshotUID.id.ToString();
-                            _mrp_snapshot.reason = _rp_snapshot.description;
-                            _mrp_snapshot.state = _rp_snapshot.consolidationInfo.consolidationPolicy.ToString();
-                            //_mrp_snapshot.timestamp = TimeSpan.FromMilliseconds(_rp_snapshot.closingTimeStamp.timeInMicroSeconds).;
-                            _mrp_snapshot.comment = _rp_snapshot.userSnapshot == true ? "User Snapshot" : "System Snapshot";
-
-                            if (_mrp_mo_update.managementobjectsnapshots == null)
-                            {
-                                _mrp_mo_update.managementobjectsnapshots = new List<MRPManagementobjectSnapshotType>();
-                            }
-                            _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
-                        }
-                        //Update job details
-                        if (_group_stats != null)
-                        {
-                            MRPManagementobjectStatType _managedobject_stat = new MRPManagementobjectStatType();
-                            {
-                                if (_group_stats != null)
-                                {
-                                    var _link_stats = _group_stats.consistencyGroupLinkStatistics.First();
-                                    _managedobject_stat.replication_bytes_sent = _link_stats.pipeStatistics.outgoingThroughput;
-                                    _managedobject_stat.replication_bytes_sent_compressed = 0;
-                                    _managedobject_stat.replication_disk_queue = _link_stats.pipeStatistics.lag.dataCounter;
-                                    _managedobject_stat.replication_queue = _link_stats.pipeStatistics.lag.dataCounter;
-
-                                    _managedobject_stat.replication_status = _link_stats.pipeStatistics.replicationMode.ToString();
-
-
-                                    _mrp_mo_update.replication_status = _link_stats.pipeStatistics.replicationMode.ToString();
-
-                                    _mrp_mo_update.mirror_status = "";
-                                    _managedobject_stat.recovery_point_objective = Convert.ToDateTime(TimeSpan.FromMilliseconds(_link_stats.pipeStatistics.lag.timeCounter));
-                                    _managedobject_stat.recovery_point_latency = _link_stats.pipeStatistics.lag.timeCounter;
-
-                                    if (_mrp_mo_update.managementobjectstats == null)
-                                    {
-                                        _mrp_mo_update.managementobjectstats = new List<MRPManagementobjectStatType>();
-                                    }
-                                    _mrp_mo_update.managementobjectstats.Add(_managedobject_stat);
-                                }
-                                else
-                                {
-                                    _mrp_mo_update.replication_status = "";
-                                    _mrp_mo_update.mirror_status = "";
-                                }
+                                _mrp_mo_update.replication_status = "";
+                                _mrp_mo_update.mirror_status = "";
                             }
                         }
-
-                        _mrp_mo_update.state = _group_info.groupCopiesState.First().active ? "Active" : "Disabled";
-                        _mrp_mo_update.internal_state = "active";
-                        _mrp_mo_update.last_contact = DateTime.UtcNow;
-
-                        _mrmp.managementobject().updatemanagementobject(_mrp_mo_update);
                     }
+
+                    _mrp_mo_update.state = _group_info.groupCopiesState.First().active ? "Active" : "Disabled";
+                    _mrp_mo_update.internal_state = "active";
+                    _mrp_mo_update.last_contact = DateTime.UtcNow;
+
+                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(_mrp_mo_update);
                 }
+
 
                 //When we get an exception from collecting the job informationwe assume the job no longer exists and needs to be marked as being deleted on the portal
                 catch (Exception ex)

@@ -36,7 +36,7 @@ namespace MRMPService.Utilities
                 return_value = rkSubKey.GetValue(key);
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

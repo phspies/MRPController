@@ -1,8 +1,10 @@
-﻿using MRMPService.MRMPAPI.Contracts;
+﻿using MRMPService.MRMPAPI;
+using MRMPService.MRMPAPI.Contracts;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.PlatformInventory;
 using System;
+using System.Threading.Tasks;
 
 namespace MRMPService.Tasks.DiscoveryPlatform
 {
@@ -10,39 +12,36 @@ namespace MRMPService.Tasks.DiscoveryPlatform
     {
         public static async void PlatformDiscoveryDo(MRPTaskType payload)
         {
-            using (MRMPAPI.MRMP_ApiClient _mrp_api = new MRMPAPI.MRMP_ApiClient())
+
+            await MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Starting platform discovering process"), 5);
+
+            MRPPlatformType _platform = payload.taskdetail.target_platform;
+            MRPCredentialType _platform_credentail = _platform.credential;
+            try
             {
-                _mrp_api.task().progress(payload, String.Format("Starting platform discovering process"), 5);
-
-                MRPPlatformType _platform = payload.taskdetail.target_platform;
-                MRPCredentialType _platform_credentail = _platform.credential;
-                try
+                switch (_platform.platformtype)
                 {
-                    switch (_platform.platformtype)
-                    {
-                        case "dimension_data":
-                            await PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(_platform, true);
-                            break;
-                        case "hyperv":
-                            break;
-                        case "vmware":
-                            await PlatformVMwareInventoryDo.UpdateVMwarePlatform(_platform, true);
-                            break;
-                        case "rp4vm":
-                            await PlatformRP4VMInventoryDo.UpdateRP4VMPlatform(_platform, false);
-                            break;
-                    }
-                    _mrp_api.task().progress(payload, String.Format("Successfully refreshed platform resources"), 10);
-                    _mrp_api.task().successcomplete(payload);
+                    case "dimension_data":
+                        await PlatformDimensionDataMCP2InventoryDo.UpdateMCPPlatform(_platform, true);
+                        break;
+                    case "hyperv":
+                        break;
+                    case "vmware":
+                        await PlatformVMwareInventoryDo.UpdateVMwarePlatform(_platform, true);
+                        break;
+                    case "rp4vm":
+                        await PlatformRP4VMInventoryDo.UpdateRP4VMPlatform(_platform, false);
+                        break;
                 }
-                catch (Exception ex)
-                {
-                    Logger.log(String.Format("Error in inventory process for {0} {1}", (_platform.platformtype + " : " + _platform.moid), ex.ToString()), Logger.Severity.Error);
-                    _mrp_api.task().progress(payload, String.Format("Error refreshing platform resources", ex.Message), 10);
-                    _mrp_api.task().failcomplete(payload, String.Format("Error refreshing platform resources", ex.ToString()));
-                }
+                await MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Successfully refreshed platform resources"), 10);
+                await MRMPServiceBase._mrmp_api.task().successcomplete(payload);
             }
-
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error in inventory process for {0} {1}", (_platform.platformtype + " : " + _platform.moid), ex.ToString()), Logger.Severity.Error);
+                await MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Error refreshing platform resources", ex.Message), 10);
+                await MRMPServiceBase._mrmp_api.task().failcomplete(payload, String.Format("Error refreshing platform resources", ex.ToString()));
+            }
         }
     }
 

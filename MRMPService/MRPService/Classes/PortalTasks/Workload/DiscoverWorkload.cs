@@ -3,6 +3,7 @@ using MRMPService.MRMPService.Types.API;
 using System;
 using MRMPService.MRMPAPI.Classes;
 using MRMPService.MRMPService.Log;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.PortalTasks
 {
@@ -11,26 +12,24 @@ namespace MRMPService.PortalTasks
         static public async void DiscoverWorkload(MRPTaskType _mrmp_task)
         {
             MRPWorkloadType _target_workload = _mrmp_task.taskdetail.target_workload;
-            using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
+
+            try
             {
-                try
+                switch (_target_workload.ostype.ToUpper())
                 {
-                    switch (_target_workload.ostype.ToUpper())
-                    {
-                        case "UNIX":
-                            await WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload);
-                            break;
-                        case "WINDOWS":
-                            await WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload);
-                            break;
-                    }
-                    _mrp_portal.task().successcomplete(_mrmp_task.id, "Successfully discovered workload");
+                    case "UNIX":
+                        await WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload);
+                        break;
+                    case "WINDOWS":
+                        await WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload);
+                        break;
                 }
-                catch (Exception ex)
-                {
-                    Logger.log(ex.ToString(), Logger.Severity.Fatal);
-                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
-                }
+                await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully discovered workload");
+            }
+            catch (Exception ex)
+            {
+                Logger.log(ex.ToString(), Logger.Severity.Fatal);
+                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
             }
         }
     }

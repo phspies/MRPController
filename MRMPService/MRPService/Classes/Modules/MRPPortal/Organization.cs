@@ -10,7 +10,7 @@ namespace MRMPService.MRMPAPI
 
         public MRMP_ApiClient MRP = new MRMP_ApiClient();
 
-        static public async Task<MRPOrganizationType> get()
+        public async Task<MRPOrganizationType> get()
         {
             endpoint = "/organization/get.json";
             return await post<MRPOrganizationType>(null);

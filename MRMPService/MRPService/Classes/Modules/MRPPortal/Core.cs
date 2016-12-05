@@ -12,29 +12,29 @@ namespace MRMPService.MRMPAPI
 {
     public class Core
     {
-        static private String _endpoint;
-        static private MRMP_ApiClient _client;
-        static private string api_prefix = "/api/v1";
+        private String _endpoint;
+        private MRMP_ApiClient _client;
+        private string api_prefix = "/api/v1";
 
         public Core(MRMP_ApiClient _mrmp_base)
         {
             _client = _mrmp_base;
         }
 
-        public static async Task<type> post<type>(Object _object) where type : new()
+        public async Task<type> post<type>(Object _object) where type : new()
         {
-            return (type)await perform<object>(Method.POST, _object);
+            return (type)await perform<type>(Method.POST, _object);
         }
-        public static async Task<type> put<type>(Object _object) where type : new()
+        public async Task<type> put<type>(Object _object) where type : new()
         {
-            return (type)await perform<object>(Method.PUT, _object);
+            return (type)await perform<type>(Method.PUT, _object);
         }
-        public static async Task<type> get<type>(Object _object) where type : new()
+        public async Task<type> get<type>(Object _object) where type : new()
         {
-            return (type)await perform<object>(Method.GET, _object);
+            return (type)await perform<type>(Method.GET, _object);
         }
 
-        public static async Task<object> perform<type>(Method _method, Object _object) where type : new()
+        public async Task<object> perform<type>(Method _method, Object _object) where type : new()
         {
             ServicePointManager.Expect100Continue = false;
             ServicePointManager.UseNagleAlgorithm = false;
@@ -92,7 +92,7 @@ namespace MRMPService.MRMPAPI
                         Logger.log(ex.ToString(), Logger.Severity.Error);
                         Logger.log(JsonConvert.SerializeObject(_object), Logger.Severity.Error);
                         Logger.log(restResponse.Content, Logger.Severity.Error);
-                        break;
+                        throw new Exception(ex.GetBaseException().Message);
                     }
                     break;
                 }
@@ -107,7 +107,7 @@ namespace MRMPService.MRMPAPI
                     {
                         Logger.log(ex.ToString(), Logger.Severity.Error);
                         Logger.log(restResponse.Content, Logger.Severity.Error);
-                        throw new Exception(String.Format("Error in API call: {0} : {1}", ex.GetBaseException().Message, _result.result.message.ToString()));
+                        throw new Exception(_result.result.message.ToString());
                     }
                 }
                 else if (restResponse.StatusCode == HttpStatusCode.NotFound)
@@ -121,7 +121,7 @@ namespace MRMPService.MRMPAPI
                     {
                         Logger.log(ex.ToString(), Logger.Severity.Error);
                         Logger.log(restResponse.Content, Logger.Severity.Error);
-                        throw new Exception(String.Format("Error in API call: {0} : {1}", ex.GetBaseException().Message, _result.result.message.ToString()));
+                        throw new Exception(_result.result.message);
                     }
                 }
                 else if (restResponse.StatusCode == HttpStatusCode.RequestTimeout)
@@ -146,13 +146,13 @@ namespace MRMPService.MRMPAPI
             return responseobject;
 
         }
-        public static void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
+        public void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
         {
             var currentError = errorArgs.ErrorContext.Error.Message;
             errorArgs.ErrorContext.Handled = true;
         }
 
-        public static String endpoint
+        public String endpoint
         {
             get
             {

@@ -1,4 +1,5 @@
-﻿using MRMPService.MRMPAPI.Contracts;
+﻿using MRMPService.MRMPAPI;
+using MRMPService.MRMPAPI.Contracts;
 using MRMPService.MRMPDoubleTake;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
@@ -21,24 +22,21 @@ namespace MRMPService.PortalTasks
             MRPPlatformType _source_platform = _payload.source_platform;
 
             MRPPlatformType _target_platform = _payload.target_platform;
-            using (MRMPAPI.MRMP_ApiClient _mrp_portal = new MRMPAPI.MRMP_ApiClient())
+            try
             {
-                try
+                foreach (var _pair in _workload_pairs)
                 {
-                    foreach (var _pair in _workload_pairs)
-                    {
-                        int _index = _workload_pairs.IndexOf(_pair) + 1;
-                        await MCP_Platform.ApplyMetaInformation(_mrmp_task.id, _workload_pairs, _source_platform, _target_platform, _pair.source_workload, _pair.target_workload, _index * 5, _index * 9);
-                    }
-                    _mrp_portal.task().successcomplete(_mrmp_task.id);
-
+                    int _index = _workload_pairs.IndexOf(_pair) + 1;
+                    await MCP_Platform.ApplyMetaInformation(_mrmp_task.id, _workload_pairs, _source_platform, _target_platform, _pair.source_workload, _pair.target_workload, _index * 5, _index * 9);
                 }
-                catch (Exception ex)
-                {
-                    _mrp_portal.task().failcomplete(_mrmp_task.id, ex.Message);
-                    Logger.log(ex.ToString(), Logger.Severity.Fatal);
+                await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id);
 
-                }
+            }
+            catch (Exception ex)
+            {
+                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                Logger.log(ex.ToString(), Logger.Severity.Fatal);
+
             }
         }
     }

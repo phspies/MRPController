@@ -14,12 +14,9 @@ namespace MRMPService.MRMPAPI.Classes
     {
         static public async Task WorkloadInventoryWindowsDo(MRPWorkloadType _workload)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
-                using (MRMP_ApiClient _api = new MRMP_ApiClient())
-                {
-                    _workload = _api.workload().get_by_id(_workload.id);
-                }
+                _workload = await MRMPServiceBase._mrmp_api.workload().get_by_id(_workload.id);
                 MRPWorkloadType _updated_workload = new MRPWorkloadType()
                 {
                     id = _workload.id,
@@ -228,7 +225,7 @@ namespace MRMPService.MRMPAPI.Classes
                         try { _process.virtualsize = Int64.Parse(item["VirtualSize"].ToString()); } catch (Exception) { }
                         _process._destroy = false;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         continue;
                     }
@@ -263,7 +260,7 @@ namespace MRMPService.MRMPAPI.Classes
                         _software._destroy = false;
 
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         continue;
                     }
@@ -418,11 +415,9 @@ namespace MRMPService.MRMPAPI.Classes
                 _updated_workload.ostype = "windows";
                 _updated_workload.provisioned = true;
 
-                using (MRMP_ApiClient _api = new MRMP_ApiClient())
-                {
-                    _api.workload().updateworkload(_updated_workload);
-                    _api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
-                }
+
+                await MRMPServiceBase._mrmp_api.workload().updateworkload(_updated_workload);
+                await MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
 
                 Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
             });

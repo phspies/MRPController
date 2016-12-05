@@ -277,7 +277,7 @@ namespace MRMPService.MRMPDoubleTake
                 DoubleTake.PowerShell.Server server = GetServer(ps, _workload_type == DT_WorkloadType.Source ? _source_address : _target_address, _workload_type == DT_WorkloadType.Source ? _source_credentials : _target_credentials);
                 PSObject activationStatus = ActivateOnline(ps, server);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

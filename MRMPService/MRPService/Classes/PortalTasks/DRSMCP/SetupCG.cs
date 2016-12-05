@@ -1,4 +1,5 @@
-﻿using MRMPService.MRMPAPI.Contracts;
+﻿using MRMPService.MRMPAPI;
+using MRMPService.MRMPAPI.Contracts;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPService.Types.API;
 using MRMPService.Tasks.MCP;
@@ -42,7 +43,7 @@ namespace MRMPService.PortalTasks
             catch (Exception ex)
             {
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
-                await MRMPServiceBase._mrmp_api_endpoint.task().failcomplete(_mrmp_task.id, ex.Message);
+                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
 
             }
 

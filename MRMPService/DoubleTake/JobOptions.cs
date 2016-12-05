@@ -64,7 +64,7 @@ namespace MRMPService.MRMPDoubleTake
                     string absfilename = Path.Combine(_repositorypath, _protectiongroup.id, _source_workload.id, _filename);
                     vhd.Add(new ImageVhdInfoModel() { FormatType = "ntfs", VolumeLetter = _shortvolume.ToString(), UseExistingVhd = false, FilePath = absfilename, SizeInMB = (_disksize * 1024) });
 
-                    await MRMPServiceBase._mrmp_api_endpoint.task().progress(_task_id, String.Format("Volume {0} being synced to {1} on repository server", _shortvolume.ToString(), absfilename), ReportProgress.Progress(_start_progress, _end_progress, 51 + i));
+                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Volume {0} being synced to {1} on repository server", _shortvolume.ToString(), absfilename), ReportProgress.Progress(_start_progress, _end_progress, 51 + i));
                     i += 1;
                 }
                 jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();

@@ -26,7 +26,7 @@ namespace MRMPService.NetstatCollection
         }
         public static async Task WorkloadNetstatUnixDo(MRPWorkloadType _workload)
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
                 List<NetworkFlowType> _workload_netstats = new List<NetworkFlowType>();
                 if (_workload == null)
@@ -111,7 +111,7 @@ namespace MRMPService.NetstatCollection
                                                 pid = _pid
                                             });
                                         }
-                                        catch (Exception ex)
+                                        catch (Exception)
                                         { }
                                     }
                                 }
@@ -120,7 +120,7 @@ namespace MRMPService.NetstatCollection
                     }
                     sshclient.Disconnect();
                 }
-                NetstatUpload.Upload(_workload_netstats, _workload);
+                await NetstatUpload.Upload(_workload_netstats, _workload);
                 Logger.log(String.Format("Inventory: Completed netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
             });

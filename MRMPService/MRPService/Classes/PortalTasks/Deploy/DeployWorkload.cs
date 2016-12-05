@@ -3,6 +3,7 @@ using MRMPService.MRMPService.Types.API;
 using System;
 using MRMPService.Tasks.MCP;
 using MRMPService.MRMPService.Log;
+using MRMPService.MRMPAPI;
 
 namespace MRMPService.PortalTasks
 {
@@ -17,12 +18,12 @@ namespace MRMPService.PortalTasks
             try
             {
                 await MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 99, true);
-                await MRMPServiceBase._mrmp_api_endpoint.task().successcomplete(_mrmp_task.id, "Successfully deployed workload");
+                await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully deployed workload");
             }
             catch (Exception ex)
             {
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
-                await MRMPServiceBase._mrmp_api_endpoint.task().failcomplete(_mrmp_task.id, ex.Message);
+                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
             }
         }
     }
