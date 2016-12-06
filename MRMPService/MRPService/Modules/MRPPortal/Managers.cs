@@ -1,0 +1,54 @@
+﻿using MRMPService.MRMPService.Log;
+using System;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using MRMPService.Modules.MRMPPortal.Contracts;
+
+namespace MRMPService.Modules.MRMPPortal
+{
+    public class MRPManager : Core
+    {
+        MRPManagerType worker = new MRPManagerType();
+        public MRPManager(MRMPApiClient _MRP) : base(_MRP)
+        {
+            worker.hostname = Environment.MachineName;
+            worker.version = MRMPServiceBase.manager_version;
+            worker.ipaddress = String.Join(",", Dns.GetHostEntry(Dns.GetHostName()).AddressList.Select(x => x.ToString()).Where(x => x.ToString().Contains(".")));
+        }
+        public async Task<ResultType> update_managerevents(List<MRPManagerEventType> _events)
+        {
+            MRManagerCRUDType _manager_type = new MRManagerCRUDType()
+            {
+                workload = new MRPManagerType()
+                {
+                    managerevents = _events
+                }
+            };
+            endpoint = "/managers/update.json";
+            return await post<ResultType>(_manager_type);
+        }
+        public async Task<bool> confirm_controller()
+        {
+            endpoint = ("/managers/confirm.json");
+            ResultType returnval = await post<ResultType>(worker);
+
+            while (returnval.result.status == false)
+            {
+                Logger.log("Manager not registered with portal!", Logger.Severity.Warn);
+                Thread.Sleep(new TimeSpan(0, 0, 30));
+                returnval = await post<ResultType>(worker);
+            }
+            MRMPServiceBase.organization_id = returnval.result.organization_id;
+            if (MRMPServiceBase.organization_id == null)
+            {
+                Logger.log("No Organization ID Detected! - Exiting!!!", Logger.Severity.Fatal);
+                System.ServiceProcess.ServiceController svc = new System.ServiceProcess.ServiceController("MRMP Service");
+                svc.Stop();
+            }
+            return true;
+        }
+    }
+}

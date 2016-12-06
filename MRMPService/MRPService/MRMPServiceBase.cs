@@ -1,11 +1,10 @@
 ﻿using Microsoft.Win32;
-using MRMPService.MRMPAPI;
+using MRMPService.Modules.MRMPPortal;
+using MRMPService.Scheduler.PerformanceCollection;
 using MRMPService.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.Serialization;
-using System.Threading;
 using static MRMPService.Utilities.SyncronizedList;
 
 namespace MRMPService
@@ -18,7 +17,7 @@ namespace MRMPService
         /// </summary>
         /// 
 
-        public static MRMP_ApiClient _mrmp_api = new MRMP_ApiClient();
+        public static MRMPApiClient _mrmp_api = new MRMPApiClient();
         public static object mcp_exec = new object();
 
         static bool _debug;

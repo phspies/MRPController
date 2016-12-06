@@ -20,6 +20,11 @@ namespace MRMPService
         {
             try
             {
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+                //AppDomain.CurrentDomain.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+                //MRMPService.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+
+
                 MRMPServiceBase.event_log = MRPLog1;
 
                 Startup _startup = new Startup();
@@ -46,6 +51,21 @@ namespace MRMPService
                 Thread.Sleep(1000);
             }
             Logger.log(String.Format("Shutdown complete!"), Logger.Severity.Info);
+        }
+
+        static void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        {
+            HandleException(e.Exception);
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            HandleException((Exception)e.ExceptionObject);
+        }
+
+        static void HandleException(Exception e)
+        {
+            Logger.log(String.Format("Fatal Exeception: {0}", e.ToString()), Logger.Severity.Fatal);
         }
 
         private void eventLog1_EntryWritten(object sender, EntryWrittenEventArgs e)
