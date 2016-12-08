@@ -1,5 +1,7 @@
 ﻿using MRMPService.Modules.MRMPPortal.Contracts;
+using MRMPService.MRMPService.Log;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MRMPService.Modules.MRMPPortal
@@ -21,15 +23,33 @@ namespace MRMPService.Modules.MRMPPortal
         public async Task<MRPTaskListType> tasks()
         {
             endpoint = "/tasks/list.json";
-            return await post<MRPTaskListType>(null);
+            MRPTaskListType _result = new MRPTaskListType() { tasks = new List<MRPTaskType>() };
+            try
+            {
+                _result = await post<MRPTaskListType>(null);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
+            return _result;
         }
         public async Task<MRPTaskType> get(string _task_id)
         {
             var _get_task = new MRPTaskGetType() { task_id = _task_id };
             endpoint = "/tasks/get.json";
-            return await post<MRPTaskType>(_get_task);
+            MRPTaskType _result = new MRPTaskType();
+            try
+            {
+                _result = await post<MRPTaskType>(_get_task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
+            return _result;
         }
-        public async Task<ResultType> successcomplete(String _task_id, string returnpayload)
+        public async Task successcomplete(String _task_id, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -43,9 +63,16 @@ namespace MRMPService.Modules.MRMPPortal
                 }
             };
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(task);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
-        public async Task<ResultType> successcomplete(MRPTaskType payload, string returnpayload)
+        public async Task successcomplete(MRPTaskType payload, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -59,9 +86,16 @@ namespace MRMPService.Modules.MRMPPortal
                 }
             };
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(task);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
-        public async Task<ResultType> successcomplete(String _task_id)
+        public async Task successcomplete(String _task_id)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -76,9 +110,16 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(task);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
-        public async Task<ResultType> successcomplete(MRPTaskType payload)
+        public async Task successcomplete(MRPTaskType payload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -93,9 +134,16 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(task);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
-        public async Task<ResultType> failcomplete(String _task_id, string returnpayload)
+        public async Task failcomplete(String _task_id, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -109,9 +157,16 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(task);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
-        public async Task<ResultType> failcomplete(MRPTaskType payload, string returnpayload)
+        public async Task failcomplete(MRPTaskType payload, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -125,9 +180,16 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(task);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch(Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
-        public async Task<ResultType> progress(String _task_id, string _step, double _progress)
+        public async Task progress(String _task_id, string _step, double _progress)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -140,9 +202,16 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(task);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
-        public async Task<ResultType> progress(MRPTaskType payload, string _step, double _progress)
+        public async Task progress(MRPTaskType payload, string _step, double _progress)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -155,9 +224,16 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(task);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
-        public async Task<ResultType> progress(String _task_id, string _step)
+        public async Task progress(String _task_id, string _step)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -169,9 +245,16 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(task);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
-        public async Task<ResultType> progress(MRPTaskType payload, string _step)
+        public async Task progress(MRPTaskType payload, string _step)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -183,12 +266,26 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(task);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
-        public async Task<ResultType> update(MRPTaskType _object)
+        public async Task update(MRPTaskType task)
         {
             endpoint = "/tasks/update.json";
-            return (ResultType)await put<ResultType>(_object);
+            try
+            {
+                await put<ResultType>(task);
+            }
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
+            }
         }
     }
 }

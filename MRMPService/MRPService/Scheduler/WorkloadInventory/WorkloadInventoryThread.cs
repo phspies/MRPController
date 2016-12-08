@@ -38,7 +38,9 @@ namespace MRMPService.MRMPAPI.Classes
                             break;
                         }
                     }
-                    int _connurrency = (MRMPServiceBase.os_inventory_concurrency * (_all_workloads.Count() / 100));
+                    int _multiplyer = (_all_workloads.Count() > 100) ? (_all_workloads.Count()) / 100 : 1;
+
+                    int _connurrency = (MRMPServiceBase.os_inventory_concurrency * _multiplyer);
 
                     Logger.log(String.Format("Inventory: Starting inventory collection process with {0} threads", _connurrency), Logger.Severity.Info);
 

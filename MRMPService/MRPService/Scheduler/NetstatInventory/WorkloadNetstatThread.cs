@@ -36,7 +36,9 @@ namespace MRMPService.Scheduler.NetstatCollection
                             break;
                         }
                     }
-                    int _connurrency = (MRMPServiceBase.os_netstat_concurrency * (_all_workloads.Count() / 100));
+                    int _multiplyer = (_all_workloads.Count() > 100) ? (_all_workloads.Count()) / 100 : 1;
+
+                    int _connurrency = (MRMPServiceBase.os_netstat_concurrency * _multiplyer);
 
                     Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", _connurrency), Logger.Severity.Info);
 

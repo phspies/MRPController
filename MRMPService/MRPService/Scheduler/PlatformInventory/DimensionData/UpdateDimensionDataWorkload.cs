@@ -125,6 +125,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
             _primary_logical_interface.ipv6address = _caasworkload.networkInfo.primaryNic.ipv6;
             _primary_logical_interface.ipaddress = _caasworkload.networkInfo.primaryNic.privateIpv4;
             _primary_logical_interface.moid = _caasworkload.networkInfo.primaryNic.id;
+            _primary_logical_interface.macaddress = _caasworkload.networkInfo.primaryNic.macAddress;
             _primary_logical_interface.deleted = false;
             _primary_logical_interface.platformnetwork_id = _platform.platformdomains.SelectMany(x => x.platformnetworks).FirstOrDefault(x => x.moid == _caasworkload.networkInfo.primaryNic.vlanId).id;
             _primary_logical_interface.platformnetwork = null;
@@ -150,6 +151,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                     _logical_interface.ipv6address = _caasworkloadinterface.ipv6;
                     _logical_interface.ipaddress = _caasworkloadinterface.privateIpv4;
                     _logical_interface.moid = _caasworkloadinterface.id;
+                    _logical_interface.macaddress = _caasworkloadinterface.macAddress;
                     _logical_interface.deleted = false;
                     _logical_interface.platformnetwork_id = _platform.platformdomains.SelectMany(x => x.platformnetworks).FirstOrDefault(x => x.moid == _caasworkloadinterface.vlanId).id;
                     _logical_interface.platformnetwork = null;

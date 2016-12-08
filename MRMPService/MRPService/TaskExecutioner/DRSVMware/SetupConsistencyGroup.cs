@@ -24,7 +24,6 @@ namespace MRMPService.TaskExecutioner.DRSVMWare
             catch (Exception ex)
             {
                 await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
-
             }
         }
     }

@@ -21,15 +21,15 @@ namespace MRMPService.Modules.MRMPPortal
             _client = _mrmp_base;
         }
 
-        public async Task<type> post<type>(Object _object) where type : new()
+        public async Task<type> post<type>(object _object) where type : new()
         {
             return (type)await perform<type>(Method.POST, _object);
         }
-        public async Task<type> put<type>(Object _object) where type : new()
+        public async Task<type> put<type>(object _object) where type : new()
         {
             return (type)await perform<type>(Method.PUT, _object);
         }
-        public async Task<type> get<type>(Object _object) where type : new()
+        public async Task<type> get<type>(object _object) where type : new()
         {
             return (type)await perform<type>(Method.GET, _object);
         }

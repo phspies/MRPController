@@ -62,6 +62,7 @@ namespace MRMPService.Utilities
 
         public void Dispose()
         {
+            
             UndoImpersonation();
         }
 

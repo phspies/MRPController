@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using MRMPService.Utilities;
-using static MRMPService.Utilities.SyncronizedList;
 using MRMPService.Modules.MRMPPortal.Contracts;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

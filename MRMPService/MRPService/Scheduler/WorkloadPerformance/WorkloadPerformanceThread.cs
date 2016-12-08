@@ -38,7 +38,8 @@ namespace MRMPService.Scheduler.PerformanceCollection
                             break;
                         }
                     }
-                    int _connurrency = (MRMPServiceBase.os_performance_concurrency * (_all_workloads.Count() / 100));
+                    int _multiplyer = (_all_workloads.Count() > 100) ? (_all_workloads.Count()) / 100 : 1;
+                    int _connurrency = MRMPServiceBase.os_performance_concurrency * _multiplyer;
                     Logger.log(String.Format("Performance: Starting performance collection process with {0} threads", _connurrency), Logger.Severity.Info);
                     Parallel.ForEach(_all_workloads, new ParallelOptions() { MaxDegreeOfParallelism = _connurrency }, async workload =>
                     {

@@ -76,7 +76,6 @@ namespace Modules.DHCPServer.Library
             {
                 next.m_Address[3] = (Byte)(this.m_Address[3] + 1);
             }
-
             return next;
         }
 

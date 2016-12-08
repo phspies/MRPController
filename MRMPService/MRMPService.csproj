@@ -321,6 +321,7 @@
     <Compile Include="MRPService\Modules\NetFlow\v9\Packet.cs" />
     <Compile Include="MRPService\Modules\NetFlow\v9\Template.cs" />
     <Compile Include="MRPService\Modules\NetFlow\v9\Templates.cs" />
+    <Compile Include="MRPService\TaskExecutioner\Discovery\NetworkDiscovery.cs" />
     <Compile Include="MRPService\TaskExecutioner\Platform\PlatformDiscovery.cs" />
     <Compile Include="MRPService\TaskExecutioner\Platform\DatacenterDiscovery.cs" />
     <Compile Include="MRPService\Modules\RP4VM\CreateConsistencyGroup.cs" />

@@ -187,8 +187,7 @@ namespace Modules.DHCPServer.Library
 
             offset += 192; // Skip server host name and boot file
 
-            if (offset + 4 < data.Length &&
-                (BitConverter.ToUInt32(data, offset) == DhcpOptionsMagicNumber || BitConverter.ToUInt32(data, offset) == WinDhcpOptionsMagicNumber))
+            if (offset + 4 < data.Length && (BitConverter.ToUInt32(data, offset) == DhcpOptionsMagicNumber || BitConverter.ToUInt32(data, offset) == WinDhcpOptionsMagicNumber))
             {
                 offset += 4;
                 Boolean end = false;

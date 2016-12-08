@@ -390,6 +390,10 @@ namespace MRMPService.MRMPAPI.Classes
                             {
                                 _interface = _updated_workload.workloadinterfaces.FirstOrDefault(x => x.connection_index == _conn_index);
                             }
+                            else
+                            {
+                                _updated_workload.workloadinterfaces.Add(_interface);
+                            }
                         }
                         else
                         {
