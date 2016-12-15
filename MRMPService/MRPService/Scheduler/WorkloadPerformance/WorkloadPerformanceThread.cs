@@ -38,7 +38,7 @@ namespace MRMPService.Scheduler.PerformanceCollection
                             break;
                         }
                     }
-                    int _multiplyer = (_all_workloads.Count() > 100) ? (_all_workloads.Count()) / 100 : 1;
+                    int _multiplyer = (_all_workloads.Count() > 75) ? (_all_workloads.Count()) / 75 : 1;
                     int _connurrency = MRMPServiceBase.os_performance_concurrency * _multiplyer;
                     Logger.log(String.Format("Performance: Starting performance collection process with {0} threads", _connurrency), Logger.Severity.Info);
                     Parallel.ForEach(_all_workloads, new ParallelOptions() { MaxDegreeOfParallelism = _connurrency }, async workload =>
@@ -54,13 +54,12 @@ namespace MRMPService.Scheduler.PerformanceCollection
                                     await WorkloadPerformance.WorkloadPerformanceUnixDo(workload);
                                     break;
                             }
-
                             await MRMPServiceBase._mrmp_api.workload().PeformanceUpdateStatus(workload, "Success", true);
                         }
                         catch (Exception ex)
                         {
-                            Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
-                            await MRMPServiceBase._mrmp_api.workload().PeformanceUpdateStatus(workload, ex.Message, false);
+                            Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.GetBaseException().Message), Logger.Severity.Error);
+                            await MRMPServiceBase._mrmp_api.workload().PeformanceUpdateStatus(workload, ex.GetBaseException().Message, false);
                         }
                     });
 

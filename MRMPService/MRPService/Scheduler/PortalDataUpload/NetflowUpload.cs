@@ -7,7 +7,7 @@ using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPAPI;
 
-namespace MRMPService.MRMPService.Classes.Background_Classes
+namespace MRMPService.Scheduler.PortalDataUpload
 {
     class NetflowUpload
     {

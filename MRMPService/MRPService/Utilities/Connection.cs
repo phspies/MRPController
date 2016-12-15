@@ -26,9 +26,9 @@ namespace MRMPService.Utilities
                     {
                         reply = testPing.Send(ip);
                     }
-                    catch (System.ComponentModel.Win32Exception ex)
+                    catch (Exception ex)
                     {
-                        throw new ArgumentException(ex.Message);
+                        throw new ArgumentException(String.Format("Ping Error: {0}", ex.GetBaseException().Message));
                     }
                     if (reply != null)
                     {

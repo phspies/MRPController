@@ -3,13 +3,10 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
-using MRMPService.Utilities;
-using MRMPService.MRMPAPI;
 
-namespace MRMPService.MRMPService.Classes.Background_Classes
+namespace MRMPService.Scheduler.PortalDataUpload
 {
     class ManagerEventUpload
     {

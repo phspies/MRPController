@@ -23,6 +23,10 @@ namespace MRMPService.Utilities
                 {
                     _simple_osedition += "2012";
                 }
+                else if (_longname.Contains(" 7 "))
+                {
+                    _simple_osedition += "7";
+                }
                 if (_longname.Contains("R2"))
                 {
                     _simple_osedition += "R2";

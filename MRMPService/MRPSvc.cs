@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Threading;
-using MRMPService.MRMPService.Classes.Background_Classes;
 using MRMPService.MRMPService.Log;
 
 namespace MRMPService

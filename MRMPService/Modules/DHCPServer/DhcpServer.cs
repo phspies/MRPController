@@ -6,6 +6,8 @@ using System.Net.Sockets;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
+using MRMPService.LocalDatabase;
+using MRMPService.MRMPService.Log;
 
 namespace Modules.DHCPServer.Library
 {
@@ -39,7 +41,7 @@ namespace Modules.DHCPServer.Library
 
         private Timer m_CleanupTimer;
 
-        private Dictionary<InternetAddress, AddressLease> m_ActiveLeases = new Dictionary<InternetAddress,AddressLease>();
+        private Dictionary<InternetAddress, AddressLease> m_ActiveLeases = new Dictionary<InternetAddress, AddressLease>();
         private SortedList<InternetAddress, AddressLease> m_InactiveLeases = new SortedList<InternetAddress, AddressLease>();
 
         public TimeSpan OfferTimeout
@@ -164,54 +166,9 @@ namespace Modules.DHCPServer.Library
 
         public void Start()
         {
-            Trace.TraceInformation("Dhcp Server Starting...");
-
             this.m_ActiveLeases.Clear();
             this.m_InactiveLeases.Clear();
 
-            for (InternetAddress address = this.m_StartAddress.Copy(); address.CompareTo(this.m_EndAddress) <= 0; address = address.NextAddress())
-            {
-                this.m_InactiveLeases.Add(address, new AddressLease(null, address, DateTime.MinValue));
-            }
-
-            if (this.m_DhcpInterface == null)
-            {
-                Trace.TraceInformation("Enumerating Network Interfaces.");
-                foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
-                {
-                    if (nic.NetworkInterfaceType == NetworkInterfaceType.Loopback)
-                    {
-                        this.m_DhcpInterface = nic;
-                    }
-                    else if ((nic.NetworkInterfaceType == NetworkInterfaceType.Ethernet || nic.NetworkInterfaceType == NetworkInterfaceType.GigabitEthernet || nic.NetworkInterfaceType == NetworkInterfaceType.Wireless80211) && nic.OperationalStatus == OperationalStatus.Up)
-                    {
-                        Trace.TraceInformation("Using Network Interface \"{0}\".", nic.Name);
-                        this.m_DhcpInterface = nic;
-                        break;
-                    }
-                }
-
-#if TRACE
-                if (this.m_DhcpInterface.NetworkInterfaceType == NetworkInterfaceType.Loopback)
-                {
-                    Trace.TraceInformation("Active Ethernet Network Interface Not Found. Using Loopback.");
-                }
-#endif
-            }
-            
-            foreach (UnicastIPAddressInformation interfaceAddress in this.m_DhcpInterface.GetIPProperties().UnicastAddresses)
-            {
-                if (interfaceAddress.Address.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    this.m_DhcpInterfaceAddress = interfaceAddress.Address;
-                }
-            }
-
-            if (this.m_DhcpInterfaceAddress == null)
-            {
-                Trace.TraceError("Unabled to Set Dhcp Interface Address. Check the networkInterface property of your config file.");
-                throw new InvalidOperationException("Unabled to Set Dhcp Interface Address.");
-            }
 
             this.m_Abort = false;
 
@@ -220,11 +177,11 @@ namespace Modules.DHCPServer.Library
             this.m_DhcpSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             this.m_DhcpSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
             this.m_DhcpSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.Broadcast, 1);
-            this.m_DhcpSocket.Bind(new IPEndPoint(this.m_DhcpInterfaceAddress, DhcpPort));
-            
-            this.Listen();
+            this.m_DhcpSocket.Bind(new IPEndPoint(IPAddress.Parse("0.0.0.0"), DhcpPort));
 
-            Trace.TraceInformation("Dhcp Service Started.");
+            m_DhcpInterfaceAddress = IPAddress.Parse("0.0.0.0");
+
+            this.Listen();
         }
 
         public void Stop()
@@ -260,7 +217,6 @@ namespace Modules.DHCPServer.Library
                     return;
                 }
 
-                Trace.TraceInformation("Listening For Dhcp Request.");
                 this.m_DhcpSocket.BeginReceiveFrom(messageBufer, 0, DhcpMessageMaxSize, SocketFlags.None, ref source, new AsyncCallback(this.OnReceive), messageBufer);
             }
             finally
@@ -300,9 +256,6 @@ namespace Modules.DHCPServer.Library
 
             if (!this.m_Abort)
             {
-                Trace.TraceInformation("Dhcp Messages Received, Queued for Processing.");
-
-                // Queue this request for processing
                 ThreadPool.QueueUserWorkItem(new WaitCallback(this.CompleteRequest), data);
 
                 this.Listen();
@@ -402,12 +355,20 @@ namespace Modules.DHCPServer.Library
 
         private void DhcpDiscover(DhcpMessage message)
         {
+            //dont respond to DHCP requests if we have nothing to offer
+            using (DHCPLeaseSet _dhcp_db = new DHCPLeaseSet())
+            {
+                if (_dhcp_db.ModelRepository.Get().Count == 0)
+                {
+                    return;
+                }
+            }
             Byte[] addressRequestData = message.GetOptionData(DhcpOption.AddressRequest);
             if (addressRequestData == null)
             {
                 addressRequestData = message.ClientAddress;
             }
-            
+
             InternetAddress addressRequest = new InternetAddress(addressRequestData);
 
             // Assume we're on an ethernet network
@@ -416,40 +377,19 @@ namespace Modules.DHCPServer.Library
             PhysicalAddress clientHardwareAddress = new PhysicalAddress(hardwareAddressData);
 
             AddressLease offer = null;
+            string _physical_address = clientHardwareAddress.HumanString();
+            Logger.log(String.Format("DHCP: Received DHCP Discover Request from {0}", _physical_address), Logger.Severity.Debug);
+            String _hostname = Encoding.UTF8.GetString(message.GetOptionData(DhcpOption.Hostname));
 
-            // If this client is explicitly allowed, or they are not denied and the allow any flag is set
-            if (this.m_Acl.ContainsKey(clientHardwareAddress) && this.m_Acl[clientHardwareAddress] ||
-                !this.m_Acl.ContainsKey(clientHardwareAddress) && this.m_AllowAny)
+            DHCPLease _dhcp_lease;
+            using (DHCPLeaseSet _dhcp_db = new DHCPLeaseSet())
             {
-                if (this.m_Reservations.ContainsKey(clientHardwareAddress))
-                {
-                    offer = new AddressLease(clientHardwareAddress, this.m_Reservations[clientHardwareAddress], DateTime.Now.Add(this.m_LeaseDuration));
-                }
-                else
-                {
-                    lock (this.m_LeaseSync)
-                    {
-                        if (!addressRequest.Equals(InternetAddress.Empty))
-                        {
-                            if (this.m_InactiveLeases.ContainsKey(addressRequest))
-                            {
-                                offer = this.m_InactiveLeases[addressRequest];
-                                this.m_InactiveLeases.Remove(addressRequest);
-                                this.m_ActiveLeases.Add(addressRequest, offer);
-                            }
-                            else if (this.m_ActiveLeases.ContainsKey(addressRequest) && this.m_ActiveLeases[addressRequest].Owner.Equals(clientHardwareAddress))
-                            {
-                                offer = this.m_ActiveLeases[addressRequest];
-                            }
-                        }
-                        else if (this.m_InactiveLeases.Count > 0)
-                        {
-                            offer = this.m_InactiveLeases.Values[0];
-                            this.m_InactiveLeases.Remove(offer.Address);
-                            this.m_ActiveLeases.Add(offer.Address, offer);
-                        }
-                    }
-                }
+                _dhcp_lease = _dhcp_db.ModelRepository.GetFirstOrDefault(x => x.hostname == _hostname || x.macaddress == _physical_address);
+            }
+            if (_dhcp_lease != null)
+            {
+                offer = new AddressLease(clientHardwareAddress, InternetAddress.Parse(_dhcp_lease.ipv4address), DateTime.Now.Add(this.m_LeaseDuration));
+                Logger.log(String.Format("DHCP: Respond to DHCP Discover from {0} {1}", _hostname, _physical_address), Logger.Severity.Debug);
             }
 
             if (offer == null)
@@ -468,6 +408,14 @@ namespace Modules.DHCPServer.Library
 
         private void DhcpRequest(DhcpMessage message)
         {
+            //dont respond to DHCP requests if we have nothing to offer
+            using (DHCPLeaseSet _dhcp_db = new DHCPLeaseSet())
+            {
+                if (_dhcp_db.ModelRepository.Get().Count == 0)
+                {
+                    return;
+                }
+            }
             Byte[] addressRequestData = message.GetOptionData(DhcpOption.AddressRequest);
             if (addressRequestData == null)
             {
@@ -488,34 +436,26 @@ namespace Modules.DHCPServer.Library
             PhysicalAddress clientHardwareAddress = new PhysicalAddress(hardwareAddressData);
 
             AddressLease assignment = null;
+            String _hostname = Encoding.UTF8.GetString(message.GetOptionData(DhcpOption.Hostname));
+            string _physical_address = Encoding.UTF8.GetString(hardwareAddressData);
+
+            Logger.log(String.Format("DHCP: Received DHCP Request from {0}", _physical_address), Logger.Severity.Debug);
+
+
             Boolean ack = false;
-            
-            // If this client is explicitly allowed, or they are not denied and the allow any flag is set
-            if (this.m_Acl.ContainsKey(clientHardwareAddress) && this.m_Acl[clientHardwareAddress] ||
-                !this.m_Acl.ContainsKey(clientHardwareAddress) && this.m_AllowAny)
+
+            DHCPLease _dhcp_lease;
+            using (DHCPLeaseSet _dhcp_db = new DHCPLeaseSet())
             {
-                if (this.m_Reservations.ContainsKey(clientHardwareAddress))
+                _dhcp_lease = _dhcp_db.ModelRepository.GetFirstOrDefault(x => x.hostname == _hostname || x.macaddress == _physical_address);
+            }
+            if (_dhcp_lease != null)
+            {
+                assignment = new AddressLease(clientHardwareAddress, InternetAddress.Parse(_dhcp_lease.ipv4address), DateTime.Now.Add(this.m_LeaseDuration));
+                if (addressRequest.Equals(assignment.Address))
                 {
-                    assignment = new AddressLease(clientHardwareAddress, this.m_Reservations[clientHardwareAddress], DateTime.Now.Add(this.m_LeaseDuration));
-                    if (addressRequest.Equals(assignment.Address))
-                    {
-                        ack = true;
-                    }
-                }
-                else
-                {
-                    lock (this.m_LeaseSync)
-                    {
-                        if (this.m_ActiveLeases.ContainsKey(addressRequest) &&
-                            (this.m_ActiveLeases[addressRequest].Owner.Equals(clientHardwareAddress) || this.m_ActiveLeases[addressRequest].SessionId == message.SessionId))
-                        {
-                            assignment = this.m_ActiveLeases[addressRequest];
-                            assignment.Acknowledged = true;
-                            assignment.Owner = clientHardwareAddress;
-                            assignment.Expiration = DateTime.Now.Add(this.m_LeaseDuration);
-                            ack = true;
-                        }
-                    }
+                    ack = true;
+                    Logger.log(String.Format("DHCP: Respond to DHCP Discover from {0} {1}", _hostname, _physical_address), Logger.Severity.Debug);
                 }
             }
 
@@ -531,8 +471,14 @@ namespace Modules.DHCPServer.Library
 
         private void SendOffer(DhcpMessage message, AddressLease offer)
         {
-            Trace.TraceInformation("{0} Sending Dhcp Offer.", Thread.CurrentThread.ManagedThreadId);
-
+            //dont respond to DHCP requests if we have nothing to offer
+            using (DHCPLeaseSet _dhcp_db = new DHCPLeaseSet())
+            {
+                if (_dhcp_db.ModelRepository.Get().Count == 0)
+                {
+                    return;
+                }
+            }
             DhcpMessage response = new DhcpMessage();
             response.Operation = DhcpOperation.BootReply;
             response.Hardware = HardwareType.Ethernet;
@@ -541,27 +487,54 @@ namespace Modules.DHCPServer.Library
             response.SessionId = message.SessionId;
             response.Flags = message.Flags;
 
-            response.AssignedAddress = offer.Address.ToArray();
             response.ClientHardwareAddress = message.ClientHardwareAddress;
 
-            response.AddOption(DhcpOption.DhcpMessageType, (Byte)DhcpMessageType.Offer);
-            response.AddOption(DhcpOption.AddressRequest, offer.Address.ToArray());
-            AddDhcpOptions(response);
+            String _hostname = Encoding.UTF8.GetString(message.GetOptionData(DhcpOption.Hostname));
+            string _physical_address = Encoding.UTF8.GetString(message.ClientHardwareAddress);
 
-            Byte[] paramList = message.GetOptionData(DhcpOption.ParameterList);
-            if (paramList != null)
+
+
+            DHCPLease _dhcp_lease;
+            using (DHCPLeaseSet _dhcp_db = new DHCPLeaseSet())
             {
-                response.OptionOrdering = paramList;
+                _dhcp_lease = _dhcp_db.ModelRepository.GetFirstOrDefault(x => x.hostname == _hostname || x.macaddress == _physical_address);
             }
+            if (_dhcp_lease != null)
+            {
+                response.AssignedAddress = Encoding.ASCII.GetBytes(_dhcp_lease.ipv4address);
 
-            this.SendReply(response);
-            Trace.TraceInformation("{0} Dhcp Offer Sent.", Thread.CurrentThread.ManagedThreadId);
+                response.AddOption(DhcpOption.DhcpMessageType, (Byte)DhcpMessageType.Offer);
+                response.AddOption(DhcpOption.AddressRequest, Encoding.ASCII.GetBytes(_dhcp_lease.ipv4address));
+                response.AddOption(DhcpOption.NameServer, Encoding.ASCII.GetBytes(_dhcp_lease.dnsservers));
+                response.AddOption(DhcpOption.DomainNameServer, Encoding.ASCII.GetBytes(_dhcp_lease.dnsservers));
+                response.AddOption(DhcpOption.Router, Encoding.ASCII.GetBytes(_dhcp_lease.ipv4gateway));
+                response.AddOption(DhcpOption.SubnetMask, Encoding.ASCII.GetBytes(_dhcp_lease.ipv4mask));
+                response.AddOption(DhcpOption.DomainNameSuffix, Encoding.ASCII.GetBytes(_dhcp_lease.dnsdomains));
+
+                AddDhcpOptions(response);
+
+                Byte[] paramList = message.GetOptionData(DhcpOption.ParameterList);
+                if (paramList != null)
+                {
+                    response.OptionOrdering = paramList;
+                }
+                Logger.log(String.Format("DHCP: Send DHCP Offer to {0} {1} {2}", _hostname, _physical_address, _dhcp_lease.ipv4address), Logger.Severity.Debug);
+                using (DHCPLeaseSet _dhcp_db = new DHCPLeaseSet())
+                {
+                    _dhcp_lease.issued = true;
+                    _dhcp_lease.issued_at = DateTime.UtcNow;
+                    _dhcp_db.Save();
+                }
+                this.SendReply(response);
+            }
+            else
+            {
+                this.SendNak(message);
+            }
         }
 
         private void SendAck(DhcpMessage message, AddressLease lease)
         {
-            Trace.TraceInformation("{0} Sending Dhcp Acknowledge.", Thread.CurrentThread.ManagedThreadId);
-
             DhcpMessage response = new DhcpMessage();
             response.Operation = DhcpOperation.BootReply;
             response.Hardware = HardwareType.Ethernet;

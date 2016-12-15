@@ -36,10 +36,6 @@ namespace MRMPService.Modules.MRMPPortal
         {
             return new MRPNetworkstat(this);
         }
-        public MRPPerformanceCategory performancecategory()
-        {
-            return new MRPPerformanceCategory(this);
-        }
         public PortalPlatform platform()
         {
             return new PortalPlatform(this);

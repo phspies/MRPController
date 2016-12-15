@@ -38,7 +38,7 @@ namespace MRMPService.MRMPAPI.Classes
                             break;
                         }
                     }
-                    int _multiplyer = (_all_workloads.Count() > 100) ? (_all_workloads.Count()) / 100 : 1;
+                    int _multiplyer = (_all_workloads.Count() > 75) ? (_all_workloads.Count()) / 75 : 1;
 
                     int _connurrency = (MRMPServiceBase.os_inventory_concurrency * _multiplyer);
 
@@ -61,8 +61,8 @@ namespace MRMPService.MRMPAPI.Classes
                         }
                         catch (Exception ex)
                         {
-                            Logger.log(String.Format("Error collecting inventory information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
-                            await MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, ex.Message, false);
+                            Logger.log(String.Format("Error collecting inventory information from {0} with error {1}", workload.hostname, ex.GetBaseException().Message), Logger.Severity.Error);
+                            await MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, ex.GetBaseException().Message, false);
                         }
                     });
 

@@ -15,8 +15,10 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         public string workload_id { get; set; }
         [JsonProperty("timestamp")]
         public DateTime timestamp { get; set; }
-        [JsonProperty("performancecategory_id")]
-        public string performancecategory_id { get; set; }
+        [JsonProperty("category")]
+        public string category { get; set; }
+        [JsonProperty("counter")]
+        public string counter { get; set; }
         [JsonProperty("instance")]
         public string instance { get; set; }
         [JsonProperty("value")]

@@ -80,6 +80,14 @@
     <ApplicationIcon>mrp.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AWSSDK.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.Core.3.3.5.1\lib\net45\AWSSDK.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AWSSDK.EC2, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
+      <HintPath>..\packages\AWSSDK.EC2.3.3.4.1\lib\net45\AWSSDK.EC2.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DD.CBU.Compute.Api.Client, Version=3.3.478.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
       <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.478\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
       <Private>True</Private>
@@ -237,6 +245,12 @@
     <Compile Include="Modules\DHCPServer\DhcpServer.cs" />
     <Compile Include="Modules\DHCPServer\InternetAddress.cs" />
     <Compile Include="Modules\DHCPServer\PhysicalAddress.cs" />
+    <Compile Include="MRPService\Database\Classes\DHCPLeaseSet.cs" />
+    <Compile Include="MRPService\Database\Classes\PerformancecounterSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IDHCPLeaseSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IPerformancecounterSet.cs" />
+    <Compile Include="MRPService\Database\Structures\DHCPLease.cs" />
+    <Compile Include="MRPService\Database\Structures\Performancecounter.cs" />
     <Compile Include="MRPService\Scheduler\NetstatInventory\NetstatUpload.cs" />
     <Compile Include="MRPService\Scheduler\NetstatInventory\NetworkFlowType.cs" />
     <Compile Include="MRPService\Scheduler\PortalDataUpload\ManagerEventUpload.cs" />
@@ -259,7 +273,7 @@
     <Compile Include="MRPService\Scheduler\DTJobPoller\DTJobPollerThread.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadInventory\WorkloadInventoryUnixDo.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\PerformanceType.cs" />
-    <Compile Include="MRPService\Scheduler\WorkloadPerformance\PerformanceUpload.cs" />
+    <Compile Include="MRPService\Scheduler\PortalDataUpload\PerformanceUpload.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\TimeCalculations.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\WorkloadCounters.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\WorkloadPerformanceUnixDo.cs" />
@@ -355,9 +369,9 @@
     <Compile Include="MRPService\Scheduler\PlatformInventory\VMWare\UpdateVMwarePlatform.cs" />
     <Compile Include="MRPService\Utilities\UpdateDNS.cs" />
     <Compile Include="MRPService\Utilities\UpdateIP.cs" />
-    <Compile Include="Database\Classes\ManagerEventSet.cs" />
-    <Compile Include="Database\Interfaces\IManagerEvents.cs" />
-    <Compile Include="Database\Structures\ManagerEvent.cs" />
+    <Compile Include="MRPService\Database\Classes\ManagerEventSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IManagerEvents.cs" />
+    <Compile Include="MRPService\Database\Structures\ManagerEvent.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\InstanceCounters.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\PerfCounter.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\WorkloadPerformanceWindowsDo.cs" />
@@ -371,7 +385,6 @@
     <Compile Include="MRPService\Modules\MRPPortal\JSONSerializer.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Networkstats.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Networkflows.cs" />
-    <Compile Include="MRPService\Modules\MRPPortal\PerformanceCategories.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\PerformanceCounters.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Platforms.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Tasks.cs" />
@@ -395,16 +408,16 @@
     <Compile Include="MRPService\Utilities\SSHHandleKeyboard.cs" />
     <Compile Include="MRPService\Utilities\SyncronizedList.cs" />
     <Compile Include="MRPService\Utilities\WMIHelper.cs" />
-    <Compile Include="Database\Classes\PerfCounterSampleSet.cs" />
-    <Compile Include="Database\Classes\NetworkFlowSet.cs" />
-    <Compile Include="Database\Classes\GenericDatabase.cs" />
-    <Compile Include="Database\Interfaces\INetworkFlowSet.cs" />
-    <Compile Include="Database\Interfaces\IPerfCounterSampleSet.cs" />
-    <Compile Include="Database\Interfaces\IGenericDatabase.cs" />
-    <Compile Include="Database\Context\MRPDatabase.cs" />
+    <Compile Include="MRPService\Database\Classes\PerfCounterSampleSet.cs" />
+    <Compile Include="MRPService\Database\Classes\NetworkFlowSet.cs" />
+    <Compile Include="MRPService\Database\Classes\GenericDatabase.cs" />
+    <Compile Include="MRPService\Database\Interfaces\INetworkFlowSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IPerfCounterSampleSet.cs" />
+    <Compile Include="MRPService\Database\Interfaces\IGenericDatabase.cs" />
+    <Compile Include="MRPService\Database\Context\MRPDatabase.cs" />
     <Compile Include="MRPService\Utilities\SimpleEAS.cs" />
-    <Compile Include="Database\Structures\PerfCounterSample.cs" />
-    <Compile Include="Database\Structures\NetworkFlow.cs" />
+    <Compile Include="MRPService\Database\Structures\PerfCounterSample.cs" />
+    <Compile Include="MRPService\Database\Structures\NetworkFlow.cs" />
     <Compile Include="MRPService\Utilities\Logging.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\Credentials.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\DeploymentPolicy.cs" />
@@ -420,7 +433,6 @@
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\Pagination.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\NetworkStat.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\NetworkFlow.cs" />
-    <Compile Include="MRPService\Modules\MRPPortal\Contracts\PerformanceCategory.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\PerformanceCounter.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\PlatformCluster.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\PlatformDatastore.cs" />
@@ -527,7 +539,9 @@
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\AWSSDK.EC2.3.3.4.1\analyzers\dotnet\cs\AWSSDK.EC2.CodeAnalysis.dll" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
@@ -561,7 +575,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

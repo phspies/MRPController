@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Security.Cryptography;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+
 
 namespace Modules.DHCPServer.Library
 {
@@ -73,6 +75,22 @@ namespace Modules.DHCPServer.Library
         public InternetAddress Copy()
         {
             return new InternetAddress(this.m_Address[0], this.m_Address[1], this.m_Address[2], this.m_Address[3], this.m_Address[4], this.m_Address[5]);
+        }
+        public String HumanString()
+        {
+            return GetBytesToString(this.m_Address);
+        }
+
+        public static byte[] GetStringToBytes(string value)
+        {
+            SoapHexBinary shb = SoapHexBinary.Parse(value);
+            return shb.Value;
+        }
+
+        public static string GetBytesToString(byte[] value)
+        {
+            SoapHexBinary shb = new SoapHexBinary(value);
+            return shb.ToString();
         }
 
         public byte[] ToArray()

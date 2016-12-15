@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using MRMPService.MRMPService.Log;
 
-namespace MRMPService.MRMPService.Classes.Background_Classes
+namespace MRMPService.Scheduler.PortalDataUpload
 {
     class PortalDataUploadWorker
     {
@@ -18,6 +18,12 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     Logger.log("Staring data upload process", Logger.Severity.Info);
                     Stopwatch sw = Stopwatch.StartNew();
 
+                    WorkloadPerformanceUpload _performance = new WorkloadPerformanceUpload();
+                    Thread _performance_thread = new Thread(new ThreadStart(_performance.Start));
+                    _performance_thread.Name = "Performance Upload Thread";
+                    _performance_thread.Start();
+                    _performance_thread.Priority = ThreadPriority.AboveNormal;
+
                     NetflowUpload _netflow = new NetflowUpload();
                     Thread netflow_thread = new Thread(new ThreadStart(_netflow.Start));
                     netflow_thread.Name = "Netflow Upload Thread";
@@ -30,14 +36,13 @@ namespace MRMPService.MRMPService.Classes.Background_Classes
                     managerevents_thread.Start();
                     managerevents_thread.Priority = ThreadPriority.AboveNormal;
 
+                    _performance_thread.Join();
                     netflow_thread.Join();
                     managerevents_thread.Join();
 
                     sw.Stop();
 
-                    Logger.log(
-                        String.Format("Completed data upload process. Total Elapsed Time: {0}", TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)
-                        ), Logger.Severity.Info);
+                    Logger.log(String.Format("Completed data upload process. Total Elapsed Time: {0}", TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
                 }
                 catch (Exception ex)
                 {

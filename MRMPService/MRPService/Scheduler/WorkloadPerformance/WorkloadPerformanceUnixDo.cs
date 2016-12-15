@@ -9,6 +9,7 @@ using Renci.SshNet;
 using System.IO;
 using Renci.SshNet.Sftp;
 using System.Threading.Tasks;
+using MRMPService.LocalDatabase;
 
 namespace MRMPService.Scheduler.PerformanceCollection
 {
@@ -80,10 +81,12 @@ namespace MRMPService.Scheduler.PerformanceCollection
                 {
                     if (sftp.Exists("output"))
                     {
+                        int _file_count = 0;
                         foreach (SftpFile _file in sftp.ListDirectory("output"))
                         {
                             if (_file.Name.StartsWith("Perf_"))
                             {
+                                _file_count += 1;
                                 //get OS edition name
                                 List<String> _perf_file = sftp.ReadAllLines(_file.FullName).ToList();
 
@@ -99,15 +102,15 @@ namespace MRMPService.Scheduler.PerformanceCollection
                                 {
                                     if (_perf_file[i] == "<PERF>")
                                     {
-                                        PerformanceType _perf = new PerformanceType();
+                                        Performancecounter _perf = new Performancecounter();
                                         bool _valid_perf = false;
                                         while (_perf_file[i] != "</PERF>")
                                         {
                                             i++;
                                             if (_perf_file[i].Contains("PERS_ClassName"))
                                             {
-                                                _perf.category_name = _perf_file[i].Split('=').Last();
-                                                _valid_perf = (_perf.category_name == "Process") ? false : true;
+                                                _perf.category = _perf_file[i].Split('=').Last();
+                                                _valid_perf = (_perf.category == "Process") ? false : true;
                                             }
                                             if (_perf_file[i].Contains("PERS_InstanceName"))
                                             {
@@ -115,7 +118,7 @@ namespace MRMPService.Scheduler.PerformanceCollection
                                             }
                                             if (_perf_file[i].Contains("PERS_MetricName"))
                                             {
-                                                _perf.counter_name = _perf_file[i].Split('=').Last();
+                                                _perf.counter = _perf_file[i].Split('=').Last();
                                             }
                                             if (_perf_file[i].Contains("PERD_CounterTime"))
                                             {
@@ -131,17 +134,20 @@ namespace MRMPService.Scheduler.PerformanceCollection
                                         {
                                             _perf.workload_id = _workload.id;
                                             _perf.id = Objects.RamdomGuid();
-                                            if (_perf.counter_name == "Disk Bytes Out/sec")
+                                            if (_perf.counter == "Disk Bytes Out/sec")
                                             {
-                                                _perf.counter_name = "Disk Write Bytes/sec";
+                                                _perf.counter = "Disk Write Bytes/sec";
                                             }
-                                            if (_perf.counter_name == "Disk Bytes In/sec")
+                                            if (_perf.counter == "Disk Bytes In/sec")
                                             {
-                                                _perf.counter_name = "Disk Read Bytes/sec";
+                                                _perf.counter = "Disk Read Bytes/sec";
                                             }
-                                            _workload_counters.Add(_perf);
+                                            using (PerformancecounterSet _perf_db = new PerformancecounterSet())
+                                            {
+                                                _perf_db.ModelRepository.Insert(_perf);
+                                            }
 
-                                            if (_perf.category_name == "Memory" && _perf.counter_name == "Available Bytes")
+                                            if (_perf.category == "Memory" && _perf.counter == "Available Bytes")
                                             {
                                                 if (_workload.vmemory != null && _workload.vmemory != 0)
                                                 {
@@ -150,38 +156,64 @@ namespace MRMPService.Scheduler.PerformanceCollection
 
                                                     //memory: Used Bytes
                                                     Double _memory_used_bytes = _workload_total_memory - _perf.value;
-                                                    String _memory_used_counter_name = "Used Bytes";
+                                                    String _memory_used_counter = "Used Bytes";
 
-                                                    _perf = new PerformanceType();
+                                                    _perf = new Performancecounter();
                                                     _perf.workload_id = _workload.id;
                                                     _perf.timestamp = _timestamp;
-                                                    _perf.category_name = "Memory";
-                                                    _perf.counter_name = _memory_used_counter_name;
+                                                    _perf.category = "Memory";
+                                                    _perf.counter = _memory_used_counter;
                                                     _perf.instance = "_Total";
                                                     _perf.value = _memory_used_bytes;
                                                     _perf.id = Objects.RamdomGuid();
-                                                    _workload_counters.Add(_perf);
-
+                                                    using (PerformancecounterSet _perf_db = new PerformancecounterSet())
+                                                    {
+                                                        _perf_db.ModelRepository.Insert(_perf);
+                                                    }
                                                     //memory: % used
                                                     Double _percentage_memory_used = ((Convert.ToDouble(_memory_used_bytes) / Convert.ToDouble(_workload_total_memory)) * 100);
-                                                    String _memory_counter_name = "% Used";
+                                                    String _memory_counter = "% Used";
 
-                                                    _perf = new PerformanceType();
+                                                    _perf = new Performancecounter();
                                                     _perf.workload_id = _workload.id;
                                                     _perf.timestamp = _timestamp;
-                                                    _perf.category_name = "Memory";
-                                                    _perf.counter_name = _memory_counter_name;
+                                                    _perf.category = "Memory";
+                                                    _perf.counter = _memory_counter;
                                                     _perf.instance = "_Total";
                                                     _perf.value = _percentage_memory_used;
                                                     _perf.id = Objects.RamdomGuid();
-                                                    _workload_counters.Add(_perf);
-
+                                                    using (PerformancecounterSet _perf_db = new PerformancecounterSet())
+                                                    {
+                                                        _perf_db.ModelRepository.Insert(_perf);
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
+
+                                //network totals
+                                foreach (var _counter in new string[] { "Bytes Received/sec", "Bytes Sent/sec" })
+                                {
+                                    Performancecounter _perf = new Performancecounter();
+                                    _perf.workload_id = _workload.id;
+                                    _perf.timestamp = _utc_time;
+                                    _perf.category = "Network Interface";
+                                    _perf.counter = _counter;
+                                    _perf.instance = "_Total";
+                                    _perf.id = Objects.RamdomGuid();
+                                    using (PerformancecounterSet _perf_db = new PerformancecounterSet())
+                                    {
+                                        _perf.value = _perf_db.ModelRepository.Get(x => x.category == "Network Interface" && x.counter == _counter && x.instance != "_Total" && x.instance != "lo" && x.timestamp == _utc_time).AsEnumerable().Sum(x => x.value);
+                                        _perf_db.ModelRepository.Insert(_perf);
+                                    }
+                                }
                             }
+
+                        }
+                        if (_file_count == 0)
+                        {
+                            throw new Exception(String.Format("No performance files found on {0} {1}.", _workload.hostname, workload_ip));
                         }
                     }
                     else
@@ -191,9 +223,7 @@ namespace MRMPService.Scheduler.PerformanceCollection
                 }
 
             }
-            await WorkloadPerformanceUpload.Upload(_workload_counters, _workload);
-
-            Logger.log(String.Format("PerformanceType: Completed PerformanceType collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+            Logger.log(String.Format("Performance: Completed PerformanceType collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
         }
     }
 }

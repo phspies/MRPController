@@ -7,19 +7,20 @@ using System.ServiceModel;
 using System.ServiceModel.Description;
 using System.Threading;
 using MRMPService.WCF;
-using MRMPService.MRMPService.Classes.Background_Classes;
 using MRMPService.Scheduler.DTEventPollerCollection;
 using MRMPService.Scheduler.DTPollerCollection;
 using MRMPService.Scheduler.NetstatCollection;
 using MRMPService.Scheduler.NetflowCollection;
 using MRMPService.Scheduler.PlatformInventory;
 using MRMPService.Scheduler.PerformanceCollection;
+using Modules.DHCPServer.Library;
+using MRMPService.Scheduler.PortalDataUpload;
 
 namespace MRMPService
 {
     public class Startup
     {
-        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _osinventody_thread, _osnetstat_thread, _dt_job_thread, _dt_event_thread, _mcp_cg_thread;
+        Thread scheduler_thread, mirror_thread, _performance_thread, _netflow_thread, _osinventody_thread, _osnetstat_thread, _dt_job_thread, _dt_event_thread, _mcp_cg_thread, _dhcp_server_thread;
 
         public void Start()
         {
@@ -60,30 +61,30 @@ namespace MRMPService
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Reads/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "Memory", counter = "Page Writes/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Free Space" });
-            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Disk Time" });
-            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Write Disk Time" });
-            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Read Disk Time" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Disk Time" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Write Disk Time" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "% Read Disk Time" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Reads/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Writes/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Read Bytes/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Write Bytes/sec" });
-            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Bytes/sec" });
-            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Split IO/sec" });
-            //Global._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Current Disk Queue Length" });
-            MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Disk Time" });
-            MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Write Disk Time" });
-            MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Read Disk Time" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Disk Bytes/sec" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Split IO/sec" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "LogicalDisk", counter = "Current Disk Queue Length" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Disk Time" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Write Disk Time" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "% Read Disk Time" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Reads/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Writes/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Read Bytes/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Write Bytes/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Disk Bytes/sec" });
-            //Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Split IO/sec" });
-            //Global._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Current Disk Queue Length" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Split IO/sec" });
+            MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "PhysicalDisk", counter = "Current Disk Queue Length" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Bytes Received/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Bytes Sent/sec" });
-            MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Current Bandwidth" });
-            //Global._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Output Queue Length" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Current Bandwidth" });
+            //MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Output Queue Length" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Packets Recieved/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "Network Interface", counter = "Packets Sent/sec" });
             MRMPServiceBase._available_counters.Add(new CollectionCounter() { category = "Double-Take Connection", counter = "*" });
@@ -150,6 +151,13 @@ namespace MRMPService
             _mcp_cg_thread = new Thread(new ThreadStart(_mcp_cg_polling.Start));
             _mcp_cg_thread.Priority = ThreadPriority.AboveNormal;
             _mcp_cg_thread.Start();
+
+            DhcpServer _dhcp_server = new DhcpServer();
+            if (MRMPServiceBase.debug) { Logger.log("Starting DHCP Server Thread", Logger.Severity.Debug); };
+            _dhcp_server_thread = new Thread(new ThreadStart(_dhcp_server.Start));
+            _dhcp_server_thread.Priority = ThreadPriority.AboveNormal;
+            _dhcp_server_thread.Start();
+
         }
     }
 }
