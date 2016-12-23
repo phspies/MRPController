@@ -78,25 +78,23 @@ namespace MRMPService.MRMPAPI.Classes
 
             SelectQuery ComputerSystemQuery = new SelectQuery("SELECT Manufacturer, Model, Caption, NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
             SelectQuery OperatingSystemQuery = new SelectQuery("SELECT Caption FROM Win32_OperatingSystem");
-            SelectQuery ProcessorQuery = new SelectQuery("SELECT NumberOfCores, AddressWidth, CurrentClockSpeed FROM Win32_Processor");
+            SelectQuery ProcessorQuery = new SelectQuery("SELECT * FROM Win32_Processor");
             SelectQuery BiosQuery = new SelectQuery("SELECT SerialNumber FROM Win32_BIOS");
             string _arch = null;
 
             try
             {
-                foreach (var item in new ManagementObjectSearcher(connectionScope, ProcessorQuery).Get())
+                ManagementObjectCollection _processors = new ManagementObjectSearcher(connectionScope, ProcessorQuery).Get();
+                foreach (var item in _processors)
                 {
-                    try { _updated_workload.vcore = int.Parse(item["NumberOfCores"].ToString()); }
-                    catch (Exception ex)
+                    try { _updated_workload.vcore = int.Parse(item["NumberOfCores"].ToString()); } catch (Exception)
                     {
-                        Logger.log(String.Format("Error collecting NumberOfCores from {0} : {1}", _workload.hostname, ex.Message), Logger.Severity.Error);
+                        Logger.log(String.Format("{0} does not understand NumberOfCores in Win32_Processor class", _workload.hostname), Logger.Severity.Warn);
+                        _updated_workload.vcore = 1;
                     }
                     try { _updated_workload.vcpu_speed = int.Parse(item["CurrentClockSpeed"].ToString()); } catch (Exception) { }
-                    try
-                    {
-                        _arch = String.Format("{0}bit", item["AddressWidth"].ToString());
-                    }
-                    catch (Exception) { }
+                    try { _arch = String.Format("{0}bit", item["AddressWidth"].ToString()); } catch (Exception) { }
+                    break;
                 }
             }
             catch (Exception ex)
@@ -267,7 +265,7 @@ namespace MRMPService.MRMPAPI.Classes
             }
             catch (Exception ex)
             {
-                throw new Exception(String.Format("{0} Error collecting information from Win32_Product: {1}", _updated_workload.osedition, ex.GetBaseException().Message));
+                Logger.log(String.Format("{0} does not understand Win32_Product class", _workload.hostname), Logger.Severity.Warn);
             }
             //process logical workloadvolumes_attributes
             try

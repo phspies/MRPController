@@ -34,7 +34,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
             }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Double-Take Job: Error contacting workload for workload {0}", _target_workload.hostname));
+                throw new ArgumentException(String.Format("Double-Take Job: Does not respond to ping for workload {0}", _target_workload.hostname));
             }
             Logger.log(String.Format("Double-Take Job: Start Double-Take collection for {0} using {1}", _mrp_managementobject.target_workload.hostname, workload_ip), Logger.Severity.Info);
 

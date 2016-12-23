@@ -42,7 +42,7 @@ namespace MRMPService.Scheduler.PortalDataUpload
 
                     sw.Stop();
 
-                    Logger.log(String.Format("Completed data upload process. Total Elapsed Time: {0}", TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds)), Logger.Severity.Info);
+                    Logger.log(String.Format("Completed data upload process. Total Elapsed Time: {0}", TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds)), Logger.Severity.Info);
                 }
                 catch (Exception ex)
                 {

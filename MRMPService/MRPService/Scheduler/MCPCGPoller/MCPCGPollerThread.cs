@@ -44,7 +44,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                     sw.Stop();
 
                     Logger.log(String.Format("Completed MCP CG collection for {0} jobs in {1} [next run at {2}]",
-                        _mcp_mos.Count, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_poller_run), Logger.Severity.Info);
+                        _mcp_mos.Count, TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), _next_poller_run), Logger.Severity.Info);
 
                     //Wait for next run
                     while (_next_poller_run > DateTime.UtcNow)

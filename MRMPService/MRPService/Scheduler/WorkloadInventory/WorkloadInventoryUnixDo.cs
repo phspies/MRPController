@@ -56,7 +56,7 @@ namespace MRMPService.MRMPAPI.Classes
 
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Error contacting workload"));
+                throw new ArgumentException(String.Format("Does not respond to ping"));
             }
 
             Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);

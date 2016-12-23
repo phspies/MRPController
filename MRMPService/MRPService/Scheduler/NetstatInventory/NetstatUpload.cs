@@ -49,7 +49,7 @@ namespace MRMPService.Scheduler.NetstatCollection
                 }
 
                 _sw.Stop();
-                Logger.log(String.Format("Completed Netstat Upload for {0} in {1}", _workload.hostname, TimeSpan.FromMilliseconds(_sw.Elapsed.TotalMilliseconds)), Logger.Severity.Debug);
+                Logger.log(String.Format("Completed Netstat Upload for {0} in {1}", _workload.hostname, TimeSpan.FromMilliseconds(_sw.Elapsed.TotalSeconds)), Logger.Severity.Debug);
             }
             catch (Exception ex)
             {

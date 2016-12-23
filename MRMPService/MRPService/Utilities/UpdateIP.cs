@@ -31,7 +31,7 @@ namespace MRMPService.Utilities
             }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Error contacting workload"));
+                throw new ArgumentException(String.Format("Does not respond to ping"));
             }
 
             ConnectionOptions connOptions = new ConnectionOptions();

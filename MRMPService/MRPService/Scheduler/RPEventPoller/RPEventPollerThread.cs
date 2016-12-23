@@ -59,7 +59,7 @@ namespace MRMPService.RPEventPollerCollection
                     }
                     sw.Stop();
 
-                    Logger.log(String.Format("Completed RP4VM Event collection for in {0} [next run at {1}]", TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_poller_run), Logger.Severity.Info);
+                    Logger.log(String.Format("Completed RP4VM Event collection for in {0} [next run at {1}]", TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), _next_poller_run), Logger.Severity.Info);
 
                     //Wait for next run
                     while (_next_poller_run > DateTime.UtcNow)

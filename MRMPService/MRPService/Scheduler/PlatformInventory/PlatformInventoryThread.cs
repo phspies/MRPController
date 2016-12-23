@@ -22,13 +22,9 @@ namespace MRMPService.Scheduler.PlatformInventory
                 try
                 {
                     DateTime _next_inventory_run = DateTime.UtcNow.AddMinutes(MRMPServiceBase.platform_inventory_interval);
-                    Logger.log(String.Format("Staring platform inventory process with {0} threads", MRMPServiceBase.platform_inventory_concurrency), Logger.Severity.Info);
+                    Logger.log(String.Format("Staring platform inventory process with {0} threads", MRMPServiceBase.platform_inventory_concurrency), Logger.Severity.Debug);
 
                     Stopwatch sw = Stopwatch.StartNew();
-                    int _new_platforms, _updated_platforms;
-                    _new_platforms = _updated_platforms = 0;
-
-
                     //process platform independant items
                     List<MRPPlatformType> _mrp_platforms = (await MRMPServiceBase._mrmp_api.platform().list(new MRPPlatformFilterPagedType() { deleted = false, enabled = true, page = 1, page_size = 200 })).platforms;
                     //Process Platforms in paralel
@@ -45,10 +41,7 @@ namespace MRMPService.Scheduler.PlatformInventory
                           });
 
                     sw.Stop();
-
-
-                    Logger.log(String.Format("Completed platform inventory for {0} platforms in {1} [next run at {2}]", (_updated_platforms + _new_platforms),
-                        TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_inventory_run), Logger.Severity.Info);
+                    Logger.log(String.Format("Completed platform inventory for platforms in {0} [next run at {1}]", TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), _next_inventory_run), Logger.Severity.Info);
 
                     //Wait for next run
                     while (_next_inventory_run > DateTime.UtcNow)

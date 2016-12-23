@@ -12,8 +12,6 @@ namespace MRMPService.MRMPAPI.Classes
     {
         public async void Start()
         {
-
-
             while (true)
             {
                 try
@@ -40,32 +38,44 @@ namespace MRMPService.MRMPAPI.Classes
                     }
                     int _multiplyer = (_all_workloads.Count() > 75) ? (_all_workloads.Count()) / 75 : 1;
 
-                    int _connurrency = (MRMPServiceBase.os_inventory_concurrency * _multiplyer);
+                    int _concurrency = (MRMPServiceBase.os_inventory_concurrency * _multiplyer);
 
-                    Logger.log(String.Format("Inventory: Starting inventory collection process with {0} threads", _connurrency), Logger.Severity.Info);
-
-                    Parallel.ForEach(_all_workloads, new ParallelOptions() { MaxDegreeOfParallelism = _connurrency }, async workload =>
+                    Logger.log(String.Format("Inventory: Starting inventory collection process with {0} threads", _concurrency), Logger.Severity.Debug);
+                    List<Thread> lstThreads = new List<Thread>();
+                    foreach (var workload in _all_workloads)
                     {
-                        try
+                        while (lstThreads.Count(x => x.IsAlive) >= _concurrency)
                         {
-                            switch (workload.ostype.ToUpper())
-                            {
-                                case "WINDOWS":
-                                    await WorkloadInventory.WorkloadInventoryWindowsDo(workload);
-                                    break;
-                                case "UNIX":
-                                    await WorkloadInventory.WorkloadInventoryLinuxDo(workload);
-                                    break;
-                            }
-                            await MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, "Success", true);
+                            await Task.Delay(500);
                         }
-                        catch (Exception ex)
-                        {
-                            Logger.log(String.Format("Error collecting inventory information from {0} with error {1}", workload.hostname, ex.GetBaseException().Message), Logger.Severity.Error);
-                            await MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, ex.GetBaseException().Message, false);
-                        }
-                    });
 
+                        Thread _inventory_thread = new Thread(() =>
+                        {
+                            try
+                            {
+                                switch (workload.ostype.ToUpper())
+                                {
+                                    case "WINDOWS":
+                                        WorkloadInventory.WorkloadInventoryWindowsDo(workload).Wait();
+                                        break;
+                                    case "UNIX":
+                                        WorkloadInventory.WorkloadInventoryLinuxDo(workload).Wait();
+                                        break;
+                                }
+                                MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, "Success", true).Wait();
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.log(String.Format("Error collecting inventory information from {0} with error {1}", workload.hostname, ex.GetBaseException().Message), Logger.Severity.Error);
+                                MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, ex.GetBaseException().Message, false).Wait();
+                            }
+                        });
+                        _inventory_thread.Name = workload.hostname;
+                        lstThreads.Add(_inventory_thread);
+                        _inventory_thread.Start();
+                        Logger.log(String.Format("Workload Inventory Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                    }
+                    Logger.log(String.Format("Completed inventory collection for {0} workloads in {1} [next run at {2}]", _all_workloads.Count(), TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), _next_inventory_run), Logger.Severity.Info);
                     //Wait for next run
                     while (_next_inventory_run > DateTime.UtcNow)
                     {
@@ -78,5 +88,6 @@ namespace MRMPService.MRMPAPI.Classes
                 }
             }
         }
+
     }
 }

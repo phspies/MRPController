@@ -27,7 +27,7 @@ namespace MRMPService.Scheduler.PerformanceCollection
                 }
             }
         }
-        public static async Task WorkloadPerformanceUnixDo(MRPWorkloadType _workload)
+        public static void WorkloadPerformanceUnixDo(MRPWorkloadType _workload)
         {
             List<PerformanceType> _workload_counters = new List<PerformanceType>();
 
@@ -48,7 +48,7 @@ namespace MRMPService.Scheduler.PerformanceCollection
             }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Error contacting workload"));
+                throw new ArgumentException(String.Format("Does not respond to ping"));
             }
             #endregion
 

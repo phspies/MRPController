@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
+using System.Threading;
 
 namespace MRMPService.Scheduler.PortalDataUpload
 {
@@ -20,10 +21,13 @@ namespace MRMPService.Scheduler.PortalDataUpload
                 while (true)
                 {
                     IEnumerable<ManagerEvent> _increment_records;
-                    using (MRPDatabase _db = new MRPDatabase())
+                    using (MRPDatabase _ctx = new MRPDatabase())
                     {
-                        _increment_records = _db.ManagerEvents.Take(500).AsEnumerable();
-                        if (_increment_records.Count() > 0)
+                        _increment_records = _ctx.ManagerEvents.Take(500).AsEnumerable();
+                    }
+                    if (_increment_records.Count() > 0)
+                    {
+                        Thread _upload_thread = new Thread(() =>
                         {
                             List<MRPManagerEventType> _event_crud_list = new List<MRPManagerEventType>();
                             foreach (ManagerEvent _db_flow in _increment_records)
@@ -37,33 +41,42 @@ namespace MRMPService.Scheduler.PortalDataUpload
 
                                 if (_event_crud_list.Count > MRMPServiceBase.portal_upload_managerevent_page_size)
                                 {
-                                    await MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list);
+                                    MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list).Wait();
                                     _event_crud_list.Clear();
                                 }
                             }
                             //upload last remaining records
                             if (_event_crud_list.Count > 0)
                             {
-                                await MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list);
+                                MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list).Wait();
                                 _event_crud_list.Clear();
                             }
-
-                            //remove all processed records from from local database
-                            Stopwatch _sw_delete = Stopwatch.StartNew();
-                            _db.ManagerEvents.RemoveRange(_increment_records);
-                            _db.SaveChanges();
-                            _sw_delete.Stop();
-                            Logger.log(String.Format("Took {0} to delete {1} manager events records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _increment_records.Count()), Logger.Severity.Info);
-                        }
-                        else
+                        });
+                        _upload_thread.Start();
+                        //remove all processed records from from local database
+                        Stopwatch _sw_delete = Stopwatch.StartNew();
+                        using (MRPDatabase _ctx = new MRPDatabase())
                         {
-                            break;
+                            var _primary_keys = _increment_records.Select(x => x.Id).ToList();
+                            var _db_records = _ctx.ManagerEvents.Where(r => _primary_keys.Contains(r.Id));
+                            _ctx.ManagerEvents.RemoveRange(_db_records);
                         }
+                        _sw_delete.Stop();
+                        Logger.log(String.Format("Took {0} to delete {1} manager events records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalSeconds), _increment_records.Count()), Logger.Severity.Info);
+
+                        //wait for upload thread to complete before we continue
+                        _upload_thread.Join();
+
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
 
+
                 _sw.Stop();
-                Logger.log(String.Format("Completed Manager Events Upload Thread in {0}", TimeSpan.FromMilliseconds(_sw.Elapsed.TotalMilliseconds)), Logger.Severity.Debug);
+                Logger.log(String.Format("Completed Manager Events Upload Thread in {0}", TimeSpan.FromMilliseconds(_sw.Elapsed.TotalSeconds)), Logger.Severity.Debug);
             }
             catch (Exception ex)
             {

@@ -3431,7 +3431,7 @@
             </param>
             <returns>Canonicalised request as a string</returns>
         </member>
-        <member name="M:Amazon.Runtime.Internal.Auth.AWS4Signer.SortHeaders(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
+        <member name="M:Amazon.Runtime.Internal.Auth.AWS4Signer.SortAndPruneHeaders(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.String}})">
             <summary>
             Reorders the headers for the request for canonicalization.
             </summary>
@@ -5793,6 +5793,23 @@
             Return the properties for the section if it exists.
             </summary>
             <param name="sectionName">name of section to get</param>
+            <param name="properties">properties contained in the section</param>
+            <returns>True if the section was found, false otherwise</returns>
+        </member>
+        <member name="M:Amazon.Runtime.Internal.Util.IniFile.TryGetSection(System.Text.RegularExpressions.Regex,System.Collections.Generic.Dictionary{System.String,System.String}@)">
+            <summary>
+            Return the properties for the section if it exists.
+            </summary>
+            <param name="sectionNameRegex">Regex to match name of section to get</param>
+            <param name="properties">properties contained in the section</param>
+            <returns>True if the section was found, false otherwise</returns>
+        </member>
+        <member name="M:Amazon.Runtime.Internal.Util.IniFile.TryGetSection(System.Text.RegularExpressions.Regex,System.String@,System.Collections.Generic.Dictionary{System.String,System.String}@)">
+            <summary>
+            Return the properties for the section if it exists.
+            </summary>
+            <param name="sectionNameRegex">Regex to match name of section to get</param>
+            <param name="sectionName">name of section if regex matches</param>
             <param name="properties">properties contained in the section</param>
             <returns>True if the section was found, false otherwise</returns>
         </member>
@@ -9702,6 +9719,11 @@
             The EU West (Ireland) endpoint.
             </summary>
         </member>
+        <member name="F:Amazon.RegionEndpoint.EUWest2">
+            <summary>
+            The EU West (London) endpoint.
+            </summary>
+        </member>
         <member name="F:Amazon.RegionEndpoint.EUCentral1">
             <summary>
             The EU Central (Frankfurt) endpoint.
@@ -9745,6 +9767,11 @@
         <member name="F:Amazon.RegionEndpoint.CNNorth1">
             <summary>
             The China (Beijing) endpoint.
+            </summary>
+        </member>
+        <member name="F:Amazon.RegionEndpoint.CACentral1">
+            <summary>
+            The Canada (Central) endpoint.
             </summary>
         </member>
         <member name="P:Amazon.RegionEndpoint.EnumerableAllRegions">

@@ -743,7 +743,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 Logger.log(
                     String.Format("Completed inventory process for {5} - {0} new workloads - {1} updated platform networks - {2} updated workloads - {3} removed workloads = Total Execute Time: {4}",
                     _new_workloads, _updated_platforms, _updated_workloads, _removed_workloads,
-                     TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), (_platform.platformtype + " : " + _platform.platformdatacenter.moid)
+                     TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), (_platform.platformtype + " : " + _platform.platformdatacenter.moid)
                     ), Logger.Severity.Info);
             }
 

@@ -64,7 +64,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                     sw.Stop();
 
                     Logger.log(String.Format("Completed RP4VM collection for {0} jobs in {1} [next run at {2}]",
-                        _rp4vms.Count, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_poller_run), Logger.Severity.Info);
+                        _rp4vms.Count, TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), _next_poller_run), Logger.Severity.Info);
 
                     //Wait for next run
                     while (_next_poller_run > DateTime.UtcNow)

@@ -6,6 +6,7 @@ using System.Diagnostics;
 using MRMPService.LocalDatabase;
 using MRMPService.MRMPService.Log;
 using MRMPService.MRMPAPI;
+using System.Threading;
 
 namespace MRMPService.Scheduler.PortalDataUpload
 {
@@ -23,7 +24,10 @@ namespace MRMPService.Scheduler.PortalDataUpload
                     using (MRPDatabase _db = new MRPDatabase())
                     {
                         _increment_records = _db.NetworkFlows.Take(500).AsEnumerable();
-                        if (_increment_records.Count() > 0)
+                    }
+                    if (_increment_records.Count() > 0)
+                    {
+                        Thread _upload_thread = new Thread(() =>
                         {
                             List<MRPNetworkFlowCRUDType> _netflow_list = new List<MRPNetworkFlowCRUDType>();
                             foreach (NetworkFlow _db_flow in _increment_records)
@@ -44,31 +48,42 @@ namespace MRMPService.Scheduler.PortalDataUpload
 
                                 if (_netflow_list.Count > MRMPServiceBase.portal_upload_netflow_page_size)
                                 {
-                                    await MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list);
+                                    MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list).Wait();
                                     _netflow_list.Clear();
                                 }
                             }
                             //upload last remaining records
                             if (_netflow_list.Count > 0)
                             {
-                                await MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list);
+                                MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list).Wait();
                             }
+                        });
 
-                            //remove all processed records from from local database
-                            Stopwatch _sw_delete = Stopwatch.StartNew();
-                            _db.NetworkFlows.RemoveRange(_increment_records);
-                            _db.SaveChanges();
-                            _sw_delete.Stop();
-                            Logger.log(String.Format("Took {0} to delete {1} netflow records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _increment_records.Count()), Logger.Severity.Debug);
-                        }
-                        else
+                        _upload_thread.Start();
+
+
+                        //remove all processed records from from local database
+                        Stopwatch _sw_delete = Stopwatch.StartNew();
+                        using (MRPDatabase _ctx = new MRPDatabase())
                         {
-                            break;
+                            var _primary_keys = _increment_records.Select(x => x.id).ToList();
+                            var _db_records = _ctx.NetworkFlows.Where(r => _primary_keys.Contains(r.id));
+                            _ctx.NetworkFlows.RemoveRange(_db_records);
                         }
+                        _sw_delete.Stop();
+                        Logger.log(String.Format("Took {0} to delete {1} netflow records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalSeconds), _increment_records.Count()), Logger.Severity.Debug);
+
+                        //wait for upload thread to complete before we continue
+                        _upload_thread.Join();
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
+
                 _sw.Stop();
-                Logger.log(String.Format("Completed Netflow Upload Thread in {0}", TimeSpan.FromMilliseconds(_sw.Elapsed.TotalMilliseconds)), Logger.Severity.Debug);
+                Logger.log(String.Format("Completed Netflow Upload Thread in {0}", TimeSpan.FromMilliseconds(_sw.Elapsed.TotalSeconds)), Logger.Severity.Debug);
             }
             catch (Exception ex)
             {

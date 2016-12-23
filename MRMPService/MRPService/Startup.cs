@@ -15,6 +15,7 @@ using MRMPService.Scheduler.PlatformInventory;
 using MRMPService.Scheduler.PerformanceCollection;
 using Modules.DHCPServer.Library;
 using MRMPService.Scheduler.PortalDataUpload;
+using System.Threading.Tasks;
 
 namespace MRMPService
 {
@@ -24,7 +25,6 @@ namespace MRMPService
 
         public void Start()
         {
-
             // Start WCF Service
             Logger.log(String.Format("Starting WCF Service"), Logger.Severity.Debug);
 

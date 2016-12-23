@@ -34,7 +34,7 @@ namespace MRMPService.MRMPService.Log
                     {
                         sw.WriteLine(datet.ToString("yyyy/MM/dd hh:mm:ss") + " " + _severity + " > " + message);
                         sw.Close();
-                        if (_severity != Severity.Info)
+                        if ((int)_severity > 1)
                         {
                             using (ManagerEventSet _event = new ManagerEventSet())
                             {

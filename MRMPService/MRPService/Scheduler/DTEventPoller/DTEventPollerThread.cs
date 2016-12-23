@@ -57,7 +57,7 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
                     sw.Stop();
 
                     Logger.log(String.Format("Completed Double-Take Event collection for {0} workloads in {1} [next run at {2}]",
-                       _all_workloads.Count, TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_poller_run), Logger.Severity.Info);
+                       _all_workloads.Count, TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), _next_poller_run), Logger.Severity.Info);
 
                     //Wait for next run
                     while (_next_poller_run > DateTime.UtcNow)

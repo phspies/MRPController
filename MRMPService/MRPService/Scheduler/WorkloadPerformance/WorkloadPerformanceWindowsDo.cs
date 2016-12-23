@@ -36,7 +36,7 @@ namespace MRMPService.Scheduler.PerformanceCollection
                 }
                 if (workload_ip == null)
                 {
-                    throw new ArgumentException(String.Format("Error contacting workload"));
+                    throw new ArgumentException(String.Format("Does not respond to ping"));
                 }
             }
             else
@@ -264,8 +264,15 @@ namespace MRMPService.Scheduler.PerformanceCollection
                     }
                     catch (Exception ex)
                     {
-                        Logger.log(String.Format("{0} returned the following error while collecting performance data for counter : {1} : {2}", workload_ip, _current_category, ex.Message), Logger.Severity.Error);
-                        continue;
+                        if (ex.Message.ToLower().Contains("access denied"))
+                        {
+                            throw new Exception(ex.GetBaseException().Message);
+                        }
+                        else
+                        {
+                            Logger.log(String.Format("{0} returned the following error while collecting performance data for counter : {1} : {2}", workload_ip, _current_category, ex.Message), Logger.Severity.Error);
+                            continue;
+                        }
                     }
                 }
                 Logger.log(String.Format("Performance: Completed performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);

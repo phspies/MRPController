@@ -18,6 +18,7 @@ namespace MRMPService.Scheduler.NetstatCollection
                 while (true)
                 {
                     DateTime _next_netstat_run = DateTime.UtcNow.AddMinutes(MRMPServiceBase.os_netstat_interval);
+                    System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
 
                     MRPWorkloadListType _workload_paged;
                     MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { provisioned = true, page = 1, deleted = false, enabled = true, netstat_collection_enabled = true };
@@ -36,32 +37,47 @@ namespace MRMPService.Scheduler.NetstatCollection
                             break;
                         }
                     }
-                    int _multiplyer = (_all_workloads.Count() > 100) ? (_all_workloads.Count()) / 100 : 1;
+                    int _multiplyer = (_all_workloads.Count() > 75) ? (_all_workloads.Count()) / 75 : 1;
+                    int _concurrency = (MRMPServiceBase.os_netstat_concurrency * _multiplyer);
 
-                    int _connurrency = (MRMPServiceBase.os_netstat_concurrency * _multiplyer);
-
-                    Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", _connurrency), Logger.Severity.Info);
-
-                    Parallel.ForEach(_all_workloads, new ParallelOptions() { MaxDegreeOfParallelism = _connurrency }, async workload =>
+                    Logger.log(String.Format("Netstat: Staring netstat collection process with {0} threads", _concurrency), Logger.Severity.Info);
+                    List<Thread> lstThreads = new List<Thread>();
+                    foreach (var workload in _all_workloads)
                     {
-                        try
+                        while (lstThreads.Count(x => x.IsAlive) >= _concurrency)
                         {
-                            switch (workload.ostype.ToUpper())
-                            {
-                                case "WINDOWS":
-                                    await WorkloadNetstat.WorkloadNetstatWindowsDo(workload);
-                                    break;
-                                case "UNIX":
-                                    await WorkloadNetstat.WorkloadNetstatUnixDo(workload);
-                                    break;
-                            }
+                            await Task.Delay(500);
                         }
-                        catch (Exception ex)
-                        {
-                            Logger.log(String.Format("Netstat: Error collecting netstat information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
-                        }
-                    });
 
+                        Thread _netstat_thread = new Thread(() =>
+                        {
+                            try
+                            {
+                                switch (workload.ostype.ToUpper())
+                                {
+                                    case "WINDOWS":
+                                        WorkloadNetstat.WorkloadNetstatWindowsDo(workload).Wait();
+                                        break;
+                                    case "UNIX":
+                                        WorkloadNetstat.WorkloadNetstatUnixDo(workload).Wait();
+                                        break;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.log(String.Format("Netstat: Error collecting netstat information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
+                            }
+                        });
+                        _netstat_thread.Name = workload.hostname;
+                        lstThreads.Add(_netstat_thread);
+                        _netstat_thread.Start();
+                        Logger.log(String.Format("Workload Netstat Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                    }
+                    
+                    sw.Stop();
+
+                    Logger.log(String.Format("Completed netstat collection for {0} workloads in {1} [next run at {2}]",
+                        _all_workloads.Count(), TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), _next_netstat_run), Logger.Severity.Info);
                     //Wait for next run
                     while (_next_netstat_run > DateTime.UtcNow)
                     {
@@ -69,7 +85,7 @@ namespace MRMPService.Scheduler.NetstatCollection
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.log(String.Format("Netstat: {0}", ex.ToString()), Logger.Severity.Fatal);
             }

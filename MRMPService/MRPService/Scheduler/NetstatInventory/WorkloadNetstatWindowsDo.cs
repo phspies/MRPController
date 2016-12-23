@@ -37,7 +37,7 @@ namespace MRMPService.Scheduler.NetstatCollection
             }
             if (workload_ip == null)
             {
-                throw new ArgumentException(String.Format("Error contacting workload for workload {0} {1}", _workload.id, _workload.hostname));
+                throw new ArgumentException(String.Format("Does not respond to ping for workload {0} {1}", _workload.id, _workload.hostname));
             }
             Logger.log(String.Format("Netstat: Started netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 

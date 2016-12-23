@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MRMPService.Modules.MRMPPortal.Contracts;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace MRMPService.Scheduler.PerformanceCollection
 {
@@ -39,34 +40,46 @@ namespace MRMPService.Scheduler.PerformanceCollection
                         }
                     }
                     int _multiplyer = (_all_workloads.Count() > 75) ? (_all_workloads.Count()) / 75 : 1;
-                    int _connurrency = MRMPServiceBase.os_performance_concurrency * _multiplyer;
-                    Logger.log(String.Format("Performance: Starting performance collection process with {0} threads", _connurrency), Logger.Severity.Info);
-                    Parallel.ForEach(_all_workloads, new ParallelOptions() { MaxDegreeOfParallelism = _connurrency }, async workload =>
+                    int _concurrency = MRMPServiceBase.os_performance_concurrency * _multiplyer;
+                    Logger.log(String.Format("Performance: Starting performance collection process with {0} threads", _concurrency), Logger.Severity.Debug);
+                    List<Thread> lstThreads = new List<Thread>();
+
+                    foreach (var workload in _all_workloads)
                     {
-                        try
+                        while (lstThreads.Count(x => x.IsAlive) >= _concurrency)
                         {
-                            switch (workload.ostype.ToUpper())
+                            await Task.Delay(500);
+                        }
+
+                        Thread _performance_thread = new Thread(() =>
+                        {
+                            try
                             {
-                                case "WINDOWS":
-                                    await WorkloadPerformance.WorkloadPerformanceWindowsDo(workload);
-                                    break;
-                                case "UNIX":
-                                    await WorkloadPerformance.WorkloadPerformanceUnixDo(workload);
-                                    break;
+                                switch (workload.ostype.ToUpper())
+                                {
+                                    case "WINDOWS":
+                                        WorkloadPerformance.WorkloadPerformanceWindowsDo(workload).Wait();
+                                        break;
+                                    case "UNIX":
+                                        WorkloadPerformance.WorkloadPerformanceUnixDo(workload);
+                                        break;
+                                }
+                                MRMPServiceBase._mrmp_api.workload().PeformanceUpdateStatus(workload, "Success", true).Wait();
                             }
-                            await MRMPServiceBase._mrmp_api.workload().PeformanceUpdateStatus(workload, "Success", true);
-                        }
-                        catch (Exception ex)
-                        {
-                            Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.GetBaseException().Message), Logger.Severity.Error);
-                            await MRMPServiceBase._mrmp_api.workload().PeformanceUpdateStatus(workload, ex.GetBaseException().Message, false);
-                        }
-                    });
-
+                            catch (Exception ex)
+                            {
+                                Logger.log(String.Format("Error collecting performance information from {0} with error {1}", workload.hostname, ex.GetBaseException().Message), Logger.Severity.Error);
+                                MRMPServiceBase._mrmp_api.workload().PeformanceUpdateStatus(workload, ex.GetBaseException().Message, false).Wait();
+                            }
+                        });
+                        _performance_thread.Name = workload.hostname;
+                        lstThreads.Add(_performance_thread);
+                        _performance_thread.Start();
+                        Logger.log(String.Format("Workload Performance Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                    }
                     sw.Stop();
-
                     Logger.log(String.Format("Completed performance collection for {0} workloads in {1} [next run at {2}]",
-                        _all_workloads.Count(), TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), _next_performance_run), Logger.Severity.Info);
+                        _all_workloads.Count(), TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), _next_performance_run), Logger.Severity.Info);
 
                     //Wait for next run
                     while (_next_performance_run > DateTime.UtcNow)

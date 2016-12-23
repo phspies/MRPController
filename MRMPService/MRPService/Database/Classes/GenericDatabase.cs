@@ -16,6 +16,7 @@ namespace MRMPService.LocalDatabase
         private DbContext context;
         private DbSet<TEntity> dbSet;
 
+
         public GenericRepository(DbContext context)
         {
             this.context = context;

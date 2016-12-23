@@ -71,7 +71,7 @@ namespace MRMPService.Scheduler.PlatformInventory.RP4VM
             sw.Stop();
 
             Logger.log(
-                String.Format("Completed inventory process for {1} = Total Execute Time: {0}", TimeSpan.FromMilliseconds(sw.Elapsed.TotalMilliseconds), (_platform.platformtype + " : " + _platform.moid)
+                String.Format("Completed inventory process for {1} = Total Execute Time: {0}", TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), (_platform.platformtype + " : " + _platform.moid)
                 ), Logger.Severity.Info);
         }
     }

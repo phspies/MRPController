@@ -18,10 +18,10 @@ namespace MRMPService.TaskExecutioner.Workload
                 switch (_target_workload.ostype.ToUpper())
                 {
                     case "UNIX":
-                        await WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload);
+                        WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload);
                         break;
                     case "WINDOWS":
-                        await WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload);
+                        WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload);
                         break;
                 }
                 await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully discovered workload");
