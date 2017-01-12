@@ -148,9 +148,9 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 _mrp_template.platform_id = _platform.id;
                 _mrp_template.image_moid = _caas_template.id;
                 _mrp_template.image_name = _caas_template.name;
-                _mrp_template.os_displayname = _caas_template.operatingSystem.displayName;
-                _mrp_template.os_id = _caas_template.operatingSystem.id;
-                _mrp_template.os_type = _caas_template.operatingSystem.family;
+                _mrp_template.os_displayname = _caas_template.guest.operatingSystem.displayName;
+                _mrp_template.os_id = _caas_template.guest.operatingSystem.id;
+                _mrp_template.os_type = _caas_template.guest.operatingSystem.family;
                 _mrp_template.platform_moid = _platform.platformdatacenter.moid;
                 _mrp_template.deleted = false;
             }
@@ -176,9 +176,9 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                     _mrp_template.image_moid = _caas_template.id;
                     _mrp_template.platform_id = _platform.id;
                     _mrp_template.image_name = _caas_template.name;
-                    _mrp_template.os_displayname = _caas_template.operatingSystem.displayName;
-                    _mrp_template.os_id = _caas_template.operatingSystem.id;
-                    _mrp_template.os_type = _caas_template.operatingSystem.family;
+                    _mrp_template.os_displayname = _caas_template.guest.operatingSystem.displayName;
+                    _mrp_template.os_id = _caas_template.guest.operatingSystem.id;
+                    _mrp_template.os_type = _caas_template.guest.operatingSystem.family;
                     _mrp_template.platform_moid = _platform.platformdatacenter.moid;
                     _mrp_template.deleted = false;
                 }
@@ -581,8 +581,8 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                                 }
                                 _mrp_affinityrule.deleted = false;
                                 _mrp_affinityrule.moid = _affinity_rule.id;
-                                _mrp_affinityrule.workload1_id = _platform.workloads.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[0].id).id;
-                                _mrp_affinityrule.workload2_id = _platform.workloads.FirstOrDefault(x => x.moid == _affinity_rule.serverSummary[1].id).id;
+                                _mrp_affinityrule.workload1_id = _platform.workloads.FirstOrDefault(x => x.moid == _affinity_rule.server[0].id).id;
+                                _mrp_affinityrule.workload2_id = _platform.workloads.FirstOrDefault(x => x.moid == _affinity_rule.server[1].id).id;
                             }
                         }
 

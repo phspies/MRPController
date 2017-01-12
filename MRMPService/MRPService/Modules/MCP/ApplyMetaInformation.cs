@@ -212,13 +212,13 @@ namespace MRMPService.Modules.MCP
                         }
                         else
                         {
-                            if (!_target_caas_affinity_rules.ToList().Exists(x => x.serverSummary[0].id == _target_side_workload1.moid || x.serverSummary[1].id == _target_side_workload2.moid || x.serverSummary[0].id == _target_side_workload2.moid || x.serverSummary[1].id == _target_side_workload1.moid))
+                            if (!_target_caas_affinity_rules.ToList().Exists(x => x.server[0].id == _target_side_workload1.moid || x.server[1].id == _target_side_workload2.moid || x.server[0].id == _target_side_workload2.moid || x.server[1].id == _target_side_workload1.moid))
                             {
                                 _create_rule = true;
                             }
                             else
                             {
-                                _current_affinity_rule = _target_caas_affinity_rules.ToList().FirstOrDefault(x => x.serverSummary[0].id == _target_side_workload1.moid || x.serverSummary[1].id == _target_side_workload2.moid || x.serverSummary[0].id == _target_side_workload2.moid || x.serverSummary[1].id == _target_side_workload1.moid);
+                                _current_affinity_rule = _target_caas_affinity_rules.ToList().FirstOrDefault(x => x.server[0].id == _target_side_workload1.moid || x.server[1].id == _target_side_workload2.moid || x.server[0].id == _target_side_workload2.moid || x.server[1].id == _target_side_workload1.moid);
                                 if (_target_affinity_rules.Exists(x => x.moid == _current_affinity_rule.id))
                                 {
                                     _current_mrmp_affinity_rule = _target_affinity_rules.FirstOrDefault(x => x.moid == _current_affinity_rule.id);

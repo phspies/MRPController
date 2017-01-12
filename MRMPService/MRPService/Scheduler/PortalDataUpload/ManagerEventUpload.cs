@@ -11,7 +11,7 @@ namespace MRMPService.Scheduler.PortalDataUpload
 {
     class ManagerEventUpload
     {
-        public async void Start()
+        public void Start()
         {
             try
             {
@@ -27,32 +27,28 @@ namespace MRMPService.Scheduler.PortalDataUpload
                     }
                     if (_increment_records.Count() > 0)
                     {
-                        Thread _upload_thread = new Thread(() =>
+                        List<MRPManagerEventType> _event_crud_list = new List<MRPManagerEventType>();
+                        foreach (ManagerEvent _db_flow in _increment_records)
                         {
-                            List<MRPManagerEventType> _event_crud_list = new List<MRPManagerEventType>();
-                            foreach (ManagerEvent _db_flow in _increment_records)
-                            {
-                                MRPManagerEventType _mrp_crud = new MRPManagerEventType();
-                                _mrp_crud.message = _db_flow.message;
-                                _mrp_crud.timestamp = _db_flow.timestamp;
-                                _mrp_crud.manager_id = MRMPServiceBase.manager_id;
+                            MRPManagerEventType _mrp_crud = new MRPManagerEventType();
+                            _mrp_crud.message = _db_flow.message;
+                            _mrp_crud.timestamp = _db_flow.timestamp;
+                            _mrp_crud.manager_id = MRMPServiceBase.manager_id;
 
-                                _event_crud_list.Add(_mrp_crud);
+                            _event_crud_list.Add(_mrp_crud);
 
-                                if (_event_crud_list.Count > MRMPServiceBase.portal_upload_managerevent_page_size)
-                                {
-                                    MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list).Wait();
-                                    _event_crud_list.Clear();
-                                }
-                            }
-                            //upload last remaining records
-                            if (_event_crud_list.Count > 0)
+                            if (_event_crud_list.Count > MRMPServiceBase.portal_upload_managerevent_page_size)
                             {
                                 MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list).Wait();
                                 _event_crud_list.Clear();
                             }
-                        });
-                        _upload_thread.Start();
+                        }
+                        //upload last remaining records
+                        if (_event_crud_list.Count > 0)
+                        {
+                            MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list).Wait();
+                            _event_crud_list.Clear();
+                        }
                         //remove all processed records from from local database
                         Stopwatch _sw_delete = Stopwatch.StartNew();
                         using (MRPDatabase _ctx = new MRPDatabase())
@@ -63,10 +59,6 @@ namespace MRMPService.Scheduler.PortalDataUpload
                         }
                         _sw_delete.Stop();
                         Logger.log(String.Format("Took {0} to delete {1} manager events records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalSeconds), _increment_records.Count()), Logger.Severity.Info);
-
-                        //wait for upload thread to complete before we continue
-                        _upload_thread.Join();
-
                     }
                     else
                     {

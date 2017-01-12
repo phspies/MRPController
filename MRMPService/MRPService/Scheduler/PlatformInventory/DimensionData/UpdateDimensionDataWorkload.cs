@@ -88,8 +88,8 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
             if (_current_workload.hostname == null) _update_workload.hostname = _caasworkload.name;
             if (_current_workload.moid == null) _update_workload.moid = _caasworkload.id;
             if (_current_workload.platform_id == null) _update_workload.platform_id = _platform.id;
-            if (_current_workload.ostype == null) _update_workload.ostype = _caasworkload.operatingSystem.family.ToLower();
-            if (_current_workload.osedition == null) _update_workload.osedition = _caasworkload.operatingSystem.displayName;
+            if (_current_workload.ostype == null) _update_workload.ostype = _caasworkload.guest.operatingSystem.family.ToLower();
+            if (_current_workload.osedition == null) _update_workload.osedition = _caasworkload.guest.operatingSystem.displayName;
             if (_current_workload.hardwaretype == null) _update_workload.hardwaretype = "virtual";
             if (_caasworkload.drsEligible is drsEligible || _caasworkload.consistencyGroup != null)
             {

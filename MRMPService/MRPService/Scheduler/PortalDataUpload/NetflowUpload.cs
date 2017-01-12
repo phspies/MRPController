@@ -12,7 +12,7 @@ namespace MRMPService.Scheduler.PortalDataUpload
 {
     class NetflowUpload
     {
-        public async void Start()
+        public void Start()
         {
             try
             {
@@ -27,40 +27,34 @@ namespace MRMPService.Scheduler.PortalDataUpload
                     }
                     if (_increment_records.Count() > 0)
                     {
-                        Thread _upload_thread = new Thread(() =>
+                        List<MRPNetworkFlowCRUDType> _netflow_list = new List<MRPNetworkFlowCRUDType>();
+                        foreach (NetworkFlow _db_flow in _increment_records)
                         {
-                            List<MRPNetworkFlowCRUDType> _netflow_list = new List<MRPNetworkFlowCRUDType>();
-                            foreach (NetworkFlow _db_flow in _increment_records)
-                            {
-                                MRPNetworkFlowCRUDType _mrp_crud = new MRPNetworkFlowCRUDType();
-                                _mrp_crud.kbyte = _db_flow.kbyte;
-                                _mrp_crud.packets = _db_flow.packets;
-                                _mrp_crud.protocol = _db_flow.protocol;
-                                _mrp_crud.source_address = _db_flow.source_address;
-                                _mrp_crud.source_port = _db_flow.source_port;
-                                _mrp_crud.start_timestamp = _db_flow.start_timestamp;
-                                _mrp_crud.stop_timestamp = _db_flow.stop_timestamp;
-                                _mrp_crud.target_address = _db_flow.target_address;
-                                _mrp_crud.target_port = _db_flow.target_port;
-                                _mrp_crud.timestamp = _db_flow.timestamp;
+                            MRPNetworkFlowCRUDType _mrp_crud = new MRPNetworkFlowCRUDType();
+                            _mrp_crud.kbyte = _db_flow.kbyte;
+                            _mrp_crud.packets = _db_flow.packets;
+                            _mrp_crud.protocol = _db_flow.protocol;
+                            _mrp_crud.source_address = _db_flow.source_address;
+                            _mrp_crud.source_port = _db_flow.source_port;
+                            _mrp_crud.start_timestamp = _db_flow.start_timestamp;
+                            _mrp_crud.stop_timestamp = _db_flow.stop_timestamp;
+                            _mrp_crud.target_address = _db_flow.target_address;
+                            _mrp_crud.target_port = _db_flow.target_port;
+                            _mrp_crud.timestamp = _db_flow.timestamp;
 
-                                _netflow_list.Add(_mrp_crud);
+                            _netflow_list.Add(_mrp_crud);
 
-                                if (_netflow_list.Count > MRMPServiceBase.portal_upload_netflow_page_size)
-                                {
-                                    MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list).Wait();
-                                    _netflow_list.Clear();
-                                }
-                            }
-                            //upload last remaining records
-                            if (_netflow_list.Count > 0)
+                            if (_netflow_list.Count > MRMPServiceBase.portal_upload_netflow_page_size)
                             {
                                 MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list).Wait();
+                                _netflow_list.Clear();
                             }
-                        });
-
-                        _upload_thread.Start();
-
+                        }
+                        //upload last remaining records
+                        if (_netflow_list.Count > 0)
+                        {
+                            MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list).Wait();
+                        }
 
                         //remove all processed records from from local database
                         Stopwatch _sw_delete = Stopwatch.StartNew();
@@ -72,9 +66,6 @@ namespace MRMPService.Scheduler.PortalDataUpload
                         }
                         _sw_delete.Stop();
                         Logger.log(String.Format("Took {0} to delete {1} netflow records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalSeconds), _increment_records.Count()), Logger.Severity.Debug);
-
-                        //wait for upload thread to complete before we continue
-                        _upload_thread.Join();
                     }
                     else
                     {

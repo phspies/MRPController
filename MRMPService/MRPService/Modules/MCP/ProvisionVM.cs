@@ -325,17 +325,17 @@ namespace MRMPService.Modules.MCP
                     //run OS customization code
                     if (_os_customization)
                     {
-                        switch (deployedServer.operatingSystem.family)
+                        switch (deployedServer.guest.operatingSystem.family)
                         {
                             case "UNIX":
                                 await LinuxCustomization(_task_id, _platform, _target_workload, _protectiongroup, ReportProgress.Progress(_start_progress, _end_progress, 85), ReportProgress.Progress(_start_progress, _end_progress, 90));
                                 await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Updating operating system information for {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 92));
-                                WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload);
+                                WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload).Wait();
                                 break;
                             case "WINDOWS":
                                 await WindowsCustomization(_task_id, _platform, _target_workload, _protectiongroup, ReportProgress.Progress(_start_progress, _end_progress, 85), ReportProgress.Progress(_start_progress, _end_progress, 90));
                                 await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Updating operating system information for {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 92));
-                                WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload);
+                                WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload).Wait();
                                 break;
                         }
                     }

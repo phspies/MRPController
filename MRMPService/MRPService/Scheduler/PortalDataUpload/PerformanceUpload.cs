@@ -5,14 +5,12 @@ using System.Diagnostics;
 using MRMPService.MRMPService.Log;
 using MRMPService.LocalDatabase;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Threading;
 
 namespace MRMPService.Scheduler.PortalDataUpload
 {
     class WorkloadPerformanceUpload
     {
-        public async void Start()
+        public void Start()
         {
             try
             {
@@ -29,34 +27,29 @@ namespace MRMPService.Scheduler.PortalDataUpload
                             break;
                         }
                     }
-                    Thread _upload_thread = new Thread(() =>
+                    List<MRPPerformanceCounterCRUDType> _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
+                    foreach (Performancecounter _db_perf in _increment_records)
                     {
-                        List<MRPPerformanceCounterCRUDType> _performancecounters_list = new List<MRPPerformanceCounterCRUDType>();
-                        foreach (Performancecounter _db_perf in _increment_records)
-                        {
-                            MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
-                            _performancecrud.instance = _db_perf.instance;
-                            _performancecrud.category = _db_perf.category;
-                            _performancecrud.counter = _db_perf.counter;
-                            _performancecrud.timestamp = _db_perf.timestamp;
-                            _performancecrud.value = _db_perf.value;
-                            _performancecrud.workload_id = _db_perf.workload_id;
-                            _performancecounters_list.Add(_performancecrud);
-                            if (_performancecounters_list.Count > MRMPServiceBase.portal_upload_performanceounter_page_size)
-                            {
-                                MRMPServiceBase._mrmp_api.performancecounter().create(_performancecounters_list).Wait();
-                                _performancecounters_list.Clear();
-                            }
-                        }
-                        //upload last remaining records
-                        if (_performancecounters_list.Count > 0)
+                        MRPPerformanceCounterCRUDType _performancecrud = new MRPPerformanceCounterCRUDType();
+                        _performancecrud.instance = _db_perf.instance;
+                        _performancecrud.category = _db_perf.category;
+                        _performancecrud.counter = _db_perf.counter;
+                        _performancecrud.timestamp = _db_perf.timestamp;
+                        _performancecrud.value = _db_perf.value;
+                        _performancecrud.workload_id = _db_perf.workload_id;
+                        _performancecounters_list.Add(_performancecrud);
+                        if (_performancecounters_list.Count > MRMPServiceBase.portal_upload_performanceounter_page_size)
                         {
                             MRMPServiceBase._mrmp_api.performancecounter().create(_performancecounters_list).Wait();
                             _performancecounters_list.Clear();
                         }
-                    });
-                    _upload_thread.Start();
-
+                    }
+                    //upload last remaining records
+                    if (_performancecounters_list.Count > 0)
+                    {
+                        MRMPServiceBase._mrmp_api.performancecounter().create(_performancecounters_list).Wait();
+                        _performancecounters_list.Clear();
+                    }
                     //remove all processed records from from local database
                     Stopwatch _sw_delete = Stopwatch.StartNew();
                     using (MRPDatabase _db = new MRPDatabase())
@@ -67,10 +60,6 @@ namespace MRMPService.Scheduler.PortalDataUpload
                     }
                     _sw_delete.Stop();
                     Logger.log(String.Format("Took {0} to delete {1} performance records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _increment_records.Count()), Logger.Severity.Debug);
-
-                    //wait for upload thread to complete before we continue
-                    _upload_thread.Join();
-
                 }
                 _sw.Stop();
                 Logger.log(String.Format("Completed Performance Upload Thread in {0}", TimeSpan.FromMilliseconds(_sw.Elapsed.TotalMilliseconds)), Logger.Severity.Debug);

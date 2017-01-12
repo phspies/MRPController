@@ -109,17 +109,7 @@ namespace MRMPService.Modules.MRMPPortal
                 }
                 else if (restResponse.StatusCode == HttpStatusCode.NotFound)
                 {
-                    ResultType _result = new ResultType();
-                    try
-                    {
-                        _result = JsonConvert.DeserializeObject<ResultType>(restResponse.Content);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.log(ex.ToString(), Logger.Severity.Error);
-                        Logger.log(restResponse.Content, Logger.Severity.Error);
-                        throw new Exception(_result.result.message);
-                    }
+                    throw new Exception(String.Format("{0} {1}", restResponse.StatusCode, restResponse.ErrorMessage));
                 }
                 else if (restResponse.StatusCode == HttpStatusCode.RequestTimeout)
                 {
@@ -135,7 +125,7 @@ namespace MRMPService.Modules.MRMPPortal
                 else
                 {
                     Logger.log(String.Format("Unexpected API error on {0} with error ({1})", client.BuildUri(request).ToString(), restResponse.ErrorMessage), Logger.Severity.Error);
-                    Thread.Sleep(new TimeSpan(0, 0, 30));
+                    throw new Exception(String.Format("{0} {1}", restResponse.StatusCode, restResponse.ErrorMessage));
                 }
             }
             client = null;
