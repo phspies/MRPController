@@ -57,6 +57,7 @@ namespace MRMPService.Scheduler.PortalDataUpload
                         var _primary_keys = _increment_records.Select(x => x.id).ToList();
                         var _db_records = _db.Performancecounters.Where(r => _primary_keys.Contains(r.id));
                         _db.Performancecounters.RemoveRange(_db_records);
+                        _db.SaveChanges();
                     }
                     _sw_delete.Stop();
                     Logger.log(String.Format("Took {0} to delete {1} performance records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalMilliseconds), _increment_records.Count()), Logger.Severity.Debug);

@@ -1,13 +1,10 @@
-﻿using MRMPService.MRMPService.Log;
-using MRMPService.LocalDatabase;
-using System;
+﻿using System;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Threading;
 
 namespace MRMPService.Utilities
 {
-    class Connection :  IDisposable
+    class Connection : IDisposable
     {
         Ping testPing = new Ping();
         public string FindConnection(string iplist, bool literal = false)
@@ -48,14 +45,19 @@ namespace MRMPService.Utilities
             if (literal == true && workingip != null)
             {
                 //check for IPv6 address
-                IPAddress _check_ip = IPAddress.Parse(workingip);
-                if (_check_ip.AddressFamily.ToString() == System.Net.Sockets.AddressFamily.InterNetworkV6.ToString())
+                //Check if the string is a hostname or a IP Address
+
+                IPAddress _check_ip;
+                if (IPAddress.TryParse(workingip, out _check_ip))
                 {
-                    String _workingip = workingip;
-                    _workingip = _workingip.Replace(":", "-");
-                    _workingip = _workingip.Replace("%", "s");
-                    _workingip = _workingip + ".ipv6-literal.net";
-                    workingip = _workingip;
+                    if (_check_ip.AddressFamily.ToString() == System.Net.Sockets.AddressFamily.InterNetworkV6.ToString())
+                    {
+                        String _workingip = workingip;
+                        _workingip = _workingip.Replace(":", "-");
+                        _workingip = _workingip.Replace("%", "s");
+                        _workingip = _workingip + ".ipv6-literal.net";
+                        workingip = _workingip;
+                    }
                 }
             }
             return workingip;

@@ -8,8 +8,8 @@ using Renci.SshNet.Common;
 using Renci.SshNet;
 using System.IO;
 using Renci.SshNet.Sftp;
-using System.Threading.Tasks;
 using MRMPService.LocalDatabase;
+using System.Globalization;
 
 namespace MRMPService.Scheduler.PerformanceCollection
 {
@@ -127,7 +127,17 @@ namespace MRMPService.Scheduler.PerformanceCollection
                                             }
                                             if (_perf_file[i].Contains("PERD_CounterAvg"))
                                             {
-                                                _perf.value = Double.Parse(_perf_file[i].Split('=').Last());
+                                                Double _temp_value;
+                                                string _value_string = _perf_file[i].Split('=').Last().ToString();
+                                                if (Double.TryParse(_value_string,NumberStyles.Float, CultureInfo.InvariantCulture, out _temp_value))
+                                                {
+                                                    _perf.value = _temp_value;
+                                                }
+                                                else
+                                                {
+                                                    Logger.log(String.Format("Cannot parse {0} for classname {1} and instance {2}", _value_string, _perf.category, _perf.instance), Logger.Severity.Warn);
+                                                    _perf.value = 0.0;
+                                                }
                                             }
                                         }
                                         if (_valid_perf)

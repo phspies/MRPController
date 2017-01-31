@@ -5,6 +5,7 @@ using MRMPService.Modules.DoubleTake.Common;
 using MRMPService.Modules.MCP;
 using System;
 using MRMPService.Modules.DoubleTake.Availability;
+using MRMPService.MRMPService.Log;
 
 namespace MRMPService.TaskExecutioner.DRSServersLive
 {
@@ -29,12 +30,12 @@ namespace MRMPService.TaskExecutioner.DRSServersLive
 
                 if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
                 {
-                    ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
+                    await ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
                     await Availability.CreateHAServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99, DT_JobTypes.HA_Full_Failover);
                 }
                 else
                 {
-                    ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
+                    await ModuleCommon.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
                     await Availability.CreateHAServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99, DT_JobTypes.HA_Linux_FullFailover);
                 }
                 await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully configured protection job");
@@ -42,6 +43,7 @@ namespace MRMPService.TaskExecutioner.DRSServersLive
             }
             catch (Exception ex)
             {
+                Logger.log(ex.ToString(), Logger.Severity.Fatal);
                 await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
             }
         }

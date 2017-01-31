@@ -140,7 +140,7 @@ namespace MRMPService.MRMPAPI.Classes
 
                             }
                             //run the first inventory collection
-                            using (var cmd = sshclient.CreateCommand("cd ~/mrmp/bin/; sh mrmp_inv_cron.sh"))
+                            using (var cmd = sshclient.CreateCommand("cd ~/mrmp/bin/; sh mrmp_inv_cron.sh; sh mrmp_perf_cron.sh"))
                             {
                                 cmd.Execute();
                                 if (cmd.ExitStatus != 0)
@@ -233,8 +233,7 @@ namespace MRMPService.MRMPAPI.Classes
 
                                     try { _updated_workload.vcpu = _inv_file.Count(x => x.Contains("<CPU>")); } catch (Exception) { }
                                     try { _updated_workload.vcore = Int32.Parse(_inv_file.FirstOrDefault(x => x.Contains("DCPU_Cores")).Split('=').Last()); } catch (Exception) { }
-                                    String _string = _inv_file.FirstOrDefault(x => x.Contains("DCPU_RatedSpeed"));
-                                    try { _updated_workload.vcpu_speed = (int)Decimal.Parse(_string.Split('=').Last()); } catch (Exception) { }
+                                    try { _updated_workload.vcpu_speed = Double.Parse(_inv_file.FirstOrDefault(x => x.Contains("DCPU_RatedSpeed")).Split('=').Last()); } catch (Exception) { }
 
                                     try
                                     {

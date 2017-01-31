@@ -78,7 +78,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("hardwaretype")]
         public string hardwaretype { get; set; }     
         [JsonProperty("vcpu_speed")]
-        public int? vcpu_speed { get; set; }
+        public double? vcpu_speed { get; set; }
         [JsonProperty("vmemory")]
         public int? vmemory { get; set; }
         [JsonProperty("vcore")]

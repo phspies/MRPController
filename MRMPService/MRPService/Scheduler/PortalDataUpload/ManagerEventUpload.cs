@@ -20,10 +20,10 @@ namespace MRMPService.Scheduler.PortalDataUpload
 
                 while (true)
                 {
-                    IEnumerable<ManagerEvent> _increment_records;
+                    List<ManagerEvent> _increment_records;
                     using (MRPDatabase _ctx = new MRPDatabase())
                     {
-                        _increment_records = _ctx.ManagerEvents.Take(500).AsEnumerable();
+                        _increment_records = _ctx.ManagerEvents.Take(500).ToList();
                     }
                     if (_increment_records.Count() > 0)
                     {
@@ -56,6 +56,7 @@ namespace MRMPService.Scheduler.PortalDataUpload
                             var _primary_keys = _increment_records.Select(x => x.Id).ToList();
                             var _db_records = _ctx.ManagerEvents.Where(r => _primary_keys.Contains(r.Id));
                             _ctx.ManagerEvents.RemoveRange(_db_records);
+                            _ctx.SaveChanges();
                         }
                         _sw_delete.Stop();
                         Logger.log(String.Format("Took {0} to delete {1} manager events records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalSeconds), _increment_records.Count()), Logger.Severity.Info);

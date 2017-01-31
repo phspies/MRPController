@@ -85,7 +85,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="AWSSDK.EC2, Version=3.3.0.0, Culture=neutral, PublicKeyToken=885c28607f98e604, processorArchitecture=MSIL">
-      <HintPath>..\packages\AWSSDK.EC2.3.3.4.4\lib\net45\AWSSDK.EC2.dll</HintPath>
+      <HintPath>..\packages\AWSSDK.EC2.3.3.4.5\lib\net45\AWSSDK.EC2.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DD.CBU.Compute.Api.Client, Version=3.3.482.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
@@ -651,7 +651,7 @@
     <Folder Include="MRPService\Scheduler\PlatformInventory\Azure\" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\AWSSDK.EC2.3.3.4.4\analyzers\dotnet\cs\AWSSDK.EC2.CodeAnalysis.dll" />
+    <Analyzer Include="..\packages\AWSSDK.EC2.3.3.4.5\analyzers\dotnet\cs\AWSSDK.EC2.CodeAnalysis.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -663,7 +663,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Enabled="1" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" />
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

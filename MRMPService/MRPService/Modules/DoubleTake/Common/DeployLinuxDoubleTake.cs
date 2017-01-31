@@ -9,6 +9,7 @@ using MRMPService.Modules.MRMPPortal.Contracts;
 using System.Linq;
 using Renci.SshNet;
 using Renci.SshNet.Common;
+using System.Threading.Tasks;
 
 namespace MRMPService.Modules.DoubleTake.Common
 {
@@ -25,7 +26,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                 }
             }
         }
-        public static async void DeployLinuxDoubleTake(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
+        public static async Task DeployLinuxDoubleTake(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
         {
             dt_server_type server_type = dt_server_type.source;
 

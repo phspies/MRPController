@@ -12,12 +12,13 @@ using DoubleTake.Web.Models;
 using MRMPService.MRMPDoubleTake;
 using MRMPService.Modules.MRMPPortal.Contracts;
 using MRMPService.MRMPAPI;
+using System.Threading.Tasks;
 
 namespace MRMPService.Modules.DoubleTake.Common
 {
     partial class ModuleCommon
     {
-        public static async void DeployWindowsDoubleTake(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
+        public static async Task DeployWindowsDoubleTake(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
         {
             dt_server_type server_type = dt_server_type.source;
 

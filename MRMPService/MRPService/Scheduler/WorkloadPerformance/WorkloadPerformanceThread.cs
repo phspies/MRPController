@@ -10,8 +10,6 @@ namespace MRMPService.Scheduler.PerformanceCollection
 {
     class WorkloadPerformanceThread
     {
-        //create syncronized lists to work in the threaded environment
-
         public async void Start()
         {
             while (true)

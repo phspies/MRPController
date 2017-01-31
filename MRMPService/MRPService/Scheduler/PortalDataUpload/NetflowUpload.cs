@@ -20,10 +20,10 @@ namespace MRMPService.Scheduler.PortalDataUpload
                 Stopwatch _sw = Stopwatch.StartNew();
                 while (true)
                 {
-                    IEnumerable<NetworkFlow> _increment_records;
+                    List<NetworkFlow> _increment_records;
                     using (MRPDatabase _db = new MRPDatabase())
                     {
-                        _increment_records = _db.NetworkFlows.Take(500).AsEnumerable();
+                        _increment_records = _db.NetworkFlows.Take(500).ToList();
                     }
                     if (_increment_records.Count() > 0)
                     {
@@ -63,6 +63,7 @@ namespace MRMPService.Scheduler.PortalDataUpload
                             var _primary_keys = _increment_records.Select(x => x.id).ToList();
                             var _db_records = _ctx.NetworkFlows.Where(r => _primary_keys.Contains(r.id));
                             _ctx.NetworkFlows.RemoveRange(_db_records);
+                            _ctx.SaveChanges();
                         }
                         _sw_delete.Stop();
                         Logger.log(String.Format("Took {0} to delete {1} netflow records", TimeSpan.FromMilliseconds(_sw_delete.Elapsed.TotalSeconds), _increment_records.Count()), Logger.Severity.Debug);
