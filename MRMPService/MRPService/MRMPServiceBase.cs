@@ -5,7 +5,6 @@ using MRMPService.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using static MRMPService.Utilities.SyncronizedList;
 
 namespace MRMPService
 {
@@ -29,6 +28,7 @@ namespace MRMPService
 
         public static SyncronisedList<CollectionCounter> _available_counters = new SyncronisedList<CollectionCounter>(new List<CollectionCounter>());
 
+        public static bool debug_netflow = Convert.ToBoolean(MRPRegistry.RegAccess("debug_netflow", false, RegistryValueKind.DWord));
 
         public static int os_inventory_interval = (int)MRPRegistry.RegAccess("os_inventory_interval", 1440, RegistryValueKind.DWord); //minutes
         public static int os_inventory_concurrency = (int)MRPRegistry.RegAccess("os_inventory_concurrency", 10, RegistryValueKind.DWord);

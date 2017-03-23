@@ -96,24 +96,26 @@
       <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.482\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DoubleTake.Core, Version=0.1.44.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DoubleTake.Core">
       <HintPath>lib\DoubleTake.Core.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.PowerShell">
       <HintPath>lib\DoubleTake.PowerShell.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.PowerShell.Common, Version=8.0.0.1420, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DoubleTake.PowerShell.Common">
       <HintPath>lib\DoubleTake.PowerShell.Common.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.PowerShell.Contract.Data, Version=8.0.0.1420, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DoubleTake.PowerShell.Contract.Data">
       <HintPath>lib\DoubleTake.PowerShell.Contract.Data.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.PowerShell.Contract.Service, Version=8.0.0.1420, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DoubleTake.PowerShell.Contract.Service">
       <HintPath>lib\DoubleTake.PowerShell.Contract.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="DoubleTake.PowerShell.Management.Contract">
+      <HintPath>lib\DoubleTake.PowerShell.Management.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="DoubleTake.PowerShell.Resources">
+      <HintPath>lib\DoubleTake.PowerShell.Resources.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.Web.Client, Version=0.1.80.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -123,8 +125,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\DoubleTake.Web.Client.Management.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.Web.Core, Version=0.1.80.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="DoubleTake.Web.Core">
       <HintPath>lib\DoubleTake.Web.Core.dll</HintPath>
     </Reference>
     <Reference Include="DTMUConfiguratorConsole">
@@ -663,7 +664,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="1" />
+      <UserProperties Reactor_Enabled="0" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

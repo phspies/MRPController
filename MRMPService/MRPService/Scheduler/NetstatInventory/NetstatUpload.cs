@@ -11,7 +11,7 @@ namespace MRMPService.Scheduler.NetstatCollection
 {
     class NetstatUpload
     {
-        static public async Task Upload(List<NetworkFlowType> _workload_netstats, MRPWorkloadType _workload)
+        static public async Task Uploads(List<NetworkFlowType> _workload_netstats, MRPWorkloadType _workload)
         {
             try
             {

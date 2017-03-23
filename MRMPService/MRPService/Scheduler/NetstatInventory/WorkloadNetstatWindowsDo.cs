@@ -16,7 +16,7 @@ namespace MRMPService.Scheduler.NetstatCollection
     partial class WorkloadNetstat
     {
 
-        public static async Task WorkloadNetstatWindowsDo(MRPWorkloadType _workload)
+        public static void WorkloadNetstatWindowsDo(MRPWorkloadType _workload)
         {
 
             List<NetworkFlowType> _workload_netstats = new List<NetworkFlowType>();
@@ -135,18 +135,19 @@ namespace MRMPService.Scheduler.NetstatCollection
                             {
                                 try
                                 {
-                                    _workload_netstats.Add(new NetworkFlowType()
+                                    using (NetworkFlowSet _ctx_netflow = new NetworkFlowSet())
                                     {
-                                        id = Objects.RamdomGuid(),
-                                        source_address = IPSplit.Parse(tokens[1]).Address.ToString(),
-                                        source_port = IPSplit.Parse(tokens[1]).Port,
-                                        target_address = IPSplit.Parse(tokens[2]).Address.ToString(),
-                                        target_port = IPSplit.Parse(tokens[2]).Port,
-                                        protocol = tokens[0].Equals("TCP") ? 6 : 17,
-                                        timestamp = DateTime.UtcNow,
-                                        process = _processes.FirstOrDefault(x => x.pid == _pid).name,
-                                        pid = _pid
-                                    });
+                                        _ctx_netflow.ModelRepository.Insert(new NetworkFlow()
+                                        {
+                                            id = Objects.RamdomGuid(),
+                                            source_address = IPSplit.Parse(tokens[1]).Address.ToString(),
+                                            source_port = IPSplit.Parse(tokens[1]).Port,
+                                            target_address = IPSplit.Parse(tokens[2]).Address.ToString(),
+                                            target_port = IPSplit.Parse(tokens[2]).Port,
+                                            protocol = tokens[0].Equals("TCP") ? 6 : 17,
+                                            timestamp = DateTime.UtcNow,
+                                        });
+                                    }
                                 }
                                 catch (Exception)
                                 { }
@@ -154,7 +155,6 @@ namespace MRMPService.Scheduler.NetstatCollection
                         }
                     }
                 }
-                await NetstatUpload.Upload(_workload_netstats, _workload);
                 Logger.log(String.Format("Inventory: Completed netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
             }
         }

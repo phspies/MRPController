@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace MRMPService.Modules.MRMPPortal.Contracts
 {
-
     public class MRPTaskListType
     {
         [JsonProperty("tasks")]
@@ -33,16 +32,16 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
     {
         [JsonProperty("managementobjects")]
         public List<MRPManagementobjectOrderType> managementobjects { get; set; }
-        [JsonProperty("original")]
-        public MRPWorkloadType original { get; set; }
+        [JsonProperty("original_workload")]
+        public MRPWorkloadType original_workload { get; set; }
         [JsonProperty("source_workload")]
         public MRPWorkloadType source_workload { get; set; }
         [JsonProperty("target_workload")]
         public MRPWorkloadType target_workload { get; set; }
         [JsonProperty("workloadpairs")]
         public List<MRPWorkloadPairType> workloadpairs { get; set; }
-        [JsonProperty("repository")]
-        public MRPWorkloadType repository { get; set; }
+        [JsonProperty("repository_workload")]
+        public MRPWorkloadType repository_workload { get; set; }
         [JsonProperty("protectiongroup")]
         public MRPProtectiongroupType protectiongroup { get; set; }
         [JsonProperty("source_platform")]

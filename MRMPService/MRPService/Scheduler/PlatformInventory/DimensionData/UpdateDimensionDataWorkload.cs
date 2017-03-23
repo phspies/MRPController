@@ -5,7 +5,6 @@ using System.Linq;
 using DD.CBU.Compute.Api.Client;
 using System.Net;
 using DD.CBU.Compute.Api.Contracts.Network20;
-using MRMPService.MRMPAPI;
 using MRMPService.MRMPService.Log;
 using System.Threading.Tasks;
 
@@ -29,7 +28,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
             }
             catch (Exception ex)
             {
-                throw new System.ArgumentException(String.Format("UpdateMCPWorkload: Error connecting to Dimension Data MCP {0}", ex.Message));
+                throw new ArgumentException(String.Format("UpdateMCPWorkload: Error connecting to Dimension Data MCP {0}", ex.Message));
             }
             Logger.log(String.Format("UpdateMCPWorkload: Inventory for {0} in {1} ", _caasworkload.name, _platform.platformdatacenter.moid), Logger.Severity.Info);
 
@@ -41,6 +40,15 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
             {
                 _existing_workload = true;
                 _current_workload = _platform.workloads.FirstOrDefault(x => x.moid == _caasworkload.id);
+            }
+            else
+            {
+                _existing_workload = true;
+                _current_workload = _platform.workloads.FirstOrDefault(x => x.hostname == _caasworkload.name);
+            }
+
+            if (_existing_workload)
+            {
                 _update_workload.id = _current_workload.id;
                 _update_workload.workloaddisks = _current_workload.workloaddisks;
                 _update_workload.workloadinterfaces = _current_workload.workloadinterfaces;
@@ -59,20 +67,21 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
             foreach (var _caas_disk in _caasworkload.disk.Where(x => x.state == "NORMAL"))
             {
                 MRPWorkloadDiskType _mrmp_disk = new MRPWorkloadDiskType();
+                int _real_scsi_id = (_caas_disk.scsiId > 6) ? (_caas_disk.scsiId - 1) : _caas_disk.scsiId;
                 if (_update_workload.workloaddisks.Exists(x => x.moid == _caas_disk.id))
                 {
                     _mrmp_disk = _update_workload.workloaddisks.FirstOrDefault(x => x.moid == _caas_disk.id);
                 }
-                else if (_update_workload.workloaddisks.Exists(x => x.diskindex == _caas_disk.scsiId))
+                else if (_update_workload.workloaddisks.Exists(x => x.diskindex == _real_scsi_id))
                 {
-                    _mrmp_disk = _update_workload.workloaddisks.FirstOrDefault(x => x.diskindex == _caas_disk.scsiId);
+                    _mrmp_disk = _update_workload.workloaddisks.FirstOrDefault(x => x.diskindex == _real_scsi_id);
                 }
                 else
                 {
                     _update_workload.workloaddisks.Add(_mrmp_disk);
                 }
                 _mrmp_disk.moid = _caas_disk.id;
-                _mrmp_disk.diskindex = _caas_disk.scsiId;
+                _mrmp_disk.diskindex = _real_scsi_id;
                 _mrmp_disk.platformstoragetier_id = _caas_disk.speed;
                 _mrmp_disk.provisioned = true;
                 _mrmp_disk.deleted = false;

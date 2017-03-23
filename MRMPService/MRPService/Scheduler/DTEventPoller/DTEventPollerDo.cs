@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MRMPService.MRMPAPI;
+using System.Text.RegularExpressions;
 
 namespace MRMPService.Scheduler.DTEventPollerCollection
 {
@@ -82,7 +83,7 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
                         timestamp = _event.TimeWritten.UtcDateTime,
                         response = (_internal_event == null) ? null : _internal_event.response,
                         severity = _event.EntryType.ToString(),
-                        eventname = (_internal_event == null) ? null : _internal_event.name,
+                        eventname = (_internal_event == null) ? Regex.Replace(_event.Message.ToLower().Replace(" ","_"), @"[^0-9a-zA-Z\.]", string.Empty) : _internal_event.name,
                         eventnamefriendly = (_friendlyname == null) ? null : _friendlyname
                     });
                 }

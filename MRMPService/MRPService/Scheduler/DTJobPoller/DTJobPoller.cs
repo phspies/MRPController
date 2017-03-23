@@ -43,9 +43,6 @@ namespace MRMPService.Scheduler.DTPollerCollection
             IEnumerable<ImageInfoModel> _dt_image_list = new List<ImageInfoModel>();
             IEnumerable<SnapshotEntryModel> _dt_snapshot_list = new List<SnapshotEntryModel>();
 
-
-
-
             bool _can_connect = false;
             try
             {
@@ -116,7 +113,12 @@ namespace MRMPService.Scheduler.DTPollerCollection
             //now collect job information from target workload
             if (_can_connect)
             {
-                MRPManagementobjectType _mrp_mo_update = new MRPManagementobjectType() { id = _mrp_managementobject.id };
+                MRPManagementobjectType _mrp_mo_update = new MRPManagementobjectType() {
+                    id = _mrp_managementobject.id,
+                    managementobjectsnapshots = _mrp_managementobject.managementobjectsnapshots                    
+                };
+                _mrp_mo_update.managementobjectsnapshots.ForEach(x => x._destroy = true);
+                _mrp_mo_update.managementobjectstats = new List<MRPManagementobjectStatType>();
                 try
                 {
 
@@ -125,9 +127,13 @@ namespace MRMPService.Scheduler.DTPollerCollection
                         foreach (SnapshotEntryModel _dt_snap in _dt_image.Snapshots.Where(x => x.States == TargetStates.SroImage))
                         {
                             MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                            if (_mrp_managementobject.managementobjectsnapshots.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
+                            if (_mrp_mo_update.managementobjectsnapshots.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
                             {
-                                _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id.ToString()).id;
+                                _mrp_snapshot = _mrp_mo_update.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id.ToString());
+                            }
+                            else
+                            {
+                                _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
                             }
 
                             _mrp_snapshot.snapshotmoid = _dt_snap.Id.ToString();
@@ -139,6 +145,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                             _mrp_snapshot.imagename = _dt_image.ImageName;
                             _mrp_snapshot.imagetype = _dt_image.ImageType.ToString();
                             _mrp_snapshot.source_image_mount_location = _dt_image.SourceImageMountLocation;
+                            _mrp_snapshot._destroy = false;
                             //we need to delete snapshots manualy as DT does not honor maximum snapshot count on Windows
                             if (_mrp_managementobject.protectiongroup != null)
                             {
@@ -167,20 +174,18 @@ namespace MRMPService.Scheduler.DTPollerCollection
                                     }
                                 }
                             }
-
-                            if (_mrp_mo_update.managementobjectsnapshots == null)
-                            {
-                                _mrp_mo_update.managementobjectsnapshots = new List<MRPManagementobjectSnapshotType>();
-                            }
-                            _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
                         }
                     }
                     foreach (SnapshotEntryModel _dt_snap in _dt_snapshot_list.Where(x => x.States == TargetStates.Good || x.States == TargetStates.SroImage))
                     {
                         MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
-                        if (_mrp_managementobject.managementobjectsnapshots.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
+                        if (_mrp_mo_update.managementobjectsnapshots.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
                         {
-                            _mrp_snapshot.id = _mrp_managementobject.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id.ToString()).id;
+                            _mrp_snapshot = _mrp_mo_update.managementobjectsnapshots.FirstOrDefault(x => x.snapshotmoid == _dt_snap.Id.ToString());
+                        }
+                        else
+                        {
+                            _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
                         }
 
                         _mrp_snapshot.snapshotmoid = _dt_snap.Id.ToString();
@@ -188,7 +193,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                         _mrp_snapshot.state = _dt_snap.States.ToString();
                         _mrp_snapshot.timestamp = _dt_snap.Timestamp.UtcDateTime;
                         _mrp_snapshot.comment = _dt_snap.Comment;
-
+                        _mrp_snapshot._destroy = false;
                         //we need to delete snapshots manualy as DT does not honor maximum snapshot count on Windows
                         if (_mrp_managementobject.protectiongroup != null)
                         {
@@ -198,7 +203,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                                 if (_dt_snapshot_list.Count() > _recoverypolicy.snapshotmaxcount)
                                 {
                                     int _last_records = _dt_snapshot_list.Count() - (int)_recoverypolicy.snapshotmaxcount;
-                                    IEnumerable<SnapshotEntryModel> _delete_snapshots = _dt_snapshot_list.OrderBy(x => x.Timestamp).Reverse().Take(_last_records);
+                                    IEnumerable<SnapshotEntryModel> _delete_snapshots = _dt_snapshot_list.Reverse().OrderBy(x => x.Timestamp).Take(_last_records);
                                     foreach (SnapshotEntryModel _snapshot in _delete_snapshots)
                                     {
                                         using (Doubletake _dt = new Doubletake(null, _target_workload))
@@ -211,18 +216,11 @@ namespace MRMPService.Scheduler.DTPollerCollection
                                                 _mrp_snapshot._destroy = true;
                                                 Logger.log(String.Format("Deleting Snapshot {0} for job {1}", _snapshot.Id, _dt_job.Options.Name), Logger.Severity.Info);
                                             }
-
                                         }
                                     }
                                 }
                             }
                         }
-
-                        if (_mrp_mo_update.managementobjectsnapshots == null)
-                        {
-                            _mrp_mo_update.managementobjectsnapshots = new List<MRPManagementobjectSnapshotType>();
-                        }
-                        _mrp_mo_update.managementobjectsnapshots.Add(_mrp_snapshot);
                     }
                     //Update job details
                     if (_dt_job.Statistics != null)
@@ -257,10 +255,6 @@ namespace MRMPService.Scheduler.DTPollerCollection
                                 _managedobject_stat.recovery_point_objective = _connection_details.SourceRecoveryPointTime.UtcDateTime;
                                 _managedobject_stat.recovery_point_latency = _connection_details.SourceRecoveryPointLatency;
 
-                                if (_mrp_mo_update.managementobjectstats == null)
-                                {
-                                    _mrp_mo_update.managementobjectstats = new List<MRPManagementobjectStatType>();
-                                }
                                 _mrp_mo_update.managementobjectstats.Add(_managedobject_stat);
                             }
                             else

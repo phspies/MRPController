@@ -56,10 +56,10 @@ namespace MRMPService.Scheduler.NetstatCollection
                                 switch (workload.ostype.ToUpper())
                                 {
                                     case "WINDOWS":
-                                        WorkloadNetstat.WorkloadNetstatWindowsDo(workload).Wait();
+                                        WorkloadNetstat.WorkloadNetstatWindowsDo(workload);
                                         break;
                                     case "UNIX":
-                                        WorkloadNetstat.WorkloadNetstatUnixDo(workload).Wait();
+                                        WorkloadNetstat.WorkloadNetstatUnixDo(workload);
                                         break;
                                 }
                             }

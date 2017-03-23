@@ -18,10 +18,10 @@ namespace MRMPService.TaskExecutioner.Workload
                 switch (_target_workload.ostype.ToUpper())
                 {
                     case "UNIX":
-                        WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload);
+                        WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload).Wait();
                         break;
                     case "WINDOWS":
-                        WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload);
+                        WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload).Wait();
                         break;
                 }
                 await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully discovered workload");
@@ -29,7 +29,7 @@ namespace MRMPService.TaskExecutioner.Workload
             catch (Exception ex)
             {
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
-                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.GetBaseException().Message);
             }
         }
     }

@@ -10,7 +10,6 @@ using DD.CBU.Compute.Api.Contracts.Requests.Server20;
 using DD.CBU.Compute.Api.Contracts.Network20;
 using DD.CBU.Compute.Api.Contracts.Requests;
 using DD.CBU.Compute.Api.Contracts.General;
-using MRMPService.MRMPAPI;
 using DD.CBU.Compute.Api.Contracts.Requests.Network20;
 using System.Threading.Tasks;
 using DD.CBU.Compute.Api.Contracts.Directory;
@@ -259,11 +258,11 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                     if (_platform.platformdomains.Exists(x => x.moid == _caas_domain.id))
                     {
                         _mrmp_update_domain = _platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id);
-                        _mrmp_update_domain.domainiplists.Where(x => x.iptype == "platform").ForEach(x => { x.deleted = true; x.domainiplistaddresses.ForEach(y => y.deleted = true); });
-                        _mrmp_update_domain.domainfwrules.Where(x => x.fwtype == "platform").ForEach(x => x.deleted = true);
-                        _mrmp_update_domain.domainnatrules.Where(x => x.nattype == "platform").ForEach(x => x.deleted = true);
-                        _mrmp_update_domain.domainaffinityrules.Where(x => x.affinitytype == "platform").ForEach(x => x.deleted = true);
-                        _mrmp_update_domain.domainportlists.Where(x => x.porttype == "platform").ForEach(x => { x.deleted = true; x.domainportlistports.ForEach(y => y.deleted = true); });
+                        _mrmp_update_domain.domainiplists.Where(x => x.iptype == "platform").ToList().ForEach(x => { x.deleted = true; x.domainiplistaddresses.ForEach(y => y.deleted = true); });
+                        _mrmp_update_domain.domainfwrules.Where(x => x.fwtype == "platform").ToList().ForEach(x => x.deleted = true);
+                        _mrmp_update_domain.domainnatrules.Where(x => x.nattype == "platform").ToList().ForEach(x => x.deleted = true);
+                        _mrmp_update_domain.domainaffinityrules.Where(x => x.affinitytype == "platform").ToList().ForEach(x => x.deleted = true);
+                        _mrmp_update_domain.domainportlists.Where(x => x.porttype == "platform").ToList().ForEach(x => { x.deleted = true; x.domainportlistports.ForEach(y => y.deleted = true); });
                     }
                     else
                     {
@@ -545,11 +544,11 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                         if (_update_platform.platformdomains.Exists(x => x.moid == _caas_domain.id))
                         {
                             _mrmp_update_domain = _update_platform.platformdomains.FirstOrDefault(x => x.moid == _caas_domain.id);
-                            _mrmp_update_domain.domainiplists.Where(x => x.iptype == "platform").ForEach(x => { x.deleted = true; x.domainiplistaddresses.ForEach(y => y.deleted = true); });
-                            _mrmp_update_domain.domainfwrules.Where(x => x.fwtype == "platform").ForEach(x => x.deleted = true);
-                            _mrmp_update_domain.domainnatrules.Where(x => x.nattype == "platform").ForEach(x => x.deleted = true);
-                            _mrmp_update_domain.domainaffinityrules.Where(x => x.affinitytype == "platform").ForEach(x => x.deleted = true);
-                            _mrmp_update_domain.domainportlists.Where(x => x.porttype == "platform").ForEach(x => { x.deleted = true; x.domainportlistports.ForEach(y => y.deleted = true); });
+                            _mrmp_update_domain.domainiplists.Where(x => x.iptype == "platform").ToList().ForEach(x => { x.deleted = true; x.domainiplistaddresses.ForEach(y => y.deleted = true); });
+                            _mrmp_update_domain.domainfwrules.Where(x => x.fwtype == "platform").ToList().ForEach(x => x.deleted = true);
+                            _mrmp_update_domain.domainnatrules.Where(x => x.nattype == "platform").ToList().ForEach(x => x.deleted = true);
+                            _mrmp_update_domain.domainaffinityrules.Where(x => x.affinitytype == "platform").ToList().ForEach(x => x.deleted = true);
+                            _mrmp_update_domain.domainportlists.Where(x => x.porttype == "platform").ToList().ForEach(x => { x.deleted = true; x.domainportlistports.ForEach(y => y.deleted = true); });
                         }
                         else
                         {
@@ -660,7 +659,10 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                                     _mrmpfirewallrule.source_ip_type = "address_list";
                                     if (_mrmp_update_domain.domainiplists != null)
                                     {
-                                        _mrmpfirewallrule.source_domainiplist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.source.IpAddressList.id).id;
+                                        if (_mrmp_update_domain.domainiplists.Exists(x => x.moid == _firewallrule.source.IpAddressList.id))
+                                        {
+                                            _mrmpfirewallrule.source_domainiplist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.source.IpAddressList.id).id;
+                                        }
                                     }
                                 }
 
@@ -706,7 +708,10 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                                     _mrmpfirewallrule.target_ip_type = "address_list";
                                     if (_mrmp_update_domain.domainiplists != null)
                                     {
-                                        _mrmpfirewallrule.target_domainiplist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.destination.IpAddressList.id).id;
+                                        if (_mrmp_update_domain.domainiplists.Exists(x => x.moid == _firewallrule.destination.IpAddressList.id))
+                                        {
+                                            _mrmpfirewallrule.target_domainiplist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.destination.IpAddressList.id).id;
+                                        }
                                     }
                                 }
 
@@ -726,17 +731,17 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                                     _mrmpfirewallrule.target_port_type = "port_list";
                                     if (_mrmp_update_domain.domainportlists != null)
                                     {
-                                        _mrmpfirewallrule.target_domainportlist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.destination.IpAddressList.id).id;
+                                        if (_mrmp_update_domain.domainiplists.Exists(x => x.moid == _firewallrule.destination.IpAddressList.id))
+                                        {
+                                            _mrmpfirewallrule.target_domainportlist_id = _mrmp_update_domain.domainiplists.FirstOrDefault(x => x.moid == _firewallrule.destination.IpAddressList.id).id;
+                                        }
                                     }
                                 }
-
                             }
                         }
                         await MRMPServiceBase._mrmp_api.platform().update(_update_platform);
-
                     }
                 }
-
 
                 sw.Stop();
 

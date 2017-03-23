@@ -147,6 +147,10 @@ namespace MRMPService.Modules.DoubleTake.DR
                 MRPWorkloadType _update_workload = new MRPWorkloadType();
                 _update_workload.id = _target_workload.id;
                 _update_workload.dt_installed = true;
+
+                //We dont want to poll recovery or testing servers.
+                _update_workload.dt_collection_enabled = false;
+
                 await MRMPServiceBase._mrmp_api.workload().updateworkload(_update_workload);
 
                 await DTJobPoller.PollerDo(_managementobject);

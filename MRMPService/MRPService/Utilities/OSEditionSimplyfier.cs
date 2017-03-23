@@ -27,6 +27,12 @@ namespace MRMPService.Utilities
                 {
                     _simple_osedition += "7";
                 }
+                else if (_longname.Contains(" 8 "))
+                {
+                    _simple_osedition += "8";
+                }
+
+
                 if (_longname.Contains("R2"))
                 {
                     _simple_osedition += "R2";

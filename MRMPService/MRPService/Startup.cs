@@ -152,11 +152,11 @@ namespace MRMPService
             _mcp_cg_thread.Priority = ThreadPriority.AboveNormal;
             _mcp_cg_thread.Start();
 
-            DhcpServer _dhcp_server = new DhcpServer();
-            if (MRMPServiceBase.debug) { Logger.log("Starting DHCP Server Thread", Logger.Severity.Debug); };
-            _dhcp_server_thread = new Thread(new ThreadStart(_dhcp_server.Start));
-            _dhcp_server_thread.Priority = ThreadPriority.AboveNormal;
-            _dhcp_server_thread.Start();
+            //DhcpServer _dhcp_server = new DhcpServer();
+            //if (MRMPServiceBase.debug) { Logger.log("Starting DHCP Server Thread", Logger.Severity.Debug); };
+            //_dhcp_server_thread = new Thread(new ThreadStart(_dhcp_server.Start));
+            //_dhcp_server_thread.Priority = ThreadPriority.AboveNormal;
+            //_dhcp_server_thread.Start();
 
         }
     }

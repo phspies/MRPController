@@ -39,7 +39,7 @@ namespace MRMPService.TaskExecutioner.Platform
             catch (Exception ex)
             {
                 Logger.log(String.Format("Error in inventory process for {0} {1}", (_platform.platformtype + " : " + _platform.moid), ex.ToString()), Logger.Severity.Error);
-                await MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Error refreshing platform resources", ex.Message), 10);
+                await MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Error refreshing platform resources", ex.GetBaseException().Message), 10);
                 await MRMPServiceBase._mrmp_api.task().failcomplete(payload, String.Format("Error refreshing platform resources", ex.ToString()));
             }
         }

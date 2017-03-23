@@ -10,8 +10,8 @@ namespace MRMPService.TaskExecutioner.Common
         static public async void PauseDoubleTakeJob(MRPTaskType _mrmp_task)
         {
             MRPTaskDetailType _payload = _mrmp_task.taskdetail;
-            MRPWorkloadType _target_workload = _payload.target_workload;
             MRPManagementobjectType _managementobject = _payload.managementobject;
+            MRPWorkloadType _target_workload = _managementobject.target_workload;
 
             try
             {

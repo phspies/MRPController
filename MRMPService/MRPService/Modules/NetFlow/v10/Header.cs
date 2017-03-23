@@ -5,14 +5,13 @@ using System.Linq;
 
 namespace MRMPService.Modules.Netflow.v10
 {
-	public class V9Header
+	public class V10Header
 	{
 		private UInt16 _version;
-		private UInt16 _count;
-		private UInt32 _uptime;
-		private UInt32 _secs;
-		private UInt32 _sequence;
-		private UInt32 _id;
+		private UInt16 _lenght;
+		private UInt32 _exporttime;
+		private UInt32 _sequencenumber;
+		private UInt32 _obdomainid;
 
         private Byte[] _bytes;
 
@@ -23,43 +22,43 @@ namespace MRMPService.Modules.Netflow.v10
 				return this._version;
 			}
 		}
-		public UInt16 Count
+        public UInt32 DomainID
+        {
+            get
+            {
+                return this._obdomainid;
+            }
+        }
+        public UInt16 Lenght
 		{
 			get
 			{
-                return this._count;
+                return this._lenght;
 			}
 		}
-        public TimeSpan UpTime
+        public DateTime ExportTime
 		{
 			get
 			{
-                return new TimeSpan((long)this._uptime * 10000);
+                return new DateTime(1970, 1, 1).AddSeconds(this._exporttime);
 			}
 		}
-        public DateTime Secs
+        public UInt32 SequinceNumber
 		{
 			get
 			{
-                return new DateTime(1970, 1, 1).AddSeconds(this._secs);
+                return this._sequencenumber;
 			}
 		}
 		public UInt32 Sequence
 		{
 			get
 			{
-                return this._sequence;
-			}
-		}
-		public UInt32 ID
-		{
-			get
-			{
-                return this._id;
+                return this._obdomainid;
 			}
 		}
 
-        public V9Header(Byte[] bytes)
+        public V10Header(Byte[] bytes)
         {
             this._bytes = bytes;
             this.Parse();
@@ -67,17 +66,16 @@ namespace MRMPService.Modules.Netflow.v10
 
         private void Parse()
         {
-            if(this._bytes.Length == 20)
+            if(this._bytes.Length == 16)
             {
                 byte[] reverse = this._bytes.Reverse().ToArray();
 
                 this._version = BitConverter.ToUInt16(reverse, this._bytes.Length - sizeof(Int16) - 0);
-                this._count = BitConverter.ToUInt16(reverse, this._bytes.Length - sizeof(Int16) - 2);
+                this._lenght = BitConverter.ToUInt16(reverse, this._bytes.Length - sizeof(Int16) - 2);
 
-                this._uptime = BitConverter.ToUInt32(reverse, this._bytes.Length - sizeof(UInt32) - 4);
-                this._secs = BitConverter.ToUInt32(reverse, this._bytes.Length - sizeof(Int32) - 8);
-                this._sequence = BitConverter.ToUInt32(reverse, this._bytes.Length - sizeof(Int32) - 12);
-                this._id = BitConverter.ToUInt32(reverse, this._bytes.Length - sizeof(Int32) - 16);
+                this._exporttime = BitConverter.ToUInt32(reverse, this._bytes.Length - sizeof(UInt32) - 4);
+                this._sequencenumber = BitConverter.ToUInt32(reverse, this._bytes.Length - sizeof(Int32) - 8);
+                this._obdomainid = BitConverter.ToUInt32(reverse, this._bytes.Length - sizeof(Int32) - 12);
             }
         }
 	}

@@ -217,27 +217,29 @@ namespace MRMPService.Modules.MCP
                         {
                             //increase disk by 5GB
                             long _disk_size = 0;
+                            int _real_scsi_id = (_disk_index > 6) ? (_disk_index + 1) : _disk_index;
+
                             if (_os_customization)
                             {
-                                _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize) + 1;
+                                _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _real_scsi_id).Sum(x => x.volumesize) + 1;
                             }
                             else
                             {
-                                _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _disk_index).Sum(x => x.volumesize);
+                                _disk_size = (long)_target_workload.workloadvolumes.Where(x => x.diskindex == _real_scsi_id).Sum(x => x.volumesize);
                             }
-                            String _disk_tier = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == _disk_index).platformstoragetier_id;
-                            if (deployedServer.disk.ToList().Exists(x => x.scsiId == _disk_index))
+                            String _disk_tier = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == _real_scsi_id).platformstoragetier_id;
+                            if (deployedServer.disk.ToList().Exists(x => x.scsiId == _real_scsi_id))
                             {
-                                if (deployedServer.disk.ToList().FirstOrDefault(x => x.scsiId == _disk_index).sizeGb < _disk_size)
+                                if (deployedServer.disk.ToList().FirstOrDefault(x => x.scsiId == _real_scsi_id).sizeGb < _disk_size)
                                 {
-                                    String _disk_guid = deployedServer.disk.ToList().Find(x => x.scsiId == _disk_index).id;
-                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Extending storage: {0} : {1}GB", _disk_index, _disk_size), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                    String _disk_guid = deployedServer.disk.ToList().Find(x => x.scsiId == _real_scsi_id).id;
+                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Extending storage: {0} : {1}GB", _real_scsi_id, _disk_size), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
                                     Status _create_status = CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _disk_guid, _disk_size.ToString()).Result;
                                 }
                             }
                             else
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Adding storage: {0} : {1}GB on {2}", _disk_index, _disk_size, _disk_tier), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Adding storage: {0} : {1}GB on {2}", _real_scsi_id, _disk_size, _disk_tier), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
                                 Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk_size.ToString(), _disk_tier).Result;
                             }
                             deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;

@@ -11,7 +11,7 @@ namespace MRMPService.TaskExecutioner.Common
         static public async void FailoverDoubleTakeJob(MRPTaskType _mrmp_task)
         {
             MRPTaskDetailType _payload = _mrmp_task.taskdetail;
-            MRPWorkloadType _source_workload = _payload.original;
+            MRPWorkloadType _source_workload = _payload.original_workload;
             MRPWorkloadType _target_workload = _payload.target_workload;
             MRPManagementobjectType _managementobject = _payload.managementobject;
             try

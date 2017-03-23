@@ -32,7 +32,6 @@ namespace MRMPService.MRMPAPI.Classes
             MRPCredentialType _credential = _workload.credential;
 
             string workload_ip = null;
-            Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
             String domainuser = null;
             if (_workload.workloadtype != "manager")
@@ -56,7 +55,7 @@ namespace MRMPService.MRMPAPI.Classes
                 }
                 if (workload_ip == null)
                 {
-                    throw new ArgumentException(String.Format("Error contacting workload"));
+                    throw new ArgumentException(String.Format("Does not respond to ping"));
                 }
             }
             else
@@ -73,6 +72,8 @@ namespace MRMPService.MRMPAPI.Classes
                     }
                 }
             }
+            Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+
             ConnectionOptions options = WMIHelper.ProcessConnectionOptions(domainuser, (_workload.workloadtype == "manager" ? null : _credential.encrypted_password));
             ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
 
@@ -122,8 +123,6 @@ namespace MRMPService.MRMPAPI.Classes
                 throw new Exception(String.Format("{0} Error collecting information from Win32_OperatingSystem: {1}", _updated_workload.osedition, ex.GetBaseException().Message));
             }
 
-
-
             //Get operating system type
             try
             {
@@ -146,7 +145,8 @@ namespace MRMPService.MRMPAPI.Classes
                     try
                     {
                         _updated_workload.model = item["Manufacturer"].ToString() + " " + item["Model"].ToString();
-                        _updated_workload.hardwaretype = _updated_workload.model.ToLower().Contains("virtual") ? "virtual" : "physical";
+                        var virtual_values = new[] { "virtual", "vmware", "microsoft", "hyper-v", "xen" };
+                        _updated_workload.hardwaretype = virtual_values.Any(_updated_workload.model.ToLower().Contains) ? "virtual" : "physical";
                     }
 
                     catch (Exception ex)
@@ -328,6 +328,10 @@ namespace MRMPService.MRMPAPI.Classes
                                 {
                                     _volume = _updated_workload.workloadvolumes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString());
                                 }
+                                else if(_updated_workload.workloadvolumes.Exists(x => x.driveletter == wmiVolume["DriveLetter"].ToString().Substring(0, 1)))
+                                {
+                                    _volume = _updated_workload.workloadvolumes.FirstOrDefault(x => x.driveletter == wmiVolume["DriveLetter"].ToString().Substring(0, 1));
+                                }
                                 else
                                 {
                                     _updated_workload.workloadvolumes.Add(_volume);
@@ -431,8 +435,8 @@ namespace MRMPService.MRMPAPI.Classes
             _updated_workload.ostype = "windows";
             _updated_workload.provisioned = true;
 
-            await MRMPServiceBase._mrmp_api.workload().updateworkload(_updated_workload);
-            await MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
+            MRMPServiceBase._mrmp_api.workload().updateworkload(_updated_workload).Wait();
+            MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(_updated_workload, "Success", true).Wait();
 
             Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
         }

@@ -11,6 +11,7 @@ using Renci.SshNet.Sftp;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace MRMPService.MRMPAPI.Classes
 {
@@ -233,7 +234,18 @@ namespace MRMPService.MRMPAPI.Classes
 
                                     try { _updated_workload.vcpu = _inv_file.Count(x => x.Contains("<CPU>")); } catch (Exception) { }
                                     try { _updated_workload.vcore = Int32.Parse(_inv_file.FirstOrDefault(x => x.Contains("DCPU_Cores")).Split('=').Last()); } catch (Exception) { }
-                                    try { _updated_workload.vcpu_speed = Double.Parse(_inv_file.FirstOrDefault(x => x.Contains("DCPU_RatedSpeed")).Split('=').Last()); } catch (Exception) { }
+
+                                    Double _temp_cpuspeed_value;
+                                    string _value_string = _inv_file.FirstOrDefault(x => x.Contains("DCPU_RatedSpeed")).Split('=').Last();
+                                    if (Double.TryParse(_value_string, NumberStyles.Float, CultureInfo.InvariantCulture, out _temp_cpuspeed_value))
+                                    {
+                                        _updated_workload.vcpu_speed = _temp_cpuspeed_value;
+                                    }
+                                    else
+                                    {
+                                        Logger.log(String.Format("Cannot parse {0} for cpu speed", _value_string), Logger.Severity.Warn);
+                                        _updated_workload.vcpu_speed = 0.0;
+                                    }
 
                                     try
                                     {

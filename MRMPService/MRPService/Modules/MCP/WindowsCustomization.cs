@@ -104,6 +104,7 @@ namespace MRMPService.Modules.MCP
                 if (_disk_index != 0)
                 {
                     _diskpart_struct.Add(String.Format("select disk {0}", _disk_index));
+                    _diskpart_struct.Add("clean");
                     _diskpart_struct.Add("ATTRIBUTES DISK CLEAR READONLY noerr");
                     _diskpart_struct.Add("ONLINE DISK noerr");
                 }
@@ -119,15 +120,11 @@ namespace MRMPService.Modules.MCP
                 foreach (MRPWorkloadVolumeType _volume in _target_workload.workloadvolumes.ToList().Where(x => x.diskindex == _disk_index && !x.driveletter.Contains("C")).OrderBy(x => x.driveletter))
                 {
                     string _driveletter = _volume.driveletter.Substring(0, 1);
-                    if (_target_workload.osedition.Contains("2008"))
-                    {
-                        _diskpart_struct.Add("clean");
-                    }
+
+                    _diskpart_struct.Add(String.Format("select disk {0}", _disk_index));
                     _diskpart_struct.Add(String.Format("create partition primary size={0} noerr", _volume.volumesize * 1024));
-                    _diskpart_struct.Add(String.Format("select partition {0}", _vol_index));
                     _diskpart_struct.Add("format fs=ntfs quick");
                     _diskpart_struct.Add(String.Format("assign letter={0} noerr", _driveletter));
-                    _diskpart_struct.Add("active");
                     _diskpart_struct.Add("");
                     _vol_index++;
                 }

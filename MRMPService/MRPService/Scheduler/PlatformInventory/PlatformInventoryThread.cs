@@ -28,18 +28,20 @@ namespace MRMPService.Scheduler.PlatformInventory
                     //process platform independant items
                     List<MRPPlatformType> _mrp_platforms = (await MRMPServiceBase._mrmp_api.platform().list(new MRPPlatformFilterPagedType() { deleted = false, enabled = true, page = 1, page_size = 200 })).platforms;
                     //Process Platforms in paralel
-                    Parallel.ForEach(_mrp_platforms, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_inventory_concurrency }, async (platform) =>
-                          {
-                              try
+                    if (_mrp_platforms.Count > 0)
+                    {
+                        Parallel.ForEach(_mrp_platforms, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_inventory_concurrency }, (platform) =>
                               {
-                                  await PlatformDoInventory.PlatformInventoryDo(platform);
-                              }
-                              catch (Exception ex)
-                              {
-                                  Logger.log(String.Format("Error collecting inventory information from platform {0} with error {1}", platform.platform, ex.ToString()), Logger.Severity.Error);
-                              }
-                          });
-
+                                  try
+                                  {
+                                      PlatformDoInventory.PlatformInventoryDo(platform).Wait();
+                                  }
+                                  catch (Exception ex)
+                                  {
+                                      Logger.log(String.Format("Error collecting inventory information from platform {0} with error {1}", platform.platform, ex.ToString()), Logger.Severity.Error);
+                                  }
+                              });
+                    }
                     sw.Stop();
                     Logger.log(String.Format("Completed platform inventory for platforms in {0} [next run at {1}]", TimeSpan.FromMilliseconds(sw.Elapsed.TotalSeconds), _next_inventory_run), Logger.Severity.Info);
 

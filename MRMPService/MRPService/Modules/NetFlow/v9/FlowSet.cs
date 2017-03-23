@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using MRMPService.Utilities;
 
 namespace MRMPService.Modules.Netflow.v9
 {
@@ -11,7 +12,7 @@ namespace MRMPService.Modules.Netflow.v9
 	{
 		private UInt16 _id;
 		private UInt16 _length;
-		private List<Template> _template;
+		private SyncronisedList<Template> _template;
         private List<Byte> _valuebyte;
         
         private Byte[] _bytes;
@@ -30,7 +31,7 @@ namespace MRMPService.Modules.Netflow.v9
                 return this._length;
 			}
 		}
-		public List<Template> Template
+		public SyncronisedList<Template> Template
 		{
 			get
 			{
@@ -55,7 +56,7 @@ namespace MRMPService.Modules.Netflow.v9
         private void Parse(TemplatesV9 templates)
         {
             byte[] reverse = this._bytes.Reverse().ToArray();
-            this._template = new List<Template>();
+            this._template = new SyncronisedList<Template>();
             this._valuebyte = new List<byte>();
             
             this._id = BitConverter.ToUInt16(reverse, this._bytes.Length - sizeof(Int16) - 0);
@@ -80,9 +81,9 @@ namespace MRMPService.Modules.Netflow.v9
                         this._template.Add(template);
 
                         Boolean flag = false;
-                        Template[] templs = templates.Templats.ToArray();
+                        SyncronisedList<Template> templs = templates.Templates;
 
-                        for (int i = 0; i < templs.Length; i++ )
+                        for (int i = 0; i < templs.Count; i++ )
                         {
                             if (template.ID == templs[i].ID)
                             {
@@ -93,11 +94,11 @@ namespace MRMPService.Modules.Netflow.v9
 
                         if (flag)
                         {
-                            templates.Templats = templs.ToList();
+                            templates.Templates = templs;
                         }
                         else
                         {
-                            templates.Templats.Add(template);
+                            templates.Templates.Add(template);
                         }
                         
                         pastaddress = address;
@@ -110,7 +111,7 @@ namespace MRMPService.Modules.Netflow.v9
                 Boolean flag = false;
                 Template templs = null;   
                     
-                foreach(Template templ in templates.Templats)
+                foreach(Template templ in templates.Templates)
                 {
                     if (templ.ID == this._id) 
                     {

@@ -23,7 +23,6 @@ namespace MRMPService
                 //AppDomain.CurrentDomain.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
                 //MRMPService.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
 
-
                 MRMPServiceBase.event_log = MRPLog1;
 
                 Startup _startup = new Startup();

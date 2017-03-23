@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 
 namespace MRMPService.Modules.Netflow.v10
 {
     public class V10Packet
     {
-        private V9Header _header;
+        private V10Header _header;
         private List<FlowSet> _flowset;
         private Byte[] _bytes;
 
-        public V9Header Header
+        public V10Header Header
         {
             get
             {
@@ -44,21 +43,23 @@ namespace MRMPService.Modules.Netflow.v10
             Array.Copy(_bytes, 0, header, 0, 16);
             Array.Copy(_bytes, 16, flowset, 0, length);
 
-            this._header = new V9Header(header);
+            this._header = new V10Header(header);
             byte[] reverse = flowset.Reverse().ToArray();
 
-            int templengh = 0;
+            int templenght = 0;
 
-            while ((templengh + 2) < flowset.Length)
+            while ((templenght + 2) < flowset.Length)
             {
-                UInt16 lengths = BitConverter.ToUInt16(reverse, flowset.Length - sizeof(Int16) - (templengh + 2));
+                UInt16 lengths = BitConverter.ToUInt16(reverse, flowset.Length - sizeof(Int16) - (templenght + 2));
                 Byte[] bflowsets = new Byte[lengths];
-                Array.Copy(flowset, templengh, bflowsets, 0, lengths);
+                if (lengths <= flowset.Count())
+                {
+                    Array.Copy(flowset, templenght, bflowsets, 0, lengths);
 
-                FlowSet flowsets = new FlowSet(bflowsets, templates);
-                this._flowset.Add(flowsets);
-
-                templengh += lengths;
+                    FlowSet flowsets = new FlowSet(bflowsets, templates, _header.DomainID);
+                    this._flowset.Add(flowsets);
+                }
+                templenght += lengths;
             }
         }
 

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using MRMPService.Utilities;
 
 namespace MRMPService.Modules.Netflow.v10
 {
@@ -11,7 +11,7 @@ namespace MRMPService.Modules.Netflow.v10
     {
         private UInt16 _id;
         private UInt16 _length;
-        private List<Template> _template;
+        private SyncronisedList<Template> _template;
         private List<Byte> _valuebyte;
 
         private Byte[] _bytes;
@@ -30,7 +30,7 @@ namespace MRMPService.Modules.Netflow.v10
                 return this._length;
             }
         }
-        public List<Template> Template
+        public SyncronisedList<Template> Template
         {
             get
             {
@@ -46,41 +46,30 @@ namespace MRMPService.Modules.Netflow.v10
             }
         }
 
-        public FlowSet(Byte[] bytes, TemplatesV10 templates)
+        public FlowSet(Byte[] bytes, TemplatesV10 templates, UInt32 _domain_id)
         {
             this._bytes = bytes;
-            this.Parse(templates);
+            this.Parse(templates, _domain_id);
         }
 
-        private void Parse(TemplatesV10 templates)
+        private void Parse(TemplatesV10 templates, UInt32 _domain_id)
         {
             byte[] reverse = this._bytes.Reverse().ToArray();
-            this._template = new List<Template>();
+            this._template = new SyncronisedList<Template>();
             this._valuebyte = new List<byte>();
-
             this._id = BitConverter.ToUInt16(reverse, this._bytes.Length - sizeof(Int16) - 0);
             this._length = BitConverter.ToUInt16(reverse, this._bytes.Length - sizeof(Int16) - 2);
-
             if ((this._id == 2))
             {
-                int cout, pastaddress, address = 6;
-
+                int address = 6;
                 while (address < this._bytes.Length)
                 {
-                    cout = BitConverter.ToUInt16(reverse, this._bytes.Length - sizeof(Int16) - address);
-
-                    int length = cout * 4 + 4;
-                    Byte[] btemplate = new Byte[length];
-                    Array.Copy(this._bytes, address - 2, btemplate, 0, length);
-
-                    Template template = new Template(btemplate);
-
+                    Template template = new Template(this._bytes, address, _domain_id);
+                    
                     this._template.Add(template);
-
                     Boolean flag = false;
-                    Template[] templs = templates.Templats.ToArray();
-
-                    for (int i = 0; i < templs.Length; i++)
+                    SyncronisedList<Template> templs = templates.Templates;
+                    for (int i = 0; i < templs.Count; i++)
                     {
                         if (template.ID == templs[i].ID)
                         {
@@ -91,36 +80,25 @@ namespace MRMPService.Modules.Netflow.v10
 
                     if (flag)
                     {
-                        templates.Templats = templs.ToList();
+                        templates.Templates = templs;
                     }
                     else
                     {
-                        templates.Templats.Add(template);
+                        templates.Templates.Add(template);
                     }
 
-                    pastaddress = address;
-                    address = cout * 4 + pastaddress + 4;
+                    address += template.Length + 4;
                 }
             }
             else if (this._id > 255)
             {
-                Boolean flag = false;
                 Template templs = null;
 
-                foreach (Template templ in templates.Templats)
+                Template _template = templates.Templates.FirstOrDefault(x => x.ID == this._id && x.DomainID == _domain_id);
+                if (_template != null)
                 {
-                    if (templ.ID == this._id)
-                    {
-                        templs = DeepClone(templ) as Template;
-                        flag = true;
-                    }
-                }
-
-                int j = 4, z;
-
-                if (flag)
-                {
-
+                    int j = 4, z;
+                    templs = DeepClone(_template) as Template;
                     z = (this._length - 4) / templs.FieldLength;
 
                     for (int y = 0; y < z; y++)
@@ -141,17 +119,23 @@ namespace MRMPService.Modules.Netflow.v10
                         }
                     }
                 }
-
-                if (!flag)
+                else
                 {
                     for (int i = 4; i < this._bytes.Length; i++)
                     {
                         this._valuebyte.Add(this._bytes[i]);
                     }
                 }
+
+                foreach (Template templ in templates.Templates)
+                {
+                    if (templ.ID == this._id)
+                    {
+                        templs = DeepClone(templ) as Template;
+                    }
+                }
             }
         }
-
         public static object DeepClone(object obj)
         {
             object objResult = null;

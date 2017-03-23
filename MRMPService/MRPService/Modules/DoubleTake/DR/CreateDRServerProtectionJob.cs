@@ -23,7 +23,7 @@ namespace MRMPService.Modules.DoubleTake.DR
                 await MRMPServiceBase._mrmp_api.task().progress(_task_id, "Verifying license status on both source and target workloads", ReportProgress.Progress(_start_progress, _end_progress, 2));
                 if (!_dt.management().CheckLicense(DT_JobTypes.DR_Full_Protection, _protectiongroup.organization_id))
                 {
-                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Invalid license detected on workloads. Trying to fix the licenses."), 3);
+                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Invalid license detected on workloads. Trying to fix the licenses."), ReportProgress.Progress(_start_progress, _end_progress, 3));
                     if (!_dt.management().CheckLicense(DT_JobTypes.DR_Full_Protection, _protectiongroup.organization_id))
                     {
                         throw new Exception(String.Format("Invalid license detected on workloads after trying to fix licenses"));
@@ -123,6 +123,8 @@ namespace MRMPService.Modules.DoubleTake.DR
                 MRPWorkloadType _update_workload = new MRPWorkloadType();
                 _update_workload.id = _target_workload.id;
                 _update_workload.dt_installed = true;
+                _update_workload.dt_collection_enabled = true;
+
                 await MRMPServiceBase._mrmp_api.workload().updateworkload(_update_workload);
 
                 await DTJobPoller.PollerDo(_managementobject);
