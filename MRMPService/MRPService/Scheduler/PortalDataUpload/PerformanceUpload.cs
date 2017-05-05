@@ -40,14 +40,14 @@ namespace MRMPService.Scheduler.PortalDataUpload
                         _performancecounters_list.Add(_performancecrud);
                         if (_performancecounters_list.Count > MRMPServiceBase.portal_upload_performanceounter_page_size)
                         {
-                            MRMPServiceBase._mrmp_api.performancecounter().create(_performancecounters_list).Wait();
+                            MRMPServiceBase._mrmp_api.performancecounter().create(_performancecounters_list);
                             _performancecounters_list.Clear();
                         }
                     }
                     //upload last remaining records
                     if (_performancecounters_list.Count > 0)
                     {
-                        MRMPServiceBase._mrmp_api.performancecounter().create(_performancecounters_list).Wait();
+                        MRMPServiceBase._mrmp_api.performancecounter().create(_performancecounters_list);
                         _performancecounters_list.Clear();
                     }
                     //remove all processed records from from local database

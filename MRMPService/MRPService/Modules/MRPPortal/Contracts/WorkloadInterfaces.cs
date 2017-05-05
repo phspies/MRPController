@@ -41,5 +41,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         public bool? deleted { get; set; }
         [JsonProperty("platformnetwork")]
         public MRPPlatformnetworkType platformnetwork { get; set; }
+        [JsonProperty("_destroy")]
+        public bool? _destroy { get; set; }
     }
 }

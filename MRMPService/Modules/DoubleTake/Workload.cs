@@ -16,40 +16,40 @@ namespace MRMPService.MRMPDoubleTake
             workloadApi = new WorkloadsApi(_source_connection);
         }
 
-        async public Task<WorkloadModel> CreateWorkload(String _job_type)
+        public WorkloadModel CreateWorkload(String _job_type)
         {
-            var workloadResult = await workloadApi.CreateWorkloadAsync(_job_type);
+            var workloadResult = workloadApi.CreateWorkloadAsync(_job_type).Result;
             workloadResult.EnsureSuccessStatusCode();
 
             return workloadResult.Content;
         }
-        async public Task<WorkloadModel> CreateWorkloadDRRecovery(Guid _image_id)
+        public WorkloadModel CreateWorkloadDRRecovery(Guid _image_id)
         {
-            var workloadResult = await workloadApi.CreateWorkloadAsync(DT_JobTypes.DR_Full_Recovery, _image_id, Guid.Empty);
+            var workloadResult = workloadApi.CreateWorkloadAsync(DT_JobTypes.DR_Full_Recovery, _image_id, Guid.Empty).Result;
             workloadResult.EnsureSuccessStatusCode();
             return workloadResult.Content;
         }
-        async public Task<WorkloadModel> CreateWorkloadDRRecovery(Guid _image_id, Guid _snap_id)
+        public WorkloadModel CreateWorkloadDRRecovery(Guid _image_id, Guid _snap_id)
         {
-            var workloadResult = await workloadApi.CreateWorkloadAsync(DT_JobTypes.DR_Full_Recovery, _image_id, _snap_id);
+            var workloadResult = workloadApi.CreateWorkloadAsync(DT_JobTypes.DR_Full_Recovery, _image_id, _snap_id).Result;
             workloadResult.EnsureSuccessStatusCode();
             return workloadResult.Content;
         }
 
-        async public Task<WorkloadModel> GetWorkload(Guid Id)
+        public WorkloadModel GetWorkload(Guid Id)
         {
-            var workloadUpdateCall = await workloadApi.GetWorkloadAsync(Id);
+            var workloadUpdateCall = workloadApi.GetWorkloadAsync(Id).Result;
             workloadUpdateCall.EnsureSuccessStatusCode();
             return workloadUpdateCall.Content;
         }
 
-        async public Task DeleteWorkload(WorkloadModel workload)
+        public void DeleteWorkload(WorkloadModel workload)
         {
-            ApiResponse deletedModel = await workloadApi.DeleteAsync(workload.Id);
+            ApiResponse deletedModel = workloadApi.DeleteAsync(workload.Id).Result;
             deletedModel.EnsureSuccessStatusCode();
         }
 
-        async public Task<WorkloadModel> AddPhysicalRules(WorkloadModel workload, IEnumerable<PhysicalRuleModel> rules)
+        public WorkloadModel AddPhysicalRules(WorkloadModel workload, IEnumerable<PhysicalRuleModel> rules)
         {
             // While this works as well, 'workload.PhysicalRules = rules.ToArray();'
             // it is not recommended.  Calling the AddPhysicalRuleAsync method will help to 
@@ -57,15 +57,15 @@ namespace MRMPService.MRMPDoubleTake
 
             foreach (PhysicalRuleModel rule in rules)
             {
-                var result = await workloadApi.AddPhysicalRuleAsync(workload.Id, rule);
+                var result = workloadApi.AddPhysicalRuleAsync(workload.Id, rule).Result;
                 result.EnsureSuccessStatusCode();
             }
 
-            return await GetWorkload(workload.Id);
+            return GetWorkload(workload.Id);
         }
-        async public Task<IEnumerable<FileItemModel>> GetWorkloadFiles(WorkloadModel workload)
+        public IEnumerable<FileItemModel> GetWorkloadFiles(WorkloadModel workload)
         {
-            ApiResponse<IEnumerable<FileItemModel>> files = await workloadApi.GetFilesAsync(workload.Id);
+            ApiResponse<IEnumerable<FileItemModel>> files = workloadApi.GetFilesAsync(workload.Id).Result;
 
             return files.Content;
         }

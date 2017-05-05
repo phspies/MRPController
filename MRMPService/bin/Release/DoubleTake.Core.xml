@@ -1,0 +1,2372 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DoubleTake.Core</name>
+    </assembly>
+    <members>
+        <member name="T:DoubleTake.Argument">
+            <summary>
+            Provides argument validation methods.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Argument.CompatibleType``1(System.Object,System.String)">
+            <summary>
+            Verifies that the specified value is compatible with the specified type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type to check for compatibility.</typeparam>
+            <param name="value">The value.</param>
+            <param name="paramName">Name of the parameter.</param>
+            <exception cref="T:System.ArgumentException">The <paramref name="value"/> was not compatible with the specified type <typeparamref name="T"/>.</exception>
+        </member>
+        <member name="M:DoubleTake.Argument.InRange``1(``0,``0,``0,System.String)">
+            <summary>
+            Verifies the argument is in the specified range.
+            </summary>
+            <typeparam name="T">The argument type.</typeparam>
+            <param name="value">The argument value.</param>
+            <param name="minimum">The minimum acceptable value.</param>
+            <param name="maximum">The maximum acceptable value.</param>
+            <param name="parameterName">Name of the parameter.</param>
+            <exception cref="T:System.ArgumentNullException">The value was not in the specified range.</exception>
+        </member>
+        <member name="M:DoubleTake.Argument.IsCompatibleType``1(System.Object)">
+            <summary>
+            Determines whether the specified value is compatible with the specified type <typeparamref name="T"/>.
+            </summary>
+            <typeparam name="T">The type to check for compatibility.</typeparam>
+            <param name="value">The value.</param>
+            <returns><see langword="true"/> if the <paramref name="value"/> was compatible with the specified type
+            <typeparamref name="T"/>; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Argument.NotNull``1(``0,System.String)">
+            <summary>
+            Verifies the argument is not <see langword="null"/>
+            </summary>
+            <typeparam name="T">The argument type.</typeparam>
+            <param name="value">The argument value.</param>
+            <param name="parameterName">Name of the parameter.</param>
+            <exception cref="T:System.ArgumentNullException">The value was <see langword="null"/>.</exception>
+        </member>
+        <member name="M:DoubleTake.Argument.SingleDimensional(System.Array,System.String)">
+            <summary>
+            Verifies that the specified array is single dimensional.
+            </summary>
+            <param name="array">The array.</param>
+            <param name="paramName">Name of the parameter.</param>
+            <exception cref="T:System.ArgumentException">Multidimensional arrays are not supported.</exception>
+        </member>
+        <member name="M:DoubleTake.Argument.NotNullOrEmpty(System.String,System.String)">
+            <summary>
+            Verifies the argument is not <see langword="null"/> or <see cref="F:System.String.Empty"/>.
+            </summary>
+            <param name="value">The argument value.</param>
+            <param name="parameterName">Name of the parameter.</param>
+            <exception cref="T:System.ArgumentNullException">The value was <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">The value was equal to <see cref="F:System.String.Empty"/>.</exception>
+        </member>
+        <member name="M:DoubleTake.Argument.ValidTimeout(System.Int32,System.String)">
+            <summary>
+            Verifies that the specified value is a valid timeout.
+            </summary>
+            <param name="millisecondsTimeout">The milliseconds timeout.</param>
+            <param name="argumentName">Name of the argument.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is
+            invalid.</exception>
+        </member>
+        <member name="M:DoubleTake.Argument.ValidTimeout(System.TimeSpan,System.String)">
+            <summary>
+            Verifies that the specified <see cref="T:System.TimeSpan"/> is a valid timeout.
+            </summary>
+            <param name="timeout">The timeout.</param>
+            <param name="argumentName">Name of the argument.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is invalid.</exception>
+        </member>
+        <member name="T:DoubleTake.Collections.AsyncQueue">
+            <summary>
+            An <see cref="T:DoubleTake.Collections.IAsyncQueue"/> implementation.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Collections.AsyncQueue.Dequeue">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.AsyncQueue.DequeueAll">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.AsyncQueue.Enqueue">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.AsyncQueue.Enqueue(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.AsyncQueue.TryCancel(System.Threading.Tasks.Task)">
+            <inheritdoc/>
+        </member>
+        <member name="T:DoubleTake.Collections.Cache`2">
+            <summary>
+            This class represents a container which is used to remember values.  Optionally, you can specify a duration
+            the data is to be considered good as well as any comparers for the key.
+            </summary>
+            <typeparam name="TKey">The type of the key.</typeparam>
+            <typeparam name="TValue">The type of the value.</typeparam>
+        </member>
+        <member name="M:DoubleTake.Collections.Cache`2.#ctor(System.Nullable{System.TimeSpan},System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Collections.Cache`2"/> class.
+            </summary>
+            <param name="duration">The duration or null if no duration is desired.</param>
+            <param name="equalityComparer">The equality comparer or null to use the default comparer.</param>
+        </member>
+        <member name="M:DoubleTake.Collections.Cache`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Collections.Cache`2"/> class.
+            </summary>
+            <param name="equalityComparer">The equality comparer.</param>
+        </member>
+        <member name="P:DoubleTake.Collections.Cache`2.Comparer">
+            <summary>
+            Gets the comparer.
+            </summary>
+            <value>
+            The comparer.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Collections.Cache`2.Count">
+            <summary>
+            Gets the count.  Note that this count will include the items that may have expired.
+            </summary>
+            <value>
+            The count.
+            </value>
+        </member>
+        <member name="M:DoubleTake.Collections.Cache`2.Add(`0,`1)">
+            <summary>
+            Adds the specified key.  An exception will be thrown if the key already exists.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:DoubleTake.Collections.Cache`2.AddOrUpdate(`0,`1)">
+            <summary>
+            Adds or updates an item in the cache.  basically, this tests for the presence of the key,
+            and if it exists, updates the value rather than throwing an exception.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:DoubleTake.Collections.Cache`2.ContainsKey(`0)">
+            <summary>
+            Determines whether the specified key is contained within the Cache.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>
+              <c>true</c> if the cache contains the specified key; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Cache`2.TryGetValue(`0,`1@)">
+            <summary>
+            Tries to get the value.
+            </summary>
+            <param name="key">The key.</param>
+            <param name="value">The value.</param>
+            <returns>
+              <c>true</c> if the specified Cache contains key; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Cache`2.Remove(`0)">
+            <summary>
+            Removes the specified key and its value.
+            </summary>
+            <param name="key">The key.</param>
+            <returns>
+            <c>true</c> if the item was removed; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:DoubleTake.Collections.Cache`2.CacheValue">
+            <summary>
+            Internal implementation class used to store the value and the expiration date for that value.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Collections.Cache`2.CacheValue.#ctor(`1,System.Nullable{System.TimeSpan})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Collections.Cache`2.CacheValue"/> class.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="duration">The duration.</param>
+        </member>
+        <member name="P:DoubleTake.Collections.Cache`2.CacheValue.ExpirationTime">
+            <summary>
+            Gets or sets the expiration time.
+            </summary>
+            <value>
+            The expiration time.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Collections.Cache`2.CacheValue.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+            <value>
+            The value.
+            </value>
+        </member>
+        <member name="M:DoubleTake.Collections.Cache`2.CacheValue.IsGood">
+            <summary>
+            Determines whether this value is good based upon whether it has expired or not.
+            </summary>
+            <returns>
+              <c>true</c> if this instance is good; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:DoubleTake.Collections.Deque`1">
+            <summary>
+            Represents a double ended queue
+            </summary>
+            <typeparam name="T">The type of the valuses stored in the queue.</typeparam>
+            <seealso cref="T:System.Collections.Generic.IList`1" />
+            <seealso cref="T:System.Collections.IList" />
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Collections.Deque`1"/> class.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Collections.Deque`1"/> class with the specified
+            capacity.
+            </summary>
+            <param name="capacity">The capacity.</param>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Collections.Deque`1"/> class.
+            </summary>
+            <param name="collection">The collection with which to initialize the
+            <see cref="T:DoubleTake.Collections.Deque`1"/>.</param>
+        </member>
+        <member name="P:DoubleTake.Collections.Deque`1.Capacity">
+            <summary>
+            Gets or sets the capacity.
+            </summary>
+            <value>
+            The capacity.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Collections.Deque`1.Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:DoubleTake.Collections.Deque`1.System#Collections#ICollection#IsSynchronized">
+            <inheritdoc/>
+        </member>
+        <member name="P:DoubleTake.Collections.Deque`1.System#Collections#ICollection#SyncRoot">
+            <inheritdoc/>
+        </member>
+        <member name="P:DoubleTake.Collections.Deque`1.System#Collections#Generic#ICollection{T}#IsReadOnly">
+            <inheritdoc/>
+        </member>
+        <member name="P:DoubleTake.Collections.Deque`1.System#Collections#IList#IsFixedSize">
+            <inheritdoc/>
+        </member>
+        <member name="P:DoubleTake.Collections.Deque`1.System#Collections#IList#IsReadOnly">
+            <inheritdoc/>
+        </member>
+        <member name="P:DoubleTake.Collections.Deque`1.System#Collections#IList#Item(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="P:DoubleTake.Collections.Deque`1.Item(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.Clear">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.Contains(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.CopyTo(`0[],System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.FindIndex(System.Predicate{`0})">
+            <summary>
+            Searches for the specified object, using the specified predicate, and returns the
+            zero-based index of the first occurrence within the entire <see cref="T:DoubleTake.Collections.Deque`1"/>.
+            </summary>
+            <param name="match">The predicate used to find a matching element.</param>
+            <returns>The index of the element if it was found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.FindIndex(System.Int32,System.Predicate{`0})">
+            <summary>
+            Searches for the specified object, using the specified predicate, and returns the
+            zero-based index of the first occurrence in the <see cref="T:DoubleTake.Collections.Deque`1"/> starting at the
+            specified index and searching forwards to the end.
+            </summary>
+            <param name="startIndex">The zero-based starting index of the forward search.</param>
+            <param name="match">The predicate used to find a matching element.</param>
+            <returns>The index of the element if it was found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.FindIndex(System.Int32,System.Int32,System.Predicate{`0})">
+            <summary>
+            Searches for the specified object, using the specified predicate, and returns the
+            zero-based index of the first occurrence in the <see cref="T:DoubleTake.Collections.Deque`1"/> starting at the
+            specified index and searching forwards the specified number of elements.
+            </summary>
+            <param name="startIndex">The zero-based starting index of the forward search.</param>
+            <param name="count">The number of elements to search.</param>
+            <param name="match">The predicate used to find a matching element.</param>
+            <returns>The index of the element if it was found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.FindLastIndex(System.Predicate{`0})">
+            <summary>
+            Searches for the specified object, using the specified predicate, and returns the
+            zero-based index of the last occurrence within the entire <see cref="T:DoubleTake.Collections.Deque`1"/>.
+            </summary>
+            <param name="match">The predicate used to find a matching element.</param>
+            <returns>The index of the element if it was found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.FindLastIndex(System.Int32,System.Predicate{`0})">
+            <summary>
+            Searches for the specified object, using the specified predicate, and returns the
+            zero-based index of the last occurrence in the <see cref="T:DoubleTake.Collections.Deque`1"/> starting at the
+            specified index and searching backwards to the beginning.
+            </summary>
+            <param name="startIndex">The zero-based starting index of the backward search.</param>
+            <param name="match">The predicate used to find a matching element.</param>
+            <returns>The index of the element if it was found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.FindLastIndex(System.Int32,System.Int32,System.Predicate{`0})">
+            <summary>
+            Searches for the specified object, using the specified predicate, and returns the
+            zero-based index of the first occurrence in the <see cref="T:DoubleTake.Collections.Deque`1"/> starting at the
+            specified index and searching backwards the specified number of elements.
+            </summary>
+            <param name="startIndex">The zero-based starting index of the backward search.</param>
+            <param name="count">The number of elements to search.</param>
+            <param name="match">The predicate used to find a matching element.</param>
+            <returns>The index of the element if it was found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.System#Collections#ICollection#CopyTo(System.Array,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.System#Collections#Generic#ICollection{T}#Add(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.System#Collections#IList#Add(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.System#Collections#IList#Contains(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.System#Collections#IList#IndexOf(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.System#Collections#IList#Insert(System.Int32,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.System#Collections#IList#Remove(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.IndexOf(`0)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the first
+            occurrence within the entire <see cref="T:DoubleTake.Collections.Deque`1"/>.
+            </summary>
+            <param name="item">THe object to locate in the <see cref="T:DoubleTake.Collections.Deque`1"/>. The value can be
+            <see langword="null"/> for reference types.</param>
+            <returns>The zero-based index of object if found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.IndexOf(`0,System.Int32)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the first
+            occurrence in the <see cref="T:DoubleTake.Collections.Deque`1"/> starting at the specified index and searching
+            forwards to the end.
+            </summary>
+            <param name="item">THe object to locate in the <see cref="T:DoubleTake.Collections.Deque`1"/>. The value can be
+            <see langword="null"/> for reference types.</param>
+            <param name="startIndex">The zero-based starting index of the forward search.</param>
+            <returns>The zero-based index of object if found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.IndexOf(`0,System.Int32,System.Int32)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the first
+            occurrence in the <see cref="T:DoubleTake.Collections.Deque`1"/> starting at the specified index and searching
+            forwards the specified number of elements.
+            </summary>
+            <param name="item">THe object to locate in the <see cref="T:DoubleTake.Collections.Deque`1"/>. The value can be
+            <see langword="null"/> for reference types.</param>
+            <param name="startIndex">The zero-based starting index of the forward search.</param>
+            <param name="count">The number of elements to search.</param>
+            <returns>The zero-based index of object if found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.Insert(System.Int32,`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.LastIndexOf(`0)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the last
+            occurrence within the entire <see cref="T:DoubleTake.Collections.Deque`1"/>.
+            </summary>
+            <param name="item">THe object to locate in the <see cref="T:DoubleTake.Collections.Deque`1"/>. The value can be
+            <see langword="null"/> for reference types.</param>
+            <returns>The zero-based index of object if found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.LastIndexOf(`0,System.Int32)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the last
+            occurrence in the <see cref="T:DoubleTake.Collections.Deque`1"/> starting at the specified index searching
+            backwards to the beginning.
+            </summary>
+            <param name="item">THe object to locate in the <see cref="T:DoubleTake.Collections.Deque`1"/>. The value can be
+            <see langword="null"/> for reference types.</param>
+            <param name="startIndex">The zero-based starting index of the backward search.</param>
+            <returns>The zero-based index of object if found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.LastIndexOf(`0,System.Int32,System.Int32)">
+            <summary>
+            Searches for the specified object and returns the zero-based index of the last
+            occurrence in the <see cref="T:DoubleTake.Collections.Deque`1"/> starting at the specified index and searching
+            backwards the specified number of elements.
+            </summary>
+            <param name="item">THe object to locate in the <see cref="T:DoubleTake.Collections.Deque`1"/>. The value can be
+            <see langword="null"/> for reference types.</param>
+            <param name="startIndex">The zero-based starting index of the backward search.</param>
+            <param name="count">The number of elements to search.</param>
+            <returns>The zero-based index of object if found; otherwise, -1.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.PopBack">
+            <summary>
+            Removes an element from back of the <see cref="T:DoubleTake.Collections.Deque`1"/> and returns that element.
+            </summary>
+            <returns>The element that was removed from the back of the <see cref="T:DoubleTake.Collections.Deque`1"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.PopFront">
+            <summary>
+            Removes an element from front of the <see cref="T:DoubleTake.Collections.Deque`1"/> and returns that element.
+            </summary>
+            <returns>The element that was removed from the front of the <see cref="T:DoubleTake.Collections.Deque`1"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.PushBack(`0)">
+            <summary>
+            Inserts an element into the back of the <see cref="T:DoubleTake.Collections.Deque`1"/>.
+            </summary>
+            <param name="item">The element to insert.</param>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.PushFront(`0)">
+            <summary>
+            Inserts an element into the front of the <see cref="T:DoubleTake.Collections.Deque`1"/>.
+            </summary>
+            <param name="item">The element to insert.</param>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.Remove(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.RemoveAt(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Collections.Deque`1.TrimExcess">
+            <summary>
+            Trims the excess elements from the <see cref="T:DoubleTake.Collections.Deque`1"/>.
+            </summary>
+        </member>
+        <member name="T:DoubleTake.Collections.IAsyncQueue">
+            <summary>
+            Represents a queue of tasks.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Collections.IAsyncQueue.Dequeue">
+            <summary>
+            Dequeues a task from the queue.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Collections.IAsyncQueue.DequeueAll">
+            <summary>
+            Dequeues all tasks from the queue.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Collections.IAsyncQueue.Enqueue">
+            <summary>
+            Enqueues a new <see cref="T:System.Threading.Tasks.Task"/> onto the queue.
+            </summary>
+            <returns>The newly enqueued <see cref="T:System.Threading.Tasks.Task"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.IAsyncQueue.Enqueue(System.Threading.CancellationToken)">
+            <summary>
+            Enqueues a new <see cref="T:System.Threading.Tasks.Task"/> that observes a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>The newly enqueued <see cref="T:System.Threading.Tasks.Task"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Collections.IAsyncQueue.TryCancel(System.Threading.Tasks.Task)">
+            <summary>
+            Attempts to dequeue and transition the specified <see cref="T:System.Threading.Tasks.Task"/> into the
+            <see cref="F:System.Threading.Tasks.TaskStatus.Canceled"/> state.
+            </summary>
+            <param name="task">The task.</param>
+            <returns><see langword="true"/> if the queue contains the specified <see cref="T:System.Threading.Tasks.Task"/>
+            and the transition operation was successful; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="T:DoubleTake.HashCode">
+            <summary>
+            Provides a simple mechanism for generating a hash code from multiple member values.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.HashCode.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.HashCode"/> struct.
+            </summary>
+            <param name="value">The value.</param>
+        </member>
+        <member name="M:DoubleTake.HashCode.op_Implicit(DoubleTake.HashCode)~System.Int32">
+            <summary>
+            Performs an implicit conversion from <see cref="T:DoubleTake.HashCode"/> to <see cref="T:System.Int32"/>.
+            </summary>
+            <param name="hash">The <see cref="T:DoubleTake.HashCode"/> instance to convert.</param>
+            <returns>The result of the conversion.</returns>
+        </member>
+        <member name="M:DoubleTake.HashCode.op_Inequality(DoubleTake.HashCode,DoubleTake.HashCode)">
+            <summary>
+            Implements the operator !=.
+            </summary>
+            <param name="left">The left <see cref="T:DoubleTake.HashCode"/> value.</param>
+            <param name="right">The right <see cref="T:DoubleTake.HashCode"/> value.</param>
+            <returns>The result of comparing the two <see cref="T:DoubleTake.HashCode"/> instances for inequality.</returns>
+        </member>
+        <member name="M:DoubleTake.HashCode.op_Equality(DoubleTake.HashCode,DoubleTake.HashCode)">
+            <summary>
+            Implements the operator ==.
+            </summary>
+            <param name="left">The left <see cref="T:DoubleTake.HashCode"/> value.</param>
+            <param name="right">The right <see cref="T:DoubleTake.HashCode"/> value.</param>
+            <returns>The result of comparing the two <see cref="T:DoubleTake.HashCode"/> instances for equality.</returns>
+        </member>
+        <member name="M:DoubleTake.HashCode.From``1(``0)">
+            <summary>
+            Gets a <see cref="T:DoubleTake.HashCode"/> instance for an object.
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <param name="value">The object instance.</param>
+            <returns>A <see cref="T:DoubleTake.HashCode"/> instance for the specified object.</returns>
+        </member>
+        <member name="M:DoubleTake.HashCode.From``1(``0,System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Gets a <see cref="T:DoubleTake.HashCode"/> instance for an object.
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <param name="value">The value.</param>
+            <param name="comparer">The equality comparer to use for obtaining a hash value.</param>
+            <returns>The new <see cref="T:DoubleTake.HashCode"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.HashCode.From``1(``0,System.Func{``0,System.Int32})">
+            <summary>
+            Gets a <see cref="T:DoubleTake.HashCode"/> instance for an object.
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <param name="value">The value.</param>
+            <param name="getHashCode">The delegate used to obtain a hash value.</param>
+            <returns>A <see cref="T:DoubleTake.HashCode"/> instance for the specified object.</returns>
+        </member>
+        <member name="M:DoubleTake.HashCode.And``1(``0)">
+            <summary>
+            Calculates a new <see cref="T:DoubleTake.HashCode"/> based on the current value and another object.
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <param name="other">The object used to calculate the new <see cref="T:DoubleTake.HashCode"/> from this one.</param>
+            <returns>A new <see cref="T:DoubleTake.HashCode"/> based on the current value and the specified object.</returns>
+        </member>
+        <member name="M:DoubleTake.HashCode.And``1(``0,System.Collections.Generic.IEqualityComparer{``0})">
+            <summary>
+            Calculates a new <see cref="T:DoubleTake.HashCode"/> based on the current value and another object.
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <param name="other">The object used to calculate the new <see cref="T:DoubleTake.HashCode"/> from this one.</param>
+            <param name="comparer">The equality comparer to use for obtaining a hash value.</param>
+            <returns>A new <see cref="T:DoubleTake.HashCode"/> based on the current value and the specified object.</returns>
+        </member>
+        <member name="M:DoubleTake.HashCode.And``1(``0,System.Func{``0,System.Int32})">
+            <summary>
+            Calculates a new <see cref="T:DoubleTake.HashCode"/> based on the current value and another object.
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <param name="other">The object used to calculate the new <see cref="T:DoubleTake.HashCode"/> from this one.</param>
+            <param name="getHashCode">The delegate used to obtain a hash value.</param>
+            <returns>A new <see cref="T:DoubleTake.HashCode"/> based on the current value and the specified object.</returns>
+        </member>
+        <member name="M:DoubleTake.HashCode.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <param name="obj">Another object to compare to.</param>
+            <returns>
+            true if <paramref name="obj"/> and this instance are the same type and represent the same value; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.HashCode.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>
+            A 32-bit signed integer that is the hash code for this instance.
+            </returns>
+        </member>
+        <member name="T:DoubleTake.Parsing.IParseInput`1">
+            <summary>
+            Defines an interface for types that provide input for parsing.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol to be read from the input.</typeparam>
+        </member>
+        <member name="P:DoubleTake.Parsing.IParseInput`1.Current">
+            <summary>
+            Gets the current symbol from the input stream.
+            </summary>
+            <value>
+            The current symbol.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.IParseInput`1.IsAtEnd">
+            <summary>
+            Gets a value indicating whether or not the stream is at the end.
+            </summary>
+            <value>
+            <see langword="true"/> if the stream is at the end; otherwise, <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.IParseInput`1.Next">
+            <summary>
+            Gets the input stream at the next position.
+            </summary>
+            <value>
+            The input stream at the next position.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.IParseInput`1.Position">
+            <summary>
+            Gets the position of the input stream.
+            </summary>
+            <value>
+            The position of the input stream.
+            </value>
+        </member>
+        <member name="T:DoubleTake.Parsing.ParseError">
+            <summary>
+            Provides information about parsing errors.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseError.#ctor(DoubleTake.Parsing.ParsePosition,System.String,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.ParseError"/> class.
+            </summary>
+            <param name="position">The position in the input stream where the error occurs.</param>
+            <param name="message">The error message.</param>
+            <param name="expectations">The expected input at the position the error occurs.</param>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseError.#ctor(DoubleTake.Parsing.ParsePosition,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.ParseError"/> class.
+            </summary>
+            <param name="position">The position in the input stream where the error occurs.</param>
+            <param name="message">The error message.</param>
+            <param name="expectations">The expected input at the position the error occurs.</param>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParseError.Expectations">
+            <summary>
+            Gets the descriptions of what was expected at the position where the error occurred.
+            </summary>
+            <value>
+            The descriptions of what was expected.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParseError.Message">
+            <summary>
+            Gets the error message.
+            </summary>
+            <value>
+            The error message.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParseError.Position">
+            <summary>
+            Gets the position where the error occurred.
+            </summary>
+            <value>
+            The position where the error occurred.
+            </value>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseError.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseError.ToString(System.String)">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <param name="format">The format.</param>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseError.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <param name="format">A format string specifying how to format this instance.</param>
+            <param name="formatProvider">An object that supplies culture-specific formatting information.</param>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseError.AddExpectations(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:DoubleTake.Parsing.ParseError"/> from this instance, adding the specified expectations.
+            </summary>
+            <param name="expectationsToAdd">The expectations to add.</param>
+            <returns>A new <see cref="T:DoubleTake.Parsing.ParseError"/> instance with the added expectations.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseError.SetExpectation(System.String)">
+            <summary>
+            Creates a new <see cref="T:DoubleTake.Parsing.ParseError"/> from this instance, setting the specified expectation.
+            </summary>
+            <param name="expectation">The expectation to set.</param>
+            <returns>A new <see cref="T:DoubleTake.Parsing.ParseError"/> instance with the expectation set.</returns>
+        </member>
+        <member name="T:DoubleTake.Parsing.ParseException">
+            <summary>
+            The exception that is thrown when parsing fails.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseException.#ctor(DoubleTake.Parsing.ParsePosition,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.ParseException"/> class.
+            </summary>
+            <param name="position">The position.</param>
+            <param name="message">The message.</param>
+            <param name="expectations">The expectations.</param>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseException.#ctor(DoubleTake.Parsing.ParsePosition,System.String,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.ParseException"/> class.
+            </summary>
+            <param name="position">The position.</param>
+            <param name="message">The message.</param>
+            <param name="expectations">The expectations.</param>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseException.#ctor(DoubleTake.Parsing.ParseError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.ParseException"/> class.
+            </summary>
+            <param name="error">The error.</param>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseException.#ctor(DoubleTake.Parsing.ParseError,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.ParseException"/> class.
+            </summary>
+            <param name="error">The error.</param>
+            <param name="inner">The inner.</param>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.ParseException"/> class.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext" /> that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParseException.Error">
+            <summary>
+            Gets the error.
+            </summary>
+            <value>
+            The error.
+            </value>
+        </member>
+        <member name="T:DoubleTake.Parsing.ParsePosition">
+            <summary>
+            Provides information about the position when parsing.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParsePosition.Column">
+            <summary>
+            Gets the column.
+            </summary>
+            <value>
+            The column.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParsePosition.Current">
+            <summary>
+            Gets the current position.
+            </summary>
+            <value>
+            The current position.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParsePosition.Line">
+            <summary>
+            Gets the line.
+            </summary>
+            <value>
+            The line.
+            </value>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParsePosition.op_Explicit(DoubleTake.Parsing.ParsePosition)~System.Int32">
+            <summary>
+            Performs an explicit conversion from <see cref="T:DoubleTake.Parsing.ParsePosition"/> to <see cref="T:System.Int32"/>.
+            </summary>
+            <param name="pos">The position.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParsePosition.op_Implicit(DoubleTake.Parsing.ParsePosition)~System.Int64">
+            <summary>
+            Performs an implicit conversion from <see cref="T:DoubleTake.Parsing.ParsePosition"/> to <see cref="T:System.Int64"/>.
+            </summary>
+            <param name="pos">The position.</param>
+            <returns>
+            The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParsePosition.Equals(DoubleTake.Parsing.ParsePosition)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParsePosition.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParsePosition.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParsePosition.NextCharacter">
+            <summary>
+            Gets the position of the next character.
+            </summary>
+            <returns>The position of the next character.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParsePosition.NextLine">
+            <summary>
+            Gets the position of the next line.
+            </summary>
+            <returns>The position of the next line.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParsePosition.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParsePosition.ToString(System.String)">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <param name="format">The format.</param>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParsePosition.ToString(System.String,System.IFormatProvider)">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <param name="format">The format.</param>
+            <param name="formatProvider">The format provider.</param>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+            <exception cref="T:System.FormatException"></exception>
+        </member>
+        <member name="T:DoubleTake.Parsing.ParseResult`2">
+            <summary>
+            Represents the result of parsing using the monadic <see cref="T:DoubleTake.Parsing.Parser`2" />.
+            </summary>
+            <typeparam name="TSymbol">The type of the input symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseResult`2.#ctor(System.Boolean,`1,DoubleTake.Parsing.IParseInput{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.ParseResult`2"/> class.
+            </summary>
+            <param name="hasConsumedInput">If set to <see langword="true" /> then parsing has consumed input.</param>
+            <param name="result">The result value produced by parsing.</param>
+            <param name="remainingInput">The remaining input.</param>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseResult`2.#ctor(System.Boolean,DoubleTake.Parsing.IParseInput{`0},DoubleTake.Parsing.ParseError)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.ParseResult`2"/> class.
+            </summary>
+            <param name="hasConsumedInput">If set to <see langword="true" /> then parsing has consumed input.</param>
+            <param name="remainingInput">The remaining input.</param>
+            <param name="errorInfo">Information about the error encountered when parsing.</param>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParseResult`2.Error">
+            <summary>
+            Gets the information about the error that occurred during parsing.
+            </summary>
+            <value>
+            the information about the error that occurred during parsing.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParseResult`2.HasConsumedInput">
+            <summary>
+            Gets a value indicating whether or not input was consumed while parsing.
+            </summary>
+            <value>
+            <see langword="true" /> if input was consumed while parsing; otherwise, <see langword="false" />.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParseResult`2.IsFaulted">
+            <summary>
+            Gets a value indicating whether or not an error occurred while parsing the input.
+            </summary>
+            <value>
+            <see langword="true" /> if an error occurred while parsing the input; otherwise, <see langword="false" />.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParseResult`2.RemainingInput">
+            <summary>
+            Gets the remaining input.
+            </summary>
+            <value>
+            The remaining input.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.ParseResult`2.Value">
+            <summary>
+            Gets the value produced from parsing the input.
+            </summary>
+            <value>
+            The value produced from parsing the input.
+            </value>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseResult`2.AddExpectations(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new <see cref="T:DoubleTake.Parsing.ParseResult`2"/> from this one, adding the specified expectations.
+            </summary>
+            <param name="expectations">The expectations to add.</param>
+            <returns>The new parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseResult`2.SetExpectation(System.String)">
+            <summary>
+            Creates a new <see cref="T:DoubleTake.Parsing.ParseResult`2"/> from this one, setting the expectation.
+            </summary>
+            <param name="expectation">The expectation to set.</param>
+            <returns>The new parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.ParseResult`2.MarkConsumed">
+            <summary>
+            Creates a new <see cref="T:DoubleTake.Parsing.ParseResult`2"/> from this one, marking the result as consumed.
+            </summary>
+            <returns>The new parse result.</returns>
+        </member>
+        <member name="T:DoubleTake.Parsing.Parsers">
+            <summary>
+            Defines monadic parser combinator methods.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Between``4(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,``2},DoubleTake.Parsing.Parser{``0,``3})">
+            <summary>
+            Creates a parser from an existing parser that should be parsed between two other parsers that are ignored.
+            </summary>
+            <typeparam name="TSymbol">The type of the input symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <typeparam name="TStart">The type of the start parser result.</typeparam>
+            <typeparam name="TEnd">The type of the end parser result.</typeparam>
+            <param name="parser">The original parser.</param>
+            <param name="start">The parser to parse and ignore first.</param>
+            <param name="end">The parser to parse and ignore last.</param>
+            <returns>A parser that parses input between two other parsers.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.ChainLeft``2(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,System.Func{``1,``1,``1}},``1)">
+            <summary>
+            Creates a parser which parses repeated applications of <paramref name="parser"/> separated by
+            <paramref name="operation"/>, using left associativity, whose result value is used to combine the result
+            from the repeated <paramref name="parser"/> results. If there are no instances of these repeated parsers,
+            then <paramref name="alternateResult"/> is produced instead.
+            </summary>
+            <typeparam name="TSymbol">The type of the input symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The original parser.</param>
+            <param name="operation">The operation parser.</param>
+            <param name="alternateResult">The alternate result.</param>
+            <returns>A parser that will produce the result of the chain of repeated parsers.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.ChainLeft1``2(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,System.Func{``1,``1,``1}})">
+            <summary>
+            Creates a parser which parses repeated applications of <paramref name="parser"/> separated by
+            <paramref name="operation"/>, using left associativity, whose result value is used to combine the result
+            from the repeated <paramref name="parser"/> results.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="operation">The operation.</param>
+            <returns>A parser that will produce the result of the chain of repeated parsers.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.ChainRight``2(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,System.Func{``1,``1,``1}},``1)">
+            <summary>
+            Creates a parser which parses repeated applications of <paramref name="parser"/> separated by
+            <paramref name="operation"/>, using right associativity, whose result value is used to combine the result
+            from the repeated <paramref name="parser"/> results. If there are no instances of these repeated parsers,
+            then <paramref name="alternateResult"/> is produced instead.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="operation">The operation.</param>
+            <param name="alternateResult">The alternate result.</param>
+            <returns>A parser that will produce the result of the chain of repeated parsers.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.ChainRight1``2(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,System.Func{``1,``1,``1}})">
+            <summary>
+            Creates a parser which parses repeated applications of <paramref name="parser"/> separated by
+            <paramref name="operation"/>, using right associativity, whose result value is used to combine the result
+            from the repeated <paramref name="parser"/> results.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="operation">The operation.</param>
+            <returns>A parser that will produce the result of the chain of repeated parsers.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.EndBy``3(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,``2})">
+            <summary>
+            Creates a parser that repeatedly calls a specified parser followed by another end parser which is ignored.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <typeparam name="TEnd">The type of the end parser.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="end">The end parser.</param>
+            <returns>A parser that repeatedly calls a specified parser followed by another end parser which is
+            ignored.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.EndBy1``3(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,``2})">
+            <summary>
+            Creates a parser that repeatedly calls a specified parser followed by another end parser which is ignored.
+            There must be at least one such combination of parsers.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <typeparam name="TEnd">The type of the end parser.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="end">The end parser.</param>
+            <returns>A parser that repeatedly calls a specified parser followed by another end parser which is
+            ignored.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Ignore``2(DoubleTake.Parsing.Parser{``0,``1})">
+            <summary>
+            Creates a parser that consumes and ignores the results of another parser.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <returns>A parser that consumes and ignores the results of <paramref name="parser"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Label``2(DoubleTake.Parsing.Parser{``0,``1},System.String)">
+            <summary>
+            Labels a parser, providing a description of the expectation for error messages.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="expectation">The expectation.</param>
+            <returns>A new parser that with the specified expectation.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Lexeme``1(DoubleTake.Parsing.Parser{System.Char,``0})">
+            <summary>
+            Creates a parser that ignores leading and trailing whitespace around another parser.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <returns>A parser that ignores leading and trailing whitespace around the specified
+            <paramref name="parser"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.LookAhead``2(DoubleTake.Parsing.Parser{``0,``1})">
+            <summary>
+            Creates a parser that "looks ahead". It fails if the specified parser would fail, otherwise it succeeds
+            but consumes nothing.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <returns>A parser that "looks ahead".</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Many``2(DoubleTake.Parsing.Parser{``0,``1})">
+            <summary>
+            Creates a parser that matches zero or more instances of another parser.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <returns>A parser that matches zero or more instances of another parser.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Many1``2(DoubleTake.Parsing.Parser{``0,``1})">
+            <summary>
+            Creates a parser that matches one or more instances of another parser.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <returns>A parser that matches one or more instances of another parser.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.NotFollowedBy``3(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,``2},System.String,System.String)">
+            <summary>
+            Creates a parser that succeeds only if <paramref name="parser"/> is not followed by <paramref name="next"/>.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TOriginal">The type of the original.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="next">The next.</param>
+            <param name="error">The error.</param>
+            <param name="expected">The expected.</param>
+            <returns>A parser that succeeds only if <paramref name="parser"/> is not followed by
+            <paramref name="next"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Option``2(DoubleTake.Parsing.Parser{``0,``1},``1)">
+            <summary>
+            Creates a parser that either parses some expected input, or returns a default result.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="defaultResult">The default result.</param>
+            <returns>A parser that either parses some expected input, or returns a default result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Or``2(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,``1})">
+            <summary>
+            Creates a parser that parses <paramref name="first"/> or <paramref name="second"/>, but not both.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="first">The first.</param>
+            <param name="second">The second.</param>
+            <returns>A parser that parses <paramref name="first"/> or <paramref name="second"/>, but not both.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Parse``1(DoubleTake.Parsing.Parser{System.Char,``0},System.String)">
+            <summary>
+            Parses the specified text input.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="textInput">The text input.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Repeat``2(DoubleTake.Parsing.Parser{``0,``1},System.Int32)">
+            <summary>
+            Repeats the specified count.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="count">The count.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Select``3(DoubleTake.Parsing.Parser{``0,``1},System.Func{``1,``2})">
+            <summary>
+            Selects the specified selector.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TOriginal">The type of the original.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="selector">The selector.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Select``3(DoubleTake.Parsing.Parser{``0,``1},``2)">
+            <summary>
+            Selects the specified result.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TOriginal">The type of the original.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="result">The result.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Select``3(DoubleTake.Parsing.Parser{``0,``1},System.Func{``1,DoubleTake.Parsing.ParsePosition,``2})">
+            <summary>
+            Selects the specified selector.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TOriginal">The type of the original.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="selector">The selector.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.SelectMany``3(DoubleTake.Parsing.Parser{``0,``1},System.Func{``1,DoubleTake.Parsing.Parser{``0,``2}})">
+            <summary>
+            Selects the many.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TOriginal">The type of the original.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="selector">The selector.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.SelectMany``4(DoubleTake.Parsing.Parser{``0,``1},System.Func{``1,DoubleTake.Parsing.Parser{``0,``2}},System.Func{``1,``2,``3})">
+            <summary>
+            Selects the many.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TOriginal">The type of the original.</typeparam>
+            <typeparam name="TIntermediate">The type of the intermediate.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="projector">The projector.</param>
+            <param name="selector">The selector.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.SepBy``3(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,``2})">
+            <summary>
+            Creates a parser from an existing parser that should parse zero or more instances of that parser separated
+            by input parsed by the <paramref name="separator"/> parser.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <typeparam name="TSep">The type of the separator parser.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="separator">The separator.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.SepBy1``3(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,``2})">
+            <summary>
+            Creates a parser from an existing parser that should parse one or more instances of that parser separated
+            by input parsed by the <paramref name="separator"/> parser.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <typeparam name="TSep">The type of the separator parser.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="separator">The separator.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.SkipMany``2(DoubleTake.Parsing.Parser{``0,``1})">
+            <summary>
+            Skips the many.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Then``3(DoubleTake.Parsing.Parser{``0,``1},System.Func{``1,DoubleTake.Parsing.Parser{``0,``2}})">
+            <summary>
+            Thens the specified binder.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TOriginal">The type of the original.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="binder">The binder.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Then``3(DoubleTake.Parsing.Parser{``0,``1},DoubleTake.Parsing.Parser{``0,``2})">
+            <summary>
+            Thens the specified second.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TOriginal">The type of the original.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="first">The first.</param>
+            <param name="second">The second.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Then``3(DoubleTake.Parsing.Parser{``0,``1},System.Func{``1,DoubleTake.Parsing.ParsePosition,DoubleTake.Parsing.Parser{``0,``2}})">
+            <summary>
+            Thens the specified binder.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TOriginal">The type of the original.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="binder">The binder.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Try``2(DoubleTake.Parsing.Parser{``0,``1})">
+            <summary>
+            Tries the specified parser.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.TryParse``1(DoubleTake.Parsing.Parser{System.Char,``0},System.String)">
+            <summary>
+            Tries the parse.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="textInput">The text input.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parsers.Where``2(DoubleTake.Parsing.Parser{``0,``1},System.Func{``1,System.Boolean})">
+            <summary>
+            Wheres the specified predicate.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="parser">The parser.</param>
+            <param name="predicate">The predicate.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="T:DoubleTake.Parsing.Parser`2">
+            <summary>
+            Represents a monadic parser.
+            </summary>
+            <typeparam name="TSymbol">The type of the input symbol.</typeparam>
+            <typeparam name="TResult">The type of the result.</typeparam>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parser`2.#ctor(System.Func{DoubleTake.Parsing.IParseInput{`0},DoubleTake.Parsing.ParseResult{`0,`1}})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.Parser`2"/> class.
+            </summary>
+            <param name="parse">The parse.</param>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parser`2.op_BitwiseOr(DoubleTake.Parsing.Parser{`0,`1},DoubleTake.Parsing.Parser{`0,`1})">
+            <summary>
+            Implements the operator |. Returns a parser that parses <paramref name="first"/> or
+            <paramref name="second"/>, but not both.
+            </summary>
+            <param name="first">The first parser.</param>
+            <param name="second">The second parser.</param>
+            <returns>A parser that parses <paramref name="first"/> or <paramref name="second"/>, but not both.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parser`2.Parse(DoubleTake.Parsing.IParseInput{`0})">
+            <summary>
+            Parses the specified input, returning the parse result as a value.
+            </summary>
+            <param name="input">The input.</param>
+            <returns>The parse result as a value.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Parser`2.TryParse(DoubleTake.Parsing.IParseInput{`0})">
+            <summary>
+            Tries to parse the specified input, returning the parse results as a
+             <see cref="T:DoubleTake.Parsing.ParseResult`2"/>.
+            </summary>
+            <param name="input">The input stream to parse.</param>
+            <returns>The parse results as a <see cref="T:DoubleTake.Parsing.ParseResult`2"/>.</returns>
+        </member>
+        <member name="T:DoubleTake.Parsing.Result">
+            <summary>
+            Provides convenience methods for creating <see cref="T:DoubleTake.Parsing.ParseResult`2"/> instances.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Parsing.Result.EmptyError``1(DoubleTake.Parsing.IParseInput{System.Char},System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates an error result that did not consume input.
+            </summary>
+            <typeparam name="TResult">The type of the result value.</typeparam>
+            <param name="remainingInput">The remaining input.</param>
+            <param name="errorMessage">The error message.</param>
+            <param name="expectations">The expectations.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Result.EmptySuccess``1(``0,DoubleTake.Parsing.IParseInput{System.Char})">
+            <summary>
+            Creates a successful result that did not consume input.
+            </summary>
+            <typeparam name="TResult">The type of the result value.</typeparam>
+            <param name="result">The result value.</param>
+            <param name="remainingInput">The remaining input.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Result.Error``1(DoubleTake.Parsing.IParseInput{System.Char},System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates an error result that consumed input.
+            </summary>
+            <typeparam name="TResult">The type of the result value.</typeparam>
+            <param name="remainingInput">The remaining input.</param>
+            <param name="errorMessage">The error message.</param>
+            <param name="expectations">The expectations.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Result.Success``1(``0,DoubleTake.Parsing.IParseInput{System.Char})">
+            <summary>
+            Creates a successful result that consumed input.
+            </summary>
+            <typeparam name="TResult">The type of the result value.</typeparam>
+            <param name="result">The result value.</param>
+            <param name="remainingInput">The remaining input.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="T:DoubleTake.Parsing.Result`1">
+            <summary>
+            Provides convenience methods for creating <see cref="T:DoubleTake.Parsing.ParseResult`2"/> instances.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+        </member>
+        <member name="M:DoubleTake.Parsing.Result`1.EmptyError``1(DoubleTake.Parsing.IParseInput{`0},System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates an error result that did not consume input.
+            </summary>
+            <typeparam name="TResult">The type of the result value.</typeparam>
+            <param name="remainingInput">The remaining input.</param>
+            <param name="errorMessage">The error message.</param>
+            <param name="expectations">The expectations.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Result`1.EmptyError``1(DoubleTake.Parsing.IParseInput{`0},System.String,System.String[])">
+            <summary>
+            Creates an error result that did not consume input.
+            </summary>
+            <typeparam name="TResult">The type of the result value.</typeparam>
+            <param name="remainingInput">The remaining input.</param>
+            <param name="errorMessage">The error message.</param>
+            <param name="expectations">The expectations.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Result`1.EmptySuccess``1(``0,DoubleTake.Parsing.IParseInput{`0})">
+            <summary>
+            Creates a successful result that did not consume input.
+            </summary>
+            <typeparam name="TResult">The type of the result value.</typeparam>
+            <param name="result">The result value.</param>
+            <param name="remainingInput">The remaining input.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Result`1.Error``1(DoubleTake.Parsing.IParseInput{`0},System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates an error result that consumed input.
+            </summary>
+            <typeparam name="TResult">The type of the result value.</typeparam>
+            <param name="remainingInput">The remaining input.</param>
+            <param name="errorMessage">The error message.</param>
+            <param name="expectations">The expectations.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Result`1.Error``1(DoubleTake.Parsing.IParseInput{`0},System.String,System.String[])">
+            <summary>
+            Creates an error result that consumed input.
+            </summary>
+            <typeparam name="TResult">The type of the result value.</typeparam>
+            <param name="remainingInput">The remaining input.</param>
+            <param name="errorMessage">The error message.</param>
+            <param name="expectations">The expectations.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.Result`1.Success``1(``0,DoubleTake.Parsing.IParseInput{`0})">
+            <summary>
+            Creates a successful result that consumed input.
+            </summary>
+            <typeparam name="TResult">The type of the result value.</typeparam>
+            <param name="result">The result value.</param>
+            <param name="remainingInput">The remaining input.</param>
+            <returns>The parse result.</returns>
+        </member>
+        <member name="T:DoubleTake.Parsing.StreamInput">
+            <summary>
+            Defines an <see cref="T:DoubleTake.Parsing.IParseInput`1"/> for parsing a <see cref="T:System.IO.Stream"/>.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Parsing.StreamInput.#ctor(System.IO.Stream)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.StreamInput"/> class.
+            </summary>
+            <param name="stream">The stream.</param>
+        </member>
+        <member name="M:DoubleTake.Parsing.StreamInput.#ctor(System.IO.TextReader)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.StreamInput"/> class.
+            </summary>
+            <param name="reader">The reader.</param>
+        </member>
+        <member name="M:DoubleTake.Parsing.StreamInput.#ctor(System.IO.TextReader,System.String,System.Int32,DoubleTake.Parsing.ParsePosition)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.StreamInput"/> class.
+            </summary>
+            <param name="reader">The reader.</param>
+            <param name="currentLine">The current line.</param>
+            <param name="linePosition">The line position.</param>
+            <param name="position">The position.</param>
+        </member>
+        <member name="P:DoubleTake.Parsing.StreamInput.Current">
+            <summary>
+            Gets the current symbol from the input stream.
+            </summary>
+            <value>
+            The current symbol.
+            </value>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="P:DoubleTake.Parsing.StreamInput.IsAtEnd">
+            <summary>
+            Gets a value indicating whether or not the stream is at the end.
+            </summary>
+            <value>
+            <see langword="true" /> if the stream is at the end; otherwise, <see langword="false" />.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.StreamInput.Next">
+            <summary>
+            Gets the input stream at the next position.
+            </summary>
+            <value>
+            The input stream at the next position.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.StreamInput.Position">
+            <summary>
+            Gets the position of the input stream.
+            </summary>
+            <value>
+            The position of the input stream.
+            </value>
+        </member>
+        <member name="T:DoubleTake.Parsing.StringInput">
+            <summary>
+            Defines an <see cref="T:DoubleTake.Parsing.IParseInput`1"/> for parsing strings.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Parsing.StringInput.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.StringInput"/> class.
+            </summary>
+            <param name="text">The text.</param>
+        </member>
+        <member name="M:DoubleTake.Parsing.StringInput.#ctor(System.String,DoubleTake.Parsing.ParsePosition)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Parsing.StringInput"/> class.
+            </summary>
+            <param name="text">The text.</param>
+            <param name="position">The position.</param>
+        </member>
+        <member name="P:DoubleTake.Parsing.StringInput.Current">
+            <summary>
+            Gets the current symbol from the input stream.
+            </summary>
+            <value>
+            The current symbol.
+            </value>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="P:DoubleTake.Parsing.StringInput.IsAtEnd">
+            <summary>
+            Gets a value indicating whether or not the stream is at the end.
+            </summary>
+            <value>
+            <see langword="true" /> if the stream is at the end; otherwise, <see langword="false" />.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.StringInput.Next">
+            <summary>
+            Gets the input stream at the next position.
+            </summary>
+            <value>
+            The input stream at the next position.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Parsing.StringInput.Position">
+            <summary>
+            Gets the position of the input stream.
+            </summary>
+            <value>
+            The position of the input stream.
+            </value>
+        </member>
+        <member name="T:DoubleTake.Parsing.SymbolParser`1">
+            <summary>
+            Provides monadic parser combinators for symbol parsing.
+            </summary>
+            <typeparam name="TSymbol">The type of the symbol.</typeparam>
+        </member>
+        <member name="F:DoubleTake.Parsing.SymbolParser`1.AnySymbol">
+            <summary>
+            A parser that parses any single symbol from the input stream.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.SymbolParser`1.Empty">
+            <summary>
+            A parser that successfully parses nothing.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.SymbolParser`1.EndOfInput">
+            <summary>
+            A parser that succeeds only when at the end of the input stream.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.SymbolParser`1.Pos">
+            <summary>
+            A parser that successfully parses nothing and returns the current position within the input stream.
+            </summary>
+            <remarks>
+            This parser is useful for capturing the position in the input stream, which can then be used later for
+            producing parse errors that require semantic information not available during the initial parse.
+            </remarks>
+        </member>
+        <member name="M:DoubleTake.Parsing.SymbolParser`1.Fail``1(System.String,System.String)">
+            <summary>
+            Creates a parser that always fails with the same error information.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="message">The error message.</param>
+            <param name="expected">The expected item to be parsed.</param>
+            <returns>A parser that always fails with the same error information.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.SymbolParser`1.NoneOf(System.String,`0[])">
+            <summary>
+            Creates a parser that parses anything other than the specified symbols.
+            </summary>
+            <param name="label">The label to use when reporting expectations.</param>
+            <param name="symbols">The symbols not to accept.</param>
+            <returns>A parser that parses anything other than the specified symbols.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.SymbolParser`1.NoneOf(System.Collections.Generic.IEnumerable{`0},System.String)">
+            <summary>
+            Creates a parser that parses anything other than the specified symbols.
+            </summary>
+            <param name="symbols">The symbols not to accept.</param>
+            <param name="label">The label to use when reporting expectations.</param>
+            <returns>A parser that parses anything other than the specified symbols.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.SymbolParser`1.OneOf(System.String,`0[])">
+            <summary>
+            Creates a parser that parses one of the specified symbols.
+            </summary>
+            <param name="label">The label to use when reporting expectations.</param>
+            <param name="symbols">The symbols to accept.</param>
+            <returns>A parser that parses one of the specified symbols.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.SymbolParser`1.OneOf(System.Collections.Generic.IEnumerable{`0},System.String)">
+            <summary>
+            Creates a parser that parses one of the specified symbols.
+            </summary>
+            <param name="symbols">The symbols to accept.</param>
+            <param name="label">The label to use when reporting expectations.</param>
+            <returns>A parser that parses one of the specified symbols.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.SymbolParser`1.Return``1(``0)">
+            <summary>
+            Creates a parser that parses nothing and returns the specified result.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="result">The result to return.</param>
+            <returns>A parser that parses nothing and returns the specified <paramref name="result"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.SymbolParser`1.Return``1(System.Func{``0,``0,``0})">
+            <summary>
+            Creates a parser that parses nothing and returns the specified <see cref="T:System.Func`3"/> result.
+            </summary>
+            <typeparam name="T">The type of the result.</typeparam>
+            <param name="result">The result to return.</param>
+            <returns>A parser that parses nothing and returns the specified <paramref name="result"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.SymbolParser`1.Satisfy(System.Predicate{`0},System.String)">
+            <summary>
+            Creates a parser that parses a symbol only if it satisfies a predicate.
+            </summary>
+            <param name="predicate">The predicate used restrict which symbols should be parsed.</param>
+            <param name="label">The label to use when reporting expectations.</param>
+            <returns>A parser that parses a symbol only if it satisfies the <paramref name="predicate"/>.</returns>
+        </member>
+        <member name="T:DoubleTake.Parsing.TextParser">
+            <summary>
+            Provides monadic parser combinators for text parsing.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.AlphaNumeric">
+            <summary>
+            A parser that parses any alpha-numeric character.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.AnyChar">
+            <summary>
+            A parser that parses any character.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.Digit">
+            <summary>
+            A parser that parses any single numeric character.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.Empty">
+            <summary>
+            A parser that successfully parses nothing.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.EndOfInput">
+            <summary>
+            A parser that succeeds only when at the end of the input stream.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.EndOfLine">
+            <summary>
+            A parser that parses end of line characters, both Windows an Unix variants.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.HexDigit">
+            <summary>
+            A parser that parses a single hexadecimal digit.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.Letter">
+            <summary>
+            A parser that parses any single alpha character.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.Lower">
+            <summary>
+            A parser that parses any lowercase character.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.OctalDigit">
+            <summary>
+            A parser that parses any single octal digit.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.Pos">
+            <summary>
+            A parser that successfully parses nothing and returns the current position within the input stream.
+            </summary>
+            <remarks>
+            This parser is useful for capturing the position in the input stream, which can then be used later for
+            producing parse errors that require semantic information not available during the initial parse.
+            </remarks>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.Space">
+            <summary>
+            A parser that parses and ignores a single whitespace character.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.Spaces">
+            <summary>
+            A parser that parses and ignores zero or more whitespace characters.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.Tab">
+            <summary>
+            A parser that parses a single tab character.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.TextParser.Upper">
+            <summary>
+            A parser that parses any uppercase character.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Parsing.TextParser.Char(System.Char,System.Boolean)">
+            <summary>
+            Creates a parser that parses a specific character.
+            </summary>
+            <param name="c">The character to accept when parsing.</param>
+            <param name="caseInsensitive">if set to <see langword="true" /> the parsed character is compared
+            to <paramref name="c"/> using a case insensitive comparison.</param>
+            <returns>A parser that parses the specified character.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.TextParser.Fail``1(System.String,System.String)">
+            <summary>
+            Creates a parser that always fails with the same error information.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="message">The error message.</param>
+            <param name="expected">The expected item to be parsed.</param>
+            <returns>A parser that always fails with the same error information.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.TextParser.Literal(System.String,System.Boolean)">
+            <summary>
+            Creates a parser that parses a specific string literal.
+            </summary>
+            <param name="literal">The string literal to accept when parsing.</param>
+            <param name="caseInsensitive">if set to <see langword="true" /> the parsed string is compared
+            to <paramref name="literal"/> using a case insensitive comparison.</param>
+            <returns>The new parser.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.TextParser.NoneOf(System.String,System.Char[])">
+            <summary>
+            Creates a parser that parses anything other than the specified characters.
+            </summary>
+            <param name="label">The label to use when reporting expectations.</param>
+            <param name="characters">The characters not to accept.</param>
+            <returns>A parser that parses anything other than the specified characters.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.TextParser.NoneOf(System.Collections.Generic.IEnumerable{System.Char},System.String)">
+            <summary>
+            Creates a parser that parses anything other than the specified characters.
+            </summary>
+            <param name="characters">The characters not to accept.</param>
+            <param name="label">The label to use when reporting expectations.</param>
+            <returns>A parser that parses anything other than the specified characters.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.TextParser.OneOf(System.String,System.Char[])">
+            <summary>
+            Creates a parser that parses one of the specified characters.
+            </summary>
+            <param name="label">The label to use when reporting expectations.</param>
+            <param name="characters">The characters to accept.</param>
+            <returns>A parser that parses one of the specified characters.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.TextParser.OneOf(System.Collections.Generic.IEnumerable{System.Char},System.String)">
+            <summary>
+            Creates a parser that parses one of the specified characters.
+            </summary>
+            <param name="characters">The characters to accept.</param>
+            <param name="label">The label to use when reporting expectations.</param>
+            <returns>A parser that parses one of the specified characters.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.TextParser.Return``1(``0)">
+            <summary>
+            Creates a parser that parses nothing and returns the specified result.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="result">The result to return.</param>
+            <returns>A parser that parses nothing and returns the specified <paramref name="result"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.TextParser.Return``1(System.Func{``0,``0,``0})">
+            <summary>
+            Creates a parser that parses nothing and returns the specified <see cref="T:System.Func`3"/> result.
+            </summary>
+            <typeparam name="T">The type of the result.</typeparam>
+            <param name="result">The result to return.</param>
+            <returns>A parser that parses nothing and returns the specified <paramref name="result"/>.</returns>
+        </member>
+        <member name="M:DoubleTake.Parsing.TextParser.Satisfy(System.Predicate{System.Char},System.String)">
+            <summary>
+            Creates a parser that parses a character only if it satisfies a predicate.
+            </summary>
+            <param name="predicate">The predicate used restrict which symbols should be parsed.</param>
+            <param name="label">The label to use when reporting expectations.</param>
+            <returns>A parser that parses a character only if it satisfies the <paramref name="predicate"/>.</returns>
+        </member>
+        <member name="T:DoubleTake.Parsing.Unit">
+            <summary>
+            Represents an empty parse value.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Parsing.Unit.Default">
+            <summary>
+            The default empty value.
+            </summary>
+        </member>
+        <member name="T:DoubleTake.Threading.AsyncLock">
+            <summary>
+            Represents an asynchronous lock that can be disposed to release it.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.#ctor(System.Threading.SemaphoreSlim,System.Lazy{DoubleTake.Collections.AsyncQueue})">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Threading.AsyncLock"/> class.
+            </summary>
+            <param name="semaphore">The semaphore.</param>
+            <param name="waiters">The waiters.</param>
+        </member>
+        <member name="P:DoubleTake.Threading.AsyncLock.IsLocked">
+            <summary>
+            Indicates whether the <see cref="T:DoubleTake.Threading.AsyncLock"/> is currently locked.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.Pulse">
+            <summary>
+            Notifies a waiter in the waiting queue of a change in the locked object's state.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.PulseAll">
+            <summary>
+            Notifies all waiters in the waiting queue of a change in the locked object's state.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.Unlock">
+            <summary>
+            Unlocks the associated <see cref="T:DoubleTake.Threading.AsyncMonitor"/>.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.WaitAsync">
+            <summary>
+            Releases the lock on the associated <see cref="T:DoubleTake.Threading.AsyncMonitor"/> and adds the current
+            operation to the wait queue.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> which should be waited on.</returns>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.WaitAsync(System.Threading.CancellationToken)">
+            <summary>
+            Releases the lock on the associated <see cref="T:DoubleTake.Threading.AsyncMonitor"/> and adds the current
+            operation to the wait queue.
+            </summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> which should be waited on.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.WaitAsync(System.Int32)">
+            <summary>
+            Releases the lock on the associated <see cref="T:DoubleTake.Threading.AsyncMonitor"/> and adds the current
+            operation to the wait queue.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite"/>
+            to wait indefinitely.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> which should be waited on.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.WaitAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Releases the lock on the associated <see cref="T:DoubleTake.Threading.AsyncMonitor"/> and adds the current
+            operation to the wait queue.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite"/>
+            to wait indefinitely.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> which should be waited on.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.WaitAsync(System.TimeSpan)">
+            <summary>
+            Releases the lock on the associated <see cref="T:DoubleTake.Threading.AsyncMonitor"/> and adds the current
+            operation to the wait queue.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the amount of time to wait, or
+            <see cref="F:System.Threading.Timeout.InfiniteTimeSpan"/>.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> which should be waited on.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncLock.WaitAsync(System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Releases the lock on the associated <see cref="T:DoubleTake.Threading.AsyncMonitor"/> and adds the current
+            operation to the wait queue.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the amount of time to wait, or
+            <see cref="F:System.Threading.Timeout.InfiniteTimeSpan"/>.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> which should be waited on.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="T:DoubleTake.Threading.AsyncMonitor">
+            <summary>
+            A synchronization type that can be used to provide mutual exclusion to shared state with asynchronous
+            locking.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.Lock">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>.
+            </summary>
+            <returns>A releaser that can be disposed to release the lock.</returns>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.Lock(System.Threading.CancellationToken)">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>, while observing a
+            <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A releaser that can be disposed to release the lock.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.LockAsync">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> whose result is an <see cref="T:DoubleTake.Threading.AsyncLock"/> that can be disposed to release the
+            lock.</returns>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.LockAsync(System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> whose result is an <see cref="T:DoubleTake.Threading.AsyncLock"/> that can be disposed to release the
+            lock.</returns>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.TryLock(System.Int32)">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>, using a 32-bit signed integer that
+            specifies the timeout.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite"/>
+            to wait indefinitely.</param>
+            <returns>An <see cref="T:DoubleTake.Threading.AsyncLock"/> whose <see cref="P:DoubleTake.Threading.AsyncLock.IsLocked"/> property can be checked to
+            indicate whether the lock has been acquired.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.TryLock(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>, using a 32-bit signed integer that
+            specifies the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite"/>
+            to wait indefinitely.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>An <see cref="T:DoubleTake.Threading.AsyncLock"/> whose <see cref="P:DoubleTake.Threading.AsyncLock.IsLocked"/> property can be checked to
+            indicate whether the lock has been acquired.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.TryLock(System.TimeSpan)">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>, using a <see cref="T:System.TimeSpan"/> to
+            specify the timeout.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the amount of time to wait, or
+            <see cref="F:System.Threading.Timeout.InfiniteTimeSpan"/>.</param>
+            <returns>An <see cref="T:DoubleTake.Threading.AsyncLock"/> whose <see cref="P:DoubleTake.Threading.AsyncLock.IsLocked"/> property can be checked to
+            indicate whether the lock has been acquired.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number other than
+            -1 milliseconds, which represents an infinite time-out -or- <paramref name="timeout"/> is greater than
+            <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.TryLock(System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>, using a <see cref="T:System.TimeSpan"/> to
+            specify the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the amount of time to wait, or
+            <see cref="F:System.Threading.Timeout.InfiniteTimeSpan"/>.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>An <see cref="T:DoubleTake.Threading.AsyncLock"/> whose <see cref="P:DoubleTake.Threading.AsyncLock.IsLocked"/> property can be checked to
+            indicate whether the lock has been acquired.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number other than
+            -1 milliseconds, which represents an infinite time-out -or- <paramref name="timeout"/> is greater than
+            <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.TryLockAsync(System.Int32)">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>, using a 32-bit signed integer that
+            specifies the timeout.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite"/>
+            to wait indefinitely.</param>
+            <returns>A task that will complete with a result of <see langword="true"/> if the semaphore was successfully
+            entered, otherwise a result of <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.TryLockAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>, using a 32-bit signed integer that
+            specifies the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite"/>
+            to wait indefinitely.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A task that will complete with a result of <see langword="true"/> if the semaphore was successfully
+            entered, otherwise a result of <see langword="false"/>.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.TryLockAsync(System.TimeSpan)">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>, using a 32-bit signed integer that
+            specifies the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the amount of time to wait, or
+            <see cref="F:System.Threading.Timeout.InfiniteTimeSpan"/>.</param>
+            <returns>A task that will complete with a result of <see langword="true"/> if the semaphore was successfully
+            entered, otherwise a result of <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number other than
+            -1 milliseconds, which represents an infinite time-out -or- <paramref name="timeout"/> is greater than
+            <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMonitor.TryLockAsync(System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMonitor"/>, using a 32-bit signed integer that
+            specifies the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the amount of time to wait, or
+            <see cref="F:System.Threading.Timeout.InfiniteTimeSpan"/>.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A task that will complete with a result of <see langword="true"/> if the semaphore was successfully
+            entered, otherwise a result of <see langword="false"/>.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number other than
+            -1 milliseconds, which represents an infinite time-out -or- <paramref name="timeout"/> is greater than
+            <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="T:DoubleTake.Threading.AsyncMutex">
+            <summary>
+            A synchronization type that can be used to provide mutual exclusion to shared state with asynchronous
+            locking.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.#ctor(System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Threading.AsyncMutex"/> class with a Boolean value that indicates whether
+            the calling thread should have initial ownership of the mutex.
+            </summary>
+            <param name="initiallyOwned"><see langword="true"/> to give the calling thread initial ownership of the mutex;
+            otherwise, <see langowrd="false"/>.</param>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.Dispose">
+            <summary>
+            Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.Lock(System.Threading.CancellationToken)">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>, while observing a
+            <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A releaser that can be disposed to release the lock.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.Lock">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>.
+            </summary>
+            <returns>A releaser that can be disposed to release the lock.</returns>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.LockAsync(System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> whose result is a releaser that can be disposed to release the
+            lock.</returns>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.LockAsync">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/> whose result is a releaser that can be disposed to release the
+            lock.</returns>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.TryLock(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>, using a 32-bit signed integer that
+            specifies the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite"/>
+            to wait indefinitely.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns><see langword="true"/> if the current thread successfully locked the <see cref="T:DoubleTake.Threading.AsyncMutex"/>;
+            otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.TryLock(System.Int32)">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>, using a 32-bit signed integer that
+            specifies the timeout.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite"/>
+            to wait indefinitely.</param>
+            <returns><see langword="true"/> if the current thread successfully locked the <see cref="T:DoubleTake.Threading.AsyncMutex"/>;
+            otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.TryLock(System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>, using a <see cref="T:System.TimeSpan"/> to
+            specify the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the amount of time to wait, or
+            <see cref="F:System.Threading.Timeout.InfiniteTimeSpan"/>.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns><see langword="true"/> if the current thread successfully locked the <see cref="T:DoubleTake.Threading.AsyncMutex"/>;
+            otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.OperationCanceledException"><paramref name="cancellationToken"/> was canceled.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number other than
+            -1 milliseconds, which represents an infinite time-out -or- <paramref name="timeout"/> is greater than
+            <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.TryLock(System.TimeSpan)">
+            <summary>
+            Blocks the current thread until it can lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>, using a <see cref="T:System.TimeSpan"/> to
+            specify the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the amount of time to wait, or
+            <see cref="F:System.Threading.Timeout.InfiniteTimeSpan"/>.</param>
+            <returns><see langword="true"/> if the current thread successfully locked the <see cref="T:DoubleTake.Threading.AsyncMutex"/>;
+            otherwise, <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number other than
+            -1 milliseconds, which represents an infinite time-out -or- <paramref name="timeout"/> is greater than
+            <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.TryLockAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>, using a 32-bit signed integer that
+            specifies the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite"/>
+            to wait indefinitely.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A task that will complete with a result of <see langword="true"/> if the semaphore was successfully
+            entered, otherwise a result of <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.TryLockAsync(System.Int32)">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>, using a 32-bit signed integer that
+            specifies the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite"/>
+            to wait indefinitely.</param>
+            <returns>A task that will complete with a result of <see langword="true"/> if the semaphore was successfully
+            entered, otherwise a result of <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="millisecondsTimeout"/> is a negative number
+            other than -1, which represents an infinite time-out.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.TryLockAsync(System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>, using a <see cref="T:System.TimeSpan"/> to
+            specify the timeout, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the amount of time to wait, or
+            <see cref="F:System.Threading.Timeout.InfiniteTimeSpan"/>.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A task that will complete with a result of <see langword="true"/> if the semaphore was successfully
+            entered, otherwise a result of <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number other than
+            -1 milliseconds, which represents an infinite time-out -or- <paramref name="timeout"/> is greater than
+            <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.TryLockAsync(System.TimeSpan)">
+            <summary>
+            Asynchronously waits to lock the <see cref="T:DoubleTake.Threading.AsyncMutex"/>, using a <see cref="T:System.TimeSpan"/> to
+            specify the timeout.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the amount of time to wait, or
+            <see cref="F:System.Threading.Timeout.InfiniteTimeSpan"/>.</param>
+            <returns>A task that will complete with a result of <see langword="true"/> if the semaphore was successfully
+            entered, otherwise a result of <see langword="false"/>.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="timeout"/> is a negative number other than
+            -1 milliseconds, which represents an infinite time-out -or- <paramref name="timeout"/> is greater than
+            <see cref="F:System.Int32.MaxValue"/>.</exception>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.Unlock">
+            <summary>
+            Unlocks the <see cref="T:DoubleTake.Threading.AsyncMutex"/>.
+            </summary>
+            <remarks>A traditional mutex requires you to unlock from the same thread that locked, producing an error
+            or exception if you violated this. It's not possible to this with an "async" mutex, but it's still just
+            as important that only the "logical operation" that acquires the lock is the same "logical operation"
+            that unlocks.</remarks>
+        </member>
+        <member name="T:DoubleTake.Threading.AsyncMutex.Releaser">
+            <summary>
+            A value whose disposal triggers the release of a lock.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.Releaser.#ctor(System.Threading.SemaphoreSlim)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Threading.AsyncMutex.Releaser"/> struct.
+            </summary>
+            <param name="semaphore">The semaphore.</param>
+        </member>
+        <member name="M:DoubleTake.Threading.AsyncMutex.Releaser.Dispose">
+            <summary>
+            Releases the lock.
+            </summary>
+        </member>
+        <member name="T:DoubleTake.Threading.Tasks.TaskCompletionSource">
+            <summary>
+            Represents the producer side of a <see cref="T:System.Threading.Tasks.Task"/> unbound to a
+            delagate, providing access to the consumer side through the <see cref="P:DoubleTake.Threading.Tasks.TaskCompletionSource.Task"/> property.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Threading.Tasks.TaskCompletionSource"/> class.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.#ctor(System.Object)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Threading.Tasks.TaskCompletionSource"/> class.
+            </summary>
+            <param name="state">The state to use as the underlying
+            <see cref="T:System.Threading.Tasks.Task"/>'s AsyncState.</param>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.#ctor(System.Threading.Tasks.TaskCreationOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Threading.Tasks.TaskCompletionSource"/> class.
+            </summary>
+            <param name="creationOptions">The options to use when creating the underlying
+            <see cref="T:System.Threading.Tasks.Task"/>.</param>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.#ctor(System.Object,System.Threading.Tasks.TaskCreationOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:DoubleTake.Threading.Tasks.TaskCompletionSource"/> class with the
+            specified state and options.
+            </summary>
+            <param name="state">The state to use as the underlying
+            <see cref="T:System.Threading.Tasks.Task"/>'s AsyncState.</param>
+            <param name="creationOptions">The options to use when creating the underlying
+            <see cref="T:System.Threading.Tasks.Task"/>.</param>
+        </member>
+        <member name="P:DoubleTake.Threading.Tasks.TaskCompletionSource.Task">
+            <summary>
+            Gets the <see cref="T:System.Threading.Tasks.Task"/> created by this <see cref="T:DoubleTake.Threading.Tasks.TaskCompletionSource"/>.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.SetCanceled">
+            <summary>
+            Transitions the underlying <see cref="T:System.Threading.Tasks.Task"/> into the
+            <see cref="F:System.Threading.Tasks.TaskStatus.Canceled"/> state.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.SetExcecption(System.Collections.Generic.IEnumerable{System.Exception})">
+            <summary>
+            Transitions the underlying <see cref="T:System.Threading.Tasks.Task"/> into the
+            <see cref="F:System.Threading.Tasks.TaskStatus.Faulted"/> state.
+            </summary>
+            <param name="exceptions">The collection exceptions to bind to this
+            <see cref="T:System.Threading.Tasks.Task"/>.</param>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.SetException(System.Exception)">
+            <summary>
+            Transitions the underlying <see cref="T:System.Threading.Tasks.Task"/> into the
+            <see cref="F:System.Threading.Tasks.TaskStatus.Faulted"/> state.
+            </summary>
+            <param name="exception">The exception to bind to this <see cref="T:System.Threading.Tasks.Task"/>.</param>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.SetResult">
+            <summary>
+            Transitions the underlying <see cref="T:System.Threading.Tasks.Task"/> into the
+            <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion"/> state.
+            </summary>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.TrySetCanceled">
+            <summary>
+            Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task"/> into
+            the <see cref="F:System.Threading.Tasks.TaskStatus.Canceled"/> state.
+            </summary>
+            <returns><see langword="true"/> if the operation was successful;
+            <see langword="false"/> if the operation was unsuccessful or the object has already
+            been disposed.</returns>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.TrySetException(System.Exception)">
+            <summary>
+            Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task"/> into
+            the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted"/> state.
+            </summary>
+            <param name="exception">The exception to bind to this
+            <see cref="T:System.Threading.Tasks.Task"/>.</param>
+            <returns><see langword="true"/> if the operation was successful;
+            <see langword="false"/> if the operation was unsuccessful or the object has already
+            been disposed.</returns>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.TrySetException(System.Collections.Generic.IEnumerable{System.Exception})">
+            <summary>
+            Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task"/> into
+            the <see cref="F:System.Threading.Tasks.TaskStatus.Faulted"/> state.
+            </summary>
+            <param name="exceptions">The collection of exceptions to bind to this
+            <see cref="T:System.Threading.Tasks.Task"/>.</param>
+            <returns><see langword="true"/> if the operation was successful;
+            <see langword="false"/> if the operation was unsuccessful or the object has already
+            been disposed.</returns>
+        </member>
+        <member name="M:DoubleTake.Threading.Tasks.TaskCompletionSource.TrySetResult">
+            <summary>
+            Attempts to transition the underlying <see cref="T:System.Threading.Tasks.Task"/> into
+            the <see cref="F:System.Threading.Tasks.TaskStatus.RanToCompletion"/> state.
+            </summary>
+            <returns><see langword="true"/> if the operation was successful;
+            <see langword="false"/> if the operation was unsuccessful or the object has already
+            been disposed.</returns>
+        </member>
+    </members>
+</doc>

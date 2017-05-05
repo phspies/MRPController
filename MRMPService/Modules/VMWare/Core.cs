@@ -11,7 +11,7 @@ namespace MRMPService.VMWare
         {
             _vmwarecontext = new VimClientImpl();
 
-            _service_content = _vmwarecontext.Connect(_api_client.URL);           
+            _service_content = _vmwarecontext.Connect(_api_client.URL);
             UserSession us = _vmwarecontext.Login(_api_client.Username, _api_client.Password);
         }
     }

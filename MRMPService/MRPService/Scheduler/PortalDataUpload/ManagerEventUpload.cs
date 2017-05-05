@@ -39,14 +39,14 @@ namespace MRMPService.Scheduler.PortalDataUpload
 
                             if (_event_crud_list.Count > MRMPServiceBase.portal_upload_managerevent_page_size)
                             {
-                                MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list).Wait();
+                                MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list);
                                 _event_crud_list.Clear();
                             }
                         }
                         //upload last remaining records
                         if (_event_crud_list.Count > 0)
                         {
-                            MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list).Wait();
+                            MRMPServiceBase._mrmp_api.manager().update_managerevents(_event_crud_list);
                             _event_crud_list.Clear();
                         }
                         //remove all processed records from from local database

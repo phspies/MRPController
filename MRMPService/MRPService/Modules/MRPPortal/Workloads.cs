@@ -10,26 +10,26 @@ namespace MRMPService.Modules.MRMPPortal
 
         public MRPWorkload(MRMPApiClient _MRP) : base(_MRP) { }
 
-        public async Task<MRPWorkloadListType> list_paged_filtered(MRPWorkloadFilterPagedType _paged_filter_settings)
+        public MRPWorkloadListType list_paged_filtered(MRPWorkloadFilterPagedType _paged_filter_settings)
         {
             endpoint = "/workloads/list_paged_filtered.json";
-            return await post<MRPWorkloadListType>(_paged_filter_settings);
+            return post<MRPWorkloadListType>(_paged_filter_settings);
         }
-        public async Task<MRPWorkloadListType> list_paged_filtered_brief(MRPWorkloadFilterPagedType filter_settings)
+        public MRPWorkloadListType list_paged_filtered_brief(MRPWorkloadFilterPagedType filter_settings)
         {
             endpoint = "/workloads/list_paged_filtered_brief.json";
-            return await post<MRPWorkloadListType>(filter_settings);
+            return post<MRPWorkloadListType>(filter_settings);
         }
-        public async Task<MRPWorkloadType> get_by_id(string _workload_id)
+        public MRPWorkloadType get_by_id(string _workload_id)
         {
             endpoint = "/workloads/get_by_id.json";
             MRPWorkloadGetIDType _workload_get = new MRPWorkloadGetIDType()
             {
                 workload_id = _workload_id
             };
-            return await post<MRPWorkloadType>(_workload_get);
+            return post<MRPWorkloadType>(_workload_get);
         }
-        public async Task<ResultType> createworkload(MRPWorkloadType _workload)
+        public ResultType createworkload(MRPWorkloadType _workload)
         {
             _workload.credential = null;
             _workload.platform = null;
@@ -43,9 +43,9 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/workloads/create.json";
-            return await post<ResultType>(platform);
+            return post<ResultType>(platform);
         }
-        public async Task<ResultType> updateworkload(MRPWorkloadType _workload)
+        public ResultType updateworkload(MRPWorkloadType _workload)
         {
             _workload.credential = null;
             _workload.platform = null;
@@ -60,9 +60,9 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/workloads/update.json";
-            return await put<ResultType>(workload);
+            return put<ResultType>(workload);
         }
-        public async Task InventoryUpdateStatus(MRPWorkloadType workload, string message, bool status)
+        public void InventoryUpdateStatus(MRPWorkloadType workload, string message, bool status)
         {
             MRPWorkloadType _update_workload = new MRPWorkloadType();
             if (status)
@@ -80,7 +80,7 @@ namespace MRMPService.Modules.MRMPPortal
             _update_workload.id = workload.id;
             try
             {
-                await updateworkload(_update_workload);
+                updateworkload(_update_workload);
             }
             catch( Exception ex)
             {
@@ -88,7 +88,7 @@ namespace MRMPService.Modules.MRMPPortal
             }
         }
 
-        public async Task PeformanceUpdateStatus(MRPWorkloadType workload, string message, bool status)
+        public void PeformanceUpdateStatus(MRPWorkloadType workload, string message, bool status)
         {
             MRPWorkloadType _update_workload = new MRPWorkloadType();
             if (status)
@@ -106,14 +106,14 @@ namespace MRMPService.Modules.MRMPPortal
             _update_workload.id = workload.id;
             try
             {
-                await updateworkload(_update_workload);
+                updateworkload(_update_workload);
             }
             catch (Exception ex)
             {
                 Logger.log(String.Format("Error Updating workload information: {0}", ex.ToString()), Logger.Severity.Fatal);
             }
         }
-        public async Task DoubleTakeUpdateStatus(MRPWorkloadType workload, string message, bool status)
+        public void DoubleTakeUpdateStatus(MRPWorkloadType workload, string message, bool status)
         {
             MRPWorkloadType _update_workload = new MRPWorkloadType();
             if (status)
@@ -131,7 +131,7 @@ namespace MRMPService.Modules.MRMPPortal
             _update_workload.id = workload.id;
             try
             {
-                await updateworkload(_update_workload);
+                updateworkload(_update_workload);
             }
             catch (Exception ex)
             {

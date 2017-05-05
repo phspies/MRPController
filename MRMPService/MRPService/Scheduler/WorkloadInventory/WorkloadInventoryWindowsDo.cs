@@ -13,7 +13,7 @@ namespace MRMPService.MRMPAPI.Classes
         static public async Task WorkloadInventoryWindowsDo(MRPWorkloadType _workload)
         {
 
-            _workload = await MRMPServiceBase._mrmp_api.workload().get_by_id(_workload.id);
+            _workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_workload.id);
             MRPWorkloadType _updated_workload = new MRPWorkloadType()
             {
                 id = _workload.id,
@@ -435,8 +435,8 @@ namespace MRMPService.MRMPAPI.Classes
             _updated_workload.ostype = "windows";
             _updated_workload.provisioned = true;
 
-            MRMPServiceBase._mrmp_api.workload().updateworkload(_updated_workload).Wait();
-            MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(_updated_workload, "Success", true).Wait();
+            MRMPServiceBase._mrmp_api.workload().updateworkload(_updated_workload);
+            MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
 
             Logger.log(String.Format("Inventory: Completed inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
         }

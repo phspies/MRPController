@@ -25,12 +25,12 @@ namespace MRMPService.TaskExecutioner.DRSServersDormant
                     ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 1, 50);
                     await DisasterRecovery.CreateDRServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 51, 99);
                 }
-                await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully configured protection job");
+                MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully configured protection job");
 
             }
             catch (Exception ex)
             {
-                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
 
             }
         }

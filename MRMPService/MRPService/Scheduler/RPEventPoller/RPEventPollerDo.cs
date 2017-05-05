@@ -14,7 +14,7 @@ namespace MRMPService.RPEventPollerCollection
         {
             //refresh managementobject from portal
 
-            _mrp_managementobject = await MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
+            _mrp_managementobject = MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
 
             //check for credentials
             MRPPlatformType _target_platform = _mrp_managementobject.target_platform;

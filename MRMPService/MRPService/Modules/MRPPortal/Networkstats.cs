@@ -9,14 +9,14 @@ namespace MRMPService.Modules.MRMPPortal
         public MRPNetworkstat(MRMPApiClient _MRP) : base(_MRP) {
         }
 
-        public async Task<ResultType> create_bulk(List<MRPNetworkStatCRUDType> _networkstats)
+        public ResultType create_bulk(List<MRPNetworkStatCRUDType> _networkstats)
         {
             MRPNetworkStatsBulkCRUDType networkflow = new MRPNetworkStatsBulkCRUDType()
             {
                 networkstats = _networkstats
             };
             endpoint = "/networkstats/create_bulk.json";
-            return await post<ResultType>(networkflow);
+            return post<ResultType>(networkflow);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace MRMPService.Modules.MCP
 
             if ((bool)_target_workload.sync_tag_rules)
             {
-                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Applying workload tags to {0} from {1}", _target_workload.hostname, _source_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 5));
+                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Applying workload tags to {0} from {1}", _target_workload.hostname, _source_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 5));
                 //first map MCP to MCP tags
                 IEnumerable<TagType> _caas_tags = await CaaS.Tagging.GetTags();
                 IEnumerable<TagType> _source_tags = await CaaS.Tagging.GetTags(new TagListOptions() { AssetId = _source_workload.moid });
@@ -53,7 +53,7 @@ namespace MRMPService.Modules.MCP
                         }
                         if (_tag_platform_task.responseCode == "OK")
                         {
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully applied {0} platform tags to {1}", _add_platform_tags.Count(), _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully applied {0} platform tags to {1}", _add_platform_tags.Count(), _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
                         }
                         else
                         {
@@ -62,7 +62,7 @@ namespace MRMPService.Modules.MCP
                     }
                 }
                 //sync user defined tags
-                List<MRPOrganizationTagType> _org_tags = (await MRMPServiceBase._mrmp_api.organization().get()).organizationtags;
+                List<MRPOrganizationTagType> _org_tags = (MRMPServiceBase._mrmp_api.organization().get()).organizationtags;
                 _target_tags = await CaaS.Tagging.GetTags(new TagListOptions() { AssetId = _target_workload.moid });
                 foreach (var _org_tag in _org_tags)
                 {
@@ -90,7 +90,7 @@ namespace MRMPService.Modules.MCP
                         if (_create_org_tag.responseCode == "OK")
                         {
                             _tag_moid = _create_org_tag.info[0].value;
-                            await MRMPServiceBase._mrmp_api.organization().update(new MRPOrganizationCRUDType()
+                            MRMPServiceBase._mrmp_api.organization().update(new MRPOrganizationCRUDType()
                             {
                                 organization = new MRPOrganizationType()
                                 {
@@ -109,7 +109,7 @@ namespace MRMPService.Modules.MCP
                     }
                 }
                 //refresh org tags with moid's in
-                _org_tags = (await MRMPServiceBase._mrmp_api.organization().get()).organizationtags;
+                _org_tags = (MRMPServiceBase._mrmp_api.organization().get()).organizationtags;
 
                 var _add_user_tags = new List<ApplyTagByIdType>();
                 foreach (MRPWorkloadTagType _target_tag in _target_workload.workloadtags)
@@ -137,7 +137,7 @@ namespace MRMPService.Modules.MCP
                     }
                     if (_tag_task.responseCode == "OK")
                     {
-                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully applied {0} user tags to {1}", _add_user_tags.Count(), _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 15));
+                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully applied {0} user tags to {1}", _add_user_tags.Count(), _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 15));
                     }
                     else
                     {
@@ -145,10 +145,10 @@ namespace MRMPService.Modules.MCP
                     }
                 }
             }
-            await MRMPServiceBase._mrmp_api.task().progress(_task_id, "Successfully configured workload meta data", ReportProgress.Progress(_start_progress, _end_progress, 29));
+            MRMPServiceBase._mrmp_api.task().progress(_task_id, "Successfully configured workload meta data", ReportProgress.Progress(_start_progress, _end_progress, 29));
 
 
-            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Applying workload affinity rules to {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 30));
+            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Applying workload affinity rules to {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 30));
 
             if ((bool)_target_workload.sync_affinity_rules)
             {
@@ -188,7 +188,7 @@ namespace MRMPService.Modules.MCP
                         }
                         catch (Exception ex)
                         {
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error applying affinity rule between {0} and {1} : {2}", _target_rule.workload1_id, _target_rule.workload2_id, ex.GetBaseException().Message), ReportProgress.Progress(_start_progress, _end_progress, _target_affinity_rules.IndexOf(_target_rule) + 31));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error applying affinity rule between {0} and {1} : {2}", _target_rule.workload1_id, _target_rule.workload2_id, ex.GetBaseException().Message), ReportProgress.Progress(_start_progress, _end_progress, _target_affinity_rules.IndexOf(_target_rule) + 31));
                         }
                     }
                 }
@@ -248,7 +248,7 @@ namespace MRMPService.Modules.MCP
                                             }
                                         }
                                     };
-                                    await MRMPServiceBase._mrmp_api.platform().update(_update_platform);
+                                    MRMPServiceBase._mrmp_api.platform().update(_update_platform);
                                 }
                                 else
                                 {

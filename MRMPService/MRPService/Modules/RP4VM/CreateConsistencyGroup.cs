@@ -13,7 +13,7 @@ namespace MRMPService.Modules.RP4VM
         public static async Task CreateConsistencyGroup(string _task_id, List<MRPWorkloadType> _source_workloads, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
 
-            await MRMPServiceBase._mrmp_api.task().progress(_task_id, "Starting RP4VM CG Provisioning Process", 5);
+            MRMPServiceBase._mrmp_api.task().progress(_task_id, "Starting RP4VM CG Provisioning Process", 5);
 
             MRPPlatformType _source_platform = _protectiongroup.recoverypolicy.sourceplatform;
             MRPPlatformType _target_platform = _protectiongroup.recoverypolicy.targetplatform;

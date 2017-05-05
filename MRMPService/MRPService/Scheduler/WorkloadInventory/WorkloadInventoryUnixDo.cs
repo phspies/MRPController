@@ -420,8 +420,8 @@ namespace MRMPService.MRMPAPI.Classes
                                     _updated_workload.ostype = "unix";
                                     _updated_workload.provisioned = true;
 
-                                    await MRMPServiceBase._mrmp_api.workload().updateworkload(_updated_workload);
-                                    await MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
+                                    MRMPServiceBase._mrmp_api.workload().updateworkload(_updated_workload);
+                                    MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(_updated_workload, "Success", true);
                                 }
                                 else
                                 {

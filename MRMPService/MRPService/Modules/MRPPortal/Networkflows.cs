@@ -10,14 +10,14 @@ namespace MRMPService.Modules.MRMPPortal
         {
         }
 
-        public async Task createnetworkflow(List<MRPNetworkFlowCRUDType> _networkflows)
+        public void createnetworkflow(List<MRPNetworkFlowCRUDType> _networkflows)
         {
             MRPNetworkFlowsCRUDType networkflow = new MRPNetworkFlowsCRUDType()
             {
                 networkflows = _networkflows
             };
             endpoint = "/networkflows/create.json";
-            await post<ResultType>(networkflow);
+            post<ResultType>(networkflow);
 
         }
     }

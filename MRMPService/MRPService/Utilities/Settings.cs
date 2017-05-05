@@ -7,9 +7,9 @@ namespace MRMPService.Utilities
 {
     class Settings
     {
-        static public async void ConfirmController()
+        static public void ConfirmController()
         {
-            await MRMPServiceBase._mrmp_api.manager().confirm_controller();
+            MRMPServiceBase._mrmp_api.manager().confirm_controller();
         }
 
         static public void SetupController()

@@ -7,7 +7,7 @@ namespace MRMPService.Modules.MRMPPortal
     {
         public MRPEvent(MRMPApiClient _MRP) : base(_MRP) { }
 
-        public async Task<ResultType> create(MRMPEventType _event)
+        public ResultType create(MRMPEventType _event)
         {
             MRPEventsCRUDType @event = new MRPEventsCRUDType()
             {
@@ -15,7 +15,7 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/events/create.json";
-            return (ResultType)await post<ResultType>(@event);
+            return (ResultType)post<ResultType>(@event);
         }
 
 

@@ -50,7 +50,7 @@ namespace MRMPService.Utilities
             {
                 if ((bool)objMO["IPEnabled"])
                 {
-                    if (objMO["Caption"].ToString() == _source_workload.workloadinterfaces[0].caption)
+                    if (objMO["MACAddress"].ToString() == _source_workload.workloadinterfaces[0].macaddress)
                     {
                         _found_interface = true;
                         try

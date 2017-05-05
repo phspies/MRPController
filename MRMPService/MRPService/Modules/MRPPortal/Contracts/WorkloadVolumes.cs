@@ -37,5 +37,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         public bool? deleted { get; set; }
         [JsonProperty("platformstoragetier_id")]
         public String platformstoragetier_id { get; set; }
+        [JsonProperty("_destroy")]
+        public bool? _destroy { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace MRMPService.RPEventPollerCollection
 
                     List<MRPManagementobjectType> _rp4vms;
 
-                    _rp4vms = (await MRMPServiceBase._mrmp_api.managementobject().listmanagementobjects()).managementobjects.Where(x => x.target_platform.enabled == true).ToList();
+                    _rp4vms = (MRMPServiceBase._mrmp_api.managementobject().listmanagementobjects()).managementobjects.Where(x => x.target_platform.enabled == true).ToList();
                     List<Thread> lstThreads = new List<Thread>();
                     var splashStart = new ManualResetEvent(false);
 

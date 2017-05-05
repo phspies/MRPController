@@ -12,11 +12,11 @@ namespace MRMPService.Scheduler.DTPollerCollection
 {
     class DTJobPoller
     {
-        public static async System.Threading.Tasks.Task PollerDo(MRPManagementobjectType _mrp_managementobject)
+        public static void PollerDo(MRPManagementobjectType _mrp_managementobject)
         {
             //refresh managementobject from portal
 
-            _mrp_managementobject = await MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
+            _mrp_managementobject = MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
 
             //check for credentials
             MRPWorkloadType _target_workload = _mrp_managementobject.target_workload;
@@ -48,13 +48,13 @@ namespace MRMPService.Scheduler.DTPollerCollection
             {
                 using (Doubletake _dt = new Doubletake(null, _target_workload))
                 {
-                    ProductInfoModel _info = await _dt.management().GetProductInfo();
-                    _dt_job = await _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
+                    ProductInfoModel _info = _dt.management().GetProductInfo();
+                    _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
                     if (_dt_job.JobType == DT_JobTypes.DR_Data_Protection || _dt_job.JobType == DT_JobTypes.DR_Full_Protection)
                     {
                         try
                         {
-                            _dt_image_list = await _dt.image().GetImagesSource(_mrp_managementobject.source_workload.hostname);
+                            _dt_image_list = _dt.image().GetImagesSource(_mrp_managementobject.source_workload.hostname);
                         }
                         catch (Exception ex)
                         {
@@ -77,7 +77,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
 
                 }
 
-                await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_target_workload, "Success", true);
+                MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_target_workload, "Success", true);
 
             }
             catch (Exception ex)
@@ -88,7 +88,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                 {
                     Logger.log(String.Format("Double-Take Job: Error collecting job information from {0} using {1} : {2}", _mrp_managementobject.target_workload, workload_ip, ex.ToString()), Logger.Severity.Info);
 
-                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
+                    MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
                         id = _mrp_managementobject.id,
                         internal_state = "deleted",
@@ -96,8 +96,8 @@ namespace MRMPService.Scheduler.DTPollerCollection
                 }
                 else
                 {
-                    await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_target_workload, ex.Message, false);
-                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
+                    MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_target_workload, ex.Message, false);
+                    MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
                         id = _mrp_managementobject.id,
                         internal_state = "unavailable",
@@ -160,7 +160,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                                         {
                                             using (Doubletake _dt = new Doubletake(null, _target_workload))
                                             {
-                                                _dt_job = await _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
+                                                _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
 
                                                 //_dt.image().DeleteSnapshotEntry(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId).Wait();
                                                 //if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
@@ -208,9 +208,9 @@ namespace MRMPService.Scheduler.DTPollerCollection
                                     {
                                         using (Doubletake _dt = new Doubletake(null, _target_workload))
                                         {
-                                            _dt_job = await _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
+                                            _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
 
-                                            await _dt.job().DeleteSnapshot(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId);
+                                            _dt.job().DeleteSnapshot(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId);
                                             if (_mrp_managementobject.managementobjectsnapshots.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
                                             {
                                                 _mrp_snapshot._destroy = true;
@@ -280,7 +280,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                     _mrp_mo_update.can_stop = _dt_job.Status.CanStop;
                     _mrp_mo_update.can_undo_failover = _dt_job.Status.CanUndoFailover;
 
-                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(_mrp_mo_update);
+                    MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(_mrp_mo_update);
 
                 }
 

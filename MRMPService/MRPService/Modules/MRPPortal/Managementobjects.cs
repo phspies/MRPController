@@ -7,17 +7,17 @@ namespace MRMPService.Modules.MRMPPortal
     {
         public MRPManagementobject(MRMPApiClient _MRP) : base(_MRP) { }
 
-        public async Task<MRPManagementobjectListType> listmanagementobjects()
+        public MRPManagementobjectListType listmanagementobjects()
         {
             endpoint = "/managementobjects/list.json";
-            return await post<MRPManagementobjectListType>(null);
+            return post<MRPManagementobjectListType>(null);
         }
-        public async Task<MRPManagementobjectListType> list_filtered(MRManagementobjectFilterType filter_settings)
+        public MRPManagementobjectListType list_filtered(MRManagementobjectFilterType filter_settings)
         {
             endpoint = "/managementobjects/list.json";
-            return await post<MRPManagementobjectListType>(filter_settings);
+            return post<MRPManagementobjectListType>(filter_settings);
         }
-        public async Task<MRPManagementobjectType> getmanagementobject_id(string _managementobject_id)
+        public MRPManagementobjectType getmanagementobject_id(string _managementobject_id)
         {
             endpoint = "/managementobjects/get_id.json";
             MRPManagementobjectIDGETType Managementobject = new MRPManagementobjectIDGETType()
@@ -25,9 +25,9 @@ namespace MRMPService.Modules.MRMPPortal
                 managementobject_id = _managementobject_id
 
             };
-            return await post<MRPManagementobjectType>(Managementobject);
+            return post<MRPManagementobjectType>(Managementobject);
         }
-        public async Task<ResultType> updatemanagementobject(MRPManagementobjectType _Managementobject)
+        public ResultType updatemanagementobject(MRPManagementobjectType _Managementobject)
         {
             MRPManagementobjectsCRUDType Managementobject = new MRPManagementobjectsCRUDType()
             {
@@ -35,7 +35,7 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/managementobjects/update.json";
-            return await put<ResultType>(Managementobject);
+            return put<ResultType>(Managementobject);
         }
 
     }

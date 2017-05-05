@@ -46,14 +46,14 @@ namespace MRMPService.Scheduler.PortalDataUpload
 
                             if (_netflow_list.Count > MRMPServiceBase.portal_upload_netflow_page_size)
                             {
-                                MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list).Wait();
+                                MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list);
                                 _netflow_list.Clear();
                             }
                         }
                         //upload last remaining records
                         if (_netflow_list.Count > 0)
                         {
-                            MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list).Wait();
+                            MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list);
                         }
 
                         //remove all processed records from from local database

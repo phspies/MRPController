@@ -25,12 +25,12 @@ namespace MRMPService.TaskExecutioner.DRSMCP
                     int _index = _workload_pairs.IndexOf(_pair) + 1;
                     await MCP_Platform.ApplyMetaInformation(_mrmp_task.id, _workload_pairs, _source_platform, _target_platform, _pair.source_workload, _pair.target_workload, _index * 5, _index * 9);
                 }
-                await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id);
+                MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id);
 
             }
             catch (Exception ex)
             {
-                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
 
             }

@@ -37,7 +37,7 @@ namespace MRMPService.Scheduler.NetstatCollection
                     if (_netflow_list.Count > MRMPServiceBase.portal_upload_netflow_page_size)
                     {
 
-                        await MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list);
+                        MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list);
                         _netflow_list.Clear();
                     }
                 }
@@ -45,7 +45,7 @@ namespace MRMPService.Scheduler.NetstatCollection
                 if (_netflow_list.Count > 0)
                 {
 
-                    await MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list);
+                    MRMPServiceBase._mrmp_api.netflow().createnetworkflow(_netflow_list);
                 }
 
                 _sw.Stop();

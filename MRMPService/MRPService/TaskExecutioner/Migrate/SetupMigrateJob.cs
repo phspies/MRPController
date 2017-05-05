@@ -3,12 +3,13 @@ using MRMPService.Modules.DoubleTake.Common;
 using System;
 using MRMPService.Modules.MCP;
 using MRMPService.Modules.DoubleTake.Move;
+using MRMPService.MRMPService.Log;
 
 namespace MRMPService.TaskExecutioner.Migrate
 {
     partial class Migrate
     {
-        static public async void SetupMigrateJob(MRPTaskType _mrmp_task)
+        static public void SetupMigrateJob(MRPTaskType _mrmp_task)
         {
             MRPTaskDetailType _payload = _mrmp_task.taskdetail;
             MRPWorkloadType _source_workload = _payload.source_workload;
@@ -23,10 +24,10 @@ namespace MRMPService.TaskExecutioner.Migrate
             {
                 if (_target_workload.provisioned == false)
                 {
-                    await MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 33, true);
+                    MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 33, true);
                     //refresh source and target workload objects from portal
-                    _source_workload = await MRMPServiceBase._mrmp_api.workload().get_by_id(_source_workload.id);
-                    _target_workload = await MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
+                    _source_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_source_workload.id);
+                    _target_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
 
                     if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
                     {
@@ -36,13 +37,13 @@ namespace MRMPService.TaskExecutioner.Migrate
                     {
                         ModuleCommon.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
                     }
-                    await Migration.CreateServerMigrationJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99);
+                    Migration.CreateServerMigrationJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99);
                 }
                 else
                 {
                     //refresh source and target workload objects from portal
-                    _source_workload = await MRMPServiceBase._mrmp_api.workload().get_by_id(_source_workload.id);
-                    _target_workload = await MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
+                    _source_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_source_workload.id);
+                    _target_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
 
                     if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
                     {
@@ -52,13 +53,14 @@ namespace MRMPService.TaskExecutioner.Migrate
                     {
                         ModuleCommon.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 1, 50);
                     }
-                    await Migration.CreateServerMigrationJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 51, 99);
+                    Migration.CreateServerMigrationJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 51, 99);
                 }
-                await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully configured migration job");
+                MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully configured migration job");
             }
             catch (Exception ex)
             {
-                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.GetBaseException().Message);
+                Logger.log(ex.ToString(), Logger.Severity.Fatal);
+                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.GetBaseException().Message);
             }
         }
     }

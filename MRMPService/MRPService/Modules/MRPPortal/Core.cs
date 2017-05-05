@@ -21,20 +21,20 @@ namespace MRMPService.Modules.MRMPPortal
             _client = _mrmp_base;
         }
 
-        public async Task<type> post<type>(object _object) where type : new()
+        public type post<type>(object _object) where type : new()
         {
-            return (type)await perform<type>(Method.POST, _object);
+            return (type)perform<type>(Method.POST, _object);
         }
-        public async Task<type> put<type>(object _object) where type : new()
+        public type put<type>(object _object) where type : new()
         {
-            return (type)await perform<type>(Method.PUT, _object);
+            return (type)perform<type>(Method.PUT, _object);
         }
-        public async Task<type> get<type>(object _object) where type : new()
+        public type get<type>(object _object) where type : new()
         {
-            return (type)await perform<type>(Method.GET, _object);
+            return (type)perform<type>(Method.GET, _object);
         }
 
-        public async Task<object> perform<type>(Method _method, Object _object) where type : new()
+        public object perform<type>(Method _method, Object _object) where type : new()
         {
             ServicePointManager.Expect100Continue = false;
             ServicePointManager.UseNagleAlgorithm = false;
@@ -72,7 +72,7 @@ namespace MRMPService.Modules.MRMPPortal
             object responseobject = null;
             while (true)
             {
-                var restResponse = await client.ExecuteTaskAsync(request);
+                var restResponse = client.Execute(request);
                 if (restResponse.StatusCode == HttpStatusCode.OK || restResponse.StatusCode == HttpStatusCode.Unauthorized)
                 {
                     try

@@ -51,7 +51,7 @@ namespace MRMPService.MRMPDoubleTake
                             }
                             else if (!_source_eval_code.IsValid && _source_eval_code.IsExpired)
                             {
-                                throw new Exception(String.Format("Current evaluation license expired {0}. Please contact vendor for new evaluation license key", _source_premium_code.ExpirationDate));
+                                throw new Exception(String.Format("Current evaluation license expired {0}. Please contact vendor for new evaluation license key", _source_eval_code.ExpirationDate));
                             }
                         }
 
@@ -285,7 +285,7 @@ namespace MRMPService.MRMPDoubleTake
         }
 
 
-        public async Task<ProductInfoModel> GetProductInfo()
+        public ProductInfoModel GetProductInfo()
         {
             ProductInfoModel _information = null;
             foreach (string _address in new[] { _source_address, _target_address })
@@ -293,7 +293,7 @@ namespace MRMPService.MRMPDoubleTake
                 if (_address != null)
                 {
                     ProductInfoApi _product = new ProductInfoApi(_target_connection);
-                    _information = (await _product.GetProductInfoAsync()).Content;
+                    _information = (_product.GetProductInfoAsync().Result).Content;
                     break;
                 }
             }

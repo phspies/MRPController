@@ -24,12 +24,12 @@ namespace MRMPService.TaskExecutioner.Workload
                         WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload).Wait();
                         break;
                 }
-                await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully discovered workload");
+                MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully discovered workload");
             }
             catch (Exception ex)
             {
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
-                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.GetBaseException().Message);
+                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.GetBaseException().Message);
             }
         }
     }

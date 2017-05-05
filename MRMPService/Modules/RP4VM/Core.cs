@@ -147,7 +147,7 @@ namespace MRMPService.RP4VMTypes
                         Logger.log(response.Content, Logger.Severity.Error);
                         break;
                     }
-                    throw new System.ArgumentException(((ResultType)responseobject).result.message);
+                    throw new System.ArgumentException((String.Join(",", ((ResultType)responseobject).result.message)));
                 }
                 else
                 {

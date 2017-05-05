@@ -21,7 +21,7 @@ namespace MRMPService.MRMPAPI.Classes
 
                     MRPWorkloadListType _workload_paged;
                     MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { provisioned = true, page = 1, deleted = false, enabled = true, os_collection_enabled = true };
-                    _workload_paged = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
+                    _workload_paged = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
                     List<MRPWorkloadType> _all_workloads = new List<MRPWorkloadType>();
                     while (_workload_paged.pagination.page_size > 0)
                     {
@@ -29,7 +29,7 @@ namespace MRMPService.MRMPAPI.Classes
                         if (_workload_paged.pagination.next_page > 0)
                         {
                             _filter.page = _workload_paged.pagination.next_page;
-                            _workload_paged = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
+                            _workload_paged = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
                         }
                         else
                         {
@@ -62,12 +62,12 @@ namespace MRMPService.MRMPAPI.Classes
                                         WorkloadInventory.WorkloadInventoryLinuxDo(workload).Wait();
                                         break;
                                 }
-                                MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, "Success", true).Wait();
+                                MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, "Success", true);
                             }
                             catch (Exception ex)
                             {
                                 Logger.log(String.Format("Error collecting inventory information from {0} with error {1}", workload.hostname, ex.GetBaseException().Message), Logger.Severity.Error);
-                                MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, ex.GetBaseException().Message, false).Wait();
+                                MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, ex.GetBaseException().Message, false);
                             }
                         });
                         _inventory_thread.Name = workload.hostname;

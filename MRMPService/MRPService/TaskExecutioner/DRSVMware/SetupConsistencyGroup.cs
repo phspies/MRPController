@@ -19,11 +19,11 @@ namespace MRMPService.TaskExecutioner.DRSVMWare
             try
             {
                 await RP4VM.CreateConsistencyGroup(_mrmp_task.id, _payload.workloadpairs.Select(x => x.source_workload).ToList(), _protectiongroup, _mo, 1, 99);
-                await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully configured consistency group");
+                MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully configured consistency group");
             }
             catch (Exception ex)
             {
-                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
             }
         }
     }

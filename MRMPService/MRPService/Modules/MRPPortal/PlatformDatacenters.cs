@@ -8,15 +8,15 @@ namespace MRMPService.Modules.MRMPPortal
         public PortalPlatformDatacenter(MRMPApiClient _MRP) : base(_MRP) {
         }
          
-        public async Task<MRPPlatformdatacenterListType> list(MRPPlatformType _platform)
+        public MRPPlatformdatacenterListType list(MRPPlatformType _platform)
         {
             endpoint = "/platformdatacenters/list.json";
             MRPPlatformGETType _platform_filter = new MRPPlatformGETType();
             _platform_filter.platform_id = _platform.id;
-            return await post<MRPPlatformdatacenterListType>(_platform_filter);
+            return post<MRPPlatformdatacenterListType>(_platform_filter);
         }
 
-        public async Task<ResultType> create(MRPPlatformdatacenterType _platform_datacenter)
+        public ResultType create(MRPPlatformdatacenterType _platform_datacenter)
         {
             MRPPlatformdatacenterCRUDType datacenter = new MRPPlatformdatacenterCRUDType()
             {
@@ -24,9 +24,9 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/platformdatacenters/create.json";
-            return await post<ResultType>(datacenter);
+            return post<ResultType>(datacenter);
         }
-        public async Task<ResultType> update(MRPPlatformdatacenterType _platform_datacenter)
+        public ResultType update(MRPPlatformdatacenterType _platform_datacenter)
         {
             MRPPlatformdatacenterCRUDType datacenter = new MRPPlatformdatacenterCRUDType()
             {
@@ -34,7 +34,7 @@ namespace MRMPService.Modules.MRMPPortal
             };
 
             endpoint = "/platformdatacenters/update.json";
-            return await put<ResultType>(datacenter);
+            return put<ResultType>(datacenter);
         }
     }
 }

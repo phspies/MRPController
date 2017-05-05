@@ -13,53 +13,53 @@ namespace MRMPService.MRMPDoubleTake
     {
         public Image(Doubletake doubletake) : base(doubletake) { }
 
-        public async Task<IEnumerable<ImageInfoModel>> GetAllImages()
+        public IEnumerable<ImageInfoModel> GetAllImages()
         {
             var api = new ImagesApi(_target_connection);
-            ApiResponse<IEnumerable<ImageInfoModel>> response = await api.GetImagesAsync();
+            var response = api.GetImagesAsync().Result;
             response.EnsureSuccessStatusCode();
             return response.Content;
         }
-        public async Task<IEnumerable<ImageInfoModel>> GetAllImagesFromSource()
+        public IEnumerable<ImageInfoModel> GetAllImagesFromSource()
         {
             var api = new ImagesApi(_source_connection);
-            ApiResponse<IEnumerable<ImageInfoModel>> response = await api.GetImagesAsync();
+            var response = api.GetImagesAsync().Result;
             response.EnsureSuccessStatusCode();
             return response.Content;
         }
-        public async Task<IEnumerable<ImageInfoModel>> GetImagesSource(String _source_hostname)
+        public IEnumerable<ImageInfoModel> GetImagesSource(String _source_hostname)
         {
             var api = new ImagesApi(_target_connection);
-            ApiResponse<IEnumerable<ImageInfoModel>> response = await api.GetImagesAsync("sourceName eq " + _source_hostname);
+            var response = api.GetImagesAsync("sourceName eq " + _source_hostname).Result;
             response.EnsureSuccessStatusCode();
             return response.Content;
         }
-        public async Task<IEnumerable<ImageInfoModel>> GetImages(String _job_name)
+        public IEnumerable<ImageInfoModel> GetImages(String _job_name)
         {
             var api = new ImagesApi(_target_connection);
-            ApiResponse<IEnumerable<ImageInfoModel>> response = await api.GetImagesAsync("protectionJobName eq " + _job_name);
+            var response = api.GetImagesAsync("protectionJobName eq " + _job_name).Result;
             response.EnsureSuccessStatusCode();
             return response.Content;
         }
-        public async Task<IEnumerable<ImageInfoModel>> GetImages()
+        public IEnumerable<ImageInfoModel> GetImages()
         {
             var api = new ImagesApi(_target_connection);
-            ApiResponse<IEnumerable<ImageInfoModel>> response = await api.GetImagesAsync();
+            var response = api.GetImagesAsync().Result;
             response.EnsureSuccessStatusCode();
             return response.Content;
         }
-        public async Task<IEnumerable<SnapshotEntryModel>> GetSingleSnapshotEntry(Guid id)
+        public IEnumerable<SnapshotEntryModel> GetSingleSnapshotEntry(Guid id)
         {
             var api = new ImagesApi(_target_connection);
-            ApiResponse<IEnumerable<SnapshotEntryModel>> response = await api.GetImageSnapshotsAsync(id);
+            var response = api.GetImageSnapshotsAsync(id).Result;
             response.EnsureSuccessStatusCode();
             return response.Content;
         }
 
-        public async void DeleteSnapshotEntry(Guid id, Guid snapshot_id)
+        public void DeleteSnapshotEntry(Guid id, Guid snapshot_id)
         {
             var api = new ImagesApi(_target_connection);
-            ApiResponse response = await api.DeleteImageSnapshotAsync(id, snapshot_id);
+            ApiResponse response = api.DeleteImageSnapshotAsync(id, snapshot_id).Result;
             response.EnsureSuccessStatusCode();
             return;
         }

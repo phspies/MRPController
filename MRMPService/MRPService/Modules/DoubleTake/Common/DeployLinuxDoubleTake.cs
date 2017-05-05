@@ -26,7 +26,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                 }
             }
         }
-        public static async Task DeployLinuxDoubleTake(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
+        public static void DeployLinuxDoubleTake(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
         {
             dt_server_type server_type = dt_server_type.source;
 
@@ -48,7 +48,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                             break;
                     }
 
-                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting DT deploying process on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 1));
+                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting DT deploying process on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 1));
 
                     string _contactable_ip = null;
                     using (Connection _connection = new Connection())
@@ -57,7 +57,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                     }
                     if (_contactable_ip == null)
                     {
-                        await MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, String.Format("Cannot contact workload {0}", _working_workload.hostname));
+                        MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, String.Format("Cannot contact workload {0}", _working_workload.hostname));
                         server_type = dt_server_type.target;
                         continue;
                     }
@@ -83,7 +83,7 @@ namespace MRMPService.Modules.DoubleTake.Common
 
                     if (!File.Exists(localfilepath))
                     {
-                        await MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, String.Format("Couldn't locate required installation file(s) {0}", localfilepath));
+                        MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, String.Format("Couldn't locate required installation file(s) {0}", localfilepath));
                         return;
                     }
 
@@ -96,7 +96,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                         var _version_cmd = sshclient.RunCommand("/usr/bin/DT -v");
                         if (_version_cmd.ExitStatus != 0)
                         {
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("It's a fresh install; no Double-Take version found on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 5));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("It's a fresh install; no Double-Take version found on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 5));
                         }
                         else
                         {
@@ -104,18 +104,18 @@ namespace MRMPService.Modules.DoubleTake.Common
                             int versionCompare = Versions.Compare(_dt_available_version, _dt_installed_version);
                             if (versionCompare <= 0)
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Product version being PushInstalled is same or less than the version ({0}) installed on {1}", _dt_installed_version, _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 6));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Product version being PushInstalled is same or less than the version ({0}) installed on {1}", _dt_installed_version, _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 6));
                                 ProductVersionModel _installed_dt_version;
                                 using (Doubletake _dt = new Doubletake(null, _working_workload))
                                 {
                                     try
                                     {
-                                        _installed_dt_version = (_dt.management().GetProductInfo().Result).ManagementServiceVersion;
-                                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take installed and running on {0} with version {1}.{2}.{3}", _working_workload.hostname, _installed_dt_version.Major, _installed_dt_version.Minor, _installed_dt_version.Build), ReportProgress.Progress(_start_progress, _end_progress, _counter + 7));
+                                        _installed_dt_version = (_dt.management().GetProductInfo()).ManagementServiceVersion;
+                                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take installed and running on {0} with version {1}.{2}.{3}", _working_workload.hostname, _installed_dt_version.Major, _installed_dt_version.Minor, _installed_dt_version.Build), ReportProgress.Progress(_start_progress, _end_progress, _counter + 7));
                                     }
                                     catch (Exception ex)
                                     {
-                                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take installed on {0} but cannot be contacted: {1} {2}", _working_workload.hostname, ex.Message, ex.InnerException.InnerException.InnerException.Message), ReportProgress.Progress(_start_progress, _end_progress, _counter + 7));
+                                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take installed on {0} but cannot be contacted: {1} {2}", _working_workload.hostname, ex.Message, ex.InnerException.InnerException.InnerException.Message), ReportProgress.Progress(_start_progress, _end_progress, _counter + 7));
                                     }
                                 }
                                 if (server_type == dt_server_type.target)
@@ -130,11 +130,11 @@ namespace MRMPService.Modules.DoubleTake.Common
                             }
                             else
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Upgrading Double-Take version {0} on {1} to version {2}", _dt_installed_version, _working_workload.hostname, _dt_available_version), ReportProgress.Progress(_start_progress, _end_progress, _counter + 10));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Upgrading Double-Take version {0} on {1} to version {2}", _dt_installed_version, _working_workload.hostname, _dt_available_version), ReportProgress.Progress(_start_progress, _end_progress, _counter + 10));
                                 var _lsb_install = sshclient.CreateCommand("/etc/init.d/DT halt");
                             }
                         }
-                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, "Copy Linux binary to workload", ReportProgress.Progress(_start_progress, _end_progress, _counter + 11));
+                        MRMPServiceBase._mrmp_api.task().progress(_task_id, "Copy Linux binary to workload", ReportProgress.Progress(_start_progress, _end_progress, _counter + 11));
 
                         using (var sftp = new SftpClient(ConnNfo))
                         {
@@ -155,33 +155,33 @@ namespace MRMPService.Modules.DoubleTake.Common
                                 {
                                     sftp.UploadFile(fileStream, Path.GetFileName(localfilepath), null);
                                     fileStream.Close();
-                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Complete binaries copy process for {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 12));
+                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Complete binaries copy process for {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 12));
                                 }
                             }
                         }
                         //test and disable SELinux
                         bool _workload_rebooted = false;
-                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Testing if SELinux is enabled on workload {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 13));
+                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Testing if SELinux is enabled on workload {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 13));
 
                         var _selinux_test_command = sshclient.RunCommand("selinuxenabled");
                         if (_selinux_test_command.ExitStatus == 0)
                         {
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("SELinux is enabled on workload {0}, disabling it", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 14));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("SELinux is enabled on workload {0}, disabling it", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 14));
 
                             var _selinux_disable_command = sshclient.RunCommand("sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config");
                             if (_selinux_test_command.ExitStatus != 0)
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("SELinux disabling task failed on {0} : {1}", _working_workload.hostname, _selinux_disable_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 15));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("SELinux disabling task failed on {0} : {1}", _working_workload.hostname, _selinux_disable_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 15));
                             }
                             else
                             {
                                 _workload_rebooted = true;
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("SELinux disabling task successed on {0}. Rebooting workload for change to take affect", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 16));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("SELinux disabling task successed on {0}. Rebooting workload for change to take affect", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 16));
                                 //init 6 results in a dropped ssh connection. catch will make sure the code completes as expected.
                                 try
                                 {
                                     var _reboot_command = sshclient.RunCommand("init 6");
-                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Reboot failed on {0} : {1}. Please reboot workload", _working_workload.hostname, _reboot_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 17));
+                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Reboot failed on {0} : {1}. Please reboot workload", _working_workload.hostname, _reboot_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 17));
                                     throw new Exception(String.Format("Reboot failed on {0} : {1}. Please reboot workload", _working_workload.hostname, _reboot_command.Result));
                                 }
                                 catch (Exception)
@@ -192,7 +192,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                         //if we had to reboot the workload because we disabled SELinux
                         if (_workload_rebooted)
                         {
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Waiting for {0}to become available after reboot", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 18));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Waiting for {0}to become available after reboot", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 18));
                             int _connection_retries = 6;
                             while (true)
                             {
@@ -200,19 +200,19 @@ namespace MRMPService.Modules.DoubleTake.Common
                                 {
                                     sshclient.Connect();
 
-                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("{0} is now available after reboot", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 19));
+                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("{0} is now available after reboot", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 19));
 
-                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Testing if SELinux is disabled on workload {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 20));
+                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Testing if SELinux is disabled on workload {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 20));
 
                                     sshclient.Connect();
                                     _selinux_test_command = sshclient.RunCommand("selinuxenabled");
                                     if (_selinux_test_command.ExitStatus == 1)
                                     {
-                                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("SELinux is disabled on workload {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 21));
+                                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("SELinux is disabled on workload {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 21));
                                     }
                                     else
                                     {
-                                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("SELinux is still enabled on {0}. Please disable by manually", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 22));
+                                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("SELinux is still enabled on {0}. Please disable by manually", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 22));
                                         throw new Exception(String.Format("SELinux is still enabled on {0}. Please disable by manually", _working_workload.hostname));
                                     }
                                     break;
@@ -221,19 +221,19 @@ namespace MRMPService.Modules.DoubleTake.Common
                                 {
                                     if (_connection_retries-- == 0)
                                     {
-                                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Cannot connect to {0} after reboot.", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 23));
+                                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Cannot connect to {0} after reboot.", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 23));
                                         throw new Exception(String.Format("Cannot connect to {0} after reboot.", _working_workload.hostname));
                                     }
                                     Thread.Sleep(new TimeSpan(0, 0, 10));
                                 }
                             }
 
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Checking if LSB is installed on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 24));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Checking if LSB is installed on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 24));
 
                             var _lsb_command = sshclient.RunCommand("lsb_release -a");
                             if (_lsb_command.ExitStatus != 0)
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("LSB not installed on {0}, installing it", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 25));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("LSB not installed on {0}, installing it", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 25));
 
                                 string _lsb_install_command = "";
                                 if (_target_workload.osedition.Contains("CENTOS") || _target_workload.osedition.Contains("REDHAT"))
@@ -252,24 +252,24 @@ namespace MRMPService.Modules.DoubleTake.Common
 
                                 if (_lsb_install.ExitStatus != 0)
                                 {
-                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("LSB installation failed {0}", _lsb_install.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 26));
+                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("LSB installation failed {0}", _lsb_install.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 26));
                                     throw new Exception(String.Format("LSB installation failed on {0}", _working_workload.hostname));
                                 }
                                 else
                                 {
-                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("LSB installation succeeded"), ReportProgress.Progress(_start_progress, _end_progress, _counter + 26));
+                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("LSB installation succeeded"), ReportProgress.Progress(_start_progress, _end_progress, _counter + 26));
                                 }
                             }
                             else
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("LSB in installed on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 27));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("LSB in installed on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 27));
                             }
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Checking if dmidecode is installed on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 28));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Checking if dmidecode is installed on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 28));
 
                             var _dmidecode_command = sshclient.RunCommand("dmidecode");
                             if (_dmidecode_command.ExitStatus != 0)
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Dmidecode not installed on {0}, installing it", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 29));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Dmidecode not installed on {0}, installing it", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 29));
 
                                 string _dmidecode_install_command = "";
                                 if (_target_workload.osedition.Contains("CENTOS") || _target_workload.osedition.Contains("REDHAT"))
@@ -288,23 +288,23 @@ namespace MRMPService.Modules.DoubleTake.Common
 
                                 if (_dmidecode_install.ExitStatus != 0)
                                 {
-                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Dmidecode installation failed {0}", _dmidecode_install.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 30));
+                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Dmidecode installation failed {0}", _dmidecode_install.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 30));
                                     throw new Exception(String.Format("Dmidecode installation failed on {0}", _working_workload.hostname));
                                 }
                                 else
                                 {
-                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Dmidecode installation succeeded"), ReportProgress.Progress(_start_progress, _end_progress, _counter + 31));
+                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Dmidecode installation succeeded"), ReportProgress.Progress(_start_progress, _end_progress, _counter + 31));
                                 }
                             }
                             else
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Dmidecode is installed on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 32));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Dmidecode is installed on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 32));
                             }
 
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Complete copy and requirements process for {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 33));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Complete copy and requirements process for {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 33));
 
 
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting Double-Take installer on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 34));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting Double-Take installer on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 34));
 
                             String install_file = remotetemppath + "/" + Path.GetFileName(localfilepath);
                             string _install_cmd = "";
@@ -319,42 +319,42 @@ namespace MRMPService.Modules.DoubleTake.Common
                             var _dt_install_command = sshclient.RunCommand(_install_cmd);
                             if (_dt_install_command.ExitStatus != 0)
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error installing Double-Take on {0} : {1}", _working_workload.hostname, _dt_install_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 35));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error installing Double-Take on {0} : {1}", _working_workload.hostname, _dt_install_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 35));
                                 throw new Exception(String.Format("Error installing Double-Take on {0} : {1}", _working_workload.hostname, _dt_install_command.Result));
                             }
                             else
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully installed Double-Take on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 35));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully installed Double-Take on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 35));
                             }
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Accepting Double-Take license agreement on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 36));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Accepting Double-Take license agreement on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 36));
 
                             var _dt_accept_command = sshclient.RunCommand("DTSetup -E YES");
                             if (_dt_accept_command.ExitStatus != 0)
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error accepting license agreement for Double-Take on {0} : {1}", _working_workload.hostname, _dt_accept_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 37));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error accepting license agreement for Double-Take on {0} : {1}", _working_workload.hostname, _dt_accept_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 37));
                                 throw new Exception(String.Format("Error accepting license agreement for Double-Take on {0} : {1}", _working_workload.hostname, _dt_accept_command.Result));
                             }
                             else
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully accepted license agreement for Double-Take on {0} : {1}", _working_workload.hostname, _dt_accept_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 37));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully accepted license agreement for Double-Take on {0} : {1}", _working_workload.hostname, _dt_accept_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 37));
                             }
-                            await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting Double-Take services on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 40));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting Double-Take services on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 40));
 
                             var _dt_start_command = sshclient.RunCommand("/etc/init.d/DT start");
                             if (_dt_start_command.ExitStatus != 0)
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error accepting license agreement for Double-Take on {0} : {1}", _working_workload.hostname, _dt_start_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 38));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error accepting license agreement for Double-Take on {0} : {1}", _working_workload.hostname, _dt_start_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 38));
                                 throw new Exception(String.Format("Error accepting license agreement for Double-Take on {0} : {1}", _working_workload.hostname, _dt_start_command.Result));
                             }
                             else
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully accepted license agreement for Double-Take on {0} : {1}", _working_workload.hostname, _dt_start_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 38));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully accepted license agreement for Double-Take on {0} : {1}", _working_workload.hostname, _dt_start_command.Result), ReportProgress.Progress(_start_progress, _end_progress, _counter + 38));
                             }
                             sshclient.Disconnect();
                         }
 
                         //Verify DT Installation
-                        await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Verify DT connectivity on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress,  _counter + 39));
+                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Verify DT connectivity on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress,  _counter + 39));
 
                         //Verify if the management service of Double-Take is running
                         // to determine that the software is installed properly
@@ -363,17 +363,17 @@ namespace MRMPService.Modules.DoubleTake.Common
                         {
                             try
                             {
-                                _dt_version = (await _dt.management().GetProductInfo()).ManagementServiceVersion;
+                                _dt_version = (_dt.management().GetProductInfo()).ManagementServiceVersion;
                                 if (_dt_version == null)
                                 {
-                                    await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take installed on {0} but cannot be contacted", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 40));
+                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take installed on {0} but cannot be contacted", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 40));
                                     server_type = dt_server_type.target;
                                 }
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take version {0}.{1}.{2} has successfully installed on workload {3} ", _dt_version.Major, _dt_version.Minor, _dt_version.Build, _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 41));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take version {0}.{1}.{2} has successfully installed on workload {3} ", _dt_version.Major, _dt_version.Minor, _dt_version.Build, _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 41));
                             }
                             catch (Exception ex)
                             {
-                                await MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take installed on {0} but cannot be contacted: {1} {2}", _working_workload.hostname, ex.Message, ex.InnerException.InnerException.InnerException.Message), ReportProgress.Progress(_start_progress, _end_progress, _counter + 42));
+                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take installed on {0} but cannot be contacted: {1} {2}", _working_workload.hostname, ex.Message, ex.InnerException.InnerException.InnerException.Message), ReportProgress.Progress(_start_progress, _end_progress, _counter + 42));
                                 server_type = dt_server_type.target;
                             }
                         }
@@ -394,7 +394,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                 throw new Exception(String.Format("Double-Take installation failed: {0}", ex.Message));
 
             }
-            await MRMPServiceBase._mrmp_api.task().progress(_task_id, "Completed Double-Take deployment", ReportProgress.Progress(_start_progress, _end_progress, 99));
+            MRMPServiceBase._mrmp_api.task().progress(_task_id, "Completed Double-Take deployment", ReportProgress.Progress(_start_progress, _end_progress, 99));
 
         }
         static private string RemoveExtraText(string value)

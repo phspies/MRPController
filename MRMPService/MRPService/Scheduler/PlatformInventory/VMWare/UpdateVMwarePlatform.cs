@@ -8,12 +8,13 @@ using VMware.Vim;
 using MRMPService.VMWare;
 using System.Collections.Specialized;
 using MRMPService.MRMPAPI;
+using System.Threading.Tasks;
 
 namespace MRMPService.Scheduler.PlatformInventory.VMWare
 {
     class PlatformVMwareInventoryDo
     {
-        static public async System.Threading.Tasks.Task UpdateVMwarePlatform(MRPPlatformType _platform, bool full = true)
+        static public void UpdateVMwarePlatform(MRPPlatformType _platform, bool full = true)
         {
             Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.platform), Logger.Severity.Info);
             Stopwatch sw = Stopwatch.StartNew();
@@ -21,12 +22,18 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             //define object lists
             MRPCredentialType _vmware_credential = _platform.credential;
 
-            String username = String.Concat((String.IsNullOrEmpty(_vmware_credential.domain) ? "" : (_vmware_credential.domain + @"\")), _vmware_credential.username);
+            String username = String.Concat(_vmware_credential.username, (String.IsNullOrEmpty(_vmware_credential.domain) ? "" : (@"@" + _vmware_credential.domain)));
             VimApiClient _vim = new VimApiClient(_platform.vmware_url, username, _vmware_credential.encrypted_password);
 
 
             //update localdb platform information
-            Datacenter dc = _vim.datacenter().GetDataCenter(_platform.moid);
+
+            if (_platform.platformdatacenter == null)
+            {
+                throw new Exception("No datacenter selected");
+            }
+
+            Datacenter dc = _vim.datacenter().GetDataCenter(_platform.platformdatacenter.moid);
             List<DistributedVirtualSwitch> networkdomain_list = _vim.networks().GetDVSwitches(dc);
             List<Datastore> datastore_list = _vim.datastore().DatastoreList(dc);
             List<ComputeResource> cluster_list = _vim.datacenter().ClusterList(dc);
@@ -150,37 +157,36 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
                     _platformdomain.platformnetworks.Add(_platformnetwork);
                 }
             }
-            await MRMPServiceBase._mrmp_api.platform().update(_update_platform);
+            MRMPServiceBase._mrmp_api.platform().update(_update_platform);
 
             if (full)
             {
                 //refresh domains and networks from portal
                 MRPPlatformType _refreshed_platfrom = new MRPPlatformType();
 
-                _refreshed_platfrom = await MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
+                _refreshed_platfrom = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
                 List<MRPWorkloadType> _mrp_workloads = new List<MRPWorkloadType>();
 
-                MRPWorkloadListType _paged_workload = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
+                MRPWorkloadListType _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
                 _mrp_workloads.AddRange(_paged_workload.workloads);
                 while (_paged_workload.pagination.page_size > 0)
                 {
                     _mrp_workloads.AddRange(_paged_workload.workloads);
                     if (_paged_workload.pagination.next_page > 0)
                     {
-                        _paged_workload = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
+                        _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
                     }
                     else
                     {
                         break;
                     }
                 }
-                System.Threading.Tasks.Parallel.ForEach(_vmware_workload_list, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, async (_vmware_workload) =>
+                Parallel.ForEach(_vmware_workload_list, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, (_vmware_workload) =>
                 {
                     try
                     {
                             //update lists before we start the workload inventory process
-
-                            await PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _refreshed_platfrom, _mrp_workloads);
+                            PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _refreshed_platfrom, _mrp_workloads);
                     }
                     catch (Exception ex)
                     {

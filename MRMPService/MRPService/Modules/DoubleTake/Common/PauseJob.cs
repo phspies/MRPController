@@ -13,7 +13,7 @@ namespace MRMPService.Modules.DoubleTake.Common
         public static async Task PauseJob(string _task_id, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
 
-            await MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("Pausing job {0} on {1}", _managementobject.moname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
+            MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("Pausing job {0} on {1}", _managementobject.moname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
 
             string _contactable_ip = null;
             using (Connection _connection = new Connection())
@@ -28,10 +28,10 @@ namespace MRMPService.Modules.DoubleTake.Common
             JobInfoModel _dt_job;
             using (Doubletake _dt = new Doubletake(null, _target_workload))
             {
-                _dt_job = _dt.job().GetJob(Guid.Parse(_managementobject.moid)).Result;
+                _dt_job = _dt.job().GetJob(Guid.Parse(_managementobject.moid));
                 if (_dt_job.Status.CanPause)
                 {
-                    _dt.job().PauseJob(Guid.Parse(_managementobject.moid)).Wait();
+                    _dt.job().PauseJob(Guid.Parse(_managementobject.moid));
                 }
                 else
                 {
@@ -39,10 +39,10 @@ namespace MRMPService.Modules.DoubleTake.Common
                 }
 
             }
-            await MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("Updating job status with portal"), ReportProgress.Progress(_start_progress, _end_progress, 40));
+            MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("Updating job status with portal"), ReportProgress.Progress(_start_progress, _end_progress, 40));
             await Task.Delay(new TimeSpan(0, 0, 10));
-            await DTJobPoller.PollerDo(_managementobject);
-            await MRMPServiceBase._mrmp_api.task().successcomplete(_task_id, String.Format("Job paused successfully {0} on {1} : {2}", _managementobject.moname, _target_workload.hostname, _dt_job.Status.HighLevelState));
+            DTJobPoller.PollerDo(_managementobject);
+            MRMPServiceBase._mrmp_api.task().successcomplete(_task_id, String.Format("Job paused successfully {0} on {1} : {2}", _managementobject.moname, _target_workload.hostname, _dt_job.Status.HighLevelState));
         }
     }
 }

@@ -39,15 +39,15 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
             {
                 using (MRMPDoubleTake.Doubletake _dt = new MRMPDoubleTake.Doubletake(null, _workload))
                 {
-                    ProductInfoModel _dt_info = await _dt.management().GetProductInfo();
+                    ProductInfoModel _dt_info = _dt.management().GetProductInfo();
                 }
 
-                await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_workload, "Success", true);
+                MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_workload, "Success", true);
             }
             catch (Exception ex)
             {
 
-                await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_workload, ex.Message, false);
+                MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_workload, ex.Message, false);
 
                 Logger.log(String.Format("Double-Take Event: Error contacting Double-Take Management Service for {0} using {1} : {2}", _workload, workload_ip, ex.ToString()), Logger.Severity.Info);
                 throw new ArgumentException(String.Format("Double-Take Event: Error contacting Double-Take management service for {0} using {1}", _workload, workload_ip));
@@ -73,7 +73,7 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
                         _friendlyname = String.Join(" ", _event.Source, new System.Globalization.CultureInfo("en-US", false).TextInfo.ToTitleCase(String.Join(" ", _internal_event.name.Split('_').Skip(1)).ToString()));
                     }
 
-                    await MRMPServiceBase._mrmp_api.@event().create(new MRMPEventType()
+                    MRMPServiceBase._mrmp_api.@event().create(new MRMPEventType()
                     {
                         elementevent_id = _event.Id,
                         source_subsystem = String.Join(" ", _event.Source, _event.Category),
@@ -94,7 +94,7 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
             {
                 Logger.log(String.Format("Double-Take Event: Error collecting event information from {0} : {1}", _workload.hostname, ex.ToString()), Logger.Severity.Info);
 
-                await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_workload, ex.Message, false);
+                MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_workload, ex.Message, false);
                 return;
             }
 

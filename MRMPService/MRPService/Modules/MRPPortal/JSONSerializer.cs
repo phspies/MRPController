@@ -72,9 +72,8 @@ namespace MRMPService.Modules.MRMPPortal
     }
     public class SkipEmptyContractResolver : DefaultContractResolver
     {
-        public SkipEmptyContractResolver(bool shareCache = false) : base(shareCache) { }
-        protected override JsonProperty CreateProperty(MemberInfo member,
-                MemberSerialization memberSerialization)
+        public SkipEmptyContractResolver(bool shareCache = false) : base() { }
+        protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             JsonProperty property = base.CreateProperty(member, memberSerialization);
             bool isDefaultValueIgnored =

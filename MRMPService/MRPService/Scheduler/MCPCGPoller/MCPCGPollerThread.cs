@@ -26,14 +26,14 @@ namespace MRMPService.Scheduler.DTPollerCollection
                     List<MRPManagementobjectType> _mcp_mos;
 
                     MRManagementobjectFilterType _filter = new MRManagementobjectFilterType() { motype = "MCPConsistencyGroup", entitytype = 1 };
-                    _mcp_mos = (await MRMPServiceBase._mrmp_api.managementobject().list_filtered(_filter)).managementobjects.Where(x => x.target_platform.enabled == true).ToList();
+                    _mcp_mos = (MRMPServiceBase._mrmp_api.managementobject().list_filtered(_filter)).managementobjects.Where(x => x.target_platform.enabled == true && x.internal_state != "deleted").ToList();
 
 
-                    Parallel.ForEach(_mcp_mos, new ParallelOptions() { MaxDegreeOfParallelism = MRMPServiceBase.mcp_cg_polling_concurrency }, async _mcp_mo =>
+                    Parallel.ForEach(_mcp_mos, new ParallelOptions() { MaxDegreeOfParallelism = MRMPServiceBase.mcp_cg_polling_concurrency }, _mcp_mo =>
                     {
                         try
                         {
-                            await MCPCGPoller.PollerDo(_mcp_mo);
+                            MCPCGPoller.PollerDo(_mcp_mo);
                         }
                         catch (Exception ex)
                         {

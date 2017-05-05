@@ -7,17 +7,17 @@ namespace MRMPService.TaskExecutioner.Common
 {
     partial class Common
     {
-        static public async void FailoverDoubleTakeGroup(MRPTaskType _mrmp_task)
+        static public void FailoverDoubleTakeGroup(MRPTaskType _mrmp_task)
         {
-            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
-
+            
             try
             {
+                MRPTaskDetailType _payload = _mrmp_task.taskdetail;
                 if (_payload.managementobjects.Count() == 0)
                 {
 
-                    await MRMPServiceBase._mrmp_api.task().progress(_mrmp_task.id, String.Format("No failover operations found"), 99);
-                    await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id);
+                    MRMPServiceBase._mrmp_api.task().progress(_mrmp_task.id, String.Format("No failover operations found"), 99);
+                    MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id);
                 }
                 else
                 {
@@ -33,14 +33,13 @@ namespace MRMPService.TaskExecutioner.Common
                         _count++;
                     }
 
-                    await MRMPServiceBase._mrmp_api.task().progress(_mrmp_task.id, String.Format("Successfully migrated group"), 99);
-                    await MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id);
+                    MRMPServiceBase._mrmp_api.task().progress(_mrmp_task.id, String.Format("Successfully migrated group"), 99);
+                    MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id);
                 }
             }
             catch (Exception ex)
             {
-
-                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
             }
 
         }

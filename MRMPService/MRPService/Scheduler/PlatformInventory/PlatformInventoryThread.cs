@@ -15,7 +15,7 @@ namespace MRMPService.Scheduler.PlatformInventory
     partial class PlatformInventoryThread
     {
 
-        public async void Start()
+        public void Start()
         {
             while (true)
             {
@@ -26,7 +26,7 @@ namespace MRMPService.Scheduler.PlatformInventory
 
                     Stopwatch sw = Stopwatch.StartNew();
                     //process platform independant items
-                    List<MRPPlatformType> _mrp_platforms = (await MRMPServiceBase._mrmp_api.platform().list(new MRPPlatformFilterPagedType() { deleted = false, enabled = true, page = 1, page_size = 200 })).platforms;
+                    List<MRPPlatformType> _mrp_platforms = (MRMPServiceBase._mrmp_api.platform().list(new MRPPlatformFilterPagedType() { deleted = false, enabled = true, page = 1, page_size = 200 })).platforms;
                     //Process Platforms in paralel
                     if (_mrp_platforms.Count > 0)
                     {
@@ -34,7 +34,7 @@ namespace MRMPService.Scheduler.PlatformInventory
                               {
                                   try
                                   {
-                                      PlatformDoInventory.PlatformInventoryDo(platform).Wait();
+                                      PlatformDoInventory.PlatformInventoryDo(platform);
                                   }
                                   catch (Exception ex)
                                   {

@@ -18,7 +18,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
 {
     class PlatformDimensionDataMCP2InventoryDo
     {
-        public static async Task UpdateMCPPlatform(MRPPlatformType _platform, bool full = true)
+        public static void UpdateMCPPlatform(MRPPlatformType _platform, bool full = true)
         {
 
             Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.platformdatacenter.moid), Logger.Severity.Info);
@@ -28,18 +28,18 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
 
             //define object lists
             MRPCredentialType _credential = _platform.credential;
-            _platform = await MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
+            _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
             MRPPlatformType _update_platform = new MRPPlatformType() { id = _platform.id };
 
             List<MRPWorkloadType> _mrp_workloads = new List<MRPWorkloadType>();
 
-            MRPWorkloadListType _paged_workload = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id });
+            MRPWorkloadListType _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id });
             while (_paged_workload.pagination.page_size > 0)
             {
                 _mrp_workloads.AddRange(_paged_workload.workloads);
                 if (_paged_workload.pagination.next_page > 0)
                 {
-                    _paged_workload = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
+                    _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
                 }
                 else
                 {
@@ -48,10 +48,9 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
             }
 
             ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_credential.username, _credential.encrypted_password));
-            IAccount _caas_account;
             try
             {
-                _caas_account = await CaaS.Login();
+                CaaS.Login().Wait();
             }
             catch (Exception ex)
             {
@@ -59,10 +58,10 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
             }
 
             //first update organization tags
-            var _dcs = await CaaS.Account.GetDataCentersWithMaintenanceStatuses();
-            var _caas_tags = await CaaS.Tagging.GetTags();
+            var _dcs = CaaS.Account.GetDataCentersWithMaintenanceStatuses();
+            var _caas_tags = CaaS.Tagging.GetTags().Result;
 
-            var _mrmp_org = await MRMPServiceBase._mrmp_api.organization().get();
+            var _mrmp_org = MRMPServiceBase._mrmp_api.organization().get();
             MRPOrganizationCRUDType _update_org = new MRPOrganizationCRUDType() { organization = new MRPOrganizationType() { id = MRMPServiceBase.organization_id, organizationtags = _mrmp_org.organizationtags } };
 
             if (_caas_tags != null)
@@ -87,7 +86,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 }
             }
             //update organization
-            await MRMPServiceBase._mrmp_api.organization().update(_update_org);
+            MRMPServiceBase._mrmp_api.organization().update(_update_org);
 
             //update datacenters for this platform
             List<DatacenterType> _mcp_datacenters = CaaS.Infrastructure.GetDataCenters().Result.ToList();
@@ -155,7 +154,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
             }
 
             //process customer images
-            PagedResponse<CustomerImageType> _customer_templates = await CaaS.ServerManagement.ServerImage.GetCustomerImages(new ServerCustomerImageListOptions() { DatacenterId = _platform.platformdatacenter.moid }, new PageableRequest() { PageSize = 250 });
+            PagedResponse<CustomerImageType> _customer_templates = CaaS.ServerManagement.ServerImage.GetCustomerImages(new ServerCustomerImageListOptions() { DatacenterId = _platform.platformdatacenter.moid }, new PageableRequest() { PageSize = 250 }).Result;
             if (_customer_templates.totalCount > 0)
             {
                 foreach (var _caas_template in _customer_templates.items)
@@ -243,10 +242,10 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
 
                 }
             }
-            await MRMPServiceBase._mrmp_api.platform().update(_update_platform);
+            MRMPServiceBase._mrmp_api.platform().update(_update_platform);
 
             //refresh platform from portal
-            _platform = await MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
+            _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
             _update_platform = new MRPPlatformType() { id = _platform.id };
             //update IP and Port Lists
             if (_caas_networkdomain_list != null)
@@ -274,7 +273,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                         _update_platform.platformdomains.Add(_mrmp_update_domain);
                     }
 
-                    var _iplist = await CaaS.Networking.FirewallRule.GetIpAddressLists(Guid.Parse(_caas_domain.id));
+                    var _iplist = CaaS.Networking.FirewallRule.GetIpAddressLists(Guid.Parse(_caas_domain.id)).Result;
                     if (_iplist != null)
                     {
                         foreach (var _ip_entry in _iplist)
@@ -390,7 +389,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                             }
                         }
                     }
-                    var _caas_portlist = await CaaS.Networking.FirewallRule.GetPortLists(Guid.Parse(_caas_domain.id));
+                    var _caas_portlist = CaaS.Networking.FirewallRule.GetPortLists(Guid.Parse(_caas_domain.id)).Result;
                     if (_caas_portlist != null)
                     {
                         foreach (var _port_entry in _caas_portlist)
@@ -488,12 +487,12 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                             }
                         }
                     }
-                    await MRMPServiceBase._mrmp_api.platform().update(_update_platform);
+                    MRMPServiceBase._mrmp_api.platform().update(_update_platform);
                 }
-                _platform = await MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
+                _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
                 _update_platform = new MRPPlatformType() { id = _platform.id, workloads = new List<MRPWorkloadType>() };
 
-                IEnumerable<ServerType> _caas_workload_list = await CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.platformdatacenter.moid, State = "NORMAL" });
+                IEnumerable<ServerType> _caas_workload_list = CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.platformdatacenter.moid, State = "NORMAL" }).Result;
                 //process deleted platform workloads
                 foreach (var _workload in _platform.workloads.Where(x => x.workloadtype != "manager"))
                 {
@@ -510,20 +509,20 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                     _update_platform.workloads.Add(_mrp_workload);
                 }
 
-                await MRMPServiceBase._mrmp_api.platform().update(_update_platform);
+                MRMPServiceBase._mrmp_api.platform().update(_update_platform);
 
-                _platform = await MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
+                _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
 
                 if (_caas_workload_list.Count() > 0)
                 {
                     if (full)
                     {
-                        Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, async (_caasworkload) =>
+                        Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, (_caasworkload) =>
                         {
                             try
                             {
                                 //update lists before we start the workload inventory process
-                                await PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform);
+                                PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform);
                             }
                             catch (Exception ex)
                             {
@@ -534,7 +533,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                     }
                 }
 
-                _platform = await MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
+                _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
                 if (_caas_networkdomain_list != null)
                 {
                     foreach (NetworkDomainType _caas_domain in _caas_networkdomain_list)
@@ -560,9 +559,9 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                             _update_platform.platformdomains.Add(_mrmp_update_domain);
                         }
 
-                        var _firewall_rules = await CaaS.Networking.FirewallRule.GetFirewallRules(new FirewallRuleListOptions() { NetworkDomainId = Guid.Parse(_caas_domain.id) });
-                        var _nat_rules = await CaaS.Networking.Nat.GetNatRules(Guid.Parse(_caas_domain.id));
-                        var _affinity_rules = await CaaS.ServerManagement.AntiAffinityRule.GetAntiAffinityRulesForNetworkDomain(Guid.Parse(_caas_domain.id));
+                        var _firewall_rules = CaaS.Networking.FirewallRule.GetFirewallRules(new FirewallRuleListOptions() { NetworkDomainId = Guid.Parse(_caas_domain.id) }).Result;
+                        var _nat_rules = CaaS.Networking.Nat.GetNatRules(Guid.Parse(_caas_domain.id)).Result;
+                        var _affinity_rules = CaaS.ServerManagement.AntiAffinityRule.GetAntiAffinityRulesForNetworkDomain(Guid.Parse(_caas_domain.id)).Result;
 
                         if (_affinity_rules != null)
                         {
@@ -739,7 +738,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                                 }
                             }
                         }
-                        await MRMPServiceBase._mrmp_api.platform().update(_update_platform);
+                        MRMPServiceBase._mrmp_api.platform().update(_update_platform);
                     }
                 }
 

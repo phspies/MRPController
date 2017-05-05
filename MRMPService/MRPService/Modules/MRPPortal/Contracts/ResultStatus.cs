@@ -1,5 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MRMPService.Modules.MRMPPortal.Contracts
 {
@@ -13,7 +13,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("organization_id")]
         public string organization_id { get; set; }
         [JsonProperty("message")]
-        public string message { get; set; }
+        public List<string> message { get; set; }
         [JsonProperty("status")]
         public bool status { get; set; }
     }

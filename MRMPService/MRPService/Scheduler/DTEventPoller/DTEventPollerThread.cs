@@ -25,7 +25,7 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
                     MRPWorkloadListType _workload_paged;
                     MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { page = 1, deleted = false, enabled = true, dt_installed = true, dt_collection_enabled = true };
 
-                    _workload_paged = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
+                    _workload_paged = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
                     List<MRPWorkloadType> _all_workloads = new List<MRPWorkloadType>();
                     while (_workload_paged.pagination.page_size > 0)
                     {
@@ -33,7 +33,7 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
                         if (_workload_paged.pagination.next_page > 0)
                         {
                             _filter.page = _workload_paged.pagination.next_page;
-                            _workload_paged = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
+                            _workload_paged = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
                         }
                         else
                         {
@@ -45,12 +45,12 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
                         try
                         {
                             await DTEventPollerDo.PollerDo(workload);
-                            await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(workload, "Success", true);
+                            MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(workload, "Success", true);
                         }
                         catch (Exception ex)
                         {
                             Logger.log(String.Format("Error collecting Double-Take Event information from {0} with error {1}", workload.hostname, ex.ToString()), Logger.Severity.Error);
-                            await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(workload, ex.Message, false);
+                            MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(workload, ex.Message, false);
                         }
                     });
 

@@ -21,7 +21,7 @@ namespace MRMPService.TaskExecutioner.Common
             }
             catch (Exception ex)
             {
-                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
 
             }
         }

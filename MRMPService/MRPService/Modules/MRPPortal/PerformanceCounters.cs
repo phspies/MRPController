@@ -9,14 +9,14 @@ namespace MRMPService.Modules.MRMPPortal
         public MRPPerformanceCounter(MRMPApiClient _MRP) : base(_MRP) {
         }
          
-        public async Task<ResultType> create(List<MRPPerformanceCounterCRUDType> _performancecounters)
+        public ResultType create(List<MRPPerformanceCounterCRUDType> _performancecounters)
         {
             MRPPerformanceCountersCRUDType performance = new MRPPerformanceCountersCRUDType()
             {
                 performancecounters = _performancecounters
             };
             endpoint = "/performancecounters/create.json";
-            return await post<ResultType>(performance);
+            return post<ResultType>(performance);
         }
     }
 }

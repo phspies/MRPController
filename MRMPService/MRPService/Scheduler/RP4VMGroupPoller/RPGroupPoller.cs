@@ -15,7 +15,7 @@ namespace MRMPService.DTPollerCollection
         public static async Task PollerDo(MRPManagementobjectType _mrp_managementobject)
         {
             //refresh managementobject from portal
-            _mrp_managementobject = await MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
+            _mrp_managementobject = MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
 
             //check for credentials
             MRPPlatformType _target_platform = _mrp_managementobject.target_platform;
@@ -61,7 +61,7 @@ namespace MRMPService.DTPollerCollection
                 {
                     Logger.log(String.Format("RP4VM Group: Error collecting information from {0} : {1}", _target_platform.rp4vm_url, ex.ToString()), Logger.Severity.Info);
 
-                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
+                    MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
                         id = _mrp_managementobject.id,
                         internal_state = "deleted",
@@ -69,7 +69,7 @@ namespace MRMPService.DTPollerCollection
                 }
                 else
                 {
-                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
+                    MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
                         id = _mrp_managementobject.id,
                         internal_state = "unavailable",
@@ -153,7 +153,7 @@ namespace MRMPService.DTPollerCollection
                     _mrp_mo_update.internal_state = "active";
                     _mrp_mo_update.last_contact = DateTime.UtcNow;
 
-                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(_mrp_mo_update);
+                    MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(_mrp_mo_update);
                 }
 
 

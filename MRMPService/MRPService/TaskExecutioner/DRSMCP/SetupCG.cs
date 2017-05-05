@@ -35,14 +35,14 @@ namespace MRMPService.TaskExecutioner.DRSMCP
                         _start_progress = _increment * (_index - 1);
                         _end_progress = _increment * (_index) - 1;
                     }
-                    await MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _vm_pair.target_workload, _protectiongroup, _start_progress, _end_progress, false);
+                    MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _vm_pair.target_workload, _protectiongroup, _start_progress, _end_progress, false);
                 }
-                await MCP_Platform.CreateCG(_mrmp_task.id, _platform, _protectiongroup, _managementobject, _workload_pairs, 51, 99);
+                MCP_Platform.CreateCG(_mrmp_task.id, _platform, _protectiongroup, _managementobject, _workload_pairs, 51, 99);
             }
             catch (Exception ex)
             {
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
-                await MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
 
             }
 

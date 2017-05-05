@@ -16,11 +16,11 @@ namespace MRMPService.Scheduler.MCPCGCollection
 {
     class MCPCGPoller
     {
-        public static async Task PollerDo(MRPManagementobjectType _mrp_managementobject)
+        public static void PollerDo(MRPManagementobjectType _mrp_managementobject)
         {
             //refresh managementobject from portal
 
-            _mrp_managementobject = await MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
+            _mrp_managementobject = MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
 
             //check for credentials
             MRPPlatformType _target_platform = _mrp_managementobject.target_platform;
@@ -43,7 +43,7 @@ namespace MRMPService.Scheduler.MCPCGCollection
             {
                 ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_mrp_managementobject.target_platform.url), new NetworkCredential(_mrp_managementobject.target_platform.credential.username, _mrp_managementobject.target_platform.credential.encrypted_password));
 
-                var _account = await CaaS.Login();
+                CaaS.Login().Wait();
 
                 _can_connect = true;
 
@@ -51,8 +51,8 @@ namespace MRMPService.Scheduler.MCPCGCollection
 
                 List<Filter> _filter = new List<Filter>();
                 _filter.Add(new Filter() { Field = "consistencyGroupId", Operator = FilterOperator.Equals, Value = _mrp_managementobject.moid });
-                _group_snapshot_list = await CaaS.ConsistencyGroups.GetConsistencyGroupSnapshots(new ConsistencyGroupSnapshotListOptions() { Filters = _filter });
-                _group_stats = await CaaS.ConsistencyGroups.GetConsistencyGroups(new ConsistencyGroupListOptions() { Id = new Guid(_mrp_managementobject.moid) });
+                _group_snapshot_list = CaaS.ConsistencyGroups.GetConsistencyGroupSnapshots(new ConsistencyGroupSnapshotListOptions() { Filters = _filter }).Result;
+                _group_stats = CaaS.ConsistencyGroups.GetConsistencyGroups(new ConsistencyGroupListOptions() { Id = new Guid(_mrp_managementobject.moid) }).Result;
             }
             catch (Exception ex)
             {
@@ -62,7 +62,7 @@ namespace MRMPService.Scheduler.MCPCGCollection
                 {
                     Logger.log(String.Format("MCP CG: Error collecting information from {0} : {1}", _target_platform.rp4vm_url, ex.ToString()), Logger.Severity.Info);
 
-                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
+                    MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
                         id = _mrp_managementobject.id,
                         internal_state = "deleted",
@@ -70,7 +70,7 @@ namespace MRMPService.Scheduler.MCPCGCollection
                 }
                 else
                 {
-                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
+                    MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
                         id = _mrp_managementobject.id,
                         internal_state = "unavailable",
@@ -141,7 +141,7 @@ namespace MRMPService.Scheduler.MCPCGCollection
                     _mrp_mo_update.state = "Active";
                     _mrp_mo_update.internal_state = "active";
                     _mrp_mo_update.last_contact = DateTime.UtcNow;
-                    await MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(_mrp_mo_update);
+                    MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(_mrp_mo_update);
                 }
                 catch (Exception ex)
                 {

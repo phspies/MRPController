@@ -27,7 +27,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                     List<MRPManagementobjectType> _jobs;
 
                     MRManagementobjectFilterType _filter = new MRManagementobjectFilterType() { entitytype = 0 };
-                    _jobs = (await MRMPServiceBase._mrmp_api.managementobject().list_filtered(_filter)).managementobjects.Where(x => x.target_workload.dt_collection_enabled == true && x.target_workload.provisioned == true).GroupBy(i => i.moid).Select(group => group.First()).ToList();
+                    _jobs = (MRMPServiceBase._mrmp_api.managementobject().list_filtered(_filter)).managementobjects.Where(x => x.target_workload.dt_collection_enabled == true && x.target_workload.provisioned == true).GroupBy(i => i.moid).Select(group => group.First()).ToList();
                     List<Thread> lstThreads = new List<Thread>();
                     var splashStart = new ManualResetEvent(false);
 
@@ -43,13 +43,13 @@ namespace MRMPService.Scheduler.DTPollerCollection
                             splashStart.Set();
                             try
                             {
-                                await DTJobPoller.PollerDo(job);
-                                await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(job.target_workload, "Success", true);
+                                DTJobPoller.PollerDo(job);
+                                MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(job.target_workload, "Success", true);
                             }
                             catch (Exception ex)
                             {
                                 Logger.log(string.Format("Error collecting Double-Take information from {0} with error {1}", job.target_workload.hostname, ex.ToString()), Logger.Severity.Error);
-                                await MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(job.target_workload, ex.Message, false);
+                                MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(job.target_workload, ex.Message, false);
                             }
                         });
                         lstThreads.Add(_inventory_thread);

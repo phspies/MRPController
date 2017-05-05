@@ -34,9 +34,9 @@ namespace MRMPService.MRMPDoubleTake
             return jobCredentials;
         }
 
-        async public Task<CreateOptionsModel> GetJobOptions(WorkloadModel workload, JobCredentialsModel jobCredentials, String _job_type)
+        public CreateOptionsModel GetJobOptions(WorkloadModel workload, JobCredentialsModel jobCredentials, String _job_type)
         {
-            ApiResponse<RecommendedJobOptionsModel> recommendedOptions = await jobApi.RecommendJobOptionsAsync(_job_type, workload, jobCredentials);
+            ApiResponse<RecommendedJobOptionsModel> recommendedOptions = jobApi.RecommendJobOptionsAsync(_job_type, workload, jobCredentials).Result;
             recommendedOptions.EnsureSuccessStatusCode();
 
             CreateOptionsModel createOptions = new CreateOptionsModel()
@@ -58,14 +58,14 @@ namespace MRMPService.MRMPDoubleTake
             }
             return _snapshots;
         }
-        async public Task<Guid> CreateJob(CreateOptionsModel createOptions, string jobName)
+        public Guid CreateJob(CreateOptionsModel createOptions, string jobName)
         {
             if (!string.IsNullOrEmpty(jobName))
             {
                 createOptions.JobOptions.Name = jobName;
             }
 
-            ApiResponse<Guid> data = await jobApi.CreateJobAsync(createOptions);
+            ApiResponse<Guid> data = jobApi.CreateJobAsync(createOptions).Result;
             data.EnsureSuccessStatusCode();
             return data.Content;
         }
@@ -109,49 +109,49 @@ namespace MRMPService.MRMPDoubleTake
             return new Tuple<bool, JobOptionsModel, List<VerificationStepModel>>(_job_errorfree, jobOptions, _errors);
         }
 
-        async public Task<List<JobInfoModel>> GetJobs()
+        public List<JobInfoModel> GetJobs()
         {
-            var result = await jobApi.GetJobsAsync();
+            var result = jobApi.GetJobsAsync().Result;
             result.EnsureSuccessStatusCode();
             return result.Content.ToList();
 
         }
-        async public Task<JobInfoModel> GetJob(Guid jobId)
+        public JobInfoModel GetJob(Guid jobId)
         {
-            var result = await jobApi.GetJobAsync(jobId);
+            var result = jobApi.GetJobAsync(jobId).Result;
             result.EnsureSuccessStatusCode();
             return result.Content;
         }
 
-        async public Task StartJob(Guid jobId)
+        public void StartJob(Guid jobId)
         {
-            var result = await jobApi.StartJobAsync(jobId);
+            var result = jobApi.StartJobAsync(jobId).Result;
             result.EnsureSuccessStatusCode();
         }
-        async public Task StopJob(Guid jobId)
+        public void StopJob(Guid jobId)
         {
-            var result = await jobApi.StopJobAsync(jobId);
+            var result = jobApi.StopJobAsync(jobId).Result;
             result.EnsureSuccessStatusCode();
         }
-        async public Task PauseJob(Guid jobId)
+        public void PauseJob(Guid jobId)
         {
-            var result = await jobApi.PauseJobAsync(jobId);
+            var result = jobApi.PauseJobAsync(jobId).Result;
             result.EnsureSuccessStatusCode();
         }
 
-        async public Task DeleteJob(Guid jobId)
+        public void DeleteJob(Guid jobId)
         {
-            var result = await jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll );
+            var result = jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll).Result;
             result.EnsureSuccessStatusCode();
         }
-        async public Task DeleteSnapshot(Guid jobId, Guid snaphotId, Guid connectionId)
+         public void  DeleteSnapshot(Guid jobId, Guid snaphotId, Guid connectionId)
         {
-            var result = await jobApi.DeleteSnapshotAsync(jobId, connectionId, snaphotId);
+            var result = jobApi.DeleteSnapshotAsync(jobId, connectionId, snaphotId).Result;
             result.EnsureSuccessStatusCode();
         }
-        async public Task DeleteJob_DeleteFiles(Guid jobId)
+        public void DeleteJob_DeleteFiles(Guid jobId)
         {
-            var result = await jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll);
+            var result = jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll).Result;
             result.EnsureSuccessStatusCode();
         }
 
@@ -162,43 +162,43 @@ namespace MRMPService.MRMPDoubleTake
             return result.Content;
         }
 
-        async public Task ReverseJob(Guid jobId)
+        public void ReverseJob(Guid jobId)
         {
-            var result = await jobApi.ReverseJobAsync(jobId, new Progress<ActivityStatusModel>());
+            var result = jobApi.ReverseJobAsync(jobId, new Progress<ActivityStatusModel>()).Result;
             result.EnsureSuccessStatusCode();
         }
-        async public Task<RecommendedFailoverOptionsModel> GetFailoverOptions(Guid jobId)
+        public RecommendedFailoverOptionsModel GetFailoverOptions(Guid jobId)
         {
-            ApiResponse<RecommendedFailoverOptionsModel> recommendedOptions = await jobApi.RecommendFailoverOptionsAsync(jobId);
+            ApiResponse<RecommendedFailoverOptionsModel> recommendedOptions = jobApi.RecommendFailoverOptionsAsync(jobId).Result;
             recommendedOptions.EnsureSuccessStatusCode();
             return recommendedOptions.Content;
         }
 
-        async public Task<RecommendedFailbackOptionsModel> GetFailbackOptions(Guid jobId)
+        public RecommendedFailbackOptionsModel GetFailbackOptions(Guid jobId)
         {
-            ApiResponse<RecommendedFailbackOptionsModel> recommendedOptions = await jobApi.RecommendFailbackOptionsAsync(jobId);
+            ApiResponse<RecommendedFailbackOptionsModel> recommendedOptions = jobApi.RecommendFailbackOptionsAsync(jobId).Result;
             recommendedOptions.EnsureSuccessStatusCode();
             return recommendedOptions.Content;
         }
 
-        async public Task<Guid> CreateJob(CreateOptionsModel createOptions)
+        public Guid CreateJob(CreateOptionsModel createOptions)
         {
-            ApiResponse<Guid> data = await jobApi.CreateJobAsync(createOptions);
+            ApiResponse<Guid> data = jobApi.CreateJobAsync(createOptions).Result;
             data.EnsureSuccessStatusCode();
             return data.Content;
         }
 
-        async public Task WaitForJobStatus(Guid jobId, Func<JobStatusModel, bool> actionStatus)
+        public void WaitForJobStatus(Guid jobId, Func<JobStatusModel, bool> actionStatus)
         {
             while (true)
             {
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                Task.Delay(TimeSpan.FromSeconds(10));
 
                 ApiResponse<JobInfoModel> jobResponse;
 
                 try
                 {
-                    jobResponse = await jobApi.GetJobAsync(jobId, fields: "status");
+                    jobResponse = jobApi.GetJobAsync(jobId, fields: "status").Result;
 
                     if (!jobResponse.IsSuccessStatusCode)
                     {

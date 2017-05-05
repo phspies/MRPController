@@ -22,7 +22,7 @@ namespace MRMPService.Scheduler.NetstatCollection
 
                     MRPWorkloadListType _workload_paged;
                     MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { provisioned = true, page = 1, deleted = false, enabled = true, netstat_collection_enabled = true };
-                    _workload_paged = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
+                    _workload_paged = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
                     List<MRPWorkloadType> _all_workloads = new List<MRPWorkloadType>();
                     while (_workload_paged.pagination.page_size > 0)
                     {
@@ -30,7 +30,7 @@ namespace MRMPService.Scheduler.NetstatCollection
                         if (_workload_paged.pagination.next_page > 0)
                         {
                             _filter.page = _workload_paged.pagination.next_page;
-                            _workload_paged = await MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
+                            _workload_paged = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
                         }
                         else
                         {

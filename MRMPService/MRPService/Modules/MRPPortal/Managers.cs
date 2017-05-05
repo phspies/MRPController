@@ -18,7 +18,7 @@ namespace MRMPService.Modules.MRMPPortal
             worker.version = MRMPServiceBase.manager_version;
             worker.ipaddress = String.Join(",", Dns.GetHostEntry(Dns.GetHostName()).AddressList.Select(x => x.ToString()).Where(x => x.ToString().Contains(".")));
         }
-        public async Task<ResultType> update_managerevents(List<MRPManagerEventType> _events)
+        public ResultType update_managerevents(List<MRPManagerEventType> _events)
         {
             MRManagerCRUDType _manager_type = new MRManagerCRUDType()
             {
@@ -28,18 +28,18 @@ namespace MRMPService.Modules.MRMPPortal
                 }
             };
             endpoint = "/managers/update.json";
-            return await post<ResultType>(_manager_type);
+            return post<ResultType>(_manager_type);
         }
-        public async Task<bool> confirm_controller()
+        public bool confirm_controller()
         {
             endpoint = ("/managers/confirm.json");
-            ResultType returnval = await post<ResultType>(worker);
+            ResultType returnval = post<ResultType>(worker);
 
             while (returnval.result.status == false)
             {
                 Logger.log("Manager not registered with portal!", Logger.Severity.Warn);
                 Thread.Sleep(new TimeSpan(0, 0, 30));
-                returnval = await post<ResultType>(worker);
+                returnval = post<ResultType>(worker);
             }
             MRMPServiceBase.organization_id = returnval.result.organization_id;
             if (MRMPServiceBase.organization_id == null)

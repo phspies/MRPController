@@ -13,13 +13,13 @@ namespace MRMPService.Scheduler.PlatformInventory.RP4VM
 {
     class PlatformRP4VMInventoryDo
     {
-        public static async Task UpdateRP4VMPlatform(MRPPlatformType _platform, bool full = true)
+        public static void UpdateRP4VMPlatform(MRPPlatformType _platform, bool full = true)
         {
 
             Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.moid), Logger.Severity.Info);
             Stopwatch sw = Stopwatch.StartNew();
             MRPPlatformdatacenterListType _mrmp_datacenters = null;
-            MRPPlatformType _parent_platform = await MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.parent_platform_id);
+            MRPPlatformType _parent_platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.parent_platform_id);
 
 
             RP4VM_ApiClient _rp4vm;
@@ -27,7 +27,7 @@ namespace MRMPService.Scheduler.PlatformInventory.RP4VM
             SystemSettings _rp4vm_settings = null;
             try
             {
-                _mrmp_datacenters = await MRMPServiceBase._mrmp_api.platformdatacenter().list(_platform);
+                _mrmp_datacenters = MRMPServiceBase._mrmp_api.platformdatacenter().list(_platform);
                 String username = String.Concat((String.IsNullOrEmpty(_platform.credential.domain) ? "" : (_platform.credential.domain + @"\")), _platform.credential.username);
                 _rp4vm = new RP4VM_ApiClient(_platform.rp4vm_url, username, _platform.credential.encrypted_password);
                 _rp4vm_settings = _rp4vm.system().getSystemSettings_Method();
@@ -61,7 +61,7 @@ namespace MRMPService.Scheduler.PlatformInventory.RP4VM
                     }
                 }
 
-                await MRMPServiceBase._mrmp_api.platform().update(_update_platform);
+                MRMPServiceBase._mrmp_api.platform().update(_update_platform);
 
             }
             else

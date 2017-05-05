@@ -27,7 +27,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
 
                     List<MRPManagementobjectType> _rp4vms;
 
-                    _rp4vms = (await MRMPServiceBase._mrmp_api.managementobject().listmanagementobjects()).managementobjects.Where(x => x.target_platform.enabled == true).ToList();
+                    _rp4vms = (MRMPServiceBase._mrmp_api.managementobject().listmanagementobjects()).managementobjects.Where(x => x.target_platform.enabled == true).ToList();
                     List<Thread> lstThreads = new List<Thread>();
                     var splashStart = new ManualResetEvent(false);
 
@@ -38,12 +38,12 @@ namespace MRMPService.Scheduler.DTPollerCollection
                             Thread.Sleep(1000);
                         }
 
-                        Thread _inventory_thread = new Thread(async delegate ()
+                        Thread _inventory_thread = new Thread(delegate ()
                         {
                             splashStart.Set();
                             try
                             {
-                                await DTJobPoller.PollerDo((MRPManagementobjectType)_rp4vm);
+                                DTJobPoller.PollerDo((MRPManagementobjectType)_rp4vm);
                             }
                             catch (Exception ex)
                             {
