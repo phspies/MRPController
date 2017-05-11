@@ -15,7 +15,7 @@ namespace MRMPService.Modules.DoubleTake.Availability
 {
     partial class Availability
     {
-        public static async Task CreateHAServerProtectionJob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress, String _job_type)
+        public static void CreateHAServerProtectionJob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress, String _job_type)
         {
             using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
             {

@@ -8,8 +8,6 @@ using DD.CBU.Compute.Api.Contracts.Drs;
 using System.Linq;
 using DD.CBU.Compute.Api.Contracts.Requests.Drs;
 using System.Threading;
-using System.Threading.Tasks;
-using MRMPService.MRMPAPI;
 
 namespace MRMPService.Modules.MCP
 {

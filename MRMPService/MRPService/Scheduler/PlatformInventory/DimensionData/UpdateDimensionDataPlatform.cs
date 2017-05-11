@@ -494,42 +494,45 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
 
                 IEnumerable<ServerType> _caas_workload_list = CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.platformdatacenter.moid, State = "NORMAL" }).Result;
                 //process deleted platform workloads
-                foreach (var _workload in _platform.workloads.Where(x => x.workloadtype != "manager"))
+                if (_caas_workload_list != null)
                 {
-                    MRPWorkloadType _mrp_workload = new MRPWorkloadType() { id = _workload.id };
-                    if (!_caas_workload_list.Any(x => x.id == _workload.moid))
+                    foreach (var _workload in _platform.workloads.Where(x => x.workloadtype != "manager"))
                     {
-                        _mrp_workload.deleted = true;
-                        _mrp_workload.enabled = false;
-                    }
-                    else
-                    {
-                        _mrp_workload.deleted = false;
-                    }
-                    _update_platform.workloads.Add(_mrp_workload);
-                }
-
-                MRMPServiceBase._mrmp_api.platform().update(_update_platform);
-
-                _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
-
-                if (_caas_workload_list.Count() > 0)
-                {
-                    if (full)
-                    {
-                        Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, (_caasworkload) =>
+                        MRPWorkloadType _mrp_workload = new MRPWorkloadType() { id = _workload.id };
+                        if (!_caas_workload_list.Any(x => x.id == _workload.moid))
                         {
-                            try
+                            _mrp_workload.deleted = true;
+                            _mrp_workload.enabled = false;
+                        }
+                        else
+                        {
+                            _mrp_workload.deleted = false;
+                        }
+                        _update_platform.workloads.Add(_mrp_workload);
+                    }
+
+                    MRMPServiceBase._mrmp_api.platform().update(_update_platform);
+
+                    _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
+
+                    if (_caas_workload_list.Count() > 0)
+                    {
+                        if (full)
+                        {
+                            Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, (_caasworkload) =>
                             {
+                                try
+                                {
                                 //update lists before we start the workload inventory process
                                 PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform);
-                            }
-                            catch (Exception ex)
-                            {
-                                Logger.log(String.Format("Error collecting inventory information from CaaS workload {0} with error {1}", _caasworkload.name, ex.GetBaseException().Message), Logger.Severity.Error);
-                            }
-                        });
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logger.log(String.Format("Error collecting inventory information from CaaS workload {0} with error {1}", _caasworkload.name, ex.GetBaseException().Message), Logger.Severity.Error);
+                                }
+                            });
 
+                        }
                     }
                 }
 

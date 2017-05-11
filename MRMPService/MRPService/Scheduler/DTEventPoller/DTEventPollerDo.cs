@@ -49,8 +49,8 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
 
                 MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_workload, ex.Message, false);
 
-                Logger.log(String.Format("Double-Take Event: Error contacting Double-Take Management Service for {0} using {1} : {2}", _workload, workload_ip, ex.ToString()), Logger.Severity.Info);
-                throw new ArgumentException(String.Format("Double-Take Event: Error contacting Double-Take management service for {0} using {1}", _workload, workload_ip));
+                Logger.log(String.Format("Double-Take Event: Error contacting Double-Take Management Service for {0} using {1} : {2}", _workload.hostname, workload_ip, ex.ToString()), Logger.Severity.Info);
+                throw new ArgumentException(String.Format("Double-Take Event: Error contacting Double-Take management service for {0} using {1}", _workload.hostname, workload_ip));
             }
             //now collect job information from target workload
             IEnumerable<EventLogModel> _dt_events;

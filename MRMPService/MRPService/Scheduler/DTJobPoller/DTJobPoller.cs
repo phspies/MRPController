@@ -86,7 +86,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
 
                 if (_can_connect)
                 {
-                    Logger.log(String.Format("Double-Take Job: Error collecting job information from {0} using {1} : {2}", _mrp_managementobject.target_workload, workload_ip, ex.ToString()), Logger.Severity.Info);
+                    Logger.log(String.Format("Double-Take Job: Error collecting job information from {0} using {1} : {2}", _mrp_managementobject.target_workload.hostname, workload_ip, ex.ToString()), Logger.Severity.Info);
 
                     MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
@@ -106,25 +106,60 @@ namespace MRMPService.Scheduler.DTPollerCollection
                 }
 
 
-                Logger.log(String.Format("Double-Take Job: Error contacting Double-Take Management Service for {0} using {1} : {2}", _mrp_managementobject.target_workload, workload_ip, ex.ToString()), Logger.Severity.Info);
+                Logger.log(String.Format("Double-Take Job: Error contacting Double-Take Management Service for {0} using {1} : {2}", _mrp_managementobject.target_workload.hostname, workload_ip, ex.ToString()), Logger.Severity.Info);
                 //throw new ArgumentException(String.Format("Double-Take Job: Error contacting Double-Take management service for {0} using {1}", _mrp_managementobject.target_workload, workload_ip));
             }
 
             //now collect job information from target workload
             if (_can_connect)
             {
-                MRPManagementobjectType _mrp_mo_update = new MRPManagementobjectType() {
+                MRPManagementobjectType _mrp_mo_update = new MRPManagementobjectType()
+                {
                     id = _mrp_managementobject.id,
-                    managementobjectsnapshots = _mrp_managementobject.managementobjectsnapshots                    
+                    managementobjectsnapshots = _mrp_managementobject.managementobjectsnapshots
                 };
                 _mrp_mo_update.managementobjectsnapshots.ForEach(x => x._destroy = true);
                 _mrp_mo_update.managementobjectstats = new List<MRPManagementobjectStatType>();
                 try
                 {
+                    //we need to delete snapshots manualy as DT does not honor maximum snapshot count on Windows
+                    if (_mrp_managementobject.protectiongroup != null)
+                    {
+                        MRPRecoverypolicyType _recoverypolicy = _mrp_managementobject.protectiongroup.recoverypolicy;
+                        if (_recoverypolicy.snapshotmaxcount != null)
+                        {
+                            foreach (ImageInfoModel _dt_image in _dt_image_list.Where(x => x.State != TargetStates.Disconnected && x.State == TargetStates.SroImage))
+                            {
+                                _dt_snapshot_list = _dt_image.Snapshots.Where(x => x.States == TargetStates.SroImage);
+                                if (_dt_snapshot_list.Count() > _recoverypolicy.snapshotmaxcount)
+                                {
+                                    int _last_records = _dt_snapshot_list.Count() - (int)_recoverypolicy.snapshotmaxcount;
+                                    IEnumerable<SnapshotEntryModel> _delete_snapshots = _dt_snapshot_list.OrderBy(x => x.Timestamp).Reverse().Take(_last_records);
+                                    foreach (SnapshotEntryModel _snapshot in _delete_snapshots)
+                                    {
+                                        using (Doubletake _dt = new Doubletake(null, _target_workload))
+                                        {
+                                            _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
+                                            _dt.job().DeleteSnapshot(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId);
+                                            Logger.log(String.Format("Deleting Snapshot {0} for job {1}", _snapshot.Id, _dt_job.Options.Name), Logger.Severity.Info);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //refresh image and snapshot list after we deleted snapshots
+                    using (Doubletake _dt = new Doubletake(null, _target_workload))
+                    {
+                        _dt_image_list = _dt.image().GetImagesSource(_mrp_managementobject.source_workload.hostname);
+                    }
 
                     foreach (ImageInfoModel _dt_image in _dt_image_list.Where(x => x.State != TargetStates.Disconnected && x.State == TargetStates.SroImage))
                     {
-                        foreach (SnapshotEntryModel _dt_snap in _dt_image.Snapshots.Where(x => x.States == TargetStates.SroImage))
+                        _dt_snapshot_list = _dt_image.Snapshots.Where(x => x.States == TargetStates.SroImage);
+
+                        foreach (SnapshotEntryModel _dt_snap in _dt_snapshot_list)
                         {
                             MRPManagementobjectSnapshotType _mrp_snapshot = new MRPManagementobjectSnapshotType();
                             if (_mrp_mo_update.managementobjectsnapshots.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
@@ -146,34 +181,6 @@ namespace MRMPService.Scheduler.DTPollerCollection
                             _mrp_snapshot.imagetype = _dt_image.ImageType.ToString();
                             _mrp_snapshot.source_image_mount_location = _dt_image.SourceImageMountLocation;
                             _mrp_snapshot._destroy = false;
-                            //we need to delete snapshots manualy as DT does not honor maximum snapshot count on Windows
-                            if (_mrp_managementobject.protectiongroup != null)
-                            {
-                                MRPRecoverypolicyType _recoverypolicy = _mrp_managementobject.protectiongroup.recoverypolicy;
-                                if (_recoverypolicy.snapshotmaxcount != null)
-                                {
-                                    if (_dt_snapshot_list.Count() > _recoverypolicy.snapshotmaxcount)
-                                    {
-                                        int _last_records = _dt_snapshot_list.Count() - (int)_recoverypolicy.snapshotmaxcount;
-                                        IEnumerable<SnapshotEntryModel> _delete_snapshots = _dt_snapshot_list.OrderBy(x => x.Timestamp).Reverse().Take(_last_records);
-                                        foreach (SnapshotEntryModel _snapshot in _delete_snapshots)
-                                        {
-                                            using (Doubletake _dt = new Doubletake(null, _target_workload))
-                                            {
-                                                _dt_job = _dt.job().GetJob(Guid.Parse(_mrp_managementobject.moid));
-
-                                                //_dt.image().DeleteSnapshotEntry(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId).Wait();
-                                                //if (_mrp_managementobject.managementobjectsnapshots_attributes.Exists(x => x.snapshotmoid == _dt_snap.Id.ToString()))
-                                                //{
-                                                //    _mrp_snapshot._destroy = true;
-                                                //    Logger.log(String.Format("Deleting Snapshot {0} for job {1}", _snapshot.Id, _dt_job.Options.Name), Logger.Severity.Info);
-                                                //}
-
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                         }
                     }
                     foreach (SnapshotEntryModel _dt_snap in _dt_snapshot_list.Where(x => x.States == TargetStates.Good || x.States == TargetStates.SroImage))
@@ -287,7 +294,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                 //When we get an exception from collecting the job informationwe assume the job no longer exists and needs to be marked as being deleted on the portal
                 catch (Exception ex)
                 {
-                    Logger.log(String.Format("Double-Take Job : Error collecting job information for {0} on {1} : {2}", _mrp_managementobject.moid, _mrp_managementobject.target_workload, ex.ToString()), Logger.Severity.Info);
+                    Logger.log(String.Format("Double-Take Job : Error collecting job information for {0} on {1} : {2}", _mrp_managementobject.moid, _mrp_managementobject.target_workload.hostname, ex.ToString()), Logger.Severity.Info);
                     return;
                 }
             }

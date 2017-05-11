@@ -22,6 +22,7 @@ namespace MRMPService.MRMPDoubleTake
         {
             bool _source_license_status = false;
             bool _target_license_status = false;
+            int _migrate_loop = 0;
 
             switch (_job_type)
             {
@@ -76,6 +77,10 @@ namespace MRMPService.MRMPDoubleTake
                                 break;
                             }
                         }
+                        if (_migrate_loop++ > 3)
+                        {
+                            throw new Exception("Invalid Premium Move licenses detected");
+                        }
                     }
 
                     //    if (_source_premium_code.Attributes.Any(x => x.Name == "NodeLockedValid"))
@@ -114,6 +119,7 @@ namespace MRMPService.MRMPDoubleTake
                                 break;
                             }
                         }
+
                     }
 
                     break;

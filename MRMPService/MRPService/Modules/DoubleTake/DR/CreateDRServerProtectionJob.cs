@@ -9,13 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MRMPService.Modules.DoubleTake.DR
 {
     partial class DisasterRecovery
     {
-        public static async Task CreateDRServerProtectionJob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void CreateDRServerProtectionJob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
 
             using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))

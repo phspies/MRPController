@@ -1,5 +1,6 @@
 ﻿using MRMPService.Modules.DoubleTake.Common;
 using MRMPService.Modules.MRMPPortal.Contracts;
+using MRMPService.MRMPService.Log;
 using System;
 using System.Linq;
 
@@ -29,7 +30,7 @@ namespace MRMPService.TaskExecutioner.Common
                         MRPManagementobjectType _managementobject = _mo_order.managementobject;
                         int _low = _count == 1 ? 1 : (_increment * (_count - 1) + 1);
                         int _high = _increment * _count;
-                        ModuleCommon.Failoverjob(_mrmp_task.id, _mo_order.original, _managementobject.target_workload, _managementobject, _low, _high, true, (bool)_mo_order.firedrill);
+                        ModuleCommon.Failoverjob(_mrmp_task.id, _mo_order.original, _managementobject.target_workload, _managementobject, _mo_order.managementobjectsnapshot, _low, _high, true, (bool)_mo_order.firedrill);
                         _count++;
                     }
 
@@ -39,6 +40,7 @@ namespace MRMPService.TaskExecutioner.Common
             }
             catch (Exception ex)
             {
+                Logger.log(ex.ToString(), Logger.Severity.Fatal);
                 MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
             }
 

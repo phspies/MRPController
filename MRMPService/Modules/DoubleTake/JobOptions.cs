@@ -11,7 +11,7 @@ namespace MRMPService.MRMPDoubleTake
 {
     public class SetOptions
     {
-        public static CreateOptionsModel set_job_options(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, CreateOptionsModel jobInfo, float _start_progress, float _end_progress, MRPManagementobjectType _managementobject = null)
+        public static CreateOptionsModel set_job_options(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, CreateOptionsModel jobInfo, float _start_progress, float _end_progress, MRPManagementobjectType _managementobject = null, MRPManagementobjectSnapshotType _recovery_snapshot = null)
         {
 
 

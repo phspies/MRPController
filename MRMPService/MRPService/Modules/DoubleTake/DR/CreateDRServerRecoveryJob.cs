@@ -15,7 +15,7 @@ namespace MRMPService.Modules.DoubleTake.DR
 {
     partial class DisasterRecovery
     {
-        public static void CreateDRServerRecoveryJob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPWorkloadType _original_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void CreateDRServerRecoveryJob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPWorkloadType _original_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, MRPManagementobjectSnapshotType _snapshot, float _start_progress, float _end_progress)
         {
 
             using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
@@ -76,7 +76,7 @@ namespace MRMPService.Modules.DoubleTake.DR
                     DT_JobTypes.DR_Full_Recovery);
 
                 MRMPServiceBase._mrmp_api.task().progress(_task_id, "Setting job options", ReportProgress.Progress(_start_progress, _end_progress, 30));
-                jobInfo = SetOptions.set_job_options(_task_id, _source_workload, _target_workload, _protectiongroup, jobInfo, 40, 59, _managementobject);
+                jobInfo = SetOptions.set_job_options(_task_id, _source_workload, _target_workload, _protectiongroup, jobInfo, 40, 59, _managementobject, _snapshot);
 
                 MRMPServiceBase._mrmp_api.task().progress(_task_id, "Verifying job options and settings", ReportProgress.Progress(_start_progress, _end_progress, 60));
 
@@ -146,10 +146,10 @@ namespace MRMPService.Modules.DoubleTake.DR
 
                 MRPWorkloadType _update_workload = new MRPWorkloadType();
                 _update_workload.id = _target_workload.id;
-                _update_workload.dt_installed = true;
 
                 //We dont want to poll recovery or testing servers.
-                _update_workload.dt_collection_enabled = false;
+                _update_workload.dt_collection_enabled = true;
+                _update_workload.dt_installed = true;
 
                 MRMPServiceBase._mrmp_api.workload().updateworkload(_update_workload);
 

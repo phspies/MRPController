@@ -17,10 +17,11 @@ namespace MRMPService.TaskExecutioner.DRSMCP
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;
             MRPManagementobjectType _managementobject = _payload.managementobject;
             MRPPlatformType _platform = _payload.target_platform;
+            MRPManagementobjectSnapshotType _snapshot = _payload.managementobjectsnapshot;
 
             try
             {
-                MCP_Platform.FailoverCG(_mrmp_task.id, _platform, _protectiongroup, _managementobject, _workload_pairs, 1, 100);
+                MCP_Platform.FailoverCG(_mrmp_task.id, _platform, _protectiongroup, _managementobject, _snapshot, _workload_pairs, 1, 100);
             }
             catch (Exception ex)
             {

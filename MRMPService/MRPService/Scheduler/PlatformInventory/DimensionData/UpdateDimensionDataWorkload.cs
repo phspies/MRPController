@@ -99,11 +99,11 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 if (_current_workload.vmemory == null) _update_workload.vmemory = Convert.ToUInt16(_caasworkload.memoryGb);
                 if (String.IsNullOrWhiteSpace(_current_workload.iplist)) _update_workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.ipv6, _caasworkload.networkInfo.primaryNic.privateIpv4);
                 if (String.IsNullOrWhiteSpace(_current_workload.hostname)) _update_workload.hostname = _caasworkload.name;
-                if (String.IsNullOrWhiteSpace(_current_workload.moid)) _update_workload.moid = _caasworkload.id;
-                if (String.IsNullOrWhiteSpace(_current_workload.platform_id)) _update_workload.platform_id = _platform.id;
+                _update_workload.moid = _caasworkload.id;
+                _update_workload.platform_id = _platform.id;
                 if (String.IsNullOrWhiteSpace(_current_workload.ostype)) _update_workload.ostype = _caasworkload.guest.operatingSystem.family.ToLower();
                 if (String.IsNullOrWhiteSpace(_current_workload.osedition)) _update_workload.osedition = _caasworkload.guest.operatingSystem.displayName;
-                if (String.IsNullOrWhiteSpace(_current_workload.hardwaretype)) _update_workload.hardwaretype = "virtual";
+                _update_workload.hardwaretype = "virtual";
                 if (_caasworkload.drsEligible is drsEligible || _caasworkload.consistencyGroup != null)
                 {
                     _update_workload.drs_eligible = true;

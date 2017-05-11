@@ -10,7 +10,7 @@ namespace MRMPService.Modules.DoubleTake.Common
 {
     partial class ModuleCommon
     {
-        public static void Failoverjob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress, bool _group_task = false, bool _firedrill_failover = false)
+        public static void Failoverjob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, MRPManagementobjectSnapshotType _managementobjectsnapshot, float _start_progress, float _end_progress, bool _group_task = false, bool _firedrill_failover = false)
         {
             using (Doubletake _dt = new Doubletake(null, _target_workload))
             {
@@ -18,11 +18,11 @@ namespace MRMPService.Modules.DoubleTake.Common
                 FailoverOptionsModel _options = new FailoverOptionsModel();
 
                 _options.FailoverType = FailoverType.FullServer;
-                if (_managementobject.managementobjectsnapshot != null)
+                if (_managementobjectsnapshot != null)
                 {
                     _options.FailoverMode = FailoverMode.Snapshot;
-                    _options.SnapshotId = Guid.Parse(_managementobject.managementobjectsnapshot.snapshotmoid);
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Failing over from snapshot created on {0}", _managementobject.managementobjectsnapshot.timestamp), ReportProgress.Progress(_start_progress, _end_progress, 12));
+                    _options.SnapshotId = Guid.Parse(_managementobjectsnapshot.snapshotmoid);
+                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Failing over from snapshot created on {0}", _managementobjectsnapshot.timestamp), ReportProgress.Progress(_start_progress, _end_progress, 12));
                 }
                 else
                 {
@@ -68,7 +68,7 @@ namespace MRMPService.Modules.DoubleTake.Common
 
                 ActivityStatusModel _status = _dt.job().FailoverJob(Guid.Parse(_managementobject.moid), _options);
 
-                MRMPServiceBase._mrmp_api.task().progress(_task_id, "Move process started for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 25));
+                MRMPServiceBase._mrmp_api.task().progress(_task_id, "Failover process started for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 25));
                 jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString()));
                 int _wait_times = 1;
                 while (jobinfo.Status.HighLevelState != HighLevelState.FailingOver)

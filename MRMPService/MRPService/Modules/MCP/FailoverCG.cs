@@ -10,12 +10,13 @@ using DD.CBU.Compute.Api.Contracts.Requests.Drs;
 using System.Threading.Tasks;
 using System.Threading;
 using MRMPService.MRMPAPI;
+using MRMPService.MRMPService.Log;
 
 namespace MRMPService.Modules.MCP
 {
     partial class MCP_Platform
     {
-        public static void FailoverCG(String _task_id, MRPPlatformType _platform, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, List<MRPWorkloadPairType> _workloadpairs, float _start_progress, float _end_progress)
+        public static void FailoverCG(String _task_id, MRPPlatformType _platform, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, MRPManagementobjectSnapshotType _snapshot, List<MRPWorkloadPairType> _workloadpairs, float _start_progress, float _end_progress)
         {
             //Get workload object from portal to perform updates once provisioned
 
@@ -87,6 +88,8 @@ namespace MRMPService.Modules.MCP
                 }
                 catch (Exception ex)
                 {
+                    Logger.log(ex.ToString(), Logger.Severity.Fatal);
+
                     MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Could not update network configuration on {0} : {1}", _workload_pair.source_workload.hostname, ex.GetBaseException().Message), ReportProgress.Progress(_start_progress, _end_progress, _workloadpairs.IndexOf(_workload_pair) + 21));
                 }
             }

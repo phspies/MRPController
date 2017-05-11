@@ -38,7 +38,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                             Thread.Sleep(1000);
                         }
 
-                        Thread _inventory_thread = new Thread(async delegate ()
+                        Thread _inventory_thread = new Thread(delegate ()
                         {
                             splashStart.Set();
                             try

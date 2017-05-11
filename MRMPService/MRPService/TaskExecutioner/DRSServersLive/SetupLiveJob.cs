@@ -10,7 +10,7 @@ namespace MRMPService.TaskExecutioner.DRSServersLive
 {
     partial class DRSServersLive
     {
-        static public async void SetupLiveJob(MRPTaskType _mrmp_task)
+        static public void SetupLiveJob(MRPTaskType _mrmp_task)
         {
             MRPTaskDetailType _payload = _mrmp_task.taskdetail;
             MRPWorkloadType _source_workload = _payload.source_workload;
@@ -21,21 +21,23 @@ namespace MRMPService.TaskExecutioner.DRSServersLive
 
             try
             {
-                MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 33, true);
+                if (!(bool)_target_workload.provisioned)
+                {
+                    MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 33, true);
 
-                //update target workload
-                _target_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
-
+                    //update target workload
+                    _target_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
+                }
 
                 if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
                 {
                     ModuleCommon.DeployWindowsDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
-                    Availability.CreateHAServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99, DT_JobTypes.HA_Full_Failover).Wait();
+                    Availability.CreateHAServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99, DT_JobTypes.HA_Full_Failover);
                 }
                 else
                 {
                     ModuleCommon.DeployLinuxDoubleTake(_mrmp_task.id, _source_workload, _target_workload, 34, 66);
-                    Availability.CreateHAServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99, DT_JobTypes.HA_Linux_FullFailover).Wait();
+                    Availability.CreateHAServerProtectionJob(_mrmp_task.id, _source_workload, _target_workload, _protectiongroup, _managementobject, 67, 99, DT_JobTypes.HA_Linux_FullFailover);
                 }
                 MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully configured protection job");
 
