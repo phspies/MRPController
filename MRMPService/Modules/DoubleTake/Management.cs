@@ -3,7 +3,6 @@ using DoubleTake.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Management.Automation;
 using System.IO;
 using MRMPService.Modules.MRMPPortal.Contracts;
@@ -306,7 +305,10 @@ namespace MRMPService.MRMPDoubleTake
             return _information;
 
         }
-
+        public string GetProductVersion(ProductVersionModel _prod_info)
+        {
+            return string.Format("{0}.{1}.{2}.{3}.{4}", _prod_info.Major, _prod_info.Minor, _prod_info.ServicePack, _prod_info.Build, _prod_info.Hotfix);
+        }
         public List<DtmuProductModel> SetDTMUCode(int _product_code, string _customer_id, DT_WorkloadType _workload_type)
         {
             DtmuApi api = new DtmuApi((_workload_type == DT_WorkloadType.Source ? _source_connection : _target_connection));

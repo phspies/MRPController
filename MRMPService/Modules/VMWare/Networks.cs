@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MRMPService.MRMPService.Log;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -45,12 +46,9 @@ namespace MRMPService.VMWare
                 {
                     lstPortGroups.Add((Network)appPortGroup);
                 }
-                return lstPortGroups;
             }
-            else
-            {
-                return null;
-            }
+            return lstPortGroups;
+
         }
 
         public List<DistributedVirtualSwitch> GetDVSwitches(Datacenter selectedDC = null, string dvName = null)
@@ -76,21 +74,25 @@ namespace MRMPService.VMWare
             {
                 DcMoRef = null;
             }
-
-            List<EntityViewBase> DVs = _vmwarecontext.FindEntityViews(typeof(DistributedVirtualSwitch), DcMoRef, dvFilter, null);
-            if (DVs != null)
+            try
             {
-                foreach (EntityViewBase DVSwitch in DVs)
+                List<EntityViewBase> _entitylist_switches = _vmwarecontext.FindEntityViews(typeof(DistributedVirtualSwitch), DcMoRef, dvFilter, null);
+                if (_entitylist_switches != null)
                 {
-                    DistributedVirtualSwitch thisDVSwitch = (DistributedVirtualSwitch)DVSwitch;
-                    lstDVSwitchs.Add(thisDVSwitch);
+                    foreach (EntityViewBase _dvswitch in _entitylist_switches)
+                    {
+                        DistributedVirtualSwitch _current_dvswitch = (DistributedVirtualSwitch)_dvswitch;
+                        lstDVSwitchs.Add(_current_dvswitch);
+                    }
                 }
-                return lstDVSwitchs;
             }
-            else
+            catch (Exception ex)
             {
-                return new List<DistributedVirtualSwitch>();
+                Logger.log(String.Format("Error retrieving network information from {0} : {1}", selectedDC.MoRef, ex.GetBaseException().Message), Logger.Severity.Error);
             }
+
+            return lstDVSwitchs;
+
         }
 
         public List<DistributedVirtualPortgroup> GetDVPortGroups(DistributedVirtualSwitch selectedSwitch = null)
@@ -128,20 +130,25 @@ namespace MRMPService.VMWare
                 DcMoRef = null;
             }
 
-            List<EntityViewBase> appPortGroups = _vmwarecontext.FindEntityViews(typeof(DistributedVirtualPortgroup), DcMoRef, pgFilter, null);
-            if (appPortGroups != null)
+            try
             {
-                foreach (EntityViewBase appPortGroup in appPortGroups)
+                List<EntityViewBase> _entitylist_portgroupts = _vmwarecontext.FindEntityViews(typeof(DistributedVirtualPortgroup), DcMoRef, pgFilter, null);
+                if (_entitylist_portgroupts != null)
                 {
-                    DistributedVirtualPortgroup thisPortGroup = (DistributedVirtualPortgroup)appPortGroup;
-                    lstPortGroups.Add(thisPortGroup);
+                    foreach (EntityViewBase appPortGroup in _entitylist_portgroupts)
+                    {
+                        DistributedVirtualPortgroup thisPortGroup = (DistributedVirtualPortgroup)appPortGroup;
+                        lstPortGroups.Add(thisPortGroup);
+                    }
                 }
-                return lstPortGroups;
             }
-            else
+            catch (Exception ex)
             {
-                return null;
+                Logger.log(String.Format("Error retrieving network information from {0} : {1}", selectedDC.MoRef, ex.GetBaseException().Message), Logger.Severity.Error);
             }
+            return lstPortGroups;
+
+
         }
         public List<Network> GetPortGroups(Datacenter selectedDC = null, string pgName = null)
         {
@@ -167,20 +174,24 @@ namespace MRMPService.VMWare
                 DcMoRef = null;
             }
 
-            List<EntityViewBase> appPortGroups = _vmwarecontext.FindEntityViews(typeof(Network), DcMoRef, pgFilter, null);
-            if (appPortGroups != null)
+            try
             {
-                foreach (EntityViewBase appPortGroup in appPortGroups)
+                List<EntityViewBase> _entitylist_portgroups = _vmwarecontext.FindEntityViews(typeof(DistributedVirtualPortgroup), DcMoRef, pgFilter, null);
+                if (_entitylist_portgroups != null)
                 {
-                    Network thisPortGroup = (Network)appPortGroup;
-                    lstPortGroups.Add(thisPortGroup);
+                    foreach (EntityViewBase appPortGroup in _entitylist_portgroups)
+                    {
+                        DistributedVirtualPortgroup thisPortGroup = (DistributedVirtualPortgroup)appPortGroup;
+                        lstPortGroups.Add(thisPortGroup);
+                    }
                 }
-                return lstPortGroups;
             }
-            else
+            catch (Exception ex)
             {
-                return null;
+                Logger.log(String.Format("Error retrieving network information from {0} : {1}", selectedDC.MoRef, ex.GetBaseException().Message), Logger.Severity.Error);
             }
+            return lstPortGroups;
+
         }
     }
 }

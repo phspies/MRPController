@@ -11,8 +11,9 @@ namespace MRMPService.Utilities
         {
             String ipaddresslist = iplist;
             String workingip = null;
-
-            foreach (string ip in ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries))
+            String[] _iplist = ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            Array.Reverse(_iplist);
+            foreach (string ip in _iplist)
             {
                 int retry = 3;
                 PingReply reply = null;

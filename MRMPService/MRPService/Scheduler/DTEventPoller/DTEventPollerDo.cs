@@ -13,7 +13,7 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
 {
     class DTEventPollerDo
     {
-        public static async Task PollerDo(MRPWorkloadType _workload)
+        public static void PollerDo(MRPWorkloadType _workload)
         {
             //check for credentials
 
@@ -59,7 +59,7 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
             {
                 using (MRMPDoubleTake.Doubletake _dt = new MRMPDoubleTake.Doubletake(null, _workload))
                 {
-                    _dt_events = await _dt.events().GetDoubleTakeEntries(_workload.last_dt_event_id);
+                    _dt_events = _dt.events().GetDoubleTakeEntries(_workload.last_dt_event_id).Result;
                 }
 
                 foreach (EventLogModel _event in _dt_events)

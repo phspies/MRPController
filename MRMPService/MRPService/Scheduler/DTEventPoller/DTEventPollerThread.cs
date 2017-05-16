@@ -40,11 +40,11 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
                             break;
                         }
                     }
-                    Parallel.ForEach(_all_workloads, new ParallelOptions() { MaxDegreeOfParallelism = MRMPServiceBase.dt_event_polling_concurrency }, async workload =>
+                    Parallel.ForEach(_all_workloads, new ParallelOptions() { MaxDegreeOfParallelism = MRMPServiceBase.dt_event_polling_concurrency }, workload =>
                     {
                         try
                         {
-                            await DTEventPollerDo.PollerDo(workload);
+                           DTEventPollerDo.PollerDo(workload);
                             MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(workload, "Success", true);
                         }
                         catch (Exception ex)

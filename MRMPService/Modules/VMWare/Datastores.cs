@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MRMPService.MRMPService.Log;
+using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using VMware.Vim;
 
@@ -11,7 +13,7 @@ namespace MRMPService.VMWare
         public List<Datastore> DatastoreList(Datacenter selectedDC = null)
         {
             ManagedObjectReference DcMoRef = new ManagedObjectReference();
-            List<Datastore> datastores = new List<Datastore>();
+            List<Datastore> lstDatastores = new List<Datastore>();
             if (selectedDC != null)
             {
                 DcMoRef = selectedDC.MoRef;
@@ -20,12 +22,24 @@ namespace MRMPService.VMWare
             {
                 DcMoRef = null;
             }
-            foreach (EntityViewBase datastore in _vmwarecontext.FindEntityViews(typeof(Datastore), DcMoRef, null, null))
+            List<EntityViewBase> _entitylist_datastores = _vmwarecontext.FindEntityViews(typeof(DistributedVirtualSwitch), DcMoRef, null, null);
+
+            try
             {
-                Datastore dc = datastore as Datastore;
-                datastores.Add(dc);
+                if (_entitylist_datastores != null)
+                {
+                    foreach (EntityViewBase datastore in _entitylist_datastores)
+                    {
+                        Datastore dc = datastore as Datastore;
+                        lstDatastores.Add(dc);
+                    }
+                }
             }
-            return datastores;
+            catch (Exception ex)
+            {
+                Logger.log(String.Format("Error retrieving datastores from {0} : {1}", selectedDC.MoRef, ex.GetBaseException().Message), Logger.Severity.Error);
+            }
+            return lstDatastores;
         }
     }
 

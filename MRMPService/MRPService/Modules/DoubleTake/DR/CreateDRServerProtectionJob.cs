@@ -16,7 +16,6 @@ namespace MRMPService.Modules.DoubleTake.DR
     {
         public static void CreateDRServerProtectionJob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
-
             using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
             {
                 MRMPServiceBase._mrmp_api.task().progress(_task_id, "Verifying license status on both source and target workloads", ReportProgress.Progress(_start_progress, _end_progress, 2));

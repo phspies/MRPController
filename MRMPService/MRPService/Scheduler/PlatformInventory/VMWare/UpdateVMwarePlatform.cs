@@ -19,14 +19,11 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.platform), Logger.Severity.Info);
             Stopwatch sw = Stopwatch.StartNew();
 
-            //define object lists
             MRPCredentialType _vmware_credential = _platform.credential;
 
             String username = String.Concat(_vmware_credential.username, (String.IsNullOrEmpty(_vmware_credential.domain) ? "" : (@"@" + _vmware_credential.domain)));
             VimApiClient _vim = new VimApiClient(_platform.vmware_url, username, _vmware_credential.encrypted_password);
 
-
-            //update localdb platform information
 
             if (_platform.platformdatacenter == null)
             {
@@ -34,13 +31,30 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             }
 
             Datacenter dc = _vim.datacenter().GetDataCenter(_platform.platformdatacenter.moid);
+
             List<DistributedVirtualSwitch> networkdomain_list = _vim.networks().GetDVSwitches(dc);
+            if (networkdomain_list.Count() == 0)
+            {
+                Logger.log(String.Format("No network domains found in {0}", _platform.platform), Logger.Severity.Warn);
+            }
             List<Datastore> datastore_list = _vim.datastore().DatastoreList(dc);
+            if (datastore_list.Count() == 0)
+            {
+                Logger.log(String.Format("No datastores found in {0}", _platform.platform), Logger.Severity.Warn);
+            }
             List<ComputeResource> cluster_list = _vim.datacenter().ClusterList(dc);
+            if (cluster_list.Count() == 0)
+            {
+                Logger.log(String.Format("No clusters found in {0}", _platform.platform), Logger.Severity.Warn);
+            }
+            List<Network> _vmware_vlan_list = _vim.networks().GetPortGroups(dc).ToList();
+            if (_vmware_vlan_list.Count() == 0)
+            {
+                Logger.log(String.Format("No vlans found in {0}", _platform.platform), Logger.Severity.Warn);
+            }
 
             NameValueCollection filter = new NameValueCollection();
             List<VirtualMachine> _vmware_workload_list = _vim.workload().GetWorkloads(dc, filter).Where(x => x.Runtime.PowerState == VirtualMachinePowerState.poweredOn).ToList();
-            List<Network> _vmware_vlan_list = _vim.networks().GetPortGroups(dc).ToList();
             List<MRPPlatformdomainType> _mrp_domains = _platform.platformdomains;
 
             MRPPlatformType _update_platform = new MRPPlatformType()
@@ -159,28 +173,28 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             }
             MRMPServiceBase._mrmp_api.platform().update(_update_platform);
 
+            MRPPlatformType _refreshed_platfrom = new MRPPlatformType();
+
+            _refreshed_platfrom = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
+            List<MRPWorkloadType> _mrp_workloads = new List<MRPWorkloadType>();
+
+            MRPWorkloadListType _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
+            while (_paged_workload.pagination.page_size > 0)
+            {
+                _mrp_workloads.AddRange(_paged_workload.workloads);
+                if (_paged_workload.pagination.next_page > 0)
+                {
+                    _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+
             if (full)
             {
-                //refresh domains and networks from portal
-                MRPPlatformType _refreshed_platfrom = new MRPPlatformType();
-
-                _refreshed_platfrom = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
-                List<MRPWorkloadType> _mrp_workloads = new List<MRPWorkloadType>();
-
-                MRPWorkloadListType _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
-                _mrp_workloads.AddRange(_paged_workload.workloads);
-                while (_paged_workload.pagination.page_size > 0)
-                {
-                    _mrp_workloads.AddRange(_paged_workload.workloads);
-                    if (_paged_workload.pagination.next_page > 0)
-                    {
-                        _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = _paged_workload.pagination.next_page });
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
                 Parallel.ForEach(_vmware_workload_list, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, (_vmware_workload) =>
                 {
                     try

@@ -10,7 +10,6 @@ using MRMPService.Utilities;
 using DoubleTake.Web.Models;
 using MRMPService.MRMPDoubleTake;
 using MRMPService.Modules.MRMPPortal.Contracts;
-using System.Threading.Tasks;
 
 namespace MRMPService.Modules.DoubleTake.Common
 {
@@ -46,16 +45,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                         break;
                 }
 
-                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting DT deploying process on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 5));
-
-                string remoteTempLocation = _working_workload.deploymentpolicy.dt_windows_temppath;
-
-                if (_working_workload.credential == null)
-                {
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Cannot determine credentials for {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 16));
-                    server_type = dt_server_type.target;
-                    continue;
-                }
+                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting datamover deploying process on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 5));
                 string _contactable_ip = null;
                 using (Connection _connection = new Connection())
                 {
@@ -63,18 +53,38 @@ namespace MRMPService.Modules.DoubleTake.Common
                 }
                 if (_contactable_ip == null)
                 {
-                    MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, String.Format("Cannot contact workload {0}", _working_workload.hostname));
-                    if (server_type == dt_server_type.target)
-                    {
-                        throw new Exception(String.Format("Cannot contact workload {0}", _working_workload.hostname));
-                    }
-                    else if (server_type == dt_server_type.source)
-                    {
-                        server_type = dt_server_type.target;
-                        continue;
-                    }
+                    throw new Exception(String.Format("Cannot contact workload {0}", _working_workload.hostname));
+                }
+                string remoteTempLocation = _working_workload.deploymentpolicy.dt_windows_temppath;
+                if (_working_workload.credential == null)
+                {
+                    throw new Exception(String.Format("Cannot determine credentials for {0}", _working_workload.hostname));
                 }
 
+
+                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Check datamover availability {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 6));
+                using (Doubletake _dt = new Doubletake(null, _working_workload))
+                {
+                    try
+                    {
+                        var _dt_version = _dt.management().GetProductInfo().ManagementServiceVersion;
+                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Datamover found on {0} [{1}]", _working_workload.hostname, _dt.management().GetProductVersion(_dt_version)), ReportProgress.Progress(_start_progress, _end_progress, _counter + 7));
+                        if (server_type == dt_server_type.target)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            server_type = dt_server_type.target;
+                            continue;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Datamover not contatable on {0}. Proceeding with fresh install", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 8));
+                    }
+
+                }
                 MRMPServiceBase._mrmp_api.task().progress(_task_id, "Get remote architecture", ReportProgress.Progress(_start_progress, _end_progress, _counter + 10));
                 string systemArchitecture = null;
                 //Determine if the setup to be installed is 32 bit or 64 bit
@@ -118,7 +128,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                         try
                         {
                             remoteFileVersion = FileVersionInfo.GetVersionInfo(RemoteFilePath);
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take found on {0} : {1}", _working_workload.hostname, remoteFileVersion.ProductVersion), ReportProgress.Progress(_start_progress, _end_progress, _counter + 16));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Datamover found on {0} : {1}", _working_workload.hostname, remoteFileVersion.ProductVersion), ReportProgress.Progress(_start_progress, _end_progress, _counter + 16));
                         }
                         catch (Exception ex)
                         {
@@ -135,7 +145,6 @@ namespace MRMPService.Modules.DoubleTake.Common
                                 continue;
                             }
                             else
-
                             {
                                 MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("Upgrading DT on {0} to {1}", _working_workload.hostname, localFileVersion.FileVersion), ReportProgress.Progress(_start_progress, _end_progress, _counter + 16));
                             }
@@ -180,7 +189,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                                 try
                                 {
                                     _installed_dt_version = (_dt.management().GetProductInfo()).ManagementServiceVersion;
-                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take installed and running on {0} with version {1}.{2}.{3}", _working_workload.hostname, _installed_dt_version.Major, _installed_dt_version.Minor, _installed_dt_version.Build), ReportProgress.Progress(_start_progress, _end_progress, _counter + 19));
+                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Double-Take installed and running on {0} with version {1}", _working_workload.hostname, _dt.management().GetProductVersion(_installed_dt_version)), ReportProgress.Progress(_start_progress, _end_progress, _counter + 19));
                                 }
                                 catch (Exception ex)
                                 {
@@ -345,20 +354,18 @@ namespace MRMPService.Modules.DoubleTake.Common
                         {
                             try
                             {
-                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Verify DT connectivity on {0} [{1}]", _working_workload.hostname, restries), ReportProgress.Progress(_start_progress, _end_progress, _counter + 41 + restries));
                                 _dt_version = _dt.management().GetProductInfo().ManagementServiceVersion;
                                 break;
                             }
                             catch (Exception)
                             {
-                                if (restries++ == 3)
+                                if (restries++ >= 3)
                                 {
-                                    MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, "Cannot determine installed version of Double-Take");
-                                    break;
-
+                                    throw new Exception("Cannot determine installed version of Double-Take");
                                 }
                             }
                             Thread.Sleep(new TimeSpan(0, 0, 10));
+                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Verify DT connectivity on {0} [{1}]", _working_workload.hostname, restries), ReportProgress.Progress(_start_progress, _end_progress, _counter + 41 + restries));
                         }
                         if (server_type == dt_server_type.target)
                         {
@@ -376,7 +383,6 @@ namespace MRMPService.Modules.DoubleTake.Common
                 }
             }
             MRMPServiceBase._mrmp_api.task().progress(_task_id, "Completed Double-Take deployment", ReportProgress.Progress(_start_progress, _end_progress, _counter + 47));
-
         }
     }
 }

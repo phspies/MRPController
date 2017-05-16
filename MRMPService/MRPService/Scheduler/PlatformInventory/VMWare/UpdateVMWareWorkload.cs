@@ -29,10 +29,18 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             }
 
             VirtualMachine _vmware_workload = _vim.workload().GetWorkload(_workload_moid);
-            if (String.IsNullOrWhiteSpace(_vmware_workload.Guest.HostName) && String.IsNullOrWhiteSpace(_vmware_workload.Guest.IpAddress))
+            if (_vmware_workload.Guest.ToolsStatus == VirtualMachineToolsStatus.toolsNotRunning || _vmware_workload.Guest.ToolsStatus == VirtualMachineToolsStatus.toolsNotInstalled)
             {
-                Logger.log(String.Format("Virtual Machine {0} ({1}) does not have a hostname or valid ip address", _vmware_workload.Config.Name, _vmware_workload.MoRef.Value), Logger.Severity.Error);
+                Logger.log(String.Format("Virtual Machine {0} ({1}) does not have a running tools", _vmware_workload.Config.Name, _vmware_workload.MoRef.Value), Logger.Severity.Error);
                 return;
+            }
+            else
+            {
+                if (String.IsNullOrWhiteSpace(_vmware_workload.Guest.HostName) && String.IsNullOrWhiteSpace(_vmware_workload.Guest.IpAddress))
+                {
+                    Logger.log(String.Format("Virtual Machine {0} ({1}) does not have a hostname and/or valid ip address", _vmware_workload.Config.Name, _vmware_workload.MoRef.Value), Logger.Severity.Error);
+                    return;
+                }
             }
 
             if (_mrp_workloads == null)
@@ -40,7 +48,6 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
                 _mrp_workloads = new List<MRPWorkloadType>();
 
                 MRPWorkloadListType _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
-                _mrp_workloads.AddRange(_paged_workload.workloads);
                 while (_paged_workload.pagination.page_size > 0)
                 {
                     _mrp_workloads.AddRange(_paged_workload.workloads);
@@ -57,21 +64,26 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             //if workload is local, updated the local db record
             //User might use these servers later...
             MRPWorkloadType _mrp_workload = new MRPWorkloadType();
+            bool _new_workload = true;
             if (_mrp_workloads.Exists(x => x.moid == _vmware_workload.MoRef.Value))
             {
                 _mrp_workload.id = _mrp_workloads.FirstOrDefault(x => x.moid == _vmware_workload.MoRef.Value).id;
+                _new_workload = false;
             }
-            else
+            else if (_mrp_workloads.Exists(x => x.iplist == _vmware_workload.Guest.IpAddress))
             {
-                _mrp_workload.vcpu = _vmware_workload.Config.Hardware.NumCPU;
-                _mrp_workload.vcore = (int)_vmware_workload.Config.Hardware.NumCoresPerSocket;
-                _mrp_workload.vmemory = _vmware_workload.Config.Hardware.MemoryMB / 1024;
-                _mrp_workload.iplist = _vmware_workload.Guest.IpAddress;
-                _mrp_workload.hostname = _vmware_workload.Guest.HostName;
-                _mrp_workload.ostype = _vmware_workload.Config.GuestFullName.Contains("Win") ? "WINDOWS" : "UNIX";
-                _mrp_workload.osedition = OSEditionSimplyfier.Simplyfier(_vmware_workload.Config.GuestFullName);
+                _mrp_workload.id = _mrp_workloads.FirstOrDefault(x => x.iplist == _vmware_workload.Guest.IpAddress).id;
+                _new_workload = false;
             }
 
+            if (_mrp_workload.vcpu == null || _mrp_workload.vcpu == 0) _mrp_workload.vcpu = _vmware_workload.Config.Hardware.NumCPU;
+            if (_mrp_workload.vcore == null || _mrp_workload.vcore == 0) _mrp_workload.vcore = (int)_vmware_workload.Config.Hardware.NumCoresPerSocket;
+            if (_mrp_workload.vmemory == null || _mrp_workload.vmemory == 0) _mrp_workload.vmemory = (_vmware_workload.Config.Hardware.MemoryMB / 1024);
+            if (string.IsNullOrWhiteSpace(_mrp_workload.iplist)) _mrp_workload.iplist = _vmware_workload.Guest.IpAddress;
+            if (String.IsNullOrWhiteSpace(_mrp_workload.hostname)) _mrp_workload.hostname = _vmware_workload.Guest.HostName;
+            if (String.IsNullOrWhiteSpace(_mrp_workload.osedition)) _mrp_workload.osedition = OSEditionSimplyfier.Simplyfier(_vmware_workload.Config.GuestFullName);
+
+            _mrp_workload.ostype = _vmware_workload.Config.GuestFullName.Contains("Win") ? "WINDOWS" : "UNIX";
             _mrp_workload.moid = _vmware_workload.MoRef.Value;
             _mrp_workload.platform_id = _platform.id;
             _mrp_workload.vcenter_uuid = _vmware_workload.Config.InstanceUuid;
@@ -128,16 +140,14 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
 
             _mrp_workload.provisioned = true;
 
-            //Update if the portal has this workload and create if it's new to the portal....
-
-            if (_mrp_workloads.Exists(x => x.moid == _mrp_workload.moid))
-            {
-                MRMPServiceBase._mrmp_api.workload().updateworkload(_mrp_workload);
-            }
-            else
+            if (_new_workload)
             {
                 _mrp_workload.credential_id = _platform.default_credential_id;
                 MRMPServiceBase._mrmp_api.workload().createworkload(_mrp_workload);
+            }
+            else
+            {
+                MRMPServiceBase._mrmp_api.workload().updateworkload(_mrp_workload);
             }
         }
     }
