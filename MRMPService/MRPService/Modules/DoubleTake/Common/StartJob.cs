@@ -10,7 +10,7 @@ namespace MRMPService.Modules.DoubleTake.Common
 {
     partial class ModuleCommon
     {
-        public static async void StartJob(string _task_id, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void StartJob(string _task_id, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
             MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting job {0} on {1}", _managementobject.moname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
             string _contactable_ip = null;
@@ -22,7 +22,6 @@ namespace MRMPService.Modules.DoubleTake.Common
             {
                 throw new Exception(String.Format("Cannot contact workload {0}", _target_workload.hostname));
             }
-
             JobInfoModel _dt_job;
             using (Doubletake _dt = new Doubletake(null, _target_workload))
             {
@@ -35,16 +34,11 @@ namespace MRMPService.Modules.DoubleTake.Common
                 {
                     throw new Exception(String.Format("Job cannot be started. Current state is {0} : {1}", _dt_job.Status.HighLevelState.ToString(), _dt_job.Status.LowLevelState));
                 }
-
             }
             MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Updating job status with portal"), ReportProgress.Progress(_start_progress, _end_progress, 40));
-
-            await Task.Delay(new TimeSpan(0, 0, 10));
-
+            Task.Delay(new TimeSpan(0, 0, 10));
             DTJobPoller.PollerDo(_managementobject);
             MRMPServiceBase._mrmp_api.task().successcomplete(_task_id, String.Format("Job Started successfully {0} on {1} : {2}", _managementobject.moname, _target_workload.hostname, _dt_job.Status.HighLevelState));
-
         }
-
     }
 }

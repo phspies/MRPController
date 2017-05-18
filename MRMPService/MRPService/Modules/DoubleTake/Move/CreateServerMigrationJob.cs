@@ -124,9 +124,11 @@ namespace MRMPService.Modules.DoubleTake.Move
 
                 MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully created move synchronization job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
 
+
                 MRPWorkloadType _update_workload = new MRPWorkloadType();
                 _update_workload.id = _target_workload.id;
                 _update_workload.dt_installed = true;
+                _update_workload.dt_collection_enabled = true;
                 MRMPServiceBase._mrmp_api.workload().updateworkload(_update_workload);
 
                 DTJobPoller.PollerDo(_managementobject);

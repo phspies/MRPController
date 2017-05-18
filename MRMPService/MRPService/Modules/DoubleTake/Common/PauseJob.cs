@@ -10,7 +10,7 @@ namespace MRMPService.Modules.DoubleTake.Common
 {
     partial class ModuleCommon
     {
-        public static async Task PauseJob(string _task_id, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void PauseJob(string _task_id, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
 
             MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("Pausing job {0} on {1}", _managementobject.moname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
@@ -40,7 +40,7 @@ namespace MRMPService.Modules.DoubleTake.Common
 
             }
             MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("Updating job status with portal"), ReportProgress.Progress(_start_progress, _end_progress, 40));
-            await Task.Delay(new TimeSpan(0, 0, 10));
+            Task.Delay(new TimeSpan(0, 0, 10));
             DTJobPoller.PollerDo(_managementobject);
             MRMPServiceBase._mrmp_api.task().successcomplete(_task_id, String.Format("Job paused successfully {0} on {1} : {2}", _managementobject.moname, _target_workload.hostname, _dt_job.Status.HighLevelState));
         }

@@ -1,57 +1,61 @@
-﻿using System;
+﻿using MRMPService.MRMPService.Log;
+using System;
+using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 
 namespace MRMPService.Utilities
 {
     class Connection : IDisposable
     {
         Ping testPing = new Ping();
-        public string FindConnection(string iplist, bool literal = false)
+        public string FindConnection(string iplist, bool literal = false, AddressFamily[] __ip_type = null)
         {
-            String ipaddresslist = iplist;
             String workingip = null;
-            String[] _iplist = ipaddresslist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            AddressFamily[] _ip_type = __ip_type == null ? (new AddressFamily[] { AddressFamily.InterNetwork, AddressFamily.InterNetworkV6 }) : __ip_type;
+            String[] _iplist = iplist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries);
             Array.Reverse(_iplist);
             foreach (string ip in _iplist)
             {
-                int retry = 3;
                 PingReply reply = null;
-                while (retry > 0)
+                if (_ip_type.Contains(IPAddress.Parse(ip).AddressFamily))
                 {
-                    retry--;
-                    try
+                    int retry = 3;
+                    while (retry > 0)
                     {
-                        reply = testPing.Send(ip);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new ArgumentException(String.Format("Ping Error: {0}", ex.GetBaseException().Message));
-                    }
-                    if (reply != null)
-                    {
-                        if (reply.Status == IPStatus.Success)
+                        retry--;
+                        try
                         {
-                            workingip = ip;
-                            break;
+                            reply = testPing.Send(ip);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new ArgumentException(String.Format("Ping Error: {0}", ex.GetBaseException().Message));
+                        }
+                        if (reply != null)
+                        {
+                            if (reply.Status == IPStatus.Success)
+                            {
+                                workingip = ip;
+                                break;
+                            }
                         }
                     }
+                    if (reply.Status == IPStatus.Success)
+                    {
+                        break;
+                    }
                 }
-                if (reply.Status == IPStatus.Success)
-                {
-                    break;
-                }
+
             }
 
             if (literal == true && workingip != null)
             {
-                //check for IPv6 address
-                //Check if the string is a hostname or a IP Address
-
                 IPAddress _check_ip;
                 if (IPAddress.TryParse(workingip, out _check_ip))
                 {
-                    if (_check_ip.AddressFamily.ToString() == System.Net.Sockets.AddressFamily.InterNetworkV6.ToString())
+                    if (_check_ip.AddressFamily.ToString() == AddressFamily.InterNetworkV6.ToString())
                     {
                         String _workingip = workingip;
                         _workingip = _workingip.Replace(":", "-");
@@ -59,9 +63,11 @@ namespace MRMPService.Utilities
                         _workingip = _workingip + ".ipv6-literal.net";
                         workingip = _workingip;
                     }
+
                 }
             }
             return workingip;
+
         }
         private bool disposed = false;
 

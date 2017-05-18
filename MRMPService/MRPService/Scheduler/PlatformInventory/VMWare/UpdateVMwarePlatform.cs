@@ -192,9 +192,28 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
                 }
             }
 
+            //update deleted workloads
+            _update_platform = new MRPPlatformType() { id = _platform.id, workloads = new List<MRPWorkloadType>() };
+            foreach (var _workload in _mrp_workloads.Where(x => x.workloadtype != "manager"))
+            {
+                MRPWorkloadType _mrp_workload = new MRPWorkloadType() { id = _workload.id };
+                if (!_vmware_workload_list.Any(x => x.MoRef.Value == _workload.moid))
+                {
+                    _mrp_workload.deleted = true;
+                    _mrp_workload.enabled = false;
+                }
+                else
+                {
+                    _mrp_workload.deleted = false;
+                }
+                _update_platform.workloads.Add(_mrp_workload);
+            }
+
+            MRMPServiceBase._mrmp_api.platform().update(_update_platform);
 
             if (full)
             {
+                _refreshed_platfrom = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
                 Parallel.ForEach(_vmware_workload_list, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, (_vmware_workload) =>
                 {
                     try

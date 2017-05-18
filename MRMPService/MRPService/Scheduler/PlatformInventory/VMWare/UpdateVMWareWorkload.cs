@@ -67,12 +67,12 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             bool _new_workload = true;
             if (_mrp_workloads.Exists(x => x.moid == _vmware_workload.MoRef.Value))
             {
-                _mrp_workload.id = _mrp_workloads.FirstOrDefault(x => x.moid == _vmware_workload.MoRef.Value).id;
+                _mrp_workload= _mrp_workloads.FirstOrDefault(x => x.moid == _vmware_workload.MoRef.Value);
                 _new_workload = false;
             }
             else if (_mrp_workloads.Exists(x => x.iplist == _vmware_workload.Guest.IpAddress))
             {
-                _mrp_workload.id = _mrp_workloads.FirstOrDefault(x => x.iplist == _vmware_workload.Guest.IpAddress).id;
+                _mrp_workload = _mrp_workloads.FirstOrDefault(x => x.iplist == _vmware_workload.Guest.IpAddress);
                 _new_workload = false;
             }
 
@@ -87,6 +87,9 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             _mrp_workload.moid = _vmware_workload.MoRef.Value;
             _mrp_workload.platform_id = _platform.id;
             _mrp_workload.vcenter_uuid = _vmware_workload.Config.InstanceUuid;
+            _mrp_workload.provisioned = true;
+            _mrp_workload.deleted = false;
+
 
             //evaluate all virtual network interfaces for workload
             List<Type> _vmware_nic_types = new List<Type>() { typeof(VirtualE1000), typeof(VirtualE1000e), typeof(VirtualPCNet32), typeof(VirtualSriovEthernetCard), typeof(VirtualVmxnet), typeof(VirtualVmxnet3) };
@@ -138,7 +141,6 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
                 _logical_interface.deleted = false;
             }
 
-            _mrp_workload.provisioned = true;
 
             if (_new_workload)
             {

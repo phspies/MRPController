@@ -3,7 +3,6 @@ using System;
 using MRMPService.Utilities;
 using MRMPService.Modules.MRMPPortal.Contracts;
 using DoubleTake.Web.Models;
-using MRMPService.MRMPAPI;
 using System.Collections.Generic;
 using System.Linq;
 using MRMPService.MRMPDoubleTake;
@@ -272,7 +271,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                         }
                     }
 
-                    _mrp_mo_update.state = (_dt_job.Status.PermillageComplete != 0) ? string.Format("{0} ({1}%)", _dt_job.Status.HighLevelState.ToString(), _dt_job.Status.PermillageComplete.ToString().Substring(0, 2)) : _dt_job.Status.HighLevelState.ToString();
+                    _mrp_mo_update.state = (_dt_job.Status.PermillageComplete != 0) ? string.Format("{0} ({1}%)", _dt_job.Status.HighLevelState.ToString(), ((float)_dt_job.Status.PermillageComplete/10)) : _dt_job.Status.HighLevelState.ToString();
                     _mrp_mo_update.internal_state = "active";
                     _mrp_mo_update.last_contact = DateTime.UtcNow;
                     _mrp_mo_update.can_create_image_recovery = _dt_job.Status.CanCreateImageRecovery;

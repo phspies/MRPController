@@ -35,7 +35,7 @@ namespace MRMPService.Modules.DoubleTake.Availability
 
                 List<JobInfoModel> _jobs = _dt.job().GetJobs();
 
-                MRMPServiceBase._mrmp_api.task().progress(_task_id, "Looking for DR Server jobs on target workload", ReportProgress.Progress(_start_progress, _end_progress, 11));
+                MRMPServiceBase._mrmp_api.task().progress(_task_id, "Looking for protections jobs on target workload", ReportProgress.Progress(_start_progress, _end_progress, 11));
                 int _count = 1;
 
                 //This is a migration server migration job, so we need to remove all jobs from target server
