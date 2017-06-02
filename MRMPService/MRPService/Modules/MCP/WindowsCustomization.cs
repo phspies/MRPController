@@ -13,24 +13,15 @@ namespace MRMPService.Modules.MCP
 {
     partial class MCP_Platform
     {
-        static public void WindowsCustomization(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress)
+        static public void WindowsCustomization(MRPTaskType _task, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress)
         {
             // MRPCredentialType _stadalone_credential = _target_workload.credential;
             // MRPCredentialType _platform_credentail = _platform.credential;
 
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting volume customization process"), ReportProgress.Progress(_start_progress, _end_progress, 50));
-            string new_workload_ip = null;
-            using (Connection _connection = new Connection())
-            {
-                new_workload_ip = _connection.FindConnection(_target_workload.iplist, true);
-            }
-            if (new_workload_ip == null)
-            {
-                MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, String.Format("Error contacting workwork {0} after 3 tries", _target_workload.hostname));
-                throw new ArgumentException(String.Format("Error contacting workwork {0} after 3 tries", _target_workload.hostname));
-            }
-            ConnectionOptions connOptions = WMIHelper.ProcessConnectionOptions(@".\" + _target_workload.credential.username, _target_workload.credential.encrypted_password);
-            ManagementScope connectionScope = WMIHelper.ConnectionScope(new_workload_ip, connOptions);
+            _task.progress(String.Format("Starting volume customization process"), ReportProgress.Progress(_start_progress, _end_progress, 50));
+            string workload_ip = _target_workload.working_ipaddress(true);
+            ConnectionOptions connOptions = WMIHelper.ProcessConnectionOptions(@".\" + _target_workload.get_credential.username, _target_workload.get_credential.decrypted_password);
+            ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, connOptions);
 
             long _c_volume_actual_size = 0;
             long _c_volume_actual_free = 0;
@@ -134,12 +125,12 @@ namespace MRMPService.Modules.MCP
             string[] diskpart_bat_content = new String[] { @"C:\Windows\System32\diskpart.exe /s C:\diskpart.txt > C:\diskpart.log" };
             try
             {
-                using (new Impersonator(_target_workload.credential.username, (String.IsNullOrWhiteSpace(_target_workload.credential.domain) ? "." : _target_workload.credential.domain), _target_workload.credential.encrypted_password))
+                using (new Impersonator(_target_workload.get_credential.username, (String.IsNullOrWhiteSpace(_target_workload.get_credential.domain) ? "." : _target_workload.get_credential.domain), _target_workload.get_credential.decrypted_password))
                 {
                     string remoteInstallFiles = @"C:\";
                     remoteInstallFiles = remoteInstallFiles.Replace(':', '$');
-                    workloadPath = @"\\" + Path.Combine(new_workload_ip, remoteInstallFiles, "diskpart.txt");
-                    diskpart_bat = @"\\" + Path.Combine(new_workload_ip, remoteInstallFiles, "diskpart.bat");
+                    workloadPath = @"\\" + Path.Combine(workload_ip, remoteInstallFiles, "diskpart.txt");
+                    diskpart_bat = @"\\" + Path.Combine(workload_ip, remoteInstallFiles, "diskpart.bat");
 
                     int _copy_retries = 30;
                     while (true)
@@ -149,7 +140,7 @@ namespace MRMPService.Modules.MCP
                             File.WriteAllLines(workloadPath, _diskpart_struct.ConvertAll(Convert.ToString));
                             File.WriteAllLines(diskpart_bat, diskpart_bat_content);
                             Logger.log(String.Format("Successfully copied diskpart after {0} retries", _copy_retries), Logger.Severity.Info);
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully copied diskpart after {0} retries", _copy_retries), ReportProgress.Progress(_start_progress, _end_progress, 50));
+                            _task.progress(String.Format("Successfully copied diskpart after {0} retries", _copy_retries), ReportProgress.Progress(_start_progress, _end_progress, 50));
 
                             break;
                         }
@@ -157,9 +148,9 @@ namespace MRMPService.Modules.MCP
                         {
                             if (--_copy_retries == 0)
                             {
-                                Logger.log(String.Format("Error creating disk layout file on workload {0}: {1} : {2}", new_workload_ip, ex.Message, workloadPath), Logger.Severity.Info);
+                                Logger.log(String.Format("Error creating disk layout file on workload {0}: {1} : {2}", workload_ip, ex.Message, workloadPath), Logger.Severity.Info);
 
-                                MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, String.Format("Error creating disk layout file on workload: {0}", ex.Message));
+                                _task.failcomplete(String.Format("Error creating disk layout file on workload: {0}", ex.Message));
                                 throw new Exception(String.Format("Error creating disk layout file on workload: {0}", ex.Message));
                             }
                             else Thread.Sleep(new TimeSpan(0, 0, 30));
@@ -170,12 +161,12 @@ namespace MRMPService.Modules.MCP
             catch (Exception ex)
             {
                 Logger.log(ex.Message, Logger.Severity.Error);
-                MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, String.Format("Error impersonating Administrator user: {0}", ex.Message));
+                _task.failcomplete(String.Format("Error impersonating Administrator user: {0}", ex.Message));
                 throw new ArgumentException(String.Format("Error impersonating Administrator user: {0}", ex.Message));
             }
             //Run Diskpart Command on Workload
             //Create connection object to remote machine
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Volume setup process on {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 80));
+            _task.progress(String.Format("Volume setup process on {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 80));
 
             string diskpartCmd = @"C:\diskpart.bat";
             Dictionary<string, string> installCmdParams = new Dictionary<string, string>();
@@ -207,12 +198,12 @@ namespace MRMPService.Modules.MCP
             int _exitcode = Convert.ToInt32(returnValue.Properties["ReturnValue"].Value);
             if (_exitcode != 0)
             {
-                MRMPServiceBase._mrmp_api.task().failcomplete(_task_id, String.Format("Failed diskpart process on {0} ({1})", _target_workload.hostname, _exitcode));
+                _task.failcomplete(String.Format("Failed diskpart process on {0} ({1})", _target_workload.hostname, _exitcode));
                 throw new ArgumentException(String.Format("Failed diskpart process on {0} ({1})", _target_workload.hostname, _exitcode));
             }
             else
             {
-                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Volume setup process exit code: {0}", _exitcode), ReportProgress.Progress(_start_progress, _end_progress, 99));
+                _task.progress(String.Format("Volume setup process exit code: {0}", _exitcode), ReportProgress.Progress(_start_progress, _end_progress, 99));
             }
         }
     }

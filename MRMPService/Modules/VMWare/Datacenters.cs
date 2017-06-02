@@ -6,7 +6,7 @@ namespace MRMPService.VMWare
 {
     public class Datacenters : Core
     {
-        public Datacenters(VimApiClient _virtualcenter) : base(_virtualcenter) {}
+        public Datacenters(VimApiClient _virtualcenter) : base(_virtualcenter) { }
 
         public List<Datacenter> DatacenterList()
         {

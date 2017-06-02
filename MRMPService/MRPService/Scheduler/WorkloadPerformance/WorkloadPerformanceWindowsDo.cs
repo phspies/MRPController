@@ -17,61 +17,31 @@ namespace MRMPService.Scheduler.PerformanceCollection
     {
         public static async Task WorkloadPerformanceWindowsDo(MRPWorkloadType _workload)
         {
-            #region load and check workload information
-            //check for credentials
-            MRPCredentialType _credential = _workload.credential;
-
-
-            //check for working IP
             string workload_ip = null;
             if (_workload.workloadtype != "manager")
             {
-                if (_credential == null)
-                {
-                    throw new ArgumentException(String.Format("Error finding credentials"));
-                }
-                using (Connection _connection = new Connection())
-                {
-                    workload_ip = _connection.FindConnection(_workload.iplist, true);
-                }
-                if (workload_ip == null)
-                {
-                    throw new ArgumentException(String.Format("Does not respond to ping"));
-                }
+                workload_ip = _workload.working_ipaddress(true);
             }
             else
             {
                 workload_ip = ".";
 
             }
-            #endregion
-
             List<PerformanceType> _workload_counters = new List<PerformanceType>();
-
             Logger.log(String.Format("Performance: Start performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
-
-            //Impersonate credentials before collection of information
-            using (new Impersonator((_workload.workloadtype == "manager" ? "." : _credential.username), (_workload.workloadtype == "manager" ? null : (String.IsNullOrEmpty(_credential.domain) ? "." : _credential.domain)), (_workload.workloadtype == "manager" ? null : _credential.encrypted_password)))
+            using (new Impersonator((_workload.workloadtype == "manager" ? "." : _workload.get_credential.username), (_workload.workloadtype == "manager" ? null : (String.IsNullOrEmpty(_workload.get_credential.domain) ? "." : _workload.get_credential.domain)), (_workload.workloadtype == "manager" ? null : _workload.get_credential.decrypted_password)))
             {
                 //loop each counter in the available counter list
                 foreach (string _current_category in MRMPServiceBase._available_counters.Select(x => x.category).Distinct())
                 {
                     try
                     {
-                        //test if category exists and only process those we can collect
                         if (!PerformanceCounterCategory.Exists(_current_category, workload_ip))
                         {
                             continue;
                         }
-
-                        //the counter was found and we now trying to collect the Category object from the server
                         PerformanceCounterCategory _current_catergory_object = new PerformanceCounterCategory(_current_category, workload_ip);
-
-
-                        //create single instance flag
                         bool _multi_instance_counter = Convert.ToBoolean(_current_catergory_object.CategoryType);
-
-                        //Build temporary instance list
                         List<String> _instances = new List<string>();
                         if (_multi_instance_counter)
                         {
@@ -143,22 +113,13 @@ namespace MRMPService.Scheduler.PerformanceCollection
                                     _s0 = _counter.NextSample();
                                     await Task.Delay(new TimeSpan(0, 0, 1));
                                 }
-
-
-
-                                //get current current counter from server
                                 _s1 = _counter.NextSample();
-
-                                //check counter type between old and new counter and reset counter objects if they have a missmatch
                                 if (_s0.CounterType != _s1.CounterType)
                                 {
                                     _s0 = _counter.NextSample();
                                     _s1 = _counter.NextSample();
                                 }
-
                                 double _value = CounterSampleCalculator.ComputeCounterValue(_s0, _s1);
-
-
                                 _this_workload_counter.sample = JsonConvert.SerializeObject(_s1);
                                 using (PerfCounterSampleSet _db_perf = new PerfCounterSampleSet())
                                 {
@@ -188,16 +149,9 @@ namespace MRMPService.Scheduler.PerformanceCollection
                                 {
                                     _perf_db.ModelRepository.Insert(_perf);
                                 }
-
-
-                                //process custom counters
-
-
                                 if (_this_workload_counter.category == "Memory" && _this_workload_counter.counter == "Available Bytes")
                                 {
                                     long _workload_total_memory = (Convert.ToInt64(_workload.vmemory) * 1024 * 1024 * 1024);
-
-                                    //memory: Used Bytes
                                     Double _memory_used_bytes = _workload_total_memory - _value;
                                     String _memory_used_counter = "Used Bytes";
 
@@ -213,7 +167,6 @@ namespace MRMPService.Scheduler.PerformanceCollection
                                     {
                                         _perf_db.ModelRepository.Insert(_perf);
                                     }
-                                    //memory: % used
                                     Double _percentage_memory_used = ((Convert.ToDouble(_memory_used_bytes) / Convert.ToDouble(_workload_total_memory)) * 100);
                                     String _memory_counter = "% Used";
 
@@ -234,9 +187,7 @@ namespace MRMPService.Scheduler.PerformanceCollection
                         }
                         if (_current_category == "Network Interface")
                         {
-                            //network total
                             var _current_timestamp = TimeCalculations.RoundDown(DateTime.UtcNow, TimeSpan.FromHours(1));
-
                             foreach (var _counter in new string[] { "Bytes Received/sec", "Bytes Sent/sec" })
                             {
                                 Performancecounter _perf = new Performancecounter();

@@ -22,7 +22,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 MRPOrganizationType _org_tags = MRMPServiceBase._mrmp_api.organization().get();
                 try
                 {
-                    ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.encrypted_password));
+                    ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.decrypted_password));
                     CaaS.Login().Wait();
                     _caasworkload = CaaS.ServerManagement.Server.GetServer(Guid.Parse(_workload_moid)).Result;
                     _caas_tags = CaaS.Tagging.GetTags(new DD.CBU.Compute.Api.Contracts.Requests.Tagging.TagListOptions() { AssetId = _caasworkload.id, AssetType = "SERVER" }).Result;
@@ -176,7 +176,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 //Update if the portal has this workload and create if it's new to the portal....
 
                 //remove credential, platform from workload object
-                _update_workload.credential = null;
+                _update_workload.get_credential = null;
                 _update_workload.platform = null;
                 _update_workload.provisioned = true;
 

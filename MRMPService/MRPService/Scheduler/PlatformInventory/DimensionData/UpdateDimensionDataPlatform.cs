@@ -47,7 +47,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 }
             }
 
-            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_credential.username, _credential.encrypted_password));
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_credential.username, _credential.decrypted_password));
             try
             {
                 CaaS.Login().Wait();

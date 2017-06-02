@@ -24,27 +24,16 @@ namespace MRMPService.Scheduler.NetstatCollection
             {
                 throw new ArgumentException("Inventory: Error finding workload in manager database");
             }
-            MRPCredentialType _credential = _workload.credential;
+            MRPCredentialType _credential = _workload.get_credential;
             if (_credential == null)
             {
                 throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", _workload.id, _workload.hostname));
             }
-
-            string workload_ip = null;
-            using (Connection _connection = new Connection())
-            {
-                workload_ip = _connection.FindConnection(_workload.iplist, true);
-            }
-            if (workload_ip == null)
-            {
-                throw new ArgumentException(String.Format("Does not respond to ping for workload {0} {1}", _workload.id, _workload.hostname));
-            }
+            string workload_ip = _workload.working_ipaddress(true);
             Logger.log(String.Format("Netstat: Started netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
-
-
-            using (new Impersonator(_credential.username, (String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain), _credential.encrypted_password))
+            using (new Impersonator(_credential.username, (String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain), _credential.decrypted_password))
             {
-                ConnectionOptions options = WMIHelper.ProcessConnectionOptions(((String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain) + "\\" + _credential.username), _credential.encrypted_password);
+                ConnectionOptions options = WMIHelper.ProcessConnectionOptions(((String.IsNullOrWhiteSpace(_credential.domain) ? "." : _credential.domain) + "\\" + _credential.username), _credential.decrypted_password);
                 ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
 
                 string remoteFile = @"\\" + workload_ip + @"\c$\netstat.out";

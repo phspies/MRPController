@@ -20,19 +20,15 @@ namespace MRMPService.Modules.MCP
 {
     public partial class MCP_Platform
     {
-        public static void ProvisionVM(String _task_id, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress, bool _os_customization = false)
+        public static void ProvisionVM(MRPTaskType _task, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress, bool _os_customization = false)
         {
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting provisioning process"), ReportProgress.Progress(_start_progress, _end_progress, 1));
+            _task.progress(String.Format("Starting provisioning process"), ReportProgress.Progress(_start_progress, _end_progress, 1));
             MRPWorkloadType _temp_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
             _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
             _target_workload.moid = _temp_workload.moid;
             _target_workload.iplist = _temp_workload.iplist;
 
-            if (_target_workload.credential == null && _os_customization)
-            {
-                throw new System.ArgumentException("Cannot find credential for workload deployment");
-            }
-            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.encrypted_password));
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.decrypted_password));
             CaaS.Login().Wait();
             try
             {
@@ -40,7 +36,7 @@ namespace MRMPService.Modules.MCP
                 if (!String.IsNullOrEmpty(_target_workload.moid))
                 {
                     ServerType _caas_server = null;
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Workload contains a platform management id: {0}", _target_workload.moid), ReportProgress.Progress(_start_progress, _end_progress, 10));
+                    _task.progress(String.Format("Workload contains a platform management id: {0}", _target_workload.moid), ReportProgress.Progress(_start_progress, _end_progress, 10));
                     try
                     {
                         _caas_server = CaaS.ServerManagement.Server.GetServer(new Guid(_target_workload.moid)).Result;
@@ -54,23 +50,23 @@ namespace MRMPService.Modules.MCP
 
                         if (_caas_server.started)
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Reusing available workload which was deployed {0}", _caas_server.createTime), ReportProgress.Progress(_start_progress, _end_progress, 11));
+                            _task.progress(String.Format("Reusing available workload which was deployed {0}", _caas_server.createTime), ReportProgress.Progress(_start_progress, _end_progress, 11));
                             if (_os_customization)
                             {
-                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Not rerunning Operating System Customization. Please make sure the server the network and storage components are configured correctly."), ReportProgress.Progress(_start_progress, _end_progress, 12));
+                                _task.progress(String.Format("Not rerunning Operating System Customization. Please make sure the server the network and storage components are configured correctly."), ReportProgress.Progress(_start_progress, _end_progress, 12));
                             }
                             return;
                         }
                         else
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Workload {0} is offline. Starting workload.", _target_workload.moid), ReportProgress.Progress(_start_progress, _end_progress, 11));
+                            _task.progress(String.Format("Workload {0} is offline. Starting workload.", _target_workload.moid), ReportProgress.Progress(_start_progress, _end_progress, 11));
                             CaaS.ServerManagement.Server.StartServer(new Guid(_target_workload.moid)).Wait();
                             return;
                         }
                     }
                     else
                     {
-                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Workload {0} does not exist in platform. New workload will be provisioned", _target_workload.moid), ReportProgress.Progress(_start_progress, _end_progress, 11));
+                        _task.progress(String.Format("Workload {0} does not exist in platform. New workload will be provisioned", _target_workload.moid), ReportProgress.Progress(_start_progress, _end_progress, 11));
                     }
                 }
 
@@ -78,12 +74,8 @@ namespace MRMPService.Modules.MCP
                 DataCenterListOptions _dc_options = new DataCenterListOptions();
                 _dc_options.Id = _platform.platformdatacenter.moid;
                 DatacenterType _dc = CaaS.Infrastructure.GetDataCenters(null, _dc_options).Result.FirstOrDefault();
-
                 DeployServerType _vm = new DeployServerType();
-
                 List<DeployServerTypeDisk> _disks = new List<DeployServerTypeDisk>();
-
-                //Set Tier for first disk being deployed
 
                 if (_os_customization)
                 {
@@ -119,7 +111,7 @@ namespace MRMPService.Modules.MCP
                 _vm.memoryGb = Convert.ToUInt16(_target_workload.vmemory);
                 _vm.start = false;
                 _vm.disk = _disks.ToArray();
-                _vm.administratorPassword = _os_customization ? _target_workload.credential.encrypted_password : "dummy_password";
+                _vm.administratorPassword = _os_customization ? _target_workload.get_credential.decrypted_password : "dummy_password";
                 _vm.primaryDns = String.IsNullOrEmpty(_target_workload.primary_dns) ? null : _target_workload.primary_dns;
                 _vm.secondaryDns = String.IsNullOrEmpty(_target_workload.secondary_dns) ? null : _target_workload.secondary_dns;
                 _vm.microsoftTimeZone = (_target_workload.ostype == "windows" ? _target_workload.timezone : null);
@@ -160,15 +152,15 @@ namespace MRMPService.Modules.MCP
                         deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
                     }
 
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), ReportProgress.Progress(_start_progress, _end_progress, 20));
+                    _task.progress(String.Format("{0} provisioning started in {1} ({2})", _vm.name, _dc.displayName, _dc.id), ReportProgress.Progress(_start_progress, _end_progress, 20));
                     int _progress_base = 0;
                     while (deployedServer.state != "NORMAL" && deployedServer.started == false)
                     {
                         if (deployedServer.state.Contains("FAILED"))
                         {
 
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Provisioning Failed: {0}. Cleaning failed server", deployedServer.progress.failureReason), ReportProgress.Progress(_start_progress, _end_progress, 45));
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, "Attempting to redeploy server", ReportProgress.Progress(_start_progress, _end_progress, 46));
+                            _task.progress(String.Format("Provisioning Failed: {0}. Cleaning failed server", deployedServer.progress.failureReason), ReportProgress.Progress(_start_progress, _end_progress, 45));
+                            _task.progress("Attempting to redeploy server", ReportProgress.Progress(_start_progress, _end_progress, 46));
                             var result = CaaS.ServerManagement.Server.CleanServer(_newvm_platform_guid).Result;
 
                             //redeploy the server
@@ -202,7 +194,7 @@ namespace MRMPService.Modules.MCP
                             if (deployedServer.progress.step != null)
                             {
 
-                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Provisioning step: {0}", deployedServer.progress.step.name), ReportProgress.Progress(_start_progress, _end_progress, _progress_base + 30 + deployedServer.progress.step.number));
+                                _task.progress(String.Format("Provisioning step: {0}", deployedServer.progress.step.name), ReportProgress.Progress(_start_progress, _end_progress, _progress_base + 30 + deployedServer.progress.step.number));
                             }
                         }
                         deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
@@ -233,13 +225,13 @@ namespace MRMPService.Modules.MCP
                                 if (deployedServer.disk.ToList().FirstOrDefault(x => x.scsiId == _vm_scsi_id).sizeGb < _disk_size)
                                 {
                                     String _disk_guid = deployedServer.disk.ToList().Find(x => x.scsiId == _vm_scsi_id).id;
-                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Extending storage: {0} : {1}GB", _vm_scsi_id, _disk_size), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                    _task.progress(String.Format("Extending storage: {0} : {1}GB", _vm_scsi_id, _disk_size), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
                                     Status _create_status = CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _disk_guid, _disk_size.ToString()).Result;
                                 }
                             }
                             else
                             {
-                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Adding storage: {0} : {1}GB on {2}", _vm_scsi_id, _disk_size, _disk_tier), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                _task.progress(String.Format("Adding storage: {0} : {1}GB on {2}", _vm_scsi_id, _disk_size, _disk_tier), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
                                 Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk_size.ToString(), _disk_tier).Result;
                             }
                             deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
@@ -260,13 +252,13 @@ namespace MRMPService.Modules.MCP
                                 if (deployedServer.disk.ToList().FirstOrDefault(x => x.scsiId == _disk.diskindex).sizeGb < _disk.disksize)
                                 {
                                     String _disk_guid = deployedServer.disk.ToList().Find(x => x.scsiId == _disk.diskindex).id;
-                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Extending storage: {0} : {1}GB", _disk.diskindex, _disk.disksize), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                    _task.progress(String.Format("Extending storage: {0} : {1}GB", _disk.diskindex, _disk.disksize), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
                                     Status _create_status = CaaS.ServerManagementLegacy.Server.ChangeServerDiskSize(deployedServer.id, _disk_guid, _disk.disksize.ToString()).Result;
                                 }
                             }
                             else
                             {
-                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Adding storage: {0} : {1}GB on {2}", _disk.diskindex, _disk.disksize, _disk.platformstoragetier_id), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
+                                _task.progress(String.Format("Adding storage: {0} : {1}GB on {2}", _disk.diskindex, _disk.disksize, _disk.platformstoragetier_id), ReportProgress.Progress(_start_progress, _end_progress, 60 + count));
                                 Status _create_status = CaaS.ServerManagementLegacy.Server.AddServerDisk(deployedServer.id, _disk.disksize.ToString(), _disk.platformstoragetier_id).Result;
                             }
                             deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
@@ -282,7 +274,7 @@ namespace MRMPService.Modules.MCP
                     //Start Workload
                     if (_os_customization)
                     {
-                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Power on workload"), ReportProgress.Progress(_start_progress, _end_progress, 70));
+                        _task.progress(String.Format("Power on workload"), ReportProgress.Progress(_start_progress, _end_progress, 70));
                         ResponseType _start_server = CaaS.ServerManagement.Server.StartServer(_newvm_platform_guid).Result;
                         deployedServer = CaaS.ServerManagement.Server.GetServer(Guid.Parse(deployedServer.id)).Result;
                         while (deployedServer.state != "NORMAL" && deployedServer.started == false)
@@ -291,7 +283,7 @@ namespace MRMPService.Modules.MCP
                             Thread.Sleep(5000);
                         }
 
-                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Workload powered on"), ReportProgress.Progress(_start_progress, _end_progress, 71));
+                        _task.progress(String.Format("Workload powered on"), ReportProgress.Progress(_start_progress, _end_progress, 71));
                     }
                     deployedServer = CaaS.ServerManagement.Server.GetServer(_newvm_platform_guid).Result;
 
@@ -321,41 +313,35 @@ namespace MRMPService.Modules.MCP
 
                     MRMPServiceBase._mrmp_api.workload().updateworkload(_update_workload);
                     _target_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
-                    //update Platform inventory for server
-
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Updating platform information for {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 80));
+                    _task.progress(String.Format("Updating platform information for {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 80));
                     PlatformInventoryWorkloadDo.UpdateMCPWorkload(_newvm_platform_guid.ToString(), _platform);
 
-                    //run OS customization code
                     if (_os_customization)
                     {
                         switch (deployedServer.guest.operatingSystem.family)
                         {
                             case "UNIX":
-                                LinuxCustomization(_task_id, _platform, _target_workload, _protectiongroup, ReportProgress.Progress(_start_progress, _end_progress, 85), ReportProgress.Progress(_start_progress, _end_progress, 90));
-                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Updating operating system information for {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 92));
-                                WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload).Wait();
+                                LinuxCustomization(_task, _platform, _target_workload, _protectiongroup, ReportProgress.Progress(_start_progress, _end_progress, 85), ReportProgress.Progress(_start_progress, _end_progress, 90));
+                                _task.progress(String.Format("Updating operating system information for {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 92));
+                                WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload);
                                 break;
                             case "WINDOWS":
-                                WindowsCustomization(_task_id, _platform, _target_workload, _protectiongroup, ReportProgress.Progress(_start_progress, _end_progress, 85), ReportProgress.Progress(_start_progress, _end_progress, 90));
-                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Updating operating system information for {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 92));
-                                WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload).Wait();
+                                WindowsCustomization(_task, _platform, _target_workload, _protectiongroup, ReportProgress.Progress(_start_progress, _end_progress, 85), ReportProgress.Progress(_start_progress, _end_progress, 90));
+                                _task.progress(String.Format("Updating operating system information for {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 92));
+                                WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload);
                                 break;
                         }
                     }
-                    Logger.log(String.Format("Successfully provisioned VM [{0}] in [{1}]: {2}", deployedServer.name, _dc.displayName, JsonConvert.SerializeObject(deployedServer)), Logger.Severity.Debug);
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully provisioned VM [{0}] in [{1}]", deployedServer.name, _dc.displayName), ReportProgress.Progress(_start_progress, _end_progress, 95));
+                    _task.progress(String.Format("Successfully provisioned VM [{0}] in [{1}]", deployedServer.name, _dc.displayName), ReportProgress.Progress(_start_progress, _end_progress, 95));
                 }
                 else
                 {
-                    Logger.log(String.Format("Failed to create target virtual machine: {0}", _status.error), Logger.Severity.Error);
                     throw new Exception(String.Format("Failed to create target virtual machine: {0}", _status.error));
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Logger.log(e.ToString(), Logger.Severity.Error);
-                throw new Exception(e.Message);
+                throw new Exception(ex.GetBaseException().Message);
             }
         }
     }

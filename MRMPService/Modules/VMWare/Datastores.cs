@@ -8,7 +8,7 @@ namespace MRMPService.VMWare
 {
     public class Datastores : Core
     {
-        public Datastores(VimApiClient _virtualcenter) : base(_virtualcenter) {}
+        public Datastores(VimApiClient _virtualcenter) : base(_virtualcenter) { }
 
         public List<Datastore> DatastoreList(Datacenter selectedDC = null)
         {
@@ -22,7 +22,7 @@ namespace MRMPService.VMWare
             {
                 DcMoRef = null;
             }
-            List<EntityViewBase> _entitylist_datastores = _vmwarecontext.FindEntityViews(typeof(DistributedVirtualSwitch), DcMoRef, null, null);
+            List<EntityViewBase> _entitylist_datastores = _vmwarecontext.FindEntityViews(typeof(Datastore), DcMoRef, null, null);
 
             try
             {

@@ -7,9 +7,9 @@ namespace MRMPService.TaskExecutioner.DRSVMWare
 {
     partial class DRSVMWare
     {
-        static public async void SetupConsistencyGroup(MRPTaskType _mrmp_task)
+        static public async void SetupConsistencyGroup(MRPTaskType _task)
         {
-            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
+            MRPTaskDetailType _payload = _task.taskdetail;
             MRPPlatformType _source_platform = _payload.source_platform;
             MRPPlatformType _target_platform = _payload.target_platform;
 
@@ -18,12 +18,12 @@ namespace MRMPService.TaskExecutioner.DRSVMWare
 
             try
             {
-                await RP4VM.CreateConsistencyGroup(_mrmp_task.id, _payload.workloadpairs.Select(x => x.source_workload).ToList(), _protectiongroup, _mo, 1, 99);
-                MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully configured consistency group");
+                await RP4VM.CreateConsistencyGroup(_task, _payload.workloadpairs.Select(x => x.source_workload).ToList(), _protectiongroup, _mo, 1, 99);
+                _task.successcomplete("Successfully configured consistency group");
             }
             catch (Exception ex)
             {
-                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                _task.failcomplete(ex.Message);
             }
         }
     }

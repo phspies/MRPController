@@ -8,38 +8,22 @@ namespace MRMPService.Utilities
     {
         static public void setInterfaceAddresses(MRPWorkloadType _source_workload, MRPWorkloadType _target_workload)
         {
-            string workload_ip;
-            MRPCredentialType _credential = _source_workload.credential;
             String domainuser = null;
-
-            if (_credential == null)
+            if (!String.IsNullOrWhiteSpace(_source_workload.get_credential.domain))
             {
-                throw new ArgumentException(String.Format("Error finding credentials"));
-            }
-
-            if (!String.IsNullOrWhiteSpace(_credential.domain))
-            {
-                domainuser = (_credential.domain + @"\" + _credential.username);
+                domainuser = (_source_workload.get_credential.domain + @"\" + _source_workload.get_credential.username);
             }
             else
             {
-                domainuser = @".\" + _credential.username;
+                domainuser = @".\" + _source_workload.get_credential.username;
             }
-            using (Connection _connection = new Connection())
-            {
-                workload_ip = _connection.FindConnection(_source_workload.iplist, true);
-            }
-            if (workload_ip == null)
-            {
-                throw new ArgumentException(String.Format("Does not respond to ping"));
-            }
-
+            string workload_ip = _source_workload.working_ipaddress(true);
             ConnectionOptions connOptions = new ConnectionOptions();
             connOptions.Impersonation = ImpersonationLevel.Impersonate;
             connOptions.Authentication = AuthenticationLevel.Default;
             connOptions.EnablePrivileges = true;
-            connOptions.Username = (_source_workload.credential.domain == null ? "." : _source_workload.credential.domain) + @"\" + _source_workload.credential.username;
-            connOptions.Password = _source_workload.credential.encrypted_password;
+            connOptions.Username = (_source_workload.get_credential.domain == null ? "." : _source_workload.get_credential.domain) + @"\" + _source_workload.get_credential.username;
+            connOptions.Password = _source_workload.get_credential.decrypted_password;
             ManagementScope scope = new ManagementScope(@"\\" + workload_ip + @"\root\CIMV2", connOptions);
             ManagementPath p = new ManagementPath("Win32_NetworkAdapterConfiguration");
             ManagementClass objMC = new ManagementClass(scope, p, null);

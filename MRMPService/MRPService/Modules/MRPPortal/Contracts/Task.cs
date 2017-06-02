@@ -26,6 +26,18 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         public string target_type { get; set; }
         [JsonProperty("task_type")]
         public string task_type { get; set; }
+        public void successcomplete(string _payload = null)
+        {
+            MRMPServiceBase._mrmp_api.task().update_successcomplete(this.id, _payload);
+        }
+        public void failcomplete(string _payload = null)
+        {
+            MRMPServiceBase._mrmp_api.task().update_failcomplete(this.id, _payload);
+        }
+        public void progress(string _step, double _progress)
+        {
+            MRMPServiceBase._mrmp_api.task().update_progress(this.id, _step, _progress);
+        }
     }
 
     public class MRPTaskDetailType
@@ -149,7 +161,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("step")]
         public string step { set; get; }
         [JsonProperty("percentage")]
-        public double percentage { set; get; }
+        public double? percentage { set; get; }
     }
     public class MRPCompleteTaskUpdateType
     {
@@ -163,7 +175,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("step")]
         public string step { set; get; }
         [JsonProperty("percentage")]
-        public decimal percentage { set; get; }
+        public decimal? percentage { set; get; }
         [JsonProperty("returnpayload")]
         public string returnpayload { set; get; }
         [JsonProperty("status")]

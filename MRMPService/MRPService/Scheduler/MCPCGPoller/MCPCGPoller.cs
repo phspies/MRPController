@@ -41,7 +41,7 @@ namespace MRMPService.Scheduler.MCPCGCollection
             bool _can_connect = false;
             try
             {
-                ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_mrp_managementobject.target_platform.url), new NetworkCredential(_mrp_managementobject.target_platform.credential.username, _mrp_managementobject.target_platform.credential.encrypted_password));
+                ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_mrp_managementobject.target_platform.url), new NetworkCredential(_mrp_managementobject.target_platform.credential.username, _mrp_managementobject.target_platform.credential.decrypted_password));
 
                 CaaS.Login().Wait();
 

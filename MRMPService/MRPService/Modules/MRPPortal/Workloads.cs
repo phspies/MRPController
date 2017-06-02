@@ -31,7 +31,7 @@ namespace MRMPService.Modules.MRMPPortal
         }
         public ResultType createworkload(MRPWorkloadType _workload)
         {
-            _workload.credential = null;
+            _workload.get_credential = null;
             _workload.platform = null;
             if (_workload.workloadinterfaces != null)
             {
@@ -47,7 +47,7 @@ namespace MRMPService.Modules.MRMPPortal
         }
         public ResultType updateworkload(MRPWorkloadType _workload)
         {
-            _workload.credential = null;
+            _workload.get_credential = null;
             _workload.platform = null;
             if (_workload.workloadinterfaces != null)
             {

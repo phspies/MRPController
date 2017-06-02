@@ -29,7 +29,7 @@ namespace MRMPService.Scheduler.PlatformInventory.RP4VM
             {
                 _mrmp_datacenters = MRMPServiceBase._mrmp_api.platformdatacenter().list(_platform);
                 String username = String.Concat((String.IsNullOrEmpty(_platform.credential.domain) ? "" : (_platform.credential.domain + @"\")), _platform.credential.username);
-                _rp4vm = new RP4VM_ApiClient(_platform.rp4vm_url, username, _platform.credential.encrypted_password);
+                _rp4vm = new RP4VM_ApiClient(_platform.rp4vm_url, username, _platform.credential.decrypted_password);
                 _rp4vm_settings = _rp4vm.system().getSystemSettings_Method();
             }
             catch (Exception ex)

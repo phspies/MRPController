@@ -10,12 +10,12 @@ namespace MRMPService.TaskExecutioner.Platform
 {
     public class PlatformDiscovery
     {
-        public static void PlatformDiscoveryDo(MRPTaskType payload)
+        public static void PlatformDiscoveryDo(MRPTaskType _task)
         {
 
-            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Starting platform discovering process"), 5);
+            _task.progress(String.Format("Starting platform discovering process"), 5);
 
-            MRPPlatformType _platform = payload.taskdetail.target_platform;
+            MRPPlatformType _platform = _task.taskdetail.target_platform;
             MRPCredentialType _platform_credentail = _platform.credential;
             try
             {
@@ -33,13 +33,13 @@ namespace MRMPService.TaskExecutioner.Platform
                         PlatformRP4VMInventoryDo.UpdateRP4VMPlatform(_platform, false);
                         break;
                 }
-                MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Successfully refreshed platform resources"), 10);
-                MRMPServiceBase._mrmp_api.task().successcomplete(payload);
+                _task.progress(String.Format("Successfully refreshed platform resources"), 10);
+                _task.successcomplete();
             }
             catch (Exception ex)
             {
                 Logger.log(String.Format("Error in inventory process for {0} {1}", (_platform.platformtype + " : " + _platform.moid), ex.ToString()), Logger.Severity.Error);
-                MRMPServiceBase._mrmp_api.task().failcomplete(payload, String.Format("Error refreshing platform resources: {0}", ex.GetBaseException().Message));
+                _task.failcomplete(String.Format("Error refreshing platform resources: {0}", ex.GetBaseException().Message));
             }
         }
     }

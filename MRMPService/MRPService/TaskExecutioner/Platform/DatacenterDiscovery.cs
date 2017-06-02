@@ -19,7 +19,7 @@ namespace MRMPService.TaskExecutioner.Platform
         {
             try
             {
-                MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Starting datacenter discovering process"), 5);
+                payload.progress(String.Format("Starting datacenter discovering process"), 5);
                 MRPPlatformType _platform = payload.taskdetail.target_platform;
                 MRPCredentialType _platform_credentail = _platform.credential;
                 switch (_platform.platformtype)
@@ -29,23 +29,23 @@ namespace MRMPService.TaskExecutioner.Platform
                         MRPPlatformdatacenterListType _mrmp_datacenters = null;
                         try
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Retrieving datacenters from {0} for type MCP", _platform.url), 10);
+                            payload.progress(String.Format("Retrieving datacenters from {0} for type MCP", _platform.url), 10);
                             _mrmp_datacenters = MRMPServiceBase._mrmp_api.platformdatacenter().list(_platform);
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 11);
-                            CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentail.username, _platform_credentail.encrypted_password));
+                            payload.progress(String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 11);
+                            CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform_credentail.username, _platform_credentail.decrypted_password));
                             CaaS.Login().Wait();
                         }
                         catch (Exception ex)
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Error Connecting to MCP {0}", ex.Message), 15);
-                            MRMPServiceBase._mrmp_api.task().failcomplete(payload, ex.ToString());
+                            payload.progress(String.Format("Error Connecting to MCP {0}", ex.Message), 15);
+                            payload.failcomplete(ex.ToString());
                             return;
                         }
 
                         List<DatacenterType> _mcp_datacenters = CaaS.Infrastructure.GetDataCenters().Result.ToList();
                         if (_mcp_datacenters != null)
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Found {0} datacenters", _mcp_datacenters.Count), 15);
+                            payload.progress(String.Format("Found {0} datacenters", _mcp_datacenters.Count), 15);
                             foreach (DatacenterType _dc in _mcp_datacenters)
                             {
                                 MRPPlatformdatacenterType _platform_datacenter = new MRPPlatformdatacenterType();
@@ -78,12 +78,12 @@ namespace MRMPService.TaskExecutioner.Platform
                         }
                         else
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Something went wrong, null based mcp server list"), 15);
-                            MRMPServiceBase._mrmp_api.task().failcomplete(payload, String.Format("Something went wrong, null based mcp server list"));
+                            payload.progress(String.Format("Something went wrong, null based mcp server list"), 15);
+                            payload.failcomplete(String.Format("Something went wrong, null based mcp server list"));
                             return;
                         }
-                        MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Successfully created/updated {0} datacenters", _mcp_datacenters.Count), 20);
-                        MRMPServiceBase._mrmp_api.task().successcomplete(payload, String.Format("Successfully created/updated {0} datacenters", _mcp_datacenters.Count));
+                        payload.progress(String.Format("Successfully created/updated {0} datacenters", _mcp_datacenters.Count), 20);
+                        payload.successcomplete(String.Format("Successfully created/updated {0} datacenters", _mcp_datacenters.Count));
                         break;
                     case "hyperv":
                         break;
@@ -92,24 +92,24 @@ namespace MRMPService.TaskExecutioner.Platform
 
                         try
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Retrieving datacenters from {0} for type VMWare", _platform.vmware_url), 10);
+                            payload.progress(String.Format("Retrieving datacenters from {0} for type VMWare", _platform.vmware_url), 10);
                             _mrmp_datacenters = MRMPServiceBase._mrmp_api.platformdatacenter().list(_platform);
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 15);
+                            payload.progress(String.Format("Retrieving datacenters from platform for {0}", _platform.platform), 15);
                             String username = String.Concat((String.IsNullOrEmpty(_platform_credentail.domain) ? "" : (_platform_credentail.domain + @"\")), _platform_credentail.username);
-                            _vim = new VimApiClient(_platform.vmware_url, username, _platform_credentail.encrypted_password);
+                            _vim = new VimApiClient(_platform.vmware_url, username, _platform_credentail.decrypted_password);
                             _vim.datacenter().DatacenterList();
 
                         }
                         catch (Exception ex)
                         {
-                            MRMPServiceBase._mrmp_api.task().failcomplete(payload, ex.ToString());
+                            payload.failcomplete(ex.ToString());
                             return;
                         }
 
                         List<Datacenter> _vmware_datacenters = _vim.datacenter().DatacenterList();
                         if (_vmware_datacenters != null)
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Found {0} datacenters", _vmware_datacenters.Count), 20);
+                            payload.progress(String.Format("Found {0} datacenters", _vmware_datacenters.Count), 20);
                             foreach (Datacenter _dc in _vmware_datacenters)
                             {
                                 MRPPlatformdatacenterType _platform_datacenter = new MRPPlatformdatacenterType();
@@ -130,13 +130,13 @@ namespace MRMPService.TaskExecutioner.Platform
                                     MRMPServiceBase._mrmp_api.platformdatacenter().create(_platform_datacenter);
                                 }
                             }
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Successfully created/updated {0} datacenter(s)", _vmware_datacenters.Count), 30);
-                            MRMPServiceBase._mrmp_api.task().successcomplete(payload, String.Format("Successfully created/updated {0} datacenter(s)", _vmware_datacenters.Count));
+                            payload.progress(String.Format("Successfully created/updated {0} datacenter(s)", _vmware_datacenters.Count), 30);
+                            payload.successcomplete(String.Format("Successfully created/updated {0} datacenter(s)", _vmware_datacenters.Count));
                         }
                         else
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Something went wrong, null based vmware server list"), 30);
-                            MRMPServiceBase._mrmp_api.task().failcomplete(payload, String.Format("Something went wrong, null based vmware server list"));
+                            payload.progress(String.Format("Something went wrong, null based vmware server list"), 30);
+                            payload.failcomplete(String.Format("Something went wrong, null based vmware server list"));
                         }
 
                         break;
@@ -147,11 +147,11 @@ namespace MRMPService.TaskExecutioner.Platform
                         SystemSettings _rp4vm_settings = null;
                         try
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Retrieving clusters from {0} for type EMC RP4VM", _platform.rp4vm_url), 10);
+                            payload.progress(String.Format("Retrieving clusters from {0} for type EMC RP4VM", _platform.rp4vm_url), 10);
                             _mrmp_datacenters = MRMPServiceBase._mrmp_api.platformdatacenter().list(_platform);
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Retrieving clusters from platform for {0}", _platform.platform), 15);
+                            payload.progress(String.Format("Retrieving clusters from platform for {0}", _platform.platform), 15);
                             String username = String.Concat((String.IsNullOrEmpty(_platform_credentail.domain) ? "" : (_platform_credentail.domain + @"\")), _platform_credentail.username);
-                            _rp4vm = new RP4VM_ApiClient(_platform.rp4vm_url, username, _platform_credentail.encrypted_password);
+                            _rp4vm = new RP4VM_ApiClient(_platform.rp4vm_url, username, _platform_credentail.decrypted_password);
                             _rp4vm_settings = _rp4vm.system().getSystemSettings_Method();
 
                             _repvolumes = _rp4vm.reparrays().getRepositoryVolumeStateFromAllClusters_Method();
@@ -159,7 +159,7 @@ namespace MRMPService.TaskExecutioner.Platform
                         }
                         catch (Exception ex)
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("{0}", ex.GetBaseException().Message), 20);
+                            payload.progress(String.Format("{0}", ex.GetBaseException().Message), 20);
                         }
                         if (_rp4vm_settings != null)
                         {
@@ -182,13 +182,13 @@ namespace MRMPService.TaskExecutioner.Platform
 
                             MRMPServiceBase._mrmp_api.platform().update(_update_platform);
 
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Successfully created/updated {0} RP4VM clusters(s)", _rp4vm_settings.clustersSettings.Count()), 30);
-                            MRMPServiceBase._mrmp_api.task().successcomplete(payload, String.Format("Successfully created/updated {0} RP4VM clusters(s)", _rp4vm_settings.clustersSettings.Count()));
+                            payload.progress(String.Format("Successfully created/updated {0} RP4VM clusters(s)", _rp4vm_settings.clustersSettings.Count()), 30);
+                            payload.successcomplete(String.Format("Successfully created/updated {0} RP4VM clusters(s)", _rp4vm_settings.clustersSettings.Count()));
                         }
                         else
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Something went wrong, null based cluster list"), 30);
-                            MRMPServiceBase._mrmp_api.task().failcomplete(payload, String.Format("Something went wrong, null based cluster list"));
+                            payload.progress(String.Format("Something went wrong, null based cluster list"), 30);
+                            payload.failcomplete(String.Format("Something went wrong, null based cluster list"));
                         }
 
                         break;
@@ -196,8 +196,8 @@ namespace MRMPService.TaskExecutioner.Platform
             }
             catch (Exception ex)
             {
-                MRMPServiceBase._mrmp_api.task().progress(payload, String.Format("Something went wrong, {0}", ex.Message), 30);
-                MRMPServiceBase._mrmp_api.task().failcomplete(payload, String.Format("Something went wrong, {0}", ex.Message));
+                payload.progress(String.Format("Something went wrong, {0}", ex.Message), 30);
+                payload.failcomplete(String.Format("Something went wrong, {0}", ex.Message));
             }
         }
     }

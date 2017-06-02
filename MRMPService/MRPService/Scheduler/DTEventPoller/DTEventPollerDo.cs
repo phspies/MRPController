@@ -17,38 +17,25 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
         {
             //check for credentials
 
-            if (_workload.credential == null)
+            if (_workload.get_credential == null)
             {
                 throw new ArgumentException(String.Format("Double-Take Event: Error finding credentials for workload {0} {1}", _workload.id, _workload.hostname));
             }
 
             //check for working IP
-            string workload_ip = null;
-            using (Connection _connection = new Connection())
-            {
-                workload_ip = _connection.FindConnection(_workload.iplist, true);
-            }
-            if (workload_ip == null)
-            {
-                throw new ArgumentException(String.Format("Double-Take Event: Does not respond to ping for workload {0}", _workload.hostname));
-            }
+            string workload_ip = _workload.working_ipaddress(true);
             Logger.log(String.Format("Double-Take Event: Start Double-Take collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
-
-            //first try to connect to the target server to make sure we can connect
             try
             {
                 using (MRMPDoubleTake.Doubletake _dt = new MRMPDoubleTake.Doubletake(null, _workload))
                 {
                     ProductInfoModel _dt_info = _dt.management().GetProductInfo();
                 }
-
                 MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_workload, "Success", true);
             }
             catch (Exception ex)
             {
-
                 MRMPServiceBase._mrmp_api.workload().DoubleTakeUpdateStatus(_workload, ex.Message, false);
-
                 Logger.log(String.Format("Double-Take Event: Error contacting Double-Take Management Service for {0} using {1} : {2}", _workload.hostname, workload_ip, ex.ToString()), Logger.Severity.Info);
                 throw new ArgumentException(String.Format("Double-Take Event: Error contacting Double-Take management service for {0} using {1}", _workload.hostname, workload_ip));
             }

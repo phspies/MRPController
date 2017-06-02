@@ -253,7 +253,7 @@ namespace MRMPService.TaskExecutioner
         }
         static private void ClaimTask(MRPTaskType _task)
         {
-            MRMPServiceBase._mrmp_api.task().progress(_task.id, String.Format("Task claimed by {0}", System.Environment.MachineName), 1);
+            _task.progress(String.Format("Task claimed by {0}", System.Environment.MachineName), 1);
         }
     }
     public class ThreadObject

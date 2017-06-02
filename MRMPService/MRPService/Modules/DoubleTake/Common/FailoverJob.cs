@@ -10,11 +10,11 @@ namespace MRMPService.Modules.DoubleTake.Common
 {
     partial class ModuleCommon
     {
-        public static void Failoverjob(string _task_id, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, MRPManagementobjectSnapshotType _managementobjectsnapshot, float _start_progress, float _end_progress, bool _group_task = false, bool _firedrill_failover = false)
+        public static void Failoverjob(MRPTaskType _task, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, MRPManagementobjectSnapshotType _managementobjectsnapshot, float _start_progress, float _end_progress, bool _group_task = false, bool _firedrill_failover = false)
         {
             using (Doubletake _dt = new Doubletake(null, _target_workload))
             {
-                MRMPServiceBase._mrmp_api.task().progress(_task_id, "Initiating failover operation for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 10));
+                _task.progress("Initiating failover operation for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 10));
                 FailoverOptionsModel _options = new FailoverOptionsModel();
 
                 _options.FailoverType = FailoverType.FullServer;
@@ -22,14 +22,14 @@ namespace MRMPService.Modules.DoubleTake.Common
                 {
                     _options.FailoverMode = FailoverMode.Snapshot;
                     _options.SnapshotId = Guid.Parse(_managementobjectsnapshot.snapshotmoid);
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Failing over from snapshot created on {0}", _managementobjectsnapshot.timestamp), ReportProgress.Progress(_start_progress, _end_progress, 12));
+                    _task.progress(String.Format("Failing over from snapshot created on {0}", _managementobjectsnapshot.timestamp), ReportProgress.Progress(_start_progress, _end_progress, 12));
                 }
                 else
                 {
                     _options.FailoverMode = FailoverMode.Live;
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, "Failing over from live replication stream", ReportProgress.Progress(_start_progress, _end_progress, 12));
+                    _task.progress("Failing over from live replication stream", ReportProgress.Progress(_start_progress, _end_progress, 12));
                 }
-                MRMPServiceBase._mrmp_api.task().progress(_task_id, "Applying remaining datablocks to target server", ReportProgress.Progress(_start_progress, _end_progress, 13));
+                _task.progress("Applying remaining datablocks to target server", ReportProgress.Progress(_start_progress, _end_progress, 13));
                 _options.FailoverDataAction = FailoverDataAction.Apply;
 
                 JobInfoModel jobinfo = null;
@@ -38,13 +38,13 @@ namespace MRMPService.Modules.DoubleTake.Common
                     jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString()));
                     if (jobinfo.Status.CanFailover)
                     {
-                        MRMPServiceBase._mrmp_api.task().progress(_task_id, _managementobject.moname + " is able to failover", ReportProgress.Progress(_start_progress, _end_progress, 20));
+                        _task.progress(_managementobject.moname + " is able to failover", ReportProgress.Progress(_start_progress, _end_progress, 20));
                     }
                     else
                     {
                         if (_group_task)
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("{0} cannot be failed over: {1}", _managementobject.moname, jobinfo.Status.HighLevelState), ReportProgress.Progress(_start_progress, _end_progress, 20));
+                            _task.progress(String.Format("{0} cannot be failed over: {1}", _managementobject.moname, jobinfo.Status.HighLevelState), ReportProgress.Progress(_start_progress, _end_progress, 20));
                             return;
                         }
                         else
@@ -57,7 +57,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                 {
                     if (_group_task)
                     {
-                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("{0} cannot be migrated: {1}", _managementobject.moname, ex.GetBaseException().Message), ReportProgress.Progress(_start_progress, _end_progress, 20));
+                        _task.progress(String.Format("{0} cannot be migrated: {1}", _managementobject.moname, ex.GetBaseException().Message), ReportProgress.Progress(_start_progress, _end_progress, 20));
                         return;
                     }
                     else
@@ -68,12 +68,12 @@ namespace MRMPService.Modules.DoubleTake.Common
 
                 ActivityStatusModel _status = _dt.job().FailoverJob(Guid.Parse(_managementobject.moid), _options);
 
-                MRMPServiceBase._mrmp_api.task().progress(_task_id, "Failover process started for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 25));
+                _task.progress("Failover process started for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 25));
                 jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString()));
                 int _wait_times = 1;
                 while (jobinfo.Status.HighLevelState != HighLevelState.FailingOver)
                 {
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, "Waiting for job to start the failover for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 30));
+                    _task.progress("Waiting for job to start the failover for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 30));
                     Thread.Sleep(TimeSpan.FromSeconds(2));
                     _wait_times++;
                     jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString()));
@@ -105,7 +105,7 @@ namespace MRMPService.Modules.DoubleTake.Common
 
                     }
                     String progress = String.Format("{0}% complete", percentcomplete);
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, progress, ReportProgress.Progress(_start_progress, _end_progress, ReportProgress.Progress(35, 90, percentcomplete)));
+                    _task.progress(progress, ReportProgress.Progress(_start_progress, _end_progress, ReportProgress.Progress(35, 90, percentcomplete)));
                     DTJobPoller.PollerDo(_managementobject);
 
                     Thread.Sleep(TimeSpan.FromSeconds(10));
@@ -114,7 +114,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                     {
                         if (DateTime.UtcNow > timeoutTime)
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Timeout waiting for target workload {0} to become available", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
+                            _task.progress(String.Format("Timeout waiting for target workload {0} to become available", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
                             throw new Exception(String.Format("Timeout waiting for target workload {0} to become available", _target_workload.hostname));
                         }
                         try
@@ -122,11 +122,11 @@ namespace MRMPService.Modules.DoubleTake.Common
                             if (_switched_personalities)
                             {
                                 MRPWorkloadType _new_target_workload = _target_workload;
-                                _new_target_workload.credential = _source_workload.credential;
+                                _new_target_workload.get_credential = _source_workload.get_credential;
                                 Doubletake _switched_dt = new Doubletake(null, _new_target_workload);
                                 _switched_dt.management().UnAuthorizationAsync();
                                 jobinfo = _switched_dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString()));
-                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("{0} became available, finalizing failover", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 94));
+                                _task.progress(String.Format("{0} became available, finalizing failover", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 94));
                             }
                             else
                             {
@@ -142,7 +142,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                             {
                                 if (_firedrill_failover)
                                 {
-                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, "Switching source and target credentials for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 90));
+                                    _task.progress("Switching source and target credentials for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 90));
 
                                     MRPWorkloadType _target_update_workload = new MRPWorkloadType();
                                     _target_update_workload.credential_id = _source_workload.credential_id;
@@ -150,7 +150,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                                 }
                                 else
                                 {
-                                    MRMPServiceBase._mrmp_api.task().progress(_task_id, "Setting source workload to disabled and switching source and target credentials for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 90));
+                                    _task.progress("Setting source workload to disabled and switching source and target credentials for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 90));
 
                                     MRPWorkloadType _source_update_workload = new MRPWorkloadType();
                                     MRPWorkloadType _target_update_workload = new MRPWorkloadType();
@@ -174,7 +174,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                                 }
                                 _switched_personalities = true;
                             }
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Waiting for target workload {0} to become available", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 93));
+                            _task.progress(String.Format("Waiting for target workload {0} to become available", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 93));
                             Thread.Sleep(TimeSpan.FromSeconds(10));
                         }
                     }
@@ -183,16 +183,16 @@ namespace MRMPService.Modules.DoubleTake.Common
                 {
                     MRPManagementobjectType _udated_managementobject = MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_managementobject.id);
                     DTJobPoller.PollerDo(_udated_managementobject);
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully moved {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
+                    _task.progress(String.Format("Successfully moved {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
                 }
                 else if (jobinfo.Status.HighLevelState == HighLevelState.FailoverFailed)
                 {
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error moving {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
+                    _task.progress(String.Format("Error moving {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
                     throw new Exception(String.Format("Error moving {0} to {1}", _source_workload.hostname, _target_workload.hostname));
                 }
                 else if (jobinfo.Status.HighLevelState == HighLevelState.TargetInfoNotAvailable)
                 {
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Cannot contact {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
+                    _task.progress(String.Format("Cannot contact {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
                     throw new Exception(String.Format("Cannot contact {0}", _target_workload.hostname));
                 }
             }

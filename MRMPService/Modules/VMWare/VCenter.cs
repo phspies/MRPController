@@ -6,7 +6,7 @@ namespace MRMPService.VMWare
 {
     public class vCenter : Core
     {
-        public vCenter(VimApiClient _virtualcenter) : base(_virtualcenter) {}
+        public vCenter(VimApiClient _virtualcenter) : base(_virtualcenter) { }
 
         public AboutInfo GetvCenterAbout()
         {

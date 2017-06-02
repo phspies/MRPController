@@ -11,20 +11,11 @@ namespace MRMPService.Modules.DoubleTake.Common
 {
     partial class ModuleCommon
     {
-        public static void StopJob(string _task_id, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void StopJob(MRPTaskType _task, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Stopping job {0} on {1}", _managementobject.moname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
+            _task.progress(String.Format("Stopping job {0} on {1}", _managementobject.moname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
 
-            string _contactable_ip = null;
-            using (Connection _connection = new Connection())
-            {
-                _contactable_ip = _connection.FindConnection(_target_workload.iplist, true);
-            }
-            if (_contactable_ip == null)
-            {
-                throw new Exception(String.Format("Cannot contact workload {0}", _target_workload.hostname));
-            }
-
+            string _contactable_ip = _target_workload.working_ipaddress(true);
             JobInfoModel _dt_job;
             using (Doubletake _dt = new Doubletake(null, _target_workload))
             {
@@ -41,7 +32,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                 while (true)
                 {
                     _dt_job = _dt.job().GetJob(Guid.Parse(_managementobject.moid));
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Waiting for job to stop {0} : {1}", _managementobject.moname, _dt_job.Status.HighLevelState), ReportProgress.Progress(_start_progress, _end_progress, _retries + 21));
+                    _task.progress(String.Format("Waiting for job to stop {0} : {1}", _managementobject.moname, _dt_job.Status.HighLevelState), ReportProgress.Progress(_start_progress, _end_progress, _retries + 21));
                     if (_dt_job.Status.HighLevelState != HighLevelState.Stopped)
                     {
                         if (_retries-- == 0)
@@ -52,15 +43,15 @@ namespace MRMPService.Modules.DoubleTake.Common
                     }
                     else
                     {
-                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Job stopped successfully {0} on {1} : {2}", _managementobject.moname, _target_workload.hostname, _dt_job.Status.HighLevelState), ReportProgress.Progress(_start_progress, _end_progress, 30));
+                        _task.progress(String.Format("Job stopped successfully {0} on {1} : {2}", _managementobject.moname, _target_workload.hostname, _dt_job.Status.HighLevelState), ReportProgress.Progress(_start_progress, _end_progress, 30));
                         break;
                     }
                 }
             }
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Updating job status with portal"), ReportProgress.Progress(_start_progress, _end_progress, 40));
+            _task.progress(String.Format("Updating job status with portal"), ReportProgress.Progress(_start_progress, _end_progress, 40));
             Task.Delay(new TimeSpan(0, 0, 10));
             DTJobPoller.PollerDo(_managementobject);
-            MRMPServiceBase._mrmp_api.task().successcomplete(_task_id, String.Format("Job stopped successfully {0} on {1} : {2}", _managementobject.moname, _target_workload.hostname, _dt_job.Status.HighLevelState));
+            _task.successcomplete(String.Format("Job stopped successfully {0} on {1} : {2}", _managementobject.moname, _target_workload.hostname, _dt_job.Status.HighLevelState));
         }
     }
 }

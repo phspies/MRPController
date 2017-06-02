@@ -28,33 +28,15 @@ namespace MRMPService.Scheduler.NetstatCollection
         {
 
             List<NetworkFlowType> _workload_netstats = new List<NetworkFlowType>();
-            if (_workload == null)
-            {
-                throw new ArgumentException("Inventory: Error finding workload in manager database");
-            }
-            MRPCredentialType _credential = _workload.credential;
-            if (_credential == null)
-            {
-                throw new ArgumentException(String.Format("Error finding credentials for workload {0} {1}", _workload.id, _workload.hostname));
-            }
-            _password = _credential.encrypted_password;
-
-            string workload_ip = null;
-            using (Connection _connection = new Connection())
-            {
-                workload_ip = _connection.FindConnection(_workload.iplist, true);
-            }
-            if (workload_ip == null)
-            {
-                throw new ArgumentException(String.Format("Does not respond to ping for workload {0} {1}", _workload.id, _workload.hostname));
-            }
+            _password = _workload.get_credential.decrypted_password;
+            string workload_ip = _workload.working_ipaddress(true);
             Logger.log(String.Format("Netstat: Started netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
 
-            KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_credential.username);
+            KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_workload.get_credential.username);
             _keyboard_authentication.AuthenticationPrompt += new EventHandler<AuthenticationPromptEventArgs>(HandleKeyEvent);
-            PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_credential.username, _password);
-            ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _credential.username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
+            PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_workload.get_credential.username, _password);
+            ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _workload.get_credential.username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
 
 
             List<ProcessInfo> _processes = new List<ProcessInfo>();

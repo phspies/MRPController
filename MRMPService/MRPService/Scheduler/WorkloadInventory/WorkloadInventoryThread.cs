@@ -56,10 +56,10 @@ namespace MRMPService.MRMPAPI.Classes
                                 switch (workload.ostype.ToUpper())
                                 {
                                     case "WINDOWS":
-                                        WorkloadInventory.WorkloadInventoryWindowsDo(workload).Wait();
+                                        WorkloadInventory.WorkloadInventoryWindowsDo(workload);
                                         break;
                                     case "UNIX":
-                                        WorkloadInventory.WorkloadInventoryLinuxDo(workload).Wait();
+                                        WorkloadInventory.WorkloadInventoryLinuxDo(workload);
                                         break;
                                 }
                                 MRMPServiceBase._mrmp_api.workload().InventoryUpdateStatus(workload, "Success", true);

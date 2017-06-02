@@ -18,11 +18,11 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
         {
             Logger.log(String.Format("Started inventory process for {0} : {1}", _platform.platformtype, _platform.platform), Logger.Severity.Info);
             Stopwatch sw = Stopwatch.StartNew();
-
+            _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
             MRPCredentialType _vmware_credential = _platform.credential;
 
             String username = String.Concat(_vmware_credential.username, (String.IsNullOrEmpty(_vmware_credential.domain) ? "" : (@"@" + _vmware_credential.domain)));
-            VimApiClient _vim = new VimApiClient(_platform.vmware_url, username, _vmware_credential.encrypted_password);
+            VimApiClient _vim = new VimApiClient(_platform.vmware_url, username, _vmware_credential.decrypted_password);
 
 
             if (_platform.platformdatacenter == null)
@@ -93,7 +93,7 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             }
 
             _update_platform.platformdatastores = new List<MRPPlatformdatastoreType>();
-            foreach (Datastore _datastore in datastore_list)
+            foreach (Datastore _datastore in datastore_list.Where(x => x != null))
             {
                 MRPPlatformdatastoreType _platform_datastore = new MRPPlatformdatastoreType();
                 if (_platform.platformdatastores.Exists(x => x.moid == _datastore.MoRef.Value))
@@ -119,56 +119,68 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             _std_platformdomain.platformnetworks = new List<MRPPlatformnetworkType>();
             _std_platformdomain.moid = "std_pg";
             _std_platformdomain.domain = "Network";
+            _std_platformdomain.domaintype = "VM";
             _std_platformdomain.platform_id = _platform.id;
 
             _update_platform.platformdomains.Add(_std_platformdomain);
 
-            foreach (Network _vmware_network in _vim.networks().GetStandardPgs(dc))
+            foreach (Network _vmware_network in _vim.networks().GetStandardPgs(dc).Where(x => x != null))
             {
                 MRPPlatformnetworkType _platformnetwork = new MRPPlatformnetworkType();
-
-                if (_mrp_domains.Exists(x => x.moid == "std_pg" && x.platformnetworks.Exists(y => y.moid == _vmware_network.MoRef.Value)))
+                if (_mrp_domains.Exists(x => x.moid == "std_pg"))
                 {
-                    _platformnetwork.id = _mrp_domains.FirstOrDefault(x => x.moid == "std_pg").platformnetworks.FirstOrDefault(y => y.moid == _vmware_network.MoRef.Value).id;
+                    if (_mrp_domains.FirstOrDefault(x => x.moid == "std_pg").platformnetworks.Exists(y => y.moid == _vmware_network.MoRef.Value))
+                    {
+                        _platformnetwork.id = _mrp_domains.FirstOrDefault(x => x.moid == "std_pg").platformnetworks.FirstOrDefault(y => y.moid == _vmware_network.MoRef.Value).id;
+                    }
                 }
 
                 _platformnetwork.moid = _vmware_network.MoRef.Value;
                 _platformnetwork.network = _vmware_network.Name;
                 _platformnetwork.networkdomain_moid = "std_pg";
+
                 _platformnetwork.provisioned = true;
 
                 _std_platformdomain.platformnetworks.Add(_platformnetwork);
             }
 
             //Process distributes switches
-            foreach (DistributedVirtualSwitch _vmware_domain in _vim.networks().GetDVSwitches(dc))
+            foreach (DistributedVirtualSwitch _vmware_domain in _vim.networks().GetDVSwitches(dc).Where(x => x != null))
             {
                 MRPPlatformdomainType _platformdomain = new MRPPlatformdomainType();
                 _platformdomain.platformnetworks = new List<MRPPlatformnetworkType>();
-                if (_platform.platformdomains.Exists(x => x.moid == _vmware_domain.MoRef.Value))
+                if (_mrp_domains.Exists(x => x.moid == _vmware_domain.MoRef.Value))
                 {
-                    _platformdomain.id = _platform.platformdomains.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).id;
+                    _platformdomain.id = _mrp_domains.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).id;
                 }
+
                 _platformdomain.moid = _vmware_domain.MoRef.Value;
                 _platformdomain.domain = _vmware_domain.Name;
+                _platformdomain.domaintype = "DVS";
                 _platformdomain.platform_id = _platform.id;
 
                 _update_platform.platformdomains.Add(_platformdomain);
 
-                foreach (DistributedVirtualPortgroup _vmware_network in _vim.networks().GetDVPortGroups(_vmware_domain))
+                foreach (DistributedVirtualPortgroup _vmware_network in _vim.networks().GetDVPortGroups(_vmware_domain).Where(x => x != null))
                 {
-                    MRPPlatformnetworkType _platformnetwork = new MRPPlatformnetworkType();
-                    if (_platform.platformdomains.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks.Any(x => x.moid == _vmware_network.MoRef.Value))
+                    if (!_vmware_network.Tag.Any(x => x.Key.Contains("UPLINK")))
                     {
-                        _platformnetwork.id = _platform.platformdomains.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value).id;
-                    }
-                    _platformnetwork.moid = _vmware_network.MoRef.Value;
-                    _platformnetwork.network = _vmware_network.Name;
-                    _platformnetwork.platformdomain_id = _platformdomain.id;
-                    _platformnetwork.networkdomain_moid = _vmware_domain.MoRef.Value;
-                    _platformnetwork.provisioned = true;
+                        MRPPlatformnetworkType _platformnetwork = new MRPPlatformnetworkType();
+                        if (_mrp_domains.Exists(x => x.moid == _vmware_domain.MoRef.Value))
+                        {
+                            if (_mrp_domains.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks.Any(x => x.moid == _vmware_network.MoRef.Value))
+                            {
+                                _platformnetwork.id = _mrp_domains.FirstOrDefault(x => x.moid == _vmware_domain.MoRef.Value).platformnetworks.FirstOrDefault(x => x.moid == _vmware_network.MoRef.Value).id;
+                            }
+                        }
+                        _platformnetwork.moid = _vmware_network.MoRef.Value;
+                        _platformnetwork.network = _vmware_network.Name;
+                        _platformnetwork.platformdomain_id = _platformdomain.id;
+                        _platformnetwork.networkdomain_moid = _vmware_domain.MoRef.Value;
+                        _platformnetwork.provisioned = true;
 
-                    _platformdomain.platformnetworks.Add(_platformnetwork);
+                        _platformdomain.platformnetworks.Add(_platformnetwork);
+                    }
                 }
             }
             MRMPServiceBase._mrmp_api.platform().update(_update_platform);
@@ -218,8 +230,8 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
                 {
                     try
                     {
-                            //update lists before we start the workload inventory process
-                            PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _refreshed_platfrom, _mrp_workloads);
+                        //update lists before we start the workload inventory process
+                        PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _refreshed_platfrom, _mrp_workloads);
                     }
                     catch (Exception ex)
                     {
@@ -228,6 +240,8 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
                 });
 
             }
+            Logger.log(String.Format("Completed inventory process for {0} : {1}", _platform.platformtype, _platform.platform), Logger.Severity.Info);
+
         }
     }
 }

@@ -9,27 +9,27 @@ namespace MRMPService.TaskExecutioner.Workload
 {
     partial class Workload
     {
-        static public async void DiscoverWorkload(MRPTaskType _mrmp_task)
+        static public void DiscoverWorkload(MRPTaskType _task)
         {
-            MRPWorkloadType _target_workload = _mrmp_task.taskdetail.target_workload;
+            MRPWorkloadType _target_workload = _task.taskdetail.target_workload;
 
             try
             {
                 switch (_target_workload.ostype.ToUpper())
                 {
                     case "UNIX":
-                        WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload).Wait();
+                        WorkloadInventory.WorkloadInventoryLinuxDo(_target_workload);
                         break;
                     case "WINDOWS":
-                        WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload).Wait();
+                        WorkloadInventory.WorkloadInventoryWindowsDo(_target_workload);
                         break;
                 }
-                MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully discovered workload");
+                _task.successcomplete("Successfully discovered workload");
             }
             catch (Exception ex)
             {
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
-                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.GetBaseException().Message);
+                _task.failcomplete(ex.GetBaseException().Message);
             }
         }
     }

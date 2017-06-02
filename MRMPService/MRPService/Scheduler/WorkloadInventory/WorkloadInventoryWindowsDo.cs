@@ -10,9 +10,8 @@ namespace MRMPService.MRMPAPI.Classes
 {
     partial class WorkloadInventory
     {
-        static public async Task WorkloadInventoryWindowsDo(MRPWorkloadType _workload)
+        static public void WorkloadInventoryWindowsDo(MRPWorkloadType _workload)
         {
-
             _workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_workload.id);
             MRPWorkloadType _updated_workload = new MRPWorkloadType()
             {
@@ -29,34 +28,19 @@ namespace MRMPService.MRMPAPI.Classes
             _updated_workload.workloadprocesses.ForEach(x => x._destroy = true);
             _updated_workload.workloadsoftwares.ForEach(x => x._destroy = true);
             //check for credentials
-            MRPCredentialType _credential = _workload.credential;
-
             string workload_ip = null;
-
             String domainuser = null;
             if (_workload.workloadtype != "manager")
             {
-                if (_credential == null)
+                if (!String.IsNullOrWhiteSpace(_workload.get_credential.domain))
                 {
-                    throw new ArgumentException(String.Format("Error finding credentials"));
-                }
-
-                if (!String.IsNullOrWhiteSpace(_credential.domain))
-                {
-                    domainuser = (_credential.domain + @"\" + _credential.username);
+                    domainuser = (_workload.get_credential.domain + @"\" + _workload.get_credential.username);
                 }
                 else
                 {
-                    domainuser = @".\" + _credential.username;
+                    domainuser = @".\" + _workload.get_credential.username;
                 }
-                using (Connection _connection = new Connection())
-                {
-                    workload_ip = _connection.FindConnection(_workload.iplist, true);
-                }
-                if (workload_ip == null)
-                {
-                    throw new ArgumentException(String.Format("Does not respond to ping"));
-                }
+                workload_ip = _workload.working_ipaddress(true);
             }
             else
             {
@@ -66,17 +50,13 @@ namespace MRMPService.MRMPAPI.Classes
                 }
                 else
                 {
-                    using (Connection _connection = new Connection())
-                    {
-                        workload_ip = _connection.FindConnection(_workload.iplist, true);
-                    }
+                    workload_ip = _workload.working_ipaddress(true);
                 }
             }
             Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
-            ConnectionOptions options = WMIHelper.ProcessConnectionOptions(domainuser, (_workload.workloadtype == "manager" ? null : _credential.encrypted_password));
+            ConnectionOptions options = WMIHelper.ProcessConnectionOptions(domainuser, (_workload.workloadtype == "manager" ? null : _workload.get_credential.decrypted_password));
             ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
-
             SelectQuery ComputerSystemQuery = new SelectQuery("SELECT Manufacturer, Model, Caption, NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
             SelectQuery OperatingSystemQuery = new SelectQuery("SELECT Caption FROM Win32_OperatingSystem");
             SelectQuery ProcessorQuery = new SelectQuery("SELECT * FROM Win32_Processor");
@@ -88,7 +68,8 @@ namespace MRMPService.MRMPAPI.Classes
                 ManagementObjectCollection _processors = new ManagementObjectSearcher(connectionScope, ProcessorQuery).Get();
                 foreach (var item in _processors)
                 {
-                    try { _updated_workload.vcore = int.Parse(item["NumberOfCores"].ToString()); } catch (Exception)
+                    try { _updated_workload.vcore = int.Parse(item["NumberOfCores"].ToString()); }
+                    catch (Exception)
                     {
                         Logger.log(String.Format("{0} does not understand NumberOfCores in Win32_Processor class", _workload.hostname), Logger.Severity.Warn);
                         _updated_workload.vcore = 1;
@@ -328,7 +309,7 @@ namespace MRMPService.MRMPAPI.Classes
                                 {
                                     _volume = _updated_workload.workloadvolumes.FirstOrDefault(x => x.serialnumber == wmiVolume["SerialNumber"].ToString());
                                 }
-                                else if(_updated_workload.workloadvolumes.Exists(x => x.driveletter == wmiVolume["DriveLetter"].ToString().Substring(0, 1)))
+                                else if (_updated_workload.workloadvolumes.Exists(x => x.driveletter == wmiVolume["DriveLetter"].ToString().Substring(0, 1)))
                                 {
                                     _volume = _updated_workload.workloadvolumes.FirstOrDefault(x => x.driveletter == wmiVolume["DriveLetter"].ToString().Substring(0, 1));
                                 }

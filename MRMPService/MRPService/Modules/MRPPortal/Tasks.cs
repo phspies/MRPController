@@ -34,9 +34,9 @@ namespace MRMPService.Modules.MRMPPortal
             }
             return _result;
         }
-        public MRPTaskType get(string _task_id)
+        public MRPTaskType get(MRPTaskType _task)
         {
-            var _get_task = new MRPTaskGetType() { task_id = _task_id };
+            var _get_task = new MRPTaskGetType() { task_id = _task.id };
             endpoint = "/tasks/get.json";
             MRPTaskType _result = new MRPTaskType();
             try
@@ -49,7 +49,7 @@ namespace MRMPService.Modules.MRMPPortal
             }
             return _result;
         }
-        public void successcomplete(String _task_id, string returnpayload)
+        public void update_successcomplete(String _task_id, string returnpayload = null)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -72,78 +72,7 @@ namespace MRMPService.Modules.MRMPPortal
                 Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
             }
         }
-        public void successcomplete(MRPTaskType payload, string returnpayload)
-        {
-            MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
-            {
-                task_id = payload.id,
-                attributes = new MRPCompleteTaskUpdateAttributesType()
-                {
-                    percentage = 100,
-                    returnpayload = returnpayload,
-                    status = TaskStatus.Success,
-                    step = "Complete"
-                }
-            };
-            endpoint = "/tasks/update.json";
-            try
-            {
-                put<ResultType>(task);
-            }
-            catch (Exception ex)
-            {
-                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
-            }
-        }
-        public void successcomplete(String _task_id)
-        {
-            MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
-            {
-                task_id = _task_id,
-                attributes = new MRPCompleteTaskUpdateAttributesType()
-                {
-                    percentage = 100,
-                    returnpayload = "Complete",
-                    status = TaskStatus.Success,
-                    step = "Complete"
-                }
-            };
-
-            endpoint = "/tasks/update.json";
-            try
-            {
-                put<ResultType>(task);
-            }
-            catch (Exception ex)
-            {
-                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
-            }
-        }
-        public void successcomplete(MRPTaskType payload)
-        {
-            MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
-            {
-                task_id = payload.id,
-                attributes = new MRPCompleteTaskUpdateAttributesType()
-                {
-                    percentage = 100,
-                    returnpayload = "Complete",
-                    status = TaskStatus.Success,
-                    step = "Complete"
-                }
-            };
-
-            endpoint = "/tasks/update.json";
-            try
-            {
-                put<ResultType>(task);
-            }
-            catch (Exception ex)
-            {
-                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
-            }
-        }
-        public void failcomplete(String _task_id, string returnpayload)
+        public void update_failcomplete(String _task_id, string returnpayload)
         {
             MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
             {
@@ -166,30 +95,7 @@ namespace MRMPService.Modules.MRMPPortal
                 Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
             }
         }
-        public void failcomplete(MRPTaskType payload, string returnpayload)
-        {
-            MRPCompleteTaskUpdateType task = new MRPCompleteTaskUpdateType()
-            {
-                task_id = payload.id,
-                attributes = new MRPCompleteTaskUpdateAttributesType()
-                {
-                    percentage = 100,
-                    returnpayload = returnpayload,
-                    status = TaskStatus.Failed,
-                }
-            };
-
-            endpoint = "/tasks/update.json";
-            try
-            {
-                put<ResultType>(task);
-            }
-            catch(Exception ex)
-            {
-                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
-            }
-        }
-        public void progress(String _task_id, string _step, double _progress)
+        public void update_progress(String _task_id, string _step, double? _progress = null)
         {
             MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
             {
@@ -201,82 +107,6 @@ namespace MRMPService.Modules.MRMPPortal
                 }
             };
 
-            endpoint = "/tasks/update.json";
-            try
-            {
-                put<ResultType>(task);
-            }
-            catch (Exception ex)
-            {
-                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
-            }
-        }
-        public void progress(MRPTaskType payload, string _step, double _progress)
-        {
-            MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
-            {
-                task_id = payload.id,
-                attributes = new MRPProgressTaskUpdateAttributesType()
-                {
-                    percentage = _progress,
-                    step = _step,
-                }
-            };
-
-            endpoint = "/tasks/update.json";
-            try
-            {
-                put<ResultType>(task);
-            }
-            catch (Exception ex)
-            {
-                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
-            }
-        }
-        public void progress(String _task_id, string _step)
-        {
-            MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
-            {
-                task_id = _task_id,
-                attributes = new MRPProgressTaskUpdateAttributesType()
-                {
-                    step = _step
-                }
-            };
-
-            endpoint = "/tasks/update.json";
-            try
-            {
-                put<ResultType>(task);
-            }
-            catch (Exception ex)
-            {
-                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
-            }
-        }
-        public void progress(MRPTaskType payload, string _step)
-        {
-            MRPProgressTaskUpdateType task = new MRPProgressTaskUpdateType()
-            {
-                task_id = payload.id,
-                attributes = new MRPProgressTaskUpdateAttributesType()
-                {
-                    step = _step
-                }
-            };
-
-            endpoint = "/tasks/update.json";
-            try
-            {
-                put<ResultType>(task);
-            }
-            catch (Exception ex)
-            {
-                Logger.log(String.Format("Error updating task: {0}", ex.ToString()), Logger.Severity.Fatal);
-            }
-        }
-        public void update(MRPTaskType task)
-        {
             endpoint = "/tasks/update.json";
             try
             {

@@ -28,7 +28,7 @@ namespace MRMPService.MRMPAPI.Classes
                 }
             }
         }
-        static public async Task WorkloadInventoryLinuxDo(MRPWorkloadType _workload)
+        static public void WorkloadInventoryLinuxDo(MRPWorkloadType _workload)
         {
 
             MRPWorkloadType _updated_workload = new MRPWorkloadType()
@@ -43,24 +43,18 @@ namespace MRMPService.MRMPAPI.Classes
             _updated_workload.workloadinterfaces.ForEach(x => x.deleted = true);
 
             //check for credentials
-            MRPCredentialType _credential = _workload.credential;
+            MRPCredentialType _credential = _workload.get_credential;
             if (_credential == null)
             {
                 throw new ArgumentException(String.Format("Error finding credentials"));
             }
-            _password = _credential.encrypted_password;
-            string workload_ip = null;
-            using (Connection _connection = new Connection())
-            {
-                workload_ip = _connection.FindConnection(_workload.iplist, false);
-            }
-
-            if (workload_ip == null)
-            {
-                throw new ArgumentException(String.Format("Does not respond to ping"));
-            }
-
+            _password = _credential.decrypted_password;
+            string workload_ip = _workload.working_ipaddress(false);
             Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
+
+            //string _privateSshKeyLocation = "";
+            //string _privateSshKeyPhrase = "";
+            //var authenticationMethod = new PrivateKeyConnectionInfo(workload_ip, _credential.username, new PrivateKeyFile[] { new PrivateKeyFile(_privateSshKeyLocation, _privateSshKeyPhrase) });
 
             KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_credential.username);
             _keyboard_authentication.AuthenticationPrompt += new EventHandler<AuthenticationPromptEventArgs>(HandleKeyEvent);

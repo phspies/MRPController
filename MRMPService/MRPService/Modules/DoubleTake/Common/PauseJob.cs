@@ -10,20 +10,11 @@ namespace MRMPService.Modules.DoubleTake.Common
 {
     partial class ModuleCommon
     {
-        public static void PauseJob(string _task_id, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void PauseJob(MRPTaskType _task, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
 
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("Pausing job {0} on {1}", _managementobject.moname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
-
-            string _contactable_ip = null;
-            using (Connection _connection = new Connection())
-            {
-                _contactable_ip = _connection.FindConnection(_target_workload.iplist, true);
-            }
-            if (_contactable_ip == null)
-            {
-                throw new Exception(String.Format("Cannot contact workload {0}", _target_workload.hostname));
-            }
+            _task.progress(string.Format("Pausing job {0} on {1}", _managementobject.moname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
+            string _contactable_ip = _target_workload.working_ipaddress(true);
 
             JobInfoModel _dt_job;
             using (Doubletake _dt = new Doubletake(null, _target_workload))
@@ -39,10 +30,10 @@ namespace MRMPService.Modules.DoubleTake.Common
                 }
 
             }
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, string.Format("Updating job status with portal"), ReportProgress.Progress(_start_progress, _end_progress, 40));
+            _task.progress(string.Format("Updating job status with portal"), ReportProgress.Progress(_start_progress, _end_progress, 40));
             Task.Delay(new TimeSpan(0, 0, 10));
             DTJobPoller.PollerDo(_managementobject);
-            MRMPServiceBase._mrmp_api.task().successcomplete(_task_id, String.Format("Job paused successfully {0} on {1} : {2}", _managementobject.moname, _target_workload.hostname, _dt_job.Status.HighLevelState));
+            _task.successcomplete(String.Format("Job paused successfully {0} on {1} : {2}", _managementobject.moname, _target_workload.hostname, _dt_job.Status.HighLevelState));
         }
     }
 }

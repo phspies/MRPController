@@ -36,7 +36,7 @@ namespace MRMPService.RPEventPollerCollection
             {
                 String username = String.Concat((String.IsNullOrEmpty(_platform_credential.domain) ? "" : (_platform_credential.domain + @"\")), _platform_credential.username);
 
-                using (RP4VM_ApiClient _rp4vm = new RP4VM_ApiClient(_target_platform.rp4vm_url, username, _platform_credential.encrypted_password))
+                using (RP4VM_ApiClient _rp4vm = new RP4VM_ApiClient(_target_platform.rp4vm_url, username, _platform_credential.decrypted_password))
                 {
                     ManagementSettings _info = _rp4vm.settings().getManagementSettings_Method();
 

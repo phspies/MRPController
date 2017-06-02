@@ -9,9 +9,9 @@ namespace MRMPService.TaskExecutioner.DRSMCP
 {
     partial class DRSMCP
     {
-        static public async void SetupCG(MRPTaskType _mrmp_task)
+        static public void SetupCG(MRPTaskType _task)
         {
-            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
+            MRPTaskDetailType _payload = _task.taskdetail;
             List<MRPWorkloadPairType> _workload_pairs = _payload.workloadpairs;
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;
             MRPManagementobjectType _managementobject = _payload.managementobject;
@@ -35,17 +35,15 @@ namespace MRMPService.TaskExecutioner.DRSMCP
                         _start_progress = _increment * (_index - 1);
                         _end_progress = _increment * (_index) - 1;
                     }
-                    MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _vm_pair.target_workload, _protectiongroup, _start_progress, _end_progress, false);
+                    MCP_Platform.ProvisionVM(_task, _platform, _vm_pair.target_workload, _protectiongroup, _start_progress, _end_progress, false);
                 }
-                MCP_Platform.CreateCG(_mrmp_task.id, _platform, _protectiongroup, _managementobject, _workload_pairs, 51, 99);
+                MCP_Platform.CreateCG(_task, _platform, _protectiongroup, _managementobject, _workload_pairs, 51, 99);
             }
             catch (Exception ex)
             {
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
-                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
-
+                _task.failcomplete(ex.Message);
             }
-
         }
     }
 }

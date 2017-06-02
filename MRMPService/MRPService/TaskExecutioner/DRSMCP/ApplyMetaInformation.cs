@@ -9,9 +9,9 @@ namespace MRMPService.TaskExecutioner.DRSMCP
 {
     partial class DRSMCP
     {
-        static public async void ApplyMetaInformation(MRPTaskType _mrmp_task)
+        static public async void ApplyMetaInformation(MRPTaskType _task)
         {
-            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
+            MRPTaskDetailType _payload = _task.taskdetail;
             List<MRPWorkloadPairType> _workload_pairs = _payload.workloadpairs;
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;
             MRPManagementobjectType _managementobject = _payload.managementobject;
@@ -23,14 +23,14 @@ namespace MRMPService.TaskExecutioner.DRSMCP
                 foreach (var _pair in _workload_pairs)
                 {
                     int _index = _workload_pairs.IndexOf(_pair) + 1;
-                    await MCP_Platform.ApplyMetaInformation(_mrmp_task.id, _workload_pairs, _source_platform, _target_platform, _pair.source_workload, _pair.target_workload, _index * 5, _index * 9);
+                    await MCP_Platform.ApplyMetaInformation(_task, _workload_pairs, _source_platform, _target_platform, _pair.source_workload, _pair.target_workload, _index * 5, _index * 9);
                 }
-                MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id);
+                _task.successcomplete();
 
             }
             catch (Exception ex)
             {
-                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                _task.failcomplete(ex.Message);
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
 
             }

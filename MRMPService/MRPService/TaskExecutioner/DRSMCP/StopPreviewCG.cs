@@ -7,21 +7,20 @@ namespace MRMPService.TaskExecutioner.DRSMCP
 {
     partial class DRSMCP
     {
-        static public void StopPreviewCG(MRPTaskType _mrmp_task)
+        static public void StopPreviewCG(MRPTaskType _task)
         {
-            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
+            MRPTaskDetailType _payload = _task.taskdetail;
             MRPManagementobjectType _managementobject = _payload.managementobject;
             MRPPlatformType _platform = _payload.target_platform;
 
             try
             {
-                MCP_Platform.StopPreviewCG(_mrmp_task.id, _platform, _managementobject, 1, 100);
+                MCP_Platform.StopPreviewCG(_task, _platform, _managementobject, 1, 100);
             }
             catch (Exception ex)
             {
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
-                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
-
+                _task.failcomplete(ex.Message);
             }
         }
     }

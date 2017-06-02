@@ -344,7 +344,7 @@ namespace MRMPService.MRMPDoubleTake
 
         private DoubleTake.PowerShell.Server GetServer(PowerShell ps, string _address, MRPCredentialType _credentials)
         {
-            PowerShell newDtServer = ps.AddCommand("New-DtServer").AddParameter("Name", _address).AddParameter("Username", _credentials.username).AddParameter("Password", _credentials.encrypted_password);
+            PowerShell newDtServer = ps.AddCommand("New-DtServer").AddParameter("Name", _address).AddParameter("Username", _credentials.username).AddParameter("Password", _credentials.decrypted_password);
             var output = newDtServer.Invoke().ToList();
             ps.Commands.Clear();
             DoubleTake.PowerShell.Server server = (DoubleTake.PowerShell.Server)output.First().BaseObject;

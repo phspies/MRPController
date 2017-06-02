@@ -15,15 +15,15 @@ namespace MRMPService.Modules.MCP
 {
     partial class MCP_Platform
     {
-        public static async Task ApplyMetaInformation(String _task_id, List<MRPWorkloadPairType> _workload_pairs, MRPPlatformType _source_platform, MRPPlatformType _target_platform, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
+        public static async Task ApplyMetaInformation(MRPTaskType _task, List<MRPWorkloadPairType> _workload_pairs, MRPPlatformType _source_platform, MRPPlatformType _target_platform, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
         {
 
-            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_target_workload.platform.url), new NetworkCredential(_target_workload.platform.credential.username, _target_workload.platform.credential.encrypted_password));
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_target_workload.platform.url), new NetworkCredential(_target_workload.platform.credential.username, _target_workload.platform.credential.decrypted_password));
             var _account = await CaaS.Login();
 
             if ((bool)_target_workload.sync_tag_rules)
             {
-                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Applying workload tags to {0} from {1}", _target_workload.hostname, _source_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 5));
+                _task.progress(String.Format("Applying workload tags to {0} from {1}", _target_workload.hostname, _source_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 5));
                 //first map MCP to MCP tags
                 IEnumerable<TagType> _caas_tags = await CaaS.Tagging.GetTags();
                 IEnumerable<TagType> _source_tags = await CaaS.Tagging.GetTags(new TagListOptions() { AssetId = _source_workload.moid });
@@ -53,7 +53,7 @@ namespace MRMPService.Modules.MCP
                         }
                         if (_tag_platform_task.responseCode == "OK")
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully applied {0} platform tags to {1}", _add_platform_tags.Count(), _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
+                            _task.progress(String.Format("Successfully applied {0} platform tags to {1}", _add_platform_tags.Count(), _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
                         }
                         else
                         {
@@ -137,7 +137,7 @@ namespace MRMPService.Modules.MCP
                     }
                     if (_tag_task.responseCode == "OK")
                     {
-                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Successfully applied {0} user tags to {1}", _add_user_tags.Count(), _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 15));
+                        _task.progress(String.Format("Successfully applied {0} user tags to {1}", _add_user_tags.Count(), _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 15));
                     }
                     else
                     {
@@ -145,10 +145,10 @@ namespace MRMPService.Modules.MCP
                     }
                 }
             }
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, "Successfully configured workload meta data", ReportProgress.Progress(_start_progress, _end_progress, 29));
+            _task.progress("Successfully configured workload meta data", ReportProgress.Progress(_start_progress, _end_progress, 29));
 
 
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Applying workload affinity rules to {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 30));
+            _task.progress(String.Format("Applying workload affinity rules to {0}", _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 30));
 
             if ((bool)_target_workload.sync_affinity_rules)
             {
@@ -188,7 +188,7 @@ namespace MRMPService.Modules.MCP
                         }
                         catch (Exception ex)
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Error applying affinity rule between {0} and {1} : {2}", _target_rule.workload1_id, _target_rule.workload2_id, ex.GetBaseException().Message), ReportProgress.Progress(_start_progress, _end_progress, _target_affinity_rules.IndexOf(_target_rule) + 31));
+                            _task.progress(String.Format("Error applying affinity rule between {0} and {1} : {2}", _target_rule.workload1_id, _target_rule.workload2_id, ex.GetBaseException().Message), ReportProgress.Progress(_start_progress, _end_progress, _target_affinity_rules.IndexOf(_target_rule) + 31));
                         }
                     }
                 }
@@ -259,11 +259,8 @@ namespace MRMPService.Modules.MCP
                             {
                                 throw new Exception(String.Format("Error creating server affinity rule: {0}", ex.GetBaseException().Message));
                             }
-
                         }
-
                     }
-
                 }
             }
         }

@@ -7,21 +7,21 @@ namespace MRMPService.TaskExecutioner.Deploy
 {
     partial class Deploy
     {
-        static public async void DeployWorkload(MRPTaskType _mrmp_task)
+        static public void DeployWorkload(MRPTaskType _task)
         {
-            MRPTaskDetailType _payload = _mrmp_task.taskdetail;
+            MRPTaskDetailType _payload = _task.taskdetail;
             MRPWorkloadType _target_workload = _payload.target_workload;
             MRPPlatformType _platform = _target_workload.platform;
             MRPProtectiongroupType _protectiongroup = _target_workload.protectiongroup;
             try
             {
-                MCP_Platform.ProvisionVM(_mrmp_task.id, _platform, _target_workload, _protectiongroup, 1, 99, true);
-                MRMPServiceBase._mrmp_api.task().successcomplete(_mrmp_task.id, "Successfully deployed workload");
+                MCP_Platform.ProvisionVM(_task, _platform, _target_workload, _protectiongroup, 1, 99, true);
+                _task.successcomplete("Successfully deployed workload");
             }
             catch (Exception ex)
             {
                 Logger.log(ex.ToString(), Logger.Severity.Fatal);
-                MRMPServiceBase._mrmp_api.task().failcomplete(_mrmp_task.id, ex.Message);
+                _task.failcomplete(ex.Message);
             }
         }
     }

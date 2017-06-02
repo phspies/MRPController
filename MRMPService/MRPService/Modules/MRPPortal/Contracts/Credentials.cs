@@ -27,7 +27,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("password")]
         public string password { get; set; }
         [JsonProperty("encrypted_password")]
-        public string encrypted_password
+        public string decrypted_password
         {
             get
             {

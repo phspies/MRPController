@@ -17,15 +17,15 @@ namespace MRMPService.Modules.MCP
 {
     partial class MCP_Platform
     {
-        public static void CreateCG(String _task_id, MRPPlatformType _platform, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, List<MRPWorkloadPairType> _workloadpairs, float _start_progress, float _end_progress)
+        public static void CreateCG(MRPTaskType _task, MRPPlatformType _platform, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, List<MRPWorkloadPairType> _workloadpairs, float _start_progress, float _end_progress)
         {
             //Get workload object from portal to perform updates once provisioned
 
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Starting Consistency Group configuration process"), ReportProgress.Progress(_start_progress, _end_progress, 1));
+            _task.progress(String.Format("Starting Consistency Group configuration process"), ReportProgress.Progress(_start_progress, _end_progress, 1));
 
             List<DrsServerPairType> _mcp_server_pairs = new List<DrsServerPairType>();
 
-            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.encrypted_password));
+            ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.decrypted_password));
             CaaS.Login().Wait();
 
             bool _deploy_cg = false;
@@ -47,11 +47,11 @@ namespace MRMPService.Modules.MCP
                     var _mrmp_target_difference = _workloadpairs.Where(p => !_current_cg.serverPair.Any(l => p.target_workload.moid == l.targetServer.id));
                     if (_mcp_source_difference.Count() != 0 || _mcp_target_difference.Count() != 0 || _mrmp_source_difference.Count() != 0 || _mrmp_target_difference.Count() != 0)
                     {
-                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Consistency group changed, removing and recreating consistency group"), ReportProgress.Progress(_start_progress, _end_progress, 2));
+                        _task.progress(String.Format("Consistency group changed, removing and recreating consistency group"), ReportProgress.Progress(_start_progress, _end_progress, 2));
                         var _delete_result = CaaS.ConsistencyGroups.DeleteConsistencyGroup(new DeleteConsistencyGroupType() { id = _managementobject.moid }).Result;
                         if (_delete_result.responseCode == "IN_PROGRESS")
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, _delete_result.message, 3);
+                            _task.progress(_delete_result.message, 3);
 
                             while (true)
                             {
@@ -72,7 +72,7 @@ namespace MRMPService.Modules.MCP
                                     break;
                                 }
                             }
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, "Consistency group successfully removed", ReportProgress.Progress(_start_progress, _end_progress, 4));
+                            _task.progress("Consistency group successfully removed", ReportProgress.Progress(_start_progress, _end_progress, 4));
                             _deploy_cg = true;
 
                         }
@@ -83,12 +83,12 @@ namespace MRMPService.Modules.MCP
                     }
                     else
                     {
-                        MRMPServiceBase._mrmp_api.task().progress(_task_id, "Consistency group remains unchanged", 99);
+                        _task.progress("Consistency group remains unchanged", 99);
                     }
                 }
                 else
                 {
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, "Consistency group does not exist in platform", ReportProgress.Progress(_start_progress, _end_progress, 4));
+                    _task.progress("Consistency group does not exist in platform", ReportProgress.Progress(_start_progress, _end_progress, 4));
                     _deploy_cg = true;
                 }
             }
@@ -114,7 +114,7 @@ namespace MRMPService.Modules.MCP
                             var _cass_server_start = CaaS.ServerManagement.Server.StartServer(new Guid(_updated_workload.moid)).Result;
                             if (_cass_server_start.responseCode == "IN_PROGRESS")
                             {
-                                MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Workload {0} stared", _updated_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _progress + 6));
+                                _task.progress(String.Format("Workload {0} stared", _updated_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _progress + 6));
                             }
                             else
                             {
@@ -134,12 +134,12 @@ namespace MRMPService.Modules.MCP
                                 {
                                     if (_workload_drs_attempt == 0)
                                     {
-                                        MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Workload {0} not eligible for DRS. Setting meta information for workload", _updated_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _progress + 5));
+                                        _task.progress(String.Format("Workload {0} not eligible for DRS. Setting meta information for workload", _updated_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _progress + 5));
                                         try
                                         {
                                             var _meta_information = new editServerMetadata() { id = _updated_workload.moid, drsEligible = true, drsEligibleSpecified = true };
                                             var _meta_result = CaaS.ServerManagement.Server.EditServerMetadata(_meta_information).Result;
-                                            MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("{0}", _meta_result.message), _progress + 10);
+                                            _task.progress(String.Format("{0}", _meta_result.message), _progress + 10);
                                             _workload_drs_attempt += 1;
                                         }
                                         catch (Exception ex)
@@ -167,7 +167,7 @@ namespace MRMPService.Modules.MCP
                     //sleep a bit to let the servers complete their starts if they were actioned.
                     Thread.Sleep(TimeSpan.FromSeconds(30));
 
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Creating consitency group with a total of {0} server pairs", _mcp_server_pairs.Count), ReportProgress.Progress(_start_progress, _end_progress, 50));
+                    _task.progress(String.Format("Creating consitency group with a total of {0} server pairs", _mcp_server_pairs.Count), ReportProgress.Progress(_start_progress, _end_progress, 50));
                     var _caas_consistency_group = new CreateConsistencyGroupType();
                     _caas_consistency_group.description = String.Format("{0} Consintency Group", _protectiongroup.group);
                     _caas_consistency_group.name = _protectiongroup.group;
@@ -177,7 +177,7 @@ namespace MRMPService.Modules.MCP
 
                     var _cg_moid = _cg_create_response.info.ToList().FirstOrDefault(x => x.name == "consistencyGroupId").value;
 
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("{0} : {1}", _cg_create_response.message, _cg_moid), 51);
+                    _task.progress(String.Format("{0} : {1}", _cg_create_response.message, _cg_moid), 51);
 
                     var _cg_status = (CaaS.ConsistencyGroups.GetConsistencyGroups(new ConsistencyGroupListOptions() { Id = new Guid(_cg_moid) }).Result).First();
                     while (_cg_status.state != "NORMAL")
@@ -188,13 +188,13 @@ namespace MRMPService.Modules.MCP
                         }
                         if (_cg_status.progress.step != null)
                         {
-                            MRMPServiceBase._mrmp_api.task().progress(_task_id, _cg_status.progress.step.name, ReportProgress.Progress(_start_progress, _end_progress, 55 + _cg_status.progress.step.number));
+                            _task.progress(_cg_status.progress.step.name, ReportProgress.Progress(_start_progress, _end_progress, 55 + _cg_status.progress.step.number));
                         }
                         Thread.Sleep(TimeSpan.FromSeconds(5));
                         _cg_status = (CaaS.ConsistencyGroups.GetConsistencyGroups(new ConsistencyGroupListOptions() { Id = new Guid(_cg_moid) }).Result).First();
                     }
 
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, String.Format("Registering contency group {0} with portal", _cg_moid), ReportProgress.Progress(_start_progress, _end_progress, 91));
+                    _task.progress(String.Format("Registering contency group {0} with portal", _cg_moid), ReportProgress.Progress(_start_progress, _end_progress, 91));
                     MRMPServiceBase._mrmp_api.managementobject().updatemanagementobject(new MRPManagementobjectType()
                     {
                         id = _managementobject.id,
@@ -202,7 +202,7 @@ namespace MRMPService.Modules.MCP
                         moname = _protectiongroup.group,
                         motype = "MCPConsistencyGroup"
                     });
-                    MRMPServiceBase._mrmp_api.task().progress(_task_id, "Successfully configured protection group", 99);
+                    _task.progress("Successfully configured protection group", 99);
                     MCPCGPoller.PollerDo(new MRPManagementobjectType()
                     {
                         id = _managementobject.id,
@@ -218,7 +218,7 @@ namespace MRMPService.Modules.MCP
                     throw new Exception(e.GetBaseException().Message);
                 }
             }
-            MRMPServiceBase._mrmp_api.task().successcomplete(_task_id);
+            _task.successcomplete();
 
         }
     }

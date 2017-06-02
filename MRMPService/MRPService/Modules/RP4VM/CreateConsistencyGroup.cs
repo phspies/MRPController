@@ -10,10 +10,10 @@ namespace MRMPService.Modules.RP4VM
 {
     class RP4VM
     {
-        public static async Task CreateConsistencyGroup(string _task_id, List<MRPWorkloadType> _source_workloads, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static async Task CreateConsistencyGroup(MRPTaskType _task, List<MRPWorkloadType> _source_workloads, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
 
-            MRMPServiceBase._mrmp_api.task().progress(_task_id, "Starting RP4VM CG Provisioning Process", 5);
+            _task.progress("Starting RP4VM CG Provisioning Process", 5);
 
             MRPPlatformType _source_platform = _protectiongroup.recoverypolicy.sourceplatform;
             MRPPlatformType _target_platform = _protectiongroup.recoverypolicy.targetplatform;
@@ -23,7 +23,7 @@ namespace MRMPService.Modules.RP4VM
             MRPPlatformdatastoreType _target_ds = _protectiongroup.recoverypolicy.target_datastore;
             MRPPlatformclusterType _target_cluster = _protectiongroup.recoverypolicy.target_cluster;
 
-            RP4VM_ApiClient _rp4vm = new RP4VM_ApiClient(_source_platform.rp4vm_url, _source_platform.credential.username, _source_platform.credential.encrypted_password);
+            RP4VM_ApiClient _rp4vm = new RP4VM_ApiClient(_source_platform.rp4vm_url, _source_platform.credential.username, _source_platform.credential.decrypted_password);
 
             try
             {

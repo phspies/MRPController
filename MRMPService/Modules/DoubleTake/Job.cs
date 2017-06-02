@@ -1,5 +1,7 @@
 ﻿using DoubleTake.Web.Client;
 using DoubleTake.Web.Models;
+using MRMPService.Modules.MRMPPortal.Contracts;
+using MRMPService.MRMPService.Log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +23,13 @@ namespace MRMPService.MRMPDoubleTake
             {
                 SourceServer = new ServiceConnectionModel()
                 {
-                    Credential = new CredentialModel() { Domain = _source_credentials.domain, Password = _source_credentials.encrypted_password, UserName = _source_credentials.username },
+                    Credential = new CredentialModel() { Domain = _source_credentials.domain, Password = _source_credentials.decrypted_password, UserName = _source_credentials.username },
                     Host = _source_address
                 },
 
                 TargetServer = new ServiceConnectionModel()
                 {
-                    Credential = new CredentialModel() { Domain = _target_credentials.domain, Password = _target_credentials.encrypted_password, UserName = _target_credentials.username },
+                    Credential = new CredentialModel() { Domain = _target_credentials.domain, Password = _target_credentials.decrypted_password, UserName = _target_credentials.username },
                     Host = _target_address
                 }
             };
@@ -68,6 +70,21 @@ namespace MRMPService.MRMPDoubleTake
             ApiResponse<Guid> data = jobApi.CreateJobAsync(createOptions).Result;
             data.EnsureSuccessStatusCode();
             return data.Content;
+        }
+        public void CleanUpSnapShots(MRPManagementobjectType _mrp_managementobject, JobInfoModel _dt_job, MRPRecoverypolicyType _recoverypolicy, IEnumerable<SnapshotEntryModel> _dt_snapshot_list)
+        {
+            if (_dt_snapshot_list.Count() > _recoverypolicy.snapshotmaxcount)
+            {
+                int _last_records = _dt_snapshot_list.Count() - (int)_recoverypolicy.snapshotmaxcount;
+                IEnumerable<SnapshotEntryModel> _delete_snapshots = _dt_snapshot_list.OrderBy(x => x.Timestamp).Reverse().Take(_last_records);
+                foreach (SnapshotEntryModel _snapshot in _delete_snapshots)
+                {
+
+                    _dt_job = GetJob(Guid.Parse(_mrp_managementobject.moid));
+                    DeleteSnapshot(_dt_job.Id, _snapshot.Id, _dt_job.Status.EngineControlStatuses.First().ConnectionId);
+                    Logger.log(String.Format("Deleting Snapshot {0} for job {1}", _snapshot.Id, _dt_job.Options.Name), Logger.Severity.Info);
+                }
+            }
         }
 
         // TODO: Verification steps currently contain IDs meant for translation. As things are today, this data is difficult to 
@@ -144,7 +161,7 @@ namespace MRMPService.MRMPDoubleTake
             var result = jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll).Result;
             result.EnsureSuccessStatusCode();
         }
-         public void  DeleteSnapshot(Guid jobId, Guid snaphotId, Guid connectionId)
+        public void DeleteSnapshot(Guid jobId, Guid snaphotId, Guid connectionId)
         {
             var result = jobApi.DeleteSnapshotAsync(jobId, connectionId, snaphotId).Result;
             result.EnsureSuccessStatusCode();
