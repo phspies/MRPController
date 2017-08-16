@@ -12,8 +12,8 @@ namespace MRMPService.TaskExecutioner.Migrate
         static public void SetupMigrateJob(MRPTaskType _task)
         {
             MRPTaskDetailType _payload = _task.taskdetail;
-            MRPWorkloadType _source_workload = _payload.source_workload;
-            MRPWorkloadType _target_workload = _payload.target_workload;
+            MRMPWorkloadBaseType _source_workload = _payload.source_workload;
+            MRMPWorkloadBaseType _target_workload = _payload.target_workload;
             MRPPlatformType _platform = _payload.target_platform;
             MRPRecoverypolicyType _recovery_policy = _payload.protectiongroup.recoverypolicy;
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;

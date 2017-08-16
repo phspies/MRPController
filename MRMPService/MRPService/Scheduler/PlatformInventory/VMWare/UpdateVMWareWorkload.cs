@@ -13,7 +13,7 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
 {
     partial class PlatformInventoryWorkloadDo
     {
-        public static void UpdateVMWareWorkload(string _workload_moid, MRPPlatformType _platform, List<MRPWorkloadType> _mrp_workloads = null)
+        public static void UpdateVMWareWorkload(string _workload_moid, MRPPlatformType _platform, List<MRMPWorkloadBaseType> _mrp_workloads = null)
         {
             MRPCredentialType _platform_credential = _platform.credential;
 
@@ -46,7 +46,7 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
 
             if (_mrp_workloads == null)
             {
-                _mrp_workloads = new List<MRPWorkloadType>();
+                _mrp_workloads = new List<MRMPWorkloadBaseType>();
 
                 MRPWorkloadListType _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
                 while (_paged_workload.pagination.page_size > 0)
@@ -62,7 +62,7 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
                     }
                 }
             }
-            MRPWorkloadType _mrp_workload = new MRPWorkloadType();
+            MRMPWorkloadBaseType _mrp_workload = new MRMPWorkloadBaseType();
             _mrp_workload.workloadinterfaces = new List<MRPWorkloadInterfaceType>();
             _mrp_workload.workloadvolumes = new List<MRPWorkloadVolumeType>();
             _mrp_workload.workloaddisks = new List<MRPWorkloadDiskType>();

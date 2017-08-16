@@ -26,13 +26,13 @@ namespace MRMPService.Modules.DoubleTake.Common
                 }
             }
         }
-        public static void DeployLinuxDoubleTake(MRPTaskType _task, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
+        public static void DeployLinuxDoubleTake(MRPTaskType _task, MRMPWorkloadBaseType _source_workload, MRMPWorkloadBaseType _target_workload, float _start_progress, float _end_progress)
         {
             dt_server_type server_type = dt_server_type.source;
 
             try
             {
-                MRPWorkloadType _working_workload = new MRPWorkloadType();
+                MRMPWorkloadBaseType _working_workload = new MRMPWorkloadBaseType();
                 int _counter = 0;
                 while (true)
                 {
@@ -49,13 +49,13 @@ namespace MRMPService.Modules.DoubleTake.Common
                     }
 
                     _task.progress(String.Format("Starting DT deploying process on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 1));
-                    string _contactable_ip = _working_workload.working_ipaddress(true);
-                    _password = _working_workload.get_credential.decrypted_password;
+                    string _contactable_ip = _working_workload.GetContactibleIP(true);
+                    _password = _working_workload.GetCredentials().decrypted_password;
 
-                    KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_working_workload.get_credential.username);
+                    KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_working_workload.GetCredentials().username);
                     _keyboard_authentication.AuthenticationPrompt += new EventHandler<AuthenticationPromptEventArgs>(HandleKeyEvent);
-                    PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_working_workload.get_credential.username, _password);
-                    ConnectionInfo ConnNfo = new ConnectionInfo(_contactable_ip, 22, _working_workload.get_credential.username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
+                    PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_working_workload.GetCredentials().username, _password);
+                    ConnectionInfo ConnNfo = new ConnectionInfo(_contactable_ip, 22, _working_workload.GetCredentials().username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
 
                     string localbinarypath = Path.Combine(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location), "Double-Take", "Linux");
                     String localfilepath = null;

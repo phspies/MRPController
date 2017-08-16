@@ -613,6 +613,22 @@
             The activity status result.
             </returns>
         </member>
+        <member name="M:DoubleTake.Web.Client.JobsApi.GetLatestFailoverReport(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Get the latest failover report for the given job.
+            </summary>
+            <param name="id">The job id.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>JSON data for the latest failover.</returns>
+        </member>
+        <member name="M:DoubleTake.Web.Client.JobsApi.GetAllFailoverReports(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Get the all failover reports for the given job.
+            </summary>
+            <param name="id">The job id.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>Array of JSON data for the failovers.</returns>
+        </member>
         <member name="M:DoubleTake.Web.Client.JobsApi.GetBandwidthLimitAsync(System.Guid,System.Guid,System.Threading.CancellationToken)">
             <summary>
             Gets the bandwidth limit asynchronous.
@@ -4136,6 +4152,107 @@
             The none
             </summary>
         </member>
+        <member name="T:DoubleTake.Web.Models.FailoverStyle">
+            <summary>
+            Type of failover being used.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Web.Models.FailoverStyle.Live">
+            <summary>
+            Live failover is being done.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Web.Models.FailoverStyle.Test">
+            <summary>
+            Test failover is being done.
+            </summary>
+        </member>
+        <member name="T:DoubleTake.Web.Models.MachineInfoClassModel">
+            <summary>
+            Data about the target machine
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.MachineInfoClassModel.os">
+            <summary>
+            OS on the machine.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.MachineInfoClassModel.osVersion">
+            <summary>
+            OS version on the machine.
+            </summary>
+        </member>
+        <member name="T:DoubleTake.Web.Models.TimesClassModel">
+            <summary>
+            Time at various points of the failover.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.TimesClassModel.startProcessing">
+            <summary>
+            Time the failover processing started.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.TimesClassModel.startReboot">
+            <summary>
+            Time when the reboot started.  
+            NOTE: For data only jobs, this time will be null.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.TimesClassModel.completed">
+            <summary>
+            Time that the failover is considered complete.
+            </summary>
+        </member>
+        <member name="T:DoubleTake.Web.Models.FailoverReport">
+            <summary>
+            Failover report information.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FailoverReport.jobName">
+            <summary>
+            Name of the job
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FailoverReport.jobId">
+            <summary>
+            Job id being reported
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FailoverReport.jobType">
+            <summary>
+            This is the job type as described within JobInfo.cs
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FailoverReport.failoverType">
+            <summary>
+            Type of failover being done.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FailoverReport.isReverse">
+            <summary>
+            Whether this is the reverse of the source in an FFO job.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FailoverReport.snapshotLabel">
+            <summary>
+            Label for the snapshot used.  (Empty string for live data.)
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FailoverReport.failoverSuccess">
+            <summary>
+            Whether the failover was a success
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Web.Models.FailoverReport.targetedMachineInfo">
+            <summary>
+            Information about the target machine.
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Web.Models.FailoverReport.times">
+            <summary>
+            Times for this failover
+            </summary>
+        </member>
         <member name="T:DoubleTake.Web.Models.FailoverScriptConfigurationModel">
             <summary>
             Failover script configuration model.
@@ -4474,9 +4591,69 @@
             Gets or sets the network interface on the target server.
             </summary>
         </member>
+        <member name="P:DoubleTake.Web.Models.FullServerNicMappingsModel.TestFailoverTargetNic">
+            <summary>
+            Gets or sets the NIC on the test failover target server.
+            </summary>
+            <value>
+            The network interface on the test failover target server.
+            </value>        
+        </member>
         <member name="P:DoubleTake.Web.Models.FullServerNicMappingsModel.TargetNicList">
             <summary>
             Gets or sets the list of network interfaces on the target server.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FullServerNicMappingsModel.TestFailoverTargetNicList">
+            <summary>
+            Gets or sets the list of NICs on the test failover target server.
+            </summary>
+            <value>
+            The test failover target list of network interfaces on the test failover target server.
+            </value>
+        </member>
+        <member name="T:DoubleTake.Web.Models.FullServerTestFailoverOptionsModel">
+            <summary>
+            Full server test failover options model.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FullServerTestFailoverOptionsModel.DeleteSnapshots">
+            <summary>
+            Gets or sets the value indicating whether or not to delete snapshots. 
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FullServerTestFailoverOptionsModel.TestFailoverServerCredential">
+            <summary>
+            Gets or sets the test failover server credentials.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FullServerTestFailoverOptionsModel.NicMappings">
+            <summary>
+            Gets or sets the NIC mappings for full server testfailover.
+            </summary>
+            <value>
+            The network interface mappings.
+            </value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FullServerTestFailoverOptionsModel.FailoverName">
+            <summary>
+            Gets or sets the server name to apply to the test failover server.
+            </summary>
+            <remarks>Typically this would be set to the source server name if failing over the name.  If not set, the test failover server name will not be changed.</remarks>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FullServerTestFailoverOptionsModel.TestFailoverServerAddress">
+            <summary>
+            Gets or sets the test failover server address to use for the replication service connection.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FullServerTestFailoverOptionsModel.TestFailoverServerEnginePort">
+            <summary>
+            Gets or sets the test failover server engine port to use for the replication service connection.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.FullServerTestFailoverOptionsModel.TestFailoverServerReservedAddress">
+            <summary>
+            Gets or sets the IP address that will remain on the test failover server after a test failover.
             </summary>
         </member>
         <member name="T:DoubleTake.Web.Models.Health">
@@ -4747,6 +4924,11 @@
         <member name="F:DoubleTake.Web.Models.HighLevelState.TargetInfoNotAvailable">
             <summary>
             The target information not available
+            </summary>
+        </member>
+        <member name="F:DoubleTake.Web.Models.HighLevelState.Editing">
+            <summary>
+            Job edit in progress
             </summary>
         </member>
         <member name="T:DoubleTake.Web.Models.ImageDeleteInfoModel">
@@ -5203,6 +5385,14 @@
             <summary>
             Gets or sets the options for full server failover jobs.
             </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.JobOptionsModel.FullServerTestFailoverOptions">
+            <summary>
+            This value represents the testfailover options for full server jobs.
+            </summary>
+            <value>
+            The testfailover options for full server failover jobs.
+            </value>
         </member>
         <member name="P:DoubleTake.Web.Models.JobOptionsModel.ImageProtectionOptions">
             <summary>
@@ -6433,6 +6623,14 @@
             Gets or sets the total size of the volume.
             </summary>
         </member>
+        <member name="P:DoubleTake.Web.Models.PhysicalItemModel.ShortNameBehavior">
+            <summary>
+            Gets or sets a value indicating the Short Name Behavior for this volume.
+            </summary>
+            <value>
+            enabled = 0, disabled = 1
+            </value>
+        </member>
         <member name="P:DoubleTake.Web.Models.PhysicalItemModel.VolumeType">
             <summary>
             Gets or sets the volume type.
@@ -6830,6 +7028,11 @@
         <member name="P:DoubleTake.Web.Models.ReplicaVmInfoModel.Cpus">
             <summary>
             Gets or sets the number of CPUs for the replica Vm.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.ReplicaVmInfoModel.CoresPerProcessor">
+            <summary>
+            Gets or sets the number of cores per processor.
             </summary>
         </member>
         <member name="P:DoubleTake.Web.Models.ReplicaVmInfoModel.Memory">
@@ -8061,6 +8264,55 @@
             The unknown
             </summary>
         </member>
+        <member name="T:DoubleTake.Web.Models.TestFailoverOptionsModel">
+            <summary>
+            Test failover options model for VRA.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.TestFailoverOptionsModel.DeleteSnapshots">
+            <summary>
+            Gets or sets a value indicating whether or not to delete snapshots.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.TestFailoverOptionsModel.DeleteVirtualDisks">
+            <summary>
+            Gets or sets a value indicating whether or not to delete virtual disks.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.TestFailoverOptionsModel.ReplicaDisplayName">
+            <summary>
+            Gets or sets a the test failover replica display name.
+            </summary>
+        </member>
+        <member name="T:DoubleTake.Web.Models.TestFailoverServerCredentialModel">
+            <summary>
+            Full server test failover options model.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.TestFailoverServerCredentialModel.TestFailoverServerHostUri">
+            <summary>
+            Gets or sets the testfailover server host URI.
+            </summary>
+            <value>The testfailover server host URI.</value>
+            <remarks>
+            This property serves as a replacement for the deprecated SourceConnectionParameters
+            property.
+            </remarks>
+        </member>
+        <member name="P:DoubleTake.Web.Models.TestFailoverServerCredentialModel.TestFailoverServerHardwareId">
+            <summary>
+            Gets or sets the testfailover server hardware id.
+            </summary>
+            <value>The testfailover server hardware id.</value>
+        </member>
+        <member name="P:DoubleTake.Web.Models.TestFailoverServerCredentialModel.TestFailoverServerConnectionParameters">
+            <summary>
+            (Deprecated: use TestFailoverServerHostUri) Gets or sets the connection parameters for the testfailover server.
+            </summary>
+            <value>
+            The connection parameters for the testfailover server.
+            </value>
+        </member>
         <member name="T:DoubleTake.Web.Models.TestScriptRequestModel">
             <summary>
             Test script request model
@@ -8833,6 +9085,11 @@
         <member name="P:DoubleTake.Web.Models.VraOptionsModel.WorkloadCustomizationOptions">
             <summary>
             Gets or sets the workload customization options.
+            </summary>
+        </member>
+        <member name="P:DoubleTake.Web.Models.VraOptionsModel.TestFailoverOptions">
+            <summary>
+            Gets or sets the test failover options for VRA.
             </summary>
         </member>
         <member name="T:DoubleTake.Web.Models.VraQualificationResultsModel">

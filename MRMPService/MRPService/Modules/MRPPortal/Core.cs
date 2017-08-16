@@ -93,7 +93,7 @@ namespace MRMPService.Modules.MRMPPortal
                     }
                     break;
                 }
-                else if (restResponse.StatusCode == HttpStatusCode.BadRequest)
+                else if (restResponse.StatusCode == HttpStatusCode.BadRequest || restResponse.StatusCode == HttpStatusCode.NotFound)
                 {
                     ResultType _result = new ResultType();
                     try
@@ -104,12 +104,11 @@ namespace MRMPService.Modules.MRMPPortal
                     {
                         Logger.log(ex.ToString(), Logger.Severity.Error);
                         Logger.log(restResponse.Content, Logger.Severity.Error);
-                        throw new Exception(_result.result.message.ToString());
+                        throw new Exception(_result.result.ToString());
                     }
-                }
-                else if (restResponse.StatusCode == HttpStatusCode.NotFound)
-                {
-                    throw new Exception(String.Format("{0} {1}", restResponse.StatusCode, restResponse.ErrorMessage));
+                    Logger.log(String.Format("{0} {1}", _result.result.ToString(), restResponse.Content), Logger.Severity.Error);
+                    throw new Exception(_result.result.ToString());
+
                 }
                 else if (restResponse.StatusCode == HttpStatusCode.RequestTimeout)
                 {
@@ -136,6 +135,7 @@ namespace MRMPService.Modules.MRMPPortal
         public void HandleDeserializationError(object sender, ErrorEventArgs errorArgs)
         {
             var currentError = errorArgs.ErrorContext.Error.Message;
+            Logger.log(String.Format("JSON Deserialization Error: {0}", currentError), Logger.Severity.Fatal);
             errorArgs.ErrorContext.Handled = true;
         }
 

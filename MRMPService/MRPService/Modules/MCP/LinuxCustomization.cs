@@ -26,13 +26,13 @@ namespace MRMPService.Modules.MCP
                 }
             }
         }
-        static public void LinuxCustomization(MRPTaskType _task, MRPPlatformType _platform, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress)
+        static public void LinuxCustomization(MRPTaskType _task, MRPPlatformType _platform, MRMPWorkloadBaseType _target_workload, MRPProtectiongroupType _protectiongroup, float _start_progress, float _end_progress)
         {
-            MRPCredentialType _credential = _target_workload.get_credential;
+            MRPCredentialType _credential = _target_workload.GetCredentials();
 
             MRPWorkloadVolumeType _root_volume_object = _target_workload.workloadvolumes.FirstOrDefault(x => x.driveletter == "/");
 
-            string workload_ip = _target_workload.working_ipaddress(true);
+            string workload_ip = _target_workload.GetContactibleIP(true);
             _password = _credential.decrypted_password;
 
             KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_credential.username);

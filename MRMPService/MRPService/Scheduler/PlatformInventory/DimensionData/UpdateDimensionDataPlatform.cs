@@ -31,7 +31,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
             _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
             MRPPlatformType _update_platform = new MRPPlatformType() { id = _platform.id };
 
-            List<MRPWorkloadType> _mrp_workloads = new List<MRPWorkloadType>();
+            List<MRMPWorkloadBaseType> _mrp_workloads = new List<MRMPWorkloadBaseType>();
 
             MRPWorkloadListType _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id });
             while (_paged_workload.pagination.page_size > 0)
@@ -490,7 +490,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                     MRMPServiceBase._mrmp_api.platform().update(_update_platform);
                 }
                 _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
-                _update_platform = new MRPPlatformType() { id = _platform.id, workloads = new List<MRPWorkloadType>() };
+                _update_platform = new MRPPlatformType() { id = _platform.id, workloads = new List<MRMPWorkloadBaseType>() };
 
                 IEnumerable<ServerType> _caas_workload_list = CaaS.ServerManagement.Server.GetServers(new ServerListOptions() { DatacenterId = _platform.platformdatacenter.moid, State = "NORMAL" }).Result;
                 //process deleted platform workloads
@@ -498,7 +498,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 {
                     foreach (var _workload in _platform.workloads.Where(x => x.workloadtype != "manager"))
                     {
-                        MRPWorkloadType _mrp_workload = new MRPWorkloadType() { id = _workload.id };
+                        MRMPWorkloadBaseType _mrp_workload = new MRMPWorkloadBaseType() { id = _workload.id };
                         if (!_caas_workload_list.Any(x => x.id == _workload.moid))
                         {
                             _mrp_workload.deleted = true;

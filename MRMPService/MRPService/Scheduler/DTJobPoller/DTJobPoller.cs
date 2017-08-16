@@ -17,15 +17,15 @@ namespace MRMPService.Scheduler.DTPollerCollection
             _mrp_managementobject = MRMPServiceBase._mrmp_api.managementobject().getmanagementobject_id(_mrp_managementobject.id);
 
             //check for credentials
-            MRPWorkloadType _target_workload = _mrp_managementobject.target_workload;
-            MRPCredentialType _credential = _target_workload.get_credential;
+            MRMPWorkloadBaseType _target_workload = _mrp_managementobject.target_workload;
+            MRPCredentialType _credential = _target_workload.GetCredentials();
             if (_credential == null)
             {
                 throw new ArgumentException(String.Format("Double-Take Job: Error finding credentials for workload {0} {1}", _mrp_managementobject.target_workload.id, _mrp_managementobject.target_workload.hostname));
             }
 
             //check for working IP
-            string workload_ip = _target_workload.working_ipaddress(true);
+            string workload_ip = _target_workload.GetContactibleIP(true);
             Logger.log(String.Format("Double-Take Job: Start Double-Take collection for {0} using {1}", _mrp_managementobject.target_workload.hostname, workload_ip), Logger.Severity.Info);
 
             //first try to connect to the target server to make sure we can connect

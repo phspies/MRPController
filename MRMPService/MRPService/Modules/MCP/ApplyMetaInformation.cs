@@ -15,7 +15,7 @@ namespace MRMPService.Modules.MCP
 {
     partial class MCP_Platform
     {
-        public static async Task ApplyMetaInformation(MRPTaskType _task, List<MRPWorkloadPairType> _workload_pairs, MRPPlatformType _source_platform, MRPPlatformType _target_platform, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
+        public static async Task ApplyMetaInformation(MRPTaskType _task, List<MRPWorkloadPairType> _workload_pairs, MRPPlatformType _source_platform, MRPPlatformType _target_platform, MRMPWorkloadBaseType _source_workload, MRMPWorkloadBaseType _target_workload, float _start_progress, float _end_progress)
         {
 
             ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_target_workload.platform.url), new NetworkCredential(_target_workload.platform.credential.username, _target_workload.platform.credential.decrypted_password));

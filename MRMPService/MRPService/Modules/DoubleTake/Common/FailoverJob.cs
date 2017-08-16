@@ -10,7 +10,7 @@ namespace MRMPService.Modules.DoubleTake.Common
 {
     partial class ModuleCommon
     {
-        public static void Failoverjob(MRPTaskType _task, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, MRPManagementobjectSnapshotType _managementobjectsnapshot, float _start_progress, float _end_progress, bool _group_task = false, bool _firedrill_failover = false)
+        public static void Failoverjob(MRPTaskType _task, MRMPWorkloadBaseType _source_workload, MRMPWorkloadBaseType _target_workload, MRPManagementobjectType _managementobject, MRPManagementobjectSnapshotType _managementobjectsnapshot, float _start_progress, float _end_progress, bool _group_task = false, bool _firedrill_failover = false)
         {
             using (Doubletake _dt = new Doubletake(null, _target_workload))
             {
@@ -121,8 +121,8 @@ namespace MRMPService.Modules.DoubleTake.Common
                         {
                             if (_switched_personalities)
                             {
-                                MRPWorkloadType _new_target_workload = _target_workload;
-                                _new_target_workload.get_credential = _source_workload.get_credential;
+                                MRMPWorkloadBaseType _new_target_workload = _target_workload;
+                                _new_target_workload.credential = _source_workload.credential;
                                 Doubletake _switched_dt = new Doubletake(null, _new_target_workload);
                                 _switched_dt.management().UnAuthorizationAsync();
                                 jobinfo = _switched_dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString()));
@@ -144,7 +144,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                                 {
                                     _task.progress("Switching source and target credentials for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 90));
 
-                                    MRPWorkloadType _target_update_workload = new MRPWorkloadType();
+                                    MRMPWorkloadBaseType _target_update_workload = new MRMPWorkloadBaseType();
                                     _target_update_workload.credential_id = _source_workload.credential_id;
                                     MRMPServiceBase._mrmp_api.workload().updateworkload(_target_update_workload);
                                 }
@@ -152,8 +152,8 @@ namespace MRMPService.Modules.DoubleTake.Common
                                 {
                                     _task.progress("Setting source workload to disabled and switching source and target credentials for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 90));
 
-                                    MRPWorkloadType _source_update_workload = new MRPWorkloadType();
-                                    MRPWorkloadType _target_update_workload = new MRPWorkloadType();
+                                    MRMPWorkloadBaseType _source_update_workload = new MRMPWorkloadBaseType();
+                                    MRMPWorkloadBaseType _target_update_workload = new MRMPWorkloadBaseType();
                                     MRPManagementobjectType _update_managementobject = new MRPManagementobjectType();
 
                                     _source_update_workload.id = _source_workload.id;

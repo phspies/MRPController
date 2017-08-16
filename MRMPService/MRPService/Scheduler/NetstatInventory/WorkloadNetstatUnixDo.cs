@@ -24,19 +24,19 @@ namespace MRMPService.Scheduler.NetstatCollection
                 }
             }
         }
-        public static void WorkloadNetstatUnixDo(MRPWorkloadType _workload)
+        public static void WorkloadNetstatUnixDo(MRMPWorkloadBaseType _workload)
         {
 
             List<NetworkFlowType> _workload_netstats = new List<NetworkFlowType>();
-            _password = _workload.get_credential.decrypted_password;
-            string workload_ip = _workload.working_ipaddress(true);
+            _password = _workload.GetCredentials().decrypted_password;
+            string workload_ip = _workload.GetContactibleIP(true);
             Logger.log(String.Format("Netstat: Started netstat collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
 
-            KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_workload.get_credential.username);
+            KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_workload.GetCredentials().username);
             _keyboard_authentication.AuthenticationPrompt += new EventHandler<AuthenticationPromptEventArgs>(HandleKeyEvent);
-            PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_workload.get_credential.username, _password);
-            ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _workload.get_credential.username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
+            PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_workload.GetCredentials().username, _password);
+            ConnectionInfo ConnNfo = new ConnectionInfo(workload_ip, 22, _workload.GetCredentials().username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
 
 
             List<ProcessInfo> _processes = new List<ProcessInfo>();

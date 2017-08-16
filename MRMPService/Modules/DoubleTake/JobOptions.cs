@@ -1,23 +1,42 @@
 ﻿using DoubleTake.Web.Models;
-using MRMPService.MRMPAPI;
 using MRMPService.Modules.MRMPPortal.Contracts;
-
 using MRMPService.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace MRMPService.MRMPDoubleTake
 {
     public class SetOptions
     {
-        public static CreateOptionsModel set_job_options(MRPTaskType _task, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, CreateOptionsModel jobInfo, float _start_progress, float _end_progress, MRPManagementobjectType _managementobject = null, MRPManagementobjectSnapshotType _recovery_snapshot = null)
+        public static CreateOptionsModel set_job_options(MRPTaskType _task, MRMPWorkloadBaseType _source_workload, MRMPWorkloadBaseType _target_workload, MRPProtectiongroupType _protectiongroup, CreateOptionsModel jobInfo, float _start_progress, float _end_progress, MRPManagementobjectType _managementobject = null, MRPManagementobjectSnapshotType _recovery_snapshot = null)
         {
+            //set replication path if source and target has replication nics defined
+            MRPWorkloadInterfaceType _target_rep_nic = _target_workload?.workloadinterfaces?.FirstOrDefault(x => x.replication_interface == true);
+            if (_target_rep_nic != null)
+            {
+                if ((new string[] { "ipv4", "ipv6" }).Any(x => x == _target_rep_nic.replication_interface_iptype))
+                {
+                    var _target_address = _target_rep_nic.replication_interface_iptype == "ipv4" ? _target_rep_nic.ipaddress : _target_rep_nic.ipv6address;
+                    _task.progress(String.Format("Replication route on target workload set to {0}.", _target_address), ReportProgress.Progress(_start_progress, _end_progress, 10));
+                    jobInfo.JobOptions.CoreConnectionOptions.TargetAddress = _target_address;
+                }
+                else
+                {
+                    _task.progress(String.Format("No replication protocol set on target workload. Using default route."), ReportProgress.Progress(_start_progress, _end_progress, 10));
+                }
+            }
+            else
+            {
+                _task.progress(String.Format("No replication interface set on target workload. Using default route."), ReportProgress.Progress(_start_progress, _end_progress, 10));
+            }
             String _job_type = null;
             if (jobInfo.JobType == DT_JobTypes.HA_Full_Failover || jobInfo.JobType == DT_JobTypes.HA_Linux_FullFailover)
             {
                 _job_type = "Availability";
                 jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = (bool)_protectiongroup.recoverypolicy.shutdown_source;
+                
                 //disable backup network connection
                 jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
                 //set change ports
@@ -67,6 +86,7 @@ namespace MRMPService.MRMPDoubleTake
                 jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
                 jobInfo.JobOptions.ImageProtectionOptions.ImageName = String.Format("dr_dormant_{0}_image", _source_workload.hostname.ToLower());
             }
+            
             else if (jobInfo.JobType == DT_JobTypes.DR_Full_Recovery)
             {
                 _job_type = "DR Recovery";
@@ -155,12 +175,9 @@ namespace MRMPService.MRMPDoubleTake
                     }
                     else
                     {
-
                         throw new Exception(String.Format("Error in setting DNS server {0}", _protectiongroup.recoverypolicy.dns_servers));
                     }
                 }
-
-
                 _dns.Domains[0] = new DnsDomainDetailsModel()
                 {
                     DnsServers = _dns_servers.ToArray(),
@@ -171,6 +188,10 @@ namespace MRMPService.MRMPDoubleTake
                 };
                 jobInfo.JobOptions.DnsOptions = _dns;
             }
+
+            jobInfo.JobOptions.MonitoringOptions = new MonitoringOptionsModel() { ServiceMonitoringEnabled = false };
+            jobInfo.JobOptions.FailoverMonitoringEnabled = false;
+
             return jobInfo;
 
         }

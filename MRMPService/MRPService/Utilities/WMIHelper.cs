@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace MRMPService.Utilities
 {
-    class WMIHelper
+    public class WMIHelper
     {
         /// <summary>
         /// Construct ConnectionOptions
         /// </summary>
         /// <param></param>
         /// <returns></returns>
-        public static ConnectionOptions ProcessConnectionOptions(string _username, string _password)
+        public ConnectionOptions ProcessConnectionOptions(string _username, string _password)
         {
             ConnectionOptions options = new ConnectionOptions();
             options.Impersonation = ImpersonationLevel.Impersonate;
@@ -32,7 +32,7 @@ namespace MRMPService.Utilities
         /// <param name="hostname"></param>
         /// <param name="ConnectionOptions (optional)"></param>
         /// <returns></returns>
-        public static ManagementScope ConnectionScope(string machineName, ConnectionOptions options)
+        public ManagementScope ConnectionScope(string machineName, ConnectionOptions options)
         {
             ManagementScope connectScope = new ManagementScope();
             connectScope.Path = new ManagementPath(@"\\" + machineName + @"\root\CIMV2");

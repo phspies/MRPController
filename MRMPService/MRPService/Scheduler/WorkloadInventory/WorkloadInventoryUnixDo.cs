@@ -28,10 +28,10 @@ namespace MRMPService.MRMPAPI.Classes
                 }
             }
         }
-        static public void WorkloadInventoryLinuxDo(MRPWorkloadType _workload)
+        static public void WorkloadInventoryLinuxDo(MRMPWorkloadBaseType _workload)
         {
 
-            MRPWorkloadType _updated_workload = new MRPWorkloadType()
+            MRMPWorkloadBaseType _updated_workload = new MRMPWorkloadBaseType()
             {
                 id = _workload.id,
                 workloadinterfaces = _workload.workloadinterfaces,
@@ -41,25 +41,19 @@ namespace MRMPService.MRMPAPI.Classes
             _updated_workload.workloaddisks.ForEach(x => x.deleted = true);
             _updated_workload.workloadvolumes.ForEach(x => x.deleted = true);
             _updated_workload.workloadinterfaces.ForEach(x => x.deleted = true);
-
-            //check for credentials
-            MRPCredentialType _credential = _workload.get_credential;
-            if (_credential == null)
-            {
-                throw new ArgumentException(String.Format("Error finding credentials"));
-            }
-            _password = _credential.decrypted_password;
-            string workload_ip = _workload.working_ipaddress(false);
+            
+            _password = _workload.GetCredentials().decrypted_password;
+            string workload_ip = _workload.GetContactibleIP(false);
             Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
             //string _privateSshKeyLocation = "";
             //string _privateSshKeyPhrase = "";
             //var authenticationMethod = new PrivateKeyConnectionInfo(workload_ip, _credential.username, new PrivateKeyFile[] { new PrivateKeyFile(_privateSshKeyLocation, _privateSshKeyPhrase) });
 
-            KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_credential.username);
+            KeyboardInteractiveAuthenticationMethod _keyboard_authentication = new KeyboardInteractiveAuthenticationMethod(_workload.GetCredentials().username);
             _keyboard_authentication.AuthenticationPrompt += new EventHandler<AuthenticationPromptEventArgs>(HandleKeyEvent);
-            PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_credential.username, _password);
-            ConnectionInfo conInfo = new ConnectionInfo(workload_ip, 22, _credential.username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
+            PasswordAuthenticationMethod _password_authentication = new PasswordAuthenticationMethod(_workload.GetCredentials().username, _password);
+            ConnectionInfo conInfo = new ConnectionInfo(workload_ip, 22, _workload.GetCredentials().username, new AuthenticationMethod[] { _keyboard_authentication, _password_authentication });
 
             string locationlocation = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string localscripts = Path.Combine(locationlocation, "Scripts");

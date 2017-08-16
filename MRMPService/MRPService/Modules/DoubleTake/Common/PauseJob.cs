@@ -10,11 +10,11 @@ namespace MRMPService.Modules.DoubleTake.Common
 {
     partial class ModuleCommon
     {
-        public static void PauseJob(MRPTaskType _task, MRPWorkloadType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void PauseJob(MRPTaskType _task, MRMPWorkloadBaseType _target_workload, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
 
             _task.progress(string.Format("Pausing job {0} on {1}", _managementobject.moname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 10));
-            string _contactable_ip = _target_workload.working_ipaddress(true);
+            string _contactable_ip = _target_workload.GetContactibleIP(true);
 
             JobInfoModel _dt_job;
             using (Doubletake _dt = new Doubletake(null, _target_workload))

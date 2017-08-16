@@ -1,3 +1,6 @@
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\bin\x64\Debug\MRMPNotifier.exe.config
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\bin\x64\Debug\MRMPNotifier.exe
+C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\bin\x64\Debug\MRMPNotifier.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Debug\Resources\DimensionData.baml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Debug\Resources\logos.baml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Debug\MainWindow.g.cs
@@ -5,9 +8,6 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPCon
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Debug\App.g.cs
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Debug\MRMPNotifier_MarkupCompile.cache
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Debug\MRMPNotifier_MarkupCompile.lref
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\bin\x64\Debug\MRMPNotifier.exe.config
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\bin\x64\Debug\MRMPNotifier.exe
-C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\bin\x64\Debug\MRMPNotifier.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Debug\MainWindow.baml
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Debug\MRMPNotifier.g.resources
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Debug\MRMPNotifier.Properties.Resources.resources

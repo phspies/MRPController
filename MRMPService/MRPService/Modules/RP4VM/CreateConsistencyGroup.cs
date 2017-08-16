@@ -10,7 +10,7 @@ namespace MRMPService.Modules.RP4VM
 {
     class RP4VM
     {
-        public static async Task CreateConsistencyGroup(MRPTaskType _task, List<MRPWorkloadType> _source_workloads, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static async Task CreateConsistencyGroup(MRPTaskType _task, List<MRMPWorkloadBaseType> _source_workloads, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
 
             _task.progress("Starting RP4VM CG Provisioning Process", 5);

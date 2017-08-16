@@ -17,7 +17,7 @@ namespace MRMPService.Modules.DoubleTake.Common
 {
     partial class ModuleCommon
     {
-        public static void DeployWindowsDoubleTake(MRPTaskType _task, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, float _start_progress, float _end_progress)
+        public static void DeployWindowsDoubleTake(MRPTaskType _task, MRMPWorkloadBaseType _source_workload, MRMPWorkloadBaseType _target_workload, float _start_progress, float _end_progress)
         {
             dt_server_type server_type = dt_server_type.target;
             FileVersionInfo localFileVersion;
@@ -31,7 +31,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                 throw new Exception(String.Format("Error finding datamover installation file on Manager {0}", ex.GetBaseException().Message));
             }
 
-            MRPWorkloadType _working_workload = new MRPWorkloadType();
+            MRMPWorkloadBaseType _working_workload = new MRMPWorkloadBaseType();
             int _counter = 0;
             while (true)
             {
@@ -50,9 +50,9 @@ namespace MRMPService.Modules.DoubleTake.Common
                 }
 
                 _task.progress(String.Format("Starting datamover deploying process on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 5));
-                string _contactable_ip = _working_workload.working_ipaddress(true);
+                string _contactable_ip = _working_workload.GetContactibleIP(true);
                 string remoteTempLocation = _working_workload.deploymentpolicy.dt_windows_temppath;
-                if (_working_workload.get_credential == null)
+                if (_working_workload.GetCredentials() == null)
                 {
                     throw new Exception(String.Format("Cannot determine credentials for {0}", _working_workload.hostname));
                 }
@@ -62,7 +62,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                 string _environment_reg_key = @"SYSTEM\CurrentControlSet\Control\Session Manager\Environment";
                 string _dt_reg_key = @"SOFTWARE\NSI Software\Double-Take\CurrentVersion";
 
-                using (new Impersonator(_working_workload.get_credential.username, (String.IsNullOrWhiteSpace(_working_workload.get_credential.domain) ? "." : _working_workload.get_credential.domain), _working_workload.get_credential.decrypted_password))
+                using (new Impersonator(_working_workload.GetCredentials().username, (String.IsNullOrWhiteSpace(_working_workload.GetCredentials().domain) ? "." : _working_workload.GetCredentials().domain), _working_workload.GetCredentials().decrypted_password))
                 {
 
                     _task.progress("Confirming remote CPU architecture", ReportProgress.Progress(_start_progress, _end_progress, _counter + 6));
@@ -118,19 +118,20 @@ namespace MRMPService.Modules.DoubleTake.Common
                                 {
                                     _task.progress(String.Format("Testing datamover connectivity on {0} using {1}", _working_workload.hostname, _contactable_ip), ReportProgress.Progress(_start_progress, _end_progress, _counter + 14));
                                     ProductVersionModel _installed_dt_version;
-                                    using (Doubletake _dt = new Doubletake(null, _working_workload))
+                                    try
                                     {
-                                        try
+                                        using (Doubletake _dt = new Doubletake(null, _working_workload))
                                         {
                                             _installed_dt_version = (_dt.management().GetProductInfo()).ManagementServiceVersion;
                                             _task.progress(String.Format("Datamover installed and running on {0} with version {1}", _working_workload.hostname, _dt.management().GetProductVersion(_installed_dt_version)), ReportProgress.Progress(_start_progress, _end_progress, _counter + 15));
                                         }
-                                        catch (Exception ex)
-                                        {
-                                            _install_dm = true;
-                                            _task.progress(String.Format("Datamover installed on {0} but cannot be contacted: {1} : {2}", _working_workload.hostname, ex.Message, _working_workload, _contactable_ip), ReportProgress.Progress(_start_progress, _end_progress, _counter + 15));
-                                        }
                                     }
+                                    catch (Exception ex)
+                                    {
+                                        _install_dm = true;
+                                        _task.progress(String.Format("Datamover installed on {0} but cannot be contacted: {1}", _working_workload.hostname, ex.GetBaseException().Message), ReportProgress.Progress(_start_progress, _end_progress, _counter + 15));
+                                    }
+
                                 }
                             }
                         }
@@ -209,8 +210,8 @@ namespace MRMPService.Modules.DoubleTake.Common
                         connOptions.Impersonation = ImpersonationLevel.Impersonate;
                         connOptions.Authentication = AuthenticationLevel.Default;
                         connOptions.EnablePrivileges = true;
-                        connOptions.Username = (_working_workload.get_credential.domain == null ? "." : _working_workload.get_credential.domain) + @"\" + _working_workload.get_credential.username;
-                        connOptions.Password = _working_workload.get_credential.decrypted_password;
+                        connOptions.Username = (_working_workload.GetCredentials().domain == null ? "." : _working_workload.GetCredentials().domain) + @"\" + _working_workload.GetCredentials().username;
+                        connOptions.Password = _working_workload.GetCredentials().decrypted_password;
 
                         //var configPath = @"C:\DTSetup";
                         ManagementScope scope = new ManagementScope(@"\\" + _contactable_ip + @"\root\CIMV2", connOptions);
@@ -297,7 +298,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                                     _task.progress(String.Format("Datamover {0} found on {1}", _dt.management().GetProductVersion(_dt_version), _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 45));
                                     break;
                                 }
-                                catch (Exception)
+                                catch (Exception ex)
                                 {
                                     if (restries++ >= 3)
                                     {

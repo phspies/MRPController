@@ -28,6 +28,10 @@ namespace MRMPService
 
         public static SyncronisedList<CollectionCounter> _available_counters = new SyncronisedList<CollectionCounter>(new List<CollectionCounter>());
 
+        public static int remote_file_create_retries = (int)MRPRegistry.RegAccess("remote_file_create_retries", 10, RegistryValueKind.DWord);
+        public static int remote_file_create_retrywait = (int)MRPRegistry.RegAccess("remote_file_create_retrywait", 30, RegistryValueKind.DWord);
+        public static int remote_exec_timeout = (int)MRPRegistry.RegAccess("remote_exec_timeout", 30, RegistryValueKind.DWord);
+
         public static bool debug_netflow = Convert.ToBoolean(MRPRegistry.RegAccess("debug_netflow", false, RegistryValueKind.DWord));
 
         public static int os_inventory_interval = (int)MRPRegistry.RegAccess("os_inventory_interval", 1440, RegistryValueKind.DWord); //minutes

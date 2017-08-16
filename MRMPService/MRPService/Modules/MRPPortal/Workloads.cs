@@ -20,18 +20,18 @@ namespace MRMPService.Modules.MRMPPortal
             endpoint = "/workloads/list_paged_filtered_brief.json";
             return post<MRPWorkloadListType>(filter_settings);
         }
-        public MRPWorkloadType get_by_id(string _workload_id)
+        public MRMPWorkloadBaseType get_by_id(string _workload_id)
         {
             endpoint = "/workloads/get_by_id.json";
             MRPWorkloadGetIDType _workload_get = new MRPWorkloadGetIDType()
             {
                 workload_id = _workload_id
             };
-            return post<MRPWorkloadType>(_workload_get);
+            return post<MRMPWorkloadBaseType>(_workload_get);
         }
-        public ResultType createworkload(MRPWorkloadType _workload)
+        public ResultType createworkload(MRMPWorkloadBaseType _workload)
         {
-            _workload.get_credential = null;
+            _workload.credential = null;
             _workload.platform = null;
             if (_workload.workloadinterfaces != null)
             {
@@ -45,9 +45,9 @@ namespace MRMPService.Modules.MRMPPortal
             endpoint = "/workloads/create.json";
             return post<ResultType>(platform);
         }
-        public ResultType updateworkload(MRPWorkloadType _workload)
+        public ResultType updateworkload(MRMPWorkloadBaseType _workload)
         {
-            _workload.get_credential = null;
+            _workload.credential = null;
             _workload.platform = null;
             if (_workload.workloadinterfaces != null)
             {
@@ -62,9 +62,9 @@ namespace MRMPService.Modules.MRMPPortal
             endpoint = "/workloads/update.json";
             return put<ResultType>(workload);
         }
-        public void InventoryUpdateStatus(MRPWorkloadType workload, string message, bool status)
+        public void InventoryUpdateStatus(MRMPWorkloadBaseType workload, string message, bool status)
         {
-            MRPWorkloadType _update_workload = new MRPWorkloadType();
+            MRMPWorkloadBaseType _update_workload = new MRMPWorkloadBaseType();
             if (status)
             {
                 _update_workload.os_collection_status = true;
@@ -88,9 +88,9 @@ namespace MRMPService.Modules.MRMPPortal
             }
         }
 
-        public void PeformanceUpdateStatus(MRPWorkloadType workload, string message, bool status)
+        public void PeformanceUpdateStatus(MRMPWorkloadBaseType workload, string message, bool status)
         {
-            MRPWorkloadType _update_workload = new MRPWorkloadType();
+            MRMPWorkloadBaseType _update_workload = new MRMPWorkloadBaseType();
             if (status)
             {
                 _update_workload.perf_collection_status = true;
@@ -113,9 +113,9 @@ namespace MRMPService.Modules.MRMPPortal
                 Logger.log(String.Format("Error Updating workload information: {0}", ex.ToString()), Logger.Severity.Fatal);
             }
         }
-        public void DoubleTakeUpdateStatus(MRPWorkloadType workload, string message, bool status)
+        public void DoubleTakeUpdateStatus(MRMPWorkloadBaseType workload, string message, bool status)
         {
-            MRPWorkloadType _update_workload = new MRPWorkloadType();
+            MRMPWorkloadBaseType _update_workload = new MRMPWorkloadBaseType();
             if (status)
             {
                 _update_workload.dt_collection_status = true;

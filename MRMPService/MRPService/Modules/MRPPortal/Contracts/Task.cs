@@ -45,15 +45,15 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("managementobjects")]
         public List<MRPManagementobjectOrderType> managementobjects { get; set; }
         [JsonProperty("original_workload")]
-        public MRPWorkloadType original_workload { get; set; }
+        public MRMPWorkloadBaseType original_workload { get; set; }
         [JsonProperty("source_workload")]
-        public MRPWorkloadType source_workload { get; set; }
+        public MRMPWorkloadBaseType source_workload { get; set; }
         [JsonProperty("target_workload")]
-        public MRPWorkloadType target_workload { get; set; }
+        public MRMPWorkloadBaseType target_workload { get; set; }
         [JsonProperty("workloadpairs")]
         public List<MRPWorkloadPairType> workloadpairs { get; set; }
         [JsonProperty("repository_workload")]
-        public MRPWorkloadType repository_workload { get; set; }
+        public MRMPWorkloadBaseType repository_workload { get; set; }
         [JsonProperty("protectiongroup")]
         public MRPProtectiongroupType protectiongroup { get; set; }
         [JsonProperty("source_platform")]
@@ -72,7 +72,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("firedrill")]
         public bool? firedrill { get; set; }
         [JsonProperty("original_workload")]
-        public MRPWorkloadType original { get; set; }
+        public MRMPWorkloadBaseType original { get; set; }
         [JsonProperty("position")]
         public int position { get; set;}
         [JsonProperty("managementobject")]

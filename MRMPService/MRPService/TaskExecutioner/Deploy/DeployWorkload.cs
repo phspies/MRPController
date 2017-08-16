@@ -10,7 +10,7 @@ namespace MRMPService.TaskExecutioner.Deploy
         static public void DeployWorkload(MRPTaskType _task)
         {
             MRPTaskDetailType _payload = _task.taskdetail;
-            MRPWorkloadType _target_workload = _payload.target_workload;
+            MRMPWorkloadBaseType _target_workload = _payload.target_workload;
             MRPPlatformType _platform = _target_workload.platform;
             MRPProtectiongroupType _protectiongroup = _target_workload.protectiongroup;
             try

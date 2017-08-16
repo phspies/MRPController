@@ -33,8 +33,8 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 }
                 Logger.log(String.Format("UpdateMCPWorkload: Inventory for {0} in {1} ", _caasworkload.name, _platform.platformdatacenter.moid), Logger.Severity.Info);
 
-                MRPWorkloadType _update_workload = new MRPWorkloadType();
-                MRPWorkloadType _current_workload = new MRPWorkloadType();
+                MRMPWorkloadBaseType _update_workload = new MRMPWorkloadBaseType();
+                MRMPWorkloadBaseType _current_workload = new MRMPWorkloadBaseType();
 
                 bool _existing_workload = false;
                 if (_platform.workloads.Exists(x => x.moid == _caasworkload.id))
@@ -97,7 +97,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 if (_current_workload.vcpu == null) _update_workload.vcpu = Convert.ToUInt16(_caasworkload.cpu.count);
                 if (_current_workload.vcore == null) _update_workload.vcore = Convert.ToUInt16(_caasworkload.cpu.coresPerSocket);
                 if (_current_workload.vmemory == null) _update_workload.vmemory = Convert.ToUInt16(_caasworkload.memoryGb);
-                if (String.IsNullOrWhiteSpace(_current_workload.iplist)) _update_workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.ipv6, _caasworkload.networkInfo.primaryNic.privateIpv4);
+                if (String.IsNullOrWhiteSpace(_current_workload.iplist)) _update_workload.iplist = string.Join(",", _caasworkload.networkInfo.primaryNic.privateIpv4, _caasworkload.networkInfo.primaryNic.ipv6);
                 if (String.IsNullOrWhiteSpace(_current_workload.hostname)) _update_workload.hostname = _caasworkload.name;
                 _update_workload.moid = _caasworkload.id;
                 _update_workload.platform_id = _platform.id;
@@ -155,6 +155,10 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                         {
                             _logical_interface = _update_workload.workloadinterfaces.FirstOrDefault(y => y.moid == _caasworkloadinterface.id);
                         }
+                        else if (_update_workload.workloadinterfaces.Any((y => y.vnic == _caasworkloadinterface.key)))
+                        {
+                            _logical_interface = _update_workload.workloadinterfaces.FirstOrDefault(y => y.vnic == (_caasworkloadinterface.key - 4000));
+                        }
                         else
                         {
                             _update_workload.workloadinterfaces.Add(_logical_interface);
@@ -176,7 +180,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 //Update if the portal has this workload and create if it's new to the portal....
 
                 //remove credential, platform from workload object
-                _update_workload.get_credential = null;
+                _update_workload.credential = null;
                 _update_workload.platform = null;
                 _update_workload.provisioned = true;
 

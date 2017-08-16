@@ -11,7 +11,7 @@ namespace MRMPService.TaskExecutioner.Workload
     {
         static public void DiscoverWorkload(MRPTaskType _task)
         {
-            MRPWorkloadType _target_workload = _task.taskdetail.target_workload;
+            MRMPWorkloadBaseType _target_workload = _task.taskdetail.target_workload;
 
             try
             {

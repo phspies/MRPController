@@ -15,7 +15,7 @@ namespace MRMPService.Modules.DoubleTake.DR
 {
     partial class DisasterRecovery
     {
-        public static void CreateDRServerRecoveryJob(MRPTaskType _task, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPWorkloadType _original_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, MRPManagementobjectSnapshotType _snapshot, float _start_progress, float _end_progress)
+        public static void CreateDRServerRecoveryJob(MRPTaskType _task, MRMPWorkloadBaseType _source_workload, MRMPWorkloadBaseType _target_workload, MRMPWorkloadBaseType _original_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, MRPManagementobjectSnapshotType _snapshot, float _start_progress, float _end_progress)
         {
 
             using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
@@ -144,7 +144,7 @@ namespace MRMPService.Modules.DoubleTake.DR
 
                 _task.progress(String.Format("Successfully created disaster recovery job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
 
-                MRPWorkloadType _update_workload = new MRPWorkloadType();
+                MRMPWorkloadBaseType _update_workload = new MRMPWorkloadBaseType();
                 _update_workload.id = _target_workload.id;
 
                 //We dont want to poll recovery or testing servers.

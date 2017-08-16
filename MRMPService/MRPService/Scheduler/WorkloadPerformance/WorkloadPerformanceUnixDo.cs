@@ -27,13 +27,13 @@ namespace MRMPService.Scheduler.PerformanceCollection
                 }
             }
         }
-        public static void WorkloadPerformanceUnixDo(MRPWorkloadType _workload)
+        public static void WorkloadPerformanceUnixDo(MRMPWorkloadBaseType _workload)
         {
             List<PerformanceType> _workload_counters = new List<PerformanceType>();
 
             #region load and check workload information
             //check for credentials
-            MRPCredentialType _credential = _workload.get_credential;
+            MRPCredentialType _credential = _workload.GetCredentials();
             if (_credential == null)
             {
                 throw new ArgumentException(String.Format("Error finding credentials"));
@@ -41,7 +41,7 @@ namespace MRMPService.Scheduler.PerformanceCollection
             _password = _credential.decrypted_password;
 
             //check for working IP
-            string workload_ip = _workload.working_ipaddress(true);
+            string workload_ip = _workload.GetContactibleIP(true);
             #endregion
 
             Logger.log(String.Format("Performance: Start Performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
