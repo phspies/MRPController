@@ -15,3 +15,20 @@ C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPCon
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\MRMPNotifier.exe
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\MRMPNotifier.pdb
 C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPConfigurator\obj\x64\Release\MRMPNotifier.csprojResolveAssemblyReference.cache
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\bin\Release\MRMPNotifier.exe.config
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\bin\Release\MRMPNotifier.exe
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\bin\Release\MRMPNotifier.pdb
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\MRMPNotifier.csprojResolveAssemblyReference.cache
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\Resources\DimensionData.baml
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\Resources\logos.baml
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\MainWindow.g.cs
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\Resources\logos.g.cs
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\App.g.cs
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\MRMPNotifier_MarkupCompile.cache
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\MRMPNotifier_MarkupCompile.lref
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\MainWindow.baml
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\MRMPNotifier.g.resources
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\MRMPNotifier.Properties.Resources.resources
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\MRMPNotifier.csproj.GenerateResource.Cache
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\MRMPNotifier.exe
+C:\Development\git\MRMP\mrmp_agent\MRMPConfigurator\obj\x64\Release\MRMPNotifier.pdb
