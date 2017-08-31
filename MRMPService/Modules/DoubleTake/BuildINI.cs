@@ -1,4 +1,5 @@
 ﻿
+using MRMPService.Exceptions;
 using MRMPService.Modules.MRMPPortal.Contracts;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,10 @@ namespace MRMPService.MRMPDoubleTake
     {
         public static List<String> BuildINIFile(MRPDeploymentpolicyType _deployment_policy, dt_server_type _source_workload)
         {
-            List<String> _setup_file = new List<string>();
+			ExceptionFactory.CheckArgumentIsNullOrEmpty(_deployment_policy.dt_queue_scheme);
+			ExceptionFactory.CheckArgumentIsNullOrEmpty(_source_workload.ToString());
+
+			List<String> _setup_file = new List<string>();
             _setup_file.Add("[Config]");
             _setup_file.Add("DTSETUPTYPE=DTSO");
             switch (_source_workload)
@@ -20,6 +24,8 @@ namespace MRMPService.MRMPDoubleTake
                 case dt_server_type.target:
                     _setup_file.Add("DTACTIVATIONCODE=" + (String.IsNullOrEmpty(_deployment_policy.target_activation_code) ? "123456789012345678901234" : _deployment_policy.target_activation_code));
                     break;
+				default:
+					throw ExceptionFactory.MRPDeploymentServerTypeNotSupported(_source_workload.ToString());
             }
             _setup_file.Add("DOUBLETAKEFOLDER=" + '"' + _deployment_policy.dt_installpath + '"');
             _setup_file.Add("QMEMORYBUFFERMAX=" + _deployment_policy.dt_max_memory);
@@ -35,15 +41,16 @@ namespace MRMPService.MRMPDoubleTake
                 case "limit_queue":
                     _setup_file.Add("DISKQUEUEMAXSIZE=" + _deployment_policy.dt_queue_limit_disk_size.ToString());
                     break;
-            }
-            _setup_file.Add("DISKFREESPACEMIN=" + _deployment_policy.dt_queue_min_disk_free_size);
+				default:
+					throw ExceptionFactory.MRPDeploymentPolicyTypeQueueSchemeNotSupported(_deployment_policy.dt_queue_scheme);
+			}
+			_setup_file.Add("DISKFREESPACEMIN=" + _deployment_policy.dt_queue_min_disk_free_size);
             _setup_file.Add("DTSERVICESTARTUP=1");
             _setup_file.Add("PORT=6320");
             _setup_file.Add("WINFW_CONFIG_OPTION=NOT_INUSE_ONLY");
             _setup_file.Add("LICENSE_ACTIVATION_OPTION=1");
 
             return _setup_file;
-
         }
     }
 }
