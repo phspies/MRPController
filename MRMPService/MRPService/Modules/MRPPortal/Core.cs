@@ -81,7 +81,8 @@ namespace MRMPService.Modules.MRMPPortal
                         {
                             MissingMemberHandling = MissingMemberHandling.Ignore,
                             NullValueHandling = NullValueHandling.Ignore,
-                            Error = HandleDeserializationError
+                            Error = HandleDeserializationError,
+							StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
                         });
                     }
                     catch (Exception ex)
