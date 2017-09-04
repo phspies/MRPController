@@ -39,7 +39,7 @@ namespace MRMPService.Exceptions
 		/// <returns>
 		/// The MRP deployment type queue scheme not supported exception <see cref="MRPDeploymentPolicyTypeException"/>
 		/// </returns>
-		public static MRPDeploymentPolicyTypeException MRPDeploymentPolicyTypeQueueSchemeNotSupported(string queueScheme)
+		public static MRPDeploymentException MRPDeploymentPolicyTypeQueueSchemeNotSupported(string queueScheme)
 		{
 			if (string.IsNullOrWhiteSpace(queueScheme))
 				errorMessage = $"The MRP deployment queue scheme cannot be null or empty";
@@ -47,7 +47,7 @@ namespace MRMPService.Exceptions
 				errorMessage = $"The given MRP deployment queue scheme is not supported, queue scheme: {queueScheme}";
 
 			Logger.log(errorMessage, Logger.Severity.Error);
-			return new MRPDeploymentPolicyTypeException(errorMessage);
+			return new MRPDeploymentException(errorMessage);
 		}
 
 		/// <summary>
@@ -57,9 +57,9 @@ namespace MRMPService.Exceptions
 		///	The server type.
 		/// </param>
 		/// <returns>
-		/// The MRP deployment server type is not supported exception <see cref="MRPDeploymentServerTypeException"/>
+		/// The MRP deployment server type is not supported exception <see cref="MRPDeploymentException"/>
 		/// </returns>
-		public static MRPDeploymentServerTypeException MRPDeploymentServerTypeNotSupported(string serverType)
+		public static MRPDeploymentException MRPDeploymentServerTypeNotSupported(string serverType)
 		{
 			if (string.IsNullOrWhiteSpace(serverType))
 				errorMessage = $"The MRP deployment server type cannot be null or empty";
@@ -67,7 +67,7 @@ namespace MRMPService.Exceptions
 				errorMessage = $"The given MRP deployment server type is not supported, server type: {serverType}";
 
 			Logger.log(errorMessage, Logger.Severity.Error);
-			return new MRPDeploymentServerTypeException(errorMessage);
+			return new MRPDeploymentException(errorMessage);
 		}
 	}
 }

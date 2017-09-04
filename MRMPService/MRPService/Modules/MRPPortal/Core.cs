@@ -7,6 +7,7 @@ using MRMPService.MRMPService.Log;
 using Newtonsoft.Json.Serialization;
 using System.Threading.Tasks;
 using MRMPService.Modules.MRMPPortal.Contracts;
+using MRMPService.Utilities;
 
 namespace MRMPService.Modules.MRMPPortal
 {
@@ -46,7 +47,7 @@ namespace MRMPService.Modules.MRMPPortal
             RestRequest request = new RestRequest();
             client.FollowRedirects = false;
             client.Proxy = null;
-            request.Resource = endpoint;
+            request.Resource = endpoint.Escape();
 
             request.Method = _method;
             request.RequestFormat = DataFormat.Json;

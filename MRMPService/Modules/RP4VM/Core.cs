@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using MRMPService.Utilities;
 
 namespace MRMPService.RP4VMTypes
 {
@@ -77,7 +78,7 @@ namespace MRMPService.RP4VMTypes
             client.FollowRedirects = false;
 
             RestRequest request = new RestRequest();
-            request.Resource = endpoint;
+            request.Resource = endpoint.Escape();
             request.Method = _method;
             //request.RequestFormat = DataFormat.Json;
             request.JsonSerializer.ContentType = String.Format("{0}; charset=utf-8", mediatype);
