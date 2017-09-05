@@ -78,7 +78,7 @@ namespace MRMPService.RP4VMTypes
             client.FollowRedirects = false;
 
             RestRequest request = new RestRequest();
-            request.Resource = endpoint.Escape();
+            request.Resource = endpoint;
             request.Method = _method;
             //request.RequestFormat = DataFormat.Json;
             request.JsonSerializer.ContentType = String.Format("{0}; charset=utf-8", mediatype);
