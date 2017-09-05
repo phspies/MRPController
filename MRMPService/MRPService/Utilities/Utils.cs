@@ -30,11 +30,14 @@ namespace MRMPService.Utilities
 		/// <returns>
 		/// The escaped value.
 		/// </returns>
-		public static string Escape(this string valueToEscape)
+		public static string EscapeData(this string valueToEscape)
 		{
-			ExceptionFactory.CheckArgumentIsNullOrEmpty(valueToEscape);
+			if (!string.IsNullOrWhiteSpace(valueToEscape))
+			{
+				return Uri.EscapeDataString(valueToEscape);
+			}
 
-			return Uri.EscapeDataString(valueToEscape);
+			return valueToEscape;
 		}
     }
     static class Objects
