@@ -1,54 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
+﻿using MRMPService.Utiliies;
+using System;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MRPWorkerService.Database
 {
     public class SimpleAES
     {
-        private ICryptoTransform encryptor, decryptor;
-        private UTF8Encoding encoder;
+		private readonly CryptLib _cryptLib;
 
-        public SimpleAES()
+		public SimpleAES()
+		{
+			_cryptLib = new CryptLib();
+		}
+
+        public string Encrypt(string unencrypted, string _encryptionKey, string _initVector)
         {
-            RijndaelManaged rm = new RijndaelManaged();
-            encryptor = rm.CreateEncryptor();
-            decryptor = rm.CreateDecryptor();
-            encoder = new UTF8Encoding();
+			return _cryptLib.encrypt(Encoding.UTF8.GetBytes(unencrypted), _encryptionKey, _initVector);
         }
 
-        public string Encrypt(string unencrypted)
+        public string Decrypt(string encrypted, string _encryptionKey, string _initVector)
         {
-            return Convert.ToBase64String(Encrypt(encoder.GetBytes(unencrypted)));
-        }
-
-        public string Decrypt(string encrypted)
-        {
-            return encoder.GetString(Decrypt(Convert.FromBase64String(encrypted)));
-        }
-
-        public byte[] Encrypt(byte[] buffer)
-        {
-            return Transform(buffer, encryptor);
-        }
-
-        public byte[] Decrypt(byte[] buffer)
-        {
-            return Transform(buffer, decryptor);
-        }
-
-        protected byte[] Transform(byte[] buffer, ICryptoTransform transform)
-        {
-            MemoryStream stream = new MemoryStream();
-            using (CryptoStream cs = new CryptoStream(stream, transform, CryptoStreamMode.Write))
-            {
-                cs.Write(buffer, 0, buffer.Length);
-            }
-            return stream.ToArray();
+			return _cryptLib.decrypt(Convert.FromBase64String(encrypted), _encryptionKey, _initVector);
         }
     }
 }
