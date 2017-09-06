@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -20,16 +21,17 @@ namespace MRMPService.Utiliies
      * @since 1.0
      * @author navneet
      *****************************************************************/
-    public class CryptLib
+    public class CryptLib : IDisposable
     {
         UTF8Encoding _enc;
-        RijndaelManaged _rcipher;
+        Aes _aes;
         byte[] _key, _pwd, _ivBytes, _iv;
+		private bool disposedValue = false;
 
-        /***
+		/***
          * Encryption mode enumeration
          */
-        private enum EncryptMode { ENCRYPT, DECRYPT };
+		private enum EncryptMode { ENCRYPT, DECRYPT };
 
         static readonly char[] CharacterMatrixForRandomIVStringGeneration = {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
@@ -58,13 +60,7 @@ namespace MRMPService.Utiliies
                 rng.GetBytes(randomBytes); //Fills an array of bytes with a cryptographically strong sequence of random values. 
             }
 
-            for (int i = 0; i < _iv.Length; i++)
-            {
-                int ptr = randomBytes[i] % CharacterMatrixForRandomIVStringGeneration.Length;
-                _iv[i] = CharacterMatrixForRandomIVStringGeneration[ptr];
-            }
-
-            return new string(_iv);
+			return Convert.ToBase64String(randomBytes);
         }
 
 
@@ -72,13 +68,13 @@ namespace MRMPService.Utiliies
         public CryptLib()
         {
             _enc = new UTF8Encoding();
-            _rcipher = new RijndaelManaged();
-            _rcipher.Mode = CipherMode.CBC;
-            _rcipher.Padding = PaddingMode.PKCS7;
-            _rcipher.KeySize = 256;
-            _rcipher.BlockSize = 128;
+			_aes = Aes.Create();
+            _aes.Mode = CipherMode.CBC;
+            _aes.Padding = PaddingMode.PKCS7;
+            _aes.KeySize = 256;
+            _aes.BlockSize = 128;
             _key = new byte[32];
-            _iv = new byte[_rcipher.BlockSize / 8]; //128 bit / 8 = 16 bytes
+            _iv = new byte[_aes.BlockSize / 8]; //128 bit / 8 = 16 bytes
             _ivBytes = new byte[16];
         }
 
@@ -94,9 +90,8 @@ namespace MRMPService.Utiliies
          * 			  initialization vector
          * @return encrypted or decrypted string based on the mode
         */
-        private String encryptDecrypt(byte[] _inputText, string _encryptionKey, EncryptMode _mode, string _initVector)
+        private String encryptDecrypt(byte[] _encryptDecryptBytes, string _encryptionKey, EncryptMode _mode, string _initVector)
         {
-
             string _out = "";// output string
                              //_encryptionKey = MD5Hash (_encryptionKey);
             _pwd = Encoding.UTF8.GetBytes(_encryptionKey);
@@ -115,22 +110,41 @@ namespace MRMPService.Utiliies
 
             Array.Copy(_pwd, _key, len);
             Array.Copy(_ivBytes, _iv, ivLenth);
-            _rcipher.Key = _key;
-            _rcipher.IV = _iv;
+            _aes.Key = _key;
+            _aes.IV = _iv;
 
             if (_mode.Equals(EncryptMode.ENCRYPT))
+			{
+				//encrypt
+				using (var memoryStream = new MemoryStream())
+				{
+					using (var encryptor = _aes.CreateEncryptor())
+					{
+						using (var cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+						{
+							cryptoStream.Write(_encryptDecryptBytes, 0, _encryptDecryptBytes.Length);
+							cryptoStream.Close();
+							_out = Convert.ToBase64String(memoryStream.ToArray());
+						}
+					} 
+				}
+			}
+			if (_mode.Equals(EncryptMode.DECRYPT))
             {
-                //encrypt
-                byte[] plainText = _rcipher.CreateEncryptor().TransformFinalBlock(_inputText, 0, _inputText.Length);
-                _out = Convert.ToBase64String(plainText);
+				//decrypt
+				using (var memoryStream = new MemoryStream())
+				{
+					using (var decryptor = _aes.CreateDecryptor())
+					{
+						using (var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Write))
+						{
+							cryptoStream.Write(_encryptDecryptBytes, 0, _encryptDecryptBytes.Length);
+							cryptoStream.Close();
+							_out = _enc.GetString(memoryStream.ToArray());
+						}
+					}
+				}
             }
-            if (_mode.Equals(EncryptMode.DECRYPT))
-            {
-                //decrypt
-                byte[] plainText = _rcipher.CreateDecryptor().TransformFinalBlock(_inputText, 0, _inputText.Length);
-                _out = _enc.GetString(plainText);
-            }
-            _rcipher.Dispose();
             return _out;// return encrypted/decrypted string
         }
 
@@ -176,21 +190,20 @@ namespace MRMPService.Utiliies
          * @param _key
          *            Encryption key which you used during encryption
          */
-        public static string getHashSha256(string text, int length)
+        public static string getHashSha256(string text)
         {
-            byte[] bytes = Encoding.UTF8.GetBytes(text);
-            SHA256Managed hashstring = new SHA256Managed();
-            byte[] hash = hashstring.ComputeHash(bytes);
-            string hashString = string.Empty;
-            foreach (byte x in hash)
-            {
-                hashString += String.Format("{0:x2}", x); //covert to hex string
-            }
-            if (length > hashString.Length)
-                return hashString;
-            else
-                return hashString.Substring(0, length);
-        }
+			using (SHA256 sha256 = SHA256.Create())
+			{
+				var computedHash = sha256.ComputeHash(Encoding.UTF8.GetBytes(text));
+
+				StringBuilder hexString = new StringBuilder();
+
+				foreach (var hash in computedHash)
+					hexString.Append(hash.ToString("x2"));
+
+				return hexString.ToString();
+			}
+		}
 
         //this function is no longer used.
         private static string MD5Hash(string text)
@@ -214,6 +227,35 @@ namespace MRMPService.Utiliies
             return strBuilder.ToString();
         }
 
-    }
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!disposedValue)
+			{
+				if (disposing)
+				{
+					if (_aes != null)
+						_aes.Dispose();
+				}
+
+				Array.Clear(_key, 0, _key.Length);
+				Array.Clear(_pwd, 0, _pwd.Length);
+				Array.Clear(_ivBytes, 0, _ivBytes.Length);
+				Array.Clear(_iv, 0, _iv.Length);
+
+				disposedValue = true;
+			}
+		}
+
+		 ~CryptLib()
+		{
+			Dispose(false);
+		}
+
+		public void Dispose()
+		{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+		}
+	}
 }
 
