@@ -27,5 +27,15 @@ namespace MRMPService.Tests
 
 			Assert.AreEqual(valueToEncrypt, decryptedValue);
 		}
+
+		[TestMethod]
+		public void TestDataEscape()
+		{
+			string valueToEscape = "Testing the string/data escape \r\n value's";
+			string escapedValue = valueToEscape.EscapeData();
+			string unEscapedValue = Uri.UnescapeDataString(escapedValue);
+
+			Assert.AreEqual(valueToEscape, unEscapedValue);
+		}
 	}
 }
