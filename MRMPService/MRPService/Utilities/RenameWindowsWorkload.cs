@@ -9,7 +9,10 @@ namespace MRMPService.MRPService.Utilities
         static Boolean SetComputerName(String _new_hostname, string _username, string _password, string _remote_address)
         {
             String RegLocComputerName = @"SYSTEM\CurrentControlSet\Control\ComputerName\ComputerName";
-            try
+			RegistryKey _remote_base, _computerName = null;
+			_remote_base = _computerName = null;
+
+			try
             {
                 string compPath = "Win32_ComputerSystem.Name='" + Environment.MachineName + "'";
                 using (ManagementObject mo = new ManagementObject(new ManagementPath(compPath)))
@@ -24,23 +27,28 @@ namespace MRMPService.MRPService.Utilities
                     }
                 }
 
-                RegistryKey _remote_base = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, _remote_address);
-                RegistryKey ComputerName = _remote_base.OpenSubKey(RegLocComputerName);
-                if (ComputerName == null)
+                _remote_base = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, _remote_address);
+                _computerName = _remote_base.OpenSubKey(RegLocComputerName);
+                if (_computerName == null)
                 {
                     throw new Exception("Registry location '" + RegLocComputerName + "' is not readable.");
                 }
-                if (((String)ComputerName.GetValue("ComputerName")) != _new_hostname)
+                if (((String)_computerName.GetValue("ComputerName")) != _new_hostname)
                 {
                     throw new Exception("The computer name was set by WMI but was not updated in the registry location: '" + RegLocComputerName + "'");
                 }
-                ComputerName.Close();
-                ComputerName.Dispose();
             }
             catch (Exception)
             {
                 return false;
             }
+			finally
+			{
+				_remote_base.Close();
+				_computerName.Close();
+				_remote_base.Dispose();
+				_computerName.Dispose();
+			}
             return true;
         }
     }
