@@ -44,10 +44,10 @@ namespace MRMPService.MRPService.Utilities
             }
 			finally
 			{
-				_remote_base.Close();
-				_computerName.Close();
-				_remote_base.Dispose();
-				_computerName.Dispose();
+				_remote_base?.Close();
+				_computerName?.Close();
+				_remote_base?.Dispose();
+				_computerName?.Dispose();
 			}
             return true;
         }
