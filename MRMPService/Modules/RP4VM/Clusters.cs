@@ -182,7 +182,7 @@ namespace MRMPService.RP4VMTypes
 
         public ClusterStatistics getClusterStatistics_Method(string clusterId)
         {
-            endpoint = $"/clusters/{clusterId}/statistics";
+            endpoint = $"/clusters/{clusterId.EscapeData()}/statistics";
             mediatype = "application/json";
             return get<ClusterStatistics>();
         }
