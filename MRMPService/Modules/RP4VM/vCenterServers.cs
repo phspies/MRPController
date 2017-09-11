@@ -1,7 +1,7 @@
 
 
 using MRMPService.RP4VMAPI;
-
+using MRMPService.Utilities;
 using System.Collections.Generic;
 
 
@@ -50,7 +50,7 @@ namespace MRMPService.RP4VMTypes
 
         public void changePluginVersion_Method(string virtualCenterUID, restString restString_object)
         {
-            endpoint = "/vcenter_servers/{virtualCenterUID}/plugin_version";
+            endpoint = $"/vcenter_servers/{virtualCenterUID.EscapeData()}/plugin_version";
             endpoint.Replace("{virtualCenterUID}", virtualCenterUID.ToString());
             mediatype = "*/*";
             put(restString_object);
