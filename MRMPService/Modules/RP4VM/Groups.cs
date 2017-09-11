@@ -1,5 +1,6 @@
 
 using MRMPService.RP4VMAPI;
+using MRMPService.Utilities;
 using System.Collections.Generic;
 
 namespace MRMPService.RP4VMTypes
@@ -10,8 +11,7 @@ namespace MRMPService.RP4VMTypes
 
         public void renameGroup_Method(long groupId, restString restString_object)
         {
-            endpoint = "/groups/{groupId}/name";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/name";
             mediatype = "*/*";
             put(restString_object);
         }
@@ -19,8 +19,7 @@ namespace MRMPService.RP4VMTypes
 
         public void removeGroup_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}";
             mediatype = "*/*";
             delete();
         }
@@ -36,8 +35,7 @@ namespace MRMPService.RP4VMTypes
 
         public void markGroupVolumesAsClean_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/volumes/mark_as_clean";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/volumes/mark_as_clean";
             mediatype = "*/*";
             put();
         }
@@ -77,8 +75,7 @@ namespace MRMPService.RP4VMTypes
 
         public ConsistencyGroupState getGroupState_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/state";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/state";
             mediatype = "application/json";
             return get<ConsistencyGroupState>();
         }
@@ -102,8 +99,7 @@ namespace MRMPService.RP4VMTypes
 
         public ConsistencyGroupStatistics getGroupStatistics_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/statistics";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/statistics";
             mediatype = "application/json";
             return get<ConsistencyGroupStatistics>();
         }
@@ -111,8 +107,7 @@ namespace MRMPService.RP4VMTypes
 
         public ConsistencyGroupSnapshots getGroupSnapshots_Method(long groupId, long? start_time = null, long? end_time = null, string name = null)
         {
-            endpoint = "/groups/{groupId}/snapshots";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/snapshots";
             if (start_time != null) { url_params.Add(new KeyValuePair<string, string>("start_time", start_time.ToString())); }
             if (end_time != null) { url_params.Add(new KeyValuePair<string, string>("end_time", end_time.ToString())); }
             if (name != null) { url_params.Add(new KeyValuePair<string, string>("name", name.ToString())); }
@@ -124,8 +119,7 @@ namespace MRMPService.RP4VMTypes
 
         public void pauseGroupTransfer_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/pause_transfer";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/pause_transfer";
             mediatype = "*/*";
             put();
         }
@@ -133,8 +127,7 @@ namespace MRMPService.RP4VMTypes
 
         public void resumeProduction_Method(long groupId, bool? startTransfer = null)
         {
-            endpoint = "/groups/{groupId}/resume_production";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/resume_production";
             if (startTransfer != null) { url_params.Add(new KeyValuePair<string, string>("startTransfer", startTransfer.ToString())); }
 
             mediatype = "*/*";
@@ -144,8 +137,7 @@ namespace MRMPService.RP4VMTypes
 
         public void markGroupVolumesAsDirty_Method(long groupId, markGroupVolumesAsDirtyParams markGroupVolumesAsDirtyParams_object)
         {
-            endpoint = "/groups/{groupId}/volumes/mark_as_dirty";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/volumes/mark_as_dirty";
             mediatype = "*/*";
             put(markGroupVolumesAsDirtyParams_object);
         }
@@ -153,8 +145,7 @@ namespace MRMPService.RP4VMTypes
 
         public void startGroupTransfer_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/start_transfer";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/start_transfer";
             mediatype = "*/*";
             put();
         }
@@ -162,8 +153,7 @@ namespace MRMPService.RP4VMTypes
 
         public TransactionID verifyConsistencyGroupState_Method(long groupId, VerifyConsistencyGroupStateParam verifyConsistencyGroupStateParam_object, long? timeout_in_seconds = null)
         {
-            endpoint = "/groups/{groupId}/state/verify";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/state/verify";
             if (timeout_in_seconds != null) { url_params.Add(new KeyValuePair<string, string>("timeout_in_seconds", timeout_in_seconds.ToString())); }
 
             mediatype = "application/json";
@@ -173,8 +163,7 @@ namespace MRMPService.RP4VMTypes
 
         public replicationSetSettingsSet getAllGroupReplicationSets_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/replication_sets";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/replication_sets";
             mediatype = "application/json";
             return get<replicationSetSettingsSet>();
         }
@@ -182,9 +171,7 @@ namespace MRMPService.RP4VMTypes
 
         public void removeReplicationSet_Method(long groupId, long replicationSetId)
         {
-            endpoint = "/groups/{groupId}/replication_sets/{replicationSetId}";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{replicationSetId}", replicationSetId.ToString());
+            endpoint = $"/groups/{groupId}/replication_sets/{replicationSetId}";
             mediatype = "*/*";
             delete();
         }
@@ -192,9 +179,7 @@ namespace MRMPService.RP4VMTypes
 
         public restString getGroupReplicationSetName_Method(long groupId, long replicationSetId)
         {
-            endpoint = "/groups/{groupId}/replication_sets/{replicationSetId}/name";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{replicationSetId}", replicationSetId.ToString());
+            endpoint = $"/groups/{groupId}/replication_sets/{replicationSetId}/name";
             mediatype = "application/json";
             return get<restString>();
         }
@@ -202,8 +187,7 @@ namespace MRMPService.RP4VMTypes
 
         public ConsistencyGroupSettings getGroupSettings_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/settings";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/settings";
             mediatype = "application/json";
             return get<ConsistencyGroupSettings>();
         }
@@ -211,8 +195,7 @@ namespace MRMPService.RP4VMTypes
 
         public void suspendConsistencyGroup_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/suspend";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/suspend";
             mediatype = "*/*";
             put();
         }
@@ -220,9 +203,7 @@ namespace MRMPService.RP4VMTypes
 
         public void resizeReplicationSet_Method(long groupId, long replicationSetId, ResizeReplicationSetParam resizeReplicationSetParam_object)
         {
-            endpoint = "/groups/{groupId}/replication_sets/{replicationSetId}/size";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{replicationSetId}", replicationSetId.ToString());
+            endpoint = $"/groups/{groupId}/replication_sets/{replicationSetId}/size";
             mediatype = "*/*";
             put(resizeReplicationSetParam_object);
         }
@@ -245,8 +226,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setReplicationSetsSettings_Method(long groupId, replicationSetSettingsChangesParamSet replicationSetSettingsChangesParamSet_object)
         {
-            endpoint = "/groups/{groupId}/replication_sets/settings";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/replication_sets/settings";
             mediatype = "*/*";
             put(replicationSetSettingsChangesParamSet_object);
         }
@@ -270,8 +250,7 @@ namespace MRMPService.RP4VMTypes
 
         public ConsistencyGroupCopySnapshots getRecoveryGroupCopySnapshots_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/recovery_copy/snapshots";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/recovery_copy/snapshots";
             mediatype = "application/json";
             return get<ConsistencyGroupCopySnapshots>();
         }
@@ -279,8 +258,7 @@ namespace MRMPService.RP4VMTypes
 
         public consistencyGroupCopySettingsSet getAllGroupCopies_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/copies/settings";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/copies/settings";
             mediatype = "application/json";
             return get<consistencyGroupCopySettingsSet>();
         }
@@ -288,8 +266,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setGroupPolicy_Method(long groupId, ConsistencyGroupPolicy ConsistencyGroupPolicy_object)
         {
-            endpoint = "/groups/{groupId}/policy";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/policy";
             mediatype = "*/*";
             put(ConsistencyGroupPolicy_object);
         }
@@ -297,8 +274,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setLinkPolicy_Method(long groupId, setConsistencyGroupLinkPolicyParams setConsistencyGroupLinkPolicyParams_object)
         {
-            endpoint = "/groups/{groupId}/set_link_policy";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/set_link_policy";
             mediatype = "*/*";
             put(setConsistencyGroupLinkPolicyParams_object);
         }
@@ -306,8 +282,7 @@ namespace MRMPService.RP4VMTypes
 
         public void removeVmsFromCG_Method(long groupId, vmUIDSet vmUIDSet_object)
         {
-            endpoint = "/groups/{groupId}/virtual_machines";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/virtual_machines";
             mediatype = "*/*";
             delete(vmUIDSet_object);
         }
@@ -323,8 +298,7 @@ namespace MRMPService.RP4VMTypes
 
         public void changeGroupPowerUpSequence_Method(long groupId, restLong restLong_object)
         {
-            endpoint = "/groups/{groupId}/virtual_machines/group_powerup_sequence";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/virtual_machines/group_powerup_sequence";
             mediatype = "*/*";
             put(restLong_object);
         }
@@ -332,8 +306,7 @@ namespace MRMPService.RP4VMTypes
 
         public void editVMsReplicationParams_Method(long groupId, virtualDisksReplicationPolicyParamSet virtualDisksReplicationPolicyParamSet_object)
         {
-            endpoint = "/groups/{groupId}/virtual_machines/replication_params";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/virtual_machines/replication_params";
             mediatype = "*/*";
             put(virtualDisksReplicationPolicyParamSet_object);
         }
@@ -341,8 +314,7 @@ namespace MRMPService.RP4VMTypes
 
         public void editVMsHardwareReplicationParams_Method(long groupId, virtualHardwareReplicationPolicyParamSet virtualHardwareReplicationPolicyParamSet_object)
         {
-            endpoint = "/groups/{groupId}/virtual_machines/hardware_replication_params";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/virtual_machines/hardware_replication_params";
             mediatype = "*/*";
             put(virtualHardwareReplicationPolicyParamSet_object);
         }
@@ -350,8 +322,7 @@ namespace MRMPService.RP4VMTypes
 
         public consistencyGroupReportContextInfoSet getConsistencyGroupReportsContexts_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/reports";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/reports";
             mediatype = "application/json";
             return get<consistencyGroupReportContextInfoSet>();
         }
@@ -359,9 +330,7 @@ namespace MRMPService.RP4VMTypes
 
         public void deleteConsistencyGroupReports_Method(long groupId, long reportId)
         {
-            endpoint = "/groups/{groupId}/reports/{reportId}/delete";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{reportId}", reportId.ToString());
+            endpoint = $"/groups/{groupId}/reports/{reportId}/delete";
             mediatype = "*/*";
             delete();
         }
@@ -377,8 +346,7 @@ namespace MRMPService.RP4VMTypes
 
         public ConsistencyGroupInformation getConsistencyGroupInformation_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/information";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/information";
             mediatype = "application/json";
             return get<ConsistencyGroupInformation>();
         }
@@ -386,8 +354,7 @@ namespace MRMPService.RP4VMTypes
 
         public void changeVmsPowerUpSequence_Method(long groupId, vmPowerUpSequenceParamSet vmPowerUpSequenceParamSet_object)
         {
-            endpoint = "/groups/{groupId}/virtual_machines/powerup_sequence";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/virtual_machines/powerup_sequence";
             mediatype = "*/*";
             put(vmPowerUpSequenceParamSet_object);
         }
@@ -395,8 +362,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setVMsReplicationSetsPolicies_Method(long groupId, fullVmReplicationSetPoliciesSet fullVmReplicationSetPoliciesSet_object)
         {
-            endpoint = "/groups/{groupId}/vm_replication_sets_policy";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/vm_replication_sets_policy";
             mediatype = "*/*";
             put(fullVmReplicationSetPoliciesSet_object);
         }
@@ -412,8 +378,7 @@ namespace MRMPService.RP4VMTypes
 
         public ConsistencyGroupVolumesState getGroupVolumesState_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/volumes/state";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/volumes/state";
             mediatype = "application/json";
             return get<ConsistencyGroupVolumesState>();
         }
@@ -437,9 +402,7 @@ namespace MRMPService.RP4VMTypes
 
         public ReplicationSetSettings getGroupReplicationSet_Method(long groupId, long replicationSetId)
         {
-            endpoint = "/groups/{groupId}/replication_sets/{replicationSetId}/settings";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{replicationSetId}", replicationSetId.ToString());
+            endpoint = $"/groups/{groupId}/replication_sets/{replicationSetId}/settings";
             mediatype = "application/json";
             return get<ReplicationSetSettings>();
         }
@@ -447,8 +410,7 @@ namespace MRMPService.RP4VMTypes
 
         public void addLink_Method(long groupId, addConsistencyGroupLinkParams addConsistencyGroupLinkParams_object)
         {
-            endpoint = "/groups/{groupId}/links";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/links";
             mediatype = "*/*";
             post(addConsistencyGroupLinkParams_object);
         }
@@ -456,8 +418,7 @@ namespace MRMPService.RP4VMTypes
 
         public void addcopy_Method(long groupId, ConsistencyGroupCopySettingsParam ConsistencyGroupCopySettingsParam_object)
         {
-            endpoint = "/groups/{groupId}/copies";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/copies";
             mediatype = "*/*";
             post(ConsistencyGroupCopySettingsParam_object);
         }
@@ -465,8 +426,7 @@ namespace MRMPService.RP4VMTypes
 
         public void disableGroup_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/disable";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/disable";
             mediatype = "*/*";
             put();
         }
@@ -474,8 +434,7 @@ namespace MRMPService.RP4VMTypes
 
         public void enableGroup_Method(long groupId, bool? startTransfer = null)
         {
-            endpoint = "/groups/{groupId}/enable";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/enable";
             if (startTransfer != null) { url_params.Add(new KeyValuePair<string, string>("startTransfer", startTransfer.ToString())); }
 
             mediatype = "*/*";
@@ -485,8 +444,7 @@ namespace MRMPService.RP4VMTypes
 
         public void removePassiveLink_Method(long groupId, removePassiveConsistencyGroupLinkParams removePassiveConsistencyGroupLinkParams_object)
         {
-            endpoint = "/groups/{groupId}/remove_passive_links";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/remove_passive_links";
             mediatype = "*/*";
             put(removePassiveConsistencyGroupLinkParams_object);
         }
@@ -494,8 +452,7 @@ namespace MRMPService.RP4VMTypes
 
         public void resumeGroup_Method(long groupId)
         {
-            endpoint = "/groups/{groupId}/resume";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/resume";
             mediatype = "*/*";
             put();
         }
@@ -503,8 +460,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setFullGroupPolicy_Method(long groupId, FullConsistencyGroupPolicy fullConsistencyGroupPolicy_object)
         {
-            endpoint = "/groups/{groupId}/full_policy";
-            endpoint.Replace("{groupId}", groupId.ToString());
+            endpoint = $"/groups/{groupId}/full_policy";
             mediatype = "*/*";
             put(fullConsistencyGroupPolicy_object);
         }
@@ -512,10 +468,7 @@ namespace MRMPService.RP4VMTypes
 
         public void disableCopy_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/disable";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/disable";
             mediatype = "*/*";
             put();
         }
@@ -523,10 +476,7 @@ namespace MRMPService.RP4VMTypes
 
         public void enableCopy_Method(long groupId, long clusterId, int copyId, bool? startTransfer = null)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/enable";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/enable";
             if (startTransfer != null) { url_params.Add(new KeyValuePair<string, string>("startTransfer", startTransfer.ToString())); }
 
             mediatype = "*/*";
@@ -536,10 +486,7 @@ namespace MRMPService.RP4VMTypes
 
         public void consolidateSnapshot_Method(long groupId, long clusterId, int copyId, consolidateSnapshotsParams consolidateSnapshotsParams_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/consolidate";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/consolidate";
             mediatype = "*/*";
             put(consolidateSnapshotsParams_object);
         }
@@ -547,10 +494,7 @@ namespace MRMPService.RP4VMTypes
 
         public void enableImageAccessWithGeneralParams_Method(long groupId, long clusterId, int copyId, restImageAccessGeneralParameters restImageAccessGeneralParameters_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/enable_image_access_with_general_params";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/enable_image_access_with_general_params";
             mediatype = "*/*";
             put(restImageAccessGeneralParameters_object);
         }
@@ -558,10 +502,7 @@ namespace MRMPService.RP4VMTypes
 
         public void markAsClean_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/volumes/mark_as_clean";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/volumes/mark_as_clean";
             mediatype = "*/*";
             put();
         }
@@ -569,10 +510,7 @@ namespace MRMPService.RP4VMTypes
 
         public void markAsDirty_Method(long groupId, long clusterId, int copyId, markGroupCopyVolumesAsDirtyParams markGroupCopyVolumesAsDirtyParams_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/volumes/mark_as_dirty";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/volumes/mark_as_dirty";
             mediatype = "*/*";
             put(markGroupCopyVolumesAsDirtyParams_object);
         }
@@ -580,10 +518,7 @@ namespace MRMPService.RP4VMTypes
 
         public void pauseTransfer_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/pause_transfer";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/pause_transfer";
             mediatype = "*/*";
             put();
         }
@@ -591,10 +526,7 @@ namespace MRMPService.RP4VMTypes
 
         public restString getGroupCopyName_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/name";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/name";
             mediatype = "application/json";
             return get<restString>();
         }
@@ -602,10 +534,7 @@ namespace MRMPService.RP4VMTypes
 
         public void startCopyTransfer_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/start_transfer";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/start_transfer";
             mediatype = "*/*";
             put();
         }
@@ -613,10 +542,7 @@ namespace MRMPService.RP4VMTypes
 
         public void undoWrites_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/undo_writes";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/undo_writes";
             mediatype = "*/*";
             put();
         }
@@ -624,11 +550,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setBookmarksSettings_Method(long groupId, long clusterId, int copyId, long snapshotId, SnapshotBookmarkingSettingsInfo snapshotBookmarkingSettingsInfo_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/{snapshotId}/bookmark_settings";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
-            endpoint.Replace("{snapshotId}", snapshotId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/{snapshotId}/bookmark_settings";
             mediatype = "*/*";
             put(snapshotBookmarkingSettingsInfo_object);
         }
@@ -636,10 +558,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setConsistencyGroupTopology_Method(long groupId, long clusterId, int copyId, ConsistencyGroupTopologyParams ConsistencyGroupTopologyParams_object, bool? start_transfer = null)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/topology";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/topology";
             if (start_transfer != null) { url_params.Add(new KeyValuePair<string, string>("start_transfer", start_transfer.ToString())); }
 
             mediatype = "*/*";
@@ -649,10 +568,7 @@ namespace MRMPService.RP4VMTypes
 
         public void failover_Method(long groupId, long clusterId, int copyId, bool? startTransfer = null)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/failover";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/failover";
             if (startTransfer != null) { url_params.Add(new KeyValuePair<string, string>("startTransfer", startTransfer.ToString())); }
 
             mediatype = "*/*";
@@ -662,10 +578,7 @@ namespace MRMPService.RP4VMTypes
 
         public void abortSnapshotsConsolidation_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/abort_consolidation";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/abort_consolidation";
             mediatype = "*/*";
             put();
         }
@@ -673,10 +586,7 @@ namespace MRMPService.RP4VMTypes
 
         public void disableImageAccess_Method(long groupId, long clusterId, int copyId, bool? startTransfer = null)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/disable_image_access";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/disable_image_access";
             if (startTransfer != null) { url_params.Add(new KeyValuePair<string, string>("startTransfer", startTransfer.ToString())); }
 
             mediatype = "*/*";
@@ -686,10 +596,7 @@ namespace MRMPService.RP4VMTypes
 
         public void enableImageAccessWithParams_Method(long groupId, long clusterId, int copyId, enableImageAccessWithParams enableImageAccessWithParams_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/enable_image_access_with_params";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/enable_image_access_with_params";
             mediatype = "*/*";
             put(enableImageAccessWithParams_object);
         }
@@ -697,10 +604,7 @@ namespace MRMPService.RP4VMTypes
 
         public void enableImageAccess_Method(long groupId, long clusterId, int copyId, enableImageAccessParams enableImageAccessParams_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/enable_image_access";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/enable_image_access";
             mediatype = "*/*";
             put(enableImageAccessParams_object);
         }
@@ -708,10 +612,7 @@ namespace MRMPService.RP4VMTypes
 
         public ConsistencyGroupCopySnapshots getGroupCopySnapshots_Method(long groupId, long clusterId, int copyId, string start_time = null, string end_time = null, string name = null)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots";
             if (start_time != null) { url_params.Add(new KeyValuePair<string, string>("start_time", start_time.ToString())); }
             if (end_time != null) { url_params.Add(new KeyValuePair<string, string>("end_time", end_time.ToString())); }
             if (name != null) { url_params.Add(new KeyValuePair<string, string>("name", name.ToString())); }
@@ -723,10 +624,7 @@ namespace MRMPService.RP4VMTypes
 
         public void recoverProduction_Method(long groupId, long clusterId, int copyId, bool? startTransfer = null)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/recover_production";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/recover_production";
             if (startTransfer != null) { url_params.Add(new KeyValuePair<string, string>("startTransfer", startTransfer.ToString())); }
 
             mediatype = "*/*";
@@ -736,10 +634,7 @@ namespace MRMPService.RP4VMTypes
 
         public void enableDirectAccess_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/enable_direct_access";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/enable_direct_access";
             mediatype = "*/*";
             put();
         }
@@ -747,10 +642,7 @@ namespace MRMPService.RP4VMTypes
 
         public void forceLongInitialization_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/force_long_initialization";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/force_long_initialization";
             mediatype = "*/*";
             put();
         }
@@ -758,10 +650,7 @@ namespace MRMPService.RP4VMTypes
 
         public TransactionID verifyGroupCopySnapshots_Method(long groupId, long clusterId, int copyId, VerifyGroupCopySnapshotsParam verifyGroupCopySnapshotsParam_object, long? timeout_in_seconds = null)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/verify";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/verify";
             if (timeout_in_seconds != null) { url_params.Add(new KeyValuePair<string, string>("timeout_in_seconds", timeout_in_seconds.ToString())); }
 
             mediatype = "application/json";
@@ -771,10 +660,7 @@ namespace MRMPService.RP4VMTypes
 
         public void addJournalVolume_Method(long groupId, long clusterId, int copyId, DeviceUID deviceUID_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/journal_volumes";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/journal_volumes";
             mediatype = "*/*";
             post(deviceUID_object);
         }
@@ -782,11 +668,7 @@ namespace MRMPService.RP4VMTypes
 
         public void removeJournalVolume_Method(long groupId, long clusterId, int copyId, string deviceId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/journal_volumes/{deviceId}";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
-            endpoint.Replace("{deviceId}", deviceId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/journal_volumes/{deviceId.EscapeData()}";
             mediatype = "*/*";
             delete();
         }
@@ -794,10 +676,7 @@ namespace MRMPService.RP4VMTypes
 
         public void addUserVolume_Method(long groupId, long clusterId, int copyId, addUserVolumeParams addUserVolumeParams_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/user_volumes";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/user_volumes";
             mediatype = "*/*";
             post(addUserVolumeParams_object);
         }
@@ -805,11 +684,7 @@ namespace MRMPService.RP4VMTypes
 
         public void removeUserVolume_Method(long groupId, long clusterId, int copyId, string deviceId, ReplicationSetUID replicationSetUID_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/user_volumes/{deviceId}";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
-            endpoint.Replace("{deviceId}", deviceId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/user_volumes/{deviceId.EscapeData()}";
             mediatype = "*/*";
             delete(replicationSetUID_object);
         }
@@ -817,11 +692,7 @@ namespace MRMPService.RP4VMTypes
 
         public void addAndAttachUserVolume_Method(long groupId, long clusterId, int copyId, long replicationSetId, DeviceUID deviceUID_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/replication_sets/{replicationSetId}/volumes";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
-            endpoint.Replace("{replicationSetId}", replicationSetId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/replication_sets/{replicationSetId}/volumes";
             mediatype = "*/*";
             post(deviceUID_object);
         }
@@ -829,11 +700,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setBookmarkConsistencyType_Method(long groupId, long clusterId, int copyId, long snapshotId, restSnapshotConsistencyType restSnapshotConsistencyType_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/{snapshotId}/consistency_type";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
-            endpoint.Replace("{snapshotId}", snapshotId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/{snapshotId}/consistency_type";
             mediatype = "*/*";
             put(restSnapshotConsistencyType_object);
         }
@@ -841,10 +708,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setProductionCopy_Method(long groupId, long clusterId, int copyId, bool? startTransfer = null)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/set_production_copy";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/set_production_copy";
             if (startTransfer != null) { url_params.Add(new KeyValuePair<string, string>("startTransfer", startTransfer.ToString())); }
 
             mediatype = "*/*";
@@ -854,11 +718,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setBookmarkConsolidationPolicy_Method(long groupId, long clusterId, int copyId, long snapshotId, restBookmarkConsolidationPolicy restBookmarkConsolidationPolicy_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/{snapshotId}/consolidation_policy";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
-            endpoint.Replace("{snapshotId}", snapshotId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/snapshots/{snapshotId}/consolidation_policy";
             mediatype = "*/*";
             put(restBookmarkConsolidationPolicy_object);
         }
@@ -866,10 +726,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setSignaturesUsageDuringInitialization_Method(long groupId, long clusterId, int copyId, restBoolean restBoolean_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/signature_usage_during_initialization";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/signature_usage_during_initialization";
             mediatype = "*/*";
             put(restBoolean_object);
         }
@@ -877,10 +734,7 @@ namespace MRMPService.RP4VMTypes
 
         public void moveToImage_Method(long groupId, long clusterId, int copyId, moveToImageParams moveToImageParams_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/move_to_image";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/move_to_image";
             mediatype = "*/*";
             put(moveToImageParams_object);
         }
@@ -888,10 +742,7 @@ namespace MRMPService.RP4VMTypes
 
         public void rollToImage_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/roll_to_image";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/roll_to_image";
             mediatype = "*/*";
             put();
         }
@@ -899,10 +750,7 @@ namespace MRMPService.RP4VMTypes
 
         public void setCopyPolicy_Method(long groupId, long clusterId, int copyId, ConsistencyGroupCopyPolicy ConsistencyGroupCopyPolicy_object, string name = null)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/policy";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/policy";
             if (name != null) { url_params.Add(new KeyValuePair<string, string>("name", name.ToString())); }
 
             mediatype = "*/*";
@@ -912,10 +760,7 @@ namespace MRMPService.RP4VMTypes
 
         public void enableLatestImageAccess_Method(long groupId, long clusterId, int copyId, enableLatestImageAccessParams enableLatestImageAccessParams_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/image_access/latest/enable";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/image_access/latest/enable";
             mediatype = "*/*";
             put(enableLatestImageAccessParams_object);
         }
@@ -923,10 +768,7 @@ namespace MRMPService.RP4VMTypes
 
         public void dismissVmStartUpPrompts_Method(long groupId, long clusterId, int copyId, vmStartUpActionUIDSet vmStartUpActionUIDSet_object)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/vm_startup_prompts/dismiss";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/vm_startup_prompts/dismiss";
             mediatype = "*/*";
             put(vmStartUpActionUIDSet_object);
         }
@@ -934,20 +776,14 @@ namespace MRMPService.RP4VMTypes
 
         public ConsistencyGroupCopySettings getGroupCopySettings_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/settings";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}/settings";
             mediatype = "application/json";
             return get<ConsistencyGroupCopySettings>();
         }
 
         public void removeCopy_Method(long groupId, long clusterId, int copyId)
         {
-            endpoint = "/groups/{groupId}/clusters/{clusterId}/copies/{copyId}";
-            endpoint.Replace("{groupId}", groupId.ToString());
-            endpoint.Replace("{clusterId}", clusterId.ToString());
-            endpoint.Replace("{copyId}", copyId.ToString());
+            endpoint = $"/groups/{groupId}/clusters/{clusterId}/copies/{copyId}";
             mediatype = "*/*";
             delete();
         }
