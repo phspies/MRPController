@@ -57,7 +57,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
@@ -89,46 +89,46 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="DoubleTake.Core">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.Core.dll</HintPath>
+      <HintPath>lib\DoubleTake.Core.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.PowerShell, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.dll</HintPath>
+      <HintPath>lib\DoubleTake.PowerShell.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.PowerShell.Common, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.Common.dll</HintPath>
+      <HintPath>lib\DoubleTake.PowerShell.Common.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.PowerShell.Contract.Data, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.Contract.Data.dll</HintPath>
+      <HintPath>lib\DoubleTake.PowerShell.Contract.Data.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.PowerShell.Contract.Service, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.Contract.Service.dll</HintPath>
+      <HintPath>lib\DoubleTake.PowerShell.Contract.Service.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.PowerShell.Management.Contract, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.Management.Contract.dll</HintPath>
+      <HintPath>lib\DoubleTake.PowerShell.Management.Contract.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.PowerShell.Resources, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.Resources.dll</HintPath>
+      <HintPath>lib\DoubleTake.PowerShell.Resources.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.Web">
       <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.Web.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.Web.Client, Version=0.5.20.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.Web.Client.dll</HintPath>
+      <HintPath>lib\DoubleTake.Web.Client.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.Web.Client.Management, Version=0.5.20.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.Web.Client.Management.dll</HintPath>
+      <HintPath>lib\DoubleTake.Web.Client.Management.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.Web.Core, Version=0.5.20.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.Web.Core.dll</HintPath>
+      <HintPath>lib\DoubleTake.Web.Core.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -652,7 +652,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="0" />
+      <UserProperties Reactor_Enabled="0" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
