@@ -18,7 +18,7 @@ namespace MRMPService.Modules.DoubleTake.Move
 {
     partial class Migration
     {
-        public static void CreateServerMigrationJob(MRPTaskType _task, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void CreateServerMigrationJob(MRPTaskType _task, MRMPWorkloadBaseType _source_workload, MRMPWorkloadBaseType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
             using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
             {
@@ -125,7 +125,7 @@ namespace MRMPService.Modules.DoubleTake.Move
                 _task.progress(String.Format("Successfully created move synchronization job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
 
 
-                MRPWorkloadType _update_workload = new MRPWorkloadType();
+                MRMPWorkloadBaseType _update_workload = new MRMPWorkloadBaseType();
                 _update_workload.id = _target_workload.id;
                 _update_workload.dt_installed = true;
                 _update_workload.dt_collection_enabled = true;

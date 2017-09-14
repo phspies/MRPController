@@ -10,10 +10,10 @@ namespace MRMPService.MRMPAPI.Classes
 {
     partial class WorkloadInventory
     {
-        static public void WorkloadInventoryWindowsDo(MRPWorkloadType _workload)
+        static public void WorkloadInventoryWindowsDo(MRMPWorkloadBaseType _workload)
         {
             _workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_workload.id);
-            MRPWorkloadType _updated_workload = new MRPWorkloadType()
+            MRMPWorkloadBaseType _updated_workload = new MRMPWorkloadBaseType()
             {
                 id = _workload.id,
                 workloadsoftwares = _workload.workloadsoftwares,
@@ -32,15 +32,15 @@ namespace MRMPService.MRMPAPI.Classes
             String domainuser = null;
             if (_workload.workloadtype != "manager")
             {
-                if (!String.IsNullOrWhiteSpace(_workload.get_credential.domain))
+                if (!String.IsNullOrWhiteSpace(_workload.GetCredentials().domain))
                 {
-                    domainuser = (_workload.get_credential.domain + @"\" + _workload.get_credential.username);
+                    domainuser = (_workload.GetCredentials().domain + @"\" + _workload.GetCredentials().username);
                 }
                 else
                 {
-                    domainuser = @".\" + _workload.get_credential.username;
+                    domainuser = @".\" + _workload.GetCredentials().username;
                 }
-                workload_ip = _workload.working_ipaddress(true);
+                workload_ip = _workload.GetContactibleIP(true);
             }
             else
             {
@@ -50,13 +50,13 @@ namespace MRMPService.MRMPAPI.Classes
                 }
                 else
                 {
-                    workload_ip = _workload.working_ipaddress(true);
+                    workload_ip = _workload.GetContactibleIP(true);
                 }
             }
             Logger.log(String.Format("Inventory: Started inventory collection for {0} : {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
 
-            ConnectionOptions options = WMIHelper.ProcessConnectionOptions(domainuser, (_workload.workloadtype == "manager" ? null : _workload.get_credential.decrypted_password));
-            ManagementScope connectionScope = WMIHelper.ConnectionScope(workload_ip, options);
+            ConnectionOptions options = new WMIHelper().ProcessConnectionOptions(domainuser, (_workload.workloadtype == "manager" ? null : _workload.GetCredentials().decrypted_password));
+            ManagementScope connectionScope = new WMIHelper().ConnectionScope(workload_ip, options);
             SelectQuery ComputerSystemQuery = new SelectQuery("SELECT Manufacturer, Model, Caption, NumberOfProcessors, TotalPhysicalMemory FROM Win32_ComputerSystem");
             SelectQuery OperatingSystemQuery = new SelectQuery("SELECT Caption FROM Win32_OperatingSystem");
             SelectQuery ProcessorQuery = new SelectQuery("SELECT * FROM Win32_Processor");
@@ -368,11 +368,17 @@ namespace MRMPService.MRMPAPI.Classes
 
                         String[] addresses = (String[])searchNetInterfaceConfig["IPAddress"];
                         String[] netmask = (String[])searchNetInterfaceConfig["IPSubnet"];
+                        string macaddress = searchNetInterface["MACAddress"].ToString();
                         if (_workload.workloadinterfaces != null)
                         {
                             if (_updated_workload.workloadinterfaces.Exists(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')))) //try to find the interface by means of the IP address
                             {
                                 _interface = _updated_workload.workloadinterfaces.FirstOrDefault(x => x.ipaddress == addresses.FirstOrDefault(s => s.Contains('.')));
+
+                            }
+                            else if (_updated_workload.workloadinterfaces.Exists(x => x.macaddress.ToUpper() == macaddress))
+                            {
+                                _interface = _updated_workload.workloadinterfaces.FirstOrDefault(x => x.macaddress.ToUpper() == macaddress);
                             }
                             else if (_network_adapters.Count == 1 && _updated_workload.workloadinterfaces.Count == 1) //if we only have one adapter and the portal also only knows about one, the update the same adapter
                             {
@@ -397,7 +403,7 @@ namespace MRMPService.MRMPAPI.Classes
                         }
 
                         _interface.ipaddress = addresses.FirstOrDefault(s => s.Contains('.'));
-                        _interface.ipv6address = addresses.FirstOrDefault(s => s.Contains(':'));
+                        _interface.ipv6address = addresses.Where(x => !x.Contains(@"::")).FirstOrDefault(s => s.Contains(':'));
                         _interface.netmask = netmask.FirstOrDefault(s => s.Contains('.'));
                         _interface.ipv6netmask = netmask.FirstOrDefault(s => s.Contains(':'));
                         _interface.connection_index = (int)_conn_index;

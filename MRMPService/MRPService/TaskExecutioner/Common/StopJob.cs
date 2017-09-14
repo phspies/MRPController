@@ -10,7 +10,7 @@ namespace MRMPService.TaskExecutioner.Common
         {
             MRPTaskDetailType _payload = _task.taskdetail;
             MRPManagementobjectType _managementobject = _payload.managementobject;
-            MRPWorkloadType _target_workload = _managementobject.target_workload;
+            MRMPWorkloadBaseType _target_workload = _managementobject.target_workload;
             try
             {
                 ModuleCommon.StopJob(_task, _target_workload, _managementobject, 1, 100);

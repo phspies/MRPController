@@ -22,7 +22,7 @@ namespace MRMPService.Scheduler.PerformanceCollection
                     MRPWorkloadListType _workload_paged;
                     MRPWorkloadFilterPagedType _filter = new MRPWorkloadFilterPagedType() { provisioned = true, page = 1, deleted = false, enabled = true, perf_collection_enabled = true };
                     _workload_paged = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(_filter);
-                    List<MRPWorkloadType> _all_workloads = new List<MRPWorkloadType>();
+                    List<MRMPWorkloadBaseType> _all_workloads = new List<MRMPWorkloadBaseType>();
                     while (_workload_paged.pagination.page_size > 0)
                     {
 

@@ -36,6 +36,7 @@ namespace MRMPService
             basicHttpBinding.ReaderQuotas.MaxArrayLength = int.MaxValue;
             basicHttpBinding.ReaderQuotas.MaxDepth = int.MaxValue;
             basicHttpBinding.ReaderQuotas.MaxBytesPerRead = int.MaxValue;
+            basicHttpBinding.HostNameComparisonMode = HostNameComparisonMode.Exact;
             Uri wcfbaseAddress = new Uri("http://localhost:8734/MRMPWCFService");
 
             ServiceHost serviceHost = new ServiceHost(typeof(MRPWCFService));

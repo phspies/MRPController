@@ -145,6 +145,10 @@
     <Reference Include="Hardcodet.Wpf.TaskbarNotification">
       <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.5\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
     </Reference>
+    <Reference Include="LukeSkywalker.IPNetwork, Version=1.3.2.0, Culture=neutral, PublicKeyToken=764160545cf0d618, processorArchitecture=MSIL">
+      <HintPath>..\packages\IPNetwork.1.3.2.0\lib\LukeSkywalker.IPNetwork.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Marvin.JsonPatch, Version=0.9.0.0, Culture=neutral, PublicKeyToken=686c63b2d045ab44, processorArchitecture=MSIL">
       <HintPath>..\packages\Marvin.JsonPatch.Signed.0.9.0\lib\portable-net40+win+wpa81\Marvin.JsonPatch.dll</HintPath>
       <Private>True</Private>
@@ -173,15 +177,15 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="protobuf-net, Version=2.1.0.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
-      <HintPath>..\packages\protobuf-net.2.1.0\lib\net451\protobuf-net.dll</HintPath>
+    <Reference Include="protobuf-net, Version=2.2.1.0, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.2.1\lib\net40\protobuf-net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Renci.SshNet, Version=2016.0.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
@@ -217,6 +221,7 @@
       <HintPath>..\packages\EFCodeFirst.SqlServerCompact.0.8.8482.1\lib\System.Data.SqlServerCe.Entity.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
     <Reference Include="System.Management.Automation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Management.Automation.6.1.7601.17515\lib\net45\System.Management.Automation.dll</HintPath>
@@ -237,6 +242,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Reactive">
       <HintPath>lib\System.Reactive.dll</HintPath>
     </Reference>
@@ -254,6 +260,10 @@
     </Reference>
     <Reference Include="System.Reactive.Windows.Threading, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
@@ -319,6 +329,8 @@
     <Compile Include="MRPService\Database\Interfaces\IPerformancecounterSet.cs" />
     <Compile Include="MRPService\Database\Structures\DHCPLease.cs" />
     <Compile Include="MRPService\Database\Structures\Performancecounter.cs" />
+    <Compile Include="MRPService\Modules\MCP\WorkloadWaitUntilComplete.cs" />
+    <Compile Include="MRPService\Modules\MRPPortal\Base Classes\MRMPWorkloadBaseType.cs" />
     <Compile Include="MRPService\Scheduler\NetstatInventory\NetstatUpload.cs" />
     <Compile Include="MRPService\Scheduler\NetstatInventory\NetworkFlowType.cs" />
     <Compile Include="MRPService\Scheduler\PlatformInventory\AWS\UpdateAWSPlatform.cs" />
@@ -380,7 +392,6 @@
     <Compile Include="MRPService\Modules\MCP\CreateCG.cs" />
     <Compile Include="MRPService\Modules\MCP\TimeZones.cs" />
     <Compile Include="MRPService\Modules\MCP\LinuxCustomization.cs" />
-    <Compile Include="MRPService\Modules\MCP\WindowsCustomization.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\DomainAffinityRule.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\ManagerEvent.cs" />
     <Compile Include="MRPService\Modules\MRPPortal\Contracts\Organization.cs" />
@@ -440,7 +451,6 @@
     <Compile Include="MRPService\Utilities\RunSync.cs" />
     <Compile Include="MRPService\Utilities\ThreadPerTaskkScheduler.cs" />
     <Compile Include="MRPService\Utilities\UpdateDNS.cs" />
-    <Compile Include="MRPService\Utilities\UpdateIP.cs" />
     <Compile Include="MRPService\Database\Classes\ManagerEventSet.cs" />
     <Compile Include="MRPService\Database\Interfaces\IManagerEvents.cs" />
     <Compile Include="MRPService\Database\Structures\ManagerEvent.cs" />
@@ -478,6 +488,7 @@
     <Compile Include="MRPService\Utilities\Settings.cs" />
     <Compile Include="MRPService\Utilities\SSHHandleKeyboard.cs" />
     <Compile Include="MRPService\Utilities\SyncronizedList.cs" />
+    <Compile Include="MRPService\Utilities\WMIExecute.cs" />
     <Compile Include="MRPService\Utilities\WMIHelper.cs" />
     <Compile Include="MRPService\Database\Classes\PerfCounterSampleSet.cs" />
     <Compile Include="MRPService\Database\Classes\NetworkFlowSet.cs" />
@@ -641,7 +652,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Enabled="0" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" />
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="0" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

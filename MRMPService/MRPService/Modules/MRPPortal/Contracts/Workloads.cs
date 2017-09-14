@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Management;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -11,7 +12,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
     public class MRPWorkloadsCRUDType
     {
         [JsonProperty("workload")]
-        public MRPWorkloadType workload { get; set; }
+        public MRMPWorkloadBaseType workload { get; set; }
     }
 
     public class MRPWorkloadFilterPagedType
@@ -51,18 +52,18 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
     public class MRPWorkloadListType
     {
         [JsonProperty("workloads")]
-        public List<MRPWorkloadType> workloads { get; set; }
+        public List<MRMPWorkloadBaseType> workloads { get; set; }
         [JsonProperty("pagination")]
         public MRPPaginationType pagination { get; set; }
     }
     public class MRPWorkloadPairType
     {
         [JsonProperty("source_workload")]
-        public MRPWorkloadType source_workload { get; set; }
+        public MRMPWorkloadBaseType source_workload { get; set; }
         [JsonProperty("target_workload")]
-        public MRPWorkloadType target_workload { get; set; }
+        public MRMPWorkloadBaseType target_workload { get; set; }
     }
-    public class MRPWorkloadType
+    public class MRMPWorkloadType
     {
         [JsonProperty("id")]
         public string id { get; set; }
@@ -182,19 +183,6 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         public List<MRPWorkloadDiskType> workloaddisks { get; set; }
         [JsonProperty("credential")]
         public MRPCredentialType credential;
-        [JsonIgnore]
-        public MRPCredentialType get_credential
-        {
-            get
-            {
-                if (this.credential == null)
-                {
-                    throw new ArgumentNullException(String.Format("Credential object for {0} is empty", this.hostname));
-                }
-                return credential;
-            }
-            set { credential = value; }
-        }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
         [JsonProperty("last_dt_event_id")]
@@ -220,75 +208,6 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("_destroy")]
         public bool? _destroy { get; set; }
 
-        public string working_ipaddress(bool literal = false, AddressFamily[] __ip_type = null)
-        {
-            String workingip = null;
-            AddressFamily[] _ip_type = __ip_type == null ? (new AddressFamily[] { AddressFamily.InterNetwork, AddressFamily.InterNetworkV6 }) : __ip_type;
-            if (String.IsNullOrEmpty(this.iplist))
-            {
-                throw new ArgumentNullException(String.Format("No ip list defined for workload"));
-            }
-            String[] _iplist = this.iplist.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            Array.Reverse(_iplist);
-            try
-            {
-                foreach (string ip in _iplist)
-                {
-                    PingReply _test_ping_reply = null;
-                    Ping _test_ping = new Ping();
-                    if (_ip_type.Contains(IPAddress.Parse(ip).AddressFamily))
-                    {
-                        int retry = 3;
-                        while (retry-- > 0)
-                        {
-                            try
-                            {
-                                _test_ping_reply = _test_ping.Send(ip);
-                                if (_test_ping_reply?.Status == IPStatus.Success)
-                                {
-                                    workingip = ip;
-                                    break;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new Exception(String.Format("Error during ping attempt : {0}", ex.GetBaseException().Message));
-                            }
-                        }
-                        if (_test_ping_reply?.Status == IPStatus.Success)
-                        {
-                            break;
-                        }
-                    }
-                }
-                if (literal == true && workingip != null)
-                {
-                    IPAddress _check_ip;
-                    if (IPAddress.TryParse(workingip, out _check_ip))
-                    {
-                        if (_check_ip.AddressFamily.ToString() == AddressFamily.InterNetworkV6.ToString())
-                        {
-                            String _workingip = workingip;
-                            _workingip = _workingip.Replace(":", "-");
-                            _workingip = _workingip.Replace("%", "s");
-                            _workingip = _workingip + ".ipv6-literal.net";
-                            workingip = _workingip;
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(String.Format("Unknown error trying to contact workload : {1}", ex.GetBaseException().Message));
-            }
-            finally
-            {
-                if (workingip == null)
-                {
-                    throw new Exception(String.Format("Does not respond to ping"));
-                }
-            }
-            return workingip;
-        }
+
     }
 }

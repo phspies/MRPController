@@ -6,8 +6,8 @@ namespace MRMPService.MRMPDoubleTake
 {
     class Doubletake : IDisposable
     {
-        public MRPWorkloadType _source_workload, _target_workload;
-        public Doubletake(MRPWorkloadType source_workload, MRPWorkloadType target_workload)
+        public MRMPWorkloadBaseType _source_workload, _target_workload;
+        public Doubletake(MRMPWorkloadBaseType source_workload, MRMPWorkloadBaseType target_workload)
         {
             _source_workload = source_workload;
             _target_workload = target_workload;

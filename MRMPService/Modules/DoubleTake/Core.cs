@@ -1,7 +1,6 @@
 ﻿using DoubleTake.Web.Client;
 using MRMPService.Modules.MRMPPortal.Contracts;
 using MRMPService.MRMPService.Log;
-using MRMPService.Utilities;
 using System.Net;
 using System.Net.Sockets;
 
@@ -18,25 +17,15 @@ namespace MRMPService.MRMPDoubleTake
 
         public Core(Doubletake _doubletake)
         {
-
-            AddressFamily[] _job_ip_type = new AddressFamily[] { AddressFamily.InterNetwork, AddressFamily.InterNetworkV6 };
-            //source could be empty in certian instances
+            ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             if (_doubletake._source_workload != null)
             {
-                _source_credentials = _doubletake._source_workload.get_credential;
+                _source_credentials = _doubletake._source_workload.GetCredentials();
                 _source_deployment_policy = _doubletake._source_workload.deploymentpolicy;
 
                 //Find working IP
-                string _temp_source_address = _doubletake._source_workload.working_ipaddress();
-                _job_ip_type = new AddressFamily[] { IPAddress.Parse(_temp_source_address).AddressFamily };
-                _source_address = _doubletake._source_workload.working_ipaddress(true, _job_ip_type);
-
-                if (_source_address == null)
-                {
-                    throw new System.ArgumentException(string.Format("Cannot contact source workload {0} using {1}", _doubletake._source_workload.hostname, _source_address));
-                }
-
-                _source_credentials = _doubletake._source_workload.get_credential;
+                _source_address = _doubletake._source_workload.GetContactibleIP(true);
+                _source_credentials = _doubletake._source_workload.GetCredentials();
                 //setup source connection 
                 Logger.log(string.Format("Opening Source DT conneciton to {0} using {1}", _doubletake._source_workload.hostname, _source_address), Logger.Severity.Info);
 
@@ -51,8 +40,8 @@ namespace MRMPService.MRMPDoubleTake
             {
                 throw new System.ArgumentException("Target workload ID cannot be null");
             }
-            _target_address = _doubletake._target_workload.working_ipaddress(true, _job_ip_type);
-            _target_credentials = _doubletake._target_workload.get_credential;
+            _target_address = _doubletake._target_workload.GetContactibleIP(true);
+            _target_credentials = _doubletake._target_workload.GetCredentials();
             _target_deployment_policy = _doubletake._target_workload.deploymentpolicy;
             Logger.log(string.Format("Opening Target DT conneciton to {0} using {1}", _doubletake._target_workload.hostname, _target_address), Logger.Severity.Info);
             _target_connection = ManagementService.GetConnectionAsync(_target_address).Result;

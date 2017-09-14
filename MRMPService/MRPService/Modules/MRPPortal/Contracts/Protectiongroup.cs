@@ -25,6 +25,6 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("recoverypolicy")]
         public MRPRecoverypolicyType recoverypolicy { get; set; }
         [JsonProperty("workload")]
-        public MRPWorkloadType workload { get; set; }
+        public MRMPWorkloadBaseType workload { get; set; }
     }
 }

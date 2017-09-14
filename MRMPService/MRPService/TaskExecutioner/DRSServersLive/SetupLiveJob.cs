@@ -5,6 +5,7 @@ using MRMPService.Modules.MCP;
 using System;
 using MRMPService.Modules.DoubleTake.Availability;
 using MRMPService.MRMPService.Log;
+using MRMPService.Utilities;
 
 namespace MRMPService.TaskExecutioner.DRSServersLive
 {
@@ -13,19 +14,20 @@ namespace MRMPService.TaskExecutioner.DRSServersLive
         static public void SetupLiveJob(MRPTaskType _task)
         {
             MRPTaskDetailType _payload = _task.taskdetail;
-            MRPWorkloadType _source_workload = _payload.source_workload;
-            MRPWorkloadType _target_workload = _payload.target_workload;
+            MRMPWorkloadBaseType _source_workload = _payload.source_workload;
+            MRMPWorkloadBaseType _target_workload = _payload.target_workload;
             MRPProtectiongroupType _protectiongroup = _payload.protectiongroup;
             MRPManagementobjectType _managementobject = _payload.managementobject;
             MRPPlatformType _platform = _payload.target_platform;
+            _source_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_source_workload.id);
+            _target_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
+
 
             try
             {
                 if (!(bool)_target_workload.provisioned)
                 {
                     MCP_Platform.ProvisionVM(_task, _platform, _target_workload, _protectiongroup, 1, 33, true);
-
-                    //update target workload
                     _target_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
                 }
 

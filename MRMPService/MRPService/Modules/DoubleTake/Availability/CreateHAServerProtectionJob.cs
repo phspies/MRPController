@@ -15,7 +15,7 @@ namespace MRMPService.Modules.DoubleTake.Availability
 {
     partial class Availability
     {
-        public static void CreateHAServerProtectionJob(MRPTaskType _task, MRPWorkloadType _source_workload, MRPWorkloadType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress, String _job_type)
+        public static void CreateHAServerProtectionJob(MRPTaskType _task, MRMPWorkloadBaseType _source_workload, MRMPWorkloadBaseType _target_workload, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress, String _job_type)
         {
             using (Doubletake _dt = new Doubletake(_source_workload, _target_workload))
             {
@@ -63,7 +63,7 @@ namespace MRMPService.Modules.DoubleTake.Availability
                     _job_type.ToString());
 
                 _task.progress("Setting job options", ReportProgress.Progress(_start_progress, _end_progress, 30));
-                jobInfo = SetOptions.set_job_options(_task, _source_workload, _target_workload, _protectiongroup, jobInfo, 40, 59);
+                jobInfo = SetOptions.set_job_options(_task, _source_workload, _target_workload, _protectiongroup, jobInfo, ReportProgress.Progress(_start_progress, _end_progress, 40), ReportProgress.Progress(_start_progress, _end_progress, 50));
 
                 _task.progress("Verifying job options and settings", ReportProgress.Progress(_start_progress, _end_progress, 60));
 
@@ -115,9 +115,9 @@ namespace MRMPService.Modules.DoubleTake.Availability
                     jobinfo = _dt.job().GetJob(jobId);
                 }
 
-                _task.progress(String.Format("Sync process started at {0}", jobinfo.Statistics.CoreConnectionDetails.StartTime), 75);
+                _task.progress(String.Format("Sync process started at {0}", jobinfo.Statistics.CoreConnectionDetails.StartTime), ReportProgress.Progress(_start_progress, _end_progress, 75));
 
-                MRPWorkloadType _update_workload = new MRPWorkloadType();
+                MRMPWorkloadBaseType _update_workload = new MRMPWorkloadBaseType();
                 _update_workload.id = _target_workload.id;
                 _update_workload.dt_installed = true;
                 _update_workload.dt_collection_enabled = true;
@@ -125,7 +125,7 @@ namespace MRMPService.Modules.DoubleTake.Availability
 
                 DTJobPoller.PollerDo(_managementobject);
 
-                _task.progress(String.Format("Successfully created disaster recover protection job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), 95);
+                _task.progress(String.Format("Successfully created disaster recover protection job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
 
             }
         }

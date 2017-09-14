@@ -100,11 +100,11 @@ namespace MRMPService.Modules.MCP
                     foreach (var _workloadpair in _workloadpairs)
                     {
 
-                        var _workloads = new List<MRPWorkloadType>() { _workloadpair.source_workload, _workloadpair.target_workload };
+                        var _workloads = new List<MRMPWorkloadBaseType>() { _workloadpair.source_workload, _workloadpair.target_workload };
 
 
                         //get new copy of workload from portal
-                        MRPWorkloadType _updated_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_workloadpair.source_workload.id);
+                        MRMPWorkloadBaseType _updated_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_workloadpair.source_workload.id);
 
                         var _cass_server = CaaS.ServerManagement.Server.GetServer(new Guid(_updated_workload.moid)).Result;
                         var _progress = ReportProgress.Progress(_start_progress, _end_progress, _workloadpairs.IndexOf(_workloadpair) + _workloads.IndexOf(_updated_workload));

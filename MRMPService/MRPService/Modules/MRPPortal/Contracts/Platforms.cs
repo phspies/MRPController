@@ -87,7 +87,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("platformdatastores_attributes")]
         public List<MRPPlatformdatastoreType> platformdatastores { get; set; }
         [JsonProperty("workloads_attributes")]
-        public List<MRPWorkloadType> workloads { get; set; }
+        public List<MRMPWorkloadBaseType> workloads { get; set; }
     }
 }
 

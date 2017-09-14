@@ -9,6 +9,7 @@ using MRMPService.VMWare;
 using System.Collections.Specialized;
 using MRMPService.MRMPAPI;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace MRMPService.Scheduler.PlatformInventory.VMWare
 {
@@ -188,7 +189,7 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             MRPPlatformType _refreshed_platfrom = new MRPPlatformType();
 
             _refreshed_platfrom = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
-            List<MRPWorkloadType> _mrp_workloads = new List<MRPWorkloadType>();
+            List<MRMPWorkloadBaseType> _mrp_workloads = new List<MRMPWorkloadBaseType>();
 
             MRPWorkloadListType _paged_workload = MRMPServiceBase._mrmp_api.workload().list_paged_filtered_brief(new MRPWorkloadFilterPagedType() { platform_id = _platform.id, page = 1 });
             while (_paged_workload.pagination.page_size > 0)
@@ -205,10 +206,10 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             }
 
             //update deleted workloads
-            _update_platform = new MRPPlatformType() { id = _platform.id, workloads = new List<MRPWorkloadType>() };
+            _update_platform = new MRPPlatformType() { id = _platform.id, workloads = new List<MRMPWorkloadBaseType>() };
             foreach (var _workload in _mrp_workloads.Where(x => x.workloadtype != "manager"))
             {
-                MRPWorkloadType _mrp_workload = new MRPWorkloadType() { id = _workload.id };
+                MRMPWorkloadBaseType _mrp_workload = new MRMPWorkloadBaseType() { id = _workload.id };
                 if (!_vmware_workload_list.Any(x => x.MoRef.Value == _workload.moid))
                 {
                     _mrp_workload.deleted = true;
@@ -226,19 +227,34 @@ namespace MRMPService.Scheduler.PlatformInventory.VMWare
             if (full)
             {
                 _refreshed_platfrom = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
-                Parallel.ForEach(_vmware_workload_list, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, (_vmware_workload) =>
-                {
-                    try
-                    {
-                        //update lists before we start the workload inventory process
-                        PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _refreshed_platfrom, _mrp_workloads);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.log(String.Format("Error collecting inventory information from VMware workload {0} with error {1}", _vmware_workload.Config.GuestFullName, ex.GetBaseException().Message), Logger.Severity.Error);
-                    }
-                });
+                int _multiplyer = (_vmware_workload_list.Count() > 75) ? (_vmware_workload_list.Count()) / 75 : 1;
+                int _concurrency = (MRMPServiceBase.platform_workload_inventory_concurrency * _multiplyer);
 
+                List<Thread> lstThreads = new List<Thread>();
+                Logger.log(String.Format("VMWare: Starting inventory collection process with {0} threads", _concurrency), Logger.Severity.Debug);
+
+                foreach (var _vmware_workload in _vmware_workload_list)
+                {
+                    while (lstThreads.Count(x => x.IsAlive) >= _concurrency)
+                    {
+                        Thread.Sleep(500);
+                    }
+                    Thread _inventory_thread = new Thread(() =>
+                    {
+                        try
+                        {
+                            PlatformInventoryWorkloadDo.UpdateVMWareWorkload(_vmware_workload.MoRef.Value, _refreshed_platfrom, _mrp_workloads);
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.log(String.Format("Error collecting inventory information from VMware workload {0} with error {1}", _vmware_workload.Config.GuestFullName, ex.GetBaseException().Message), Logger.Severity.Error);
+                        }
+                    });
+                    _inventory_thread.Name = _vmware_workload.MoRef.Value;
+                    lstThreads.Add(_inventory_thread);
+                    _inventory_thread.Start();
+                    Logger.log(String.Format("VMWare Workload Inventory Thread Count [active: {0}] [total: {1}] [complete {2}]", lstThreads.Count(x => x.IsAlive), lstThreads.Count(), lstThreads.Count(x => !x.IsAlive)), Logger.Severity.Info);
+                }
             }
             Logger.log(String.Format("Completed inventory process for {0} : {1}", _platform.platformtype, _platform.platform), Logger.Severity.Info);
 

@@ -13,17 +13,10 @@ namespace MRMPService.Scheduler.DTEventPollerCollection
 {
     class DTEventPollerDo
     {
-        public static void PollerDo(MRPWorkloadType _workload)
+        public static void PollerDo(MRMPWorkloadBaseType _workload)
         {
-            //check for credentials
-
-            if (_workload.get_credential == null)
-            {
-                throw new ArgumentException(String.Format("Double-Take Event: Error finding credentials for workload {0} {1}", _workload.id, _workload.hostname));
-            }
-
             //check for working IP
-            string workload_ip = _workload.working_ipaddress(true);
+            string workload_ip = _workload.GetContactibleIP(true);
             Logger.log(String.Format("Double-Take Event: Start Double-Take collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
             try
             {

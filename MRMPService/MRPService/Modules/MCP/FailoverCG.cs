@@ -74,8 +74,8 @@ namespace MRMPService.Modules.MCP
 
                 try
                 {
-                    UpdateIP.setInterfaceAddresses(_workload_pair.source_workload, _workload_pair.target_workload);
-                    var _workable_ip = _workload_pair.target_workload.working_ipaddress();
+                    //UpdateIPWorkload.setInterfaceAddresses(_workload_pair.source_workload, _workload_pair.target_workload);
+                    var _workable_ip = _workload_pair.target_workload.GetContactibleIP();
                     _task.progress(String.Format("Successfully updated network settings for {0}", _workload_pair.source_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _workloadpairs.IndexOf(_workload_pair) + 22));
                 }
                 catch (Exception ex)

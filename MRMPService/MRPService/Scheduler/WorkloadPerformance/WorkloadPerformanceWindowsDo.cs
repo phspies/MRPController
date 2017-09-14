@@ -15,12 +15,12 @@ namespace MRMPService.Scheduler.PerformanceCollection
 {
     partial class WorkloadPerformance
     {
-        public static async Task WorkloadPerformanceWindowsDo(MRPWorkloadType _workload)
+        public static async Task WorkloadPerformanceWindowsDo(MRMPWorkloadBaseType _workload)
         {
             string workload_ip = null;
             if (_workload.workloadtype != "manager")
             {
-                workload_ip = _workload.working_ipaddress(true);
+                workload_ip = _workload.GetContactibleIP(true);
             }
             else
             {
@@ -29,7 +29,7 @@ namespace MRMPService.Scheduler.PerformanceCollection
             }
             List<PerformanceType> _workload_counters = new List<PerformanceType>();
             Logger.log(String.Format("Performance: Start performance collection for {0} using {1}", _workload.hostname, workload_ip), Logger.Severity.Info);
-            using (new Impersonator((_workload.workloadtype == "manager" ? "." : _workload.get_credential.username), (_workload.workloadtype == "manager" ? null : (String.IsNullOrEmpty(_workload.get_credential.domain) ? "." : _workload.get_credential.domain)), (_workload.workloadtype == "manager" ? null : _workload.get_credential.decrypted_password)))
+            using (new Impersonator((_workload.workloadtype == "manager" ? "." : _workload.GetCredentials().username), (_workload.workloadtype == "manager" ? null : (String.IsNullOrEmpty(_workload.GetCredentials().domain) ? "." : _workload.GetCredentials().domain)), (_workload.workloadtype == "manager" ? null : _workload.GetCredentials().decrypted_password)))
             {
                 //loop each counter in the available counter list
                 foreach (string _current_category in MRMPServiceBase._available_counters.Select(x => x.category).Distinct())

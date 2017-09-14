@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json.Converters;
 
 namespace MRMPService.Modules.MRMPPortal.Contracts
 {
@@ -39,6 +35,10 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         public string macaddress { get; set; }
         [JsonProperty("deleted")]
         public bool? deleted { get; set; }
+        [JsonProperty("replication_interface")]
+        public bool? replication_interface { get; set; }
+        [JsonProperty("replication_interface_iptype")]
+        public string replication_interface_iptype { get; set; }
         [JsonProperty("platformnetwork")]
         public MRPPlatformnetworkType platformnetwork { get; set; }
         [JsonProperty("_destroy")]

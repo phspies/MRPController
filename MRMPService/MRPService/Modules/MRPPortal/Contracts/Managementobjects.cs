@@ -44,9 +44,9 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("protectiongroup_id")]
         public string protectiongroup_id { get; set; }
         [JsonProperty("source_workload")]
-        public MRPWorkloadType source_workload { get; set; }
+        public MRMPWorkloadBaseType source_workload { get; set; }
         [JsonProperty("target_workload")]
-        public MRPWorkloadType target_workload { get; set; }
+        public MRMPWorkloadBaseType target_workload { get; set; }
         [JsonProperty("source_platform")]
         public MRPPlatformType source_platform { get; set; }
         [JsonProperty("target_platform")]
