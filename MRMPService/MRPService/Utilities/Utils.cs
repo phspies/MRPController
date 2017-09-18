@@ -1,4 +1,5 @@
 ﻿using MRMPService;
+using MRMPService.Exceptions;
 using MRMPService.LocalDatabase;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,25 @@ namespace MRMPService.Utilities
             return str.Split(new[] { "\r\n", "\r", "\n" },
                 removeEmptyLines ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None);
         }
+
+		/// <summary>
+		/// Escapes and return the given value.
+		/// </summary>
+		/// <param name="valueToEscape">
+		/// The value to escape.
+		/// </param>
+		/// <returns>
+		/// The escaped value.
+		/// </returns>
+		public static string EscapeData(this string valueToEscape)
+		{
+			if (!string.IsNullOrWhiteSpace(valueToEscape))
+			{
+				return Uri.EscapeDataString(valueToEscape);
+			}
+
+			return valueToEscape;
+		}
     }
     static class Objects
      {

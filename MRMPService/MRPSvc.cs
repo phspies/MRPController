@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.ServiceProcess;
 using System.Threading;
 using MRMPService.MRMPService.Log;
+using MRMPService.LocalDatabase;
 
 namespace MRMPService
 {
@@ -27,6 +28,7 @@ namespace MRMPService
 
                 Startup _startup = new Startup();
                 Logger.log("Starting Manager Service", Logger.Severity.Debug);
+
                 startup_thread = new Thread(new ThreadStart(_startup.Start));
                 startup_thread.IsBackground = true;
                 startup_thread.Start();

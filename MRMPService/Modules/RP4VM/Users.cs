@@ -1,5 +1,6 @@
 
 using MRMPService.RP4VMAPI;
+using MRMPService.Utilities;
 using System.Collections.Generic;
 
 namespace MRMPService.RP4VMTypes
@@ -26,8 +27,7 @@ namespace MRMPService.RP4VMTypes
 
         public UserRole getUserRole_Method(string roleName)
         {
-            endpoint = "/users/roles/{roleName}";
-            endpoint.Replace("{roleName}", roleName.ToString());
+            endpoint = $"/users/roles/{roleName.EscapeData()}";
             mediatype = "application/json";
             return get<UserRole>();
         }
@@ -35,8 +35,7 @@ namespace MRMPService.RP4VMTypes
 
         public SNMPUser getSNMPUser_Method(string userName)
         {
-            endpoint = "/users/snmp/{userName}";
-            endpoint.Replace("{userName}", userName.ToString());
+            endpoint = $"/users/snmp/{userName.EscapeData()}";
             mediatype = "application/json";
             return get<SNMPUser>();
         }
@@ -52,8 +51,7 @@ namespace MRMPService.RP4VMTypes
 
         public RecoverPointUser getRecoverPointUser_Method(string userName)
         {
-            endpoint = "/users/rp_users/{userName}";
-            endpoint.Replace("{userName}", userName.ToString());
+            endpoint = $"/users/rp_users/{userName.EscapeData()}";
             mediatype = "application/json";
             return get<RecoverPointUser>();
         }
@@ -69,8 +67,7 @@ namespace MRMPService.RP4VMTypes
 
         public void editRecoverPointUser_Method(string oldUserName, RecoverPointUser recoverPointUser_object)
         {
-            endpoint = "/users/rp_users/{oldUserName}";
-            endpoint.Replace("{oldUserName}", oldUserName.ToString());
+            endpoint = $"/users/rp_users/{oldUserName.EscapeData()}";
             mediatype = "*/*";
             put(recoverPointUser_object);
         }

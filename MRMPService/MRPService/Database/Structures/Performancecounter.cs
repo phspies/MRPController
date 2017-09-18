@@ -6,21 +6,16 @@ namespace MRMPService.LocalDatabase
 {
     public class Performancecounter
     {
-        [Key, StringLength(45)]
+        [MaxLength(45)]
         public string id { get; set; }
-        [StringLength(45)]
-        [Index]
+        [MaxLength(45)]
         public string workload_id { get; set; }
-        [StringLength(128)]
-        [Index]
+        [MaxLength(128)]
         public string category { get; set; }
-        [StringLength(128)]
-        [Index]
+        [MaxLength(128)]
         public string counter { get; set; }
-        [StringLength(256)]
-        [Index]
+        [MaxLength(256)]
         public string instance { get; set; }
-        [Index]
         public DateTime timestamp { get; set; }
         public double value { get; set; }
     }

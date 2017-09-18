@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using RestSharp.Authenticators;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using MRMPService.Utilities;
 
 namespace MRMPService.RP4VMTypes
 {
@@ -105,7 +106,8 @@ namespace MRMPService.RP4VMTypes
                         {
                             MissingMemberHandling = MissingMemberHandling.Ignore,
                             NullValueHandling = NullValueHandling.Ignore,
-                            Error = HandleDeserializationError
+                            Error = HandleDeserializationError,
+							StringEscapeHandling = StringEscapeHandling.EscapeNonAscii
                         });
                     }
                     catch (Exception ex)
