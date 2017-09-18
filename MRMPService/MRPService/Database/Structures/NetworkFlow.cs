@@ -6,11 +6,11 @@ namespace MRMPService.LocalDatabase
 
     public class NetworkFlow
     {
-        [Key, StringLength(50)]
+        [MaxLength(50)]
         public string id { get; set; }
-        [StringLength(50)]
+        [MaxLength(50)]
         public string source_address { get; set; }
-        [StringLength(50)]
+        [MaxLength(50)]
         public string target_address { get; set; }
         public int source_port { get; set; }
         public int target_port { get; set; }
