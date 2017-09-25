@@ -40,7 +40,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         [JsonProperty("enablebandwidthlimit")]
         public bool enablebandwidthlimit { get; set; }
         [JsonProperty("bandwidthlimit")]
-        public int? bandwidthlimit { get; set; }
+        public long? bandwidthlimit { get; set; }
         [JsonProperty("organization_id")]
         public string organization_id { get; set; }
         [JsonProperty("delete_current_jobs")]

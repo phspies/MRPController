@@ -36,7 +36,7 @@ namespace MRMPService.MRMPDoubleTake
             {
                 _job_type = "Availability";
                 jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = (bool)_protectiongroup.recoverypolicy.shutdown_source;
-                
+
                 //disable backup network connection
                 jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
                 //set change ports
@@ -86,7 +86,7 @@ namespace MRMPService.MRMPDoubleTake
                 jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
                 jobInfo.JobOptions.ImageProtectionOptions.ImageName = String.Format("dr_dormant_{0}_image", _source_workload.hostname.ToLower());
             }
-            
+
             else if (jobInfo.JobType == DT_JobTypes.DR_Full_Recovery)
             {
                 _job_type = "DR Recovery";
@@ -149,17 +149,18 @@ namespace MRMPService.MRMPDoubleTake
             {
                 if (_protectiongroup.recoverypolicy.enablebandwidthlimit)
                 {
-                    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters = new ConnectionStartParametersModel();
-                    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.Schedule = new ConnectionScheduleModel()
+                    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters = new ConnectionStartParametersModel()
                     {
-                        Transmission = new TransmissionScheduleModel() { IsEnabled = true, MaxBytes = _protectiongroup.recoverypolicy.bandwidthlimit },
-                        Bandwidth = new BandwidthScheduleModel()
+                        Schedule = new ConnectionScheduleModel()
                         {
-                            Mode = BandwidthScheduleMode.Fixed
+                            Bandwidth = new BandwidthScheduleModel()
+                            {
+                                Mode = BandwidthScheduleMode.Fixed,
+                                Current = new BandwidthScheduleEntryModel() { IsUnlimited = false, Limit = (long)_protectiongroup.recoverypolicy.bandwidthlimit }
+                            }
                         }
                     };
                 }
-
             }
 
             //set dns credentials with model to the DnsOptions
