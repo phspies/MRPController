@@ -145,6 +145,22 @@ namespace MRMPService.MRMPDoubleTake
                     jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.SnapshotSchedule = _snapshot;
                 }
             }
+            else
+            {
+                if (_protectiongroup.recoverypolicy.enablebandwidthlimit)
+                {
+                    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters = new ConnectionStartParametersModel();
+                    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.Schedule = new ConnectionScheduleModel()
+                    {
+                        Transmission = new TransmissionScheduleModel() { IsEnabled = true, MaxBytes = _protectiongroup.recoverypolicy.bandwidthlimit },
+                        Bandwidth = new BandwidthScheduleModel()
+                        {
+                            Mode = BandwidthScheduleMode.Fixed
+                        }
+                    };
+                }
+
+            }
 
             //set dns credentials with model to the DnsOptions
             if ((bool)_protectiongroup.recoverypolicy.dns_set_dns)

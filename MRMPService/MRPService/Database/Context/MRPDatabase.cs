@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using System.IO;
-using System.Data.Entity.Infrastructure;
 using System.Data.Common;
 using SQLite.CodeFirst;
 using System.Data.Entity.Core.Common;
