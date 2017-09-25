@@ -80,13 +80,13 @@ namespace MRMPService.Modules.MCP
             if (_os_customization)
             {
                 var _first_disk = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == 0);
-                _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier_id });
+                _disks.Add(new DeployServerTypeDisk() { id = "0", speed = _first_disk.platformstoragetier_id });
 
             }
             else
             {
                 var _first_disk = _target_workload.workloaddisks.FirstOrDefault(x => x.diskindex == 0);
-                _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier_id });
+                _disks.Add(new DeployServerTypeDisk() { id = "0", speed = _first_disk.platformstoragetier_id });
             }
 
             _vm.name = _target_workload.hostname;

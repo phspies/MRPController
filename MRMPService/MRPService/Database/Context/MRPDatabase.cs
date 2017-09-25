@@ -1,64 +1,59 @@
 ﻿using System.Data.Entity;
 using System.IO;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.SqlServerCompact;
 using System.Data.Common;
-using System.Data.SqlServerCe;
+using SQLite.CodeFirst;
+using System.Data.Entity.Core.Common;
+using System.Data.SQLite;
+using System.Data.SQLite.EF6;
 
 namespace MRMPService.LocalDatabase
 {
-    [DbConfigurationType(typeof(MyDbConfiguration))]
+    [DbConfigurationType(typeof(SQLiteConfiguration))]
     public partial class MRPDatabase : DbContext
 	{
-        public MRPDatabase() : base(GetConnection(), true)
-        {
-            Database.SetInitializer<MRPDatabase>(new MRPDBInitializer());
-        }
+        public MRPDatabase() : base(GetConnection(), true) { }
 
         public DbSet<NetworkFlow> NetworkFlows { get; set; }
         public DbSet<PerfCounterSample> PerfCounterSample { get; set; }
         public DbSet<ManagerEvent> ManagerEvents { get; set; }
         public DbSet<DHCPLease> DHCPLeases { get; set; }
         public DbSet<Performancecounter> Performancecounters { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            var sqliteConnectionInitializer = new SqliteCreateDatabaseIfNotExists<MRPDatabase>(modelBuilder);
+            System.Data.Entity.Database.SetInitializer(sqliteConnectionInitializer);
+        }
         public static DbConnection GetConnection()
         {
             string dblocation = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string dbfilename = Path.Combine(dblocation,"Database","MRMPManager.sdf");
+            string dbfilename = Path.Combine(dblocation, "Database", "MRMPDatabase.sqlite3");
             if (!Directory.Exists(Path.GetDirectoryName(dbfilename)))
             {
                 Directory.CreateDirectory(Path.GetDirectoryName(dbfilename));
             }
-            var factory = DbProviderFactories.GetFactory("System.Data.SqlServerCe.4.0");
-            var connection = factory.CreateConnection();
+            DbProviderFactory providerFactory = DbProviderFactories.GetFactory("System.Data.SQLite.EF6");
+            var connection = providerFactory.CreateConnection();
             string dbfullpath = Path.Combine(dblocation, dbfilename);
-            SqlCeConnectionStringBuilder builder = new SqlCeConnectionStringBuilder();
-            builder.DataSource = dbfullpath;
-            builder.MaxBufferSize = 2048;
-            builder.PersistSecurityInfo = false;
-            builder.MaxDatabaseSize = 4000;
-            builder.TempFileMaxSize = 4000;
-            builder.DefaultLockTimeout = 30000;
-            connection.ConnectionString = builder.ConnectionString;
+            SQLiteConnectionStringBuilder conString = new SQLiteConnectionStringBuilder();
+            conString.DataSource = dbfilename;
+            conString.DefaultTimeout = 5000;
+            conString.SyncMode = SynchronizationModes.Normal;
+            conString.JournalMode = SQLiteJournalModeEnum.Default;
+            conString.PageSize = 65536;
+            conString.CacheSize = 16777216;
+            conString.FailIfMissing = false;
+            //conString.HexPassword = new byte[] { 66, 21, 32, 26, 69, 63, 63, 4e, 37, 73, 56, 49, 23, 38, 39, 51 };
+            conString.ReadOnly = false;
+            connection.ConnectionString = conString.ConnectionString;
             return connection;
         }
-
-        public class MRPDBInitializer : CreateDatabaseIfNotExists<MRPDatabase>
+        public class SQLiteConfiguration : DbConfiguration
         {
-            protected override void Seed(MRPDatabase context)
+            public SQLiteConfiguration()
             {
-                base.Seed(context);
-            }
-        }
-
-        public class MyDbConfiguration : DbConfiguration
-        {
-            public MyDbConfiguration()
-            {
-                this.SetDefaultConnectionFactory(new SqlCeConnectionFactory("System.Data.SqlServerCe.4.0"));
-
-                this.SetProviderServices("System.Data.SqlServerCe.4.0", SqlCeProviderServices.Instance);
-
-                this.SetMigrationSqlGenerator("System.Data.SqlServerCe.4.0", () => new SqlCeMigrationSqlGenerator());
+                SetProviderFactory("System.Data.SQLite", SQLiteFactory.Instance);
+                SetProviderFactory("System.Data.SQLite.EF6", SQLiteProviderFactory.Instance);
+                SetProviderServices("System.Data.SQLite", (DbProviderServices)SQLiteProviderFactory.Instance.GetService(typeof(DbProviderServices)));
             }
         }
 

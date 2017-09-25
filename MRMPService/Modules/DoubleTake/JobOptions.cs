@@ -36,7 +36,7 @@ namespace MRMPService.MRMPDoubleTake
             {
                 _job_type = "Availability";
                 jobInfo.JobOptions.FullServerFailoverOptions.ShutdownSourceServer = (bool)_protectiongroup.recoverypolicy.shutdown_source;
-                
+
                 //disable backup network connection
                 jobInfo.JobOptions.FullServerFailoverOptions = new FullServerFailoverOptionsModel() { CreateBackupConnection = false };
                 //set change ports
@@ -86,7 +86,7 @@ namespace MRMPService.MRMPDoubleTake
                 jobInfo.JobOptions.ImageProtectionOptions.VhdInfo = vhd.ToArray();
                 jobInfo.JobOptions.ImageProtectionOptions.ImageName = String.Format("dr_dormant_{0}_image", _source_workload.hostname.ToLower());
             }
-            
+
             else if (jobInfo.JobType == DT_JobTypes.DR_Full_Recovery)
             {
                 _job_type = "DR Recovery";
@@ -143,6 +143,23 @@ namespace MRMPService.MRMPDoubleTake
                         _snapshot.StartTime = (DateTime)_protectiongroup.recoverypolicy.snapshotstarttimestamp;
                     }
                     jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters.SnapshotSchedule = _snapshot;
+                }
+            }
+            else
+            {
+                if (_protectiongroup.recoverypolicy.enablebandwidthlimit)
+                {
+                    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters = new ConnectionStartParametersModel()
+                    {
+                        Schedule = new ConnectionScheduleModel()
+                        {
+                            Bandwidth = new BandwidthScheduleModel()
+                            {
+                                Mode = BandwidthScheduleMode.Fixed,
+                                Current = new BandwidthScheduleEntryModel() { IsUnlimited = false, Limit = (long)_protectiongroup.recoverypolicy.bandwidthlimit }
+                            }
+                        }
+                    };
                 }
             }
 
