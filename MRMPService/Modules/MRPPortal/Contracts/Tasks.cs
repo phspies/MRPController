@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using MRPService.Portal.Types.API;
+using MRMPService.Modules.MRMPPortal.Contracts;
 
 namespace MRPService.Portal.Types.API
 {
@@ -47,7 +43,7 @@ namespace MRPService.Portal.Types.API
     {
         public MRPTaskDTType dt { get; set; }
         public string task_action { get; set; }
-        public MRPTaskWindowsType windows { get; set; }
+        public MRPTaskType task { get; set; }
         public MRPTaskMcpType mcp { get; set; }
         public MRPPlatformType platform { get; set; }
         public string username { get; set; }
@@ -127,7 +123,7 @@ namespace MRPService.Portal.Types.API
     public class MRPTaskMcpType
     {
         public MRPTaskOriginalType original { get; set; }
-        public MRPWorkloadType target { get; set; }
+        public MRMPWorkloadType target { get; set; }
         public MRPRecoverypolicyType recoverypolicy { get; set; }
         public string id { get; set; }
         public string endpoint { get; set; }

@@ -49,6 +49,7 @@ namespace MRMPService.MRMPDoubleTake
             };
             return createOptions;
         }
+
         public List<SnapshotEntryModel> GetSnapShots(Guid _job_id)
         {
             List<SnapshotEntryModel> _snapshots = new List<SnapshotEntryModel>();
@@ -70,6 +71,12 @@ namespace MRMPService.MRMPDoubleTake
             ApiResponse<Guid> data = jobApi.CreateJobAsync(createOptions).Result;
             data.EnsureSuccessStatusCode();
             return data.Content;
+        }
+        public ActivityStatusModel UpdateJob(Guid jobId, JobOptionsModel jobOptions)
+        {
+            ApiResponse<ActivityStatusModel> status = jobApi.UpdateJobAsync(jobId, jobOptions).Result;
+            status.EnsureSuccessStatusCode();
+            return status.Content;
         }
         public void CleanUpSnapShots(MRPManagementobjectType _mrp_managementobject, JobInfoModel _dt_job, MRPRecoverypolicyType _recoverypolicy, IEnumerable<SnapshotEntryModel> _dt_snapshot_list)
         {

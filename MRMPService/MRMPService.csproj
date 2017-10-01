@@ -80,55 +80,46 @@
     <ApplicationIcon>mrp.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.5.3.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.5.3\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Client, Version=3.3.493.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.493\lib\net45\DD.CBU.Compute.Api.Client.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.5.3.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.5.3\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
+    <Reference Include="DD.CBU.Compute.Api.Contracts, Version=3.3.493.0, Culture=neutral, PublicKeyToken=52cdfe53446c826c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DD.CBU.Compute.Api.Client.3.3.493\lib\net45\DD.CBU.Compute.Api.Contracts.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DoubleTake.Core">
-      <HintPath>lib\DoubleTake.Core.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.PowerShell, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\DoubleTake.PowerShell.dll</HintPath>
+    <Reference Include="DoubleTake.PowerShell">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.PowerShell.Common, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\DoubleTake.PowerShell.Common.dll</HintPath>
+    <Reference Include="DoubleTake.PowerShell.Common">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.Common.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.PowerShell.Contract.Data, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\DoubleTake.PowerShell.Contract.Data.dll</HintPath>
+    <Reference Include="DoubleTake.PowerShell.Contract.Data">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.Contract.Data.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.PowerShell.Contract.Service, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\DoubleTake.PowerShell.Contract.Service.dll</HintPath>
+    <Reference Include="DoubleTake.PowerShell.Contract.Service">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.Contract.Service.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.PowerShell.Management.Contract, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\DoubleTake.PowerShell.Management.Contract.dll</HintPath>
+    <Reference Include="DoubleTake.PowerShell.Management.Contract">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.Management.Contract.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.PowerShell.Resources, Version=8.0.0.1554, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\DoubleTake.PowerShell.Resources.dll</HintPath>
+    <Reference Include="DoubleTake.PowerShell.Resources">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.PowerShell.Resources.dll</HintPath>
     </Reference>
     <Reference Include="DoubleTake.Web">
       <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.Web.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.Web.Client, Version=0.5.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\DoubleTake.Web.Client.dll</HintPath>
+    <Reference Include="DoubleTake.Web.Client">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.Web.Client.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.Web.Client.Management, Version=0.5.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\DoubleTake.Web.Client.Management.dll</HintPath>
+    <Reference Include="DoubleTake.Web.Client.Management">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.Web.Client.Management.dll</HintPath>
     </Reference>
-    <Reference Include="DoubleTake.Web.Core, Version=0.5.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>lib\DoubleTake.Web.Core.dll</HintPath>
+    <Reference Include="DoubleTake.Web.Core">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Vision Solutions\Double-Take\Service\DoubleTake.Web.Core.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -303,14 +294,48 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\BaseException.cs" />
+    <Compile Include="Exceptions\MRMPIOException.cs" />
+    <Compile Include="Exceptions\MRMPExecuteCommandException.cs" />
+    <Compile Include="Exceptions\MRMPDatamoverException.cs" />
     <Compile Include="Exceptions\ExceptionFactory.cs" />
+    <Compile Include="Exceptions\MRPRemoteOperationException.cs" />
     <Compile Include="Exceptions\MRPDeploymentException.cs" />
+    <Compile Include="Modules\DoubleTake\Application\SQLJobBase.cs" />
+    <Compile Include="Modules\DoubleTake\Availability\ConfigureHAFiredrillJobChain.cs" />
+    <Compile Include="Modules\DoubleTake\Availability\CreateHAServerProtectionJob.cs" />
+    <Compile Include="Modules\DoubleTake\Availability\FilesAndFoldersJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\Availability\FullServerBase.cs" />
+    <Compile Include="Modules\DoubleTake\Availability\FullServerFailoverJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\Availability\LinuxFullServerFailoverJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\Cluster\ClusterAwareFilesAndFoldersJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\Cluster\ClusterAwareSqlJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\Common\DeployLinuxDoubleTake.cs" />
+    <Compile Include="Modules\DoubleTake\Common\DeployWindowsDoubleTake.cs" />
+    <Compile Include="Modules\DoubleTake\Common\FailoverFiredrillJob.cs" />
+    <Compile Include="Modules\DoubleTake\Common\FailoverJob.cs" />
+    <Compile Include="Modules\DoubleTake\Common\PauseJob.cs" />
+    <Compile Include="Modules\DoubleTake\Common\StartJob.cs" />
+    <Compile Include="Modules\DoubleTake\Common\StopJob.cs" />
+    <Compile Include="Modules\DoubleTake\DR\CreateDRServerProtectionJob.cs" />
+    <Compile Include="Modules\DoubleTake\DR\CreateDRServerRecoveryJob.cs" />
+    <Compile Include="Modules\DoubleTake\DR\DataOnlyImageProtectionJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\DR\DataOnlyImageRecoveryJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\DR\DRRecoveryBase.cs" />
+    <Compile Include="Modules\DoubleTake\DR\FullServerImageProtectionJobEx.cs" />
     <Compile Include="Modules\DoubleTake\Images.cs" />
     <Compile Include="Modules\DoubleTake\Events.cs" />
+    <Compile Include="Modules\DoubleTake\JobInfoModelExtended.cs" />
     <Compile Include="Modules\DoubleTake\Management.cs" />
     <Compile Include="Modules\DoubleTake\Job.cs" />
     <Compile Include="Modules\DoubleTake\Core.cs" />
     <Compile Include="Modules\DoubleTake\DoubleTake.cs" />
+    <Compile Include="Modules\DoubleTake\Move\CreateServerMigrationJob.cs" />
+    <Compile Include="Modules\DoubleTake\Move\EVRAMoveJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\Move\HVRAMoveJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\Move\MoveDataOnlyMigrationJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\VRA\EVRAJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\VRA\HVRAJobEx.cs" />
+    <Compile Include="Modules\DoubleTake\VRA\LVRAJobEx.cs" />
     <Compile Include="Modules\DoubleTake\Workload.cs" />
     <Compile Include="Modules\DHCPServer\AddressLease.cs" />
     <Compile Include="Modules\DHCPServer\Configuration\DhcpServerConfigurationSection.cs" />
@@ -324,6 +349,95 @@
     <Compile Include="Modules\DHCPServer\DhcpServer.cs" />
     <Compile Include="Modules\DHCPServer\InternetAddress.cs" />
     <Compile Include="Modules\DHCPServer\PhysicalAddress.cs" />
+    <Compile Include="Modules\MCP\ApplyMetaInformation.cs" />
+    <Compile Include="Modules\MCP\CreateCG.cs" />
+    <Compile Include="Modules\MCP\DestroyWorkload.cs" />
+    <Compile Include="Modules\MCP\FailoverCG.cs" />
+    <Compile Include="Modules\MCP\LinuxCustomization.cs" />
+    <Compile Include="Modules\MCP\PreviewCG.cs" />
+    <Compile Include="Modules\MCP\ProvisionVM.cs" />
+    <Compile Include="Modules\MCP\SetupFailoverCG.cs" />
+    <Compile Include="Modules\MCP\StopPreviewCG.cs" />
+    <Compile Include="Modules\MCP\TimeZones.cs" />
+    <Compile Include="Modules\MCP\WorkloadWaitUntilComplete.cs" />
+    <Compile Include="Modules\MRPPortal\APIClient.cs" />
+    <Compile Include="Modules\MRPPortal\Base Classes\MRMPWorkloadBaseType.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Credentials.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\DeploymentPolicy.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\DomainAffinityRule.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\DomainFWRule.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\DomainIP.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\DomainIPListAddress.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\DomainNATRule.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\DomainPort.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\DomainPortListPort.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Event.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Managementobjects.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\ManagementobjectSnapshots.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\ManagementobjectStats.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Manager.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\ManagerEvent.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\NetworkFlow.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\NetworkStat.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Organization.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\OrganizationTag.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Pagination.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\PerformanceCounter.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\PlatformCluster.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\PlatformDatacenter.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\PlatformDatastore.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\PlatformDomain.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\PlatformNetwork.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Platforms.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\PlatformStorageTier.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\PlatformTemplate.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Protectiongroup.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Protectiongrouptrees.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\RecoveryJobTypes.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\RecoveryPolicy.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\ResultStatus.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Task.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Tasks.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\WorkloadDisk.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\WorkloadInterfaces.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\WorkloadProcesses.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\Workloads.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\WorkloadSoftwares.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\WorkloadTags.cs" />
+    <Compile Include="Modules\MRPPortal\Contracts\WorkloadVolumes.cs" />
+    <Compile Include="Modules\MRPPortal\Core.cs" />
+    <Compile Include="Modules\MRPPortal\Events.cs" />
+    <Compile Include="Modules\MRPPortal\JSONSerializer.cs" />
+    <Compile Include="Modules\MRPPortal\Managementobjects.cs" />
+    <Compile Include="Modules\MRPPortal\Managers.cs" />
+    <Compile Include="Modules\MRPPortal\Networkflows.cs" />
+    <Compile Include="Modules\MRPPortal\Networkstats.cs" />
+    <Compile Include="Modules\MRPPortal\Organization.cs" />
+    <Compile Include="Modules\MRPPortal\PerformanceCounters.cs" />
+    <Compile Include="Modules\MRPPortal\PlatformDatacenters.cs" />
+    <Compile Include="Modules\MRPPortal\Platforms.cs" />
+    <Compile Include="Modules\MRPPortal\Tasks.cs" />
+    <Compile Include="Modules\MRPPortal\Workloads.cs" />
+    <Compile Include="Modules\NetFlow\NetflowCommon.cs" />
+    <Compile Include="Modules\NetFlow\v10\Field.cs" />
+    <Compile Include="Modules\NetFlow\v10\FieldType.cs" />
+    <Compile Include="Modules\NetFlow\v10\FlowSet.cs" />
+    <Compile Include="Modules\NetFlow\v10\Header.cs" />
+    <Compile Include="Modules\NetFlow\v10\Packet.cs" />
+    <Compile Include="Modules\NetFlow\v10\Template.cs" />
+    <Compile Include="Modules\NetFlow\v10\Templates.cs" />
+    <Compile Include="Modules\NetFlow\v5\Header.cs" />
+    <Compile Include="Modules\NetFlow\v5\Packet.cs" />
+    <Compile Include="Modules\NetFlow\v9\Field.cs" />
+    <Compile Include="Modules\NetFlow\v9\FieldType.cs" />
+    <Compile Include="Modules\NetFlow\v9\FlowSet.cs" />
+    <Compile Include="Modules\NetFlow\v9\Header.cs" />
+    <Compile Include="Modules\NetFlow\v9\Packet.cs" />
+    <Compile Include="Modules\NetFlow\v9\Template.cs" />
+    <Compile Include="Modules\NetFlow\v9\Templates.cs" />
+    <Compile Include="Modules\OperatingSystemTasks\Windows\ServiceManagement.cs" />
+    <Compile Include="Modules\OperatingSystemTasks\Windows\WMIMethods.cs" />
+    <Compile Include="Modules\RP4VM\CreateConsistencyGroup.cs" />
     <Compile Include="Modules\VMware\Core.cs" />
     <Compile Include="Modules\VMware\Datacenters.cs" />
     <Compile Include="Modules\VMware\Datastores.cs" />
@@ -337,8 +451,6 @@
     <Compile Include="MRPService\Database\Interfaces\IPerformancecounterSet.cs" />
     <Compile Include="MRPService\Database\Structures\DHCPLease.cs" />
     <Compile Include="MRPService\Database\Structures\Performancecounter.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MCP\WorkloadWaitUntilComplete.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Base Classes\MRMPWorkloadBaseType.cs" />
     <Compile Include="MRPService\Scheduler\NetstatInventory\NetstatUpload.cs" />
     <Compile Include="MRPService\Scheduler\NetstatInventory\NetworkFlowType.cs" />
     <Compile Include="MRPService\Scheduler\PlatformInventory\AWS\UpdateAWSPlatform.cs" />
@@ -366,67 +478,11 @@
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\TimeCalculations.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\WorkloadCounters.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\WorkloadPerformanceUnixDo.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Availability\CreateHAServerProtectionJob.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Availability\FilesAndFoldersJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Availability\FullServerFailoverJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Availability\LinuxFullServerFailoverJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Cluster\ClusterAwareFilesAndFoldersJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Cluster\ClusterAwareSqlJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Common\DeployWindowsDoubleTake.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Common\PauseJob.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Common\StartJob.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Common\StopJob.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\DR\CreateDRServerProtectionJob.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\DR\DataOnlyImageProtectionJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\DR\DataOnlyImageRecoveryJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\DR\DRRecoveryBase.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\DR\FullServerImageProtectionJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\DR\CreateDRServerRecoveryJob.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Availability\FullServerBase.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Common\FailoverJob.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Move\EVRAMoveJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Move\HVRAMoveJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Move\MoveDataOnlyMigrationJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Move\CreateServerMigrationJob.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Application\SQLJobBase.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\VRA\EVRAJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\VRA\HVRAJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\VRA\LVRAJobEx.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MCP\FailoverCG.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MCP\ApplyMetaInformation.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MCP\SetupFailoverCG.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MCP\StopPreviewCG.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MCP\PreviewCG.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MCP\CreateCG.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MCP\TimeZones.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MCP\LinuxCustomization.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\DomainAffinityRule.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\ManagerEvent.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Organization.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\OrganizationTag.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\WorkloadTags.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\WorkloadDisk.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Events.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\PlatformDatacenters.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Organization.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v10\Field.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v10\FieldType.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v10\FlowSet.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v10\Header.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v10\Packet.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v10\Template.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v10\Templates.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v9\Field.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v9\FieldType.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v9\FlowSet.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v9\Header.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v9\Packet.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v9\Template.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v9\Templates.cs" />
     <Compile Include="MRPService\TaskExecutioner\Discovery\NetworkDiscovery.cs" />
+    <Compile Include="MRPService\TaskExecutioner\DRSServersLive\FiredrillLiveCleanupJob.cs" />
+    <Compile Include="MRPService\TaskExecutioner\DRSServersLive\FiredrillLiveJob.cs" />
     <Compile Include="MRPService\TaskExecutioner\Platform\PlatformDiscovery.cs" />
     <Compile Include="MRPService\TaskExecutioner\Platform\DatacenterDiscovery.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\RP4VM\CreateConsistencyGroup.cs" />
     <Compile Include="MRPService\TaskExecutioner\Common\PauseJob.cs" />
     <Compile Include="MRPService\TaskExecutioner\Common\StartJob.cs" />
     <Compile Include="MRPService\TaskExecutioner\Common\StopJob.cs" />
@@ -468,19 +524,7 @@
     <Compile Include="Modules\DoubleTake\BuildINI.cs" />
     <Compile Include="Modules\DoubleTake\CompareVersion.cs" />
     <Compile Include="Modules\DoubleTake\JobOptions.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\DoubleTake\Common\DeployLinuxDoubleTake.cs" />
     <Compile Include="Modules\DoubleTake\Types.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\APIClient.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Core.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\JSONSerializer.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Networkstats.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Networkflows.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\PerformanceCounters.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Platforms.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Tasks.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Managers.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Managementobjects.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Workloads.cs" />
     <Compile Include="MRPService\Scheduler\NetflowCollection\NetflowWorker.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadInventory\WorkloadInventoryThread.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\WorkloadPerformanceThread.cs" />
@@ -488,7 +532,6 @@
     <Compile Include="MRPService\Scheduler\PortalDataUpload\PortalDataUploadWorker.cs" />
     <Compile Include="MRPService\TaskExecutioner\TaskExecutioner.cs" />
     <Compile Include="MRPService\Utilities\HashExtensions.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MCP\ProvisionVM.cs" />
     <Compile Include="MRPService\Utilities\Impersonate.cs" />
     <Compile Include="MRPService\Utilities\IPSplit.cs" />
     <Compile Include="MRPService\Utilities\MRPRegistry.cs" />
@@ -509,47 +552,8 @@
     <Compile Include="MRPService\Database\Structures\PerfCounterSample.cs" />
     <Compile Include="MRPService\Database\Structures\NetworkFlow.cs" />
     <Compile Include="MRPService\Utilities\Logging.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Credentials.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\DeploymentPolicy.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\DomainPortListPort.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\DomainIPListAddress.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\DomainPort.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\DomainIP.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\DomainNATRule.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Event.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\ManagementobjectSnapshots.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\ManagementobjectStats.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Managementobjects.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Pagination.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\NetworkStat.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\NetworkFlow.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\PerformanceCounter.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\PlatformCluster.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\PlatformDatastore.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\DomainFWRule.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\PlatformDomain.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\PlatformDatacenter.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\PlatformNetwork.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Platforms.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\PlatformStorageTier.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\PlatformTemplate.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\RecoveryJobTypes.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\RecoveryPolicy.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\ResultStatus.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Protectiongroup.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Protectiongrouptrees.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Task.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Manager.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\WorkloadInterfaces.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\WorkloadProcesses.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\Workloads.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\WorkloadSoftwares.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\MRPPortal\Contracts\WorkloadVolumes.cs" />
     <Compile Include="MRPService\WCF\MRPWCFService.cs" />
     <Compile Include="MRPService\WCF\IMRPWCFService.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\NetflowCommon.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v5\Header.cs" />
-    <Compile Include="MRPService\Database\Structures\Modules\NetFlow\v5\Packet.cs" />
     <Compile Include="MRPService\Utilities\Utils.cs" />
     <Compile Include="Modules\RP4VM\Account.cs" />
     <Compile Include="Modules\RP4VM\APIClient.cs" />
@@ -648,6 +652,7 @@
     <Content Include="mrp.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Modules\OperatingSystemTasks\Linux\" />
     <Folder Include="MRPService\Scheduler\PlatformInventory\Azure\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -657,7 +662,7 @@
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties Reactor_Enabled="0" Reactor_Deploy="0" Reactor_Commands="" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Configuration="Release" Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" />
+      <UserProperties Reactor_Output="&lt;AssemblyLocation&gt;\Protected\&lt;AssemblyFileName&gt;" Reactor_Configuration="Release" Reactor_Project="C:\Users\phillip.spies\Documents\Visual Studio 2015\Projects\MRMPManager\MRMPManager.nrproj" Reactor_Commands="" Reactor_Deploy="0" Reactor_Enabled="0" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

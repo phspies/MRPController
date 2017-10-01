@@ -106,27 +106,16 @@ namespace MRMPService.Modules.DoubleTake.Availability
                     moname = jobInfo.JobOptions.Name,
                     motype = _job_type.ToString()
                 });
-                _task.progress("Waiting for sync process to start", ReportProgress.Progress(_start_progress, _end_progress, 71));
-
                 JobInfoModel jobinfo = _dt.job().GetJob(jobId);
-                while (jobinfo.Statistics.CoreConnectionDetails.MirrorState != MirrorState.Mirror)
-                {
-                    Thread.Sleep(new TimeSpan(0, 0, 30));
-                    jobinfo = _dt.job().GetJob(jobId);
-                }
-
-                _task.progress(String.Format("Sync process started at {0}", jobinfo.Statistics.CoreConnectionDetails.StartTime), ReportProgress.Progress(_start_progress, _end_progress, 75));
-
                 MRMPWorkloadBaseType _update_workload = new MRMPWorkloadBaseType();
                 _update_workload.id = _target_workload.id;
                 _update_workload.dt_installed = true;
                 _update_workload.dt_collection_enabled = true;
                 MRMPServiceBase._mrmp_api.workload().updateworkload(_update_workload);
-
                 DTJobPoller.PollerDo(_managementobject);
-
-                _task.progress(String.Format("Successfully created disaster recover protection job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
-
+                _task.progress(String.Format("Sync process started at {0}", jobinfo.Statistics.CoreConnectionDetails.StartTime), ReportProgress.Progress(_start_progress, _end_progress, 75));
+                _dt.job().WaitForJobStatus(jobId, s => s.CanFailover && s.Health == Health.Ok);
+                _task.progress(String.Format("Successfully created protection job between {0} to {1}", _source_workload.hostname, _target_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, 95));
             }
         }
     }

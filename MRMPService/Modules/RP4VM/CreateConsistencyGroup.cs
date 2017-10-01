@@ -4,13 +4,12 @@ using MRMPService.RP4VMAPI;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
-using MRMPService.MRMPAPI;
 
 namespace MRMPService.Modules.RP4VM
 {
     class RP4VM
     {
-        public static async Task CreateConsistencyGroup(MRPTaskType _task, List<MRMPWorkloadBaseType> _source_workloads, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
+        public static void CreateConsistencyGroup(MRPTaskType _task, List<MRMPWorkloadBaseType> _source_workloads, MRPProtectiongroupType _protectiongroup, MRPManagementobjectType _managementobject, float _start_progress, float _end_progress)
         {
 
             _task.progress("Starting RP4VM CG Provisioning Process", 5);

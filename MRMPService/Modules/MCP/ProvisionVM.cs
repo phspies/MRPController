@@ -25,7 +25,7 @@ namespace MRMPService.Modules.MCP
         {
             _task.progress(String.Format("Starting provisioning process"), ReportProgress.Progress(_start_progress, _end_progress, 1));
             MRMPWorkloadBaseType _temp_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
-            _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_platform.id);
+            _platform = MRMPServiceBase._mrmp_api.platform().get_by_id(_temp_workload.platform.id);
             _target_workload.moid = _temp_workload.moid;
             _target_workload.iplist = _temp_workload.iplist;
 
@@ -80,13 +80,13 @@ namespace MRMPService.Modules.MCP
             if (_os_customization)
             {
                 var _first_disk = _target_workload.workloadvolumes.FirstOrDefault(x => x.diskindex == 0);
-                _disks.Add(new DeployServerTypeDisk() { id = "0", speed = _first_disk.platformstoragetier_id });
+                _disks.Add(new DeployServerTypeDisk() { scsiId = 0, speed = _first_disk.platformstoragetier_id });
 
             }
             else
             {
                 var _first_disk = _target_workload.workloaddisks.FirstOrDefault(x => x.diskindex == 0);
-                _disks.Add(new DeployServerTypeDisk() { id = "0", speed = _first_disk.platformstoragetier_id });
+                _disks.Add(new DeployServerTypeDisk() {  scsiId = 0, speed = _first_disk.platformstoragetier_id });
             }
 
             _vm.name = _target_workload.hostname;

@@ -19,7 +19,7 @@ namespace MRMPService.Modules.MCP
         {
 
             ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_target_workload.platform.url), new NetworkCredential(_target_workload.platform.credential.username, _target_workload.platform.credential.decrypted_password));
-            var _account = await CaaS.Login();
+            CaaS.Login().Wait();
 
             if ((bool)_target_workload.sync_tag_rules)
             {

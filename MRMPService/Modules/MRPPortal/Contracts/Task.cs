@@ -54,6 +54,8 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         public List<MRPWorkloadPairType> workloadpairs { get; set; }
         [JsonProperty("repository_workload")]
         public MRMPWorkloadBaseType repository_workload { get; set; }
+        [JsonProperty("firedrill_workload")]
+        public MRMPWorkloadBaseType firedrill_workload { get; set; }
         [JsonProperty("protectiongroup")]
         public MRPProtectiongroupType protectiongroup { get; set; }
         [JsonProperty("source_platform")]

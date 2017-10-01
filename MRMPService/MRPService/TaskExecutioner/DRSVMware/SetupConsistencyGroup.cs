@@ -18,7 +18,7 @@ namespace MRMPService.TaskExecutioner.DRSVMWare
 
             try
             {
-                await RP4VM.CreateConsistencyGroup(_task, _payload.workloadpairs.Select(x => x.source_workload).ToList(), _protectiongroup, _mo, 1, 99);
+                RP4VM.CreateConsistencyGroup(_task, _payload.workloadpairs.Select(x => x.source_workload).ToList(), _protectiongroup, _mo, 1, 99);
                 _task.successcomplete("Successfully configured consistency group");
             }
             catch (Exception ex)

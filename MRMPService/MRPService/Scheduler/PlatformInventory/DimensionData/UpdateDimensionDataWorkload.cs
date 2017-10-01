@@ -29,7 +29,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                 }
                 catch (Exception ex)
                 {
-                    throw new ArgumentException(String.Format("UpdateMCPWorkload: Error connecting to Dimension Data MCP {0}", ex.Message));
+                    throw new ArgumentException(String.Format("UpdateMCPWorkload: Error connecting to Dimension Data MCP {0}", ex.GetBaseException().Message));
                 }
                 Logger.log(String.Format("UpdateMCPWorkload: Inventory for {0} in {1} ", _caasworkload.name, _platform.platformdatacenter.moid), Logger.Severity.Info);
 
@@ -226,7 +226,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
             }
             catch (Exception ex)
             {
-                throw;
+                Logger.log(String.Format("Error collecting inventory information from CaaS workload {0} with error {1}", _workload_moid, ex.ToString()), Logger.Severity.Error);
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using LukeSkywalker.IPNetwork;
 using MRMPService.Modules.MRMPPortal.Contracts;
+using MRMPService.Modules.OperatingSystemTasks.Windows;
 using MRMPService.MRMPService.Log;
 using MRMPService.Utilities;
 using Newtonsoft.Json;
@@ -23,6 +24,8 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         {
 
         }
+        public WMIMethods WMIMethods { get { return new WMIMethods(this); } }
+
         public string GetContactibleIP(bool literal = false)
         {
             string _contatible_ip = null;
@@ -103,6 +106,10 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         {
             return String.Format(@"{0}\{1}", (String.IsNullOrEmpty(this.GetCredentials().domain) ? "." : this.GetCredentials().domain), this.GetCredentials().username);
         }
+        public string GetCredentialPassword()
+        {
+            return this.GetCredentials().decrypted_password;
+        }
         public string GetCredentialUsername()
         {
             return this.GetCredentials().username;
@@ -119,6 +126,10 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         {
             return new ManagementClass(this.GetManagementScope(), new ManagementPath(_managementPath), _get_options);
         }
+        public ManagementObject GetManagementObject(String _managementPath, ObjectGetOptions _get_options = null)
+        {
+            return new ManagementObject(this.GetManagementScope(), new ManagementPath(_managementPath), _get_options);
+        }
         public ManagementObjectSearcher GetManagementObjectSearcher(SelectQuery _query)
         {
             return new ManagementObjectSearcher(this.GetManagementScope(), _query);
@@ -127,6 +138,7 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         {
             return new ManagementEventWatcher(this.GetManagementScope(), _query);
         }
+
         public void ExecuteProcessWMI(string _workingpath, string _arguments)
         {
             try

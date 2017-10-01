@@ -69,5 +69,44 @@ namespace MRMPService.Exceptions
 			Logger.log(errorMessage, Logger.Severity.Error);
 			return new MRPDeploymentException(errorMessage);
 		}
-	}
+        /// <summary>
+        /// Throws MRP deployment server type is not supported exception.
+        /// </summary>
+        /// <param name="serverType">
+        ///	The server type.
+        /// </param>
+        /// <returns>
+        /// The MRP deployment server type is not supported exception <see cref="MRPDeploymentException"/>
+        /// </returns>
+        public static MRMPIOException MRMPIOFileNotFound(string _file)
+        {
+            errorMessage = string.IsNullOrWhiteSpace(_file) ? $"Local file not found" : $"Local file not found: {_file}";
+            Logger.log(errorMessage, Logger.Severity.Error);
+            return new MRMPIOException(errorMessage);
+        }
+        public static MRMPIOException MRMPIOException(Exception _ex, string _file)
+        {
+            errorMessage = string.IsNullOrWhiteSpace(_file) ? $"Local file not found : {_ex.GetBaseException().Message}" : $"Local file not found : {_file} : {_ex.GetBaseException().Message}";
+            Logger.log($"{errorMessage} : {_ex.ToString()}", Logger.Severity.Error);
+            return new MRMPIOException(errorMessage);
+        }
+        public static MRPRemoteOperationException MRMPExecuteCommandException(Exception _ex, string _host, string _command, string _message = null)
+        {
+            errorMessage = string.IsNullOrWhiteSpace(_message) ? $"Remote command execution threw an exception on {_host} : {_host} : {_ex.GetBaseException().Message} " : $"Remote command execution threw an exception on {_host} : {_host} : {_message} : {_ex.GetBaseException().Message}";
+            Logger.log($"{errorMessage} : {_ex.ToString()}", Logger.Severity.Error);
+            return new MRPRemoteOperationException(errorMessage);
+        }
+        public static MRPRemoteOperationException MRMPExecuteCommandException(string _host, string _command, string _message = null)
+        {
+            errorMessage = string.IsNullOrWhiteSpace(_message) ? $"Remote command execution threw an exception on {_host} : {_command}" : $"Remote command execution threw an exception on {_host} : {_command} : {_message}";
+            Logger.log($"{errorMessage}", Logger.Severity.Error);
+            return new MRPRemoteOperationException(errorMessage);
+        }
+        public static MRPRemoteOperationException MRMPRemoteRegistryException(Exception _ex, string _host, string _reg_location, string _message = null)
+        {
+            errorMessage = string.IsNullOrWhiteSpace(_message) ? $"Reading remote registry threw an exception on {_host} : {_reg_location} : {_ex.GetBaseException().Message}" : $"Reading remote registry threw an exception on {_host} : {_reg_location} : {_message} : {_ex.GetBaseException().Message}";
+            Logger.log($"{errorMessage}", Logger.Severity.Error);
+            return new MRPRemoteOperationException(errorMessage);
+        }
+    }
 }

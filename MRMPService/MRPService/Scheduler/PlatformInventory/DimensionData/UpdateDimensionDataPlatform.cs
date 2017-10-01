@@ -521,15 +521,7 @@ namespace MRMPService.Scheduler.PlatformInventory.DimensionData
                         {
                             Parallel.ForEach(_caas_workload_list, new ParallelOptions { MaxDegreeOfParallelism = MRMPServiceBase.platform_workload_inventory_concurrency }, (_caasworkload) =>
                             {
-                                try
-                                {
-                                //update lists before we start the workload inventory process
                                 PlatformInventoryWorkloadDo.UpdateMCPWorkload(_caasworkload.id, _platform);
-                                }
-                                catch (Exception ex)
-                                {
-                                    Logger.log(String.Format("Error collecting inventory information from CaaS workload {0} with error {1}", _caasworkload.name, ex.GetBaseException().Message), Logger.Severity.Error);
-                                }
                             });
 
                         }

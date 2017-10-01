@@ -20,7 +20,6 @@ namespace MRMPService.Modules.MCP
 
             ComputeApiClient CaaS = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.decrypted_password));
             CaaS.Login().Wait();
-
             try
             {
                 ConsistencyGroupType _mcp_cg = CaaS.ConsistencyGroups.GetConsistencyGroup(new Guid(_managementobject.moid)).Result;
