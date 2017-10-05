@@ -12,7 +12,6 @@ namespace MRMPService.MRMPDoubleTake
     class Image : Core
     {
         public Image(Doubletake doubletake) : base(doubletake) { }
-
         public IEnumerable<ImageInfoModel> GetAllImages()
         {
             var api = new ImagesApi(_target_connection);
@@ -55,7 +54,6 @@ namespace MRMPService.MRMPDoubleTake
             response.EnsureSuccessStatusCode();
             return response.Content;
         }
-
         public void DeleteSnapshotEntry(Guid id, Guid snapshot_id)
         {
             var api = new ImagesApi(_target_connection);

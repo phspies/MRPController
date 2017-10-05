@@ -149,17 +149,14 @@ namespace MRMPService.MRMPDoubleTake
             {
                 if (_protectiongroup.recoverypolicy.enablebandwidthlimit)
                 {
-                    jobInfo.JobOptions.CoreConnectionOptions.ConnectionStartParameters = new ConnectionStartParametersModel()
+                    BandwidthOptionsModel bwOptions = new BandwidthOptionsModel()
                     {
-                        Schedule = new ConnectionScheduleModel()
-                        {
-                            Bandwidth = new BandwidthScheduleModel()
-                            {
-                                Mode = BandwidthScheduleMode.Fixed,
-                                Current = new BandwidthScheduleEntryModel() { IsUnlimited = false, Limit = (long)_protectiongroup.recoverypolicy.bandwidthlimit }
-                            }
-                        }
+                        Mode = BandwidthScheduleMode.Fixed,
+                        Limit = (long)_protectiongroup.recoverypolicy.bandwidthlimit
                     };
+
+                    jobInfo.JobOptions.BandwidthOptions = bwOptions;
+
                 }
             }
 

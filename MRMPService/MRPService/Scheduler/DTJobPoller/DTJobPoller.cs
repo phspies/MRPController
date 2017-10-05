@@ -57,6 +57,7 @@ namespace MRMPService.Scheduler.DTPollerCollection
                                     }
                                 }
                             }
+                            //we need to refresh this object after we deleted the snapshots associated to it....
                             _dt_image_list = _dt.image().GetImagesSource(_mrp_managementobject.source_workload.hostname);
                             _dt_snapshot_list = _dt_image_list.SelectMany(x => x.Snapshots);
                         }

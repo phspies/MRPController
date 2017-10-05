@@ -127,7 +127,7 @@ namespace MRMPService.MRMPDoubleTake
                     ActivationCodeModel _source_ha_protectcode = GetLicenses(_source_connection).FirstOrDefault(x => x.Attributes.Any(y => y.Name == "Availability") && x.Attributes.Any(z => z.Name == "LF_SPLA") && x.Attributes.Any(z => z.Name == "LF_SOURCE"));
                     if (_source_ha_protectcode == null)
                     {
-                        String[] _licenses = new string[] { "djb5-uqub-dz3r-edxx-1h8m-5mxx", "f960-16ad-6aa4-d3rj-t3rf-ag9m", "et8y-n1g8-6dth-tw2f-cdve-22yh", "4jfc-4x9f-cetr-0rpu-jqr5-jf25" };
+                        String[] _licenses = new string[] { "w7nf-wu52-nwkz-885t-67em-qqj1", "vr7u-5x6d-1e24-jnbc-pfnc-wy7m", "m89r-vfq3-nej0-3v4c-etxk-gdqt", "m301-791u-t7d4-mcfv-0vx2-waz6" };
                         foreach (string _license in _licenses)
                         {
                             InstallLicense(DT_WorkloadType.Source, _license);
@@ -253,11 +253,20 @@ namespace MRMPService.MRMPDoubleTake
             }
             return (_source_license_status && _target_license_status) ? true : false;
         }
+
         static private List<ActivationCodeModel> GetLicenses(ManagementConnection _connection)
         {
             ActivationStatusApi status = new ActivationStatusApi(_connection);
             List<ActivationCodeModel> _information = status.GetActivationStatusAsync().Result.Content.Codes.ToList();
             return _information;
+        }
+        public string GetWorkloadUniqID()
+        {
+            var api = new ProductInfoApi(_target_connection);
+            var result = api.GetProductInfoAsync().Result;
+            result.EnsureSuccessStatusCode();
+            return result.Content.UniqueId;
+
         }
         public void InstallLicense(DT_WorkloadType _workload_type, string _license_key)
         {
