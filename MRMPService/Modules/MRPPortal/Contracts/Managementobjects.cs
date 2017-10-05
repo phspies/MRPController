@@ -47,6 +47,8 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         public MRMPWorkloadBaseType source_workload { get; set; }
         [JsonProperty("target_workload")]
         public MRMPWorkloadBaseType target_workload { get; set; }
+        [JsonProperty("firedrill_workload")]
+        public MRMPWorkloadBaseType firedrill_workload { get; set; }
         [JsonProperty("source_platform")]
         public MRPPlatformType source_platform { get; set; }
         [JsonProperty("target_platform")]

@@ -36,7 +36,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                 bool _install_dm = false;
                 switch (_workload_entry.Key)
                 {
-                    case dt_server_type.target:                       
+                    case dt_server_type.target:
                         _counter = 1;
                         break;
                     case dt_server_type.source:
@@ -50,7 +50,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                 string _dt_reg_key = @"SOFTWARE\NSI Software\Double-Take\CurrentVersion";
                 string[] _keys = new string[] { "InstallVersionInfo", "InstallPath" };
                 Dictionary<string, object> _returned_values = _working_workload.WMIMethods.GetRemoteRegistryKeys(_dt_reg_key, _keys);
-                if (_returned_values.Any(x => x.Value == null))
+                if (_returned_values.Count == 0 || _returned_values.Any(x => String.IsNullOrEmpty((string)x.Value)))
                 {
                     _install_dm = true;
                     _task.progress(String.Format("Datamover not found on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 11));
@@ -96,6 +96,7 @@ namespace MRMPService.Modules.DoubleTake.Common
                     _task.progress(String.Format("Starting installer on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 30));
                     string installCmd = @"cmd.exe /c " + _working_workload.deploymentpolicy.dt_windows_temppath + "\\setup.exe /s /v\"DTSETUPINI=\\\"" + _working_workload.deploymentpolicy.dt_windows_temppath + "\\" + "DTSetup.ini\\\" /qn /l*v+ " + _working_workload.deploymentpolicy.dt_windows_temppath + "\\Repinst.log";
                     _working_workload.WMIMethods.RunCommand(_working_workload.deploymentpolicy.dt_windows_temppath, installCmd);
+                    ModuleCommon.DeployWindowsDoubleTakePatches(_task, _working_workload, ReportProgress.Progress(_start_progress, _end_progress, _counter + 32), ReportProgress.Progress(_start_progress, _end_progress, _counter + 38));
                     _task.progress(String.Format("Verify DT connectivity on {0}", _working_workload.hostname), ReportProgress.Progress(_start_progress, _end_progress, _counter + 40));
                     ProductVersionModel _dt_version;
                     int restries = 0;

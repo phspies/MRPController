@@ -70,7 +70,7 @@ namespace MRMPService.Modules.DoubleTake.Move
                 _task.progress("Verifying job options and settings", 55);
 
                 JobOptionsModel _job_model = new JobOptionsModel();
-                var _fix_result = _dt.job().VerifyAndFixJobOptions(jobCreds, jobInfo.JobOptions, DT_JobTypes.Move_Server_Migration);
+                var _fix_result = _dt.job().VerifyAndFixNewJobOptions(jobCreds, jobInfo.JobOptions, DT_JobTypes.Move_Server_Migration);
                 if (_fix_result.Item1)
                 {
                     _job_model = _fix_result.Item2;

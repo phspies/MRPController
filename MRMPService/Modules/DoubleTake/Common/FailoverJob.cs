@@ -16,7 +16,6 @@ namespace MRMPService.Modules.DoubleTake.Common
             {
                 _task.progress("Initiating failover operation for " + _managementobject.moname, ReportProgress.Progress(_start_progress, _end_progress, 10));
                 FailoverOptionsModel _options = new FailoverOptionsModel();
-
                 _options.FailoverType = FailoverType.FullServer;
                 if (_managementobjectsnapshot != null)
                 {
@@ -79,9 +78,6 @@ namespace MRMPService.Modules.DoubleTake.Common
                     jobinfo = _dt.job().GetJob(Guid.Parse(_managementobject.moid.ToString()));
                 }
                 bool _switched_personalities = false;
-
-                //switched target workload
-
 
                 //the source might be switched off during the failover process, so we need exclude it from the connection object
                 Doubletake _temp_dt = new Doubletake(null, _target_workload);

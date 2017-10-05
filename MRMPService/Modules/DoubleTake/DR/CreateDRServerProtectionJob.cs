@@ -67,7 +67,7 @@ namespace MRMPService.Modules.DoubleTake.DR
                 _task.progress("Verifying job options and settings", ReportProgress.Progress(_start_progress, _end_progress, 60));
 
                 JobOptionsModel _job_model = new JobOptionsModel();
-                var _fix_result = _dt.job().VerifyAndFixJobOptions(jobCreds, jobInfo.JobOptions, DT_JobTypes.DR_Full_Protection);
+                var _fix_result = _dt.job().VerifyAndFixNewJobOptions(jobCreds, jobInfo.JobOptions, DT_JobTypes.DR_Full_Protection);
                 if (_fix_result.Item1)
                 {
                     _job_model = _fix_result.Item2;

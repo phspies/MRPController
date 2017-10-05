@@ -9,7 +9,7 @@ namespace MRMPService.TaskExecutioner.DRSServersLive
 {
     partial class DRSServersLive
     {
-        static public void FiredrillLiveJob(MRPTaskType _task)
+        static public void FiredrillLiveFailoverWorkload(MRPTaskType _task)
         {
             MRPTaskDetailType _payload = _task.taskdetail;
             MRMPWorkloadBaseType _source_workload = _payload.source_workload;
@@ -20,8 +20,7 @@ namespace MRMPService.TaskExecutioner.DRSServersLive
             MRPPlatformType _platform = _firedrill_workload.platform;
             _source_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_source_workload.id);
             _target_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_target_workload.id);
-
-
+            _firedrill_workload = MRMPServiceBase._mrmp_api.workload().get_by_id(_firedrill_workload.id);
             try
             {
                 if (!(bool)_firedrill_workload.provisioned)
@@ -33,14 +32,14 @@ namespace MRMPService.TaskExecutioner.DRSServersLive
                 if (_source_workload.ostype.ToLower() == "windows" && _target_workload.ostype.ToLower() == "windows")
                 {
                     ModuleCommon.DeployWindowsDoubleTake(_task, _target_workload, _firedrill_workload, 34, 66);
-                    Availability.ConfigureHAFiredrillJobChain(_task, _source_workload, _target_workload, _firedrill_workload, _protectiongroup, _managementobject, 67, 99);
                 }
                 else
                 {
                     ModuleCommon.DeployLinuxDoubleTake(_task, _target_workload, _firedrill_workload, 34, 66);
-                    Availability.ConfigureHAFiredrillJobChain(_task, _source_workload, _target_workload, _firedrill_workload, _protectiongroup, _managementobject, 67, 99);
                 }
-                _task.successcomplete("Successfully configured protection job");
+                Availability.ConfigureHAFiredrillJobChain(_task, _target_workload, _firedrill_workload, _managementobject, 67, 99);
+                Availability.FailoverHAFiredrillJobChain(_task, _source_workload, _target_workload, _firedrill_workload, _managementobject, 67, 99);
+                _task.successcomplete("Successfully firedrilled protection group");
 
             }
             catch (Exception ex)

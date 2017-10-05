@@ -75,6 +75,10 @@ namespace MRMPService.Modules.MRMPPortal.Contracts
         public bool? firedrill { get; set; }
         [JsonProperty("original_workload")]
         public MRMPWorkloadBaseType original { get; set; }
+        [JsonProperty("firedrill_workload")]
+        public MRMPWorkloadBaseType firedrill_workload { get; set; }
+        [JsonProperty("target_workload")]
+        public MRMPWorkloadBaseType target_workload { get; set; }
         [JsonProperty("position")]
         public int position { get; set;}
         [JsonProperty("managementobject")]

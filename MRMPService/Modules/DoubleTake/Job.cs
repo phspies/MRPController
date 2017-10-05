@@ -16,7 +16,6 @@ namespace MRMPService.MRMPDoubleTake
         {
             jobApi = new JobsApi(_target_connection);
         }
-
         public JobCredentialsModel CreateJobCredentials()
         {
             JobCredentialsModel jobCredentials = new JobCredentialsModel()
@@ -35,7 +34,6 @@ namespace MRMPService.MRMPDoubleTake
             };
             return jobCredentials;
         }
-
         public CreateOptionsModel GetJobOptions(WorkloadModel workload, JobCredentialsModel jobCredentials, String _job_type)
         {
             ApiResponse<RecommendedJobOptionsModel> recommendedOptions = jobApi.RecommendJobOptionsAsync(_job_type, workload, jobCredentials).Result;
@@ -49,7 +47,6 @@ namespace MRMPService.MRMPDoubleTake
             };
             return createOptions;
         }
-
         public List<SnapshotEntryModel> GetSnapShots(Guid _job_id)
         {
             List<SnapshotEntryModel> _snapshots = new List<SnapshotEntryModel>();
@@ -93,10 +90,7 @@ namespace MRMPService.MRMPDoubleTake
                 }
             }
         }
-
-        // TODO: Verification steps currently contain IDs meant for translation. As things are today, this data is difficult to 
-        // present in a meaningful way.  Until this is resolved, just return the jobOptions
-        public Tuple<bool, JobOptionsModel, List<VerificationStepModel>> VerifyAndFixJobOptions(JobCredentialsModel jobCredentials, JobOptionsModel jobOptions, String _job_type)
+        public Tuple<bool, JobOptionsModel, List<VerificationStepModel>> VerifyAndFixNewJobOptions(JobCredentialsModel jobCredentials, JobOptionsModel jobOptions, String _job_type)
         {
             bool _job_errorfree = false;
             List<VerificationStepModel> _errors = null;
@@ -132,7 +126,42 @@ namespace MRMPService.MRMPDoubleTake
 
             return new Tuple<bool, JobOptionsModel, List<VerificationStepModel>>(_job_errorfree, jobOptions, _errors);
         }
+        public Tuple<bool, JobOptionsModel, List<VerificationStepModel>> VerifyAndFixExistingJobOptions(Guid _guid, JobOptionsModel jobOptions)
+        {
+            bool _job_errorfree = false;
+            List<VerificationStepModel> _errors = null;
+            while (true)
+            {
+                var result = jobApi.VerifyJobOptionsAsync(_guid, jobOptions, new Progress<VerificationStatusModel>()).Result;
+                result.EnsureSuccessStatusCode();
+                var stepsToFix = result.Content.Steps.ToList();
+                if (stepsToFix.Any(s => s.Status == VerificationStatus.Error && s.CanFix == false))
+                {
+                    _errors = result.Content.Steps.Where(s => s.Status == VerificationStatus.Error && s.CanFix == false).ToList();
+                    _job_errorfree = false;
+                    break;
+                }
+                else if (stepsToFix.Any(s => s.Status == VerificationStatus.Error && s.CanFix == true))
+                {
+                    var fixResponse = jobApi.FixJobOptionsAsync(_guid, jobOptions, stepsToFix.Where(s => s.Status == VerificationStatus.Error && s.CanFix == true)).Result;
+                    fixResponse.EnsureSuccessStatusCode();
 
+                    jobOptions = fixResponse.Content.JobOptions;
+                    _job_errorfree = true;
+                    break;
+                }
+                else
+                {
+                    _job_errorfree = true;
+                    break;
+                }
+
+
+
+            }
+
+            return new Tuple<bool, JobOptionsModel, List<VerificationStepModel>>(_job_errorfree, jobOptions, _errors);
+        }
         public List<JobInfoModel> GetJobs()
         {
             var result = jobApi.GetJobsAsync().Result;
@@ -146,7 +175,6 @@ namespace MRMPService.MRMPDoubleTake
             result.EnsureSuccessStatusCode();
             return result.Content;
         }
-
         public void StartJob(Guid jobId)
         {
             var result = jobApi.StartJobAsync(jobId).Result;
@@ -162,7 +190,6 @@ namespace MRMPService.MRMPDoubleTake
             var result = jobApi.PauseJobAsync(jobId).Result;
             result.EnsureSuccessStatusCode();
         }
-
         public void DeleteJob(Guid jobId)
         {
             var result = jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll).Result;
@@ -178,14 +205,12 @@ namespace MRMPService.MRMPDoubleTake
             var result = jobApi.DeleteJobAsync(jobId, true, true, true, new Guid(), VhdDeleteActionType.DeleteAll).Result;
             result.EnsureSuccessStatusCode();
         }
-
         public ActivityStatusModel FailoverJob(Guid jobId, FailoverOptionsModel options)
         {
             var result = jobApi.FailoverJobAsync(jobId, options, new Progress<ActivityStatusModel>()).Result;
             result.EnsureSuccessStatusCode();
             return result.Content;
         }
-
         public void ReverseJob(Guid jobId)
         {
             var result = jobApi.ReverseJobAsync(jobId, new Progress<ActivityStatusModel>()).Result;
@@ -197,21 +222,18 @@ namespace MRMPService.MRMPDoubleTake
             recommendedOptions.EnsureSuccessStatusCode();
             return recommendedOptions.Content;
         }
-
         public RecommendedFailbackOptionsModel GetFailbackOptions(Guid jobId)
         {
             ApiResponse<RecommendedFailbackOptionsModel> recommendedOptions = jobApi.RecommendFailbackOptionsAsync(jobId).Result;
             recommendedOptions.EnsureSuccessStatusCode();
             return recommendedOptions.Content;
         }
-
         public Guid CreateJob(CreateOptionsModel createOptions)
         {
             ApiResponse<Guid> data = jobApi.CreateJobAsync(createOptions).Result;
             data.EnsureSuccessStatusCode();
             return data.Content;
         }
-
         public void WaitForJobStatus(Guid jobId, Func<JobStatusModel, bool> actionStatus)
         {
             while (true)

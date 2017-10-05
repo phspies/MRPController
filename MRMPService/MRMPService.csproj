@@ -301,6 +301,8 @@
     <Compile Include="Exceptions\MRPRemoteOperationException.cs" />
     <Compile Include="Exceptions\MRPDeploymentException.cs" />
     <Compile Include="Modules\DoubleTake\Application\SQLJobBase.cs" />
+    <Compile Include="Modules\DoubleTake\Availability\FailoverHAFiredrillJobChain.cs" />
+    <Compile Include="Modules\DoubleTake\Availability\UnConfigureHAFiredrillJobChain.cs" />
     <Compile Include="Modules\DoubleTake\Availability\ConfigureHAFiredrillJobChain.cs" />
     <Compile Include="Modules\DoubleTake\Availability\CreateHAServerProtectionJob.cs" />
     <Compile Include="Modules\DoubleTake\Availability\FilesAndFoldersJobEx.cs" />
@@ -310,6 +312,7 @@
     <Compile Include="Modules\DoubleTake\Cluster\ClusterAwareFilesAndFoldersJobEx.cs" />
     <Compile Include="Modules\DoubleTake\Cluster\ClusterAwareSqlJobEx.cs" />
     <Compile Include="Modules\DoubleTake\Common\DeployLinuxDoubleTake.cs" />
+    <Compile Include="Modules\DoubleTake\Common\DeployWindowsDoubleTakePatches.cs" />
     <Compile Include="Modules\DoubleTake\Common\DeployWindowsDoubleTake.cs" />
     <Compile Include="Modules\DoubleTake\Common\FailoverFiredrillJob.cs" />
     <Compile Include="Modules\DoubleTake\Common\FailoverJob.cs" />
@@ -479,8 +482,10 @@
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\WorkloadCounters.cs" />
     <Compile Include="MRPService\Scheduler\WorkloadPerformance\WorkloadPerformanceUnixDo.cs" />
     <Compile Include="MRPService\TaskExecutioner\Discovery\NetworkDiscovery.cs" />
+    <Compile Include="MRPService\TaskExecutioner\DRSServersLive\FiredrillLiveFailoverGroup.cs" />
     <Compile Include="MRPService\TaskExecutioner\DRSServersLive\FiredrillLiveCleanupJob.cs" />
-    <Compile Include="MRPService\TaskExecutioner\DRSServersLive\FiredrillLiveJob.cs" />
+    <Compile Include="MRPService\TaskExecutioner\DRSServersLive\FiredrillLiveFailoverWorkload.cs" />
+    <Compile Include="MRPService\TaskExecutioner\DRSServersLive\FiredrillLiveSetupWorkload.cs" />
     <Compile Include="MRPService\TaskExecutioner\Platform\PlatformDiscovery.cs" />
     <Compile Include="MRPService\TaskExecutioner\Platform\DatacenterDiscovery.cs" />
     <Compile Include="MRPService\TaskExecutioner\Common\PauseJob.cs" />

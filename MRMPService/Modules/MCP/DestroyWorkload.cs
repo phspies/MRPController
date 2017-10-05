@@ -13,11 +13,11 @@ namespace MRMPService.Modules.MCP
 {
     partial class MCP_Platform
     {
-        public static void DestroyWorkload(MRPTaskType _task, MRPPlatformType _platform, MRMPWorkloadType _target_workload, float _start_progress, float _end_progress)
+        public static void DestroyWorkload(MRPTaskType _task, MRMPWorkloadType _target_workload, float _start_progress, float _end_progress)
         {
             try
             {
-                ComputeApiClient _caas_object = ComputeApiClient.GetComputeApiClient(new Uri(_platform.url), new NetworkCredential(_platform.credential.username, _platform.credential.decrypted_password));
+                ComputeApiClient _caas_object = ComputeApiClient.GetComputeApiClient(new Uri(_target_workload.platform.url), new NetworkCredential(_target_workload.platform.credential.username, _target_workload.platform.credential.decrypted_password));
                 _caas_object.Login().Wait();
 
                 _task.progress(String.Format("Powering down workload"), ReportProgress.Progress(_start_progress, _end_progress, 30));
@@ -28,9 +28,10 @@ namespace MRMPService.Modules.MCP
                 _caas_object.ServerManagement.Server.DeleteServer(new Guid(_target_workload.moid));
 
             }
-            catch (Exception ex)
+            catch (Exception _ex)
             {
-                _task.progress(String.Format("Error cleaning up workload {0} : {1}", _target_workload.hostname, ex.GetBaseException().Message), ReportProgress.Progress(_start_progress, _end_progress, 17));
+                Logger.log($"Error removing workload : {_ex.ToString()}", Logger.Severity.Fatal);
+                throw;
             }
         }
     }

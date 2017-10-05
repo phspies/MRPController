@@ -145,12 +145,29 @@ namespace MRMPService.TaskExecutioner
                                     break;
                                 case "drs_servers_live_firedrill_setup_workload":
                                     ClaimTask(task);
-                                    Thread drs_servers_live_firedrill_job_Thread = new Thread(() => DRSServersLive.DRSServersLive.FiredrillLiveJob(task));
+                                    Thread drs_servers_live_firedrill_job_Thread = new Thread(() => DRSServersLive.DRSServersLive.FiredrillLiveSetupWorkload(task));
                                     drs_servers_live_firedrill_job_Thread.Name = task.target_id;
                                     drs_servers_live_firedrill_job_Thread.Start();
                                     drs_servers_live_firedrill_job_Thread.Priority = ThreadPriority.Highest;
                                     lstThreads.Add(new ThreadObject() { task = drs_servers_live_firedrill_job_Thread, target_id = task.target_id });
                                     break;
+                                case "drs_servers_live_firedrill_failover_group":
+                                    ClaimTask(task);
+                                    Thread drs_servers_live_firedrill_failover_group_Thread = new Thread(() => DRSServersLive.DRSServersLive.FiredrillLiveFailoverGroup(task));
+                                    drs_servers_live_firedrill_failover_group_Thread.Name = task.target_id;
+                                    drs_servers_live_firedrill_failover_group_Thread.Start();
+                                    drs_servers_live_firedrill_failover_group_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = drs_servers_live_firedrill_failover_group_Thread, target_id = task.target_id });
+                                    break;
+                                case "drs_servers_live_firedrill_failover_workload":
+                                    ClaimTask(task);
+                                    Thread drs_servers_live_firedrill_failover_workload_Thread = new Thread(() => DRSServersLive.DRSServersLive.FiredrillLiveFailoverWorkload(task));
+                                    drs_servers_live_firedrill_failover_workload_Thread.Name = task.target_id;
+                                    drs_servers_live_firedrill_failover_workload_Thread.Start();
+                                    drs_servers_live_firedrill_failover_workload_Thread.Priority = ThreadPriority.Highest;
+                                    lstThreads.Add(new ThreadObject() { task = drs_servers_live_firedrill_failover_workload_Thread, target_id = task.target_id });
+                                    break;
+                                    
                                 case "drs_servers_live_firedrill_cleanup_workload":
                                     ClaimTask(task);
                                     Thread drs_servers_live_firedrill_cleanup_workload_Thread = new Thread(() => DRSServersLive.DRSServersLive.FiredrillLiveCleanupJob(task));

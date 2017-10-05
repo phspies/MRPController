@@ -49,17 +49,35 @@ namespace MRMPService.Exceptions
 			Logger.log(errorMessage, Logger.Severity.Error);
 			return new MRPDeploymentException(errorMessage);
 		}
+        /// <summary>
+        /// Throws MRP deployment policy type queue scheme is not supported exception.
+        /// </summary>
+        /// <param name="queueScheme">
+        ///	The queue scheme.
+        /// </param>
+        /// <returns>
+        /// The MRP deployment type queue scheme not supported exception <see cref="MRPDeploymentPolicyTypeException"/>
+        /// </returns>
+        public static MRMPDatamoverException JobOptionsVerify(string[] _verify_errors = null)
+        {
+            if (_verify_errors == null)
+                errorMessage = $"Job verification process failed";
+            else
+                errorMessage = $"Job verification process failed with the following erros {String.Join(", ",_verify_errors)}";
 
-		/// <summary>
-		/// Throws MRP deployment server type is not supported exception.
-		/// </summary>
-		/// <param name="serverType">
-		///	The server type.
-		/// </param>
-		/// <returns>
-		/// The MRP deployment server type is not supported exception <see cref="MRPDeploymentException"/>
-		/// </returns>
-		public static MRPDeploymentException MRPDeploymentServerTypeNotSupported(string serverType)
+            Logger.log(errorMessage, Logger.Severity.Error);
+            return new MRMPDatamoverException(errorMessage);
+        }
+        /// <summary>
+        /// Throws MRP deployment server type is not supported exception.
+        /// </summary>
+        /// <param name="serverType">
+        ///	The server type.
+        /// </param>
+        /// <returns>
+        /// The MRP deployment server type is not supported exception <see cref="MRPDeploymentException"/>
+        /// </returns>
+        public static MRPDeploymentException MRPDeploymentServerTypeNotSupported(string serverType)
 		{
 			if (string.IsNullOrWhiteSpace(serverType))
 				errorMessage = $"The MRP deployment server type cannot be null or empty";
